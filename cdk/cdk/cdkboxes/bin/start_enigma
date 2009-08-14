@@ -1,0 +1,88 @@
+#!/bin/sh
+
+touch /tmp/.enigma
+
+while [ -e /tmp/.enigma ]
+do
+	# read rc.config to find logging path
+	[ -e /var/etc/rc.config ] && . /var/etc/rc.config || . /var_init/etc/rc.config
+	
+	[ -z "$LOGDIR" ] && LOGDIR=/tmp/log
+	mkdir -p $LOGDIR
+	DATE=`date +%Y%m%d%H%M%S` 
+	
+	if [ "$DAEMON_LOG" = enabled ] ; then
+		DAEMON_LOG="$LOGDIR/daemonlog.$DATE"
+	else
+		DAEMON_LOG="/dev/null"
+	fi
+		
+	if [ "$ENIGMA_LOG" = enabled ] ; then
+		ENIGMA_LOG="$LOGDIR/enigmalog.$DATE"
+	else
+		ENIGMA_LOG="/dev/null"
+	fi
+	
+	/bin/start_plimgr -l $DAEMON_LOG > $DAEMON_LOG 2>&1 &
+	
+	if [ -x /var/bin/enigma ] ; then
+		/var/bin/enigma > $ENIGMA_LOG 2>&1
+	else
+		/bin/enigma > $ENIGMA_LOG 2>&1
+	fi
+
+	ENIGMARC=$?
+	echo "Enigma has finished with exit code $ENIGMARC"
+	# enigma quit so we ask plimgr to stop its instance also
+	/bin/plimgr -q
+
+	if mount | grep var | grep -v mtdblock ; then
+		# /var is mounted from a non mtdblock device. So probably move var to xxx.
+		# we check for net config changes and copy them back to flash so next reboot will pick them up.
+		V=tuxbox/config/enigma/config
+		if  [ -f /var_flash/$V -a -f /var/$V ] ; then
+			grep  /elitedvb/network /var_flash/$V > /tmp/varflash
+			grep  /elitedvb/network /var/$V > /tmp/varmove
+			if ! cmp /tmp/varmove /tmp/varflash ; then
+				echo copying netconfig to flash
+				grep -v /elitedvb/network /var_flash/$V > /tmp/varflash
+				cat /tmp/varflash /tmp/varmove > /var_flash/$V
+			fi
+		fi
+		V=tuxbox/config/enigma/mount.conf
+		if ! cmp /var_flash/$V /var/$V ; then
+			echo copying mount.conf to flash
+			cp /var/$V /var_flash/$V
+		fi
+	fi
+
+	case "$ENIGMARC" in
+		0)
+			echo "Halt"
+			rm -f /tmp/.enigma
+			sync;/sbin/halt
+			;;
+		2)
+			echo "Restart Enigma"
+			;;
+		3)
+			echo "Reboot Flash"
+			rm -f /tmp/.enigma
+			sync
+			umount /var
+			umount /media/hdd
+			/bin/flashtool
+			;;
+		4)
+			echo "Reboot"
+			rm -f /tmp/.enigma
+			sync;/sbin/reboot
+			;;
+		*)
+			echo "Something went wrong"
+			echo "Restart enigma and friends :-)"
+			;;
+	esac
+done
+
+exit 0

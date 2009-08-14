@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>Service Electronic Program Guide (EPG)</title>
+		<link rel="stylesheet" type="text/css" href="/webif.css">
+		<script language="javascript" type="text/javascript" src="/window.js"></script>
+		<script language="javascript" type="text/javascript" src="/epg.js"></script>
+	</head>
+	<body bgcolor="#f4f4f4">
+		<table id="epg" width="100%" border="0" cellspacing="0" cellpadding="5">
+			<thead>
+				<tr>
+					<th colspan="3">#NAME#</th>
+				</tr>
+			</thead>
+			<tbody>
+				#BODY#
+			</tbody>
+		</table>
+	</body>
+</html>

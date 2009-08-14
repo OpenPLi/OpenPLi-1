@@ -1,0 +1,17 @@
+AC_INIT(libtuxbox,0.0.1)
+AM_INIT_AUTOMAKE(libtuxbox,0.0.1)
+
+TUXBOX_APPS
+
+AC_PROG_CC
+AC_PROG_CXX
+AM_PROG_LIBTOOL
+AC_HEADER_STDC
+
+TUXBOX_APPS_DRIVER
+
+AC_OUTPUT([
+Makefile
+tuxbox.pc
+])
+

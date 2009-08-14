@@ -1,0 +1,6 @@
+was zu tun ist:
+
+ - QT entsorgen und durch stl und eigenen kram ersetzen
+   (temporaer aber evtl. weiter miniqt benutzen)
+ - API mal angucken und auf fehldesigns ueberpruefen
+ - Makefiles schreiben

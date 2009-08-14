@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<title>Streaming Server Settings</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function submitSettings()
+			{
+				var parms = "serverIP=" + document.f1.serverIP.value + "&CDDrive=" + document.f1.CDDrive.value + "&startDir=" + document.f1.startDir.value;
+				document.location = "/cgi-bin/setStreamingServerSettings?" + parms;
+				setTimeout("window.close()", 500);
+			}
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4;" onUnload="parent.window.opener.location.reload(true)">
+		<form name="f1" action="/cgi-bin/setStreamingServerSettings">
+			<table border="0" cellpadding="0" cellspacing="10">
+			<tbody>
+				<tr>
+					<td>Server IP:</td>
+					<td>
+						<input name="serverIP" type="text" size="15" maxlength="15" value="#SERVERIP#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>CD/DVD Drive Letter:</td>
+					<td>
+						<input name="CDDrive" type="text" value="#CDDRIVE#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>Movie Directory:</td>
+					<td>
+						<input name="startDir" type="text" value="#STARTDIR#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">#CHANGEBUTTON#</td>
+				</tr>
+			</tbody>
+			</table>
+		</form>
+	</body>
+</html>

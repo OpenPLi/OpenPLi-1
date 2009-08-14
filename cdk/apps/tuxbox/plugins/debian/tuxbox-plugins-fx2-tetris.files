@@ -1,0 +1,3 @@
+usr/lib/tuxbox/plugins/tetris.so
+usr/lib/tuxbox/plugins/tetris.cfg
+usr/var/tuxbox/config/games.cfg

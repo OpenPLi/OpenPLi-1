@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>TV Message</title>
+	</head>
+	<body>
+		Send the following message to your TV:
+		<br><br>
+		<form name="tv" action="/cgi-bin/message">
+			<input name="message" type="text" size="120" maxlength="120">
+			<br><br>
+			<td><input type="checkbox" name="wait" value="on"></td>&nbsp;&nbsp;Wait for confirmation
+			<br><br>
+			<input type="submit" size="100px" value="Send">
+			<input type="reset" size="100px" value="Clear">
+		</form>
+		<script>
+			document.tv.message.focus();
+		</script>
+	</body>
+</html>

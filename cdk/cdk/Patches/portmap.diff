@@ -1,0 +1,47 @@
+--- portmap/Makefile~	2004-06-03 11:19:23.000000000 +0100
++++ portmap/Makefile	2004-06-03 11:24:53.000000000 +0100
+@@ -15,9 +15,9 @@
+ # no access control tables. The local system, since it runs the portmap
+ # daemon, is always treated as an authorized host.
+ 
+-HOSTS_ACCESS= -DHOSTS_ACCESS
++#HOSTS_ACCESS= -DHOSTS_ACCESS
+ #WRAP_LIB = $(WRAP_DIR)/libwrap.a
+-WRAP_LIB = -lwrap
++#WRAP_LIB = -lwrap
+ 
+ # Comment out if your RPC library does not allocate privileged ports for
+ # requests from processes with root privilege, or the new portmap will
+--- portmap/pmap_check.c~	2004-06-03 11:24:20.000000000 +0100
++++ portmap/pmap_check.c	2004-06-03 11:24:33.000000000 +0100
+@@ -48,7 +48,9 @@
+ #endif
+ #include <sys/types.h>
+ #include <unistd.h>
++#ifdef HOSTS_ACCESS
+ #include <tcpd.h>
++#endif
+ 
+ extern char *inet_ntoa();
+ 
+--- portmap/Makefile~	2005-02-09 16:06:46.000000000 +0100
++++ portmap/Makefile	2005-02-09 16:09:31.000000000 +0100
+@@ -148,15 +148,9 @@
+ 	cc $(CFLAGS) -DTEST -o $@ get_myaddress.c $(LIBS)
+ 
+ install: all
+-	install -o root -g root -m 0755 -s portmap ${BASEDIR}/sbin
+-	install -o root -g root -m 0755 -s pmap_dump ${BASEDIR}/sbin
+-	install -o root -g root -m 0755 -s pmap_set ${BASEDIR}/sbin
+-	install -o root -g root -m 0644 portmap.8 ${BASEDIR}/usr/share/man/man8
+-	install -o root -g root -m 0644 pmap_dump.8 ${BASEDIR}/usr/share/man/man8
+-	install -o root -g root -m 0644 pmap_set.8 ${BASEDIR}/usr/share/man/man8
+-	cat BLURB >${BASEDIR}/usr/share/doc/portmap/portmapper.txt
+-	gzip -9f ${BASEDIR}/usr/share/doc/portmap/portmapper.txt
+-
++	install -m 0755 portmap ${BASEDIR}/sbin
++	install -m 0755 pmap_dump ${BASEDIR}/sbin
++	install -m 0755 pmap_set ${BASEDIR}/sbin
+ 
+ lint:	
+ 	lint $(COPT) $(OBJECTS:%.o=%.c)

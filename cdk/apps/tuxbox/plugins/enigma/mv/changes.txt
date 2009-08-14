@@ -1,0 +1,675 @@
+3.5.2:
+ - alias manager reviewed. Channels are now at left end inputs at right.
+ - default input entry for Sky Italia changed.
+ - bug corrected.
+3.5.1b:
+ - getepg : bugs corrected.
+ - message for "mhwepg not found" changed.
+3.5.1:
+ - mhwepg and otvepg in same executable : multiepg.
+ - multiepg reads Digital+ EPG.
+ - fixed memory leaks
+B3.5.0
+- alias management reviewed
+   - an input can be aliased with 2 or more channels.
+   - names are compared in uppercase.
+   - channels ending with "+1" : search for input with same name without "+1", and a timeshift of 1 hour is applied.
+- IMDB : try to search IMDB even if the film flag is not set.
+- otvepg more fast and more complete.
+- italian language, thanks to terminet !
+B3.4.1
+- minor changes in otvepg to make it more robust
+- reload data after menu "load epg data"
+- verify minus in inputs.txt before try to load epg data
+B3.4
+- updated mhwepg to 0.4.3 version
+- updated otvepg to new version
+- add getepg and getepgd (daemon for loading EPG data each night)
+- add "load epg data" in menu. This option disable enigma cache when loading EPG,so that enigma use less memory.
+
+B3.3
+- add index to data files for better performances
+- don't store entire description, only address in file
+- can use 5 sources
+- accept | character as newline in data files
+- add mhwepg and otvepg
+
+B3.2
+- port to 1.09 images
+- add french language
+
+B3.1
+
+Feature Changes
+
+- removed the installer, can't be bothered to maintain it
+- removed mhwepg from distribution. You can find it at
+  http://www.tech-sources.com/~download/pli/mv/mhwepg
+- fixed double keypress needed in list views often. Can't
+  remember why I put that in, hope it doesn't break anything
+- amended default input time offsets, fixed code so next
+  DST should be handled OK in Western Europe. Other folks
+  may need to manually adjust /var/tuxbox/config/inputs.txt.
+- catch genres describing films for MHW(ES) and MHW(IT),
+  [thanks m0bil2 and oskardto on satindustry board]
+- changed stray key catching so that in 1.08.2+ images
+  when MV is started from the red button it doesn't need
+  an extra keypress. There's a 50ms startup delay, probably
+  most people won't notice :-)
+- list view channel and program title/time font sizes
+  now configurable
+- if postdownload.sh is in /var/tuxbox/config/mv, it
+  will be called after every download with the path of
+  the downloaded file
+- if postmhw.sh is in /var/tuxbox/config/mv, it
+  will be called after every download with the path of
+  the file containing MHW data
+  [requested Tom0000]
+- spanish tranlation file added
+  [thanks to Carles Sanchez]
+- german translation file added
+  [thanks to Dre + GabKnight]
+- icon additions/changes
+  [thanks to:  
+   Scandanavian: Scorcher@ sat-industry
+   Spanish: Cierzo via IGM3 @ sat-industry
+   German: Trial/deltagolf @ DBF, Kat-CeDe @ DMM board
+  ]
+- changed XML parsing: encoding specified in input.txt is
+  given to the parser, no explicit encoding conversion is
+  done. Can't get Wolf's German umlaut correct though :-(
+- changed description of Ultimatetvguide to NordicTEAM:
+  in default inputs.txt: URL has changed.
+  Delete old /var/tuxbox/config/mv/inputs.txt to see change.
+- reset log on startup, not shutdown
+- included script scripts/mvdatadir, which echos to stdout
+  the data dir configured in /var/tuxbox/config/mv/conf.bin
+- added scripts/goepg. This is intended to be run by cron,
+  it can automatically refresh the MHW data used by MV
+  e.g. while you sleep :-)
+  [Original from PLi, rewritten by tCC, modified by Pent Vaer]
+- took out grab scripts
+
+Bug Fixes
+
+- stopped double channel refresh when returning from info
+  window (nasty flicker gone)
+- store/restore icons correctly when showing info window
+- finally fixed bug where moving cursor around causes
+  program right boundary to shift right
+- indicators were getting wiped when hiding main window
+- stop catching stray keys on startup for enigma 
+  versions > 1081, we assume that MV is used from red
+  button, and that doesn't seem to generate stray keys
+  on plugin startup
+- local xmltv files were not being converted if there were
+  no download inputs
+  [reported 3d_jc, DMM board]
+- could not move cursor left/right on view 2
+
+B3.0
+
+Major Feature Changes
+
+- support for IMDB queries developed in cooperation
+  with Bjorn Hijmans (network required)
+- new version of mhwepg supporting Sky EPG
+  Many thanks to PLi for that!
+- added bouquet selector (AUDIO)
+- big list view presentation improvements
+- dramatically decreased file size and load times for XMLTV by
+  converting to EPGUI format immediately following download,
+  This is at cost of a (once per file) few seconds conversion time
+  (the conversion is done in the background, the plugin is
+  still usable while it's going on)
+  NOTE: if an XMLTV file is enormous (MBs), the DB will probably
+  run out of memory loading the file into memory in order
+  to convert it anyway. 
+- added channel icons 
+  See http://mv.dinglisch.net/userguide.html#icons for info.
+  Thanks to Bjorn Hijmans on the sat4all board for help with png
+  handling.
+
+Other Feature Changes
+
+- added colour for programs that are currently playing 
+  on current (configurable) and other (lighter than
+  configurable colour) in list views (presentation
+  menu)
+- added (configurable) coloured bars for films and favourites
+  in list views
+- changed format feature editor (split into sections),
+  (design and coding by Alex Shtol)
+- added title centering in program box (option, feature menu,
+  graphical views only)
+- added iconmap and icons dir to install.sh
+- added option enable/disable channel name/icon in list view
+- < and > on a list view will switch to the channel list
+  for the next channel (where 'current channel' is the
+  cursor channel or playing channel)
+- only load all programs for current channel on list view
+  if there's a cache input enabled
+- don't indicate cache update if it comes within first 2 seconds
+  after changing a channel. That's usually not because new
+  data has come in.
+- added optional auto-reload when enigma cache reports new data.
+  Configure in input menu. 
+  Auto-reload only takes place if the current view is a graphical
+  view at the time it's needed.
+  I deliberately did not enable auto-reload for download/MHW
+  completion for reasons outlined in the userguide.
+- added auto-configure option for MV data directories. If
+  enabled, MV will set it's data dirs dependent on the
+  available storage media everytime it starts up.
+  I recommend *disabling* this once you know what you're doing,
+  it's for novice users to not have to worry about where stuff
+  is configured, and for image makers to be able to distribute
+  a customized version of MV more easily.
+- moved timer list to SHIFT-RED
+- added TV1000-1, TV1000-3, Cinema-1, Cinema-3 to dtgrab.pl
+- increased default 'days ahead' for downloads
+- always make mhwepg executable before running it (annoying
+  for some users otherwise)
+- can press INFO when window hidden to get current playing 
+  program description
+- changed list view title to extend when channel name and/or
+  icon are not being displayed, also channel name/icon are
+  no longer shifted right when a timer icon is being displayed
+- speed,visual effect switching between list windows
+   (and channels using <, >) improved
+- added sort option for list views (see Feature Menu).
+  1. By bouquet channel then start time, includes special
+     formatting
+  2. By start time only
+- treat Cinema 1-3 as film channel for marking purposes
+- more OOM checking on channel/program creation (untested)
+- added possibility to configure items/channel on list views.
+  Probably only really useful for view 9
+- moved system time error message into lang.txt.en, missed it
+  last time
+- started logging some stuff to /var/tmp/mv.log
+- added vertical separators as default to view 1
+- started logging mhwepg bad exit code in text log
+  instead of on screen,
+  since it always gave -1 on my mixed 1.08/1.07
+  environment
+- added simple checksum for config, so that corrupted configs
+  shouldn't cause box to crash on startup (request of Alex Shtol)
+- changed default input defs Wolf encoding to UTF
+- don't check downloads/MHW on reload (with 0)
+- added option disable channel name inchannel header
+- rearranged main menu items, added another sep
+- changed 'Credits' menu item to 'About', added version in About
+  window title.
+- added a russian language source for sirius/hotbird, though
+  I can't verify if it works well. Thanks again to Alex
+  Shtol.
+- added MyXMLTV input to make using own files from e.g.
+  PC easier. Added warning in input menu that no data is
+  associated unless user does it themselves :-)
+- clip channel header names better
+- added reworked misc menu from Alex Shtol
+- changed build instructions slightly
+- stopped reading all available enigma cache data in
+  the future
+- matched enigma cache time to changed version in enigma epg.
+- improved enigma cache description handling 
+  (including: ignore 'Geen informatie
+  beschikbaar' from cache as short description)
+- changed user agent for downloads to match new name
+- switched to eMessageBox for flashup messages
+
+Bug Fixes
+
+- fixed occasional multiple-reloads when reloading 	
+  (by pressing 0) in list window
+- fixed flashing error window to always fit the text
+- fixed small on-exit memory leak from Channel cleanup
+  if a reload had occured during running (would have
+  gotten big when using new bouquet select feature!)
+- added few simple checks restrain threads from interfering
+  with each other, maybe stops the scan crashes
+- increased window and font size of popup description
+  window
+- time and L indicators were not coming up on startup
+- L and S indicators were not coming up on cache save
+- 'between' was listed twice in favourite edit time selector
+  (thanks Tom0000)
+- fixed crashes exiting while MHW scan in progress
+- code to tidy up old downloads was not being called
+- fixed (rarely occuring) memory leak if error in XMLTV format
+- bug saving enigma cache, time offset was being applied
+  incorrectly
+- if error on startup an uninitialised config was sometimes
+  being written
+- stop including short descriptions which are duplicates of
+  the title in some cases
+- stop scrolling of the sample window if the cursor
+  moves to a program at the border.
+- fixed not showing scrollbar in info window
+- list views, were showing programs that had already ended,
+  not usually of interest, stopped.
+- fixed shifting sample window when reloading after
+  configuration changes
+
+B2.2
+
+Feature Changes
+
+- added possbility to move position of time/indicator row
+  in 'edit view geometry' window.
+- added lots of colours, now 18 to choose from, some
+  even tasteful :-)
+- revised default colour usage so they look OK in both hydra and
+  default enigma skins (hopefully)
+- added MHW (IT) to default inputs, although mhwepg doesn't
+  work with it yet
+- don't try download anything if no network configured,
+  show warning text in input menu when any downloads are
+  configured without network
+- added passing of arguments from the image to the plugin,
+  see imagemaker.txt.
+- hide main window when showing info window
+- if not scanning, when Enigma EPG cache indicates new data
+  is available, show the 'C' indicator until the next keypress
+  in view mode
+- hide indicators when menu/hide
+- added current time to left of indicators, refreshed only
+  on data reload
+- 99.5% of texts -> lang.txt.en
+- official name changed to MV (discovered existing sat
+  tech called 'Multiview', and MV is easier to write :-)
+- added date to left of daybar (when daybar shown), which
+  also follows daybar cursor
+- matching of favourites is now case-insensitive, which is
+  much more useful!
+- added possibility show end time and duration in program box
+- changes to lang.txt.en
+- added end time to title of extended info window
+- pressing SHIFT then GREEN when a program is selected will bring
+  up the favourite edit window with the details of the current
+  program (both graphical and list views)
+- pressing lame when adding new favourite cancels the addition
+  (both from the favourites manager and via SHIFT-GREEN)
+- cache descriptions no longer stored -> huge memory saving
+- cache descriptions no longer parsed until needed -> speedup
+- changed font size on program lists, things more often fit :-)
+- give day-of-week indication on program lists
+- added channel picker to program views (use BQup, BQdn to activate)
+  When used on views 7-9, switches to view 6.
+- when switching or reloading a program list, or selecting a 
+  new channel with the channel picker, all available enigma 
+  cache data for that
+  channel is loaded (usually the pre and post fields from input
+  menu apply also to enigma cache)
+  If there's no specific channel, all enigma data for the
+  current channel is loaded
+- shrank alias manager listbox font size
+- added aspect ratio selector in misc menu, to allow always
+  same aspect ration for MV when enigma is changing the ratio
+  based on the current stream 
+- took out prefix/affix fields on input menu
+- improved maintenance of current channel when view
+  switching
+
+Bug Fixes
+
+- the window background button in presentation menu now
+  actually affects the window background
+- fixed crappy valign on indicators
+- load indicator now appears more reliably
+- fixed a graphical view-switch bug
+- fixed another cursor bug (when switching views cursor
+  could end up on a different program)
+- views 7/9, set default status bar geometry to something
+  visible, so that it's visible if enabled
+- fixed program list flicker when first shown
+- program list didn't receive focus on being first shown
+- view 6 wasn't showing the cursor channel, but always the
+  playing channel
+- shouldn't crash anymore when failed to load language file
+  (thanks to Alex Shtol)
+- stop catching rogue enigma key input if MV can't startup for 
+  whatever reason 
+  (thanks to Alex Shtol)
+- don't show at-edge-of-scroll-window symbols on views where
+  we can't scroll
+- bug in etgrab.pl, didn't collect August data for French
+  channels
+
+B2.1
+
+Bug Fixes
+
+- don't moan about not being able to load a non-english language file
+- accept XMLTV start/end times without offset
+
+B2.0
+
+Feature Changes
+
+- reload keeps same start time for data reload (used to revert to
+  current time)
+- added reload (0) to program list
+- windows scroll left/right automatically when view window
+  at border of sample window (time-proportional graphical views)
+  (not with cursor on)
+- added daybar config in feature menu (off, fixed, popup)
+- set daybar off views 1-3
+- centered timebar labels (previously the time they
+  represented was at the LHS of the label
+- added markers on time bar
+- added vertical line for current time on views with
+  proportional time
+- added config in misc menu for view window offset
+- added indicator (E) for geom edit mode
+- added some protection to stop bad config crashing box
+- added reset config option in main menu
+- tried to improve separators for view 1
+- added hide to list views (VIDEO button)
+- display channel name in program box when a channel has
+  no programs and the channel header isn't displayed
+- cursor now configurable to traverse or jump channels with
+  no programs showing ('Force Cursor') option in feature menu
+- added configurable status bar to list views 
+- added status bar geometry config (switch between main window
+  and sbar with '0' in edit mode)
+- added "L" indicator for data loading
+- auto-reload now takes place after config changes
+- alias manager: increased width of from box, changed to
+  box to 2 columns, changed font of buttons
+- graphical views can now be configured to show the
+  channel number in the channel header
+- channel header info rearranged to try and be
+  presentable depending on what options are set and
+  how large the box is
+- graphical views can now be configured to show/not show
+  channels for which no data is available
+- when first starting plugin, playing channel now placed
+  middle in screen if "Playing" selected in feature menu
+- when reloading data/changing view, maintain position 
+  in channels list as much as possible
+- when reloading data/changing view, hold cursor on
+   selected channel/program (if there was one)
+- added warning in installer about removable media
+- improved program merging algorithm some more,
+  also speedup
+- ignore programs called 'No program'/'Sendeschluss'
+- now check for mhwepg binary first in /var/bin
+  and then in /bin if not found
+- program name now always filled in when setting
+  timer, previously was only for programs in the
+  enigma cache
+- added scanning of a particular channel (playing or
+  cursor). If it's an MHW channel, an MHW read is
+  forced, even if there's existing data not outside
+  the normal refresh window
+- added extra field to input conf to specify program/descr
+  character encoding
+- en is the installer default lang if <return> pressed
+- included web grabber perl script (etgrab.pl), 
+  writes EPGUI format. See top of script for details.
+
+Bug Fixes:
+
+- epgui optimisation from previous release had started dropping
+  last program on each channel
+- fixed installer+plugin bug seeing /mnt/cfs as CF card
+- fixed gap between second and third column on view 1
+- fixed bug stopping scrolling to data before current time
+- favourites/unknown channels indicators now properly
+  set when input config changes
+- finally fixed the rogue key presses from enigma if
+  the plugin takes a long time to start up due to
+  lots of data
+- fix (some) character set errors from epgui sources (converted
+  latin to UTF8).
+- don't change back to original channel if scan interrupted
+  until a possible MHW scan is finished.
+- removed possibility of reload (day bar, time box and '0')
+	during cache scan
+- removed multiple (differing!) definitions of sample width
+
+B1.3
+
+Feature Changes:
+
+- some more film channel heuristics (Ki*sk,C*nal+ etc)
+
+Bug Fixes:
+
+- reload bug introduced in earlier beta fixed
+
+B1.2
+
+Feature Changes:
+
+- merging of programs from different sources improved (again),
+  limit start and end time adjustments
+- added an heuristic for M*vision to mark films better
+- added removal of extreme upper-casing for certain channels
+  (M*vision, T*S)
+- reworked channel header drawing, draw satellite orbital 
+  position 4 points smaller than channel header
+- added recognition of USB/CF in /mnt/usb or /mnt/cf
+  to install.sh
+- added recognition of /mnt/usb and /mnt/cf to multiview
+  default configuration setup
+- stopped key repeat on coloured buttons to try prevent
+  timer function activation on plugin startup, if it's
+  started with those keys in an image
+
+Bug Fixes:
+
+- list views now always start with the cursor on the
+  first item
+- removed unneeded redraws when cursor moves left/right
+  on a fixed-no-programs view
+- the mapping for the selected item (bottom left) was
+  obscured by the left listbox
+
+B1.1
+
+Feature Changes:
+
+- when channel name shown in program box, now it's on
+  same line as time
+- shrunk default height of program box view 1
+
+Bug Fixes:
+
+- fixed crashes when program descriptions are extremely long
+
+B1.0
+
+Feature Changes:
+
+- added 'tips' menu item
+- reworked presentation screen:
+	- made all controls buttons
+	- removed foreground conf
+	- added favourite, film background conf
+- tidied up features screen
+- added 'start channel' configuration per view: start
+  on first channel of bouquet, or playing channel
+- program lists: pressing OK on an entry zaps to the relevant
+  channel
+- split 'channel list view' into two. First one (6) shows
+  either the playing channel, or the selected channel.
+  Second (9) shows first 3 programs of all channels.
+- expanded info screen, made same dimensions for graphical and
+  list views.
+- can no longer shrink/stretch in view mode (I ran out of
+  buttons!)
+- added Test Tecnico to input defs list
+- added parsing of <category> tags in xmltv files.
+  If the category is 'Film' program flagged as a film.
+- ammended view mode help text to fit on screen
+- moved many pieces of text into an external file to
+  enable internationalisation (/var/tuxbox/config/mv/lang.txt)
+- changed install.sh to deal with multiple lang.txt files.
+- added english textfile to .tar.gz
+- added CF to configuration dirs in input menu
+- lang file picked from user enigma GUI preference, defaults
+  to 'en'
+- show program time/title as title of description window
+- moved mhwepg location to /var/bin (link or real file),
+  changed install.sh appropriately.
+- moved inputs.conf -> inputs.txt
+- took out display of read file names in status bar
+- used enigma class for main menu (small memory saving)
+- added two new graphical views (buttons 4 and 5)
+- rearranged graphical views
+	- 1: now overview
+	- 2: now-next overview
+	- 3: top bar
+	- 4: short term timescaled
+	- 5: medium term timescaled
+- added main menu access for list views
+- added configuration of 'next view' for list views to enable
+  e.g. starting in a list view
+- added channel name as a possibility for the program box
+- status bar hides when cursor not being used
+- added CF recognition for installer
+- install nof lib link in /var/lib instead of /var/tuxbox/plugins
+
+Bug Fixes:
+
+- timer adjustment end time was being calculated incorrectly
+  [thanks to Peter Lindeman for pointing this out]
+- don't replay current channel if we're on it at the end
+  of a cache fill
+- bug in merging of overlapping programs
+- always start at first item of a program list (was previously
+  somewhat random...)
+- bug with 'next view' fixed (partly by always writing the
+  config file on exit)
+- removed 'dont press lame on this screen' bug for presentation
+  menu (by making it all buttons :-))
+- times in program box weren't responding to config settings
+- channel scroll error when window is so small that only 
+  one row is displayable
+- couldn't make the cursor visible when window is so small that
+  only one row is displayable
+- prevent attempted startup in a list view for LITE version
+  (may have been configured by full-version previously)
+- help and audio buttons now work also in an empty program list
+- bug in retrieving user language preference
+
+A4.1
+
+Feature Changes:
+
+- when changing to a channel it now gets inserted in the enigma
+  history list (so you can now use < and > when you leave the plugin)
+- redraws much quicker, fixed double redraws when scrolling up
+  channels
+- allow switch between program lists like normal views, exiting
+  program list exits plugin
+- added 'efficient' auto-bouquet-cache-scan, for current/all
+  satellites with channels in current bouquet, includes auto MHW
+  scan if that is configured for one or more channels.
+- added (configurable) saving of enigma cache to disk/usb in EPGUI
+  format
+- added hide/show window button to be able to quick view program
+  when zapping around channels
+- removed program lists and favourites from LITE version, 
+  helps memory usage a lot
+- paths in inputs.conf are now relative to the storage base
+  dir specified in the inputs menu
+- intelligent selection of initial storage and details dir
+  based on availability of mass storage
+  storageDir: pref is USB, HDD, FLASH
+  detailsDir: pref is USB, /var/tmp/mv
+- conf files now go in /var/tuxbox/config/mv/
+- added script install.sh to simplify installation
+- small speedup for EPGUI reading, assume programs are
+  chronologically sorted within a channel
+- included web grabber perl script (dtgrab.pl) for scandanavian channels,
+  writes EPGUI format. See top of script for details.
+
+Bug Fixes:
+
+- fixed bad memory leak in enigma cache processing
+- fixed lost cursor when current program no longer in window
+  after change of view
+- fixed bug with reading program data in the future (i.e. day
+  bar works now :-))
+- fixed a major bug introduced in A4.0 causing crashes
+  when programs merged from different sources had overlapping
+  program data
+- fixed redraw bug switching view past a screenfull of channels
+- fixed bug where plugin lost track of which channel is playing
+
+A4.0
+
+- added left bar indicating position in channel list
+- added day bar and time picker with cursor for jump selection
+  and orientation, plus matching functionallity to reload
+  the data files from the right point
+- bqup/db, left/right arrow, 0 button to use daybar/timepicker
+- filter out Dutch 'geen informatie beschikbaar' descriptions
+- made the main window an eWidget instead of an eWindow, meaning
+  no title bar and deco -> more space for info
+- added 'favourite manager' specify patterns in programs to match
+- shade favourites differently in view windows
+- added program lists for films, favourites, current channel, 
+  first few programs from each channel 
+- added full timer functions,help and info box to program list
+- added automatic execution of mhwepg on a (configured)
+  MHW channel
+
+A3.0
+
+- can now set channel height independent of program/channel name font size
+- can configure program start time, time diff, descr with program
+ name box
+- can configure: channelname, date, starttime, duration, program name in status bar
+- fixed a cursor move bug
+- allow configure status bar height and channel header width
+- integrated enigma timer edit/delete on coloured buttons
+- added enigma timer list on AUDIO button
+- added misc menu
+- added timer default offsets in misc menu
+- added timer symbols when programs in timer
+- flash cursor when info pressed on a program with empty
+  description
+- can configure the view that the plugin starts in
+- input definitions now read from a separate text file.
+  Lets user change locations.
+- added elapsed bars, show how much time elapsed/remain
+  for each program
+- window now starts a few hundred seconds in the past (fixed)
+- input pre/post is now for all inputs
+- added source: WOLF(xmltv)
+- enabled XMLTV stuff, still fairly experimental :-)
+  It's only tested against Wolf, which has no
+  descriptions and no genre info.
+- added satellite orbital position to channel header
+- added program box option: time to start
+- INFO when no channel selected brings up stream info
+  for the current playing channel
+- added scrollbar to descr window
+- added indicators for download, MHW decode and unknown
+channels
+- added program title/descr filter based on language
+specified (enigma cache only)
+
+A2.0
+
+- added first version of caching download manager for daily
+  rotating remote files.
+- memory usage by program structures reduced to around 15%
+  of previous
+- cache extra program info to a file or two instead of in memory.
+- fixed extended description grabbing
+- fixed OK->immediate selection on plugin startup ->
+  removed 2 second input block on startup
+- added alias manager, maintains mappings from external inputs
+  to bouquet names
+- added alternating colours for programs backgrounds to improve
+  visibility of program borders
+- added 'now playing' program and channel colours
+- split into 2 versions, standard && lite
+- added channel sort by user bouquet order
+- added special film colouring

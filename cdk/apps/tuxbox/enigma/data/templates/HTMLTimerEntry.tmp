@@ -1,0 +1,36 @@
+<tr>
+	<td rowspan="2" align="center">
+		<a href="javascript:deleteTimerEvent('ref=#REFERENCE#&start=#START#&type=#TIMERTYPE#&force=no')">
+			<img src="trash.gif" border="0" height="20">
+		</a>
+	</td>
+	<td rowspan="2" align="center">
+	  <script type="text/javascript">
+	    var editLink = escape('ref=#REFERENCE#&start=#START#&duration=#DURATION#&channel=#CHANNEL#&descr=#DESCRIPTION#&type=#TIMERTYPE#');
+	    document.write('<a href=\"javascript:editTimerEvent(\''+editLink+'\')\">');
+		</script>
+			<img src="edit.gif" border="0" height="20">
+		</a>
+	</td>
+	<td rowspan="2" align="center">
+		<img src="#STATEPIC#">
+	</td>
+	<td rowspan="2" align="center">
+		#ACTION#
+	</td>
+	<td>
+		#STARTTIME#
+	</td>
+	<td>
+		#ENDTIME#
+	</td>
+	<td>
+		#DAYS#
+	</td>
+	<td>
+		<b><script type="text/javascript">document.write(decodeURIComponent("#CHANNEL#"))</script></b>
+	</td>
+</tr>
+<tr>
+	<td colspan="4"><b><script type="text/javascript">document.write(decodeURIComponent("#DESCRIPTION#"))</script></b></td>
+</tr>

@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: tuxbox-mpegtools
+Description: mpegtools
+Version: @VERSION@
+Libs: -L${libdir} -lmpegtools
+Cflags: -I${includedir}/tuxbox/mpegtools

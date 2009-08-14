@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<title>Remote Control</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function key(code)
+			{
+				document.location="/cgi-bin/rc?" + code;
+				if (#OSDSHOTENABLED#)
+					window.setTimeout("scrShot()", 2000);
+				
+			}
+			function scrShot()
+			{
+				parent.screenshot.location.reload();
+			}
+			
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4;">
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td>
+	<map name="remotecontrol">
+		<area shape="circle" coords="129, 54, 10" href="javascript:key(116)" alt="Power">
+		
+		<area shape="circle" coords="63, 123, 10" href="javascript:key(2)" alt="1">
+		<area shape="circle" coords="109, 123, 10" href="javascript:key(3)" alt="2">
+		<area shape="circle" coords="153, 123, 10" href="javascript:key(4)" alt="3">
+		
+		<area shape="circle" coords="63, 148, 10" href="javascript:key(5)" alt="4">
+		<area shape="circle" coords="109, 148, 10" href="javascript:key(6)" alt="5">
+		<area shape="circle" coords="153, 148, 10" href="javascript:key(7)" alt="6">
+		
+		<area shape="circle" coords="63, 173, 10" href="javascript:key(8)" alt="7">
+		<area shape="circle" coords="109, 173, 10" href="javascript:key(9)" alt="8">
+		<area shape="circle" coords="153, 173, 10" href="javascript:key(10)" alt="9">
+		
+		<area shape="circle" coords="63, 197, 10" href="javascript:key(158)" alt="previous">
+		<area shape="circle" coords="109, 197, 10" href="javascript:key(11)" alt="0">
+		<area shape="circle" coords="153, 197, 10" href="javascript:key(159)" alt="next">
+		
+		<area shape="circle" coords="54, 243, 15" href="javascript:key(115)" alt="volume up">
+		<area shape="circle" coords="107, 233, 10" href="javascript:key(113)" alt="mute">
+		<area shape="circle" coords="159, 243, 15" href="javascript:key(402)" alt="bouquet up">
+		
+		<area shape="circle" coords="66, 274, 15" href="javascript:key(114)" alt="volume down">
+		<area shape="circle" coords="107, 258, 10" href="javascript:key(1)" alt="lame">
+		<area shape="circle" coords="147, 274, 15" href="javascript:key(403)" alt="bouquet down">
+		
+		<area shape="circle" coords="48, 306, 10" href="javascript:key(358)" alt="info">
+		<area shape="circle" coords="106, 310, 15" href="javascript:key(103)" alt="up">
+		<area shape="circle" coords="167, 306, 10" href="javascript:key(141)" alt="dream">
+		
+		<area shape="circle" coords="70, 343, 15" href="javascript:key(105)" alt="left">
+		<area shape="circle" coords="108, 340, 15" href="javascript:key(352)" alt="OK">
+		<area shape="circle" coords="146, 343, 15" href="javascript:key(106)" alt="right">
+		
+		<area shape="circle" coords="53, 381, 10" href="javascript:key(392)" alt="audio">
+		<area shape="circle" coords="106, 374, 15" href="javascript:key(108)" alt="down">
+		<area shape="circle" coords="162, 381, 10" href="javascript:key(393)" alt="video">
+		
+		<area shape="circle" coords="56, 421, 10" href="javascript:key(398)" alt="red">
+		<area shape="circle" coords="90, 422, 10" href="javascript:key(399)" alt="green">
+		<area shape="circle" coords="123, 422, 10" href="javascript:key(400)" alt="yellow">
+		<area shape="circle" coords="158, 421, 10" href="javascript:key(401)" alt="blue">
+		
+		<area shape="circle" coords="61, 460, 10" href="javascript:key(385)" alt="tv">
+		<area shape="circle" coords="90, 461, 10" href="javascript:key(377)" alt="radio">
+		<area shape="circle" coords="123, 461, 10" href="javascript:key(66)" alt="text">
+		<area shape="circle" coords="153, 460, 10" href="javascript:key(138)" alt="help">
+	</map>
+	<img src="rc_big.jpg" height="607" width="220" border="0" alt="Remote Control" usemap="#remotecontrol">
+	</td>
+	<td>
+	<iframe src="/body?mode=controlFBShot" width="725" height="610" scrolling="no" id="screenshot" name="screenshot" style="border:none"></iframe>
+	</td>
+	</tr>
+	</table>
+	</body>
+</html>

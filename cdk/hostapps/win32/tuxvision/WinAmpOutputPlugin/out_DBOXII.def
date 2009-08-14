@@ -1,0 +1,4 @@
+LIBRARY      "out_DBOXII"
+DESCRIPTION  'out_DBOXII WinAmp Plugin-DLL'
+EXPORTS
+             winampGetOutModule

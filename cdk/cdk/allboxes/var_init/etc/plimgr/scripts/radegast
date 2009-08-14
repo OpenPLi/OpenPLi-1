@@ -1,0 +1,26 @@
+#!/bin/sh
+
+CAMNAME2="Radegast"
+
+case "$1" in
+	start)
+		echo "[SCRIPT] $1: Starting $CAMNAME2"
+		/var/bin/rdgd
+		pli_pmthelper --helper /var/bin/Camd
+		;;
+	stop)
+		echo "[SCRIPT] $1: Stopping $CAMNAME2"
+		killall rdgd pli_pmthelper Camd
+		;;
+	*)
+		$0 stop
+		exit 1
+		;;
+esac
+
+exit
+
+#
+# The End
+#
+

@@ -1,0 +1,15 @@
+--- default.esml	2008-09-07 14:59:14.000000000 +0200
++++ default.esml.dm500	2008-09-08 17:57:33.000000000 +0200
+@@ -859,10 +859,8 @@
+ 			<eLabel name="special_two" position="315:135" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+ 			<eLabel text="abc &lt;-&gt; ABC" position="5:185" size="200:25" shortcut="yellow" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+ 			<eLabel text="abc2 &lt;-&gt; 2abc" position="220:185" size="210:25" shortcut="blue" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+-			<eLabel text="vol+" position="5:e-33" size="200:25" shortcut="green" font="textinputfield.helpwidget.normal" vcenter="on" />
+-			<eLabel text="insert" position="45:e-33" size="170:25" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+-			<eLabel text="vol-" position="220:e-33" size="200:25" shortcut="red" font="textinputfield.helpwidget.normal" vcenter="on" />
+-			<eLabel text="remove" position="260:e-33" size="170:25" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
++			<eLabel text="insert" position="5:e-33" size="170:25" shortcut="green" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
++			<eLabel text="remove" position="220:e-33" size="170:25" shortcut="red" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+ 		</eTextInputFieldHelpWidget>
+ 	</object>
+ 	<object name="TextEditWindow">

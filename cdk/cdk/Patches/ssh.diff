@@ -1,0 +1,1672 @@
+diff -Naur openssh-3.5p1/sshd_config openssh-3.5p1new/sshd_config
+--- openssh-3.5p1/sshd_config	2002-09-27 05:21:58.000000000 +0200
++++ openssh-3.5p1new/sshd_config	2002-10-25 23:02:20.000000000 +0200
+@@ -11,7 +11,7 @@
+ # default value.
+ 
+ #Port 22
+-#Protocol 2,1
++Protocol 2
+ #ListenAddress 0.0.0.0
+ #ListenAddress ::
+ 
+--- openssh-3.5p1/Makefile.in	2002-07-14 19:02:21.000000000 +0200
++++ openssh-3.5p1new/Makefile.in	2002-10-26 22:18:43.000000000 +0200
+@@ -198,7 +198,7 @@
+ 	$(AUTORECONF)
+ 	(cd scard && $(MAKE) -f Makefile.in distprep)
+ 
+-install: $(CONFIGFILES) $(MANPAGES) $(TARGETS) install-files host-key check-config
++install: $(CONFIGFILES) $(MANPAGES) $(TARGETS) install-files host-key
+ install-nokeys: $(CONFIGFILES) $(MANPAGES) $(TARGETS) install-files
+ 
+ check-config:
+@@ -217,19 +217,19 @@
+ 	$(srcdir)/mkinstalldirs $(DESTDIR)$(mandir)/$(mansubdir)8
+ 	$(srcdir)/mkinstalldirs $(DESTDIR)$(libexecdir)
+ 	(umask 022 ; $(srcdir)/mkinstalldirs $(DESTDIR)$(PRIVSEP_PATH))
+-	$(INSTALL) -m 0755 -s ssh $(DESTDIR)$(bindir)/ssh
+-	$(INSTALL) -m 0755 -s scp $(DESTDIR)$(bindir)/scp
+-	$(INSTALL) -m 0755 -s ssh-add $(DESTDIR)$(bindir)/ssh-add
+-	$(INSTALL) -m 0755 -s ssh-agent $(DESTDIR)$(bindir)/ssh-agent
+-	$(INSTALL) -m 0755 -s ssh-keygen $(DESTDIR)$(bindir)/ssh-keygen
+-	$(INSTALL) -m 0755 -s ssh-keyscan $(DESTDIR)$(bindir)/ssh-keyscan
+-	$(INSTALL) -m 0755 -s sshd $(DESTDIR)$(sbindir)/sshd
++	$(INSTALL) -m 0755 ssh $(DESTDIR)$(bindir)/ssh
++	$(INSTALL) -m 0755 scp $(DESTDIR)$(bindir)/scp
++	$(INSTALL) -m 0755 ssh-add $(DESTDIR)$(bindir)/ssh-add
++	$(INSTALL) -m 0755 ssh-agent $(DESTDIR)$(bindir)/ssh-agent
++	$(INSTALL) -m 0755 ssh-keygen $(DESTDIR)$(bindir)/ssh-keygen
++	$(INSTALL) -m 0755 ssh-keyscan $(DESTDIR)$(bindir)/ssh-keyscan
++	$(INSTALL) -m 0755 sshd $(DESTDIR)$(sbindir)/sshd
+ 	if test ! -z "$(INSTALL_SSH_RAND_HELPER)" ; then \
+-		$(INSTALL) -m 0755 -s ssh-rand-helper $(DESTDIR)$(libexecdir)/ssh-rand-helper ; \
++		$(INSTALL) -m 0755 ssh-rand-helper $(DESTDIR)$(libexecdir)/ssh-rand-helper ; \
+ 	fi
+-	$(INSTALL) -m 4711 -s ssh-keysign $(DESTDIR)$(SSH_KEYSIGN)
+-	@NO_SFTP@$(INSTALL) -m 0755 -s sftp $(DESTDIR)$(bindir)/sftp
+-	@NO_SFTP@$(INSTALL) -m 0755 -s sftp-server $(DESTDIR)$(SFTP_SERVER)
++	$(INSTALL) -m 4711 ssh-keysign $(DESTDIR)$(SSH_KEYSIGN)
++	@NO_SFTP@$(INSTALL) -m 0755 sftp $(DESTDIR)$(bindir)/sftp
++	@NO_SFTP@$(INSTALL) -m 0755 sftp-server $(DESTDIR)$(SFTP_SERVER)
+ 	$(INSTALL) -m 644 ssh.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh.1
+ 	$(INSTALL) -m 644 scp.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/scp.1
+ 	$(INSTALL) -m 644 ssh-add.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-add.1
+@@ -282,23 +282,16 @@
+ 	fi
+ 
+ host-key: ssh-keygen$(EXEEXT)
+-	@if [ -z "$(DESTDIR)" ] ; then \
+-		if [ -f "$(DESTDIR)$(sysconfdir)/ssh_host_key" ] ; then \
+-			echo "$(DESTDIR)$(sysconfdir)/ssh_host_key already exists, skipping." ; \
+-		else \
+-			./ssh-keygen -t rsa1 -f $(DESTDIR)$(sysconfdir)/ssh_host_key -N "" ; \
+-		fi ; \
+-		if [ -f $(DESTDIR)$(sysconfdir)/ssh_host_dsa_key ] ; then \
+-			echo "$(DESTDIR)$(sysconfdir)/ssh_host_dsa_key already exists, skipping." ; \
+-		else \
+-			./ssh-keygen -t dsa -f $(DESTDIR)$(sysconfdir)/ssh_host_dsa_key -N "" ; \
+-		fi ; \
+-		if [ -f $(DESTDIR)$(sysconfdir)/ssh_host_rsa_key ] ; then \
+-			echo "$(DESTDIR)$(sysconfdir)/ssh_host_rsa_key already exists, skipping." ; \
+-		else \
+-			./ssh-keygen -t rsa -f $(DESTDIR)$(sysconfdir)/ssh_host_rsa_key -N "" ; \
+-		fi ; \
+-	fi ;
++	if [ -f $(DESTDIR)$(sysconfdir)/ssh_host_dsa_key ] ; then \
++		echo "$(DESTDIR)$(sysconfdir)/ssh_host_dsa_key already exists, skipping." ; \
++	else \
++		ssh-keygen -t dsa -f $(DESTDIR)$(sysconfdir)/ssh_host_dsa_key -N "" -b 2048 ; \
++	fi
++	if [ -f $(DESTDIR)$(sysconfdir)/ssh_host_rsa_key ] ; then \
++		echo "$(DESTDIR)$(sysconfdir)/ssh_host_rsa_key already exists, skipping." ; \
++	else \
++		ssh-keygen -t rsa -f $(DESTDIR)$(sysconfdir)/ssh_host_rsa_key -N "" -b 2048 ; \
++	fi
+ 
+ host-key-force: ssh-keygen$(EXEEXT)
+ 	./ssh-keygen -t rsa1 -f $(DESTDIR)$(sysconfdir)/ssh_host_key -N ""
+--- openssh-3.5p1/configure.ac	2002-09-26 02:38:47.000000000 +0200
++++ openssh-3.5p1new/configure.ac	2002-10-26 22:11:18.000000000 +0200
+@@ -173,6 +173,7 @@
+ 	AC_DEFINE(WITH_ABBREV_NO_TTY)
+ 	;;
+ *-*-linux*)
++	LIBS="$LIBS -ldl"
+ 	no_dev_ptmx=1
+ 	check_for_libcrypt_later=1
+ 	AC_DEFINE(DONT_TRY_OTHER_AF)
+@@ -493,20 +494,6 @@
+         ]
+ )
+ 
+-AC_MSG_CHECKING([whether struct dirent allocates space for d_name])
+-AC_TRY_RUN(
+-	[
+-#include <sys/types.h>
+-#include <dirent.h>
+-int main(void){struct dirent d;exit(sizeof(d.d_name)<=sizeof(char));}
+-	],
+-	[AC_MSG_RESULT(yes)], 
+-	[
+-		AC_MSG_RESULT(no)
+-		AC_DEFINE(BROKEN_ONE_BYTE_DIRENT_D_NAME)
+-	]
+-)
+-
+ # Check whether user wants S/Key support
+ SKEY_MSG="no" 
+ AC_ARG_WITH(skey,
+@@ -607,43 +594,6 @@
+ 	socketpair strerror strlcat strlcpy strmode strsep sysconf tcgetpgrp \
+ 	truncate utimes vhangup vsnprintf waitpid __b64_ntop _getpty)
+ 
+-dnl IRIX and Solaris 2.5.1 have dirname() in libgen
+-AC_CHECK_FUNCS(dirname, [AC_CHECK_HEADERS(libgen.h)] ,[
+-	AC_CHECK_LIB(gen, dirname,[
+-		AC_CACHE_CHECK([for broken dirname],
+-			ac_cv_have_broken_dirname, [
+-			save_LIBS="$LIBS"
+-			LIBS="$LIBS -lgen"
+-			AC_TRY_RUN(
+-				[
+-#include <libgen.h>
+-#include <string.h>
+-
+-int main(int argc, char **argv) {
+-    char *s, buf[32];
+-
+-    strncpy(buf,"/etc", 32);
+-    s = dirname(buf);
+-    if (!s || strncmp(s, "/", 32) != 0) {
+-	exit(1);
+-    } else {
+-	exit(0);
+-    }
+-}
+-				],
+-				[ ac_cv_have_broken_dirname="no" ],
+-				[ ac_cv_have_broken_dirname="yes" ]
+-			)
+-			LIBS="$save_LIBS"
+-		])
+-		if test "x$ac_cv_have_broken_dirname" = "xno" ; then
+-			LIBS="$LIBS -lgen"
+-			AC_DEFINE(HAVE_DIRNAME)
+-			AC_CHECK_HEADERS(libgen.h)
+-		fi
+-	])
+-])
+-
+ dnl    Checks for time functions
+ AC_CHECK_FUNCS(gettimeofday time)
+ dnl    Checks for utmp functions
+@@ -663,23 +613,6 @@
+ 	[AC_CHECK_LIB(ucb, getpagesize, [LIBS="$LIBS -lucb"; AC_DEFINE(HAVE_GETPAGESIZE)])]
+ )
+ 
+-# Check for broken snprintf
+-if test "x$ac_cv_func_snprintf" = "xyes" ; then
+-	AC_MSG_CHECKING([whether snprintf correctly terminates long strings])
+-	AC_TRY_RUN(
+-		[
+-#include <stdio.h>
+-int main(void){char b[5];snprintf(b,5,"123456789");exit(b[4]!='\0');}
+-		],
+-		[AC_MSG_RESULT(yes)], 
+-		[
+-			AC_MSG_RESULT(no)
+-			AC_DEFINE(BROKEN_SNPRINTF)
+-			AC_MSG_WARN([****** Your snprintf() function is broken, complain to your vendor])
+-		]
+-	)
+-fi
+-
+ AC_FUNC_GETPGRP
+ 
+ # Check for PAM libs
+@@ -781,87 +714,9 @@
+ 	]
+ )
+ 
+-# Determine OpenSSL header version
+-AC_MSG_CHECKING([OpenSSL header version])
+-AC_TRY_RUN(
+-	[
+-#include <stdio.h>
+-#include <string.h>
+-#include <openssl/opensslv.h>
+-#define DATA "conftest.sslincver"
+-int main(void) {
+-        FILE *fd;
+-        int rc;
+-
+-        fd = fopen(DATA,"w");
+-        if(fd == NULL)
+-                exit(1);
+-
+-	if ((rc = fprintf(fd ,"%x (%s)\n", OPENSSL_VERSION_NUMBER, OPENSSL_VERSION_TEXT)) <0)
+-		exit(1);
+-
+-	exit(0);
+-}
+-	],
+-	[
+-		ssl_header_ver=`cat conftest.sslincver`
+-		AC_MSG_RESULT($ssl_header_ver)
+-	],
+-	[
+-		AC_MSG_RESULT(not found)
+-		AC_MSG_ERROR(OpenSSL version header not found.)
+-	]
+-)
+-
+-# Determine OpenSSL library version
+-AC_MSG_CHECKING([OpenSSL library version])
+-AC_TRY_RUN(
+-	[
+-#include <stdio.h>
+-#include <string.h>
+-#include <openssl/opensslv.h>
+-#include <openssl/crypto.h>
+-#define DATA "conftest.ssllibver"
+-int main(void) {
+-        FILE *fd;
+-        int rc;
+-
+-        fd = fopen(DATA,"w");
+-        if(fd == NULL)
+-                exit(1);
+-
+-	if ((rc = fprintf(fd ,"%x (%s)\n", SSLeay(), SSLeay_version(SSLEAY_VERSION))) <0)
+-		exit(1);
+-
+-	exit(0);
+-}
+-	],
+-	[
+-		ssl_library_ver=`cat conftest.ssllibver`
+-		AC_MSG_RESULT($ssl_library_ver)
+-	],
+-	[
+-		AC_MSG_RESULT(not found)
+-		AC_MSG_ERROR(OpenSSL library not found.)
+-	]
+-)
+-
+ # Sanity check OpenSSL headers
+ AC_MSG_CHECKING([whether OpenSSL's headers match the library])
+-AC_TRY_RUN(
+-	[
+-#include <string.h>
+-#include <openssl/opensslv.h>
+-int main(void) { exit(SSLeay() == OPENSSL_VERSION_NUMBER ? 0 : 1); }
+-	],
+-	[
+-		AC_MSG_RESULT(yes)
+-	],
+-	[
+-		AC_MSG_RESULT(no)
+-		AC_MSG_ERROR(Your OpenSSL headers do not match your library)
+-	]
+-)
++AC_MSG_RESULT(yes)
+ 
+ # Some Linux systems (Slackware) need crypt() from libcrypt, *not* the 
+ # version in OpenSSL. Skip this for PAM
+@@ -874,24 +729,8 @@
+ 
+ # Check wheter OpenSSL seeds itself
+ AC_MSG_CHECKING([whether OpenSSL's PRNG is internally seeded])
+-AC_TRY_RUN(
+-	[
+-#include <string.h>
+-#include <openssl/rand.h>
+-int main(void) { exit(RAND_status() == 1 ? 0 : 1); }
+-	],
+-	[
+-		OPENSSL_SEEDS_ITSELF=yes
+-		AC_MSG_RESULT(yes)
+-	],
+-	[
+-		AC_MSG_RESULT(no)
+-		# Default to use of the rand helper if OpenSSL doesn't
+-		# seed itself
+-		USE_RAND_HELPER=yes
+-	]
+-)
+-
++OPENSSL_SEEDS_ITSELF=yes
++AC_MSG_RESULT(yes)
+ 
+ # Do we want to force the use of the rand helper?
+ AC_ARG_WITH(rand-helper,
+@@ -1449,34 +1288,6 @@
+ 	"x$ac_cv_sizeof_long_int" != "x8" -a \
+ 	"x$ac_cv_sizeof_long_long_int" = "x0" ; then
+ 	NO_SFTP='#'
+-else
+-dnl test snprintf (broken on SCO w/gcc)
+-	AC_TRY_RUN(
+-		[
+-#include <stdio.h>
+-#include <string.h>
+-#ifdef HAVE_SNPRINTF
+-main()
+-{
+-	char buf[50];
+-	char expected_out[50];
+-	int mazsize = 50 ;
+-#if (SIZEOF_LONG_INT == 8)
+-	long int num = 0x7fffffffffffffff;
+-#else
+-	long long num = 0x7fffffffffffffffll;
+-#endif
+-	strcpy(expected_out, "9223372036854775807");
+-	snprintf(buf, mazsize, "%lld", num);
+-	if(strcmp(buf, expected_out) != 0)
+-        	exit(1);
+-	exit(0);
+-}
+-#else
+-main() { exit(0); }
+-#endif
+-		], [ true ], [ AC_DEFINE(BROKEN_SNPRINTF) ]
+-	)
+ fi
+ AC_SUBST(NO_SFTP)
+ 
+@@ -1581,23 +1392,7 @@
+ dnl make sure we're using the real structure members and not defines
+ AC_CACHE_CHECK([for msg_accrights field in struct msghdr],
+ 		ac_cv_have_accrights_in_msghdr, [
+-	AC_TRY_RUN(
+-		[
+-#include <sys/types.h>
+-#include <sys/socket.h>
+-#include <sys/uio.h>
+-int main() {
+-#ifdef msg_accrights
+-exit(1);
+-#endif
+-struct msghdr m;
+-m.msg_accrights = 0;
+-exit(0);
+-}
+-		],
+-		[ ac_cv_have_accrights_in_msghdr="yes" ],
+ 		[ ac_cv_have_accrights_in_msghdr="no" ]
+-	)
+ ])
+ if test "x$ac_cv_have_accrights_in_msghdr" = "xyes" ; then
+ 	AC_DEFINE(HAVE_ACCRIGHTS_IN_MSGHDR)
+@@ -1605,23 +1400,7 @@
+ 
+ AC_CACHE_CHECK([for msg_control field in struct msghdr],
+ 		ac_cv_have_control_in_msghdr, [
+-	AC_TRY_RUN(
+-		[
+-#include <sys/types.h>
+-#include <sys/socket.h>
+-#include <sys/uio.h>
+-int main() {
+-#ifdef msg_control
+-exit(1);
+-#endif
+-struct msghdr m;
+-m.msg_control = 0;
+-exit(0);
+-}
+-		],
+-		[ ac_cv_have_control_in_msghdr="yes" ],
+-		[ ac_cv_have_control_in_msghdr="no" ]
+-	)
++		[ ac_cv_have_control_in_msghdr="yes" ]
+ ])
+ if test "x$ac_cv_have_control_in_msghdr" = "xyes" ; then
+ 	AC_DEFINE(HAVE_CONTROL_IN_MSGHDR)
+@@ -1931,12 +1710,6 @@
+ 		)
+ 	fi
+ fi
+-AC_CHECK_FILE("/dev/ptc", 
+-	[
+-		AC_DEFINE_UNQUOTED(HAVE_DEV_PTS_AND_PTC)
+-		have_dev_ptc=1
+-	]
+-)
+ 
+ # Options from here on. Some of these are preset by platform above
+ AC_ARG_WITH(mantype,
+@@ -2052,55 +1825,7 @@
+ 	[ if test "$USES_LOGIN_CONF" = "yes" ; then
+ 	AC_MSG_WARN([Make sure the path to scp is in /etc/login.conf])
+ 	else
+-	AC_TRY_RUN(
+-		[
+-/* find out what STDPATH is */
+-#include <stdio.h>
+-#ifdef HAVE_PATHS_H
+-# include <paths.h>
+-#endif
+-#ifndef _PATH_STDPATH
+-# define _PATH_STDPATH "/usr/bin:/bin:/usr/sbin:/sbin"
+-#endif
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <fcntl.h>
+-#define DATA "conftest.stdpath"
+-
+-main()
+-{
+-	FILE *fd;
+-	int rc;
+-	
+-	fd = fopen(DATA,"w");
+-	if(fd == NULL)
+-		exit(1);
+-	
+-	if ((rc = fprintf(fd,"%s", _PATH_STDPATH)) < 0)
+-		exit(1);
+-
+-	exit(0);
+-}
+-		], [ user_path=`cat conftest.stdpath` ],
+-		[ user_path="/usr/bin:/bin:/usr/sbin:/sbin" ],
+-		[ user_path="/usr/bin:/bin:/usr/sbin:/sbin" ]
+-	)
+-# make sure $bindir is in USER_PATH so scp will work
+-		t_bindir=`eval echo ${bindir}`
+-		case $t_bindir in
+-			NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$prefix~"` ;;
+-		esac
+-		case $t_bindir in
+-			NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$ac_default_prefix~"` ;;
+-		esac
+-		echo $user_path | grep ":$t_bindir"  > /dev/null 2>&1
+-		if test $? -ne 0  ; then
+-			echo $user_path | grep "^$t_bindir"  > /dev/null 2>&1
+-			if test $? -ne 0  ; then
+-				user_path=$user_path:$t_bindir
+-				AC_MSG_RESULT(Adding $t_bindir to USER_PATH so scp will work)
+-			fi
+-		fi
++		user_path="/usr/bin:/bin:/usr/sbin:/sbin"
+ 	fi ]
+ )
+ if test "$USES_LOGIN_CONF" != "yes" ; then
+--- openssh-3.5p1/configure	2002-10-04 03:31:56.000000000 +0200
++++ openssh-3.5p1new/configure	2002-10-26 22:11:27.000000000 +0200
+@@ -4170,6 +4170,7 @@
+ 
+ 	;;
+ *-*-linux*)
++	LIBS="$LIBS -ldl"
+ 	no_dev_ptmx=1
+ 	check_for_libcrypt_later=1
+ 	cat >>confdefs.h <<\_ACEOF
+@@ -6460,53 +6461,6 @@
+ rm -f conftest*
+ 
+ 
+-echo "$as_me:$LINENO: checking whether struct dirent allocates space for d_name" >&5
+-echo $ECHO_N "checking whether struct dirent allocates space for d_name... $ECHO_C" >&6
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <sys/types.h>
+-#include <dirent.h>
+-int main(void){struct dirent d;exit(sizeof(d.d_name)<=sizeof(char));}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+-
+-		echo "$as_me:$LINENO: result: no" >&5
+-echo "${ECHO_T}no" >&6
+-		cat >>confdefs.h <<\_ACEOF
+-#define BROKEN_ONE_BYTE_DIRENT_D_NAME 1
+-_ACEOF
+-
+-
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+-
+ # Check whether user wants S/Key support
+ SKEY_MSG="no"
+ 
+@@ -6806,457 +6760,23 @@
+   (eval $ac_try) 2>&5
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  eval "$as_ac_var=yes"
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-eval "$as_ac_var=no"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-fi
+-echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_var'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_var'}'`" >&6
+-if test `eval echo '${'$as_ac_var'}'` = yes; then
+-  cat >>confdefs.h <<_ACEOF
+-#define `echo "HAVE_$ac_func" | $as_tr_cpp` 1
+-_ACEOF
+-
+-fi
+-done
+-
+-
+-
+-for ac_func in dirname
+-do
+-as_ac_var=`echo "ac_cv_func_$ac_func" | $as_tr_sh`
+-echo "$as_me:$LINENO: checking for $ac_func" >&5
+-echo $ECHO_N "checking for $ac_func... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_var+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-/* System header to define __stub macros and hopefully few prototypes,
+-    which can conflict with char $ac_func (); below.  */
+-#include <assert.h>
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char $ac_func ();
+-char (*f) ();
+-
+-#ifdef F77_DUMMY_MAIN
+-#  ifdef __cplusplus
+-     extern "C"
+-#  endif
+-   int F77_DUMMY_MAIN() { return 1; }
+-#endif
+-int
+-main ()
+-{
+-/* The GNU C library defines this for functions which it implements
+-    to always fail with ENOSYS.  Some functions are actually named
+-    something starting with __ and the normal name is an alias.  */
+-#if defined (__stub_$ac_func) || defined (__stub___$ac_func)
+-choke me
+-#else
+-f = $ac_func;
+-#endif
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  eval "$as_ac_var=yes"
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-eval "$as_ac_var=no"
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-fi
+-echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_var'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_var'}'`" >&6
+-if test `eval echo '${'$as_ac_var'}'` = yes; then
+-  cat >>confdefs.h <<_ACEOF
+-#define `echo "HAVE_$ac_func" | $as_tr_cpp` 1
+-_ACEOF
+-
+-for ac_header in libgen.h
+-do
+-as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
+-if eval "test \"\${$as_ac_Header+set}\" = set"; then
+-  echo "$as_me:$LINENO: checking for $ac_header" >&5
+-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Header+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-fi
+-echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_Header'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Header'}'`" >&6
+-else
+-  # Is the header compilable?
+-echo "$as_me:$LINENO: checking $ac_header usability" >&5
+-echo $ECHO_N "checking $ac_header usability... $ECHO_C" >&6
+-cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-$ac_includes_default
+-#include <$ac_header>
+-_ACEOF
+-rm -f conftest.$ac_objext
+-if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
+-  (eval $ac_compile) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest.$ac_objext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  ac_header_compiler=yes
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-ac_header_compiler=no
+-fi
+-rm -f conftest.$ac_objext conftest.$ac_ext
+-echo "$as_me:$LINENO: result: $ac_header_compiler" >&5
+-echo "${ECHO_T}$ac_header_compiler" >&6
+-
+-# Is the header present?
+-echo "$as_me:$LINENO: checking $ac_header presence" >&5
+-echo $ECHO_N "checking $ac_header presence... $ECHO_C" >&6
+-cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-#include <$ac_header>
+-_ACEOF
+-if { (eval echo "$as_me:$LINENO: \"$ac_cpp conftest.$ac_ext\"") >&5
+-  (eval $ac_cpp conftest.$ac_ext) 2>conftest.er1
+-  ac_status=$?
+-  egrep -v '^ *\+' conftest.er1 >conftest.err
+-  rm -f conftest.er1
+-  cat conftest.err >&5
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } >/dev/null; then
+-  if test -s conftest.err; then
+-    ac_cpp_err=$ac_c_preproc_warn_flag
+-  else
+-    ac_cpp_err=
+-  fi
+-else
+-  ac_cpp_err=yes
+-fi
+-if test -z "$ac_cpp_err"; then
+-  ac_header_preproc=yes
+-else
+-  echo "$as_me: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  ac_header_preproc=no
+-fi
+-rm -f conftest.err conftest.$ac_ext
+-echo "$as_me:$LINENO: result: $ac_header_preproc" >&5
+-echo "${ECHO_T}$ac_header_preproc" >&6
+-
+-# So?  What about this header?
+-case $ac_header_compiler:$ac_header_preproc in
+-  yes:no )
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&5
+-echo "$as_me: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&2;}
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the preprocessor's result" >&5
+-echo "$as_me: WARNING: $ac_header: proceeding with the preprocessor's result" >&2;};;
+-  no:yes )
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: present but cannot be compiled" >&5
+-echo "$as_me: WARNING: $ac_header: present but cannot be compiled" >&2;}
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: check for missing prerequisite headers?" >&5
+-echo "$as_me: WARNING: $ac_header: check for missing prerequisite headers?" >&2;}
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the preprocessor's result" >&5
+-echo "$as_me: WARNING: $ac_header: proceeding with the preprocessor's result" >&2;};;
+-esac
+-echo "$as_me:$LINENO: checking for $ac_header" >&5
+-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Header+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  eval "$as_ac_Header=$ac_header_preproc"
+-fi
+-echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_Header'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Header'}'`" >&6
+-
+-fi
+-if test `eval echo '${'$as_ac_Header'}'` = yes; then
+-  cat >>confdefs.h <<_ACEOF
+-#define `echo "HAVE_$ac_header" | $as_tr_cpp` 1
+-_ACEOF
+-
+-fi
+-
+-done
+-
+-else
+-
+-	echo "$as_me:$LINENO: checking for dirname in -lgen" >&5
+-echo $ECHO_N "checking for dirname in -lgen... $ECHO_C" >&6
+-if test "${ac_cv_lib_gen_dirname+set}" = set; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lgen  $LIBS"
+-cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char dirname ();
+-#ifdef F77_DUMMY_MAIN
+-#  ifdef __cplusplus
+-     extern "C"
+-#  endif
+-   int F77_DUMMY_MAIN() { return 1; }
+-#endif
+-int
+-main ()
+-{
+-dirname ();
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  ac_cv_lib_gen_dirname=yes
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-ac_cv_lib_gen_dirname=no
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-LIBS=$ac_check_lib_save_LIBS
+-fi
+-echo "$as_me:$LINENO: result: $ac_cv_lib_gen_dirname" >&5
+-echo "${ECHO_T}$ac_cv_lib_gen_dirname" >&6
+-if test $ac_cv_lib_gen_dirname = yes; then
+-
+-		echo "$as_me:$LINENO: checking for broken dirname" >&5
+-echo $ECHO_N "checking for broken dirname... $ECHO_C" >&6
+-if test "${ac_cv_have_broken_dirname+set}" = set; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-
+-			save_LIBS="$LIBS"
+-			LIBS="$LIBS -lgen"
+-			if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <libgen.h>
+-#include <string.h>
+-
+-int main(int argc, char **argv) {
+-    char *s, buf[32];
+-
+-    strncpy(buf,"/etc", 32);
+-    s = dirname(buf);
+-    if (!s || strncmp(s, "/", 32) != 0) {
+-	exit(1);
+-    } else {
+-	exit(0);
+-    }
+-}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-   ac_cv_have_broken_dirname="no"
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+- ac_cv_have_broken_dirname="yes"
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+-			LIBS="$save_LIBS"
+-
+-fi
+-echo "$as_me:$LINENO: result: $ac_cv_have_broken_dirname" >&5
+-echo "${ECHO_T}$ac_cv_have_broken_dirname" >&6
+-		if test "x$ac_cv_have_broken_dirname" = "xno" ; then
+-			LIBS="$LIBS -lgen"
+-			cat >>confdefs.h <<\_ACEOF
+-#define HAVE_DIRNAME 1
+-_ACEOF
+-
+-
+-for ac_header in libgen.h
+-do
+-as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
+-if eval "test \"\${$as_ac_Header+set}\" = set"; then
+-  echo "$as_me:$LINENO: checking for $ac_header" >&5
+-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Header+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-fi
+-echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_Header'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Header'}'`" >&6
+-else
+-  # Is the header compilable?
+-echo "$as_me:$LINENO: checking $ac_header usability" >&5
+-echo $ECHO_N "checking $ac_header usability... $ECHO_C" >&6
+-cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-$ac_includes_default
+-#include <$ac_header>
+-_ACEOF
+-rm -f conftest.$ac_objext
+-if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
+-  (eval $ac_compile) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest.$ac_objext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  ac_header_compiler=yes
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-ac_header_compiler=no
+-fi
+-rm -f conftest.$ac_objext conftest.$ac_ext
+-echo "$as_me:$LINENO: result: $ac_header_compiler" >&5
+-echo "${ECHO_T}$ac_header_compiler" >&6
+-
+-# Is the header present?
+-echo "$as_me:$LINENO: checking $ac_header presence" >&5
+-echo $ECHO_N "checking $ac_header presence... $ECHO_C" >&6
+-cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-#include <$ac_header>
+-_ACEOF
+-if { (eval echo "$as_me:$LINENO: \"$ac_cpp conftest.$ac_ext\"") >&5
+-  (eval $ac_cpp conftest.$ac_ext) 2>conftest.er1
+-  ac_status=$?
+-  egrep -v '^ *\+' conftest.er1 >conftest.err
+-  rm -f conftest.er1
+-  cat conftest.err >&5
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } >/dev/null; then
+-  if test -s conftest.err; then
+-    ac_cpp_err=$ac_c_preproc_warn_flag
+-  else
+-    ac_cpp_err=
+-  fi
+-else
+-  ac_cpp_err=yes
+-fi
+-if test -z "$ac_cpp_err"; then
+-  ac_header_preproc=yes
++  (exit $ac_status); }; }; then
++  eval "$as_ac_var=yes"
+ else
+   echo "$as_me: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  ac_header_preproc=no
+-fi
+-rm -f conftest.err conftest.$ac_ext
+-echo "$as_me:$LINENO: result: $ac_header_preproc" >&5
+-echo "${ECHO_T}$ac_header_preproc" >&6
+-
+-# So?  What about this header?
+-case $ac_header_compiler:$ac_header_preproc in
+-  yes:no )
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&5
+-echo "$as_me: WARNING: $ac_header: accepted by the compiler, rejected by the preprocessor!" >&2;}
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the preprocessor's result" >&5
+-echo "$as_me: WARNING: $ac_header: proceeding with the preprocessor's result" >&2;};;
+-  no:yes )
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: present but cannot be compiled" >&5
+-echo "$as_me: WARNING: $ac_header: present but cannot be compiled" >&2;}
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: check for missing prerequisite headers?" >&5
+-echo "$as_me: WARNING: $ac_header: check for missing prerequisite headers?" >&2;}
+-    { echo "$as_me:$LINENO: WARNING: $ac_header: proceeding with the preprocessor's result" >&5
+-echo "$as_me: WARNING: $ac_header: proceeding with the preprocessor's result" >&2;};;
+-esac
+-echo "$as_me:$LINENO: checking for $ac_header" >&5
+-echo $ECHO_N "checking for $ac_header... $ECHO_C" >&6
+-if eval "test \"\${$as_ac_Header+set}\" = set"; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  eval "$as_ac_Header=$ac_header_preproc"
++cat conftest.$ac_ext >&5
++eval "$as_ac_var=no"
+ fi
+-echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_Header'}'`" >&5
+-echo "${ECHO_T}`eval echo '${'$as_ac_Header'}'`" >&6
+-
++rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+ fi
+-if test `eval echo '${'$as_ac_Header'}'` = yes; then
++echo "$as_me:$LINENO: result: `eval echo '${'$as_ac_var'}'`" >&5
++echo "${ECHO_T}`eval echo '${'$as_ac_var'}'`" >&6
++if test `eval echo '${'$as_ac_var'}'` = yes; then
+   cat >>confdefs.h <<_ACEOF
+-#define `echo "HAVE_$ac_header" | $as_tr_cpp` 1
++#define `echo "HAVE_$ac_func" | $as_tr_cpp` 1
+ _ACEOF
+ 
+ fi
+-
+-done
+-
+-		fi
+-
+-fi
+-
+-
+-fi
+ done
+ 
+ 
+@@ -7924,57 +7444,6 @@
+ fi
+ 
+ 
+-# Check for broken snprintf
+-if test "x$ac_cv_func_snprintf" = "xyes" ; then
+-	echo "$as_me:$LINENO: checking whether snprintf correctly terminates long strings" >&5
+-echo $ECHO_N "checking whether snprintf correctly terminates long strings... $ECHO_C" >&6
+-	if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <stdio.h>
+-int main(void){char b[5];snprintf(b,5,"123456789");exit(b[4]!='\0');}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+-
+-			echo "$as_me:$LINENO: result: no" >&5
+-echo "${ECHO_T}no" >&6
+-			cat >>confdefs.h <<\_ACEOF
+-#define BROKEN_SNPRINTF 1
+-_ACEOF
+-
+-			{ echo "$as_me:$LINENO: WARNING: ****** Your snprintf() function is broken, complain to your vendor" >&5
+-echo "$as_me: WARNING: ****** Your snprintf() function is broken, complain to your vendor" >&2;}
+-
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+-fi
+-
+ echo "$as_me:$LINENO: checking whether getpgrp requires zero arguments" >&5
+ echo $ECHO_N "checking whether getpgrp requires zero arguments... $ECHO_C" >&6
+ if test "${ac_cv_func_getpgrp_void+set}" = set; then
+@@ -8484,240 +7953,68 @@
+ 			LDFLAGS="-L/usr/local/ssl/lib ${saved_LDFLAGS}"
+ 		fi
+ 		CPPFLAGS="-I/usr/local/ssl/include ${saved_CPPFLAGS}"
+-		cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-/* Override any gcc2 internal prototype to avoid an error.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-/* We use char because int might match the return type of a gcc2
+-   builtin and then its argument prototype would still apply.  */
+-char RAND_add ();
+-#ifdef F77_DUMMY_MAIN
+-#  ifdef __cplusplus
+-     extern "C"
+-#  endif
+-   int F77_DUMMY_MAIN() { return 1; }
+-#endif
+-int
+-main ()
+-{
+-RAND_add ();
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-rm -f conftest.$ac_objext conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } &&
+-         { ac_try='test -s conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-  cat >>confdefs.h <<\_ACEOF
+-#define HAVE_OPENSSL 1
+-_ACEOF
+-
+-else
+-  echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-
+-				{ { echo "$as_me:$LINENO: error: *** Can't find recent OpenSSL libcrypto (see config.log for details) ***" >&5
+-echo "$as_me: error: *** Can't find recent OpenSSL libcrypto (see config.log for details) ***" >&2;}
+-   { (exit 1); exit 1; }; }
+-
+-
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-
+-
+-fi
+-rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
+-
+-# Determine OpenSSL header version
+-echo "$as_me:$LINENO: checking OpenSSL header version" >&5
+-echo $ECHO_N "checking OpenSSL header version... $ECHO_C" >&6
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <stdio.h>
+-#include <string.h>
+-#include <openssl/opensslv.h>
+-#define DATA "conftest.sslincver"
+-int main(void) {
+-        FILE *fd;
+-        int rc;
+-
+-        fd = fopen(DATA,"w");
+-        if(fd == NULL)
+-                exit(1);
+-
+-	if ((rc = fprintf(fd ,"%x (%s)\n", OPENSSL_VERSION_NUMBER, OPENSSL_VERSION_TEXT)) <0)
+-		exit(1);
+-
+-	exit(0);
+-}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-
+-		ssl_header_ver=`cat conftest.sslincver`
+-		echo "$as_me:$LINENO: result: $ssl_header_ver" >&5
+-echo "${ECHO_T}$ssl_header_ver" >&6
+-
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+-
+-		echo "$as_me:$LINENO: result: not found" >&5
+-echo "${ECHO_T}not found" >&6
+-		{ { echo "$as_me:$LINENO: error: OpenSSL version header not found." >&5
+-echo "$as_me: error: OpenSSL version header not found." >&2;}
+-   { (exit 1); exit 1; }; }
+-
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+-
+-# Determine OpenSSL library version
+-echo "$as_me:$LINENO: checking OpenSSL library version" >&5
+-echo $ECHO_N "checking OpenSSL library version... $ECHO_C" >&6
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <stdio.h>
+-#include <string.h>
+-#include <openssl/opensslv.h>
+-#include <openssl/crypto.h>
+-#define DATA "conftest.ssllibver"
+-int main(void) {
+-        FILE *fd;
+-        int rc;
+-
+-        fd = fopen(DATA,"w");
+-        if(fd == NULL)
+-                exit(1);
+-
+-	if ((rc = fprintf(fd ,"%x (%s)\n", SSLeay(), SSLeay_version(SSLEAY_VERSION))) <0)
+-		exit(1);
+-
+-	exit(0);
+-}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-
+-		ssl_library_ver=`cat conftest.ssllibver`
+-		echo "$as_me:$LINENO: result: $ssl_library_ver" >&5
+-echo "${ECHO_T}$ssl_library_ver" >&6
+-
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+-
+-		echo "$as_me:$LINENO: result: not found" >&5
+-echo "${ECHO_T}not found" >&6
+-		{ { echo "$as_me:$LINENO: error: OpenSSL library not found." >&5
+-echo "$as_me: error: OpenSSL library not found." >&2;}
+-   { (exit 1); exit 1; }; }
+-
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+-
+-# Sanity check OpenSSL headers
+-echo "$as_me:$LINENO: checking whether OpenSSL's headers match the library" >&5
+-echo $ECHO_N "checking whether OpenSSL's headers match the library... $ECHO_C" >&6
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
++		cat >conftest.$ac_ext <<_ACEOF
+ #line $LINENO "configure"
+ #include "confdefs.h"
+ 
+-#include <string.h>
+-#include <openssl/opensslv.h>
+-int main(void) { exit(SSLeay() == OPENSSL_VERSION_NUMBER ? 0 : 1); }
+-
++/* Override any gcc2 internal prototype to avoid an error.  */
++#ifdef __cplusplus
++extern "C"
++#endif
++/* We use char because int might match the return type of a gcc2
++   builtin and then its argument prototype would still apply.  */
++char RAND_add ();
++#ifdef F77_DUMMY_MAIN
++#  ifdef __cplusplus
++     extern "C"
++#  endif
++   int F77_DUMMY_MAIN() { return 1; }
++#endif
++int
++main ()
++{
++RAND_add ();
++  ;
++  return 0;
++}
+ _ACEOF
+-rm -f conftest$ac_exeext
++rm -f conftest.$ac_objext conftest$ac_exeext
+ if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+   (eval $ac_link) 2>&5
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
++  (exit $ac_status); } &&
++         { ac_try='test -s conftest$ac_exeext'
+   { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+   (eval $ac_try) 2>&5
+   ac_status=$?
+   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+   (exit $ac_status); }; }; then
+-
+-		echo "$as_me:$LINENO: result: yes" >&5
+-echo "${ECHO_T}yes" >&6
++  cat >>confdefs.h <<\_ACEOF
++#define HAVE_OPENSSL 1
++_ACEOF
+ 
+ else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
++  echo "$as_me: failed program was:" >&5
+ cat conftest.$ac_ext >&5
+-( exit $ac_status )
+ 
+-		echo "$as_me:$LINENO: result: no" >&5
+-echo "${ECHO_T}no" >&6
+-		{ { echo "$as_me:$LINENO: error: Your OpenSSL headers do not match your library" >&5
+-echo "$as_me: error: Your OpenSSL headers do not match your library" >&2;}
++				{ { echo "$as_me:$LINENO: error: *** Can't find recent OpenSSL libcrypto (see config.log for details) ***" >&5
++echo "$as_me: error: *** Can't find recent OpenSSL libcrypto (see config.log for details) ***" >&2;}
+    { (exit 1); exit 1; }; }
+ 
+ 
+ fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
++rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
++
++
+ fi
++rm -f conftest.$ac_objext conftest$ac_exeext conftest.$ac_ext
++
++# Sanity check OpenSSL headers
++echo "$as_me:$LINENO: checking whether OpenSSL's headers match the library" >&5
++echo $ECHO_N "checking whether OpenSSL's headers match the library... $ECHO_C" >&6
++echo "$as_me:$LINENO: result: yes" >&5
++echo "${ECHO_T}yes" >&6
+ 
+ # Some Linux systems (Slackware) need crypt() from libcrypt, *not* the
+ # version in OpenSSL. Skip this for PAM
+@@ -8789,54 +8086,10 @@
+ # Check wheter OpenSSL seeds itself
+ echo "$as_me:$LINENO: checking whether OpenSSL's PRNG is internally seeded" >&5
+ echo $ECHO_N "checking whether OpenSSL's PRNG is internally seeded... $ECHO_C" >&6
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <string.h>
+-#include <openssl/rand.h>
+-int main(void) { exit(RAND_status() == 1 ? 0 : 1); }
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-
+-		OPENSSL_SEEDS_ITSELF=yes
+-		echo "$as_me:$LINENO: result: yes" >&5
++OPENSSL_SEEDS_ITSELF=yes
++echo "$as_me:$LINENO: result: yes" >&5
+ echo "${ECHO_T}yes" >&6
+ 
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+-
+-		echo "$as_me:$LINENO: result: no" >&5
+-echo "${ECHO_T}no" >&6
+-		# Default to use of the rand helper if OpenSSL doesn't
+-		# seed itself
+-		USE_RAND_HELPER=yes
+-
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+-
+-
+ # Do we want to force the use of the rand helper?
+ 
+ # Check whether --with-rand-helper or --without-rand-helper was given.
+@@ -13134,65 +12387,6 @@
+ 	"x$ac_cv_sizeof_long_int" != "x8" -a \
+ 	"x$ac_cv_sizeof_long_long_int" = "x0" ; then
+ 	NO_SFTP='#'
+-else
+-	if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <stdio.h>
+-#include <string.h>
+-#ifdef HAVE_SNPRINTF
+-main()
+-{
+-	char buf[50];
+-	char expected_out[50];
+-	int mazsize = 50 ;
+-#if (SIZEOF_LONG_INT == 8)
+-	long int num = 0x7fffffffffffffff;
+-#else
+-	long long num = 0x7fffffffffffffffll;
+-#endif
+-	strcpy(expected_out, "9223372036854775807");
+-	snprintf(buf, mazsize, "%lld", num);
+-	if(strcmp(buf, expected_out) != 0)
+-        	exit(1);
+-	exit(0);
+-}
+-#else
+-main() { exit(0); }
+-#endif
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-   true
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+- cat >>confdefs.h <<\_ACEOF
+-#define BROKEN_SNPRINTF 1
+-_ACEOF
+-
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+ fi
+ 
+ 
+@@ -14243,50 +13437,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+ 
+-	if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <sys/types.h>
+-#include <sys/socket.h>
+-#include <sys/uio.h>
+-int main() {
+-#ifdef msg_accrights
+-exit(1);
+-#endif
+-struct msghdr m;
+-m.msg_accrights = 0;
+-exit(0);
+-}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-   ac_cv_have_accrights_in_msghdr="yes"
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+- ac_cv_have_accrights_in_msghdr="no"
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
++		 ac_cv_have_accrights_in_msghdr="no"
+ 
+ fi
+ echo "$as_me:$LINENO: result: $ac_cv_have_accrights_in_msghdr" >&5
+@@ -14304,50 +13455,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+ 
+-	if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling" >&5
+-echo "$as_me: error: cannot run test program while cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-#include <sys/types.h>
+-#include <sys/socket.h>
+-#include <sys/uio.h>
+-int main() {
+-#ifdef msg_control
+-exit(1);
+-#endif
+-struct msghdr m;
+-m.msg_control = 0;
+-exit(0);
+-}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-   ac_cv_have_control_in_msghdr="yes"
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+- ac_cv_have_control_in_msghdr="no"
+-
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
++		 ac_cv_have_control_in_msghdr="yes"
+ 
+ fi
+ echo "$as_me:$LINENO: result: $ac_cv_have_control_in_msghdr" >&5
+@@ -15783,34 +14891,6 @@
+ 
+ 	fi
+ fi
+-echo "$as_me:$LINENO: checking for \"/dev/ptc\"" >&5
+-echo $ECHO_N "checking for \"/dev/ptc\"... $ECHO_C" >&6
+-if test "${ac_cv_file___dev_ptc_+set}" = set; then
+-  echo $ECHO_N "(cached) $ECHO_C" >&6
+-else
+-  test "$cross_compiling" = yes &&
+-  { { echo "$as_me:$LINENO: error: cannot check for file existence when cross compiling" >&5
+-echo "$as_me: error: cannot check for file existence when cross compiling" >&2;}
+-   { (exit 1); exit 1; }; }
+-if test -r ""/dev/ptc""; then
+-  ac_cv_file___dev_ptc_=yes
+-else
+-  ac_cv_file___dev_ptc_=no
+-fi
+-fi
+-echo "$as_me:$LINENO: result: $ac_cv_file___dev_ptc_" >&5
+-echo "${ECHO_T}$ac_cv_file___dev_ptc_" >&6
+-if test $ac_cv_file___dev_ptc_ = yes; then
+-
+-		cat >>confdefs.h <<_ACEOF
+-#define HAVE_DEV_PTS_AND_PTC 1
+-_ACEOF
+-
+-		have_dev_ptc=1
+-
+-
+-fi
+-
+ 
+ # Options from here on. Some of these are preset by platform above
+ 
+@@ -16042,81 +15122,7 @@
+ 	{ echo "$as_me:$LINENO: WARNING: Make sure the path to scp is in /etc/login.conf" >&5
+ echo "$as_me: WARNING: Make sure the path to scp is in /etc/login.conf" >&2;}
+ 	else
+-	if test "$cross_compiling" = yes; then
+-   user_path="/usr/bin:/bin:/usr/sbin:/sbin"
+-
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
+-#line $LINENO "configure"
+-#include "confdefs.h"
+-
+-/* find out what STDPATH is */
+-#include <stdio.h>
+-#ifdef HAVE_PATHS_H
+-# include <paths.h>
+-#endif
+-#ifndef _PATH_STDPATH
+-# define _PATH_STDPATH "/usr/bin:/bin:/usr/sbin:/sbin"
+-#endif
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <fcntl.h>
+-#define DATA "conftest.stdpath"
+-
+-main()
+-{
+-	FILE *fd;
+-	int rc;
+-
+-	fd = fopen(DATA,"w");
+-	if(fd == NULL)
+-		exit(1);
+-
+-	if ((rc = fprintf(fd,"%s", _PATH_STDPATH)) < 0)
+-		exit(1);
+-
+-	exit(0);
+-}
+-
+-_ACEOF
+-rm -f conftest$ac_exeext
+-if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+-  (eval $ac_link) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+-  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+-  (eval $ac_try) 2>&5
+-  ac_status=$?
+-  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-  (exit $ac_status); }; }; then
+-   user_path=`cat conftest.stdpath`
+-else
+-  echo "$as_me: program exited with status $ac_status" >&5
+-echo "$as_me: failed program was:" >&5
+-cat conftest.$ac_ext >&5
+-( exit $ac_status )
+- user_path="/usr/bin:/bin:/usr/sbin:/sbin"
+-fi
+-rm -f core core.* *.core conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
+-# make sure $bindir is in USER_PATH so scp will work
+-		t_bindir=`eval echo ${bindir}`
+-		case $t_bindir in
+-			NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$prefix~"` ;;
+-		esac
+-		case $t_bindir in
+-			NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$ac_default_prefix~"` ;;
+-		esac
+-		echo $user_path | grep ":$t_bindir"  > /dev/null 2>&1
+-		if test $? -ne 0  ; then
+-			echo $user_path | grep "^$t_bindir"  > /dev/null 2>&1
+-			if test $? -ne 0  ; then
+-				user_path=$user_path:$t_bindir
+-				echo "$as_me:$LINENO: result: Adding $t_bindir to USER_PATH so scp will work" >&5
+-echo "${ECHO_T}Adding $t_bindir to USER_PATH so scp will work" >&6
+-			fi
+-		fi
++		user_path="/usr/bin:/bin:/usr/sbin:/sbin"
+ 	fi
+ 
+ fi;

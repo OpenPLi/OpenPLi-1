@@ -1,0 +1,22 @@
+pre 
+{
+	font-family: monospace;
+	border: none;
+	padding: 0;
+}
+
+div.fatal { 
+	background: rgb(255,0,0);
+}
+
+div.warning { 
+	background: rgb(255,255,0);
+}
+
+div.debug { 
+	background: rgb(255,255,255);
+}
+
+div.unknown {
+	background: rgb(255,255,255);
+}

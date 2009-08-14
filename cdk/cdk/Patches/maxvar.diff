@@ -1,0 +1,35 @@
+--- linux-2.6.9/drivers/mtd/maps/dreambox.c~	2008-07-19 16:35:09.000000000 +0200
++++ linux-2.6.9/drivers/mtd/maps/dreambox.c	2008-07-19 16:42:51.000000000 +0200
+@@ -75,12 +75,12 @@
+ 	{
+ 		name: "DreamBOX cramfs+squashfs",
+ 		offset: 0x000000,
+-		size:   0x600000,
++		size:   0x500000,
+ 	},
+ 	{
+ 		name: "DreamBOX jffs2",
+-		offset: 0x600000,
+-		size:   0x1c0000,
++		offset: 0x500000,
++		size:   0x2c0000,
+ 	},
+ 	{
+ 		name: "DreamBOX OpenBIOS",
+@@ -101,13 +101,13 @@
+ 	},
+ 	{
+ 		name: "DreamBOX SquashedFS",
+-		offset: 0x120000,
+-		size:	0x4e0000
++		offset: 0x100000,
++		size:	0x400000
+ 	},
+ 	{
+ 		name: "DreamBOX Cramfs",
+ 		offset: 0,
+-		size:	0x120000
++		size:	0x100000
+ 	}
+ };
+ #define NUM_DREAMBOX_FLASH_PARTITIONS \

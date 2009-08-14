@@ -1,0 +1,142 @@
+/**
+
+\page skin Skinning
+
+Tired of writing tons of "move(ePoint(x, y))" and re-write them after an enduser complains about the size?
+Well, Skins are made to make dialog creation easier. As a side effect, you get customizable dialogs.
+
+Skins are written in XML. XML is a sgml-based language (correct me if i'm wrong), and the skinfiles used in enigma
+are an application of XML. They should have the fileextension ".esml". It's MIME content-type is "x-application/esml",
+if you ever need this. 
+
+Here is a small example of a working skinfile:
+
+\code
+<!DOCTYPE skin SYSTEM "skin.dtd" [ ]>
+<eskin>
+	<author>
+		<name>Felix Domke</name>
+		<email>tmbinc@gmx.net</email>
+	</author>
+	
+	<colors>
+		<color name="background" color="#ff000000" />
+
+		<color name="header" color="#030FA4" end="#FFE403" size="16" />
+		<color name="content" color="#22030F60" end="#ffffff" size="16" />
+		<color name="content_selected" color="#2290A0FF" end="#000F33" size="16" />
+	</colors>
+	
+	<colorscheme>
+		<map name="backgroundColor" color="content" />
+
+		<map name="eServiceSelector.highlight" color="content_selected" />
+		<map name="focusedColor" color="content_selected" />
+
+		<map name="fgColor" color="content" />
+		<map name="fgColorDisabled" color="content" />
+
+		<map name="eWindow.titleBarColor" color="header" />
+	</colorscheme>
+	
+	<values>
+		<value name="eWindow.titleFontSize" value="25" />
+		<value name="eWindow.borderLeft" value="0" />
+		<value name="eWindow.borderRight" value="0" />
+		<value name="eWindow.borderBottom" value="0" />
+		<value name="eWindow.borderTop" value="32" />
+		<value name="eWindow.titleOffsetX" value="10" />
+		<value name="eWindow.titleOffsetY" value="0" />
+		<value name="eWindow.titleHeight" value="32" />
+		<value name="fontsize" value="24" />
+	</values>
+
+	<images basepath="" target="fb">
+		<img name="enigma_logo" src="enigma2.png" nomerge="yes" />
+		<img name="lcd_menu" src="lcdmenu.png" nomerge="yes" />
+		<img name="lcd_scart" src="video.png" nomerge="yes" />
+		<img name="eWindow.top" src="header.png" />
+		<img name="eWindow.topLeft" src="header.png" />
+		<img name="eWindow.topRight" src="header.png" />
+		<img name="eWindow.left" src="header.png" />
+		<img name="eWindow.right" src="header.png" />
+		<img name="eWindow.bottomLeft" src="bottom.png" />
+		<img name="eWindow.bottom" src="bottom.png" />
+		<img name="eWindow.bottomRight" src="bottom.png" />
+	</images>
+
+	<object name="eventview">
+		<eWindow cposition="50:80" csize="590:400" name="title">
+			<eLabel position="10:5" size="e:e-30" name="epg_description" font="NimbusSansL-Regular Sans L Regular;24" backgroundColor="content" wrap="on"/>
+			<eWidget position="0:e-30" size="600:e" backgroundColor="osd_shadowcol" />
+			<eLabel position="10:e-30" size="130:e" name="date" font="NimbusSansL-Regular Sans L Regular;18" backgroundColor="osd_shadow"/>
+			<eLabel position="130:e-30" size="230:e" name="time" font="NimbusSansL-Regular Sans L Regular;18" backgroundColor="osd_shadow"/>
+			<eLabel position="360:e-30" size="230:e" name="channel" font="NimbusSansL-Regular Sans L Regular;18" backgroundColor="osd_shadow" align="right"/>
+		</eWindow>
+	</object>
+</eskin>
+\endcode
+
+Let's diskuss these sections.
+
+The first one should be obvious - you can specify the author and his or her email address.
+
+Example:
+\code
+  <autor>
+    <name>Felix Domke</name>
+    <email>tmbinc@gmx.net</email>
+  </autor>
+\endcode
+
+The next sections are colors. Since enigma is made to run on 8bpp modes too, which mean that you cannot use any color that you want
+(instead you have a palette, or color lookup table, with 2^8=256 entries. Each entry correspons to one color that can be 
+used on the screen. All graphic elements on the screen are using the same CLUT. Thus you have to declare this palette first, 
+and it cannot exceed 256 entries. You can specify the name of the color with the \c name attribute. The color itself is
+given in the \c color attribute, as a #argb, like in html (with the addional alpha value). The alpha value defines the
+opacity of the color. 0 means "completely
+visible", while ff means "not visible at all". Values between are possible, but be prepared that some hardware does only support
+one or "one and a half" bits of transparency. Off course you can specify other values, but they will be set to the next supported
+value then.
+
+For some things like fonts you need gradients. Gradients have an additional \c end and \c size attribute. The gradient goes
+from \c color to \c end in \c size steps.
+
+Summary of attributes:
+\arg \c name The name of the color.
+\arg \c color The color itself given in #argb
+\arg \c end The end-color, for gradients.
+\arg \c size The size of the gradient.
+
+Example:
+\code
+	<colors>
+		<color name="background" color="#ff000000" />
+
+		<color name="header" color="#030FA4" end="#FFE403" size="16" />
+		<color name="content" color="#22030F60" end="#ffffff" size="16" />
+		<color name="content_selected" color="#2290A0FF" end="#000F33" size="16" />
+	</colors>
+\endcode
+
+The next section is named \c colorsheme. Here you can map different colors to different items on the screen. You can \c map
+a \c name to a \c color. Colors can be specified by their name as given in the \c color section, and for gradients you can
+also apply an offset like \c content+10.
+
+Summary of attributes:
+\arg \c name The name of the item. (Look below.)
+\arg \c color The color of the item.
+
+(Incomplete) summary of named items:
+\arg \c eWindow.titleBarColor specifies the background color of the titlebar.
+\arg \c backgroundColor specifies the global (default) background color of a window.
+\arg \c eProgress.border specifies the color of the border of the progressbar.
+\arg \c eProgress.right specifies the color of the right of the progressbar.
+\arg \c eProgress.left specifies the color of the left of the progressbar.
+\arg \c focusedColor specifies a global focus color, for example used in input widgets like \ref eNumber.
+\arg \c fgColor specifies a global foreground color, for example used for text.
+\arg \c eServiceSelector.highlight specifies the highlight color of the selector in the \c eServiceSelector
+
+\todo values, images, objects itself and how to use them in your code.
+
+*/

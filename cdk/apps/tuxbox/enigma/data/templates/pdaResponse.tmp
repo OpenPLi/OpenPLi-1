@@ -1,0 +1,11 @@
+<html>
+	<head>
+		<title>Info</title>
+	</head>
+	<body>
+		#MSG#
+		<script>
+			window.setTimeout("close()", #WAIT#);
+		</script>
+	</body>
+</html>

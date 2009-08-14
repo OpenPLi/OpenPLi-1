@@ -1,0 +1,3389 @@
+diff -Naur db-2.7.7.orig/btree/bt_curadj.c db-2.7.7/btree/bt_curadj.c
+--- db-2.7.7.orig/btree/bt_curadj.c	Thu Dec  3 04:04:45 1998
++++ db-2.7.7/btree/bt_curadj.c	Tue Aug 13 08:20:00 2002
+@@ -249,7 +249,7 @@
+ 	for (dbc = TAILQ_FIRST(&dbp->active_queue);
+ 	    dbc != NULL; dbc = TAILQ_NEXT(dbc, links)) {
+ 		cp = (CURSOR *)dbc->internal;
+-		if (cp->pgno == ppgno)
++		if (cp->pgno == ppgno) {
+ 			if (cp->indx < split_indx) {
+ 				if (cleft)
+ 					cp->pgno = lpgno;
+@@ -257,7 +257,8 @@
+ 				cp->pgno = rpgno;
+ 				cp->indx -= split_indx;
+ 			}
+-		if (cp->dpgno == ppgno)
++		}
++		if (cp->dpgno == ppgno) {
+ 			if (cp->dindx < split_indx) {
+ 				if (cleft)
+ 					cp->dpgno = lpgno;
+@@ -265,6 +266,7 @@
+ 				cp->dpgno = rpgno;
+ 				cp->dindx -= split_indx;
+ 			}
++		}
+ 	}
+ 	DB_THREAD_UNLOCK(dbp);
+ }
+diff -Naur db-2.7.7.orig/btree/bt_search.c db-2.7.7/btree/bt_search.c
+--- db-2.7.7.orig/btree/bt_search.c	Wed Dec 16 20:51:23 1998
++++ db-2.7.7/btree/bt_search.c	Tue Aug 13 08:20:00 2002
+@@ -327,11 +327,12 @@
+ 	for (epg = cp->sp; epg <= cp->csp; ++epg) {
+ 		if (epg->page != NULL)
+ 			(void)memp_fput(dbp->mpf, epg->page, 0);
+-		if (epg->lock != LOCK_INVALID)
++		if (epg->lock != LOCK_INVALID) {
+ 			if (nolocks)
+ 				(void)__BT_LPUT(dbc, epg->lock);
+ 			else
+ 				(void)__BT_TLPUT(dbc, epg->lock);
++		}
+ 	}
+ 
+ 	/* Clear the stack, all pages have been released. */
+diff -Naur db-2.7.7.orig/build_unix/Versions db-2.7.7/build_unix/Versions
+--- db-2.7.7.orig/build_unix/Versions	Thu Jan  1 01:00:00 1970
++++ db-2.7.7/build_unix/Versions	Tue Aug 13 08:20:00 2002
+@@ -0,0 +1,4 @@
++DB2 {
++  global:
++    *;
++};
+diff -Naur db-2.7.7.orig/common/db_apprec.c db-2.7.7/common/db_apprec.c
+--- db-2.7.7.orig/common/db_apprec.c	Mon Apr 12 18:07:38 1999
++++ db-2.7.7/common/db_apprec.c	Tue Aug 13 08:20:00 2002
+@@ -178,11 +178,12 @@
+ 		else
+ 			ret = __db_dispatch(lp,
+ 			    &data, &lsn, TXN_BACKWARD_ROLL, txninfo);
+-		if (ret != 0)
++		if (ret != 0) {
+ 			if (ret != DB_TXN_CKP)
+ 				goto msgerr;
+ 			else
+ 				ret = 0;
++		}
+ 	}
+ 	if (ret != 0 && ret != DB_NOTFOUND)
+ 		goto out;
+@@ -192,17 +193,19 @@
+ 	 */
+ 	for (ret = log_get(lp, &lsn, &data, DB_NEXT);
+ 	    ret == 0; ret = log_get(lp, &lsn, &data, DB_NEXT)) {
+-		if (dbenv->tx_recover != NULL)
++		if (dbenv->tx_recover != NULL) {
+ 			ret = dbenv->tx_recover(lp,
+ 			    &data, &lsn, TXN_FORWARD_ROLL, txninfo);
+-		else
++		} else {
+ 			ret = __db_dispatch(lp,
+ 			    &data, &lsn, TXN_FORWARD_ROLL, txninfo);
+-		if (ret != 0)
++		}
++		if (ret != 0) {
+ 			if (ret != DB_TXN_CKP)
+ 				goto msgerr;
+ 			else
+ 				ret = 0;
++		}
+ 	}
+ 	if (ret != DB_NOTFOUND)
+ 		goto out;
+diff -Naur db-2.7.7.orig/common/db_region.c db-2.7.7/common/db_region.c
+--- db-2.7.7.orig/common/db_region.c	Mon Apr 12 18:07:38 1999
++++ db-2.7.7/common/db_region.c	Tue Aug 13 08:20:00 2002
+@@ -278,7 +278,7 @@
+ 	 * obvious races in doing this, but it should eventually settle down
+ 	 * to a winner and then things should proceed normally.
+ 	 */
+-	if ((ret = __db_mapregion(infop->name, infop)) != 0)
++	if ((ret = __db_mapregion(infop->name, infop)) != 0) {
+ 		if (ret == EAGAIN) {
+ 			/*
+ 			 * Pretend we created the region even if we didn't so
+@@ -289,6 +289,7 @@
+ 			goto retry;
+ 		} else
+ 			goto err;
++	}
+ 
+ region_init:
+ 	/*
+@@ -475,7 +476,7 @@
+ 	 * REGION_LASTDETACH flag, so that we do all necessary cleanup when
+ 	 * the application closes the region.
+ 	 */
+-	if (F_ISSET(infop, REGION_PRIVATE) && !F_ISSET(infop, REGION_MALLOC))
++	if (F_ISSET(infop, REGION_PRIVATE) && !F_ISSET(infop, REGION_MALLOC)) {
+ 		if (F_ISSET(infop, REGION_HOLDINGSYS))
+ 			F_SET(infop, REGION_LASTDETACH);
+ 		else {
+@@ -485,6 +486,7 @@
+ 			(void)__os_close(infop->fd);
+ 			(void)__os_unlink(infop->name);
+ 		}
++	}
+ 
+ 	return (ret);
+ }
+@@ -508,8 +510,18 @@
+ 	 * If the region was removed when it was created, no further action
+ 	 * is required.
+ 	 */
+-	if (F_ISSET(infop, REGION_REMOVED))
++	if (F_ISSET(infop, REGION_REMOVED)) {
++		if (F_ISSET(infop, REGION_PRIVATE)
++		    && !F_ISSET(infop, REGION_MALLOC))
++			/*
++			 * If it is private and not malloced, the
++			 * region is still mapped in. We need to
++			 * discard our mapping of the region.
++			 */
++			ret = __db_unmapregion(infop);
+ 		goto done;
++	}
++
+ 	/*
+ 	 * If the region was created in memory returned by malloc, the only
+ 	 * action required is freeing the memory.
+@@ -538,12 +550,14 @@
+ 	 * what happened.
+ 	 */
+ 	detach = 0;
+-	if (F_ISSET(infop, REGION_LASTDETACH))
++	if (F_ISSET(infop, REGION_LASTDETACH)) {
+ 		if (rlp->refcnt == 0) {
+ 			detach = 1;
+ 			rlp->valid = 0;
+-		} else
++		} else {
+ 			ret = EBUSY;
++		}
++	}
+ 
+ 	/* Release the lock. */
+ 	(void)__db_mutex_unlock(&rlp->lock, infop->fd);
+diff -Naur db-2.7.7.orig/common/db_salloc.c db-2.7.7/common/db_salloc.c
+--- db-2.7.7.orig/common/db_salloc.c	Tue Nov 17 00:49:45 1998
++++ db-2.7.7/common/db_salloc.c	Tue Aug 13 08:20:00 2002
+@@ -222,11 +222,12 @@
+ 		merged = 1;
+ 	}
+ 
+-	if (!merged)
++	if (!merged) {
+ 		if (lastp == NULL)
+ 			SH_LIST_INSERT_HEAD(hp, newp, links, __data);
+ 		else
+ 			SH_LIST_INSERT_AFTER(lastp, newp, links, __data);
++	}
+ }
+ 
+ /*
+diff -Naur db-2.7.7.orig/cxx/cxx_app.cpp db-2.7.7/cxx/cxx_app.cpp
+--- db-2.7.7.orig/cxx/cxx_app.cpp	Wed Dec 16 20:53:47 1998
++++ db-2.7.7/cxx/cxx_app.cpp	Tue Aug 13 08:20:00 2002
+@@ -20,6 +20,8 @@
+ #include <stdio.h>              // needed for setErrorStream
+ #include <string.h>
+ 
++using namespace std;
++
+ ////////////////////////////////////////////////////////////////////////
+ //                                                                    //
+ //                            DbEnv                                   //
+@@ -125,7 +127,7 @@
+ // db_env triggered the call.  A user that has multiple DB_ENVs
+ // will simply not be able to have different streams for each one.
+ //
+-void DbEnv::set_error_stream(class ostream *stream)
++void DbEnv::set_error_stream(ostream *stream)
+ {
+     error_stream_ = stream;
+ 
+diff -Naur db-2.7.7.orig/db/db.c db-2.7.7/db/db.c
+--- db-2.7.7.orig/db/db.c	Tue Aug 31 19:45:43 1999
++++ db-2.7.7/db/db.c	Tue Aug 13 08:20:00 2002
+@@ -193,11 +193,12 @@
+ 	 * are possible for temporary files.
+ 	 */
+ 	if (dbenv != NULL) {
+-		if (dbenv->lk_info != NULL)
++		if (dbenv->lk_info != NULL) {
+ 			if (F_ISSET(dbenv, DB_ENV_CDB))
+ 				F_SET(dbp, DB_AM_CDB);
+ 			else
+ 				F_SET(dbp, DB_AM_LOCKING);
++		}
+ 		if (fname != NULL && dbenv->lg_info != NULL)
+ 			F_SET(dbp, DB_AM_LOGGING);
+ 	}
+@@ -277,7 +278,7 @@
+ 		retry_cnt = 0;
+ open_retry:	if (LF_ISSET(DB_CREATE)) {
+ 			if ((ret = __db_open(real_name, flags | DB_EXCL,
+-			    OKFLAGS | DB_EXCL, mode, &fd)) != 0)
++			    OKFLAGS | DB_EXCL, mode, &fd)) != 0) {
+ 				if (ret == EEXIST) {
+ 					LF_CLR(DB_CREATE);
+ 					goto open_retry;
+@@ -286,6 +287,7 @@
+ 					    "%s: %s", fname, strerror(ret));
+ 					goto err;
+ 				}
++			}
+ 		} else
+ 			if ((ret = __db_open(real_name,
+ 			    flags, OKFLAGS, mode, &fd)) != 0) {
+@@ -571,17 +573,19 @@
+ 	 * Store the file id in the locker structure -- we can get it from
+ 	 * there as necessary, and it saves having two copies.
+ 	 */
+-	if (need_fileid)
++	if (need_fileid) {
+ 		if (fname == NULL) {
+ 			memset(dbp->fileid, 0, DB_FILE_ID_LEN);
+ 			if (F_ISSET(dbp, DB_AM_LOCKING) &&
+ 			    (ret = lock_id(dbenv->lk_info,
+ 			    (u_int32_t *)dbp->fileid)) != 0)
+ 				goto err;
+-		} else
++		} else {
+ 			if ((ret = __os_fileid(dbenv,
+ 			    real_name, 1, dbp->fileid)) != 0)
+ 				goto err;
++		}
++	}
+ 
+ 	/* No further use for the real name. */
+ 	if (real_name != NULL)
+diff -Naur db-2.7.7.orig/db/db_rec.c db-2.7.7/db/db_rec.c
+--- db-2.7.7.orig/db/db_rec.c	Mon Dec  7 03:22:35 1998
++++ db-2.7.7/db/db_rec.c	Tue Aug 13 08:20:00 2002
+@@ -88,11 +88,12 @@
+ 		change = DB_MPOOL_DIRTY;
+ 	}
+ 
+-	if (change)
++	if (change) {
+ 		if (redo)
+ 			LSN(pagep) = *lsnp;
+ 		else
+ 			LSN(pagep) = argp->pagelsn;
++	}
+ 
+ 	if ((ret = memp_fput(mpf, pagep, change)) != 0)
+ 		goto out;
+@@ -124,7 +125,7 @@
+ 	REC_PRINT(__db_split_print);
+ 	REC_INTRO(__db_split_read);
+ 
+-	if ((ret = memp_fget(mpf, &argp->pgno, 0, &pagep)) != 0)
++	if ((ret = memp_fget(mpf, &argp->pgno, 0, &pagep)) != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -133,10 +134,12 @@
+ 			 * don't bother creating a page.
+ 			 */
+ 			goto done;
+-		} else
++		} else {
+ 			if ((ret = memp_fget(mpf,
+ 			    &argp->pgno, DB_MPOOL_CREATE, &pagep)) != 0)
+ 				goto out;
++		}
++	}
+ 
+ 	/*
+ 	 * There are two types of log messages here, one for the old page
+@@ -253,7 +256,7 @@
+ 	/* Now check the previous page. */
+ ppage:	if (argp->prev_pgno != PGNO_INVALID) {
+ 		change = 0;
+-		if ((ret = memp_fget(mpf, &argp->prev_pgno, 0, &pagep)) != 0)
++		if ((ret = memp_fget(mpf, &argp->prev_pgno, 0, &pagep)) != 0) {
+ 			if (!redo) {
+ 				/*
+ 				 * We are undoing and the page doesn't exist.
+@@ -264,10 +267,12 @@
+ 				*lsnp = argp->prev_lsn;
+ 				ret = 0;
+ 				goto npage;
+-			} else
++			} else {
+ 				if ((ret = memp_fget(mpf, &argp->prev_pgno,
+ 				    DB_MPOOL_CREATE, &pagep)) != 0)
+ 					goto out;
++			}
++		}
+ 
+ 		cmp_n = log_compare(lsnp, &LSN(pagep));
+ 		cmp_p = log_compare(&LSN(pagep), &argp->prevlsn);
+@@ -293,7 +298,7 @@
+ 	/* Now check the next page.  Can only be set on a delete. */
+ npage:	if (argp->next_pgno != PGNO_INVALID) {
+ 		change = 0;
+-		if ((ret = memp_fget(mpf, &argp->next_pgno, 0, &pagep)) != 0)
++		if ((ret = memp_fget(mpf, &argp->next_pgno, 0, &pagep)) != 0) {
+ 			if (!redo) {
+ 				/*
+ 				 * We are undoing and the page doesn't exist.
+@@ -302,10 +307,12 @@
+ 				 * this case, don't bother creating a page.
+ 				 */
+ 				goto done;
+-			} else
++			} else {
+ 				if ((ret = memp_fget(mpf, &argp->next_pgno,
+ 				    DB_MPOOL_CREATE, &pagep)) != 0)
+ 					goto out;
++			}
++		}
+ 
+ 		cmp_n = log_compare(lsnp, &LSN(pagep));
+ 		cmp_p = log_compare(&LSN(pagep), &argp->nextlsn);
+@@ -544,7 +551,7 @@
+ 	if ((ret = memp_fput(mpf, pagep, change)) != 0)
+ 		goto out;
+ 
+-	if ((ret = memp_fget(mpf, &argp->nextpgno, 0, &pagep)) != 0)
++	if ((ret = memp_fget(mpf, &argp->nextpgno, 0, &pagep)) != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -553,10 +560,12 @@
+ 			 * don't bother creating a page.
+ 			 */
+ 			goto done;
+-		} else
++		} else {
+ 			if ((ret = memp_fget(mpf,
+ 			    &argp->nextpgno, DB_MPOOL_CREATE, &pagep)) != 0)
+ 				goto out;
++		}
++	}
+ 
+ 	change = 0;
+ 	cmp_n = log_compare(lsnp, &LSN(pagep));
+diff -Naur db-2.7.7.orig/dist/Makefile.in db-2.7.7/dist/Makefile.in
+--- db-2.7.7.orig/dist/Makefile.in	Mon Dec  7 20:05:59 1998
++++ db-2.7.7/dist/Makefile.in	Tue Aug 13 08:22:11 2002
+@@ -2,12 +2,16 @@
+ 
+ srcdir=	@srcdir@/..
+ CPPFLAGS=-I. -I$(srcdir)/include @CPPFLAGS@
+-CFLAGS=	-c @CFLAGS@ $(CPPFLAGS)
++CFLAGS=	@CFLAGS@ $(CPPFLAGS)
+ CC=	@CC@
+-CXXFLAGS=-c @CXXFLAGS@ $(CPPFLAGS)
++CXXFLAGS=@CXXFLAGS@ $(CPPFLAGS)
+ CXX=	@CXX@
+ LDFLAGS=@LDFLAGS@
+ LIBS=	@LIBS@
++DBLIB=  -L. -ldb2
++
++MAJOR=2
++VERSION=2.7.7
+ 
+ SHELL=	@db_cv_path_sh@
+ ar=	@db_cv_path_ar@ cr
+@@ -18,6 +22,8 @@
+ rm=	@db_cv_path_rm@
+ strip=	@db_cv_path_strip@
+ 
++VPATH = $(srcdir)/btree:$(srcdir)/clib:$(srcdir)/common:$(srcdir)/db:$(srcdir)/db185:$(srcdir)/db_archive:$(srcdir)/db_checkpoint:$(srcdir)/db_deadlock:$(srcdir)/db_dump:$(srcdir)/db_dump185:$(srcdir)/db_load:$(srcdir)/db_printlog:$(srcdir)/db_recover:$(srcdir)/db_stat:$(srcdir)/dbm:$(srcdir)/examples:$(srcdir)/hash:$(srcdir)/hsearch:$(srcdir)/lock:$(srcdir)/log:$(srcdir)/mp:$(srcdir)/mutex:$(srcdir)/os:$(srcdir)/test:$(srcdir)/txn:$(srcdir)/xa:$(srcdir)/cxx:$(srcdir)/dist:)
++
+ OBJS=   bt_compare.o bt_conv.o bt_curadj.o bt_cursor.o bt_delete.o \
+ 	bt_open.o bt_page.o bt_put.o bt_rec.o bt_recno.o bt_rsearch.o \
+ 	bt_search.o bt_split.o bt_stat.o btree_auto.o db.o db_appinit.o \
+@@ -34,105 +40,136 @@
+ 	os_fsync.o os_map.o os_oflags.o os_open.o os_rpath.o os_rw.o \
+ 	os_seek.o os_sleep.o os_spin.o os_stat.o os_tmpdir.o os_unlink.o \
+ 	txn.o txn_auto.o txn_rec.o xa.o xa_db.o xa_map.o
++
+ COBJS=	cxx_app.o cxx_except.o cxx_lock.o cxx_log.o cxx_mpool.o cxx_table.o \
+ 	cxx_txn.o
++SHARED_COBJS= $(COBJS:.o=.lo)
+ 
+ PROGS=	@build_additional@ db_archive db_checkpoint db_deadlock \
+ 	db_dump db_load db_printlog db_recover db_stat
+ 
+ LOBJS=	@LIBOBJS@
++
++SHARED_OBJS= $(OBJS:.o=.lo) $(LOBJS:.o=.lo)
++
+ POBJS=	err.o getlong.o
+ 
+-libdb=	libdb.a
++libdb=libdb2.a libdb2.so libdb2++.a libdb2++.so
+ all: $(libdb) $(PROGS)
+ 
+-$(libdb): db.h $(OBJS) $(LOBJS)
++libdb2.a: db.h $(OBJS) $(LOBJS)
+ 	$(rm) -f $@
+ 	$(ar) $@ $(OBJS) $(LOBJS)
+ 	test ! -f $(ranlib) || $(ranlib) $@
+ 
++libdb2++.a: $(COBJS)
++	$(rm) -f $@
++	$(ar) $@ $(COBJS)
++	test ! -f $(ranlib) || $(ranlib) $@
++
++Versions: $(SHARED_OBJS)
++	rm -f $@
++	echo "DB2 {" > $@
++	echo "  global:" >> $@
++	nm $(SHARED_OBJS) | grep " [Tt] " | cut -d" " -f3 | sed -e 's/$$/;/' >> $@
++	echo "};" >> $@
++
++libdb2.so: db.h $(SHARED_OBJS) Versions
++	$(rm) -f $@*
++	$(CC) -shared -o $@ $(LDFLAGS) -Wl,-Bsymbolic -Wl,-soname,$@.$(MAJOR) \
++		-Wl,--version-script=Versions $(SHARED_OBJS) $(LIBS)
++	ln -sf $@ $@.$(MAJOR)
++	ln -sf $@ $@.$(VERSION)
++
++libdb2++.so: libdb2.so $(SHARED_COBJS)
++	$(rm) -f $@*
++	$(CXX) -shared -o $@ $(LDFLAGS) -Wl,-Bsymbolic -Wl,-soname,$@.$(MAJOR) \
++		-Wl,--version-script=Versions $(SHARED_COBJS) $(DBLIB) $(LIBS)
++	ln -sf $@ $@.$(MAJOR)
++	ln -sf $@ $@.$(VERSION)
++
+ DBA=	db_archive.o $(POBJS)
+ db_archive: $(DBA) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBA) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBA) $(DBLIB) $(LIBS)
+ 
+ DBB=	db_checkpoint.o $(POBJS)
+ db_checkpoint: $(DBB) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBB) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBB) $(DBLIB) $(LIBS)
+ 
+ DBC=	db_deadlock.o $(POBJS)
+ db_deadlock: $(DBC) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBC) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBC) $(DBLIB) $(LIBS)
+ 
+ DBD=	db_dump.o $(POBJS)
+ db_dump: $(DBD) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBD) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBD) $(DBLIB) $(LIBS)
+ 
+ DBE=	db_dump185.o $(POBJS)
+ db_dump185: $(DBE)
+-	$(CC) -o $@ $(LDFLAGS) $(DBE) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBE) $(DBLIB) $(LIBS)
+ 
+ DBF=	db_load.o $(POBJS)
+ db_load: $(DBF) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBF) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBF) $(DBLIB) $(LIBS)
+ 
+ DBG=	db_printlog.o $(POBJS)
+ db_printlog: $(DBG) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBG) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBG) $(DBLIB) $(LIBS)
+ 
+ DBH=	db_recover.o $(POBJS)
+ db_recover: $(DBH) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBH) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBH) $(DBLIB) $(LIBS)
+ 
+ DBI=	db_stat.o $(POBJS)
+ db_stat: $(DBI) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBI) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBI) $(DBLIB) $(LIBS)
+ 
+ EPROGS=	ex_access ex_appinit ex_btrec ex_lock ex_mpool ex_thread ex_tpcb
+ DBJ=	ex_access.o
+ ex_access: $(DBJ) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBJ) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBJ) $(DBLIB) $(LIBS)
+ 
+ DBK=	ex_appinit.o
+ ex_appinit: $(DBK) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBK) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBK) $(DBLIB) $(LIBS)
+ 
+ DBL=	ex_btrec.o
+ ex_btrec: $(DBL) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBL) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBL) $(DBLIB) $(LIBS)
+ 
+ DBM=	ex_lock.o $(POBJS)
+ ex_lock: $(DBM) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBM) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBM) $(DBLIB) $(LIBS)
+ 
+ DBN=	ex_mpool.o
+ ex_mpool: $(DBN) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBN) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBN) $(DBLIB) $(LIBS)
+ 
+ DBO=	ex_thread.o
+ ex_thread: $(DBO) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBO) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBO) $(DBLIB) $(LIBS)
+ 
+ DBP=	ex_tpcb.o $(POBJS)
+ ex_tpcb: $(DBP) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBP) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBP) $(DBLIB) $(LIBS)
+ 
+ DBT=	tclAppInit.o tcl_dbm.o tcl_hsearch.o tcl_lock.o tcl_log.o tcl_mpool.o \
+ 	tcl_mutex.o tcl_ndbm.o tcl_txn.o utils.o $(POBJS)
+ 
+ dbtest: .dbtestrc
+ dbtest: $(DBT) $(libdb)
+-	$(CC) -o $@ $(LDFLAGS) $(DBT) $(libdb) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(DBT) $(DBLIB) $(LIBS)
+ 
+ AOBJS=	err.o getcwd.o getlong.o getopt.o memcmp.o memcpy.o memmove.o \
+ 	raise.o snprintf.o strerror.o strsep.o vsnprintf.o
+ 
+ clean:
+-	$(rm) -f $(OBJS) $(AOBJS)
++	$(rm) -f $(OBJS) $(AOBJS) $(SHARED_OBJS) $(SHARED_COBJS) $(COBJS)
+ 	$(rm) -f $(DBA) $(DBB) $(DBC) $(DBD) $(DBE) $(DBF) $(DBG) $(DBH)
+ 	$(rm) -f $(DBI) $(DBJ) $(DBK) $(DBL) $(DBM) $(DBN) $(DBO) $(DBP)
+ 	$(rm) -f $(DBT)
+ 	$(rm) -f $(PROGS) $(EPROGS) $(POBJS) $(LOBJS) @build_test@
+-	$(rm) -f core *.core .dbtestrc $(libdb)
++	$(rm) -f core *.core .dbtestrc libdb2*
+ 
+ depend obj:
+ 
+@@ -141,368 +178,72 @@
+ 	$(rm) -f confdefs.h db.h db_int.h db_185.h include.tcl
+ 
+ prefix=	@prefix@
+-bindir=	$(prefix)/BerkeleyDB/bin
+-datadir=$(prefix)/BerkeleyDB/share
+-includedir=$(prefix)/BerkeleyDB/include
+-libdir=	$(prefix)/BerkeleyDB/lib
+-mandir=	$(prefix)/BerkeleyDB/docs
+-
+-dmode=	755
+-emode=	555
+-fmode=	444
++bindir=	$(prefix)/bin
++includedir=$(prefix)/include
++libdir=	$(prefix)/lib
+ 
+ transform=@program_transform_name@
+ 
+ install: all
+-	@test -f $(chmod) || (echo 'chmod not found.'; exit 1)
+-	@test -f $(cp) || (echo 'cp not found.'; exit 1)
+-	@test -f $(mkdir) || (echo 'mkdir not found.'; exit 1)
+-	@test -f $(rm) || (echo 'rm not found.'; exit 1)
++
+ 	@echo "Installing DB include files: $(includedir) ..."
+-	@test -d $(includedir) || \
+-	    ($(mkdir) -p $(includedir) && $(chmod) $(dmode) $(includedir))
+-	@cd $(includedir) && $(rm) -f db.h db_185.h db_cxx.h
+-	@$(cp) -p db.h db_185.h $(srcdir)/include/db_cxx.h $(includedir)
+-	@cd $(includedir) && $(chmod) $(fmode) db.h db_185.h db_cxx.h
++	install -d -m 755 $(DESTDIR)$(includedir)/db2
++	install -m 644 db.h db_185.h $(srcdir)/include/db_cxx.h \
++		$(DESTDIR)$(includedir)/db2
++	ln -sf db2/db.h $(DESTDIR)$(includedir)/db.h
++	ln -sf db2/db.h $(DESTDIR)$(includedir)/db2.h
++	ln -sf db2/db_185.h $(DESTDIR)$(includedir)/db_185.h
++	ln -sf db2/db_185.h $(DESTDIR)$(includedir)/db2_185.h
++	ln -sf db2/db_cxx.h $(DESTDIR)$(includedir)/db_cxx.h
++	ln -sf db2/db_cxx.h $(DESTDIR)$(includedir)/db2_cxx.h
++
+ 	@echo "Installing DB library: $(libdir) ..."
+-	@test -d $(libdir) || \
+-	    ($(mkdir) -p $(libdir) && $(chmod) $(dmode) $(libdir))
+-	@cd $(libdir) && $(rm) -f $(libdb)
+-	@$(cp) -p $(libdb) $(libdir)
+-	@cd $(libdir) && $(chmod) $(fmode) $(libdb)
++	install -d -m 755 $(DESTDIR)$(libdir) $(DESTDIR)/lib
++
++	install -m 644 libdb2.a libdb2++.a $(DESTDIR)$(libdir)
++	
++	install -m 644 libdb2.so $(DESTDIR)/lib/libdb2.so.$(VERSION)
++	ln -sf libdb2.so.$(VERSION) $(DESTDIR)/lib/libdb2.so.$(MAJOR)
++	ln -sf libdb2.so.$(MAJOR) $(DESTDIR)$(libdir)/libdb2.so
++	ln -sf libdb2.so.$(MAJOR) $(DESTDIR)$(libdir)/libdb.so
++
++	install -m 644 libdb2++.so $(DESTDIR)$(libdir)/libdb2++.so.$(VERSION)
++	ln -sf libdb2++.so.$(VERSION) $(DESTDIR)$(libdir)/libdb2++.so.$(MAJOR)
++	ln -sf libdb2++.so.$(MAJOR) $(DESTDIR)$(libdir)/libdb2++.so
++
++
+ 	@echo "Installing DB utilities: $(bindir) ..."
+-	@test -d $(bindir) || \
+-	    ($(mkdir) -p $(bindir) && $(chmod) $(dmode) $(bindir))
+-	@cd $(bindir) && $(rm) -f $(PROGS)
+-	@$(cp) -p $(PROGS) $(bindir)
+-	@cd $(bindir) && (test ! -f $(strip) || $(strip) $(PROGS))
+-	@cd $(bindir) && $(chmod) $(emode) $(PROGS)
+-	@echo "Installing documentation: $(mandir) ..."
+-	@test -d $(mandir) || \
+-	    ($(mkdir) -p $(mandir) && $(chmod) $(dmode) $(mandir))
+-	@cd $(srcdir)/docs && $(cp) -pr * $(mandir)/
++	install -d -m 755 $(DESTDIR)$(bindir)
++	install -m 755 $(PROGS) $(DESTDIR)$(bindir)
+ 
+ uninstall:
+ 	-cd $(bindir) && $(rm) -f $(PROGS)
+ 	-cd $(includedir) && $(rm) -f db.h db_185.h db_cxx.h
+ 	-cd $(libdir) && $(rm) -f $(libdb)
+-	-cd $(mandir) && $(rm) -rf docs
+ 
+-# Programs.
+-db_archive.o: $(srcdir)/db_archive/db_archive.c
+-	$(CC) $(CFLAGS) $?
+-db_checkpoint.o: $(srcdir)/db_checkpoint/db_checkpoint.c
+-	$(CC) $(CFLAGS) $?
+-db_deadlock.o: $(srcdir)/db_deadlock/db_deadlock.c
+-	$(CC) $(CFLAGS) $?
+-db_dump.o: $(srcdir)/db_dump/db_dump.c
+-	$(CC) $(CFLAGS) $?
+-db_dump185.o: $(srcdir)/db_dump185/db_dump185.c
+-	$(CC) $(CFLAGS) $?
+-db_load.o: $(srcdir)/db_load/db_load.c
+-	$(CC) $(CFLAGS) $?
+-db_printlog.o: $(srcdir)/db_printlog/db_printlog.c
+-	$(CC) $(CFLAGS) $?
+-db_recover.o: $(srcdir)/db_recover/db_recover.c
+-	$(CC) $(CFLAGS) $?
+-db_stat.o: $(srcdir)/db_stat/db_stat.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Examples.
+-ex_access.o: $(srcdir)/examples/ex_access.c
+-	$(CC) $(CFLAGS) $?
+-ex_appinit.o: $(srcdir)/examples/ex_appinit.c
+-	$(CC) $(CFLAGS) $?
+-ex_btrec.o: $(srcdir)/examples/ex_btrec.c
+-	$(CC) $(CFLAGS) $?
+-ex_lock.o: $(srcdir)/examples/ex_lock.c
+-	$(CC) $(CFLAGS) $?
+-ex_mpool.o: $(srcdir)/examples/ex_mpool.c
+-	$(CC) $(CFLAGS) $?
+-ex_thread.o: $(srcdir)/examples/ex_thread.c
+-	$(CC) $(CFLAGS) $?
+-ex_tpcb.o: $(srcdir)/examples/ex_tpcb.c
+-	$(CC) $(CFLAGS) $?
+-
+-# DB files.
+-db.o: $(srcdir)/db/db.c
+-	$(CC) $(CFLAGS) $?
+-db_am.o: $(srcdir)/db/db_am.c
+-	$(CC) $(CFLAGS) $?
+-db_auto.o: $(srcdir)/db/db_auto.c
+-	$(CC) $(CFLAGS) $?
+-db_conv.o: $(srcdir)/db/db_conv.c
+-	$(CC) $(CFLAGS) $?
+-db_dispatch.o: $(srcdir)/db/db_dispatch.c
+-	$(CC) $(CFLAGS) $?
+-db_dup.o: $(srcdir)/db/db_dup.c
+-	$(CC) $(CFLAGS) $?
+-db_iface.o: $(srcdir)/db/db_iface.c
+-	$(CC) $(CFLAGS) $?
+-db_join.o: $(srcdir)/db/db_join.c
+-	$(CC) $(CFLAGS) $?
+-db_overflow.o: $(srcdir)/db/db_overflow.c
+-	$(CC) $(CFLAGS) $?
+-db_pr.o: $(srcdir)/db/db_pr.c
+-	$(CC) $(CFLAGS) $?
+-db_rec.o: $(srcdir)/db/db_rec.c
+-	$(CC) $(CFLAGS) $?
+-db_ret.o: $(srcdir)/db/db_ret.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Btree source files.
+-bt_compare.o: $(srcdir)/btree/bt_compare.c
+-	$(CC) $(CFLAGS) $?
+-bt_conv.o: $(srcdir)/btree/bt_conv.c
+-	$(CC) $(CFLAGS) $?
+-bt_curadj.o: $(srcdir)/btree/bt_curadj.c
+-	$(CC) $(CFLAGS) $?
+-bt_cursor.o: $(srcdir)/btree/bt_cursor.c
+-	$(CC) $(CFLAGS) $?
+-bt_delete.o: $(srcdir)/btree/bt_delete.c
+-	$(CC) $(CFLAGS) $?
+-bt_open.o: $(srcdir)/btree/bt_open.c
+-	$(CC) $(CFLAGS) $?
+-bt_page.o: $(srcdir)/btree/bt_page.c
+-	$(CC) $(CFLAGS) $?
+-bt_put.o: $(srcdir)/btree/bt_put.c
+-	$(CC) $(CFLAGS) $?
+-bt_rec.o: $(srcdir)/btree/bt_rec.c
+-	$(CC) $(CFLAGS) $?
+-bt_recno.o: $(srcdir)/btree/bt_recno.c
+-	$(CC) $(CFLAGS) $?
+-bt_rsearch.o: $(srcdir)/btree/bt_rsearch.c
+-	$(CC) $(CFLAGS) $?
+-bt_search.o: $(srcdir)/btree/bt_search.c
+-	$(CC) $(CFLAGS) $?
+-bt_split.o: $(srcdir)/btree/bt_split.c
+-	$(CC) $(CFLAGS) $?
+-bt_stack.o: $(srcdir)/btree/bt_stack.c
+-	$(CC) $(CFLAGS) $?
+-bt_stat.o: $(srcdir)/btree/bt_stat.c
+-	$(CC) $(CFLAGS) $?
+-btree_auto.o: $(srcdir)/btree/btree_auto.c
+-	$(CC) $(CFLAGS) $?
+-
+-# C++ interface files.
+-cxx_app.o: $(srcdir)/cxx/cxx_app.cpp
+-	$(CXX) $(CXXFLAGS) $?
+-cxx_except.o: $(srcdir)/cxx/cxx_except.cpp
+-	$(CXX) $(CXXFLAGS) $?
+-cxx_lock.o: $(srcdir)/cxx/cxx_lock.cpp
+-	$(CXX) $(CXXFLAGS) $?
+-cxx_log.o: $(srcdir)/cxx/cxx_log.cpp
+-	$(CXX) $(CXXFLAGS) $?
+-cxx_mpool.o: $(srcdir)/cxx/cxx_mpool.cpp
+-	$(CXX) $(CXXFLAGS) $?
+-cxx_table.o: $(srcdir)/cxx/cxx_table.cpp
+-	$(CXX) $(CXXFLAGS) $?
+-cxx_txn.o: $(srcdir)/cxx/cxx_txn.cpp
+-	$(CXX) $(CXXFLAGS) $?
+-
+-# Hash source files.
+-hash_auto.o: $(srcdir)/hash/hash_auto.c
+-	$(CC) $(CFLAGS) $?
+-hash.o: $(srcdir)/hash/hash.c
+-	$(CC) $(CFLAGS) $?
+-hash_conv.o: $(srcdir)/hash/hash_conv.c
+-	$(CC) $(CFLAGS) $?
+-hash_dup.o: $(srcdir)/hash/hash_dup.c
+-	$(CC) $(CFLAGS) $?
+-hash_func.o: $(srcdir)/hash/hash_func.c
+-	$(CC) $(CFLAGS) $?
+-hash_page.o: $(srcdir)/hash/hash_page.c
+-	$(CC) $(CFLAGS) $?
+-hash_rec.o: $(srcdir)/hash/hash_rec.c
+-	$(CC) $(CFLAGS) $?
+-hash_stat.o: $(srcdir)/hash/hash_stat.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Lock source files.
+-lock.o: $(srcdir)/lock/lock.c
+-	$(CC) $(CFLAGS) $?
+-lock_conflict.o:$(srcdir)/lock/lock_conflict.c
+-	$(CC) $(CFLAGS) $?
+-lock_deadlock.o:$(srcdir)/lock/lock_deadlock.c
+-	$(CC) $(CFLAGS) $?
+-lock_region.o:$(srcdir)/lock/lock_region.c
+-	$(CC) $(CFLAGS) $?
+-lock_util.o:$(srcdir)/lock/lock_util.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Log source files.
+-log.o: $(srcdir)/log/log.c
+-	$(CC) $(CFLAGS) $?
+-log_archive.o: $(srcdir)/log/log_archive.c
+-	$(CC) $(CFLAGS) $?
+-log_auto.o: $(srcdir)/log/log_auto.c
+-	$(CC) $(CFLAGS) $?
+-log_compare.o: $(srcdir)/log/log_compare.c
+-	$(CC) $(CFLAGS) $?
+-log_findckp.o: $(srcdir)/log/log_findckp.c
+-	$(CC) $(CFLAGS) $?
+-log_get.o: $(srcdir)/log/log_get.c
+-	$(CC) $(CFLAGS) $?
+-log_put.o: $(srcdir)/log/log_put.c
+-	$(CC) $(CFLAGS) $?
+-log_rec.o: $(srcdir)/log/log_rec.c
+-	$(CC) $(CFLAGS) $?
+-log_register.o: $(srcdir)/log/log_register.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Mpool source files.
+-mp_bh.o: $(srcdir)/mp/mp_bh.c
+-	$(CC) $(CFLAGS) $?
+-mp_fget.o: $(srcdir)/mp/mp_fget.c
+-	$(CC) $(CFLAGS) $?
+-mp_fopen.o: $(srcdir)/mp/mp_fopen.c
+-	$(CC) $(CFLAGS) $?
+-mp_fput.o: $(srcdir)/mp/mp_fput.c
+-	$(CC) $(CFLAGS) $?
+-mp_fset.o: $(srcdir)/mp/mp_fset.c
+-	$(CC) $(CFLAGS) $?
+-mp_open.o: $(srcdir)/mp/mp_open.c
+-	$(CC) $(CFLAGS) $?
+-mp_pr.o: $(srcdir)/mp/mp_pr.c
+-	$(CC) $(CFLAGS) $?
+-mp_region.o: $(srcdir)/mp/mp_region.c
+-	$(CC) $(CFLAGS) $?
+-mp_sync.o: $(srcdir)/mp/mp_sync.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Mutex source files.
+-mutex.o: $(srcdir)/mutex/mutex.c
+-	$(CC) $(CFLAGS) $?
++%.o: %.c
++	$(CC) $(CFLAGS) -c $< -o $@
++
++%.lo: %.c
++	$(CC) $(CFLAGS) -fPIC -c $< -o $@
++
++%.o: %.cpp
++	$(CXX) $(CXXFLAGS) -c $< -o $@
++
++%.lo: %.cpp
++	$(CXX) $(CXXFLAGS) -fPIC -c $< -o $@
++
+ # XXX
+ # UTS4 spinlocks
+ uts4_cc.o: $(srcdir)/mutex/uts4_cc.s
+ 	$(AS) $(ASFLAGS) -o $@ $?
+ 
+-# Transaction source files.
+-txn.o: $(srcdir)/txn/txn.c
+-	$(CC) $(CFLAGS) $?
+-txn_auto.o: $(srcdir)/txn/txn_auto.c
+-	$(CC) $(CFLAGS) $?
+-txn_rec.o: $(srcdir)/txn/txn_rec.c
+-	$(CC) $(CFLAGS) $?
+-
+-# XA source files.
+-xa.o: $(srcdir)/xa/xa.c
+-	$(CC) $(CFLAGS) $?
+-xa_db.o: $(srcdir)/xa/xa_db.c
+-	$(CC) $(CFLAGS) $?
+-xa_map.o: $(srcdir)/xa/xa_map.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Historic interfaces.
+-hsearch.o: $(srcdir)/hsearch/hsearch.c
+-	$(CC) $(CFLAGS) $?
+-dbm.o: $(srcdir)/dbm/dbm.c
+-	$(CC) $(CFLAGS) $?
+-db185.o: $(srcdir)/db185/db185.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Common source files.
+-db_appinit.o: $(srcdir)/common/db_appinit.c
+-	$(CC) $(CFLAGS) $?
+-db_apprec.o: $(srcdir)/common/db_apprec.c
+-	$(CC) $(CFLAGS) $?
+-db_byteorder.o: $(srcdir)/common/db_byteorder.c
+-	$(CC) $(CFLAGS) $?
+-db_err.o: $(srcdir)/common/db_err.c
+-	$(CC) $(CFLAGS) $?
+-db_log2.o: $(srcdir)/common/db_log2.c
+-	$(CC) $(CFLAGS) $?
+-db_region.o: $(srcdir)/common/db_region.c
+-	$(CC) $(CFLAGS) $?
+-db_salloc.o: $(srcdir)/common/db_salloc.c
+-	$(CC) $(CFLAGS) $?
+-db_shash.o: $(srcdir)/common/db_shash.c
+-	$(CC) $(CFLAGS) $?
+-
+-# OS specific source files.
+-os_abs.o: $(srcdir)/os/os_abs.c
+-	$(CC) $(CFLAGS) $?
+-os_alloc.o: $(srcdir)/os/os_alloc.c
+-	$(CC) $(CFLAGS) $?
+-os_config.o: $(srcdir)/os/os_config.c
+-	$(CC) $(CFLAGS) $?
+-os_dir.o: $(srcdir)/os/os_dir.c
+-	$(CC) $(CFLAGS) $?
+-os_fid.o: $(srcdir)/os/os_fid.c
+-	$(CC) $(CFLAGS) $?
+-os_fsync.o: $(srcdir)/os/os_fsync.c
+-	$(CC) $(CFLAGS) $?
+-os_map.o: $(srcdir)/os/os_map.c
+-	$(CC) $(CFLAGS) $?
+-os_oflags.o: $(srcdir)/os/os_oflags.c
+-	$(CC) $(CFLAGS) $?
+-os_open.o: $(srcdir)/os/os_open.c
+-	$(CC) $(CFLAGS) $?
+-os_rpath.o: $(srcdir)/os/os_rpath.c
+-	$(CC) $(CFLAGS) $?
+-os_rw.o: $(srcdir)/os/os_rw.c
+-	$(CC) $(CFLAGS) $?
+-os_seek.o: $(srcdir)/os/os_seek.c
+-	$(CC) $(CFLAGS) $?
+-os_sleep.o: $(srcdir)/os/os_sleep.c
+-	$(CC) $(CFLAGS) $?
+-os_spin.o: $(srcdir)/os/os_spin.c
+-	$(CC) $(CFLAGS) $?
+-os_stat.o: $(srcdir)/os/os_stat.c
+-	$(CC) $(CFLAGS) $?
+-os_tmpdir.o: $(srcdir)/os/os_tmpdir.c
+-	$(CC) $(CFLAGS) $?
+-os_unlink.o: $(srcdir)/os/os_unlink.c
+-	$(CC) $(CFLAGS) $?
+-
+ # Test programs.
+ .dbtestrc: db.h $(srcdir)/test/test.tcl
+ 	$(rm) -f $@
+ 	cat $(srcdir)/test/test.tcl > $@
+-tclAppInit.o: $(srcdir)/test/tclAppInit.c
+-	$(CC) $(CFLAGS) $?
+-tcl_dbm.o: $(srcdir)/test/tcl_dbm.c
+-	$(CC) $(CFLAGS) $?
+-tcl_hsearch.o: $(srcdir)/test/tcl_hsearch.c
+-	$(CC) $(CFLAGS) $?
+-tcl_lock.o: $(srcdir)/test/tcl_lock.c
+-	$(CC) $(CFLAGS) $?
+-tcl_log.o: $(srcdir)/test/tcl_log.c
+-	$(CC) $(CFLAGS) $?
+-tcl_mpool.o: $(srcdir)/test/tcl_mpool.c
+-	$(CC) $(CFLAGS) $?
+-tcl_mutex.o: $(srcdir)/test/tcl_mutex.c
+-	$(CC) $(CFLAGS) $?
+-tcl_ndbm.o: $(srcdir)/test/tcl_ndbm.c
+-	$(CC) $(CFLAGS) $?
+-tcl_txn.o: $(srcdir)/test/tcl_txn.c
+-	$(CC) $(CFLAGS) $?
+-utils.o: $(srcdir)/test/utils.c
+-	$(CC) $(CFLAGS) $?
+-
+-# Replacement source files.
+-err.o: $(srcdir)/clib/err.c
+-	$(CC) $(CFLAGS) $?
+-getcwd.o: $(srcdir)/clib/getcwd.c
+-	$(CC) $(CFLAGS) $?
+-getlong.o: $(srcdir)/clib/getlong.c
+-	$(CC) $(CFLAGS) $?
+-getopt.o: $(srcdir)/clib/getopt.c
+-	$(CC) $(CFLAGS) $?
+-memcmp.o: $(srcdir)/clib/memcmp.c
+-	$(CC) $(CFLAGS) $?
++
+ memcpy.o: $(srcdir)/clib/memmove.c
+-	$(CC) -DMEMCOPY $(CFLAGS) $? -o $@
++	$(CC) -DMEMCOPY $(CFLAGS) -c $? -o $@
+ memmove.o: $(srcdir)/clib/memmove.c
+-	$(CC) -DMEMMOVE $(CFLAGS) $?
+-raise.o: $(srcdir)/clib/raise.c
+-	$(CC) $(CFLAGS) $?
+-snprintf.o: $(srcdir)/clib/snprintf.c
+-	$(CC) $(CFLAGS) $?
+-strerror.o: $(srcdir)/clib/strerror.c
+-	$(CC) $(CFLAGS) $?
+-strsep.o: $(srcdir)/clib/strsep.c
+-	$(CC) $(CFLAGS) $?
+-vsnprintf.o: $(srcdir)/clib/vsnprintf.c
+-	$(CC) $(CFLAGS) $?
++	$(CC) -DMEMMOVE $(CFLAGS) -c $?
+diff -Naur db-2.7.7.orig/dist/config.guess db-2.7.7/dist/config.guess
+--- db-2.7.7.orig/dist/config.guess	Tue Jan 13 17:51:28 1998
++++ db-2.7.7/dist/config.guess	Tue Aug 13 08:20:00 2002
+@@ -1,6 +1,7 @@
+ #! /bin/sh
+ # Attempt to guess a canonical system name.
+-#   Copyright (C) 1992, 93, 94, 95, 1996 Free Software Foundation, Inc.
++#   Copyright (C) 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999
++#   Free Software Foundation, Inc.
+ #
+ # This file is free software; you can redistribute it and/or modify it
+ # under the terms of the GNU General Public License as published by
+@@ -23,6 +24,7 @@
+ 
+ # Written by Per Bothner <bothner@cygnus.com>.
+ # The master version of this file is at the FSF in /home/gd/gnu/lib.
++# Please send patches to the Autoconf mailing list <autoconf@gnu.org>.
+ #
+ # This script attempts to guess a canonical system name similar to
+ # config.sub.  If it succeeds, it prints the system name on stdout, and
+@@ -35,6 +37,20 @@
+ # (but try to keep the structure clean).
+ #
+ 
++# Use $HOST_CC if defined. $CC may point to a cross-compiler
++if test x"$CC_FOR_BUILD" = x; then
++  if test x"$HOST_CC" != x; then
++    CC_FOR_BUILD="$HOST_CC"
++  else
++    if test x"$CC" != x; then
++      CC_FOR_BUILD="$CC"
++    else
++      CC_FOR_BUILD=cc
++    fi
++  fi
++fi
++
++
+ # This is needed to find uname on a Pyramid OSx when run in the BSD universe.
+ # (ghazi@noc.rutgers.edu 8/24/94.)
+ if (test -f /.attbin/uname) >/dev/null 2>&1 ; then
+@@ -46,17 +62,66 @@
+ UNAME_SYSTEM=`(uname -s) 2>/dev/null` || UNAME_SYSTEM=unknown
+ UNAME_VERSION=`(uname -v) 2>/dev/null` || UNAME_VERSION=unknown
+ 
+-trap 'rm -f dummy.c dummy.o dummy; exit 1' 1 2 15
++dummy=dummy-$$
++trap 'rm -f $dummy.c $dummy.o $dummy; exit 1' 1 2 15
+ 
+ # Note: order is significant - the case branches are not exclusive.
+ 
+ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
+     alpha:OSF1:*:*)
++	if test $UNAME_RELEASE = "V4.0"; then
++		UNAME_RELEASE=`/usr/sbin/sizer -v | awk '{print $3}'`
++	fi
+ 	# A Vn.n version is a released version.
+ 	# A Tn.n version is a released field test version.
+ 	# A Xn.n version is an unreleased experimental baselevel.
+ 	# 1.2 uses "1.2" for uname -r.
+-	echo alpha-dec-osf`echo ${UNAME_RELEASE} | sed -e 's/^[VTX]//'`
++	cat <<EOF >$dummy.s
++	.globl main
++	.ent main
++main:
++	.frame \$30,0,\$26,0
++	.prologue 0
++	.long 0x47e03d80 # implver $0
++	lda \$2,259
++	.long 0x47e20c21 # amask $2,$1
++	srl \$1,8,\$2
++	sll \$2,2,\$2
++	sll \$0,3,\$0
++	addl \$1,\$0,\$0
++	addl \$2,\$0,\$0
++	ret \$31,(\$26),1
++	.end main
++EOF
++	$CC_FOR_BUILD $dummy.s -o $dummy 2>/dev/null
++	if test "$?" = 0 ; then
++		./$dummy
++		case "$?" in
++			7)
++				UNAME_MACHINE="alpha"
++				;;
++			15)
++				UNAME_MACHINE="alphaev5"
++				;;
++			14)
++				UNAME_MACHINE="alphaev56"
++				;;
++			10)
++				UNAME_MACHINE="alphapca56"
++				;;
++			16)
++				UNAME_MACHINE="alphaev6"
++				;;
++		esac
++	fi
++	rm -f $dummy.s $dummy
++	echo ${UNAME_MACHINE}-dec-osf`echo ${UNAME_RELEASE} | sed -e 's/^[VTX]//' | tr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz'`
++	exit 0 ;;
++    Alpha\ *:Windows_NT*:*)
++	# How do we know it's Interix rather than the generic POSIX subsystem?
++	# Should we change UNAME_MACHINE based on the output of uname instead
++	# of the specific Alpha model?
++	echo alpha-pc-interix
+ 	exit 0 ;;
+     21064:Windows_NT:50:3)
+ 	echo alpha-dec-winnt3.5
+@@ -68,12 +133,39 @@
+       echo m68k-cbm-netbsd${UNAME_RELEASE}
+       exit 0 ;;
+     amiga:OpenBSD:*:*)
+-      echo m68k-cbm-openbsd${UNAME_RELEASE}
+-      exit 0 ;;
++	echo m68k-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    *:[Aa]miga[Oo][Ss]:*:*)
++	echo ${UNAME_MACHINE}-unknown-amigaos
++	exit 0 ;;
++    arc64:OpenBSD:*:*)
++	echo mips64el-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    arc:OpenBSD:*:*)
++	echo mipsel-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    hkmips:OpenBSD:*:*)
++	echo mips-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    pmax:OpenBSD:*:*)
++	echo mipsel-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    sgi:OpenBSD:*:*)
++	echo mips-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    wgrisc:OpenBSD:*:*)
++	echo mipsel-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
+     arm:RISC*:1.[012]*:*|arm:riscix:1.[012]*:*)
+ 	echo arm-acorn-riscix${UNAME_RELEASE}
+ 	exit 0;;
+-    Pyramid*:OSx*:*:*|MIS*:OSx*:*:*)
++    arm32:NetBSD:*:*)
++	echo arm-unknown-netbsd`echo ${UNAME_RELEASE}|sed -e 's/[-_].*/\./'`
++	exit 0 ;;
++    SR2?01:HI-UX/MPP:*:*)
++	echo hppa1.1-hitachi-hiuxmpp
++	exit 0;;
++    Pyramid*:OSx*:*:* | MIS*:OSx*:*:* | MIS*:SMP_DC-OSx*:*:*)
+ 	# akee@wpdis03.wpafb.af.mil (Earle F. Ake) contributed MIS and NILE.
+ 	if test "`(/bin/universe) 2>/dev/null`" = att ; then
+ 		echo pyramid-pyramid-sysv3
+@@ -81,9 +173,12 @@
+ 		echo pyramid-pyramid-bsd
+ 	fi
+ 	exit 0 ;;
+-    NILE:*:*:dcosx)
++    NILE*:*:*:dcosx)
+ 	echo pyramid-pyramid-svr4
+ 	exit 0 ;;
++    sun4H:SunOS:5.*:*)
++	echo sparc-hal-solaris2`echo ${UNAME_RELEASE}|sed -e 's/[^.]*//'`
++	exit 0 ;;
+     sun4*:SunOS:5.*:* | tadpole*:SunOS:5.*:*)
+ 	echo sparc-sun-solaris2`echo ${UNAME_RELEASE}|sed -e 's/[^.]*//'`
+ 	exit 0 ;;
+@@ -108,6 +203,18 @@
+     sun3*:SunOS:*:*)
+ 	echo m68k-sun-sunos${UNAME_RELEASE}
+ 	exit 0 ;;
++    sun*:*:4.2BSD:*)
++	UNAME_RELEASE=`(head -1 /etc/motd | awk '{print substr($5,1,3)}') 2>/dev/null`
++	test "x${UNAME_RELEASE}" = "x" && UNAME_RELEASE=3
++	case "`/bin/arch`" in
++	    sun3)
++		echo m68k-sun-sunos${UNAME_RELEASE}
++		;;
++	    sun4)
++		echo sparc-sun-sunos${UNAME_RELEASE}
++		;;
++	esac
++	exit 0 ;;
+     aushp:SunOS:*:*)
+ 	echo sparc-auspex-sunos${UNAME_RELEASE}
+ 	exit 0 ;;
+@@ -115,23 +222,58 @@
+ 	echo m68k-atari-netbsd${UNAME_RELEASE}
+ 	exit 0 ;;
+     atari*:OpenBSD:*:*)
+-	echo m68k-atari-openbsd${UNAME_RELEASE}
++	echo m68k-unknown-openbsd${UNAME_RELEASE}
+ 	exit 0 ;;
++    # The situation for MiNT is a little confusing.  The machine name
++    # can be virtually everything (everything which is not
++    # "atarist" or "atariste" at least should have a processor 
++    # > m68000).  The system name ranges from "MiNT" over "FreeMiNT"
++    # to the lowercase version "mint" (or "freemint").  Finally
++    # the system name "TOS" denotes a system which is actually not
++    # MiNT.  But MiNT is downward compatible to TOS, so this should
++    # be no problem.
++    atarist[e]:*MiNT:*:* | atarist[e]:*mint:*:* | atarist[e]:*TOS:*:*)
++        echo m68k-atari-mint${UNAME_RELEASE}
++	exit 0 ;;
++    atari*:*MiNT:*:* | atari*:*mint:*:* | atarist[e]:*TOS:*:*)
++	echo m68k-atari-mint${UNAME_RELEASE}
++        exit 0 ;;
++    *falcon*:*MiNT:*:* | *falcon*:*mint:*:* | *falcon*:*TOS:*:*)
++        echo m68k-atari-mint${UNAME_RELEASE}
++	exit 0 ;;
++    milan*:*MiNT:*:* | milan*:*mint:*:* | *milan*:*TOS:*:*)
++        echo m68k-milan-mint${UNAME_RELEASE}
++        exit 0 ;;
++    hades*:*MiNT:*:* | hades*:*mint:*:* | *hades*:*TOS:*:*)
++        echo m68k-hades-mint${UNAME_RELEASE}
++        exit 0 ;;
++    *:*MiNT:*:* | *:*mint:*:* | *:*TOS:*:*)
++        echo m68k-unknown-mint${UNAME_RELEASE}
++        exit 0 ;;
+     sun3*:NetBSD:*:*)
+ 	echo m68k-sun-netbsd${UNAME_RELEASE}
+ 	exit 0 ;;
+     sun3*:OpenBSD:*:*)
+-	echo m68k-sun-openbsd${UNAME_RELEASE}
++	echo m68k-unknown-openbsd${UNAME_RELEASE}
+ 	exit 0 ;;
+     mac68k:NetBSD:*:*)
+ 	echo m68k-apple-netbsd${UNAME_RELEASE}
+ 	exit 0 ;;
+     mac68k:OpenBSD:*:*)
+-	echo m68k-apple-openbsd${UNAME_RELEASE}
++	echo m68k-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    mvme68k:OpenBSD:*:*)
++	echo m68k-unknown-openbsd${UNAME_RELEASE}
++	exit 0 ;;
++    mvme88k:OpenBSD:*:*)
++	echo m88k-unknown-openbsd${UNAME_RELEASE}
+ 	exit 0 ;;
+     powerpc:machten:*:*)
+ 	echo powerpc-apple-machten${UNAME_RELEASE}
+ 	exit 0 ;;
++    macppc:NetBSD:*:*)
++        echo powerpc-apple-netbsd${UNAME_RELEASE}
++        exit 0 ;;
+     RISC*:Mach:*:*)
+ 	echo mips-dec-mach_bsd4.3
+ 	exit 0 ;;
+@@ -141,9 +283,16 @@
+     VAX*:ULTRIX*:*:*)
+ 	echo vax-dec-ultrix${UNAME_RELEASE}
+ 	exit 0 ;;
++    2020:CLIX:*:* | 2430:CLIX:*:*)
++	echo clipper-intergraph-clix${UNAME_RELEASE}
++	exit 0 ;;
+     mips:*:*:UMIPS | mips:*:*:RISCos)
+-	sed 's/^	//' << EOF >dummy.c
+-	int main (argc, argv) int argc; char **argv; {
++	sed 's/^	//' << EOF >$dummy.c
++#ifdef __cplusplus
++	int main (int argc, char *argv[]) {
++#else
++	int main (argc, argv) int argc; char *argv[]; {
++#endif
+ 	#if defined (host_mips) && defined (MIPSEB)
+ 	#if defined (SYSTYPE_SYSV)
+ 	  printf ("mips-mips-riscos%ssysv\n", argv[1]); exit (0);
+@@ -158,10 +307,10 @@
+ 	  exit (-1);
+ 	}
+ EOF
+-	${CC-cc} dummy.c -o dummy \
+-	  && ./dummy `echo "${UNAME_RELEASE}" | sed -n 's/\([0-9]*\).*/\1/p'` \
+-	  && rm dummy.c dummy && exit 0
+-	rm -f dummy.c dummy
++	$CC_FOR_BUILD $dummy.c -o $dummy \
++	  && ./$dummy `echo "${UNAME_RELEASE}" | sed -n 's/\([0-9]*\).*/\1/p'` \
++	  && rm $dummy.c $dummy && exit 0
++	rm -f $dummy.c $dummy
+ 	echo mips-mips-riscos${UNAME_RELEASE}
+ 	exit 0 ;;
+     Night_Hawk:Power_UNIX:*:*)
+@@ -213,7 +362,7 @@
+ 	exit 0 ;;
+     *:AIX:2:3)
+ 	if grep bos325 /usr/include/stdio.h >/dev/null 2>&1; then
+-		sed 's/^		//' << EOF >dummy.c
++		sed 's/^		//' << EOF >$dummy.c
+ 		#include <sys/systemcfg.h>
+ 
+ 		main()
+@@ -224,8 +373,8 @@
+ 			exit(0);
+ 			}
+ EOF
+-		${CC-cc} dummy.c -o dummy && ./dummy && rm dummy.c dummy && exit 0
+-		rm -f dummy.c dummy
++		$CC_FOR_BUILD $dummy.c -o $dummy && ./$dummy && rm $dummy.c $dummy && exit 0
++		rm -f $dummy.c $dummy
+ 		echo rs6000-ibm-aix3.2.5
+ 	elif grep bos324 /usr/include/stdio.h >/dev/null 2>&1; then
+ 		echo rs6000-ibm-aix3.2.4
+@@ -234,7 +383,8 @@
+ 	fi
+ 	exit 0 ;;
+     *:AIX:*:4)
+-	if /usr/sbin/lsattr -EHl proc0 | grep POWER >/dev/null 2>&1; then
++	IBM_CPU_ID=`/usr/sbin/lsdev -C -c processor -S available | head -1 | awk '{ print $1 }'`
++	if /usr/sbin/lsattr -EHl ${IBM_CPU_ID} | grep POWER >/dev/null 2>&1; then
+ 		IBM_ARCH=rs6000
+ 	else
+ 		IBM_ARCH=powerpc
+@@ -255,9 +405,6 @@
+     ibmrt:*BSD:*|romp-ibm:BSD:*)            # covers RT/PC NetBSD and
+ 	echo romp-ibm-bsd${UNAME_RELEASE}   # 4.3 with uname added to
+ 	exit 0 ;;                           # report: romp-ibm BSD 4.3
+-    *:uts:4:*)
+-	echo uts-amdahl-sysv4
+-	exit 0 ;;
+     *:BOSX:*:*)
+ 	echo rs6000-bull-bosx
+ 	exit 0 ;;
+@@ -270,18 +417,50 @@
+     hp300:4.4BSD:*:* | 9000/[34]??:4.3bsd:2.*:*)
+ 	echo m68k-hp-bsd4.4
+ 	exit 0 ;;
+-    9000/[3478]??:HP-UX:*:*)
++    9000/[34678]??:HP-UX:*:*)
+ 	case "${UNAME_MACHINE}" in
+ 	    9000/31? )            HP_ARCH=m68000 ;;
+ 	    9000/[34]?? )         HP_ARCH=m68k ;;
+-	    9000/7?? | 9000/8?[1679] ) HP_ARCH=hppa1.1 ;;
+-	    9000/8?? )            HP_ARCH=hppa1.0 ;;
++	    9000/[678][0-9][0-9])
++              sed 's/^              //' << EOF >$dummy.c
++              #include <stdlib.h>
++              #include <unistd.h>
++
++              int main ()
++              {
++              #if defined(_SC_KERNEL_BITS)
++                  long bits = sysconf(_SC_KERNEL_BITS);
++              #endif
++                  long cpu  = sysconf (_SC_CPU_VERSION);
++
++                  switch (cpu)
++              	{
++              	case CPU_PA_RISC1_0: puts ("hppa1.0"); break;
++              	case CPU_PA_RISC1_1: puts ("hppa1.1"); break;
++              	case CPU_PA_RISC2_0:
++              #if defined(_SC_KERNEL_BITS)
++              	    switch (bits)
++              		{
++              		case 64: puts ("hppa2.0w"); break;
++              		case 32: puts ("hppa2.0n"); break;
++              		default: puts ("hppa2.0"); break;
++              		} break;
++              #else  /* !defined(_SC_KERNEL_BITS) */
++              	    puts ("hppa2.0"); break;
++              #endif
++              	default: puts ("hppa1.0"); break;
++              	}
++                  exit (0);
++              }
++EOF
++	($CC_FOR_BUILD $dummy.c -o $dummy 2>/dev/null ) && HP_ARCH=`./$dummy`
++	rm -f $dummy.c $dummy
+ 	esac
+ 	HPUX_REV=`echo ${UNAME_RELEASE}|sed -e 's/[^.]*.[0B]*//'`
+ 	echo ${HP_ARCH}-hp-hpux${HPUX_REV}
+ 	exit 0 ;;
+     3050*:HI-UX:*:*)
+-	sed 's/^	//' << EOF >dummy.c
++	sed 's/^	//' << EOF >$dummy.c
+ 	#include <unistd.h>
+ 	int
+ 	main ()
+@@ -306,8 +485,8 @@
+ 	  exit (0);
+ 	}
+ EOF
+-	${CC-cc} dummy.c -o dummy && ./dummy && rm dummy.c dummy && exit 0
+-	rm -f dummy.c dummy
++	$CC_FOR_BUILD $dummy.c -o $dummy && ./$dummy && rm $dummy.c $dummy && exit 0
++	rm -f $dummy.c $dummy
+ 	echo unknown-hitachi-hiuxwe2
+ 	exit 0 ;;
+     9000/7??:4.3bsd:*:* | 9000/8?[79]:4.3bsd:*:* )
+@@ -316,6 +495,9 @@
+     9000/8??:4.3bsd:*:*)
+ 	echo hppa1.0-hp-bsd
+ 	exit 0 ;;
++    *9??*:MPE/iX:*:*)
++	echo hppa1.0-hp-mpeix
++	exit 0 ;;
+     hp7??:OSF1:*:* | hp8?[79]:OSF1:*:* )
+ 	echo hppa1.1-hp-osf
+ 	exit 0 ;;
+@@ -332,6 +514,9 @@
+     parisc*:Lites*:*:*)
+ 	echo hppa1.1-hp-lites
+ 	exit 0 ;;
++    hppa*:OpenBSD:*:*)
++	echo hppa-unknown-openbsd
++	exit 0 ;;
+     C1*:ConvexOS:*:* | convex:ConvexOS:C1*:*)
+ 	echo c1-convex-bsd
+         exit 0 ;;
+@@ -364,11 +549,14 @@
+     CRAY*TS:*:*:*)
+ 	echo t90-cray-unicos${UNAME_RELEASE}
+ 	exit 0 ;;
++    CRAY*T3E:*:*:*)
++	echo alpha-cray-unicosmk${UNAME_RELEASE}
++	exit 0 ;;
+     CRAY-2:*:*:*)
+ 	echo cray2-cray-unicos
+         exit 0 ;;
+     F300:UNIX_System_V:*:*)
+-        FUJITSU_SYS=`uname -p | tr [A-Z] [a-z] | sed -e 's/\///'`
++        FUJITSU_SYS=`uname -p | tr 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' 'abcdefghijklmnopqrstuvwxyz' | sed -e 's/\///'`
+         FUJITSU_REL=`echo ${UNAME_RELEASE} | sed -e 's/ /_/'`
+         echo "f300-fujitsu-${FUJITSU_SYS}${FUJITSU_REL}"
+         exit 0 ;;
+@@ -378,13 +566,25 @@
+     hp3[0-9][05]:NetBSD:*:*)
+ 	echo m68k-hp-netbsd${UNAME_RELEASE}
+ 	exit 0 ;;
+-    hp3[0-9][05]:OpenBSD:*:*)
+-	echo m68k-hp-openbsd${UNAME_RELEASE}
++    hp300:OpenBSD:*:*)
++	echo m68k-unknown-openbsd${UNAME_RELEASE}
+ 	exit 0 ;;
+-    i?86:BSD/386:*:* | *:BSD/OS:*:*)
++    i?86:BSD/386:*:* | i?86:BSD/OS:*:*)
+ 	echo ${UNAME_MACHINE}-pc-bsdi${UNAME_RELEASE}
+ 	exit 0 ;;
++    sparc*:BSD/OS:*:*)
++	echo sparc-unknown-bsdi${UNAME_RELEASE}
++	exit 0 ;;
++    *:BSD/OS:*:*)
++	echo ${UNAME_MACHINE}-unknown-bsdi${UNAME_RELEASE}
++	exit 0 ;;
+     *:FreeBSD:*:*)
++	if test -x /usr/bin/objformat; then
++	    if test "elf" = "`/usr/bin/objformat`"; then
++		echo ${UNAME_MACHINE}-unknown-freebsdelf`echo ${UNAME_RELEASE}|sed -e 's/[-_].*//'`
++		exit 0
++	    fi
++	fi
+ 	echo ${UNAME_MACHINE}-unknown-freebsd`echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'`
+ 	exit 0 ;;
+     *:NetBSD:*:*)
+@@ -394,64 +594,209 @@
+ 	echo ${UNAME_MACHINE}-unknown-openbsd`echo ${UNAME_RELEASE}|sed -e 's/[-_].*/\./'`
+ 	exit 0 ;;
+     i*:CYGWIN*:*)
+-	echo i386-pc-cygwin32
++	echo ${UNAME_MACHINE}-pc-cygwin
++	exit 0 ;;
++    i*:MINGW*:*)
++	echo ${UNAME_MACHINE}-pc-mingw32
++	exit 0 ;;
++    i*:Windows_NT*:* | Pentium*:Windows_NT*:*)
++	# How do we know it's Interix rather than the generic POSIX subsystem?
++	# It also conflicts with pre-2.0 versions of AT&T UWIN. Should we
++	# UNAME_MACHINE based on the output of uname instead of i386?
++	echo i386-pc-interix
++	exit 0 ;;
++    i*:UWIN*:*)
++	echo ${UNAME_MACHINE}-pc-uwin
+ 	exit 0 ;;
+     p*:CYGWIN*:*)
+-	echo powerpcle-unknown-cygwin32
++	echo powerpcle-unknown-cygwin
+ 	exit 0 ;;
+     prep*:SunOS:5.*:*)
+ 	echo powerpcle-unknown-solaris2`echo ${UNAME_RELEASE}|sed -e 's/[^.]*//'`
+ 	exit 0 ;;
+     *:GNU:*:*)
+-	echo `echo ${UNAME_MACHINE}|sed -e 's,/.*$,,'`-unknown-gnu`echo ${UNAME_RELEASE}|sed -e 's,/.*$,,'`
++	echo `echo ${UNAME_MACHINE}|sed -e 's,[-/].*$,,'`-unknown-gnu`echo ${UNAME_RELEASE}|sed -e 's,/.*$,,'`
+ 	exit 0 ;;
+     *:Linux:*:*)
++	# uname on the ARM produces all sorts of strangeness, and we need to
++	# filter it out.
++	case "$UNAME_MACHINE" in
++	  armv*)		      UNAME_MACHINE=$UNAME_MACHINE ;;
++	  arm* | sa110*)	      UNAME_MACHINE="arm" ;;
++	esac
++
+ 	# The BFD linker knows what the default object file format is, so
+-	# first see if it will tell us.
+-	ld_help_string=`ld --help 2>&1`
+-	if echo "$ld_help_string" | grep >/dev/null 2>&1 "supported emulations: elf_i.86"; then
+-	  echo "${UNAME_MACHINE}-pc-linux-gnu" ; exit 0
+-	elif echo "$ld_help_string" | grep >/dev/null 2>&1 "supported emulations: i.86linux"; then
+-	  echo "${UNAME_MACHINE}-pc-linux-gnuaout" ; exit 0
+-	elif echo "$ld_help_string" | grep >/dev/null 2>&1 "supported emulations: i.86coff"; then
+-	  echo "${UNAME_MACHINE}-pc-linux-gnucoff" ; exit 0
+-	elif echo "$ld_help_string" | grep >/dev/null 2>&1 "supported emulations: m68kelf"; then
+-	  echo "${UNAME_MACHINE}-unknown-linux-gnu" ; exit 0
+-	elif echo "$ld_help_string" | grep >/dev/null 2>&1 "supported emulations: m68klinux"; then
+-	  echo "${UNAME_MACHINE}-unknown-linux-gnuaout" ; exit 0
+-	elif echo "$ld_help_string" | grep >/dev/null 2>&1 "supported emulations: elf32ppc"; then
+-	  echo "powerpc-unknown-linux-gnu" ; exit 0
+-	elif test "${UNAME_MACHINE}" = "alpha" ; then
+-	  echo alpha-unknown-linux-gnu ; exit 0
+-	elif test "${UNAME_MACHINE}" = "sparc" ; then
+-	  echo sparc-unknown-linux-gnu ; exit 0
+-	else
+-	  # Either a pre-BFD a.out linker (linux-gnuoldld) or one that does not give us
+-	  # useful --help.  Gcc wants to distinguish between linux-gnuoldld and linux-gnuaout.
+-	  test ! -d /usr/lib/ldscripts/. \
+-	    && echo "${UNAME_MACHINE}-pc-linux-gnuoldld" && exit 0
+-	  # Determine whether the default compiler is a.out or elf
+-	  cat >dummy.c <<EOF
++	# first see if it will tell us. cd to the root directory to prevent
++	# problems with other programs or directories called `ld' in the path.
++	ld_help_string=`cd /; ld --help 2>&1`
++	ld_supported_emulations=`echo $ld_help_string \
++			 | sed -ne '/supported emulations:/!d
++				    s/[ 	][ 	]*/ /g
++				    s/.*supported emulations: *//
++				    s/ .*//
++				    p'`
++        case "$ld_supported_emulations" in
++	  *ia64)      echo "${UNAME_MACHINE}-unknown-linux"         ; exit 0 ;;
++	  i?86linux)  echo "${UNAME_MACHINE}-pc-linux-gnuaout"      ; exit 0 ;;
++	  i?86coff)   echo "${UNAME_MACHINE}-pc-linux-gnucoff"      ; exit 0 ;;
++	  sparclinux) echo "${UNAME_MACHINE}-unknown-linux-gnuaout" ; exit 0 ;;
++	  armlinux)   echo "${UNAME_MACHINE}-unknown-linux-gnuaout" ; exit 0 ;;
++	  m68klinux)  echo "${UNAME_MACHINE}-unknown-linux-gnuaout" ; exit 0 ;;
++	  elf32ppc | elf32ppclinux)
++		# Determine Lib Version
++		cat >$dummy.c <<EOF
++#include <features.h>
++#if defined(__GLIBC__)
++extern char __libc_version[];
++extern char __libc_release[];
++#endif
+ main(argc, argv)
+-int argc;
+-char *argv[];
++     int argc;
++     char *argv[];
+ {
++#if defined(__GLIBC__)
++  printf("%s %s\n", __libc_version, __libc_release);
++#else
++  printf("unkown\n");
++#endif
++  return 0;
++}
++EOF
++		LIBC=""
++		$CC_FOR_BUILD $dummy.c -o $dummy 2>/dev/null
++		if test "$?" = 0 ; then
++			./$dummy | grep 1\.99 > /dev/null
++			if test "$?" = 0 ; then
++				LIBC="libc1"
++			fi
++		fi	
++		rm -f $dummy.c $dummy
++		echo powerpc-unknown-linux-gnu${LIBC} ; exit 0 ;;
++	esac
++
++	if test "${UNAME_MACHINE}" = "alpha" ; then
++		sed 's/^	//'  <<EOF >$dummy.s
++		.globl main
++		.ent main
++	main:
++		.frame \$30,0,\$26,0
++		.prologue 0
++		.long 0x47e03d80 # implver $0
++		lda \$2,259
++		.long 0x47e20c21 # amask $2,$1
++		srl \$1,8,\$2
++		sll \$2,2,\$2
++		sll \$0,3,\$0
++		addl \$1,\$0,\$0
++		addl \$2,\$0,\$0
++		ret \$31,(\$26),1
++		.end main
++EOF
++		LIBC=""
++		$CC_FOR_BUILD $dummy.s -o $dummy 2>/dev/null
++		if test "$?" = 0 ; then
++			./$dummy
++			case "$?" in
++			7)
++				UNAME_MACHINE="alpha"
++				;;
++			15)
++				UNAME_MACHINE="alphaev5"
++				;;
++			14)
++				UNAME_MACHINE="alphaev56"
++				;;
++			10)
++				UNAME_MACHINE="alphapca56"
++				;;
++			16)
++				UNAME_MACHINE="alphaev6"
++				;;
++			esac
++
++			objdump --private-headers $dummy | \
++			  grep ld.so.1 > /dev/null
++			if test "$?" = 0 ; then
++				LIBC="libc1"
++			fi
++		fi
++		rm -f $dummy.s $dummy
++		echo ${UNAME_MACHINE}-unknown-linux-gnu${LIBC} ; exit 0
++	elif test "${UNAME_MACHINE}" = "mips" ; then
++	  cat >$dummy.c <<EOF
++#ifdef __cplusplus
++	int main (int argc, char *argv[]) {
++#else
++	int main (argc, argv) int argc; char *argv[]; {
++#endif
++#ifdef __MIPSEB__
++  printf ("%s-unknown-linux-gnu\n", argv[1]);
++#endif
++#ifdef __MIPSEL__
++  printf ("%sel-unknown-linux-gnu\n", argv[1]);
++#endif
++  return 0;
++}
++EOF
++	  $CC_FOR_BUILD $dummy.c -o $dummy 2>/dev/null && ./$dummy "${UNAME_MACHINE}" && rm $dummy.c $dummy && exit 0
++	  rm -f $dummy.c $dummy
++	else
++	  # Either a pre-BFD a.out linker (linux-gnuoldld)
++	  # or one that does not give us useful --help.
++	  # GCC wants to distinguish between linux-gnuoldld and linux-gnuaout.
++	  # If ld does not provide *any* "supported emulations:"
++	  # that means it is gnuoldld.
++	  echo "$ld_help_string" | grep >/dev/null 2>&1 "supported emulations:"
++	  test $? != 0 && echo "${UNAME_MACHINE}-pc-linux-gnuoldld" && exit 0
++
++	  case "${UNAME_MACHINE}" in
++	  i?86)
++	    VENDOR=pc;
++	    ;;
++	  *)
++	    VENDOR=unknown;
++	    ;;
++	  esac
++	  # Determine whether the default compiler is a.out or elf
++	  cat >$dummy.c <<EOF
++#include <features.h>
++#ifdef __cplusplus
++	int main (int argc, char *argv[]) {
++#else
++	int main (argc, argv) int argc; char *argv[]; {
++#endif
+ #ifdef __ELF__
+-  printf ("%s-pc-linux-gnu\n", argv[1]);
++# ifdef __GLIBC__
++#  if __GLIBC__ >= 2
++    printf ("%s-${VENDOR}-linux-gnu\n", argv[1]);
++#  else
++    printf ("%s-${VENDOR}-linux-gnulibc1\n", argv[1]);
++#  endif
++# else
++   printf ("%s-${VENDOR}-linux-gnulibc1\n", argv[1]);
++# endif
+ #else
+-  printf ("%s-pc-linux-gnuaout\n", argv[1]);
++  printf ("%s-${VENDOR}-linux-gnuaout\n", argv[1]);
+ #endif
+   return 0;
+ }
+ EOF
+-	  ${CC-cc} dummy.c -o dummy 2>/dev/null && ./dummy "${UNAME_MACHINE}" && rm dummy.c dummy && exit 0
+-	  rm -f dummy.c dummy
++	  $CC_FOR_BUILD $dummy.c -o $dummy 2>/dev/null && ./$dummy "${UNAME_MACHINE}" && rm $dummy.c $dummy && exit 0
++	  rm -f $dummy.c $dummy
+ 	fi ;;
+ # ptx 4.0 does uname -s correctly, with DYNIX/ptx in there.  earlier versions
+ # are messed up and put the nodename in both sysname and nodename.
+     i?86:DYNIX/ptx:4*:*)
+ 	echo i386-sequent-sysv4
+ 	exit 0 ;;
++    i?86:UNIX_SV:4.2MP:2.*)
++        # Unixware is an offshoot of SVR4, but it has its own version
++        # number series starting with 2...
++        # I am not positive that other SVR4 systems won't match this,
++	# I just have to hope.  -- rms.
++        # Use sysv4.2uw... so that sysv4* matches it.
++	echo ${UNAME_MACHINE}-pc-sysv4.2uw${UNAME_VERSION}
++	exit 0 ;;
+     i?86:*:4.*:* | i?86:SYSTEM_V:4.*:*)
+ 	if grep Novell /usr/include/link.h >/dev/null 2>/dev/null; then
+ 		echo ${UNAME_MACHINE}-univel-sysv${UNAME_RELEASE}
+@@ -459,6 +804,14 @@
+ 		echo ${UNAME_MACHINE}-pc-sysv${UNAME_RELEASE}
+ 	fi
+ 	exit 0 ;;
++    i?86:*:5:7*)
++	UNAME_REL=`(/bin/uname -X|egrep Release|sed -e 's/.*= //')`
++	(/bin/uname -X|egrep i80486 >/dev/null) && UNAME_MACHINE=i486
++	(/bin/uname -X|egrep '^Machine.*Pentium' >/dev/null) && UNAME_MACHINE=i586
++	(/bin/uname -X|egrep '^Machine.*Pent.*II' >/dev/null) && UNAME_MACHINE=i686
++	(/bin/uname -X|egrep '^Machine.*Pentium Pro' >/dev/null) && UNAME_MACHINE=i585
++	echo ${UNAME_MACHINE}-${UNAME_SYSTEM}${UNAME_VERSION}-sysv${UNAME_RELEASE}
++	exit 0 ;;
+     i?86:*:3.2:*)
+ 	if test -f /usr/options/cb.name; then
+ 		UNAME_REL=`sed -n 's/.*Version //p' </usr/options/cb.name`
+@@ -468,11 +821,20 @@
+ 		(/bin/uname -X|egrep i80486 >/dev/null) && UNAME_MACHINE=i486
+ 		(/bin/uname -X|egrep '^Machine.*Pentium' >/dev/null) \
+ 			&& UNAME_MACHINE=i586
++		(/bin/uname -X|egrep '^Machine.*Pent ?II' >/dev/null) \
++			&& UNAME_MACHINE=i686
++		(/bin/uname -X|egrep '^Machine.*Pentium Pro' >/dev/null) \
++			&& UNAME_MACHINE=i686
+ 		echo ${UNAME_MACHINE}-pc-sco$UNAME_REL
+ 	else
+ 		echo ${UNAME_MACHINE}-pc-sysv32
+ 	fi
+ 	exit 0 ;;
++    pc:*:*:*)
++        # uname -m prints for DJGPP always 'pc', but it prints nothing about
++        # the processor, so we play safe by assuming i386.
++	echo i386-pc-msdosdjgpp
++        exit 0 ;;
+     Intel:Mach:3*:*)
+ 	echo i386-pc-mach3
+ 	exit 0 ;;
+@@ -509,7 +871,7 @@
+     mc68030:UNIX_System_V:4.*:*)
+ 	echo m68k-atari-sysv4
+ 	exit 0 ;;
+-    i?86:LynxOS:2.*:*)
++    i?86:LynxOS:2.*:* | i?86:LynxOS:3.[01]*:*)
+ 	echo i386-unknown-lynxos${UNAME_RELEASE}
+ 	exit 0 ;;
+     TSUNAMI:LynxOS:2.*:*)
+@@ -521,6 +883,9 @@
+     SM[BE]S:UNIX_SV:*:*)
+ 	echo mips-dde-sysv${UNAME_RELEASE}
+ 	exit 0 ;;
++    RM*:ReliantUNIX-*:*:*)
++	echo mips-sni-sysv4
++	exit 0 ;;
+     RM*:SINIX-*:*:*)
+ 	echo mips-sni-sysv4
+ 	exit 0 ;;
+@@ -532,6 +897,10 @@
+ 		echo ns32k-sni-sysv
+ 	fi
+ 	exit 0 ;;
++    PENTIUM:CPunix:4.0*:*) # Unisys `ClearPath HMP IX 4000' SVR4/MP effort
++                           # says <Richard.M.Bartel@ccMail.Census.GOV>
++        echo i586-unisys-sysv4
++        exit 0 ;;
+     *:UNIX_System_V:4*:FTX*)
+ 	# From Gerald Hewes <hewes@openmarket.com>.
+ 	# How about differentiating between stratus architectures? -djm
+@@ -544,23 +913,43 @@
+     mc68*:A/UX:*:*)
+ 	echo m68k-apple-aux${UNAME_RELEASE}
+ 	exit 0 ;;
+-    R3000:*System_V*:*:* | R4000:UNIX_SYSV:*:*)
++    news*:NEWS-OS:*:6*)
++	echo mips-sony-newsos6
++	exit 0 ;;
++    R[34]000:*System_V*:*:* | R4000:UNIX_SYSV:*:* | R*000:UNIX_SV:*:*)
+ 	if [ -d /usr/nec ]; then
+ 	        echo mips-nec-sysv${UNAME_RELEASE}
+ 	else
+ 	        echo mips-unknown-sysv${UNAME_RELEASE}
+ 	fi
+         exit 0 ;;
+-    PENTIUM:CPunix:4.0*:*) # Unisys `ClearPath HMP IX 4000' SVR4/MP effort
+-                           # says <Richard.M.Bartel@ccMail.Census.GOV>
+-        echo i586-unisys-sysv4
+-        exit 0 ;;
++    BeBox:BeOS:*:*)	# BeOS running on hardware made by Be, PPC only.
++	echo powerpc-be-beos
++	exit 0 ;;
++    BeMac:BeOS:*:*)	# BeOS running on Mac or Mac clone, PPC only.
++	echo powerpc-apple-beos
++	exit 0 ;;
++    BePC:BeOS:*:*)	# BeOS running on Intel PC compatible.
++	echo i586-pc-beos
++	exit 0 ;;
++    SX-4:SUPER-UX:*:*)
++	echo sx4-nec-superux${UNAME_RELEASE}
++	exit 0 ;;
++    SX-5:SUPER-UX:*:*)
++	echo sx5-nec-superux${UNAME_RELEASE}
++	exit 0 ;;
++    Power*:Rhapsody:*:*)
++	echo powerpc-apple-rhapsody${UNAME_RELEASE}
++	exit 0 ;;
++    *:Rhapsody:*:*)
++	echo ${UNAME_MACHINE}-apple-rhapsody${UNAME_RELEASE}
++	exit 0 ;;
+ esac
+ 
+ #echo '(No uname command or uname output not recognized.)' 1>&2
+ #echo "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" 1>&2
+ 
+-cat >dummy.c <<EOF
++cat >$dummy.c <<EOF
+ #ifdef _SEQUENT_
+ # include <sys/types.h>
+ # include <sys/utsname.h>
+@@ -598,7 +987,10 @@
+ #endif
+   int version;
+   version=`(hostinfo | sed -n 's/.*NeXT Mach \([0-9]*\).*/\1/p') 2>/dev/null`;
+-  printf ("%s-next-nextstep%d\n", __ARCHITECTURE__, version);
++  if (version < 4)
++    printf ("%s-next-nextstep%d\n", __ARCHITECTURE__, version);
++  else
++    printf ("%s-next-openstep%d\n", __ARCHITECTURE__, version);
+   exit (0);
+ #endif
+ 
+@@ -658,8 +1050,8 @@
+ }
+ EOF
+ 
+-${CC-cc} dummy.c -o dummy 2>/dev/null && ./dummy && rm dummy.c dummy && exit 0
+-rm -f dummy.c dummy
++$CC_FOR_BUILD $dummy.c -o $dummy 2>/dev/null && ./$dummy && rm $dummy.c $dummy && exit 0
++rm -f $dummy.c $dummy
+ 
+ # Apollos put the system type in the environment.
+ 
+diff -Naur db-2.7.7.orig/dist/config.sub db-2.7.7/dist/config.sub
+--- db-2.7.7.orig/dist/config.sub	Tue Jan 13 17:52:21 1998
++++ db-2.7.7/dist/config.sub	Tue Aug 13 08:20:00 2002
+@@ -1,6 +1,6 @@
+ #! /bin/sh
+ # Configuration validation subroutine script, version 1.1.
+-#   Copyright (C) 1991, 92, 93, 94, 95, 1996 Free Software Foundation, Inc.
++#   Copyright (C) 1991, 92-97, 1998, 1999 Free Software Foundation, Inc.
+ # This file is (in principle) common to ALL GNU software.
+ # The presence of a machine in this file suggests that SOME GNU software
+ # can handle that machine.  It does not imply ALL GNU software can.
+@@ -98,11 +98,21 @@
+ 		os=
+ 		basic_machine=$1
+ 		;;
++	-sim | -cisco | -oki | -wec | -winbond)
++		os=
++		basic_machine=$1
++		;;
++	-scout)
++		;;
++	-wrs)
++		os=vxworks
++		basic_machine=$1
++		;;
+ 	-hiux*)
+ 		os=-hiuxwe2
+ 		;;
+ 	-sco5)
+-		os=sco3.2v5
++		os=-sco3.2v5
+ 		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
+ 		;;
+ 	-sco4)
+@@ -121,6 +131,9 @@
+ 		os=-sco3.2v2
+ 		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
+ 		;;
++	-udk*)
++		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
++		;;
+ 	-isc)
+ 		os=-isc2.2
+ 		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
+@@ -149,19 +162,27 @@
+ case $basic_machine in
+ 	# Recognize the basic CPU types without company name.
+ 	# Some are omitted here because they have special meanings below.
+-	tahoe | i860 | m68k | m68000 | m88k | ns32k | arm \
+-		| arme[lb] | pyramid \
+-		| tron | a29k | 580 | i960 | h8300 | hppa | hppa1.0 | hppa1.1 \
+-		| alpha | we32k | ns16k | clipper | i370 | sh \
+-		| powerpc | powerpcle | 1750a | dsp16xx | mips64 | mipsel \
+-		| pdp11 | mips64el | mips64orion | mips64orionel \
+-		| sparc | sparclet | sparclite | sparc64)
++	tahoe | i860 | ia64 | m32r | m68k | m68000 | m88k | ns32k | arc | arm \
++		| arme[lb] | pyramid | mn10200 | mn10300 | tron | a29k \
++		| 580 | i960 | h8300 \
++		| hppa | hppa1.0 | hppa1.1 | hppa2.0 | hppa2.0w | hppa2.0n \
++		| alpha | alphaev[4-7] | alphaev56 | alphapca5[67] \
++		| we32k | ns16k | clipper | i370 | sh | powerpc | powerpcle \
++		| 1750a | dsp16xx | pdp11 | mips16 | mips64 | mipsel | mips64el \
++		| mips64orion | mips64orionel | mipstx39 | mipstx39el \
++		| mips64vr4300 | mips64vr4300el | mips64vr4100 | mips64vr4100el \
++		| mips64vr5000 | miprs64vr5000el | mcore \
++		| sparc | sparclet | sparclite | sparc64 | sparcv9 | v850 | c4x \
++		| thumb | d10v)
+ 		basic_machine=$basic_machine-unknown
+ 		;;
++	m88110 | m680[12346]0 | m683?2 | m68360 | m5200 | z8k | v70 | h8500 | w65)
++		;;
++
+ 	# We use `pc' rather than `unknown'
+ 	# because (1) that's what they normally are, and
+ 	# (2) the word "unknown" tends to confuse beginning users.
+-	i[3456]86)
++	i[34567]86)
+ 	  basic_machine=$basic_machine-pc
+ 	  ;;
+ 	# Object if more than one company name word.
+@@ -170,23 +191,45 @@
+ 		exit 1
+ 		;;
+ 	# Recognize the basic CPU types with company name.
+-	vax-* | tahoe-* | i[3456]86-* | i860-* | m68k-* | m68000-* | m88k-* \
+-	      | sparc-* | ns32k-* | fx80-* | arm-* | c[123]* \
+-	      | mips-* | pyramid-* | tron-* | a29k-* | romp-* | rs6000-* | power-* \
+-	      | none-* | 580-* | cray2-* | h8300-* | i960-* | xmp-* | ymp-* \
+-	      | hppa-* | hppa1.0-* | hppa1.1-* | alpha-* | we32k-* | cydra-* | ns16k-* \
+-	      | pn-* | np1-* | xps100-* | clipper-* | orion-* | sparclite-* \
+-	      | pdp11-* | sh-* | powerpc-* | powerpcle-* | sparc64-* | mips64-* | mipsel-* | uts-* \
+-	      | mips64el-* | mips64orion-* | mips64orionel-* | f301-*)
++	# FIXME: clean up the formatting here.
++	vax-* | tahoe-* | i[34567]86-* | i860-* | ia64-* | m32r-* | m68k-* | m68000-* \
++	      | m88k-* | sparc-* | ns32k-* | fx80-* | arc-* | arm-* | c[123]* \
++	      | mips-* | pyramid-* | tron-* | a29k-* | romp-* | rs6000-* \
++	      | power-* | none-* | 580-* | cray2-* | h8300-* | h8500-* | i960-* \
++	      | xmp-* | ymp-* \
++	      | hppa-* | hppa1.0-* | hppa1.1-* | hppa2.0-* | hppa2.0w-* | hppa2.0n-* \
++	      | alpha-* | alphaev[4-7]-* | alphaev56-* | alphapca5[67]-* \
++	      | we32k-* | cydra-* | ns16k-* | pn-* | np1-* | xps100-* \
++	      | clipper-* | orion-* \
++	      | sparclite-* | pdp11-* | sh-* | powerpc-* | powerpcle-* \
++	      | sparc64-* | sparcv9-* | sparc86x-* | mips16-* | mips64-* | mipsel-* \
++	      | mips64el-* | mips64orion-* | mips64orionel-* \
++	      | mips64vr4100-* | mips64vr4100el-* | mips64vr4300-* | mips64vr4300el-* \
++	      | mipstx39-* | mipstx39el-* | mcore-* \
++	      | f301-* | armv*-* | t3e-* \
++	      | m88110-* | m680[01234]0-* | m683?2-* | m68360-* | z8k-* | d10v-* \
++	      | thumb-* | v850-* | d30v-* | tic30-* | c30-* )
+ 		;;
+ 	# Recognize the various machine names and aliases which stand
+ 	# for a CPU type and a company and sometimes even an OS.
++	386bsd)
++		basic_machine=i386-unknown
++		os=-bsd
++		;;
+ 	3b1 | 7300 | 7300-att | att-7300 | pc7300 | safari | unixpc)
+ 		basic_machine=m68000-att
+ 		;;
+ 	3b*)
+ 		basic_machine=we32k-att
+ 		;;
++	a29khif)
++		basic_machine=a29k-amd
++		os=-udi
++		;;
++	adobe68k)
++		basic_machine=m68010-adobe
++		os=-scout
++		;;
+ 	alliant | fx80)
+ 		basic_machine=fx80-alliant
+ 		;;
+@@ -204,9 +247,9 @@
+ 	amiga | amiga-*)
+ 		basic_machine=m68k-cbm
+ 		;;
+-	amigados)
++	amigaos | amigados)
+ 		basic_machine=m68k-cbm
+-		os=-amigados
++		os=-amigaos
+ 		;;
+ 	amigaunix | amix)
+ 		basic_machine=m68k-cbm
+@@ -216,6 +259,10 @@
+ 		basic_machine=m68k-apollo
+ 		os=-sysv
+ 		;;
++	apollo68bsd)
++		basic_machine=m68k-apollo
++		os=-bsd
++		;;
+ 	aux)
+ 		basic_machine=m68k-apple
+ 		os=-aux
+@@ -292,6 +339,10 @@
+ 	encore | umax | mmax)
+ 		basic_machine=ns32k-encore
+ 		;;
++	es1800 | OSE68k | ose68k | ose | OSE)
++		basic_machine=m68k-ericsson
++		os=-ose
++		;;
+ 	fx2800)
+ 		basic_machine=i860-alliant
+ 		;;
+@@ -310,6 +361,14 @@
+ 		basic_machine=h8300-hitachi
+ 		os=-hms
+ 		;;
++	h8300xray)
++		basic_machine=h8300-hitachi
++		os=-xray
++		;;
++	h8500hms)
++		basic_machine=h8500-hitachi
++		os=-hms
++		;;
+ 	harris)
+ 		basic_machine=m88k-harris
+ 		os=-sysv3
+@@ -325,13 +384,30 @@
+ 		basic_machine=m68k-hp
+ 		os=-hpux
+ 		;;
++	hp3k9[0-9][0-9] | hp9[0-9][0-9])
++		basic_machine=hppa1.0-hp
++		;;
+ 	hp9k2[0-9][0-9] | hp9k31[0-9])
+ 		basic_machine=m68000-hp
+ 		;;
+ 	hp9k3[2-9][0-9])
+ 		basic_machine=m68k-hp
+ 		;;
+-	hp9k7[0-9][0-9] | hp7[0-9][0-9] | hp9k8[0-9]7 | hp8[0-9]7)
++	hp9k6[0-9][0-9] | hp6[0-9][0-9])
++		basic_machine=hppa1.0-hp
++		;;
++	hp9k7[0-79][0-9] | hp7[0-79][0-9])
++		basic_machine=hppa1.1-hp
++		;;
++	hp9k78[0-9] | hp78[0-9])
++		# FIXME: really hppa2.0-hp
++		basic_machine=hppa1.1-hp
++		;;
++	hp9k8[67]1 | hp8[67]1 | hp9k80[24] | hp80[24] | hp9k8[78]9 | hp8[78]9 | hp9k893 | hp893)
++		# FIXME: really hppa2.0-hp
++		basic_machine=hppa1.1-hp
++		;;
++	hp9k8[0-9][13679] | hp8[0-9][13679])
+ 		basic_machine=hppa1.1-hp
+ 		;;
+ 	hp9k8[0-9][0-9] | hp8[0-9][0-9])
+@@ -340,27 +416,51 @@
+ 	hppa-next)
+ 		os=-nextstep3
+ 		;;
++	hppaosf)
++		basic_machine=hppa1.1-hp
++		os=-osf
++		;;
++	hppro)
++		basic_machine=hppa1.1-hp
++		os=-proelf
++		;;
+ 	i370-ibm* | ibm*)
+ 		basic_machine=i370-ibm
+ 		os=-mvs
+ 		;;
+ # I'm not sure what "Sysv32" means.  Should this be sysv3.2?
+-	i[3456]86v32)
++	i[34567]86v32)
+ 		basic_machine=`echo $1 | sed -e 's/86.*/86-pc/'`
+ 		os=-sysv32
+ 		;;
+-	i[3456]86v4*)
++	i[34567]86v4*)
+ 		basic_machine=`echo $1 | sed -e 's/86.*/86-pc/'`
+ 		os=-sysv4
+ 		;;
+-	i[3456]86v)
++	i[34567]86v)
+ 		basic_machine=`echo $1 | sed -e 's/86.*/86-pc/'`
+ 		os=-sysv
+ 		;;
+-	i[3456]86sol2)
++	i[34567]86sol2)
+ 		basic_machine=`echo $1 | sed -e 's/86.*/86-pc/'`
+ 		os=-solaris2
+ 		;;
++	i386mach)
++		basic_machine=i386-mach
++		os=-mach
++		;;
++	i386-vsta | vsta)
++		basic_machine=i386-unknown
++		os=-vsta
++		;;
++	i386-go32 | go32)
++		basic_machine=i386-unknown
++		os=-go32
++		;;
++	i386-mingw32 | mingw32)
++		basic_machine=i386-unknown
++		os=-mingw32
++		;;
+ 	iris | iris4d)
+ 		basic_machine=mips-sgi
+ 		case $os in
+@@ -389,16 +489,44 @@
+ 	miniframe)
+ 		basic_machine=m68000-convergent
+ 		;;
++	*mint | *MiNT)
++		basic_machine=m68k-atari
++		os=-mint
++		;;
++	mipsel*-linux*)
++		basic_machine=mipsel-unknown
++		os=-linux-gnu
++		;;
++	mips*-linux*)
++		basic_machine=mips-unknown
++		os=-linux-gnu
++		;;
+ 	mips3*-*)
+ 		basic_machine=`echo $basic_machine | sed -e 's/mips3/mips64/'`
+ 		;;
+ 	mips3*)
+ 		basic_machine=`echo $basic_machine | sed -e 's/mips3/mips64/'`-unknown
+ 		;;
++	monitor)
++		basic_machine=m68k-rom68k
++		os=-coff
++		;;
++	msdos)
++		basic_machine=i386-unknown
++		os=-msdos
++		;;
+ 	ncr3000)
+ 		basic_machine=i486-ncr
+ 		os=-sysv4
+ 		;;
++	netbsd386)
++		basic_machine=i386-unknown
++		os=-netbsd
++		;;
++	netwinder)
++		basic_machine=armv4l-corel
++		os=-linux
++		;;
+ 	news | news700 | news800 | news900)
+ 		basic_machine=m68k-sony
+ 		os=-newsos
+@@ -411,6 +539,10 @@
+ 		basic_machine=mips-sony
+ 		os=-newsos
+ 		;;
++	necv70)
++		basic_machine=v70-nec
++		os=-sysv
++		;;
+ 	next | m*-next )
+ 		basic_machine=m68k-next
+ 		case $os in
+@@ -436,9 +568,25 @@
+ 		basic_machine=i960-intel
+ 		os=-nindy
+ 		;;
++	mon960)
++		basic_machine=i960-intel
++		os=-mon960
++		;;
+ 	np1)
+ 		basic_machine=np1-gould
+ 		;;
++	op50n-* | op60c-*)
++		basic_machine=hppa1.1-oki
++		os=-proelf
++		;;
++	OSE68000 | ose68000)
++		basic_machine=m68000-ericsson
++		os=-ose
++		;;
++	os68k)
++		basic_machine=m68k-none
++		os=-os68k
++		;;
+ 	pa-hitachi)
+ 		basic_machine=hppa1.1-hitachi
+ 		os=-hiuxwe2
+@@ -456,25 +604,23 @@
+         pc532 | pc532-*)
+ 		basic_machine=ns32k-pc532
+ 		;;
+-	pentium | p5)
+-		basic_machine=i586-intel
++	pentium | p5 | k5 | k6 | nexen)
++		basic_machine=i586-pc
++		;;
++	pentiumpro | p6 | 6x86)
++		basic_machine=i686-pc
+ 		;;
+-	pentiumpro | p6)
+-		basic_machine=i686-intel
++	pentiumii | pentium2)
++		basic_machine=i786-pc
+ 		;;
+-	pentium-* | p5-*)
++	pentium-* | p5-* | k5-* | k6-* | nexen-*)
+ 		basic_machine=i586-`echo $basic_machine | sed 's/^[^-]*-//'`
+ 		;;
+-	pentiumpro-* | p6-*)
++	pentiumpro-* | p6-* | 6x86-*)
+ 		basic_machine=i686-`echo $basic_machine | sed 's/^[^-]*-//'`
+ 		;;
+-	k5)
+-		# We don't have specific support for AMD's K5 yet, so just call it a Pentium
+-		basic_machine=i586-amd
+-		;;
+-	nexen)
+-		# We don't have specific support for Nexgen yet, so just call it a Pentium
+-		basic_machine=i586-nexgen
++	pentiumii-* | pentium2-*)
++		basic_machine=i786-`echo $basic_machine | sed 's/^[^-]*-//'`
+ 		;;
+ 	pn)
+ 		basic_machine=pn-gould
+@@ -494,12 +640,20 @@
+ 	ps2)
+ 		basic_machine=i386-ibm
+ 		;;
++	rom68k)
++		basic_machine=m68k-rom68k
++		os=-coff
++		;;
+ 	rm[46]00)
+ 		basic_machine=mips-siemens
+ 		;;
+ 	rtpc | rtpc-*)
+ 		basic_machine=romp-ibm
+ 		;;
++	sa29200)
++		basic_machine=a29k-amd
++		os=-udi
++		;;
+ 	sequent)
+ 		basic_machine=i386-sequent
+ 		;;
+@@ -507,6 +661,10 @@
+ 		basic_machine=sh-hitachi
+ 		os=-hms
+ 		;;
++	sparclite-wrs)
++		basic_machine=sparclite-wrs
++		os=-vxworks
++		;;
+ 	sps7)
+ 		basic_machine=m68k-bull
+ 		os=-sysv2
+@@ -514,6 +672,13 @@
+ 	spur)
+ 		basic_machine=spur-unknown
+ 		;;
++	st2000)
++		basic_machine=m68k-tandem
++		;;
++	stratus)
++		basic_machine=i860-stratus
++		os=-sysv4
++		;;
+ 	sun2)
+ 		basic_machine=m68000-sun
+ 		;;
+@@ -558,6 +723,16 @@
+ 		basic_machine=i386-sequent
+ 		os=-dynix
+ 		;;
++	t3e)
++		basic_machine=t3e-cray
++		os=-unicos
++		;;
++	tx39)
++		basic_machine=mipstx39-unknown
++		;;
++	tx39el)
++		basic_machine=mipstx39el-unknown
++		;;
+ 	tower | tower-32)
+ 		basic_machine=m68k-ncr
+ 		;;
+@@ -569,6 +744,10 @@
+ 		basic_machine=a29k-nyu
+ 		os=-sym1
+ 		;;
++	v810 | necv810)
++		basic_machine=v810-nec
++		os=-none
++		;;
+ 	vaxv)
+ 		basic_machine=vax-dec
+ 		os=-sysv
+@@ -577,7 +756,7 @@
+ 		basic_machine=vax-dec
+ 		os=-vms
+ 		;;
+-       vpp*|vx|vx-*)
++	vpp*|vx|vx-*)
+                basic_machine=f301-fujitsu
+                ;;
+ 	vxworks960)
+@@ -592,6 +771,14 @@
+ 		basic_machine=a29k-wrs
+ 		os=-vxworks
+ 		;;
++	w65*)
++		basic_machine=w65-wdc
++		os=-none
++		;;
++	w89k-*)
++		basic_machine=hppa1.1-winbond
++		os=-proelf
++		;;
+ 	xmp)
+ 		basic_machine=xmp-cray
+ 		os=-unicos
+@@ -599,6 +786,10 @@
+         xps | xps100)
+ 		basic_machine=xps100-honeywell
+ 		;;
++	z8k-*-coff)
++		basic_machine=z8k-unknown
++		os=-sim
++		;;
+ 	none)
+ 		basic_machine=none-none
+ 		os=-none
+@@ -606,8 +797,21 @@
+ 
+ # Here we handle the default manufacturer of certain CPU types.  It is in
+ # some cases the only manufacturer, in others, it is the most popular.
++	w89k)
++		basic_machine=hppa1.1-winbond
++		;;
++	op50n)
++		basic_machine=hppa1.1-oki
++		;;
++	op60c)
++		basic_machine=hppa1.1-oki
++		;;
+ 	mips)
+-		basic_machine=mips-mips
++		if [ x$os = x-linux-gnu ]; then
++			basic_machine=mips-unknown
++		else
++			basic_machine=mips-mips
++		fi
+ 		;;
+ 	romp)
+ 		basic_machine=romp-ibm
+@@ -624,7 +828,7 @@
+ 	we32k)
+ 		basic_machine=we32k-att
+ 		;;
+-	sparc)
++	sparc | sparcv9)
+ 		basic_machine=sparc-sun
+ 		;;
+         cydra)
+@@ -636,6 +840,16 @@
+ 	orion105)
+ 		basic_machine=clipper-highlevel
+ 		;;
++	mac | mpw | mac-mpw)
++		basic_machine=m68k-apple
++		;;
++	pmac | pmac-mpw)
++		basic_machine=powerpc-apple
++		;;
++	c4x*)
++		basic_machine=c4x-none
++		os=-coff
++		;;
+ 	*)
+ 		echo Invalid configuration \`$1\': machine \`$basic_machine\' not recognized 1>&2
+ 		exit 1
+@@ -668,9 +882,12 @@
+ 	-solaris)
+ 		os=-solaris2
+ 		;;
+-	-unixware* | svr4*)
++	-svr4*)
+ 		os=-sysv4
+ 		;;
++	-unixware*)
++		os=-sysv4.2uw
++		;;
+ 	-gnu/linux*)
+ 		os=`echo $os | sed -e 's|gnu/linux|linux-gnu|'`
+ 		;;
+@@ -681,17 +898,26 @@
+ 	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
+ 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -sunos | -sunos[34]*\
+ 	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -solaris* | -sym* \
+-	      | -amigados* | -msdos* | -newsos* | -unicos* | -aof* | -aos* \
++	      | -amigaos* | -amigados* | -msdos* | -newsos* | -unicos* | -aof* \
++	      | -aos* \
+ 	      | -nindy* | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
+ 	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
+ 	      | -hiux* | -386bsd* | -netbsd* | -openbsd* | -freebsd* | -riscix* \
+-	      | -lynxos* | -bosx* | -nextstep* | -cxux* | -aout* | -elf* \
++	      | -lynxos* | -bosx* | -nextstep* | -cxux* | -aout* | -elf* | -oabi* \
+ 	      | -ptx* | -coff* | -ecoff* | -winnt* | -domain* | -vsta* \
+ 	      | -udi* | -eabi* | -lites* | -ieee* | -go32* | -aux* \
+-	      | -cygwin32* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
+-	      | -linux-gnu* | -uxpv*)
++	      | -cygwin* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
++	      | -mingw32* | -linux-gnu* | -uxpv* | -beos* | -mpeix* | -udk* \
++	      | -interix* | -uwin* | -rhapsody* | -openstep* | -oskit*)
+ 	# Remember, each alternative MUST END IN *, to match a version number.
+ 		;;
++	-sim | -es1800* | -hms* | -xray | -os68k* | -none* | -v88r* \
++	      | -windows* | -osx | -abug | -netware* | -os9* | -beos* \
++	      | -macos* | -mpw* | -magic* | -mon960* | -lnews*)
++		;;
++	-mac*)
++		os=`echo $os | sed -e 's|mac|macos|'`
++		;;
+ 	-linux*)
+ 		os=`echo $os | sed -e 's|linux|linux-gnu|'`
+ 		;;
+@@ -716,6 +942,9 @@
+ 	-acis*)
+ 		os=-aos
+ 		;;
++	-386bsd)
++		os=-bsd
++		;;
+ 	-ctix* | -uts*)
+ 		os=-sysv
+ 		;;
+@@ -747,9 +976,18 @@
+ 	# This must come after -sysvr4.
+ 	-sysv*)
+ 		;;
++	-ose*)
++		os=-ose
++		;;
++	-es1800*)
++		os=-ose
++		;;
+ 	-xenix)
+ 		os=-xenix
+ 		;;
++        -*mint | -*MiNT)
++	        os=-mint
++		;;
+ 	-none)
+ 		;;
+ 	*)
+@@ -775,6 +1013,9 @@
+ 	*-acorn)
+ 		os=-riscix1.2
+ 		;;
++	arm*-corel)
++		os=-linux
++		;;
+ 	arm*-semi)
+ 		os=-aout
+ 		;;
+@@ -796,15 +1037,36 @@
+ 		# default.
+ 		# os=-sunos4
+ 		;;
++	m68*-cisco)
++		os=-aout
++		;;
++	mips*-cisco)
++		os=-elf
++		;;
++	mips*-*)
++		os=-elf
++		;;
+ 	*-tti)	# must be before sparc entry or we get the wrong os.
+ 		os=-sysv3
+ 		;;
+ 	sparc-* | *-sun)
+ 		os=-sunos4.1.1
+ 		;;
++	*-be)
++		os=-beos
++		;;
+ 	*-ibm)
+ 		os=-aix
+ 		;;
++	*-wec)
++		os=-proelf
++		;;
++	*-winbond)
++		os=-proelf
++		;;
++	*-oki)
++		os=-proelf
++		;;
+ 	*-hp)
+ 		os=-hpux
+ 		;;
+@@ -815,7 +1077,7 @@
+ 		os=-sysv
+ 		;;
+ 	*-cbm)
+-		os=-amigados
++		os=-amigaos
+ 		;;
+ 	*-dg)
+ 		os=-dgux
+@@ -868,6 +1130,18 @@
+ 	f301-fujitsu)
+ 		os=-uxpv
+ 		;;
++	*-rom68k)
++		os=-coff
++		;;
++	*-*bug)
++		os=-coff
++		;;
++	*-apple)
++		os=-macos
++		;;
++	*-atari*)
++		os=-mint
++		;;
+ 	*)
+ 		os=-none
+ 		;;
+@@ -889,9 +1163,15 @@
+ 			-aix*)
+ 				vendor=ibm
+ 				;;
++			-beos*)
++				vendor=be
++				;;
+ 			-hpux*)
+ 				vendor=hp
+ 				;;
++			-mpeix*)
++				vendor=hp
++				;;
+ 			-hiux*)
+ 				vendor=hitachi
+ 				;;
+@@ -918,6 +1198,15 @@
+ 				;;
+ 			-aux*)
+ 				vendor=apple
++				;;
++			-hms*)
++				vendor=hitachi
++				;;
++			-mpw* | -macos*)
++				vendor=apple
++				;;
++			-*mint | -*MiNT)
++				vendor=atari
+ 				;;
+ 		esac
+ 		basic_machine=`echo $basic_machine | sed "s/unknown/$vendor/"`
+diff -Naur db-2.7.7.orig/dist/configure.in db-2.7.7/dist/configure.in
+--- db-2.7.7.orig/dist/configure.in	Sat Jan 16 15:38:03 1999
++++ db-2.7.7/dist/configure.in	Tue Aug 13 08:20:00 2002
+@@ -25,6 +25,7 @@
+ AC_SUBST(CXX)
+ AC_SUBST(CXXFLAGS)
+ AC_SUBST(LDFLAGS)
++AC_SUBST(CROSS_COMPILE)
+ case "$host_os" in
+ aix4.1*)   CFLAGS=${CFLAGS-"-O3"};;
+ bsd4.4)    CFLAGS=${CFLAGS-"-O2"};;
+@@ -90,10 +91,8 @@
+ 	AC_PROG_CXX
+ 
+ 	if test "$GXX" = "yes"; then
+-		CXXFLAGS="-fhandle-exceptions $CXXFLAGS"
++		CXXFLAGS="-fexceptions $CXXFLAGS"
+ 	fi
+-
+-	LIBOBJS="$LIBOBJS \$(COBJS)"
+ fi
+ 
+ dnl There are additional libraries we need for some compiler/architecture
+@@ -122,7 +121,7 @@
+ fi
+ 
+ dnl Check for programs used in building and installation.
+-AC_PATH_PROG(db_cv_path_ar, ar, missing_ar)
++AC_PATH_PROG(db_cv_path_ar, ${CROSS_COMPILE}ar, missing_ar)
+ if test "$db_cv_path_ar" = missing_ar; then
+ 	AC_MSG_ERROR([No ar utility found.])
+ fi
+@@ -138,7 +137,7 @@
+ if test "$db_cv_path_mkdir" = missing_mkdir; then
+ 	AC_MSG_ERROR([No mkdir utility found.])
+ fi
+-AC_PATH_PROG(db_cv_path_ranlib, ranlib, missing_ranlib)
++AC_PATH_PROG(db_cv_path_ranlib, ${CROSS_COMPILE}ranlib, missing_ranlib)
+ AC_PATH_PROG(db_cv_path_rm, rm, missing_rm)
+ if test "$db_cv_path_rm" = missing_rm; then
+ 	AC_MSG_ERROR([No rm utility found.])
+@@ -147,7 +146,7 @@
+ if test "$db_cv_path_sh" = missing_sh; then
+ 	AC_MSG_ERROR([No sh utility found.])
+ fi
+-AC_PATH_PROG(db_cv_path_strip, strip, missing_strip)
++AC_PATH_PROG(db_cv_path_strip, ${CROSS_COMPILE}strip, missing_strip)
+ if test "$db_cv_path_strip" = missing_strip; then
+ 	AC_MSG_ERROR([No strip utility found.])
+ fi
+@@ -233,16 +232,6 @@
+ 	AC_DEFINE(HAVE_SIGFILLSET)
+ fi
+ 
+-dnl Some versions of sprintf return a pointer to the first argument instead
+-dnl of a character count.  We assume that the return value of snprintf and
+-dnl vsprintf etc. will be the same as sprintf, and check the easy one.
+-AC_CACHE_CHECK([for int type sprintf return value], db_cv_sprintf_count, [dnl
+-AC_TRY_RUN([main(){char buf[20]; exit(sprintf(buf, "XXX") != 3);}],
+-	[db_cv_sprintf_count=yes], [db_cv_sprintf_count=no])])
+-if test "$db_cv_sprintf_count" = no; then
+-	AC_DEFINE(SPRINTF_RET_CHARPNT)
+-fi
+-
+ dnl Vendors are doing 64-bit lseek in different ways.
+ dnl AIX, HP/UX and Solaris all use _FILE_OFFSET_BITS to specify a "big-file"
+ dnl environment.
+@@ -259,142 +248,8 @@
+ 	AC_MSG_RESULT("yes")
+ fi
+ 
+-dnl Figure out if we have spinlocks for the compiler/architecture.
+-AC_CACHE_CHECK([for spinlocks], db_cv_spinlocks, [dnl
+ db_cv_spinlocks=no
+ 
+-dnl msemaphore: HPPA
+-dnl Try HPPA before general msem test, it needs special mutex alignment.
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_RUN([main(){
+-#if defined(__hppa)
+-#include <sys/mman.h>
+-typedef msemaphore tsl_t;
+-msemaphore x; msem_init(&x, 0); msem_lock(&x, 0); msem_unlock(&x, 0);
+-exit(0);
+-#else
+-exit(1);
+-#endif
+-}], [db_cv_spinlocks=msem-hppa/func])
+-fi
+-
+-dnl msemaphore: OSF/1
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_LINK([#include <sys/types.h>],
+-[#include <sys/mman.h>;
+- typedef msemaphore tsl_t;
+-msemaphore x; msem_init(&x, 0); msem_lock(&x, 0); msem_unlock(&x, 0);],
+-[db_cv_spinlocks=msem/func])
+-fi
+-
+-dnl ReliantUNIX
+-if test "$db_cv_spinlocks" = no; then
+-saved_libs="$LIBS"
+-LIBS="$LIBS -lmproc"
+-AC_TRY_LINK([#include <ulocks.h>],
+-[typedef spinlock_t tsl_t;
+- spinlock_t x; initspin(&x, 1); cspinlock(&x); spinunlock(&x);],
+-[db_cv_spinlocks=reliant/func],[LIBS="$saved_libs"])
+-fi
+-
+-dnl SCO: UnixWare has threads in libthread, but OpenServer doesn't.
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_RUN([main(){
+-#if defined(__USLC__)
+-exit(0);
+-#endif
+-exit(1);}], [db_cv_spinlocks=sco/cc])
+-fi
+-
+-dnl abilock_t: SGI
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_LINK([#include <abi_mutex.h>],
+-[typedef abilock_t tsl_t;
+- abilock_t x; init_lock(&x); acquire_lock(&x); release_lock(&x);],
+-[db_cv_spinlocks=sgi/func])
+-fi
+-
+-dnl sema_t: Solaris
+-dnl The semaphore calls do not work on Solaris 5.5.
+-if test "$db_cv_spinlocks" = NOTYET; then
+-AC_TRY_LINK([#include <synch.h>],
+-[typedef sema_t tsl_t;
+- sema_t x;
+- sema_init(&x, 1, USYNC_PROCESS, NULL); sema_wait(&x); sema_post(&x);],
+-[db_cv_spinlocks=solaris/func])
+-fi
+-
+-dnl _lock_try/_lock_clear: Solaris
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_LINK([#include <sys/machlock.h>],
+-[typedef lock_t tsl_t;
+- lock_t x;
+- _lock_try(&x); _lock_clear(&x);],
+-[db_cv_spinlocks=solaris/func])
+-fi
+-
+-dnl _check_lock/_clear_lock: AIX
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_LINK([#include <sys/atomic_op.h>],
+-[int x; _check_lock(x,0,1); _clear_lock(x,0);],
+-[db_cv_spinlocks=aix/func])
+-fi
+-
+-dnl PaRisc/gcc: HP/UX
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_RUN([main(){
+-#if defined(__hppa)
+-#if defined(__GNUC__)
+-exit(0);
+-#endif
+-#endif
+-exit(1);}], [db_cv_spinlocks=parisc/gcc])
+-fi
+-
+-dnl Sparc/gcc: Solaris
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_RUN([main(){
+-#if defined(__sparc__)
+-#if defined(__GNUC__)
+-exit(0);
+-#endif
+-#endif
+-exit(1);}], [db_cv_spinlocks=sparc/gcc])
+-fi
+-
+-dnl 68K/gcc: SunOS
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_RUN([main(){
+-#if (defined(mc68020) || defined(sun3))
+-#if defined(__GNUC__)
+-exit(0);
+-#endif
+-#endif
+-exit(1);}], [db_cv_spinlocks=mc68020/gcc])
+-fi
+-
+-dnl x86/gcc: BSD/OS, FreeBSD, NetBSD, Linux
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_RUN([main(){
+-#if defined(i386)
+-#if defined(__GNUC__)
+-exit(0);
+-#endif
+-#endif
+-exit(1);}], [db_cv_spinlocks=x86/gcc])
+-fi
+-
+-dnl: uts/cc: UTS
+-if test "$db_cv_spinlocks" = no; then
+-AC_TRY_RUN([main(){
+-#if defined(_UTS)
+-exit(0);
+-#endif
+-exit(1);}], [db_cv_spinlocks=uts4/cc])
+-fi
+-
+-])
+-
+ if test "$db_cv_spinlocks" = no; then
+ 	AC_MSG_WARN([SPINLOCKS NOT IMPLEMENTED FOR THIS COMPILER/ARCHITECTURE.])
+ else
+@@ -569,7 +424,7 @@
+ if test "$db_cv_uint32" = no; then
+ 	AC_MSG_ERROR([No unsigned 32-bit integral type.])
+ fi
+-if test "$db_cv_uint32" != yes; then
++if test "$db_CV_Uint32" != yes; then
+ 	u_int32_decl="typedef $db_cv_uint32 u_int32_t;"
+ fi
+ 
+diff -Naur db-2.7.7.orig/hash/hash.c db-2.7.7/hash/hash.c
+--- db-2.7.7.orig/hash/hash.c	Fri Jan 15 23:39:21 1999
++++ db-2.7.7/hash/hash.c	Tue Aug 13 08:20:00 2002
+@@ -261,11 +261,12 @@
+ 		goto out;
+ 
+ 	hcp->stats.hash_deleted++;
+-	if ((ret = __ham_lookup(dbc, key, 0, DB_LOCK_WRITE)) == 0)
++	if ((ret = __ham_lookup(dbc, key, 0, DB_LOCK_WRITE)) == 0) {
+ 		if (F_ISSET(hcp, H_OK))
+ 			ret = __ham_del_pair(dbc, 1);
+ 		else
+ 			ret = DB_NOTFOUND;
++	}
+ 
+ 	RELEASE_META(dbp, hcp);
+ out:	if ((tret = dbc->c_close(dbc)) != 0 && ret == 0)
+@@ -931,7 +932,7 @@
+ 	 * duplicate.  In this case, we do initialization and then
+ 	 * let the normal duplicate code handle it.
+ 	 */
+-	if (!F_ISSET(hcp, H_ISDUP))
++	if (!F_ISSET(hcp, H_ISDUP)) {
+ 		if (type == H_DUPLICATE) {
+ 			F_SET(hcp, H_ISDUP);
+ 			hcp->dup_tlen = LEN_HDATA(hcp->pagep,
+@@ -967,9 +968,11 @@
+ 				hcp->dpgno = PGNO(hcp->dpagep);
+ 				hcp->dndx = NUM_ENT(hcp->dpagep) - 1;
+ 			} else if ((ret = __ham_next_cpage(dbc,
+-			    pgno, 0, H_ISDUP)) != 0)
++			    pgno, 0, H_ISDUP)) != 0) {
+ 				return (ret);
++			}
+ 		}
++	}
+ 
+ 
+ 	/*
+@@ -1021,7 +1024,7 @@
+ 	 * Now, everything is initialized, grab a duplicate if
+ 	 * necessary.
+ 	 */
+-	if (F_ISSET(hcp, H_ISDUP))
++	if (F_ISSET(hcp, H_ISDUP)) {
+ 		if (hcp->dpgno != PGNO_INVALID) {
+ 			pp = hcp->dpagep;
+ 			ndx = hcp->dndx;
+@@ -1057,6 +1060,7 @@
+ 			}
+ 			myval = &tmp_val;
+ 		}
++	}
+ 
+ 
+ 	/*
+@@ -1304,11 +1308,11 @@
+ 			continue;
+ 		}
+ 
+-		if (!is_dup && lcp->bndx > hcp->bndx)
++		if (!is_dup && lcp->bndx > hcp->bndx) {
+ 			lcp->bndx--;
+-		else if (!is_dup && lcp->bndx == hcp->bndx)
++		} else if (!is_dup && lcp->bndx == hcp->bndx) {
+ 			F_SET(lcp, H_DELETED);
+-		else if (is_dup && lcp->bndx == hcp->bndx) {
++		} else if (is_dup && lcp->bndx == hcp->bndx) {
+ 			/* Assign dpgno in case there was page conversion. */
+ 			lcp->dpgno = hcp->dpgno;
+ 			if (add && lcp->dndx >= hcp->dndx )
+@@ -1319,7 +1323,7 @@
+ 				F_SET(lcp, H_DELETED);
+ 
+ 			/* Now adjust on-page information. */
+-			if (lcp->dpgno == PGNO_INVALID)
++			if (lcp->dpgno == PGNO_INVALID) {
+ 				if (add) {
+ 					lcp->dup_tlen += len;
+ 					if (lcp->dndx > hcp->dndx)
+@@ -1329,6 +1333,7 @@
+ 					if (lcp->dndx > hcp->dndx)
+ 						lcp->dup_off -= len;
+ 				}
++			}
+ 		}
+ 	}
+ 	DB_THREAD_UNLOCK(dbp);
+diff -Naur db-2.7.7.orig/hash/hash_page.c db-2.7.7/hash/hash_page.c
+--- db-2.7.7.orig/hash/hash_page.c	Sun Jan  3 20:08:24 1999
++++ db-2.7.7/hash/hash_page.c	Tue Aug 13 08:20:00 2002
+@@ -343,10 +343,10 @@
+ 	if (F_ISSET(hcp, H_ISDUP)) {
+ 		if (hcp->dpgno == PGNO_INVALID) {
+ 			/* Duplicates are on-page. */
+-			if (hcp->dup_off != 0)
+-				if ((ret = __ham_get_cpage(dbc, mode)) != 0)
++			if (hcp->dup_off != 0) {
++				if ((ret = __ham_get_cpage(dbc, mode)) != 0) {
+ 					return (ret);
+-				else {
++				} else {
+ 					HASH_CURSOR *h;
+ 					h = hcp;
+ 					memcpy(&h->dup_len, HKEYDATA_DATA(
+@@ -358,6 +358,7 @@
+ 					hcp->dndx--;
+ 					return (__ham_item(dbc, mode));
+ 				}
++			}
+ 		} else if (hcp->dndx > 0) {	/* Duplicates are off-page. */
+ 			hcp->dndx--;
+ 			return (__ham_item(dbc, mode));
+diff -Naur db-2.7.7.orig/hash/hash_rec.c db-2.7.7/hash/hash_rec.c
+--- db-2.7.7.orig/hash/hash_rec.c	Thu Oct 22 02:52:16 1998
++++ db-2.7.7/hash/hash_rec.c	Tue Aug 13 08:20:00 2002
+@@ -95,7 +95,7 @@
+ 	hcp = (HASH_CURSOR *)dbc->internal;
+ 
+ 	ret = memp_fget(mpf, &argp->pgno, 0, &pagep);
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -107,7 +107,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
+-
++	}
+ 
+ 	GET_META(file_dbp, hcp, ret);
+ 	if (ret != 0)
+@@ -203,7 +203,7 @@
+ 	hcp = (HASH_CURSOR *)dbc->internal;
+ 
+ 	ret = memp_fget(mpf, &argp->new_pgno, 0, &pagep);
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -216,6 +216,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->new_pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
++	}
+ 
+ 	GET_META(file_dbp, (HASH_CURSOR *)dbc->internal, ret);
+ 	if (ret != 0)
+@@ -260,7 +261,7 @@
+ ppage:	if (argp->prev_pgno != PGNO_INVALID) {
+ 		ret = memp_fget(mpf, &argp->prev_pgno, 0, &pagep);
+ 
+-		if (ret != 0)
++		if (ret != 0) {
+ 			if (!redo) {
+ 				/*
+ 				 * We are undoing and the page doesn't exist.
+@@ -274,6 +275,7 @@
+ 			    memp_fget(mpf, &argp->prev_pgno,
+ 			    DB_MPOOL_CREATE, &pagep)) != 0)
+ 				goto out;
++		}
+ 
+ 		cmp_n = log_compare(lsnp, &LSN(pagep));
+ 		cmp_p = log_compare(&LSN(pagep), &argp->prevlsn);
+@@ -307,7 +309,7 @@
+ npage:	if (argp->next_pgno != PGNO_INVALID) {
+ 		ret = memp_fget(mpf, &argp->next_pgno, 0, &pagep);
+ 
+-		if (ret != 0)
++		if (ret != 0) {
+ 			if (!redo) {
+ 				/*
+ 				 * We are undoing and the page doesn't exist.
+@@ -320,6 +322,7 @@
+ 			    memp_fget(mpf, &argp->next_pgno,
+ 			    DB_MPOOL_CREATE, &pagep)) != 0)
+ 				goto out;
++		}
+ 
+ 		cmp_n = log_compare(lsnp, &LSN(pagep));
+ 		cmp_p = log_compare(&LSN(pagep), &argp->nextlsn);
+@@ -392,7 +395,7 @@
+ 	hcp = (HASH_CURSOR *)dbc->internal;
+ 
+ 	ret = memp_fget(mpf, &argp->pgno, 0, &pagep);
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -404,6 +407,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
++	}
+ 
+ 	GET_META(file_dbp, (HASH_CURSOR *)dbc->internal, ret);
+ 	if (ret != 0)
+@@ -529,7 +533,7 @@
+ 	/* Now check the newly allocated/freed page. */
+ 	ret = memp_fget(mpf, &argp->pgno, 0, &pagep);
+ 
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -541,6 +545,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
++	}
+ 
+ 	cmp_n = log_compare(lsnp, &LSN(pagep));
+ 	cmp_p = log_compare(&LSN(pagep), &argp->pagelsn);
+@@ -689,7 +694,7 @@
+ 	hcp = (HASH_CURSOR *)dbc->internal;
+ 
+ 	ret = memp_fget(mpf, &argp->pgno, 0, &pagep);
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -701,6 +706,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
++	}
+ 
+ 	GET_META(file_dbp, (HASH_CURSOR *)dbc->internal, ret);
+ 	if (ret != 0)
+@@ -874,7 +880,7 @@
+ 
+ 	/* This is the bucket page. */
+ 	ret = memp_fget(mpf, &argp->pgno, 0, &pagep);
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -887,6 +893,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
++	}
+ 
+ 	cmp_n = log_compare(lsnp, &LSN(pagep));
+ 	cmp_p = log_compare(&LSN(pagep), &argp->pagelsn);
+@@ -908,7 +915,7 @@
+ 
+ 	/* Now fix up the "next" page. */
+ donext:	ret = memp_fget(mpf, &argp->next_pgno, 0, &pagep);
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -921,6 +928,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->next_pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
++	}
+ 
+ 	/* There is nothing to do in the REDO case; only UNDO. */
+ 
+@@ -938,7 +946,7 @@
+ 		goto done;
+ 
+ 	ret = memp_fget(mpf, &argp->nnext_pgno, 0, &pagep);
+-	if (ret != 0)
++	if (ret != 0) {
+ 		if (!redo) {
+ 			/*
+ 			 * We are undoing and the page doesn't exist.  That
+@@ -950,6 +958,7 @@
+ 		} else if ((ret = memp_fget(mpf, &argp->nnext_pgno,
+ 		    DB_MPOOL_CREATE, &pagep)) != 0)
+ 			goto out;
++	}
+ 
+ 	cmp_n = log_compare(lsnp, &LSN(pagep));
+ 	cmp_p = log_compare(&LSN(pagep), &argp->nnextlsn);
+diff -Naur db-2.7.7.orig/include/db_cxx.h db-2.7.7/include/db_cxx.h
+--- db-2.7.7.orig/include/db_cxx.h	Tue Aug 31 19:45:43 1999
++++ db-2.7.7/include/db_cxx.h	Tue Aug 13 08:20:00 2002
+@@ -52,6 +52,8 @@
+ #include <iostream.h>
+ #include <db.h>
+ 
++using namespace std;
++
+ class Db;                                        // forward
+ class Dbc;                                       // forward
+ class DbEnv;                                     // forward
+@@ -717,7 +719,7 @@
+     // call set_error_stream() to force all errors to a C++ stream.
+     // It is unwise to mix these approaches.
+     //
+-    void set_error_stream(class ostream*);
++    void set_error_stream(ostream*);
+ 
+     // used internally
+     static int runtime_error(const char *caller, int err,
+diff -Naur db-2.7.7.orig/log/log_findckp.c db-2.7.7/log/log_findckp.c
+--- db-2.7.7.orig/log/log_findckp.c	Mon Apr 12 18:07:38 1999
++++ db-2.7.7/log/log_findckp.c	Tue Aug 13 08:20:00 2002
+@@ -73,11 +73,12 @@
+ 	if (F_ISSET(lp, DB_AM_THREAD))
+ 		F_SET(&data, DB_DBT_MALLOC);
+ 	ZERO_LSN(ckp_lsn);
+-	if ((ret = log_get(lp, &last_ckp, &data, DB_CHECKPOINT)) != 0)
++	if ((ret = log_get(lp, &last_ckp, &data, DB_CHECKPOINT)) != 0) {
+ 		if (ret == ENOENT)
+ 			goto get_first;
+ 		else
+ 			return (ret);
++	}
+ 
+ 	final_ckp = last_ckp;
+ 	next_lsn = last_ckp;
+diff -Naur db-2.7.7.orig/log/log_get.c db-2.7.7/log/log_get.c
+--- db-2.7.7.orig/log/log_get.c	Sun Oct  4 03:14:30 1998
++++ db-2.7.7/log/log_get.c	Tue Aug 13 08:20:00 2002
+@@ -315,12 +315,13 @@
+ 	ret = EIO;
+ 	fail = "read";
+ 
+-err1:	if (!silent)
++err1:	if (!silent) {
+ 		if (fail == NULL)
+ 			__db_err(dblp->dbenv, "log_get: %s", strerror(ret));
+ 		else
+ 			__db_err(dblp->dbenv,
+ 			    "log_get: %s: %s", fail, strerror(ret));
++	}
+ err2:	if (np != NULL)
+ 		__os_freestr(np);
+ 	if (tbuf != NULL)
+diff -Naur db-2.7.7.orig/log/log_put.c db-2.7.7/log/log_put.c
+--- db-2.7.7.orig/log/log_put.c	Mon Apr 12 18:07:38 1999
++++ db-2.7.7/log/log_put.c	Tue Aug 13 08:20:00 2002
+@@ -337,12 +337,13 @@
+ 	 * will cause much sadness later on.
+ 	 */
+ 	lp->s_lsn = lp->f_lsn;
+-	if (!current && lp->s_lsn.file != 0)
++	if (!current && lp->s_lsn.file != 0) {
+ 		if (lp->s_lsn.offset == 0) {
+ 			--lp->s_lsn.file;
+ 			lp->s_lsn.offset = lp->persist.lg_max;
+ 		} else
+ 			--lp->s_lsn.offset;
++	}
+ 
+ 	return (0);
+ }
+diff -Naur db-2.7.7.orig/log/log_rec.c db-2.7.7/log/log_rec.c
+--- db-2.7.7.orig/log/log_rec.c	Tue Aug 31 19:45:43 1999
++++ db-2.7.7/log/log_rec.c	Tue Aug 13 08:20:00 2002
+@@ -125,12 +125,8 @@
+ 		LOCK_LOGTHREAD(logp);
+ 		if (argp->id < logp->dbentry_cnt) {
+ 			dbe = &logp->dbentry[argp->id];
+-			if (dbe->dbp != NULL && --dbe->refcount == 0) {
++			if (dbe->dbp != NULL && dbe->refcount == 1) {
+ 				ret = dbe->dbp->close(dbe->dbp, 0);
+-				if (dbe->name != NULL) {
+-					__os_freestr(dbe->name);
+-					dbe->name = NULL;
+-				}
+ 				(void)__log_rem_logid(logp, argp->id);
+ 			}
+ 		}
+@@ -201,9 +197,6 @@
+ 
+ 	if (dbe != NULL && dbe->dbp != NULL) {
+                 (void)dbe->dbp->close(dbe->dbp, 0);
+-		if (dbe->name != NULL)
+-			__os_freestr(dbe->name);
+-                dbe->name = NULL;
+ 		(void)__log_rem_logid(lp, argp->id);
+         }
+ 
+@@ -399,6 +392,10 @@
+ 			logp->dbentry[i].dbp->close(logp->dbentry[i].dbp, 0);
+ 			logp->dbentry[i].dbp = NULL;
+ 			logp->dbentry[i].deleted = 0;
++                        if (logp->dbentry[i].name != NULL)
++                            __os_freestr(logp->dbentry[i].name);
++                        logp->dbentry[i].name = NULL;
++			logp->dbentry[i].refcount = 0;
+ 		}
+ 	F_CLR(logp, DBC_RECOVER);
+ 	UNLOCK_LOGTHREAD(logp);
+@@ -416,6 +413,9 @@
+ 	if (--logp->dbentry[ndx].refcount == 0) {
+ 		logp->dbentry[ndx].dbp = NULL;
+ 		logp->dbentry[ndx].deleted = 0;
++                if (logp->dbentry[ndx].name != NULL)
++                    __os_freestr(logp->dbentry[ndx].name);
++                logp->dbentry[ndx].name = NULL;
+ 	}
+ 	UNLOCK_LOGTHREAD(logp);
+ }
+diff -Naur db-2.7.7.orig/mp/mp_bh.c db-2.7.7/mp/mp_bh.c
+--- db-2.7.7.orig/mp/mp_bh.c	Tue Aug 31 19:45:43 1999
++++ db-2.7.7/mp/mp_bh.c	Tue Aug 13 08:20:00 2002
+@@ -189,7 +189,7 @@
+ 	}
+ 
+ 	created = 0;
+-	if (nr < (ssize_t)pagesize)
++	if (nr < (ssize_t)pagesize) {
+ 		if (can_create)
+ 			created = 1;
+ 		else {
+@@ -201,6 +201,7 @@
+ 			    __memp_fn(dbmfp), (u_long)bhp->pgno);
+ 			goto err;
+ 		}
++	}
+ 
+ 	/*
+ 	 * Clear any bytes we didn't read that need to be cleared.  If we're
+diff -Naur db-2.7.7.orig/mp/mp_fget.c db-2.7.7/mp/mp_fget.c
+--- db-2.7.7.orig/mp/mp_fget.c	Fri Dec 11 19:52:24 1998
++++ db-2.7.7/mp/mp_fget.c	Tue Aug 13 08:20:00 2002
+@@ -140,7 +140,7 @@
+ 	 * It would be possible to do so by reference counting the open
+ 	 * pages from the mmap, but it's unclear to me that it's worth it.
+ 	 */
+-	if (dbmfp->addr != NULL && F_ISSET(mfp, MP_CAN_MMAP))
++	if (dbmfp->addr != NULL && F_ISSET(mfp, MP_CAN_MMAP)) {
+ 		if (*pgnoaddr > mfp->orig_last_pgno) {
+ 			/*
+ 			 * !!!
+@@ -161,6 +161,7 @@
+ 			++mfp->stat.st_map;
+ 			goto done;
+ 		}
++	}
+ 
+ 	/* Search the hash chain for the page. */
+ 	for (bhp = SH_TAILQ_FIRST(&dbmp->htab[bucket], __bh);
+diff -Naur db-2.7.7.orig/mp/mp_fput.c db-2.7.7/mp/mp_fput.c
+--- db-2.7.7.orig/mp/mp_fput.c	Tue Aug 31 19:45:44 1999
++++ db-2.7.7/mp/mp_fput.c	Tue Aug 13 08:20:00 2002
+@@ -134,7 +134,7 @@
+ 	 * next time the memp_sync function runs we try writing it there, as
+ 	 * the checkpoint application better be able to write all of the files.
+ 	 */
+-	if (F_ISSET(bhp, BH_WRITE))
++	if (F_ISSET(bhp, BH_WRITE)) {
+ 		if (F_ISSET(bhp, BH_DIRTY)) {
+ 			if (__memp_bhwrite(dbmp,
+ 			    dbmfp->mfp, bhp, NULL, &wrote) != 0 || !wrote)
+@@ -145,6 +145,7 @@
+ 			--dbmfp->mfp->lsn_cnt;
+ 			--mp->lsn_cnt;
+ 		}
++	}
+ 
+ 	UNLOCKREGION(dbmp);
+ 	return (0);
+diff -Naur db-2.7.7.orig/mp/mp_region.c db-2.7.7/mp/mp_region.c
+--- db-2.7.7.orig/mp/mp_region.c	Tue Aug 31 19:45:44 1999
++++ db-2.7.7/mp/mp_region.c	Tue Aug 13 08:20:00 2002
+@@ -226,12 +226,13 @@
+ 	 * Up the user's cachesize by 25% to account for our overhead.
+ 	 */
+ 	defcache = 0;
+-	if (cachesize < DB_CACHESIZE_MIN)
++	if (cachesize < DB_CACHESIZE_MIN) {
+ 		if (cachesize == 0) {
+ 			defcache = 1;
+ 			cachesize = DB_CACHESIZE_DEF;
+ 		} else
+ 			cachesize = DB_CACHESIZE_MIN;
++	}
+ 	rlen = cachesize + cachesize / 4;
+ 
+ 	/*
+diff -Naur db-2.7.7.orig/os/os_fid.c db-2.7.7/os/os_fid.c
+--- db-2.7.7.orig/os/os_fid.c	Mon Oct 12 16:27:10 1998
++++ db-2.7.7/os/os_fid.c	Tue Aug 13 08:20:00 2002
+@@ -1,14 +1,14 @@
+ /*-
+  * See the file LICENSE for redistribution information.
+  *
+- * Copyright (c) 1996, 1997, 1998
++ * Copyright (c) 1996, 1997, 1998, 1999, 2000
+  *	Sleepycat Software.  All rights reserved.
+  */
+ 
+ #include "config.h"
+ 
+ #ifndef lint
+-static const char sccsid[] = "@(#)os_fid.c	10.12 (Sleepycat) 7/21/98";
++static const char revid[] = "$Id: os_fid.c,v 11.7 2000/10/26 14:17:05 bostic Exp $";
+ #endif /* not lint */
+ 
+ #ifndef NO_SYSTEM_INCLUDES
+@@ -17,12 +17,17 @@
+ 
+ #include <errno.h>
+ #include <string.h>
++#include <unistd.h>
++#include <sys/time.h>
+ #include <time.h>
+ #endif
+ 
+ #include "db_int.h"
+ #include "common_ext.h"
+ 
++#define	SERIAL_INIT	0
++static u_int32_t fid_serial = SERIAL_INIT;
++
+ /*
+  * __os_fileid --
+  *	Return a unique identifier for a file.
+@@ -38,39 +43,85 @@
+ {
+ 	struct stat sb;
+ 	size_t i;
+-	time_t now;
++	int ret;
++	u_int32_t tmp;
+ 	u_int8_t *p;
+ 
+ 	/* Clear the buffer. */
+ 	memset(fidp, 0, DB_FILE_ID_LEN);
+ 
+-	/* Check for the unthinkable. */
+-	if (sizeof(sb.st_ino) +
+-	    sizeof(sb.st_dev) + sizeof(time_t) > DB_FILE_ID_LEN)
+-		return (EINVAL);
+-
+-	/* On UNIX, use a dev/inode pair. */
+ 	if (stat(fname, &sb)) {
+ 		__db_err(dbenv, "%s: %s", fname, strerror(errno));
+ 		return (errno);
+ 	}
+ 
+ 	/*
+-	 * Use the inode first and in reverse order, hopefully putting the
+-	 * distinguishing information early in the string.
++	 * Initialize/increment the serial number we use to help avoid
++	 * fileid collisions.  Note that we don't bother with locking;
++	 * it's unpleasant to do from down in here, and if we race on
++	 * this no real harm will be done, since the finished fileid
++	 * has so many other components.
++	 *
++	 * We increment by 100000 on each call as a simple way of
++	 * randomizing;  simply incrementing seems potentially less useful
++	 * if pids are also simply incremented, since this is process-local
++	 * and we may be one of a set of processes starting up.  100000
++	 * pushes us out of pid space on most platforms, and has few
++	 * interesting properties in base 2.
++	 */
++	if (fid_serial == SERIAL_INIT)
++		fid_serial = (u_int32_t)getpid();
++	else
++		fid_serial += 100000;
++
++	/*
++	 * !!!
++	 * Nothing is ever big enough -- on Sparc V9, st_ino, st_dev and the
++	 * time_t types are all 8 bytes.  As DB_FILE_ID_LEN is only 20 bytes,
++	 * we convert to a (potentially) smaller fixed-size type and use it.
++	 *
++	 * We don't worry about byte sexing or the actual variable sizes.
++	 *
++	 * When this routine is called from the DB access methods, it's only
++	 * called once -- whatever ID is generated when a database is created
++	 * is stored in the database file's metadata, and that is what is
++	 * saved in the mpool region's information to uniquely identify the
++	 * file.
++	 *
++	 * When called from the mpool layer this routine will be called each
++	 * time a new thread of control wants to share the file, which makes
++	 * things tougher.  As far as byte sexing goes, since the mpool region
++	 * lives on a single host, there's no issue of that -- the entire
++	 * region is byte sex dependent.  As far as variable sizes go, we make
++	 * the simplifying assumption that 32-bit and 64-bit processes will
++	 * get the same 32-bit values if we truncate any returned 64-bit value
++	 * to a 32-bit value.  When we're called from the mpool layer, though,
++	 * we need to be careful not to include anything that isn't
++	 * reproducible for a given file, such as the timestamp or serial
++	 * number.
+ 	 */
+-	for (p = (u_int8_t *)&sb.st_ino +
+-	    sizeof(sb.st_ino), i = 0; i < sizeof(sb.st_ino); ++i)
+-		*fidp++ = *--p;
+-	for (p = (u_int8_t *)&sb.st_dev +
+-	    sizeof(sb.st_dev), i = 0; i < sizeof(sb.st_dev); ++i)
+-		*fidp++ = *--p;
++	tmp = (u_int32_t)sb.st_ino;
++	for (p = (u_int8_t *)&tmp, i = sizeof(u_int32_t); i > 0; --i)
++		*fidp++ = *p++;
++
++	tmp = (u_int32_t)sb.st_dev;
++	for (p = (u_int8_t *)&tmp, i = sizeof(u_int32_t); i > 0; --i)
++		*fidp++ = *p++;
+ 
+ 	if (timestamp) {
+-		(void)time(&now);
+-		for (p = (u_int8_t *)&now +
+-		    sizeof(now), i = 0; i < sizeof(now); ++i)
+-			*fidp++ = *--p;
++		/*
++		 * We want the number of seconds, not the high-order 0 bits,
++		 * so convert the returned time_t to a (potentially) smaller
++		 * fixed-size type.
++		 */
++		tmp = (u_int32_t)time(NULL);
++		for (p = (u_int8_t *)&tmp, i = sizeof(u_int32_t); i > 0; --i)
++			*fidp++ = *p++;
++
++		for (p = (u_int8_t *)&fid_serial, i = sizeof(u_int32_t);
++		    i > 0; --i)
++			*fidp++ = *p++;
+ 	}
++
+ 	return (0);
+ }

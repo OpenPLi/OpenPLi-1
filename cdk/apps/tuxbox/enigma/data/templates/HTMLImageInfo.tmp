@@ -1,0 +1,13 @@
+<table id="epg" width="100%" border="0" cellspacing="0" cellpadding="5">
+	<thead>
+		<tr>
+			<th colspan="2">About Installed Image</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>Version</td><td>#FIRMWARE#</td></tr>
+		<tr><td>URL</td><td>#URL#</td></tr>
+		<tr><td>Comment</td><td>#COMMENT#</td></tr>
+		<tr><td>Catalog</td><td>#CATALOG#</td></tr>
+	</tbody>
+</table>

@@ -1,0 +1,66 @@
+diff -Naur watchdog-5.2.orig/configure watchdog-5.2/configure
+--- watchdog-5.2.orig/configure	Mon Dec 27 17:09:20 1999
++++ watchdog-5.2/configure	Thu Oct 17 12:21:15 2002
+@@ -545,7 +545,7 @@
+ 
+ 
+ MAJOR_VERSION=5
+-MINOR_VERSION=1
++MINOR_VERSION=2
+ ac_aux_dir=
+ for ac_dir in $srcdir $srcdir/.. $srcdir/../..; do
+   if test -f $ac_dir/install-sh; then
+@@ -1644,7 +1644,7 @@
+ int main() {
+ 
+ /* Ultrix mips cc rejects this.  */
+-typedef int charset[2]; const charset x = {0,0};
++typedef int charset[2]; const charset x;
+ /* SunOS 4.1.1 cc rejects this.  */
+ char const *const *ccp;
+ char **p;
+diff -Naur watchdog-5.2.orig/configure.in watchdog-5.2/configure.in
+--- watchdog-5.2.orig/configure.in	Mon Dec 27 17:09:16 1999
++++ watchdog-5.2/configure.in	Thu Oct 17 12:21:15 2002
+@@ -2,7 +2,7 @@
+ AC_INIT(include/extern.h)
+ 
+ MAJOR_VERSION=5
+-MINOR_VERSION=1
++MINOR_VERSION=2
+ AM_INIT_AUTOMAKE(watchdog, $MAJOR_VERSION.$MINOR_VERSION)
+ 
+ AC_PREFIX_DEFAULT(/usr)
+diff -Naur watchdog-5.2.orig/include/sundries.h watchdog-5.2/include/sundries.h
+--- watchdog-5.2.orig/include/sundries.h	Thu Sep 10 17:19:11 1998
++++ watchdog-5.2/include/sundries.h	Thu Oct 17 12:21:15 2002
+@@ -48,7 +48,7 @@
+ 
+ /* Here is some serious cruft.  */
+ #ifdef __GNUC__
+-#if defined(__GNUC_MINOR__) && __GNUC__ == 2 && __GNUC_MINOR__ >= 5
++#if (defined(__GNUC_MINOR__) && __GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ >= 3
+ void die (int errcode, const char *fmt, ...) __attribute__ ((noreturn));
+ #else /* GNUC < 2.5 */
+ void volatile die (int errcode, const char *fmt, ...);
+diff -Naur watchdog-5.2.orig/watchdog.conf watchdog-5.2/watchdog.conf
+--- watchdog-5.2.orig/watchdog.conf	Sun May  7 20:07:01 2000
++++ watchdog-5.2/watchdog.conf	Thu Oct 17 12:21:55 2002
+@@ -15,7 +15,7 @@
+ # To get the real size, check how large the pagesize is on your machine.
+ #min-memory		= 1
+ 
+-repair-binary		= /usr/sbin/repair
++#repair-binary		= /usr/local/sbin/repair
+ #test-binary		= 
+ 
+ #watchdog-device	= /dev/watchdog
+@@ -26,7 +26,7 @@
+ 
+ # Defaults compiled into the binary
+ #admin			= root
+-#interval		= 10
++interval		= 1
+ #logtick                = 1
+ 
+ # This greatly decreases the chance that watchdog won't be scheduled before

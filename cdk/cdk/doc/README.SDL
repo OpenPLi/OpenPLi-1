@@ -1,0 +1,21 @@
+Patching libSDL-based applications to use remote control:
+
+- include "SDL/SDL_keysym.h"
+- for every button on the remote control invoke
+SetTuxboxKeyMapping(<remote key>,<sdl-key>,<sdl-modifier>);
+- if you want to control the mouse pointer with the up/down/left/right/ok-Buttons, invoke
+SetTuxboxMouseMapping(1);
+
+(see cdk/patches/scummvm.diff for sample code)
+
+-----------------------
+libSDL-basierte Anwendungen anpassen, um die Fernbedienung zu benutzen:
+
+- "SDL/SDL_keysym.h" einbinden
+- für jeden Knopf auf der Fernbedienung ausführen:
+SetTuxboxKeyMapping(<remote key>,<sdl-key>,<sdl-modifier>);
+- Wenn du den Mauszeiger mit hoch/runter/rechts/links/ok steuern willst:
+SetTuxboxMouseMapping(1);
+
+(in cdk/patches/scummvm.diff findest du eine Beispielimplementierung)
+

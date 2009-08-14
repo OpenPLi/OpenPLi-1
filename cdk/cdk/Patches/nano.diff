@@ -1,0 +1,48 @@
+diff -Naur nano-1.0.7/nano.h nano-1.0.7new/nano.h
+--- nano-1.0.7/nano.h	2002-11-18 02:44:13.000000000 +0100
++++ nano-1.0.7new/nano.h	2002-11-18 02:44:34.000000000 +0100
+@@ -40,9 +40,9 @@
+ #include <slcurses.h>
+ #define KEY_DC 0x113
+ #elif defined(HAVE_NCURSES_H)
+-#include <ncurses.h>
++#include <ncurses/ncurses.h>
+ #else /* Uh oh */
+-#include <curses.h> 
++#include <ncurses/curses.h> 
+ #endif /* CURSES_H */
+ 
+ #ifdef HAVE_LIBINTL_H
+
+--- nano-1.2.4/configure	2004-06-28 04:37:16.000000000 +0200
++++ configure_nano_new	2004-08-26 23:05:56.000000000 +0200
+@@ -5676,20 +5676,7 @@
+ else
+   ac_cv_header_regex_h=$ac_header_preproc
+ fi
+-echo "$as_me:$LINENO: result: $ac_cv_header_regex_h" >&5
+-echo "${ECHO_T}$ac_cv_header_regex_h" >&6
+ 
+-fi
+-if test $ac_cv_header_regex_h = yes; then
+-  echo "$as_me:$LINENO: checking for broken regexec" >&5
+-echo $ECHO_N "checking for broken regexec... $ECHO_C" >&6
+-    if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -5727,7 +5714,7 @@
+ _ACEOF
+ 
+ 
+-fi
++
+ rm -f core *.core gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+ fi
+ 

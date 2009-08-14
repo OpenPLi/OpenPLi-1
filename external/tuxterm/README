@@ -1,0 +1,16 @@
+TuxTerm v0.2
+
+Written in 10/2006 by Seddi
+Contact: seddi@ihad.tv / http://www.ihad.tv
+
+
+Only tested with compiling inside OE so far, dont know if it smoothly works inside the tuxbox CDK.
+I use to compile this inside the OE devshell, just do a "autotools_do_configure" and "make" and
+it should work.
+The source works for mipsel (7025) as well as for the ppc boxes, you only have to define the 8bit/32bit
+framebuffer setting inside the main.h
+
+// 8Bit/32Bit Framebuffer ?
+#define FB8BIT
+
+Just uncomment this inside the main.h to compile the 32bit framebuffer version (Dreambox 7025).

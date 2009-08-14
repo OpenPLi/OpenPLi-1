@@ -1,0 +1,403 @@
+<eskin>
+	<author>
+		<title>Travel Blue [icons by chaninja]</title>
+	</author>
+	
+	<fonts>
+		<font file="pakenham.ttf" name="lcd" />
+		<font file="md_khmurabi_10.ttf" scale="78" name="def" />
+	</fonts>
+	
+	<fontalias>
+		<map name="eStatusBar" font="def" size="22" />
+		<map name="eChannelInfo" font="def" size="22" />
+		<map name="eWindow.TitleBar" font="def" size="24" />
+		<map name="eWindow.Childs" font="def" size="22" />
+		<map name="eServiceSelector.Entry.Description" font="def" size="20" />
+		<map name="eServiceSelector.singleColumn.Entry.Name" font="def" size="22" />
+		<map name="eServiceSelector.singleColumn.Entry.Number" font="def" size="22" />
+		<map name="eServiceSelector.multiColumn.Entry.Number" font="def" size="22" />	
+		<map name="eServiceSelector.multiColumn.Entry.Name" font="def" size="22" />
+		<map name="eServiceSelector.combiColumn.Entry.Number" font="def" size="22" />	
+		<map name="eServiceSelector.combiColumn.Entry.Name" font="def" size="22" />
+		<map name="eListBox.EntryText.normal" font="def" size="22" />
+		<map name="eEPGSelector.Entry.Description" font="def" size="22" />
+		<map name="eEPGSelector.Entry.DateTime" font="def" size="22" />
+		<map name="eStatusBar" font="def" size="20" />
+		<map name="eventview.description" font="def" size="22" />
+		<map name="eventview.date" font="def" size="22" />
+		<map name="eventview.time" font="def" size="22" />
+		<map name="eventview.channel" font="def" size="22" />
+		<map name="global.normal" font="def" size="22" />
+		<map name="global.30" font="def" size="20" />
+		<map name="global.fixed" font="def" size="20" />
+		<map name="lcd.menu.title" font="lcd" size="24" />
+		<map name="lcd.menu.element" font="lcd" size="26" />
+		<map name="lcd.main.service_name" font="lcd" size="30" />
+		<map name="lcd.main.clock" font="lcd" size="28" />
+		<map name="lcd.standby.clock" font="lcd" size="69" />
+	</fontalias>
+	
+	<colors>
+		<color name="wit" color="#10ffffff" />
+		<color name="lichtblauw" color="#104f94d9" />
+		<color name="donkerblauw1" color="#104c6a89" />
+		<color name="donkerblauw2" color="#1065688b" />
+		<color name="oranje" color="#10c89c55" />
+		<color name="groen" color="#1044da4b" />
+		<color name="geel" color="#10bedb1d" />
+		<color name="rood" color="#10c00000" />
+		<color name="blauw" color="#10513aff" />
+		<color name="grijs" color="#10aaaaaa" />
+		<color name="trans" color="#ff000000" />
+		<color name="progress" color="#1053556d" />
+		<color name="status" color="#1073ace6" />
+		<color name="tekst" color="#1040425a" />
+		<color name="lijn" color="#104a7bac" />
+	</colors>
+
+	<colorscheme>
+		<map name="eStatusBar.background" color="status" />
+		<map name="eStatusBar.foreground" color="wit" />
+		<map name="number.normal.background" color="donkerblauw1" />
+		<map name="number.normal.foreground" color="wit" />
+		<map name="number.selected.background" color="wit" />
+		<map name="number.selected.foreground" color="donkerblauw1" />
+		<map name="global.normal.background" color="lichtblauw" />
+		<map name="global.normal.foreground" color="wit" />
+		<map name="global.selected.background" color="wit" />
+		<map name="global.selected.foreground" color="donkerblauw1" />
+		<map name="global.disabled.background" color="donkerblauw1" />
+		<map name="global.disabled.foreground" color="wit" />
+		<map name="button.normal.background" color="donkerblauw1" />
+		<map name="button.normal.foreground" color="wit" />
+		<map name="volume_left" color="oranje" />
+		<map name="volume_right" color="wit" />
+		<map name="eWindow.titleBar" color="oranje" />
+		<map name="eWindow.titleBarFont" color="tekst" />
+		<map name="eProgress.border" color="progress" />
+		<map name="eProgress.left" color="oranje" />
+		<map name="eProgress.right" color="wit" />
+		<map name="indexmark" color="groen" />
+		<map name="eSlider.activated.left" color="donkerblauw1" />
+		<map name="eSlider.activated.right" color="wit" />
+		<map name="eServiceSelector.highlight.background" color="wit" />
+		<map name="eServiceSelector.highlight.foreground" color="donkerblauw1" />
+		<map name="eComboBox.listbox.normal.background" color="status" />
+		<map name="eComboBox.listbox.normal.foreground" color="wit" />
+	</colorscheme>
+
+	<values>
+		<value name="eWindow.titleFontSize" value="24" />
+		<value name="eWindow.borderTop" value="35" />
+		<value name="eWindow.titleHeight" value="26" />
+		<value name="eWindow.borderLeft" value="0" />
+		<value name="eWindow.borderRight" value="0" />
+		<value name="eWindow.borderBottom" value="10" />
+		<value name="eWindow.titleOffsetLeft" value="0" />
+		<value name="eWindow.titleOffsetRight" value="0" />
+		<value name="eWindow.titleOffsetTop" value="9" />
+		<value name="eWindow.titleMargin" value="5" />
+		<value name="eStatusBar.margin" value="5" />
+		<value name="eWindow.drawBorder" value="0" />
+		<value name="fontsize" value="20" />
+		<value name="eMessageBox.pos.x" value="100" />
+		<value name="eMessageBox.pos.y" value="100" />
+		<value name="volume.grafik.pos.x" value="210" />
+		<value name="volume.grafik.pos.y" value="400" />
+		<value name="volume.slider.pos.x" value="19" />
+		<value name="volume.slider.pos.y" value="3" />
+		<value name="volume.slider.width" value="300" />
+		<value name="volume.slider.height" value="10" />
+		<value name="mute.pos.x" value="542" />
+		<value name="mute.pos.y" value="e-176" />	
+	</values>
+	
+	<images basepath="travel_blue" target="fb">
+		<img name="eComboBox.arrow" src="window_arrow_down.png" />
+		<img name="eCheckbox.checked" src="window_checked.png" />
+		<img name="eCheckbox.unchecked" src="window_unchecked.png" />
+		<img name="eListBox.arrow.updown" src="window_arrow_combo.png" />
+		<img name="eListBox.arrow.left" src="window_arrow_left.png" />
+		<img name="eListBox.arrow.right" src="window_arrow_right.png" />
+		<img name="eListBox.arrow.up" src="window_arrow_up.png" />
+		<img name="eListBox.arrow.down" src="window__down.png" />
+		<img name="osd_edge_top_right" src="osd_edge_top_right.png" />
+		<img name="osd_edge_bottom_left" src="osd_edge_bottom_left.png" />
+		<img name="osd_edge_main" src="osd_edge_main.png" />
+		<img name="osd_crypts" src="osd_crypts.png" />
+		<img name="osd_clock" src="osd_clock.png" />
+		<img name="osd_info" src="osd_info.png" />
+		<img name="osd_text_on" src="osd_text_on.png" />
+		<img name="osd_crypt_on" src="osd_crypt_on.png" />
+		<img name="osd_169_on" src="osd_169_on.png" />
+		<img name="osd_audio_on" src="osd_audio_on.png" />
+		<img name="osd_db_on" src="osd_dolby_on.png" />
+		<img name="volume_grafik" src="osd_volume.png" />
+		<img name="mute_symbol" src="osd_mute.png" />
+		<img name="icon_back" src="icon_back.png" />
+		<img name="main_logo" src="main_logo.png" />
+		<img name="dvrtable" src="osd_dvr.png" />
+		<img name="eWindow.top" src="window_top.png" />
+		<img name="eWindow.bottom" src="window_bottom.png" />
+	</images>	
+
+	<images basepath="pli_shared" target="fb">
+		<img name="sselect_folder" src="icon_folder.png" />
+		<img name="osd_rec" src="osd_rec.png" />
+		<img name="mainmenu.radio.sel" src="icon_radio.png" />
+		<img name="mainmenu.tv.sel" src="icon_tv.png" />
+		<img name="mainmenu.shutdown.sel" src="icon_shutdown.png" />
+		<img name="mainmenu.setup.sel" src="icon_setup.png" />
+		<img name="mainmenu.scart.sel" src="icon_scart.png" />
+		<img name="mainmenu.timer.sel" src="icon_timer.png" />
+		<img name="mainmenu.info.sel" src="icon_info.png" />
+		<img name="mainmenu.games.sel" src="icon_games.png" />
+		<img name="mainmenu.file.sel" src="icon_files.png" />
+ 		<img name="no_pig" src="my_pig_image.png" />
+	</images>	
+	
+	<object name="eZapMainMenu">
+		<eWidget position="0:370" size="720:270" >
+		<eLabel position="e-250:0" size="300:21" pixmap="osd_edge_main" alphatest="on" />
+		<eLabel position="0:21" size="e:6" backgroundColor="donkerblauw1" />
+		<eLabel position="0:27" size="e:130" backgroundColor="lichtblauw" />
+		<eLabel position="110:34" size="158:114" name="back" pixmap="icon_back" alphatest="on" />
+		<eLabel position="146:41" size="96:100" name="m" alphatest="on" />
+		<eLabel position="332:77" size="200:48" font="def;26" foregroundColor="wit" backgroundColor="lichtblauw"  name="description" />
+		<eLabel position="e-105:130" size="88:24" pixmap="main_logo" />
+		<eLabel position="0:157" size="e:6" backgroundColor="donkerblauw1" />
+		</eWidget>
+	</object>
+	
+	<object name="enigma_lcd_standby">
+		<eZapLCDStandby position="0:0" size="120:64">
+			<eLabel position="10:0" size="e:e" font="lcd.standby.clock" name="clock" />	
+		</eZapLCDStandby>
+	</object>
+	
+	<object name="ezap_main">
+		<eZapMain position="0:0" size="e:e">
+
+			<!-- top bg -->            		
+			<eLabel position="0:34" size="e:4" backgroundColor="donkerblauw2" />
+			<eLabel position="0:38" size="e:28" backgroundColor="lichtblauw" />
+			<eLabel position="0:66" size="e:4" backgroundColor="donkerblauw2" />
+			<!-- end top bg -->
+			
+			<!-- recording info -->
+			<eWidget position="560:95" size="90:32" backgroundColor="trans" >
+				<eLabel name="recStatus" position="28:0" size="62:14" pixmap="osd_rec" />
+				<eLabel name="recChannel" position="0:15" size="90:17" font="def;20" backgroundColor="trans" foregroundColor="groen" align="right"/>
+			</eWidget>
+			<!-- end recording info -->
+			
+			<!-- channel info -->			
+			<eLabel position="70:40" size="56:20" font="def;22" name="ch_number" backgroundColor="lichtblauw" foregroundColor="wit" />
+			<eLabel position="128:40" size="290:20" font="def;22" name="ch_name" backgroundColor="lichtblauw" foregroundColor="wit" />
+			<!-- end channel info -->
+			
+			<eWidget position="0:0" size="e:e" name="osdVerbose">
+			<eLabel position="0:66" size="e:22" backgroundColor="lichtblauw" />
+			<eLabel position="71:65" size="579:1" backgroundColor="lijn"  />
+			<eLabel position="0:88" size="e:4" backgroundColor="donkerblauw2" />
+			
+			<!-- frequency -->
+			<eLabel position ="71:68" size ="27:18" name ="fq" font ="def;18" text ="Freq" foregroundColor ="tekst" backgroundColor="lichtblauw" />
+			<eLabel position ="101:68" size ="41:18" name ="fq_val" font ="def;18" foregroundColor ="wit" backgroundColor="lichtblauw" align="left"/>
+			<eLabel position ="145:68" size ="10:18" name ="pl_val" font ="def;18" foregroundColor="wit" backgroundColor="lichtblauw" align="left"/>
+			<eLabel position ="156:68" size ="44:18" name ="sr_val" font ="def;18" foregroundColor="wit" backgroundColor="lichtblauw" align="right"/>
+			<eLabel position ="202:68" size ="24:18" name ="fc_val" font ="def;18" foregroundColor="wit" backgroundColor="lichtblauw" align="left"/> 		
+			
+			<eLabel position ="231:68" size ="22:18" name ="st" font ="def;18" text ="Vid" foregroundColor ="tekst" backgroundColor="lichtblauw" />
+			<eLabel position ="254:68" size ="130:18" name ="vidformat" font ="def;18" foregroundColor ="wit" backgroundColor="lichtblauw" />		
+			<!-- end frequency -->
+
+			<!-- snr -->
+			<eLabel position ="389:69" size ="30:15" name ="snr" font ="def;16" text ="SNR" foregroundColor ="tekst" backgroundColor="lichtblauw" />
+			<eLabel position ="419:69" size ="24:15" name ="snr_num" font ="def;16" foregroundColor ="wit" backgroundColor="lichtblauw" />
+			<eProgress position="446:72" size ="50:10" name ="snr_progress" border ="1"/>
+
+			<eLabel position ="502:69" size ="30:15" name ="agc" font ="def;16" text ="AGC" foregroundColor ="tekst" backgroundColor="lichtblauw" />
+			<eLabel position ="533:69" size ="24:15" name ="agc_num" font ="def;16" foregroundColor ="wit" backgroundColor="lichtblauw" />
+			<eProgress position ="560:72" size ="50:10" name ="agc_progress" border ="1"/>
+
+			<eLabel position ="615:69" size ="35:15" name ="ber" font ="def;16" text ="BER" foregroundColor ="tekst" backgroundColor="lichtblauw"/>
+			<eLabel position ="643:69" size ="12:15" name ="ber_num" font ="def;16" foregroundColor="wit" backgroundColor="lichtblauw" />
+			<!-- end snr -->
+			
+			<!-- crypts -->			
+			<eLabel position ="421:45" size ="100:16" name ="softcam" font ="def;18" foregroundColor ="tekst" backgroundColor="lichtblauw" align ="right"/>
+
+			<eLabel  position ="525:44" size ="10:16" name ="beta_ecm" font ="def;16" text ="B" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="525:44" size ="10:16" name ="beta_uca" font ="def;16" text ="B" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="525:44" size ="10:16" name ="beta_no" font ="def;16" text ="B" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+
+			<eLabel  position ="536:44" size ="9:16" name ="irdeto_ecm" font ="def;16" text ="I" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="536:44" size ="9:16" name ="irdeto_uca" font ="def;16" text ="I" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="536:44" size ="9:16" name ="irdeto_no" font ="def;16" text ="I" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+
+			<eLabel  position ="546:44" size ="11:16" name ="seca_ecm" font ="def;16" text ="S" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="546:44" size ="11:16" name ="seca_uca" font ="def;16" text ="S" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="546:44" size ="11:16" name ="seca_no" font ="def;16" text ="S" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+
+			<eLabel  position ="558:44" size ="11:16" name ="via_ecm" font ="def;16" text ="V" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="558:44" size ="11:16" name ="via_uca" font ="def;16" text ="V" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="558:44" size ="11:16" name ="via_no" font ="def;16" text ="V" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+
+			<eLabel  position ="570:44" size ="11:16" name ="nagra_ecm" font ="def;16" text ="N" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="570:44" size ="11:16" name ="nagra_uca" font ="def;16" text ="N" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="570:44" size ="11:16" name ="nagra_no" font ="def;16" text ="N" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+
+			<eLabel  position ="582:44" size ="24:16" name ="cw_ecm" font ="def;16" text ="CW" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="582:44" size ="24:16" name ="cw_uca" font ="def;16" text ="CW" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="582:44" size ="24:16" name ="cw_no" font ="def;16" text ="CW" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+
+			<eLabel  position ="607:44" size ="20:16" name ="nds_ecm" font ="def;16" text ="ND" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="607:44" size ="20:16" name ="nds_uca" font ="def;16" text ="ND" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="607:44" size ="20:16" name ="nds_no" font ="def;16" text ="ND" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+
+			<eLabel  position ="628:44" size ="22:16" name ="conax_ecm" font ="def;16" text ="CO" foregroundColor ="tekst" backgroundColor ="geel" align ="center"/>
+			<eLabel  position ="628:44" size ="22:16" name ="conax_uca" font ="def;16" text ="CO" foregroundColor ="tekst" backgroundColor ="groen" align ="center"/>
+			<eLabel  position ="628:44" size ="22:16" name ="conax_no" font ="def;16" text ="CO" foregroundColor ="lichtblauw" backgroundColor="donkerblauw2" align ="center"/>
+			<!-- end crypts -->
+			</eWidget>
+
+			<!-- bottom bg -->
+			<!--<eLabel position="0:429" size="241:21" pixmap="osd_edge_bottom_left" />-->
+			<eLabel position="0:452" size="e:4" backgroundColor="donkerblauw2" />
+			<eLabel position="0:456" size="e:52" backgroundColor="lichtblauw" />
+			<eLabel position="e-120:456" size="50:47" backgroundColor="donkerblauw2" />
+			<!-- eLabel position="e-120:469" size="50:18" font="def;20" name="time" align="center" backgroundColor="donkerblauw2" foregroundColor="wit" / -->
+			<eLabel position="e-120:460" size="50:40" font="def;20" name="time" align="center" wrap="on" backgroundColor="donkerblauw2" foregroundColor="wit" />
+			<eLabel position="e-120:502" size="1:1" backgroundColor="lichtblauw" />
+			<eLabel position="e-71:502" size="1:1" backgroundColor="lichtblauw" />
+			<eLabel position="0:508" size="e:4" backgroundColor="donkerblauw2" />
+
+			<eWidget position="0:0" size="e:e" name="osdtekst">
+			<eLabel position="71:506" size="579:1" backgroundColor="lijn" />
+			<eLabel position="0:508" size="e:23" backgroundColor="lichtblauw" />
+			<eLabel position="0:531" size="e:4" backgroundColor="donkerblauw2" />
+			<!-- end bottom bg -->
+
+			<!-- channel info -->
+			<eLabel position="e-187:515" size="117:10" pixmap="osd_info" />
+			<eLabel position="e-92:515" size="22:10" pixmap="osd_169_on" name="osd_format_on"/>
+			<eLabel position="e-116:515" size="21:10" pixmap="osd_crypt_on" name="osd_crypt_on"/>
+			<eLabel position="e-139:515" size="22:10" pixmap="osd_db_on" name="osd_dolby_on" />
+			<eLabel position="e-163:515" size="22:10" pixmap="osd_audio_on" name="osd_audio_on" />
+			<eLabel position="e-187:515" size="22:10" pixmap="osd_text_on" name="osd_txt_on" />
+			<!-- end channel info -->
+			
+			<!-- buttons -->
+			<eLabel position="70:512" size="9:13" backgroundColor="rood" name="button_red_enabled" />
+			<eLabel position="117:512" size="9:13" backgroundColor="groen" name="button_green_enabled" />
+			<eLabel position="206:512" size="9:13" backgroundColor="geel" name="button_yellow_enabled" />
+			<eLabel position="269:512" size="9:13" backgroundColor="blauw" name="button_blue_enabled" />
+
+			<eLabel position="70:512" size="9:13" backgroundColor="grijs" name="button_red_disabled" />
+			<eLabel position="117:512" size="9:13" backgroundColor="grijs" name="button_green_disabled" />
+			<eLabel position="206:512" size="9:13" backgroundColor="grijs" name="button_yellow_disabled" />
+			<eLabel position="269:512" size="9:13" backgroundColor="grijs" name="button_blue_disabled" />
+
+			<eLabel text="EPG" position="82:510" font="def;18" size="30:18" foregroundColor="tekst" backgroundColor="lichtblauw" />
+			<eLabel text="subservice" position="130:510" font="def;18" size="72:18" foregroundColor="tekst" backgroundColor="lichtblauw" />
+			<eLabel text="Plugins" position="218:510" font="def;18" size="45:18" foregroundColor="tekst" backgroundColor="lichtblauw" name="button_yellow_desc" />
+			<eLabel text="PLi® Setup" position="281:510" font="def;18" size="74:18" foregroundColor="tekst" backgroundColor="lichtblauw" name="button_blue_desc" />
+			 <!-- end buttons -->
+
+			<eLabel text="Progress" position="362:510" font="def;18" size="58:18" foregroundColor="wit" backgroundColor="lichtblauw" />
+			<eProgressIndex position="424:515" size="100:10" name="progress_bar" border="1" />
+			</eWidget>
+			
+			<eLabel name="dvrInfoBar" position="0:459" size="365:68" pixmap="dvrtable" />
+				
+			<eWidget name="dvbInfoBar" position="70:457" size="720:48">
+			<eLabel position="0:2" size="52:22" font="def;22" name="e_now_time"  foregroundColor="wit" backgroundColor="lichtblauw" />
+			<eLabel position="58:2" size="400:22" font="def;22" name="e_now_title" foregroundColor="wit" backgroundColor="lichtblauw" />
+			<eLabel position="443:2" size="80:22" font="def;22" name="e_now_duration" align="right" foregroundColor="wit" backgroundColor="lichtblauw" />
+
+			<eLabel position="0:25" size="52:22" font="def;22" name="e_next_time" foregroundColor="wit" backgroundColor="lichtblauw" />
+			<eLabel position="58:25" size="400:22" font="def;22" name="e_next_title" foregroundColor="wit" backgroundColor="lichtblauw" />
+			<eLabel position="410:25" size="52:22" font="def;22" name="e_next_etime" align="right" foregroundColor="wit" backgroundColor="lichtblauw" />
+		 	<eLabel position="463:25" size="60:22" font="def;22" name="e_next_duration" align="right" foregroundColor="wit" backgroundColor="lichtblauw" />				
+			</eWidget>
+
+			<eWidget name="fileInfoBar" position="94:382" size="484:57">
+				<eLabel position="0:0" size="e:e" font="def;22" name="fileinfos" backgroundColor="donkerblauw1" foregroundColor="wit" alphatest="on" wrap="on" />
+			</eWidget>
+
+		</eZapMain>
+	</object>
+
+	<object name="eServiceSelector_singleColumn">
+		<eServiceSelector cposition="90:100" csize="560:420" text="Services">
+			<eListbox name="services" position="0:0" size="e:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+
+	<object name="eServiceSelector_multiColumn">
+		<eServiceSelector cposition="90:100" csize="560:420" text="Services">
+			<eListbox name="services" columns="3" position="0:0" size="e:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+
+	<object name="eServiceSelector_combiColumn">
+		<eServiceSelector cposition="90:100" csize="560:420" text="Services">
+			<eListbox name="bouquets" position="5:0" size="150:e-85" loadDeco="" />
+			<eListbox name="services" columns="2" position="155:0" size="e-5:e-85" loadDeco="" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+
+	<object name="eServiceSelector_singleColumn_buttons">
+		<eServiceSelector cposition="90:90" csize="560:420" text="Services">
+			<eLabel position="30:12" size="11:16" backgroundColor="rood"  />
+			<eButton name="key_red" position="46:11" size="110:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="172:12" size="11:16" backgroundColor="groen"  />
+			<eButton name="key_green" position="188:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="304:12" size="11:16" backgroundColor="geel" />
+			<eButton name="key_yellow" position="320:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="432:12" size="11:16" backgroundColor="blauw" />
+			<eButton name="key_blue" position="448:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			
+			<eListbox name="services" position="5:50" size="e-5:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+
+	<object name="eServiceSelector_multiColumn_buttons">
+		<eServiceSelector cposition="90:90" csize="560:420" text="Services">
+			<eLabel position="30:12" size="11:16" backgroundColor="rood"  />
+			<eButton name="key_red" position="46:11" size="110:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="172:12" size="11:16" backgroundColor="groen"  />
+			<eButton name="key_green" position="188:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="304:12" size="11:16" backgroundColor="geel" />
+			<eButton name="key_yellow" position="320:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="432:12" size="11:16" backgroundColor="blauw" />
+			<eButton name="key_blue" position="448:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			
+			<eListbox name="services" columns="3" position="0:40" size="e:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+
+	<object name="eServiceSelector_combiColumn_buttons">
+		<eServiceSelector cposition="90:90" csize="560:420" text="Services">
+			<eLabel position="30:12" size="11:16" backgroundColor="rood"  />
+			<eButton name="key_red" position="46:11" size="110:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="172:12" size="11:16" backgroundColor="groen"  />
+			<eButton name="key_green" position="188:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="304:12" size="11:16" backgroundColor="geel" />
+			<eButton name="key_yellow" position="320:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			<eLabel position="432:12" size="11:16" backgroundColor="blauw" />
+			<eButton name="key_blue" position="448:11" size="100:20" backgroundColor="lichtblauw" loadDeco="" font="def;22" />
+			
+			<eListbox name="bouquets" position="5:45" size="150:e-85" loadDeco="" />
+			<eListbox name="services" columns="2" position="160:45" size="e-10:e-85" loadDeco="" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>	
+</eskin>

@@ -1,0 +1,729 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plisetup Turkish localization V1.0 (0407)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-04-26 22:33+0200\n"
+"PO-Revision-Date: 2007-05-01 05:30+0200\n"
+"Last-Translator: Kerem ERSOY <kerem@sibernet.com.tr>\n"
+"Language-Team: Kerem ERSOY <kerem@siberent.com.tr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
+
+#: ../camx.cpp:50
+msgid "Camx settings plugin v"
+msgstr "Camx ayarları plugin s"
+
+#: ../camx.cpp:65
+#: ../wifi.cpp:192
+msgid "Save changes"
+msgstr "Değişiklikleri kaydet"
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr "Çıkış"
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr "Pluginden çıkış (değişiklikleri kaydetmeyi unutmayınız)"
+
+#: ../camx.cpp:94
+#: ../setup_main.cpp:117
+#: ../setup_main.cpp:172
+#: ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr "Hakkında"
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr "Bu plugin hakkında"
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr "Kart bilgisine ulaşılamıyor"
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr "SoftCam Kurulum"
+
+#: ../emuconfig.cpp:103
+msgid "Select softcam for this service"
+msgstr "Bu servis için softcam seçiniz"
+
+#: ../emuconfig.cpp:114
+msgid "Select softcam for this provider"
+msgstr "Bu sağlayıcı için softcam seçiniz"
+
+#: ../emuconfig.cpp:119
+msgid "Default SoftCam"
+msgstr "Varsayılan SoftCam"
+
+#: ../emuconfig.cpp:126
+msgid "Select default softcam"
+msgstr "Varsayılan SoftCam'ı seçiniz"
+
+#: ../emuconfig.cpp:131
+msgid "Cardserver"
+msgstr "Kart Sunucu"
+
+#: ../emuconfig.cpp:138
+msgid "Select cardserver"
+msgstr "Kart Sunucu seçiniz"
+
+#: ../emuconfig.cpp:143
+msgid "Auto reconnect cahandler"
+msgstr "Cahandler'a oto. bağlantı kur"
+
+#: ../emuconfig.cpp:146
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "Uzak cahandler bağlantısı koptuğunda yeniden bağlanmaya çalış"
+
+#: ../emuconfig.cpp:151
+msgid "Can handle two services"
+msgstr "İki servisi birden destekleyebilir"
+
+#: ../emuconfig.cpp:154
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "Cam veya Ortak Arabirim aynı anda iki servisi detekleyebilir"
+
+#: ../emuconfig.cpp:162
+#: ../emuconfig.cpp:530
+msgid "-- None --"
+msgstr "-- Yok --"
+
+#: ../emuconfig.cpp:205
+#: ../setup_firewall.cpp:83
+#: ../setup_gbox.cpp:247
+#: ../setup_rdg.cpp:79
+#: ../setup_tpl.cpp:75
+#: ../wifi.cpp:191
+msgid "Save"
+msgstr "Kaydet"
+
+#: ../emuconfig.cpp:206
+msgid "Save settings"
+msgstr "Ayarları kaydet"
+
+#: ../emuconfig.cpp:213
+msgid "List stickies"
+msgstr "Yapışıkları listele"
+
+#: ../emuconfig.cpp:214
+msgid "List current stickies"
+msgstr "Mevcut kanala yapışıkları (yapışık SoftCam'lerı) listele"
+
+#: ../emuconfig.cpp:223
+msgid "Cardinfo"
+msgstr "Kart bilgisi"
+
+#: ../emuconfig.cpp:224
+msgid "Get cardinfo from current active cardserver"
+msgstr "Bağlı olunan aktif Kart Sunucu'dan Kart Bilgisini oku"
+
+#: ../emuconfig.cpp:233
+msgid "Save and restart cam"
+msgstr "Kaydet ve Cam'i başlat"
+
+#: ../emuconfig.cpp:234
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "Değişiklikleri kaydet, sotfcam'i yeniden başlat ve enigma'ya dön"
+
+#: ../emuconfig.cpp:243
+msgid "Restart cardserver"
+msgstr "Kart Sunucuyu başlat"
+
+#: ../emuconfig.cpp:244
+msgid "Press OK to restart all selected services"
+msgstr "Seçili tüm servisleri başlatmak için OK tuşuna basın"
+
+#: ../emuconfig.cpp:379
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+"Ayarlar kaydediliyor\n"
+"ve softcam başlatılıyor"
+
+#: ../emuconfig.cpp:379
+msgid "Softcam config info"
+msgstr "Softcam geçerli ayarlar"
+
+#: ../emuconfig.cpp:480
+msgid "Restarting cardserver"
+msgstr "Kart Sunucu yeniden başlatılıyor"
+
+#: ../emuconfig.cpp:480
+msgid "Cardserver info"
+msgstr "Kart Sunucu biilgisi"
+
+#: ../emuconfig.cpp:518
+#: ../emuconfig.cpp:634
+msgid "Channel"
+msgstr "Kanal"
+
+#: ../emuconfig.cpp:519
+#: ../emuconfig.cpp:639
+msgid "Provider"
+msgstr "Sağlayıcı"
+
+#: ../emuconfig.cpp:531
+#: ../emuconfig.cpp:532
+msgid "-- Default --"
+msgstr "-- Varsayılan --"
+
+#: ../emuconfig.cpp:588
+msgid "getting cardinfo"
+msgstr "Kart Bilgisi okunuyor"
+
+#: ../emuconfig.cpp:604
+msgid "Current Stickies"
+msgstr "Çalışan yapışıklar"
+
+#: ../emuconfig.cpp:606
+msgid "Sticky Settings 1"
+msgstr "Yapışık Ayarları 1"
+
+#: ../gpanel.cpp:191
+#: ../gpanel.cpp:217
+#: ../gpanel.cpp:228
+#: ../ppanel.cpp:1143
+msgid "Error!"
+msgstr "Hata !"
+
+#: ../ppanel.cpp:128
+msgid "Script output"
+msgstr "Script çıktısı"
+
+#: ../ppanel.cpp:201
+msgid "Downloading"
+msgstr "Karşıdan indiriliyor"
+
+#: ../ppanel.cpp:217
+msgid "Please wait"
+msgstr "Lütfen bekleyiniz"
+
+#: ../ppanel.cpp:247
+msgid ""
+"Download failed.\n"
+"Please check available space and your communication settings."
+msgstr ""
+"İndirme tamamlanamıyor\n"
+"Lütfen kullanılabiler alanı ve haberleşme ayarlarınızı gözden geçirin."
+
+#: ../ppanel.cpp:271
+#, c-format
+msgid "Installing %s"
+msgstr "%s kuruluyor"
+
+#: ../ppanel.cpp:313
+msgid "Install failed."
+msgstr "Kurulum tamamlanamadı."
+
+#: ../ppanel.cpp:343
+msgid "Continue"
+msgstr "Devam"
+
+#: ../ppanel.cpp:462
+msgid "Press OK"
+msgstr "OK tuşuna basınız"
+
+#: ../ppanel.cpp:489
+#, c-format
+msgid ""
+"Are you sure to open\n"
+"%s?"
+msgstr ""
+"%s'ı\n"
+"Açmak istediğinize emin misiniz?"
+
+#: ../ppanel.cpp:549
+#, c-format
+msgid ""
+"Are you sure to download\n"
+"%s?"
+msgstr ""
+"%s'i\n"
+"Karşıdan indirmek istediğinize emin misiniz?"
+
+#: ../ppanel.cpp:563
+#: ../ppanel.cpp:791
+#: ../ppanel.cpp:1016
+#, c-format
+msgid "Downloading %s"
+msgstr "%s karşıdan indiriliyor"
+
+#: ../ppanel.cpp:619
+#: ../ppanel.cpp:668
+#, c-format
+msgid ""
+"Are you sure to execute\n"
+"%s?"
+msgstr ""
+"%s'i\n"
+"Çalıştırmak istediğinize emin misiniz?"
+
+#: ../ppanel.cpp:734
+#, c-format
+msgid ""
+"Are you sure to install\n"
+"%s?"
+msgstr ""
+"%s'i\n"
+"Kurmak istediğinize emin misiniz?"
+
+#: ../ppanel.cpp:814
+msgid "The package cannot be installed because it's already installed. Please remove the previous version first."
+msgstr "Paket kurulu olduğundan tekrar kurulamıyor. Lütfen önceki sürümü kaldırıp tekrar deneyiniz"
+
+#: ../ppanel.cpp:815
+msgid "Installing not possible"
+msgstr "Kurulum mümkün değil"
+
+#: ../ppanel.cpp:830
+#: ../ppanel.cpp:839
+msgid "Manual Install"
+msgstr "El ile kurulum"
+
+#: ../ppanel.cpp:837
+msgid "Select package to install"
+msgstr "Kurulacak paketi seçin"
+
+#: ../ppanel.cpp:925
+#: ../ppanel.cpp:931
+msgid "Remove Software"
+msgstr "Yazılım Kaldırma"
+
+#: ../ppanel.cpp:929
+msgid "Select package to remove"
+msgstr "Kaldırılacak paketi seçin"
+
+#: ../ppanel.cpp:951
+#, c-format
+msgid ""
+"Are you sure to remove\n"
+"%s?"
+msgstr ""
+"%s paketini\n"
+"Kaldırmak istediğinize emin misiniz?"
+
+#: ../ppanel.cpp:959
+#, c-format
+msgid "Removing %s"
+msgstr "%s paket kaldırılıyor"
+
+#: ../ppanel.cpp:995
+#, c-format
+msgid ""
+"Are you sure to play\n"
+"%s?"
+msgstr ""
+"%s'i\n"
+"Oynatmak istediğinize emin misiniz?"
+
+#: ../ppanel.cpp:1087
+#, c-format
+msgid ""
+"Are you sure to write\n"
+"%s?"
+msgstr ""
+"%s kaydedilecektir\n"
+"Emin misiniz? "
+
+#: ../ppanel.cpp:1218
+#: ../setup_main.cpp:134
+#: ../setup_main.cpp:200
+#: ../setup_main.cpp:259
+#: ../setup_main.cpp:279
+msgid "setup"
+msgstr "kurulum"
+
+#: ../ppanel.cpp:1332
+msgid "Please select an item"
+msgstr "Lütfen listeden seçim yapınız"
+
+#: ../ppanel.cpp:1355
+msgid "latest"
+msgstr "en son"
+
+#: ../ppanel.cpp:1401
+msgid "A new menu is available. The new menu will be visible if you return to the setup panel.You can continue your work here after pressing OK."
+msgstr "Yeni bir menü indirlidi. Yeni menüyü görüntülemek için kurulum paneline dönünüz. OK tuşuna bastıktan sonra işlemlerinize devam edebilirsiniz."
+
+#: ../ppanel.cpp:1403
+msgid "Automatic menu update"
+msgstr "Otomatik menü güncelleme"
+
+#: ../ppanel.cpp:1562
+#: ../ppanel.cpp:1660
+#, c-format
+msgid ""
+"%s\n"
+"%d bytes downloaded\n"
+"Press exit to cancel download"
+msgstr ""
+"%s\n"
+"%d boyutunda dosya indirildi\n"
+"İndirme işleminden çıkmak için exit tuşuna basın"
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr "Güvenlik Duvarı ayarları"
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr "Ulaşım izni verilecek IP adresini girin"
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr "Ulaşım izni verilecek host adını girin"
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr "değişklikleri kaydet ve güvenlik duvarını yeniden başlat"
+
+#: ../setup_gbox.cpp:159
+#: ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr "GBOX-Ayarları"
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr "Çalışma Kipi"
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr "Çaılşma kipi seçimi"
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr "Kip gnc.:"
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr "Anahtar Güncelleme Kipi seçin"
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr "ECM Görn:"
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr "ECM mesajları konsolda gösterilsin"
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr "A. Klasörü:"
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr "Anahtarlar için klasör seçin"
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr "Görn EMM:"
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr "EMM mesajşarı konsolda görüntülensin"
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr "AU:"
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr "AU kipi seçin"
+
+#: ../setup_gbox.cpp:252
+#: ../setup_rdg.cpp:84
+#: ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr "Değişiklikleri kaydet ve geri dön"
+
+#: ../setup_gbox.cpp:260
+#: ../setup_rdg.cpp:92
+#: ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr "Sonlandır"
+
+#: ../setup_gbox.cpp:263
+#: ../setup_rdg.cpp:95
+#: ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr "Değişikliklerden vazgeç ve geri dön"
+
+#: ../setup_gbox.cpp:270
+#: ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr "Varsayılanlar"
+
+#: ../setup_gbox.cpp:273
+#: ../setup_rdg.cpp:105
+#: ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr "Yerel CS için varsayılan ayarlar"
+
+#: ../setup_main.cpp:101
+msgid "SoftCam setup"
+msgstr "SoftCam kurulum"
+
+#: ../setup_main.cpp:101
+msgid "Open SoftCam setup"
+msgstr "SoftCam ayarlarını aç"
+
+#: ../setup_main.cpp:103
+msgid "Show installed PPanels"
+msgstr "Kurulu PPanel'leri görüntüle"
+
+#: ../setup_main.cpp:103
+msgid "Show all installed PPanels"
+msgstr "Kurulu tüm PPanelleri görüntüle"
+
+#: ../setup_main.cpp:105
+msgid "Software Management"
+msgstr "Yazılım Yönetimi"
+
+#: ../setup_main.cpp:105
+msgid "Install and remove software"
+msgstr "Yazılım yükle ve kaldır"
+
+#: ../setup_main.cpp:107
+msgid "Backup/restore"
+msgstr "Yedekle/Geri yükle"
+
+#: ../setup_main.cpp:107
+msgid "Backup and restore your Dreambox"
+msgstr "Dreambox yedekleme ve geri yükleme"
+
+#: ../setup_main.cpp:109
+msgid "Dreambox settings"
+msgstr "Dreambox ayarları"
+
+#: ../setup_main.cpp:110
+msgid "Change several settings of the Dreambox"
+msgstr "Dreambox ayarlarını değiştirme"
+
+#: ../setup_main.cpp:114
+msgid "PLi news"
+msgstr "PLi ' den haberler"
+
+#: ../setup_main.cpp:115
+msgid "Info and news about PLi"
+msgstr "PLi hakkında bilgi ve haberler"
+
+#: ../setup_main.cpp:241
+#, c-format
+msgid "/var used %d%%"
+msgstr "/var kullanım %d%%"
+
+#: ../setup_main.cpp:249
+#, c-format
+msgid "recordings %d%%"
+msgstr "kayıtlar %d%%"
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr "Radegast kurulum"
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr "varsayılanlar"
+
+#: ../setup_runapp.cpp:65
+msgid "Close"
+msgstr "Kapat"
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr "Script çalıştırılamıyor."
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr "Çalışma sırasında bir hata oluştu"
+
+#: ../wifi.cpp:89
+#: ../wifi.cpp:373
+#: ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr "WiFi plugin s"
+
+#: ../wifi.cpp:89
+msgid " - network settings"
+msgstr " - ağ ayarları"
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr "WiFi etkinleştir"
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr "WiFi etkinleştir ya da devreden çıkart"
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr "IP"
+
+#: ../wifi.cpp:112
+msgid "Enter your IP address"
+msgstr "IP adresinizi giriniz"
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr "Netmask"
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr "Netmask'ınız girinizi"
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr "Ağ Geçidi"
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr "Ağ Geçidi IP adresiniz giriniz"
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr "DNS"
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr "DNS sunucunuzun IP adresini giriniz"
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr "Link: 0"
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr "Seviye: 0"
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr "Gürültü: 0"
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr "Çıkış"
+
+#: ../wifi.cpp:202
+msgid "Exit this plugin, don't forget to save!"
+msgstr "Plugin den çıkış, ayarlarınızı kaydetmeyi unutmayın!"
+
+#: ../wifi.cpp:211
+#: ../wifi.cpp:463
+msgid "Next"
+msgstr "Sonraki"
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr "Güvenlik ayarları"
+
+#: ../wifi.cpp:222
+msgid "About the Wifi plugin"
+msgstr "WiFi plugin'i hakkında"
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+"Plugin geliştiricisi dAF2000\n"
+"http://talk.do/dAF\n"
+"\n"
+"WiFi sürücüleri GPL lisansı altında AbsoluteValue\n"
+"Systems Inc., tarafından sağlanmaktadır\n"
+"\n"
+"Rongoo ve djmastera2000'e, PLi imaj takımı,\n"
+"Gemini imaj test takımı ve diğerlerine\n"
+"teşekkür ederiz"
+
+#: ../wifi.cpp:373
+msgid " - security settings"
+msgstr " - güvenlik ayarları"
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr "SSID"
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr "SSID giriniz"
+
+#: ../wifi.cpp:397
+msgid "Mode"
+msgstr "Çalışma kipi"
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr "Açık Sistem, Paylaşılan Anahtar ve Ulaşım Noktasız (ad hoc) bağlantı seçenekleri"
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr "Açık sistem"
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr "Paylaşılan anahtar"
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr "Ulaşım noktasız (Ad-hoc)"
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr "WEP anahtarını aktive et"
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr "WEP anahtarını aktive et, devreden çıkar"
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr "WEP anahtarı"
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr "WEP anahtarını girin 10 ya da 26 hexadesimal hane"
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr "Geçerli karakterler 0..9, a..f, saklamak için OK (Help tuşuna basarak yardım alabilrsiniz)"
+
+#: ../wifi.cpp:453
+#: ../wifi.cpp:601
+msgid "Prev"
+msgstr "Önceki"
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr "Ağ ayarlarına dönüş"
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr "Log ayarlarını görüntüle"
+
+#: ../wifi.cpp:571
+msgid " - logging"
+msgstr " - loglama"
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr "WiFi logllama bulunamadı"
+

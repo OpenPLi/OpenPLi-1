@@ -1,0 +1,343 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// German (Germany) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,0,0,16
+ PRODUCTVERSION 0,0,0,16
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x29L
+#else
+ FILEFLAGS 0x28L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "Comments", "VisionApp for the TuxBox\0"
+            VALUE "CompanyName", "BS\0"
+            VALUE "FileDescription", "TV-Viewing App for the DBOXII\0"
+            VALUE "FileVersion", "0, 0, 0, 16\0"
+            VALUE "InternalName", "TuxVision\0"
+            VALUE "LegalCopyright", "Copyright © 2002 BSE\0"
+            VALUE "LegalTrademarks", "BS PRIVATE\0"
+            VALUE "OriginalFilename", "TuxVision.exe\0"
+            VALUE "PrivateBuild", "YES\0"
+            VALUE "ProductName", "NN\0"
+            VALUE "ProductVersion", "0, 0, 0, 16\0"
+            VALUE "SpecialBuild", "PreAlpha\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // German (Germany) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral (Sys. Default) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUSD)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON                ICON    DISCARDABLE     "TuxVision.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+DBOX DIALOG DISCARDABLE  0, 0, 248, 142
+STYLE DS_MODALFRAME | WS_POPUP
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "DBox",IDC_STATIC,4,2,240,138
+    EDITTEXT        IDC_IPADDRESS,100,19,100,15,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_LOGIN,100,42,100,15,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_PASSWORD,100,66,100,15,ES_AUTOHSCROLL | WS_GROUP
+    CONTROL         "Disable Playback",IDC_STOPPLAYBACK,"Button",
+                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,14,94,78,10
+    LTEXT           "IPAddress",IDC_STATIC,14,20,69,10,SS_SUNKEN
+    LTEXT           "Login",IDC_STATIC,14,44,69,10,SS_SUNKEN
+    LTEXT           "Password",IDC_STATIC,14,68,69,10,SS_SUNKEN
+    LTEXT           "DBOX Status:",IDC_STATUS,96,122,140,10,SS_SUNKEN
+    PUSHBUTTON      "Test Configuration",IDC_TEST,14,120,64,14
+    CONTROL         "Skip DBox Preparation",IDC_SKIPPREPARATION,"Button",
+                    BS_AUTOCHECKBOX | WS_DISABLED | WS_GROUP | WS_TABSTOP,
+                    100,94,92,10
+    CONTROL         "Reset nhttpd on startup",IDC_RESETNHTTPD,"Button",
+                    BS_AUTOCHECKBOX | WS_DISABLED | WS_GROUP | WS_TABSTOP,
+                    100,106,92,10
+END
+
+ABOUT DIALOG DISCARDABLE  0, 0, 238, 146
+STYLE DS_MODALFRAME | WS_POPUP
+FONT 8, "MS Sans Serif"
+BEGIN
+    CTEXT           "TuxVision, Rev.0.0.0.18",IDC_STATIC,64,19,112,10,
+                    SS_SUNKEN
+    CTEXT           "© BSE 2002",IDC_STATIC,64,33,112,10,SS_SUNKEN
+    GROUPBOX        "",IDC_STATIC,4,2,230,140
+    CONTROL         112,IDC_STATIC,"Static",SS_BITMAP,38,55,161,75
+END
+
+MAIN DIALOGEX 0, 0, 422, 205
+STYLE DS_MODALFRAME | DS_3DLOOK | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_ACCEPTFILES
+CAPTION "TuxVision"
+CLASS "TuxVision"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "&Options",IDC_OPTIONS,262,187,48,14
+    PUSHBUTTON      "&Preview",IDC_PREVIEW,258,74,36,14
+    GROUPBOX        "",IDC_VIDEO_FRAME,3,0,236,182,BS_FLAT
+    PUSHBUTTON      "P&lay",IDC_PLAY,372,74,36,14,WS_DISABLED
+    PUSHBUTTON      "&Stop",IDC_STOP,294,120,78,14
+    GROUPBOX        "Recorder",IDC_STATIC,246,62,172,120,WS_GROUP
+    PUSHBUTTON      "E&xit",IDC_EXIT,364,187,48,14
+    GROUPBOX        "Channel",IDC_STATIC,246,0,172,59,WS_GROUP
+    COMBOBOX        IDC_CHANNEL,250,11,164,129,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "Destination",IDC_DESTINATION,6,187,50,14
+    LTEXT           "",IDC_DESTINATION_NAME,62,190,176,10,SS_SUNKEN
+    LTEXT           "",IDC_CHANNELINFO,252,27,160,10,SS_SUNKEN
+    PUSHBUTTON      "&Record",IDC_RECORD,316,74,36,14
+    CONTROL         "DeInterlace",IDC_DEINTERLACE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,251,94,52,10
+    PUSHBUTTON      "Update",IDC_GETCHANNELLIST,251,41,29,14
+    CONTROL         "HWOutput",IDC_HWOUTPUT,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,364,94,50,10
+    CTEXT           "",IDC_CAPFILESIZE,286,157,43,10,SS_SUNKEN
+    LTEXT           "CapFile",IDC_STATIC,252,157,30,10,SS_SUNKEN
+    CONTROL         "16:9",IDC_16BY9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    251,106,52,10
+    LTEXT           "Audio",IDC_STATIC,335,169,26,10,SS_SUNKEN
+    LTEXT           "Video",IDC_STATIC,335,146,26,10,SS_SUNKEN
+    CTEXT           "0 kBit/s",IDC_AUDIOBITRATE,365,169,45,10,SS_SUNKEN
+    CTEXT           "0 kBit/s",IDC_VIDEOBITRATE,365,146,45,10,SS_SUNKEN
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,252,140,
+                    162,1
+    CONTROL         "No Preview",IDC_NOPREVIEW,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,308,94,52,10
+    LTEXT           "Sync",IDC_STATIC,335,157,26,10,SS_SUNKEN
+    CTEXT           "0",IDC_RESYNCCOUNT,365,157,45,10,SS_SUNKEN
+    CONTROL         "Slider1",IDC_VOLUME,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,348,44,64,9
+    LTEXT           "PCVolume",IDC_STATIC,310,44,36,10,SS_SUNKEN
+    PUSHBUTTON      "Reset",IDC_RESET_NHTTPD,283,41,24,14
+END
+
+SPLASH DIALOG DISCARDABLE  0, 0, 240, 177
+STYLE DS_CENTER | WS_POPUP | WS_VISIBLE | WS_CLIPSIBLINGS
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         114,IDC_STATIC,"Static",SS_BITMAP,0,0,240,177
+END
+
+MISC DIALOG DISCARDABLE  0, 0, 248, 142
+STYLE DS_MODALFRAME | WS_POPUP
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Misc",IDC_STATIC,4,2,240,138
+    CONTROL         "Allways on top",IDC_ALLWAYSONTOP,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,136,30,88,10
+    CONTROL         "Automatic AspectRatio",IDC_AUTOASPECTRATIO,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,136,48,88,10
+    GROUPBOX        "VideoWindow",IDC_STATIC,128,14,106,54
+    GROUPBOX        "Priority",IDC_STATIC,14,14,101,54,WS_GROUP
+    CONTROL         "RealTime",IDC_PRIORITY_REALTIME,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,25,27,58,10
+    CONTROL         "High",IDC_PRIORITY_HIGH,"Button",BS_AUTORADIOBUTTON,25,
+                    41,58,10
+    CONTROL         "Normal",IDC_PRIORITY_NORMAL,"Button",BS_AUTORADIOBUTTON,
+                    25,54,58,10
+    GROUPBOX        "HTTP/Streaming - Server",IDC_STATIC,14,76,220,54,
+                    WS_GROUP
+    EDITTEXT        IDC_CTRLPORT,174,108,42,15,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "CTRL Port",IDC_STATIC,127,111,40,10,SS_SUNKEN
+    CONTROL         "Enable TCPServer",IDC_ENABLETCPSERVER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,84,91,80,10
+    EDITTEXT        IDC_HTTPPORT,71,108,42,15,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "HTTP Port",IDC_STATIC,24,111,40,10,SS_SUNKEN
+END
+
+AUDIO DIALOG DISCARDABLE  0, 0, 248, 142
+STYLE DS_MODALFRAME | WS_POPUP
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Audio",IDC_STATIC,4,2,240,138
+    CONTROL         "capture Audio only ",IDC_AUDIOONLY,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,16,18,76,10
+    CONTROL         "pass through MPEG Audio",IDC_AUDIOTHROUGH,"Button",
+                    BS_AUTORADIOBUTTON,42,36,114,10
+    CONTROL         "transcode captured Audio",IDC_AUDIORECODE,"Button",
+                    BS_AUTORADIOBUTTON,42,54,114,10
+    COMBOBOX        IDC_AUDIOFORMAT,131,74,68,58,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_AUDIOSAMPLEFREQUENCY,131,92,68,46,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_AUDIOBITRATE,131,111,68,51,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Format",IDC_STATIC,47,75,70,10,SS_SUNKEN
+    LTEXT           "SampleFrequency",IDC_STATIC,47,94,70,10,SS_SUNKEN
+    LTEXT           "BitRate",IDC_STATIC,47,112,70,10,SS_SUNKEN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    DBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 241
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 135
+    END
+
+    ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 231
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 139
+    END
+
+    MAIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 415
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 198
+    END
+
+    SPLASH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 233
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    MISC, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 241
+        VERTGUIDE, 22
+        VERTGUIDE, 26
+        VERTGUIDE, 30
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 135
+    END
+
+    AUDIO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 241
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 135
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_TUX          BITMAP  DISCARDABLE     "tux.bmp"
+IDB_BITMAP_SPLASH       BITMAP  DISCARDABLE     "splash.bmp"
+#endif    // Neutral (Sys. Default) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

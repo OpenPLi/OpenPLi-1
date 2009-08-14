@@ -1,0 +1,74 @@
+#Mapping of genre text in an EPG.DAT file, to a Content Level Byte (both nibble 1 and 2)
+#Format of this file:
+#Name,content byte (hex),length
+#The length attribute is not required. It can be used to finetune the matches.
+#Name is not case sensitive
+#The genre is an exadecimal representation of the content_nibble_level 1 and 2,
+#as described in ETSI EN 300 468 v1.4.1. Some general values are:
+#10 - movies
+#20 - news
+#30 - shows and game shows
+#40 - sports
+#50 - children's programmes
+#60 - music and dance
+#70 - arts without music
+#80 - social, political and economics
+#90 - education, science and factual topics
+
+FILM,0x10
+CINE,0x10
+Cine,0x10
+
+# Following used to have a minimum duration in MV of 85 minutes
+CINEMA,0x10
+KOMEDIE,0x14
+ANDERE,0x10,85
+MISDAAD,0x10
+COMMEDIA,0x14
+DRAMMATICO,0x10
+AZIONE,0x10
+ROMANTICO,0x10
+FICTION,0x10
+
+# Radiotimes genres
+Entertainment,0x00
+No Genre,0x00
+Film,0x10
+Drama,0x10,85
+Sitcom,0x14
+Comedy,0x14
+Soap,0x15
+News and Current Affairs,0x20
+Interests,0x23
+Documentary,0x23
+Game show,0x30
+Sport,0x40
+Children,0x50
+Animation,0x55
+Music and Arts,0x60
+Religion,0x73
+Consumer,0x82
+Science,0x90
+Environment,0x91
+Travel,0xa1
+Cookery,0xa5
+
+#Dutch genres (Taken from Wolf's files)
+Amusement,0x00
+Animatie,0x55
+Comedy,0x14
+Documentaire,0x23
+Educatief,0x90
+Film,0x10
+Informatief
+Jeugd,0x50
+Kunst/Cultuur,0x70
+Misdaad,0x10,85
+Muziek,0x60
+Natuur,0x91
+Nieuws/actualiteiten,0x20
+Overige,0x00
+Religieus,0x73
+Serie/soap,0x15
+Sport,0x40
+Wetenschap,090

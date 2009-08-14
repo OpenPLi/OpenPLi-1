@@ -1,0 +1,4 @@
+#NAME Bouquets (Radio)
+#SERVICE: 4097:7:0:94b4c:0:0:0:0:0:0:/var/tuxbox/config/enigma/userbouquet.94b4c.radio
+#TYPE 16385
+/var/tuxbox/config/enigma/userbouquet.94b4c.radio

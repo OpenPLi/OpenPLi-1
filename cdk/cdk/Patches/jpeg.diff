@@ -1,0 +1,35 @@
+diff -Naur jpeg-6b.orig/configure jpeg-6b/configure
+--- jpeg-6b.orig/configure	1998-03-21 19:08:57.000000000 +0000
++++ jpeg-6b/configure	2003-12-06 21:07:55.000000000 +0000
+@@ -1559,7 +1559,7 @@
+   if test "x$LTSTATIC" = xno; then
+     disable_static="--disable-static"
+   fi
+-  $srcdir/ltconfig $disable_shared $disable_static $srcdir/ltmain.sh
++  $srcdir/ltconfig $disable_shared $disable_static $srcdir/ltmain.sh $host
+ fi
+ 
+ # Select memory manager depending on user input.
+diff -Naur jpeg-6b.orig/ltconfig jpeg-6b/ltconfig
+--- jpeg-6b.orig/ltconfig	1998-03-25 15:25:39.000000000 +0000
++++ jpeg-6b/ltconfig	2003-12-06 21:07:55.000000000 +0000
+@@ -1173,7 +1173,6 @@
+   else
+     # Only the GNU ld.so supports shared libraries on MkLinux.
+     case "$host_cpu" in
+-    powerpc*) dynamic_linker=no ;;
+     *) dynamic_linker='Linux ld.so' ;;
+     esac
+   fi
+diff -Naur jpeg-6b.orig/makefile.cfg jpeg-6b/makefile.cfg
+--- jpeg-6b.orig/makefile.cfg	1998-03-21 19:08:57.000000000 +0000
++++ jpeg-6b/makefile.cfg	2003-12-06 21:11:33.000000000 +0000
+@@ -36,7 +36,7 @@
+ LDLIBS= @LIBS@
+ 
+ # If using GNU libtool, LIBTOOL references it; if not, LIBTOOL is empty.
+-LIBTOOL = @LIBTOOL@
++LIBTOOL = ./libtool
+ # $(O) expands to "lo" if using libtool, plain "o" if not.
+ # Similarly, $(A) expands to "la" or "a".
+ O = @O@

@@ -1,0 +1,10 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script language="javascript" type="text/javascript" src="window.js"></script>
+		<script language="javascript" type="text/javascript" src="index.js"></script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+		#CONTENT#
+	</body>
+</html>

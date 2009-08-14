@@ -1,0 +1,171 @@
+diff -ru lirc-0.6.6/acconfig.h lirc-0.6.6.new/acconfig.h
+--- lirc-0.6.6/acconfig.h	Sat Jul 27 11:17:08 2002
++++ lirc-0.6.6.new/acconfig.h	Mon Oct 21 20:26:13 2002
+@@ -168,7 +168,8 @@
+ 
+ #define LIRCCFGFILE		CFG_USER
+ 
+-#define LOGFILE			LOCALSTATEDIR "/log/" LOG_LIRCD
++/*#define LOGFILE			LOCALSTATEDIR "/log/" LOG_LIRCD*/
++#define LOGFILE			"/dev/null"
+ #define LIRMAND_LOGFILE		LOCALSTATEDIR "/log/" LOG_LIRMAND
+ 
+ #define PIDFILE                 LOCALSTATEDIR "/run/" PID_LIRCD
+diff -ru lirc-0.6.6/config.h.in lirc-0.6.6.new/config.h.in
+--- lirc-0.6.6/config.h.in	Mon Oct 21 20:29:23 2002
++++ lirc-0.6.6.new/config.h.in	Mon Oct 21 20:29:50 2002
+@@ -295,7 +295,8 @@
+ 
+ #define LIRCCFGFILE		CFG_USER
+ 
+-#define LOGFILE			LOCALSTATEDIR "/log/" LOG_LIRCD
++/* #define LOGFILE			LOCALSTATEDIR "/log/" LOG_LIRCD */
++#define LOGFILE			"/dev/null"
+ #define LIRMAND_LOGFILE		LOCALSTATEDIR "/log/" LOG_LIRMAND
+ 
+ #define PIDFILE                 LOCALSTATEDIR "/run/" PID_LIRCD
+diff -ru lirc-0.6.6/daemons/lircd.c lirc-0.6.6.new/daemons/lircd.c
+--- lirc-0.6.6/daemons/lircd.c	Sat Sep 21 17:25:28 2002
++++ lirc-0.6.6.new/daemons/lircd.c	Mon Oct 21 20:06:15 2002
+@@ -90,7 +90,7 @@
+ char *progname="lircd " VERSION;
+ char *configfile=LIRCDCFGFILE;
+ char *logfile=LOGFILE;
+-FILE *pidfile;
++//FILE *pidfile;
+ 
+ struct protocol_directive directives[] =
+ {
+@@ -286,8 +286,8 @@
+ 		shutdown(sockinet,2);
+ 		close(sockinet);
+ 	}
+-	fclose(pidfile);
+-	(void) unlink(PIDFILE);
++//	fclose(pidfile);
++//	(void) unlink(PIDFILE);
+ 	if(clin>0 && hw.deinit_func) hw.deinit_func();
+ #ifdef USE_SYSLOG
+ 	closelog();
+@@ -671,8 +671,9 @@
+ 	int ret;
+ 	int new=1;
+ 	int fd;
+-	
++
+ 	/* create pid lockfile in /var/run */
++	/* we dont want a run file !!!
+ 	if((fd=open(PIDFILE,O_RDWR|O_CREAT,0644))==-1 ||
+ 	   (pidfile=fdopen(fd,"r+"))==NULL)
+ 	{
+@@ -705,15 +706,15 @@
+ 	(void) fprintf(pidfile,"%d\n",getpid());
+ 	(void) fflush(pidfile);
+ 	(void) ftruncate(fileno(pidfile),ftell(pidfile));
+-
++*/
+ 	/* create socket*/
+ 	sockfd=socket(AF_UNIX,SOCK_STREAM,0);
+ 	if(sockfd==-1)
+ 	{
+ 		fprintf(stderr,"%s: could not create socket\n",progname);
+ 		perror(progname);
+-		fclose(pidfile);
+-		(void) unlink(PIDFILE);
++//		fclose(pidfile);
++//		(void) unlink(PIDFILE);
+ 		exit(EXIT_FAILURE);
+ 	};
+ 	
+@@ -729,8 +730,8 @@
+ 			progname,LIRCD);
+ 		perror(progname);
+ 		close(sockfd);
+-		fclose(pidfile);
+-		(void) unlink(PIDFILE);
++//		fclose(pidfile);
++//		(void) unlink(PIDFILE);
+ 		exit(EXIT_FAILURE);
+ 	}
+ 	if(ret!=-1)
+@@ -743,8 +744,8 @@
+ 				progname,LIRCD);
+ 			perror(NULL);
+ 			close(sockfd);
+-			fclose(pidfile);
+-			(void) unlink(PIDFILE);
++//			fclose(pidfile);
++//			(void) unlink(PIDFILE);
+ 			exit(EXIT_FAILURE);
+ 		}
+ 	}
+@@ -757,8 +758,8 @@
+ 			progname);
+ 		perror(progname);
+ 		close(sockfd);
+-		fclose(pidfile);
+-		(void) unlink(PIDFILE);
++//		fclose(pidfile);
++//		(void) unlink(PIDFILE);
+ 		exit(EXIT_FAILURE);
+ 	}
+ 	
+@@ -771,8 +772,8 @@
+ 			progname);
+ 		perror(progname);
+ 		close(sockfd);
+-		fclose(pidfile);
+-		(void) unlink(PIDFILE);
++//		fclose(pidfile);
++//		(void) unlink(PIDFILE);
+ 		exit(EXIT_FAILURE);
+ 	}
+ 	
+@@ -791,8 +792,8 @@
+ 				progname);
+ 			perror(progname);
+ 			close(sockfd);
+-			fclose(pidfile);
+-			(void) unlink(PIDFILE);
++//			fclose(pidfile);
++//			(void) unlink(PIDFILE);
+ 			exit(EXIT_FAILURE);
+ 		};
+ 		(void) setsockopt(sockinet,SOL_SOCKET,SO_REUSEADDR,
+@@ -809,8 +810,8 @@
+ 			perror(progname);
+ 			close(sockinet);
+ 			close(sockfd);
+-			fclose(pidfile);
+-			(void) unlink(PIDFILE);
++//			fclose(pidfile);
++//			(void) unlink(PIDFILE);
+ 			exit(EXIT_FAILURE);
+ 		}
+ 		
+@@ -842,8 +843,8 @@
+ 			close(sockinet);
+ 		}
+ 		close(sockfd);
+-		fclose(pidfile);
+-		(void) unlink(PIDFILE);
++//		fclose(pidfile);
++//		(void) unlink(PIDFILE);
+ 		exit(EXIT_FAILURE);
+ 	}
+ 	gethostname(hostname,HOSTNAME_LEN);
+@@ -903,10 +904,10 @@
+ 		dosigterm(SIGTERM);
+ 	}
+ 	umask(0);
+-	rewind(pidfile);
+-	(void) fprintf(pidfile,"%d\n",getpid());
+-	(void) fflush(pidfile);
+-	(void) ftruncate(fileno(pidfile),ftell(pidfile));
++//	rewind(pidfile);
++//	(void) fprintf(pidfile,"%d\n",getpid());
++//	(void) fflush(pidfile);
++//	(void) ftruncate(fileno(pidfile),ftell(pidfile));
+ 	daemonized=1;
+ }
+ 

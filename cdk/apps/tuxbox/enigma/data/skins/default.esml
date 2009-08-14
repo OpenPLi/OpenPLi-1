@@ -1,0 +1,947 @@
+<!DOCTYPE skin SYSTEM "skin.dtd" [
+<!ENTITY lt "<">
+<!ENTITY gt ">">
+<!ENTITY auml "&#228;">
+<!ENTITY ouml "&#246;">
+<!ENTITY uuml "&#252;">
+<!ENTITY Auml "&#196;">
+<!ENTITY Ouml "&#214;">
+<!ENTITY Uuml "&#220;">
+<!ENTITY szlig "&#223;">
+]>
+<eskin>
+	<fonts>
+		<font file="md_khmurabi_10.ttf" name="Replacement" scale="78" replacement="yes" />
+		<font file="unmrs.pfa" name="Nimbus" />
+		<font file="andale.ttf" name="Andale" />
+		<font file="pakenham.ttf" name="lcd" />
+	</fonts>
+	<values>
+		<value name="eMessageBox.pos.x" value="100" />
+		<value name="eMessageBox.pos.y" value="70" />
+		<value name="mute.pos.x" value="100" />
+		<value name="mute.pos.y" value="50" />
+		<value name="volume.grafik.pos.x" value="450" />
+		<value name="volume.grafik.pos.y" value="50" />
+		<value name="volume.slider.pos.x" value="9" />
+		<value name="volume.slider.pos.y" value="38" />
+		<value name="volume.slider.width" value="162" />
+		<value name="volume.slider.height" value="11" />
+		<value name="eStatusBar.margin" value="10" />
+			<value name="rds.pos.x" value="50" />
+			<value name="rds.pos.y" value="481" />
+			<value name="rds.pos.width" value="620" />
+			<value name="rds.pos.height" value="29" />
+			<value name="rds_plus.pos.x" value="50" />
+			<value name="rds_plus.pos.y" value="510" />
+			<value name="rds_plus.pos.width" value="620" />
+			<value name="rds_plus.pos.height" value="29" />
+			<value name="rass_logo.pos.x" value="50" />
+			<value name="rass_logo.pos.y" value="445" />
+	</values>
+	<fontalias>
+		<map name="eStatusBar" font="Nimbus" size="16" />
+		<map name="eChannelInfo" font="Nimbus" size="16" />
+		<map name="global.normal" font="Nimbus" size="24" />
+		<map name="global.30" font="Nimbus" size="30" />
+		<map name="global.fixed" font="Nimbus" size="24" />
+		<map name="global.nonprop.small" font="Andale" size="18" />
+		<map name="eWindow.TitleBar" font="Nimbus" size="24" />
+		<map name="eWindow.Childs" font="Nimbus" size="24" />
+		<map name="eListBox.EntryText.normal" font="Nimbus" size="24" />
+		<map name="eAboutScreen.machine" font="Nimbus" size="40" />
+		<map name="eServiceSelector.Entry.Description" font="Nimbus" size="20" />
+		<map name="eServiceSelector.singleColumn.Entry.Name" font="Nimbus" size="24" />
+		<map name="eServiceSelector.singleColumn.Entry.Number" font="Nimbus" size="20" />
+		<map name="eServiceSelector.multiColumn.Entry.Number" font="Nimbus" size="18" />	
+		<map name="eServiceSelector.multiColumn.Entry.Name" font="Nimbus" size="18" />
+		<map name="eServiceSelector.combiColumn.Entry.Number" font="Nimbus" size="18" />	
+		<map name="eServiceSelector.combiColumn.Entry.Name" font="Nimbus" size="18" />
+		<map name="eEPGSelector.Entry.Description" font="Nimbus" size="24" />
+		<map name="eEPGSelector.Entry.DateTime" font="Nimbus" size="20" />
+		<map name="lcd.main.service_name" font="Nimbus" size="16" />
+		<map name="lcd.main.clock" font="Nimbus" size="14" />
+		<map name="lcd.standby.clock" font="Nimbus" size="30" />
+		<map name="lcd.menu.title" font="Nimbus" size="14" />
+		<map name="lcd.menu.element" font="Nimbus" size="12" />
+		<map name="eventview.description" font="Nimbus" size="24" />
+		<map name="eventview.date" font="Nimbus" size="18" />
+		<map name="eventview.time" font="Nimbus" size="18" />
+		<map name="eventview.channel" font="Nimbus" size="18" />
+		<map name="eFEStatus.values" font="Nimbus" size="20" />
+		<map name="eSatfind" font="Nimbus" size="30" />
+		<map name="eUpgradeChanges" font="Nimbus" size="20" />
+		<map name="partitionCheck.status" font="Nimbus" size="20" />
+		<map name="head" font="Nimbus" size="32" />
+		<map name="epg.time" font="Nimbus" size="24" />
+		<map name="epg.title" font="Nimbus" size="20" />
+		<map name="epg.description" font="Nimbus" size="24" />
+		<map name="textinputfield.helpwidget.big" font="lcd" size="50" />
+		<map name="textinputfield.helpwidget.bigger" font="lcd" size="90" />
+		<map name="textinputfield.helpwidget.normal" font="Replacement" size="30" />
+		<map name="textinputfield.helpwidget.small" font="Replacement" size="20" />
+
+		<map name="rass" font="Nimbus" size="20" />
+		<map name="rds" font="Nimbus" size="20" />
+	</fontalias>
+	<images basepath="pli_shared" target="fb">
+ 		<img name="no_pig" src="my_pig_image.png" />
+	</images>	
+	<images basepath="" target="fb">
+		<img name="listbox.separator" src="separator-fs8.png" />
+		<img name="arrow_up" src="arrow_up.png"/>
+		<img name="arrow_down" src="arrow_down.png"/>
+		<img name="eCheckbox.checked" src="checked.png" />
+		<img name="eCheckbox.unchecked" src="unchecked.png" />
+		<img name="eCheckboxLCD.checked" src="checked_lcd.png" nomerge="yes" />
+		<img name="eCheckboxLCD.unchecked" src="unchecked_lcd.png" nomerge="yes" />
+		<img name="lcd_standby" src="lcd_standby.png" nomerge="yes" />
+		<img name="lcd_shutdown" src="lcd_shutdown.png" nomerge="yes" />
+		<img name="lcd_menu" src="lcdmenu.png" nomerge="yes" />
+		<img name="lcd_scart" src="video.png" nomerge="yes" />
+		<img name="mainmenu.background" src="mainmenu/background-fs8.png" />
+		<img name="mainmenu.info" src="mainmenu/info-fs8.png" />
+		<img name="mainmenu.info.sel" src="mainmenu/info_sel-fs8.png" />
+		<img name="mainmenu.setup" src="mainmenu/setup-fs8.png" />
+		<img name="mainmenu.setup.sel" src="mainmenu/setup_sel-fs8.png" />
+		<img name="mainmenu.shutdown" src="mainmenu/shutdown-fs8.png" />
+		<img name="mainmenu.shutdown.sel" src="mainmenu/shutdown_sel-fs8.png" />
+		<img name="mainmenu.scart" src="mainmenu/scart-fs8.png" />
+		<img name="mainmenu.scart.sel" src="mainmenu/scart_sel-fs8.png" />
+		<img name="mainmenu.games" src="mainmenu/games-fs8.png" />
+		<img name="mainmenu.games.sel" src="mainmenu/games_sel-fs8.png" />
+		<img name="mainmenu.tv" src="mainmenu/tv-fs8.png" />
+		<img name="mainmenu.tv.sel" src="mainmenu/tv_sel-fs8.png" />
+		<img name="mainmenu.radio" src="mainmenu/radio-fs8.png" />
+		<img name="mainmenu.radio.sel" src="mainmenu/radio_sel-fs8.png" />
+		<img name="mainmenu.file" src="mainmenu/file-fs8.png" />
+		<img name="mainmenu.file.sel" src="mainmenu/file_sel-fs8.png" />
+		<img name="mainmenu.timer" src="mainmenu/rectime-fs8.png" />
+		<img name="mainmenu.timer.sel" src="mainmenu/rectime_sel-fs8.png" />
+		<img name="sselect_dolby" src="dolby_on.png" />
+		<img name="sselect_stereo" src="stereo_on.png" />
+		<img name="sselect_format" src="format_on_small.png" />
+		<img name="sselect_crypt" src="crypt_on_small.png" />
+		<img name="mute_symbol" src="mute-fs8.png" />
+		<img name="volume_grafik" src="volumeslider-fs8.png" />
+		<img name="icon_info" src="icon-info-fs8.png" />
+		<img name="icon_question" src="icon-question-fs8.png" />
+		<img name="icon_error" src="icon-error-fs8.png" />
+		<img name="icon_warning" src="icon-warning-fs8.png" />
+		<img name="sselect_folder" src="folder-fs8.png" />
+		<img name="sselect_marker" src="marker-fs8.png" />
+		<img name="sselect_marker_small" src="marker_small-fs8.png" />
+		<img name="sselect_locked" src="padlock-fs8.png" />
+		<img name="sselect_locked_small" src="padlock_small-fs8.png" />
+		<img name="sselect_newfound" src="newfound-fs8.png" />
+		<img name="sselect_newfound_small" src="newfound_small-fs8.png" />
+		<img name="timer_symbol" src="clock-fs8.png" />
+		<img name="timer_rec_symbol" src="clock_rec-fs8.png" />
+		<img name="ok_symbol" src="event_ok-fs8.png" />
+		<img name="failed_symbol" src="event_failed-fs8.png" />
+		<img name="dreamlogo" src="dreamlogo-fs8.png" />
+		<img name="triaxlogo" src="triaxlogo-fs8.png" />
+		<img name="rass_logo" src="rass_logo.png" />
+		<img name="rass_page1" src="rass_page1.png" />
+		<img name="rass_page2" src="rass_page2.png" />
+		<img name="rass_page3" src="rass_page3.png" />
+		<img name="rass_page4" src="rass_page4.png" />
+		
+		<img name="diseqc_0" src="diseqc_0-fs8.png" />
+		<img name="diseqc_1" src="diseqc_1-fs8.png" />
+		<img name="diseqc_2" src="diseqc_2-fs8.png" />
+		<img name="eListBoxEntryCheck" src="check-fs8.png" />
+	</images>
+	<images basepath="countries">
+		<img name="country_da" src="da.png" />
+		<img name="country_hu" src="hu.png" />
+		<img name="country_ae" src="ae.png" />
+		<img name="country_de" src="de.png" />
+		<img name="country_es" src="es.png" />
+		<img name="country_en" src="en.png" />
+		<img name="country_fi" src="fi.png" />
+		<img name="country_no" src="no.png" />
+		<img name="country_se" src="se.png" />
+		<img name="country_cz" src="cz.png" />
+		<img name="country_gr" src="gr.png" />
+		<img name="country_hr" src="hr.png" />
+		<img name="country_fr" src="fr.png" />
+		<img name="country_it" src="it.png" />
+		<img name="country_lt" src="lt.png" />
+		<img name="country_nl" src="nl.png" />
+		<img name="country_pl" src="pl.png" />
+		<img name="country_pt" src="pt.png" />
+		<img name="country_tr" src="tr.png" />
+		<img name="country_ru" src="ru.png" />
+		<img name="country_ro" src="ro.png" />
+		<img name="country_is" src="is.png" />
+		<img name="country_si" src="si.png" />
+		<img name="country_fy" src="fy.png" />
+		<img name="country_cn" src="zh_bj.png" />
+		<img name="country_sk" src="sk.png" />
+		<img name="country_ee" src="ee.png" />
+		<img name="country_missing" src="missing.png" />
+	</images>
+	<images basepath="shortcut">
+		<img name="shortcut.0" src="button_0.png" />
+		<img name="shortcut.1" src="button_1.png" />
+		<img name="shortcut.2" src="button_2.png" />
+		<img name="shortcut.3" src="button_3.png" />
+		<img name="shortcut.4" src="button_4.png" />
+		<img name="shortcut.5" src="button_5.png" />
+		<img name="shortcut.6" src="button_6.png" />
+		<img name="shortcut.7" src="button_7.png" />
+		<img name="shortcut.8" src="button_8.png" />
+		<img name="shortcut.9" src="button_9.png" />
+		<img name="shortcut.red" src="red.png" />
+		<img name="shortcut.green" src="green.png" />
+		<img name="shortcut.yellow" src="yellow.png" />
+		<img name="shortcut.blue" src="blue.png" />
+		<img name="shortcut.escape" src="escape.png" />
+	</images>
+	<images basepath="keypics">
+		<img name="key.0" src="button_0.png" />
+		<img name="key.1" src="button_1.png" />
+		<img name="key.2" src="button_2.png" />
+		<img name="key.3" src="button_3.png" />
+		<img name="key.4" src="button_4.png" />
+		<img name="key.5" src="button_5.png" />
+		<img name="key.6" src="button_6.png" />
+		<img name="key.7" src="button_7.png" />
+		<img name="key.8" src="button_8.png" />
+		<img name="key.9" src="button_9.png" />
+		<img name="key.10" src="button_audio.png" />
+		<img name="key.11" src="button_video.png" />
+		<img name="key.12" src="button_info.png" />
+		<img name="key.13" src="button_dream.png" />
+		<img name="key.14" src="button_lame.png" />
+		<img name="key.15" src="button_tv.png" />
+		<img name="key.16" src="button_radio.png" />
+		<img name="key.17" src="button_red.png" />
+		<img name="key.18" src="button_green.png" />
+		<img name="key.19" src="button_yellow.png" />
+		<img name="key.20" src="button_blue.png" />
+		<img name="key.21" src="button_lame.png" />
+		<img name="key.22" src="button_text.png" />
+		<img name="key.23" src="button_help.png" />
+		<img name="key.24" src="button_arrow_left.png" />
+		<img name="key.25" src="button_arrow_right.png" />
+		<img name="key.26" src="button_+.png" />
+		<img name="key.27" src="button_-.png" />
+		<img name="key.29" src="button_dbox.png" />
+		<img name="key.30" src="button_home.png" />
+		<img name="key.31" src="button_mute.png" />
+		<img name="key.32" src="button_menu.png" />
+		<img name="key.33" src="button_exit.png" />
+		<img name="key.34" src="button_ok.png" />
+		<img name="key.35" src="button_bouq.png" />
+		<img name="key.36" src="button_shift_red.png" />
+		<img name="key.37" src="button_shift_green.png" />
+		<img name="key.38" src="button_shift_yellow.png" />
+		<img name="key.39" src="button_shift_blue.png" />
+	</images>
+	<colors>
+		<color name="background" color="#ff000000" />
+		<color name="eWindow.border" color="#000000" />
+		<color name="white_trans" color="#1effffff" />
+		<color name="white_blue" color="#1effffff" end="#1e003f80" size="8" />
+		<color name="std_red"    color="#ff0000" />
+		<color name="std_green"  color="#00ff00" />
+		<color name="std_blue"   color="#0000ff" />
+		<color name="std_dyellow"  color="#c0c000" />
+		<color name="std_dcyan"    color="#00c0c0" />
+		<color name="std_dgreen"   color="#00c000" />
+		<color name="std_dmagenta" color="#c000c0" />
+		<color name="std_dred"     color="#c00000" />
+		<color name="std_dblue"    color="#0000c0" />
+		<color name="std_gray"     color="#000000" end="#ffffff" size="8" />
+		<color name="blue_nontrans" color="#1e003f80" end="#00003f80" size="4" />
+		<color name="icons1" color="#1eeeeeee" end="#1e7b7b7b" size="4" />
+		<color name="icons2" color="#1eafafee" end="#1e0000ff" size="4" />		
+		<color name="icons3" color="#1effff00" end="#1e9e9e5e" size="4" />
+		<color name="volume1" color="#ced4db" />
+		<color name="volume2" color="#acb6c3" />
+		<color name="volume3" color="#586d88" />
+		<color name="volume4" color="#41719b" />
+		<color name="folder1" color="#ffcc00" />
+		<color name="folder2" color="#9e7e00" />
+		<color name="folder3" color="#808080" />
+		<color name="folder4" color="#c0c0c0" />
+		<color name="folder5" color="#efe6e6" />
+		<color name="eServiceSelector.entrySelectedToMove" color="#ff0303" />
+		<color name="eServiceSelector.entryHilited" color="#ff0303" />
+		<color name="epg.timeline.now" color="#A01010" />
+		<color name="rass_bg" color="#77ffffff" />
+		<color name="rass_fg" color="#000000" />
+		<color name="rds_bg" color="#88003258" />
+		<color name="rds_fg" color="#ffffff" />
+		<color name="genre0" color="#E0E6EB" />
+		<color name="genre1" color="#97a537" />
+		<color name="genre2" color="#8D357A" />
+		<color name="genre3" color="#648A93" />
+		<color name="genre4" color="#5E7E84" />
+		<color name="genre5" color="#3E7C54" />
+		<color name="genre6" color="#40902A" />
+		<color name="genre7" color="#8C6A3E" />
+		<color name="genre8" color="#B34545" />
+		<color name="genre9" color="#7A4E7E" />
+		<color name="genre10" color="#9F33a7" />
+		<color name="genre11" color="#5771a7" />
+		<color name="genre12" color="#4D69a1" />
+		<color name="genre13" color="#799Ba1" />
+		<color name="genre14" color="#3FA4AE" />
+		<color name="genre15" color="#28CD69" />
+	</colors>
+	<colorscheme>
+		<map name="volume_left" color="volume4" />
+		<map name="volume_right" color="volume2" />
+		<map name="std_black" color="std_gray" />
+		<map name="std_white" color="std_gray+7" />
+		<map name="epg.entry.background.selected" color="std_gray+4" />
+		<map name="epg.entry.background" color="volume3" />
+		<map name="indexmark" color="std_red" />
+		<map name="textinput.helpwindow.border" color="std_gray+4" />
+		<map name="epg.timeline" color="std_gray+2" />
+		<map name="epg.time.background" color="std_dyellow" />
+		<map name="eServiceSelector.highlight.epg.foreground" color="std_dyellow" />
+	</colorscheme>
+	<object name="eZapMainMenu">
+		<eWidget position="0:c-145" size="720:270" backgroundColor="-2" >
+			<eLabel pixmap="mainmenu.background" position="0:0" size="e:e" name="background" />
+			<eLabel position="22:54" size="70:70" name="l3" alphatest="on" />
+			<eLabel position="114:34" size="70:70" name="l2" alphatest="on" />
+			<eLabel position="208:22" size="70:70" name="l1" alphatest="on" />
+			<eLabel position="312:5" size="100:100" name="m" alphatest="on" />
+			<eLabel position="443:22" size="70:70" name="r1" alphatest="on" />
+			<eLabel position="537:34" size="70:70" name="r2" alphatest="on" />
+			<eLabel position="629:54" size="70:70" name="r3" alphatest="on" />
+			<eLabel position="200:200" size="320:48" align="center" font="eWindow.TitleBar" foregroundColor="eWindow.titleBar" name="description" alphatest="on" />
+		</eWidget>
+	</object>
+	<object name="eventview">
+		<eWindow cposition="c-260:c-190" csize="520:380" >
+			<eWidget position="10:5" size="e-40:e-45" name="epg_description" font="eventview.description" />
+			<eLabel position="10:e-35" size="120:e-10" name="date" font="eventview.date" />
+			<eLabel position="130:e-35" size="140:30" name="time" font="eventview.time" />
+			<eLabel position="280:e-35" size="30:30" name="timer_icon" alphatest="on" />
+			<eLabel position="320:e-35" size="e:30" name="channel" font="eventview.channel" align="right" />
+			<eProgress name="scrollbar" position="e-30:5" size="20:e-45" direction="1" />
+		</eWindow>
+	</object>
+	<object name="enigma_lcd_main">
+		<eZapLCDMain position="0:0" size="120:64">
+			<eLabel position="0:0" size="120:45" font="lcd.main.service_name" wrap="on" name="service_name" />
+			<eLabel position="74:42" size="46:23" font="lcd.main.clock" name="clock" align="right" />
+			<eLabel position="0:53" size="9:13" pixmap="speaker" />
+			<eLabel position="0:46" size="7:7" pixmap="lcd-clock" />
+			<eProgress position="9:56" size="64:8" name="volume_bar" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+			<eProgress position="9:46" size="64:9" name="progress_bar" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+		</eZapLCDMain>
+	</object>
+	<object name="enigma_lcd_scart">
+		<eZapLCDScart position="0:0" size="120:64">
+			<eProgress position="7:2" size="65:6" name="volume_bar" foregroundColor="0" leftColor="0" rightColor="255" border="1" />
+			<eLabel position="0:0" size="120:17" pixmap="lcd_enigma_logo" />
+		  <eLabel position="4:20" size="112:38" pixmap="lcd_scart" />
+		</eZapLCDScart>
+	</object>
+	<object name="enigma_lcd_menu">
+		<eZapLCDMenu position="0:0" size="120:64">
+			<eLabel position="0:0" size="120:18" font="lcd.menu.title" name="title" />
+			<eLabel position="0:18" size="120:3" pixmap="lcd_menu" />
+			<eLabel position="0:22" size="120:43" font="lcd.menu.element" name="element" wrap="on" />
+		</eZapLCDMenu>
+	</object>
+	<object name="enigma_lcd_standby">
+		<eZapLCDStandby position="0:0" size="120:64">
+			<eLabel position="0:10" size="e:e" font="lcd.standby.clock" name="clock" />
+			<!-- <eLabel position="0:0" size="e:e" pixmap="lcd_standby" /> -->
+		</eZapLCDStandby>
+	</object>
+	<object name="enigma_lcd_shutdown">
+		<eZapLCDScart position="0:0" size="120:64">
+			<eLabel position="0:0" size="e:e" pixmap="lcd_shutdown" />	
+		</eZapLCDScart>
+	</object>
+	<object name="enigma_lcd_satfind">
+		<eZapLCDSatfind position="0:0" size="120:64">
+			<eLabel position="0:0" size="60:18" font="lcd.menu.title" text="SNR:" />
+			<eLabel position="70:0" size="e:18" font="lcd.menu.title" name="snrtext" />
+			<eProgress position="0:20" size="e:11" name="snr" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+			<eLabel position="0:32" size="60:18" font="lcd.menu.title" text="AGC:" />
+			<eLabel position="70:32" size="e:18" font="lcd.menu.title" name="agctext" />
+			<eProgress position="0:52" size="e:11" name="agc" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+		</eZapLCDSatfind>
+	</object>
+	<object name="eDownloadWindow">
+		<eDownloadWindow cposition="c-300:c-150" csize="600:300" text="HTTP Download">
+			<eProgress position="0:50" size="100:20" name="progress" />
+		</eDownloadWindow>
+	</object>
+	<object name="eSatelliteConfigurationManager">
+		<eSatelliteConfigurationManager cposition="c-285:c-205" csize="570:410" text="Satellite Configuration">
+			<eComboBox name="type" position="10:10" helptext="select your configuration here" size="500:35" loadDeco="" showEntryHelp="" vcenter="on" />
+			<eLabel text="Sat/Position" name="lSatPos" position="0:55" size="250:30" align="center"/>
+			<eLabel text="LNB" name="lLnb" position="310:55" size="60:30" align="center"/>
+			<eLabel text="22Khz" name="l22khz" position="360:55" size="90:30" align="center"/>
+			<eLabel text="Voltage" name="lVoltage" position="450:55" size="90:30" align="center"/>
+			<eWidget name="buttons" position="10:90" size="e-40:200" />
+			<eProgress name="scrollbar" position="e-35:90" size="20:190" direction="1" />
+			<eButton name="close" position="10:e-100" size="175:40" text="save" helptext="close Satellite Configuration" loadDeco="" shortcut="green" />
+			<eButton name="new" position="195:e-100" size="175:40" text="new" helptext="add a new Satellite" loadDeco="" shortcut="yellow" />
+			<eButton name="erase" position="380:e-100" size="175:40" text="erase" helptext="remove the selected Satellite" loadDeco="" shortcut="red" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</eSatelliteConfigurationManager>
+	</object>
+	<object name="eLNBSetup">
+		<eLNBSetup text="LNB Configuration" position="c-275:c-200" csize="550:400">
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</eLNBSetup>
+	</object>
+	<object name="eLNBPage">
+		<eLNBPage position="c-275:c-200" size="550:400" >
+			<eLabel text="Sat/LNB mapping:" position="10:10" size="240:35" vcenter="on" />
+			<eComboBox name="lnblist" position="260:10" size="150:35" helptext="here you can change your sat/lnb mapping" loadDeco="" vcenter="on" />
+			<eNumber name="lofL" position="260:55" size="e-100:35" helptext="enter LNB lowband offset frequency (0..9, ok)" loadDeco="" vcenter="on" />
+			<eLabel text="LOF/L:" name="lLofL" position="10:55" size="240:35" vcenter="on" />
+			<eNumber name="lofH" position="260:100" size="e-100:35" helptext="enter LNB highband offset frequency (0..9, ok)" loadDeco="" vcenter="on" />
+			<eLabel text="LOF/H:" name="lLofH" position="10:100" size="240:35" vcenter="on" />
+			<eLabel text="Threshold:" name="lThreshold" position="10:145" size="240:35" vcenter="on"/>
+			<eNumber name="threshold" position="260:145" size="e-100:35" helptext="enter LNB threshold frequency (0..9, ok)" loadDeco="" vcenter="on" />
+			<eCheckbox name="increased_voltage" text="increased voltage" position="10:190" size="e-10:30" helptext="0,5V higher LNB Voltage (for long cables) (ok)" loadDeco="" />
+			<eCheckbox name="relais_12V_out" text="12V output on" position="10:230" size="e-10:30" helptext="turn 12V output on (for 12V relais) (ok)" loadDeco="" />
+			<eButton name="save" text="save" position="10:e-100" size="220:40" helptext="save changes and use current selected LNB for the chosen satellite" loadDeco="" shortcut="green" />
+			<eButton name="next" text="next page" position="240:e-100" size="220:40" helptext="goto next page (DiSEqC)" loadDeco="" shortcut="blue" />
+		</eLNBPage>
+	</object>
+	<object name="eDiSEqCPage">
+		<eDiSEqCPage position="c-275:c-200" size="550:400" >
+			<eComboBox name="MiniDiSEqCParam" position="310:10" size="e-10:35" helptext="select MiniDiSEqC parameter (ok)" loadDeco="" vcenter="on" />
+			<eLabel text="Toneburst:" name="lMiniDiSEqCPara" position="10:10" size="290:35" vcenter="on" /> <!--shortcut="1" shortcutFocus="MiniDiSEqCParam" /-->
+			<eComboBox name="DiSEqCMode" position="310:53" size="e-10:35" helptext="select DiSEqC mode (ok)" loadDeco="" vcenter="on" />
+			<eLabel text="DiSEqC Mode:" name="lDiSEqCMode" position="10:53" size="290:35" vcenter="on" /> <!--shortcut="2" shortcutFocus="DiSEqCMode" /-->
+			<eComboBox name="DiSEqCParam" position="310:96" size="e-10:35" helptext="select DiSEqC parameter (ok)" loadDeco="" vcenter="on" />
+			<eLabel text="DiSEqC Parameter:" name="lDiSEqCParam" position="10:96" size="290:35" vcenter="on" /> <!--shortcut="3" shortcutFocus="DiSEqCParam" /-->
+			<eComboBox name="DiSEqCRepeats" position="310:139" size="e-10:35" helptext="select DiSEqC repeats (ok)" loadDeco="" vcenter="on" />
+			<eLabel text="DiSEqC Repeats:" name="lDiSEqCRepeats" position="10:139" size="290:35" vcenter="on" /> <!--shortcut="4" shortcutFocus="DiSEqCRepeats" /-->
+			<eComboBox name="ucInput" position="310:182" size="e-10:35" helptext="select uncommitted input" loadDeco="" vcenter="on" />
+			<eLabel name="lucInput" text="Uncommitted Switch:" position="10:182" size="290:35" vcenter="on" /> <!--shortcut="5" shortcutFocus="ucInput" /-->
+			<eCheckbox text="Sequence repeat" name="SeqRepeat" position="10:227" size="290:30" helptext="send the complete DiSEqC sequence twice" /> <!--shortcut="6" /-->
+			<eCheckbox text="Fast DiSEqC" name="FastDiSEqC" position="310:227" size="e-10:30" helptext="send no DiSEqC when only Hi/Lo or H/V changes" /> <!--shortcut="8" /-->
+			<eCheckbox text="Swap Commands" name="SwapCmds" position="10:262" size="400:30" helptext="swaps committed and uncommitted DiSEqC Commands" /> <!--shortcut="7" /-->
+			<eButton name="prev" text="prev. page" position="10:e-100" size="220:40" helptext="goto prev page (LNB)" loadDeco="" shortcut="yellow" />
+			<eButton name="save" text="save" position="240:e-100" size="220:40" helptext="save changes" loadDeco="" shortcut="green" />
+		</eDiSEqCPage>
+	</object>
+	<object name="eSatfind" >
+		<eSatfind cposition="c-250:c-190" csize="500:380" text="Satfind" >
+			<eLabel text="SNR:" position="10:0" size="190:50" font="eSatfind" vcenter="on" />
+			<eLabel name="snr_num" position="210:0" size="150:50" font="eSatfind" vcenter="on" />
+			<eCheckbox text="LOCK" name="lock" position="e-125:0" size="125:50" font="eSatfind" vcenter="on" />
+			<eProgress name="snr" position="10:50" size="e-10:40" />
+
+			<eLabel text="AGC:" position="10:90" size="190:50" font="eSatfind" vcenter="on" />
+			<eLabel name="agc_num" position="210:90" size="150:50" font="eSatfind" vcenter="on" />
+			<eCheckbox text="SYNC" name="sync" position="e-125:90" size="125:50" font="eSatfind" vcenter="on"  />
+			<eProgress name="agc" position="10:140" size="e-10:40" />
+			<eLabel text="BER" position="10:180" size="190:50" font="eSatfind" vcenter="on" />
+			<eLabel name="ber_num" position="210:180" size="150:50" font="eSatfind" vcenter="on" />
+			<eProgress name="ber" position="10:230" size="e-10:40" />
+			<eLabel name="lSat" text="Satellite:" position="10:285" size="160:35" vcenter="on" />
+			<eComboBox name="sat" position="180:285" size="e-10:35" helptext="choose the Satellite you wish to find" loadDeco="" vcenter="on" />
+			<eLabel text="Transponder:" position="10:330" size="160:35" vcenter="on" />
+			<eComboBox name="transponder" position="180:330" size="e-10:35" helptext="choose the Transponder you wish to find" loadDeco="" vcenter="on" />
+		</eSatfind>
+	</object>
+	<object name="RotorConfig">
+		<RotorConfig text="Motor Config" cposition="c-275:c-200" csize="550:400" >
+			<eCheckbox text="Use Motor Input Power" name="useRotorInPower" position="10:10" size="300:35" helptext="Use motor input power for running detection.. else use timeout" />
+			<eNumber name="DeltaA" position="320:10" size="60:35" helptext="motor power input difference between running and not running" loadDeco="" vcenter="on" />
+			<eLabel name="lDeltaA" text="mA" position="390:10" size="e-10:35" vcenter="on" />
+			<eCheckbox text="Use gotoXX Function" name="useGotoXX" position="10:55" size="300:35" helptext="when the motor support this, then use" vcenter="on" />
+			<eLabel name="lLongitude" text="Longitude:" position="10:100" size="250:35" vcenter="on" /> <!--shortcut="1" shortcutFocus="Longitude" /-->
+			<eNumber name="Longitude" position="320:100" size="100:35" helptext="enter your longitude (0..9, +, -, ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="LoDirection" position="430:100" size="100:35" helptext="choose direction" loadDeco="" vcenter="on" />
+			<eLabel name="lLatitude" text="Latitude:" position="10:145" size="250:35" vcenter="on" /> <!--shortcut="2" shortcutFocus="Latitude" -->
+			<eNumber name="Latitude" position="320:145" size="100:35" helptext="enter your latitude (0..9, +, -, ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="LaDirection" position="430:145" size="100:35" helptext="choose direction" loadDeco="" vcenter="on" />
+			<eListbox name="positions" position="10:100" size="170:180" helptext="choose entry to edit or remove" loadDeco="" />
+			<eLabel name="lStoredRotorNo" text="Number in motor:" position="190:100" size="e-110:35" vcenter="on" />
+			<eNumber name="StoredRotorNo" position="e-100:100" size="e-10:35" helptext="insert rotor memory cell for this orbital position" loadDeco="" vcenter="on" />
+			<eLabel name="lOrbitalPosition" text="Orbital Position:" position="190:150" size="e-110:35" vcenter="on" />
+			<eNumber name="OrbitalPosition" position="e-100:150" size="e-10:35" loadDeco="" vcenter="on" />
+			<eLabel name="lDirection" text="Direction:" position="190:195" size="e-150:35" vcenter="on" />
+			<eComboBox name="Direction" position="e-140:195" size="e-10:35" helptext="choose direction" loadDeco="" vcenter="on" />
+			<eButton name="add" text="add" position="190:240" size="170:40" helptext="add to table/existing will be overwritten" loadDeco="" shortcut="yellow" />
+			<eButton name="remove" text="remove" position="370:240" size="170:40" helptext="remove selected entry" loadDeco="" shortcut="red" />
+			<eButton name="save" text="save" position="10:e-100" size="220:40" helptext="save changes and use the selected LNB (in first page) for the choosen satellite" loadDeco="" shortcut="green" />
+			<eButton name="next" text="next page" position="240:e-100" size="220:40" helptext="goto advanced motor setup" loadDeco="" shortcut="blue" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</RotorConfig>
+	</object>
+	<object name="RotorManual">
+		<RotorManual text="Motor Config" cposition="c-270:c-205" csize="540:410" >
+			<eLabel name="lMode" text="Mode:" position="10:10" size="200:35" vcenter="on" />
+			<eComboBox name="Mode" position="220:10" size="e-10:35" helptext="choose what you want to do" loadDeco="" vcenter="on" />
+			<eLabel name="lSat" text="Satellite:" position="10:55" size="200:35" vcenter="on" />
+			<eComboBox name="Sat" position="220:55" size="e-10:35" helptext="choose the Satellite you wish to find" loadDeco="" vcenter="on" />
+			<eNumber name="num" position="220:55" size="e-10:35" helptext="enter stored satellite pos" loadDeco="" vcenter="on" />
+			<eLabel name="lTransponder" text="Transponder:" position="10:100" size="200:35" vcenter="on" />
+			<eComboBox name="Transponder" position="220:100" size="e-10:35" helptext="choose the Transponder you wish to find" loadDeco="" vcenter="on" />
+			<eLabel name="lDirection" text="Direction:" position="10:145" size="200:35" vcenter="on" />
+			<eButton name="Direction" position="220:145" size="e-10:35" helptext="press left or right to move motor" loadDeco="" />
+			<!--eLabel name="lRecalcParams" text="Recalc Params:" position="10:190" size="250:35" vcenter="on" />
+			<eNumber name="num1" position="e-210:190" size="60:35" helptext="calc param 1 (see your motor manual or let it 00)" loadDeco="" vcenter="on" />
+			<eNumber name="num2" position="e-140:190" size="60:35" helptext="calc param 2 (see your motor manual or let it 00)" loadDeco="" vcenter="on" />
+			<eNumber name="num3" position="e-70:190" size="60:35" helptext="calc param 3 (see your motor manual or let it 00)" loadDeco="" vcenter="on" /-->
+			<!--eLabel name="lCounter" text="Counter(Movement)" position="10:190" size="250:35" vcenter="on" />
+			<eLabel name="Counter" text="bla" position="270:190" size="e-10:35" align="center" vcenter="on" loadDeco="eNumber" /-->
+			<eButton name="Exit" text="prev page" position="10:235" size="160:40" loadDeco="" helptext="close motor setup" shortcut="yellow" />
+			<eButton name="Save" position="200:235" size="160:40" loadDeco="" helptext="save in motor" shortcut="green" />
+			<eButton name="Search" text="search" position="370:235" size="160:40" loadDeco="" helptext="open transponder scan" shortcut="blue" />
+			<eFEStatus name="Status" position="0:285" size="e-10:e-10" />
+			<eStatusBar name="statusbar" position="0:e-30" size="e:e" loadDeco="" />
+		</RotorManual>
+	</object>  
+	<object name="tsSelectType">
+		<tsSelectType cposition="0:0" csize="e:300">
+			<eListbox name="menu" position="10:10" size="e-10:e-10" />
+		</tsSelectType>
+	</object>
+	<object name="tsManual">
+		<tsManual position="0:0" size="e:360">
+			<eTranspondersettings name="transponder" position="0:0" size="456:160" />
+			<eFEStatus name="festatus" position="0:165" size="400:85" />
+			<eCheckbox text="use ONIT" name="useonit" position="10:e-110" size="230:30" helptext="enable/disable check ONIT on any transponder" />
+			<eCheckbox text="use BAT" name="usebat" position="240:e-110" size="200:30" helptext="enable/disable use BAT for scan (if exists)" />
+			<eCheckbox text="only Free" name="onlyFree" position="10:e-80" size="230:30" helptext="add only not scrambled services" />
+			<eCheckbox text="network search" name="searchnit" position="240:e-80" size="200:30" helptext="enable/disable initiate network search" />
+			<eButton text="start scan" name="start" position="10:e-40" size="215:40" helptext="start the transponder scan" loadDeco="" vcenter="on" shortcut="green" />
+			<eButton text="enter pids" name="manual_pids" position="235:e-40" size="215:40" helptext="enter manual pids" loadDeco="" vcenter="on" shortcut="yellow" />
+		</tsManual>
+	</object>
+	<object name="tsAutomatic_sat">
+		<tsAutomatic position="0:0" size="e:340">
+			<eComboBox name="network" position="10:20" size="e-70:35" loadDeco="" helptext="choose satellite/cable provider (ok)" vcenter="on" />
+			<eLabel name="status" position="10:70" size="e-10:90" />
+			<eFEStatus name="festatus" position="0:170" size="400:85" />
+			<eCheckbox text="only Free" name="onlyFree" position="10:e-80" size="160:30" helptext="add only unscrambled services" />
+			<eCheckbox name="nocircular" text="no circ polariz." position="180:e-80" size="e-10:30" helptext="change circular to linear polarization" />
+  		<eButton text="start scan" name="start" position="10:e-40" size="260:40" align="center" helptext="starts the transponder scan" loadDeco="" shortcut="green" />
+		</tsAutomatic>
+	</object>
+	<object name="tsTryLock">
+		<tsTryLock position="0:0" size="e:340">
+			<eLabel name="lNet" position="10:5" size="e-10:30" text="scanning..." />
+			<eLabel name="lStatus" position="10:55" size="e-10:90" />
+			<eFEStatus name="festatus" position="0:170" size="400:85" />
+  		<eButton text="abort" name="bAbort" position="10:e-40" size="260:40" align="center" helptext="aborts the transponder scan" loadDeco="" shortcut="red" />
+		</tsTryLock>
+	</object>
+	<object name="tsAutomatic_cable">
+		<tsAutomatic position="0:0" size="e:340">
+			<eComboBox name="network" position="10:20" size="e-70:35" loadDeco="" helptext="choose satellite/cable provider (ok)" vcenter="on" />
+			<eLabel name="status" position="10:70" size="e-10:90" />
+			<eCheckbox text="only Free" name="onlyFree" position="10:e-80" size="160:30" helptext="add only unscrambled services" />
+			<eFEStatus name="festatus" position="0:170" size="400:85" />
+			<eButton text="start scan" name="start" position="10:e-40" size="260:40" align="center" helptext="starts the transponder scan" loadDeco="" shortcut="green" />
+		</tsAutomatic>
+	</object>
+	<object name="tsScan">
+		<tsScan position="0:0" size="e:340">
+			<eLabel name="state" position="10:5" size="e-10:30" text="scanning..." />
+			<eLabel text="services scanned     :" position="10:45" size="300:30" />
+			<eLabel text="transponder scanned:" position="10:85" size="300:30" />
+			<eLabel name="services_scanned" position="320:45" size="e-10:30" align="right" />
+			<eLabel name="transponder_scanned" position="320:85" size="e-10:30" align="right" />
+			<eLabel position="10:135" size="200:30" text="Progress:" />
+			<eProgress name="scan_progress" position="140:140" size="e-10:20" />
+			<eLabel name="time_left" position="10:175" size="e-10:30" align="right" />
+			<eLabel name="transponder_data" position="10:225" size="e-10:30" />
+			<eLabel name="service_name" position="10:260" size="e-10:30" />
+			<eLabel name="service_provider" position="10:295" size="e-10:30" />
+		</tsScan>
+	</object>
+	<object name="tsMultiSat">
+		<tsMultiSat position="0:0" size="e:340">
+			<eListbox name="satellites" position="10:10" size="e-10:e-70" helptext="press ok to change" loadDeco="" />
+			<eButton name="start" text="start scan" position="10:e-40" size="260:e" shortcut="green" align="center" vcenter="on" loadDeco="" />
+		</tsMultiSat>
+	</object>
+	<object name="setup.skins">
+		<eSkinSetup position="c-200:c-200" size="400:400" text="Skin Selector">
+			<eLabel text="Skins:" position="20:10" size="90:30"/> <!-- shortcut="1" shortcutFocus="skins" -->
+			<eListbox name="skins" position="120:10" size="e-20:e-110" helptext="select skin and press ok or choose save" loadDeco="" />
+			<eButton text="save" name="accept" position="20:e-100" size="e-20:40" helptext="save changes and return" loadDeco="" shortcut="green" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</eSkinSetup>
+	</object>
+	<object name="transpondersettings.satellite">
+		<eTranspondersettings position="0:0" size="454:160">
+			<eLabel text="Satellite:" name="lSat" position="10:10" size="150:34" vcenter="on" />
+			<eComboBox name="sat" position="164:10" size="e-10:35" helptext="choose wished satellite (ok)" loadDeco="" vcenter="on" />
+			<eLabel  name="lFreq" text="Frequency:" position="10:50" size="150:32" vcenter="on" />
+			<eNumber name="frequency" position="164:50" size="e-150:32" helptext="enter transponder frequency (0..9, left, right)" loadDeco="" vcenter="on" />
+			<eLabel text="MHz" position="e-145:50" size="44:32" vcenter="on" />
+			<eCheckbox text="Inv:" name="inversion" position="e-84:50" size="e-10:32" helptext="enable/disable inversion here (ok)" swaptxtpixmap="on" />
+			<eLabel name="lPol" text="Polarity:" position="10:85" size="152:34" vcenter="on" />
+			<eListbox name="polarity" position="164:85" size="e-100:34" loadDeco="" helptext="choose polarity (left, right)" noUpDownMovement="on" />
+			<eLabel name="lFec" text="FEC:" position="e-96:85" size="38:34" vcenter="on" />
+			<eListbox name="fec" position="e-54:85" size="e-10:34" loadDeco="" helptext="choose the FEC (left, right)" noUpDownMovement="on" />
+			<eLabel name="lSymb" text="Symbol Rate:" position="10:124" size="150:32" vcenter="on" />
+			<eNumber name="symbolrate" position="164:124:" size="e-150:32" helptext="enter symbol rate (0..9, left, right)" loadDeco="" vcenter="on" />
+			<eLabel text="KSymb/s" position="e-145:125" size="e:32" vcenter="on" />
+		</eTranspondersettings>
+	</object>
+	<object name="transpondersettings.cable">
+		<eTranspondersettings position="0:0" size="454:160">
+			<eLabel name="lFreq" text="Frequency:" position="10:10" size="150:32" vcenter="on" />
+			<eNumber name="frequency" position="164:10" size="e-150:32" helptext="enter transponder frequency (0..9, left, right)" loadDeco="" vcenter="on" />
+			<eLabel text="MHz" position="e-145:10" size="44:32" vcenter="on" />
+			<eCheckbox text="Inv:" name="inversion" position="e-84:10" size="e-10:32" helptext="enable/disable inversion here (ok)" swaptxtpixmap="on" />
+			<eLabel name="lPol" text="Modulation:" position="10:55" size="152:34" vcenter="on" />
+			<eListbox name="polarity" position="164:55" size="e-150:34" loadDeco="" helptext="choose modulation (left, right)" noUpDownMovement="on" />
+			<eLabel name="lFec" text="FEC:" position="e-120:55" size="45:34" vcenter="on" />
+			<eListbox name="fec" position="e-70:55" size="e-10:34" loadDeco="" helptext="choose the FEC (left, right)" noUpDownMovement="on" />
+			<eLabel name="lSymb" text="Symbol Rate:" position="10:104" size="150:32" vcenter="on" />
+			<eNumber name="symbolrate" position="164:104:" size="e-150:32" helptext="enter symbol rate (0..9, left, right)" loadDeco="" vcenter="on" />
+			<eLabel text="KSymb/s" position="e-145:104" size="e:32" vcenter="on" />
+		</eTranspondersettings>
+	</object>
+	<object name="transpondersettings.terrestrial">
+		<eTranspondersettings position="0:0" size="454:160">
+			<eLabel name="lFreq" text="Frequency:" position="10:3" size="150:32" vcenter="on" />
+			<eNumber name="frequency" position="154:0" size="e-150:32" helptext="enter transponder frequency (0..9, left, right)" loadDeco="" vcenter="on" />
+			<eLabel text="KHz" position="e-145:0" size="44:32" vcenter="on" />
+			<eCheckbox text="Inv:" name="inversion" position="e-70:0" size="e-10:32" helptext="enable/disable inversion here (ok)" swaptxtpixmap="on" />
+			<eLabel name="lPol" text="Constellation:" position="10:40" size="142:34" vcenter="on" />
+			<eListbox name="polarity" position="154:40" size="e-150:34" loadDeco="" helptext="choose modulation (left, right)" noUpDownMovement="on" />
+			<eLabel name="lFec" text="Guard:" position="e-135:40" size="60:34" vcenter="on" />
+			<eListbox name="fec" position="e-70:40" size="e-10:34" loadDeco="" helptext="choose the FEC (left, right)" noUpDownMovement="on" />
+			<eLabel name="lBandwidth" text="Bandwidth:" position="10:80" size="142:34" vcenter="on" />
+			<eListbox name="Bandwidth" position="154:80" size="75:34" loadDeco="" helptext="choose the bandwidth (left, right)" noUpDownMovement="on" />
+			<eLabel name="ltmMode" text="Transm. Mode:" position="245:80" size="142:34" vcenter="on" />
+			<eListbox name="tmMode" position="e-70:80" size="e-10:34" loadDeco="" helptext="choose the transmission mode (left, right)" noUpDownMovement="on" />
+			<eLabel name="lCodeRateLP" text="Coderate LP:" position="10:120" size="142:34" vcenter="on" />
+			<eListbox name="codeRateLP" position="154:120" size="75:34" loadDeco="" helptext="choose the code rate LP (left, right)" noUpDownMovement="on" />
+			<eLabel name="lCodeRateHP" text="Coderate HP:" position="245:120" size="142:34" vcenter="on" />
+			<eListbox name="codeRateHP" position="e-70:120" size="e-10:34" loadDeco="" helptext="choose the code rate HP (left, right)" noUpDownMovement="on" />
+		</eTranspondersettings>
+	</object>
+	<object name="eFEStatusWidget">
+		<eFEStatusWidget size="400:85">
+			<eProgress name="snr" position="80:0" size="230:15" />
+			<eProgress name="agc" position="80:20" size="230:15" />
+			<eProgress name="ber" position="80:40" size="230:15" />
+			<eLabel name="snr_num" position="310:0" size="80:15" font="eFEStatus.values" vcenter="on" align="right" />
+			<eLabel name="agc_num" position="310:20" size="80:15" font="eFEStatus.values" vcenter="on" align="right" />
+			<eLabel name="ber_num" position="310:40" size="80:15" font="eFEStatus.values" vcenter="on" align="right" />			
+			<eLabel text="SNR" position="10:0" size="70:15" font="eFEStatus.values" vcenter="on" />
+			<eLabel text="AGC" position="10:20" size="70:15" font="eFEStatus.values" vcenter="on" />
+			<eLabel text="BER" position="10:40" size="70:15" font="eFEStatus.values" vcenter="on" />
+			<eCheckbox text="LOCK" name="lock" position="10:60" size="80:20" font="eFEStatus.values" vcenter="on" />
+			<eCheckbox text="SYNC" name="sync" position="95:60" size="e-10:20" font="eFEStatus.values" vcenter="on"  />
+		</eFEStatusWidget>
+	</object>
+	<object name="eHelpWindow">
+		<eHelpWindow position="c-280:c-200" size="560:400" text="Help">
+			<eProgress name="scrollbar" position="e-30:5" size="20:e-10" direction="1" />
+			<eWidget name="visible" position="10:10" size="e-40:e-10" />
+		</eHelpWindow>
+	</object>
+	<object name="eServiceSelector_singleColumn">
+		<eServiceSelector position="c-280:55" size="560:e-55" text="Services">
+			<eListbox name="services" position="0:0" size="e:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_multiColumn">
+		<eServiceSelector cposition="c-280:55" csize="560:e-55" text="Services">
+			<eListbox name="services" columns="3" position="0:0" size="e:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_combiColumn">
+		<eServiceSelector cposition="c-280:55" csize="560:e-55" text="Services">
+			<eListbox name="bouquets" position="5:0" size="150:e-85" loadDeco="" />
+			<eListbox name="services" columns="2" position="155:0" size="e-5:e-85" loadDeco="" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_singleColumn_buttons">
+		<eServiceSelector cposition="c-280:55" csize="560:e-55" text="Services">
+			<eButton name="key_red" position="0:0" size="140:40" backgroundColor="std_dred" loadDeco="" font="epg.title" align="center" vcenter="on" />
+			<eButton name="key_green" position="140:0" size="140:40" backgroundColor="std_dgreen" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_yellow" position="280:0" size="140:40" backgroundColor="std_dyellow" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_blue" position="420:0" size="140:40" backgroundColor="std_dblue" loadDeco="" font="epg.title" align="center" vcenter="on" />
+			<eListbox name="services" position="5:50" size="e-5:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_multiColumn_buttons">
+		<eServiceSelector cposition="c-280:55" csize="560:e-55" text="Services">
+			<eButton name="key_red" position="0:0" size="140:40" backgroundColor="std_dred" loadDeco="" font="epg.title" align="center" vcenter="on" />
+			<eButton name="key_green" position="140:0" size="140:40" backgroundColor="std_dgreen" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_yellow" position="280:0" size="140:40" backgroundColor="std_dyellow" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_blue" position="420:0" size="140:40" backgroundColor="std_dblue" loadDeco="" font="epg.title" align="center" vcenter="on" />
+			<eListbox name="services" columns="3" position="0:40" size="e:e-80" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_combiColumn_buttons">
+		<eServiceSelector cposition="c-280:55" csize="560:e-55" text="Services">
+			<eButton name="key_red" position="0:0" size="140:40" backgroundColor="std_dred" loadDeco="" font="epg.title" align="center" vcenter="on" />
+			<eButton name="key_green" position="140:0" size="140:40" backgroundColor="std_dgreen" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_yellow" position="280:0" size="140:40" backgroundColor="std_dyellow" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_blue" position="420:0" size="140:40" backgroundColor="std_dblue" loadDeco="" font="epg.title" align="center" vcenter="on" />
+			<eListbox name="bouquets" position="5:45" size="150:e-85" loadDeco="" />
+			<eListbox name="services" columns="2" position="155:45" size="e-5:e-85" loadDeco="" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelectorStatusbar">
+		<eServiceSelectorStatusbar cposition="0:0" size="e:e">
+			<eLabel name="short_descr" position="0:0" size="e-200:30" />
+		</eServiceSelectorStatusbar>
+	</object>
+	<object name="eEPGSelector">
+		<eBouquetSelector cposition="c-290:75" csize="580:e-95" text="EPG">
+			<eListbox name="events" position="0:0" size="e:e" />
+		</eBouquetSelector>
+	</object>
+	<object name="eTimerListView">
+		<eTimerListView cposition="c-290:75" csize="580:e-95" text="Timer List">
+			<eListbox name="events" position="10:10" size="e-10:e-90" loadDeco="" helptext="press ok to select another event" />
+			<eButton name="remove" text="remove" position="10:e-80" size="180:40" helptext="delete the current selected timer (ok)" loadDeco="" shortcut="red" />
+			<eButton name="add" text="add" position="200:e-80" size="180:40" helptext="add new Timer (ok)" loadDeco="" shortcut="green" />
+			<eButton name="cleanup" text="cleanup" position="390:e-80" size="180:40" helptext="delete expired timer (ok)" loadDeco="" shortcut="blue" />
+			<eStatusBar name="statusbar" position="0:e-30" size="e:30" loadDeco="" />
+		</eTimerListView>
+	</object>
+	<object name="eTimerEditView">
+		<eTimerEditView cposition="c-295:c-167" csize="590:335" text="Timer Edit">
+			<eTextInputField name="event_name" position="10:10" size="e-10:40" loadDeco="eNumber" helptext="press ok to change event name manually" vcenter="on" />
+			<eLabel name="lBegin" text="Start time" position="365:105" size="215:40" vcenter="on" />
+			<eLabel name="lEnd" text="End time" position="365:150" size="215:40" vcenter="on" />
+			<eCheckbox name="multiple" position="10:60" size="200:30" text="Repeated timer" helptext="for a multiple event enable this" loadDeco="" />
+			<eCheckbox name="Mo" position="220:60" size="90:40" text="Mon" helptext="Monday" loadDeco="" />
+			<eComboBox name="after_event" position="365:60" size="e-10:35" loadDeco="" helptext="select what todo after event" showEntryHelp="" vcenter="on" />
+			<eCheckbox name="Tue" position="10:105" size="90:40" text="Tue" helptext="Tuesday" loadDeco="" />
+			<eCheckbox name="Wed" position="115:105" size="90:40" text="Wed" helptext="Wednesday" loadDeco="" />
+			<eCheckbox name="Thu" position="220:105" size="90:40" text="Thu" helptext="Thursday" loadDeco="" />
+			<eCheckbox name="Fr" position="10:150" size="90:40" text="Fri" helptext="Friday" loadDeco="" />
+			<eCheckbox name="Sa" position="115:150" size="90:40" text="Sat" helptext="Saturday" loadDeco="" />
+			<eCheckbox name="Su" position="220:150" size="90:40" text="Sun" helptext="Sunday" loadDeco="" />
+			<eComboBox name="b_year" openEntries="5" position="10:105" size="70:35" helptext="select year (ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="b_month" openEntries="6" position="90:105" size="120:35" helptext="select month (ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="b_day" openEntries="8" position="220:105" size="e-97:35" helptext="select day (ok)" loadDeco="" vcenter="on" />
+			<eNumber name="b_time" position="e-87:105" size="77:35" helptext="edit the start time (0..9, left, right)" loadDeco="" vcenter="on" />
+			<eComboBox name="b_ampm" position="e-70:105" size="60:35" helptext="select AM/PM (ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="e_year" openEntries="5" position="10:150" size="70:35" helptext="select year (ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="e_month" openEntries="6" position="90:150" size="120:35" helptext="select month (ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="e_day" openEntries="8" position="220:150" size="e-97:35" helptext="select day (ok)" loadDeco="" vcenter="on" />
+			<eComboBox name="e_ampm" position="e-70:150" size="60:35" helptext="select AM/PM (ok)" loadDeco="" vcenter="on" />
+			<eNumber name="e_time" position="e-87:150" size="77:35" helptext="edit the end time (0..9, left, right)" loadDeco="" vcenter="on" />
+			<eComboBox name="type" openEntries="3" position="10:195" size="200:35" helptext="select the timer type (ok)" loadDeco="" vcenter="on" />
+			<eButton name="select_service" position="220:195" size="e-10:35" helptext="to change service press ok" loadDeco="" />
+			<eButton name="apply" text="apply" position="10:240" size="200:35" shortcut="green" helptext="save data and close window" loadDeco="" />
+			<eButton name="scanEPG" text="scan EPG" position="220:240" size="e-10:35" shortcut="blue" helptext="search event name for this beg-/end time in epg" loadDeco="" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</eTimerEditView>
+	</object>
+	<object name="eAboutScreen">
+		<eAboutScreen text="About..." cposition="c-225:c-205" csize="450:410">
+			<eLabel name="vendor" position="10:0" csize="e:25"/>
+			<eLabel name="machine" position="30:25" font="eAboutScreen.machine" csize="e:50"/>
+			<eLabel name="processor" text="processor: " position="10:80" csize="e:30" />
+			<eLabel name="frontend" text="frontend: " position="10:110" csize="e:30" />
+			<eLabel name="harddisk_label" text="harddisk: " position="10:140" csize="e:30" />
+			<eLabel name="harddisks" position="10:170" csize="e:60" />
+			<eLabel text="Software Version:" position="10:230" csize="e:30" />
+			<eLabel name="version" position="10:260" csize="e:60" />
+			<eLabel text="FP Version:" name="fp_version" position="10:290" csize="e:30" />
+			<eButton name="okButton" position="20:e-70" csize="100:40" text="ok" loadDeco="" shortcut="green" />
+			<eLabel name="dreamlogo" pixmap="dreamlogo" position="e-160:e-105" csize="143:75" alphatest="on" />
+			<eLabel name="triaxlogo" pixmap="triaxlogo" position="e-277:e-105" csize="260:75" alphatest="on" />
+		</eAboutScreen>
+	</object>
+	<object name="recording_duration">
+		<recording_duration text="Stop Record" cposition="c-195:c-90" csize="390:180" >
+			<eLabel name="lrec_duration" text="recording duration:" position="10:10" size="200:35" vcenter="on"/>
+			<eNumber name="rec_duration" position="210:10" size="46:35" loadDeco="" helptext="enter recording duration (0..9, left, right, ok)" vcenter="on" />
+			<eLabel text="min" position="266:10" size="e-10:35" vcenter="on"/>
+			<eCheckbox name="shutdown" text="shutdown  " position="10:55" size="170:35" helptext="shutdown the box after recording (ok)" swaptxtpixmap="on" vcenter="on" />
+			<eCheckbox name="standby" text="standby  " position="210:55" size="170:35" helptext="goto standby after recording (ok)"  swaptxtpixmap="on" vcenter="on" />
+			<eButton text="set" name="set" position="10:95" size="220:40" helptext="set recording end time and close window (ok)" loadDeco="" shortcut="green" />
+			<eStatusBar name="statusbar" position="0:e-30" size="e:e" loadDeco="" />
+		</recording_duration>
+	</object>
+	<object name="sleeptimer">
+		<sleeptimer text="Set Sleeptimer" cposition="c-195:c-90" csize="390:180" >
+			<eLabel name="l_duration" text="duration:" position="10:10" size="200:35" vcenter="on"/>
+			<eNumber name="duration" position="210:10" size="46:35" loadDeco="" helptext="(0..9, left, right, ok)" vcenter="on" />
+			<eLabel text="min" position="266:10" size="e-10:35" vcenter="on"/>
+			<eCheckbox name="shutdown" text="shutdown  " position="10:55" size="170:35" helptext="shutdown the box to deepstandby (ok)" swaptxtpixmap="on" vcenter="on" />
+			<eCheckbox name="standby" text="standby  " position="210:55" size="170:35" helptext="goto standby (ok)"  swaptxtpixmap="on" vcenter="on" />
+			<eButton text="set" name="set" position="10:95" size="220:40" helptext="set sleeptimer and close window (ok)" loadDeco="" shortcut="green" />
+			<eStatusBar name="statusbar" position="0:e-30" size="e:e" loadDeco="" />
+		</sleeptimer>
+	</object>
+	<object name="recording_end_time">
+		<recording_end_time text="Stop Record" cposition="c-195:c-90" csize="390:180" >
+			<eLabel name="lrec_end_time" text="recording end time:" position="10:10" size="200:35" vcenter="on"/>
+			<eNumber name="rec_end_time" position="210:10" size="70:35" loadDeco="" helptext="enter recording end time (0..9, left, right, ok)" vcenter="on" />
+			<eCheckbox name="ampm" text="AM/pm" position="290:10" size="e-10:35" helptext="checked is AM, unchecked is PM" />
+			<!-- eLabel text="o'clock" position="290:10" size="e-10:35" vcenter="on"/ -->
+			<eCheckbox name="shutdown" text="shutdown  " position="10:55" size="170:35" helptext="shutdown the box after recording (ok)" swaptxtpixmap="on" vcenter="on" />
+			<eCheckbox name="standby" text="standby  " position="210:55" size="170:35" helptext="goto standby after recording (ok)"  swaptxtpixmap="on" vcenter="on" />
+			<eButton name="set" text="set" position="10:95" size="220:40" helptext="set recording end time and close window (ok)" loadDeco="" shortcut="green" />
+			<eStatusBar name="statusbar" position="0:e-30" size="e:e" loadDeco="" />
+		</recording_end_time>
+	</object>
+	<object name="eHarddiskMenu">
+		<eHarddiskMenu text="Harddisk" cposition="c-275:c-135" csize="550:270">
+			<eLabel text="model:" position="10:10" size="150:30" />
+			<eLabel name="model" position="160:10" size="e:30" />
+			<eLabel text="capacity:" position="10:40" size="150:30" />
+			<eLabel name="capacity" position="160:40" size="e:30" />
+			<eLabel text="connected:" position="10:70" size="150:30" />
+			<eLabel name="bus" position="160:70" size="e:30" />
+			<eLabel text="status:" position="10:110" size="70:30" />
+			<eLabel name="status" position="80:110" size="e:30" />
+			<eButton name="format" text="format" position="10:170" size="225:40" loadDeco="" helptext="initialize the disk for use with the dreambox" shortcut="red" />
+			<eButton name="check" text="check" position="245:170" size="225:40" loadDeco="" helptext="do a filesystem check" shortcut="yellow" />
+			<eButton name="ext" position="480:170" size="60:40" loadDeco="" helptext="show extended configuration" />
+			<eCombobox name="fs" position="e-210:220" size="e-10:35" loadDeco="" helptext="select filesystem to format" vcenter="on" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</eHarddiskMenu>
+	</object>
+	<object name="ePartitionCheck">
+		<ePartitionCheck text="Partition Check" position="c-275:55" size="550:e-55" >
+			<eLabel text="status output:" position="10:10" size="e-10:30" />
+			<eLabel name="state" position="10:50" size="e-10:e-100" loadDeco="eNumber" wrap="on" font="partitionCheck.status" />
+			<eButton name="close" text="close" position="10:e-80" size="170:40" helptext="close window" loadDeco="" shortcut="green" />
+			<eStatusBar name="statusbar" position="0:e-30" size="e:e" loadDeco="" />
+		</ePartitionCheck>
+	</object>
+	<object name="eUpgrade">
+		<eUpgrade text="Software upgrade..." position="c-250:55" size="500:e-55" >
+			<eStatusbar name="status" position="0:e-50" size="e:e" loadDeco="" />
+			<eListBox name="images" position="10:40" size="480:150" loadDeco="" />
+			<eLabel name="imagehelp" position="10:0" size="460:30" />
+			<eProgress name="progress" position="10:160" size="250:30" />
+			<eLabel name="progresstext" position="270:165" size="210:30" />
+			<!--eButton name="abort" position="40:40" size="150:50" text="abort" loadDeco="" /-->
+			<eLabel name="changes" position="10:200" size="e-10:e-50" font="eUpgradeChanges" />
+		</eUpgrade>
+	</object>
+	<object name="eTextInputFieldHelpWidget">
+		<eTextInputFieldHelpWidget size="430:255" >
+			<eLabel text="&#49;" position="10:2" size="25:42" font="textinputfield.helpwidget.big" vcenter="on" />
+			<eLabel name="one" position="30:2" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#50;" position="155:2" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="two" position="175:2" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#51;" position="295:2" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="three" position="315:2" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#52;" position="10:47" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="four" position="30:47" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#53;" position="155:47" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="five" position="175:47" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#54;" position="295:47" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="six" position="315:47" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#55;" position="10:91" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="seven" position="30:91" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#56;" position="155:91" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="eight" position="175:91" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#57;" position="295:91" size="25:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="nine" position="315:91" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&lt;" position="10:135" size="25:42" font="textinputfield.helpwidget.bigger" vcenter="on"/>
+			<eLabel name="special_one" position="30:135" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&#48;" position="155:135" size="100:42" font="textinputfield.helpwidget.big" vcenter="on"/>
+			<eLabel name="zero" position="175:135" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="&gt;" position="295:135" size="25:42" font="textinputfield.helpwidget.bigger" vcenter="on"/>
+			<eLabel name="special_two" position="315:135" size="105:42" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="abc &lt;-&gt; ABC" position="5:185" size="200:25" shortcut="yellow" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="abc2 &lt;-&gt; 2abc" position="220:185" size="210:25" shortcut="blue" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="vol+" position="5:e-33" size="200:25" shortcut="green" font="textinputfield.helpwidget.normal" vcenter="on" />
+			<eLabel text="insert" position="45:e-33" size="170:25" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+			<eLabel text="vol-" position="220:e-33" size="200:25" shortcut="red" font="textinputfield.helpwidget.normal" vcenter="on" />
+			<eLabel text="remove" position="260:e-33" size="170:25" font="textinputfield.helpwidget.normal" vcenter="on" align="center" />
+		</eTextInputFieldHelpWidget>
+	</object>
+	<object name="TextEditWindow">
+		<TextEditWindow position="c-225:55" size="450:e-55" >
+			<eLabel name="descr" position="10:10" size="e-10:30" />
+			<eTextInputField name="inputfield" position="10:50" size="e-10:40" loadDeco="eNumber" helptext="press ok to enter the name" />
+			<eTextInputFieldHelpWidget name="image" pixmap="textinput_white" position="10:104" size="e-10:255" />
+			<eStatusbar name="statusbar" position="0:e-35" size="e:e" loadDeco="" />
+		</TextEditWindow>
+	</object>
+	<object name="eWizardLanguage">
+		<eWizardLanguage position="c-250:50" size="500:e-50" text="OSD Language">
+			<eLabel name="head" position="40:20" size="e:50" font="head" />
+			<eLabel name="help" position="0:70" size="e:30" align="center" />
+			<eListbox name="list" position="50:110" size="e-50:e-15" loadDeco="" />
+		</eWizardLanguage>
+	</object>
+	<object name="eWizardDiseqc">
+		<eWizardDiseqc cposition="c-250:c-175" csize="500:350" text="DiSEqC...">
+			<eLabel text="Please choose your DiSEqC-Configuration:" position="10:10" size="e:150" font="head" wrap="on" />
+			<eListbox name="choices" position="25:160" size="450:150" />
+			<eLabel name="description" position="10:320" size="e-10:30" />
+		</eWizardDiseqc>
+	</object>
+	<object name="TransponderWindow">
+		<TransponderWindow cposition="c-275:c-195" csize="550:390" text="Transponders">
+			<eListbox name="satlist" position="10:10" size="285:e-110" loadDeco="" />
+			<eListbox name="transponderlist" position="315:10" size="225:e-110" loadDeco="" />
+			<eButton name="sat" text="sat" position="10:e-100" size="98:40" loadDeco="" helptext="select sat(up/down), ok(edit), green(add new), red(delete)" />
+			<eButton name="add" text="add" position="118:e-100" size="98:40" loadDeco="" helptext="add new Transponder to selected sat (ok)" />
+			<eButton name="edit" text="edit" position="226:e-100" size="98:40" loadDeco="" helptext="edit selected transponder (ok)" />
+			<eButton name="remove" text="remove" position="334:e-100" size="98:40" loadDeco="" helptext="remove selected transponder" />
+			<eButton name="tpscan" text="scan" position="442:e-100" size="98:40" loadDeco="" helptext="manual scan selected transponder (ok)" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</TransponderWindow>
+	</object>
+
+	<object name="SetupTuxtxt">
+		<SetupTuxtxt text="Teletext Settings" cposition="140:80" csize="440:385">
+			<eLabel text="Favourites:" position="10:10" size="110:30" />
+			<eComboBox name="favourites" openEntries="5" position="140:10" size="60:30" loadDeco="" />
+			<eNumber name="pagenumber" position="140:45" size="60:30" helptext="teletext page number (100 - 899)" loadDeco="" />
+			<eButton name="removepage" text="remove page" position="e-200:10" size="190:30" loadDeco="" helptext="remove selected page from favourites" shortcut="red" />
+			<eButton name="addpage" text="add page" position="e-200:45" size="190:30" loadDeco="" helptext="add page to favourites" shortcut="green" />
+			<eLabel text="Service:" position="10:80" size="140:30" />
+			<eComboBox name="service" openEntries="5" position="140:80" size="e-10:35" loadDeco="" helptext="select teletext service" />
+			<eCheckbox name="normal169" text="16:9 mode in normal view" position="10:120" size="e-10:30" helptext="switch to 16:9 mode when displaying teletext pages" vcenter="on" />
+			<eCheckbox name="split169" text="16:9 mode on splitscreen" position="10:150" size="e-10:30" helptext="switch to 16:9 in split screen mode"  vcenter="on" />
+			<eLabel text="Brightness:" position="10:180" size="140:30" />
+			<eSlider name="sBrightness" position="140:180" size="e-10:30" helptext="set brightness of the displayed teletext page" />
+			<eLabel text="Transparency:" position="10:220" size="140:30" />
+			<eSlider name="sTransparency" position="140:220" size="e-10:30" helptext="set amount of transparency when in semi-transparent mode" />
+			<eLabel text="Language:" position="10:260" size="140:30" />
+			<eComboBox name="language" openEntries="5" position="140:260" size="e-10:35" loadDeco="" helptext="set the language of the displayed pages" />
+			<eCheckbox name="truetype" text="use truetype font" position="10:300" size="e-10:30" helptext="use truetype font instead of standard font" vcenter="on" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</SetupTuxtxt>
+	</object>
+
+	<object name="eEPGSearch">
+		<eEPGSearch text="EPG Search" cposition="115:80" csize="490:410">
+			<eLabel text="Title:" position="10:10" size="200:30" />
+			<eTextInputField name="searchtext" position="10:40" size="e-10:40" loadDeco="eNumber" helptext="Enter title for epg searching" />
+			<eLabel text="Search in:" position="10:95" size="180:30" />
+			<eCheckbox name="CurrentService" text="" position="190:95" size="e-10:30" helptext="Select this option if you want to search the title only in selected channel" vcenter="on" />
+			<eCheckbox name="AllServices" text="All Services" position="190:125" size="e-10:30" helptext="Select this option if you want to search the title in all services" vcenter="on" />
+			<eLabel text="Search options:" position="10:175" size="180:30" />
+			<eCheckbox name="ExactMatch" text="Exact match" position="190:175" size="e-10:30" helptext="Select this option if you want to search the exact title" vcenter="on" />
+			<eCheckbox name="CaseSensitive" text="Case Sensitive" position="190:205" size="e-10:30" helptext="Select this option if you want to make this epg search case sensitive" vcenter="on" />
+			<eLabel text="Genre:" position="10:260" size="100:30" />
+			<eComboBox name="Genre" openEntries="5" position="120:255" size="e-10:35" loadDeco="" helptext="Select a genre if you want to search for a genre" />
+			<eButton name="Close" text="Close" position="10:310" size="210:40" loadDeco="" helptext="Closes EPG search window" shortcut="blue" />
+			<eButton name="Start" text="Start" position="230:310" size="210:40" loadDeco="" helptext="Begin EPG Search" shortcut="green" />
+			<eStatusBar name="statusbar" position="0:e-50" size="e:e" loadDeco="" />
+		</eEPGSearch>
+	</object>
+
+</eskin>

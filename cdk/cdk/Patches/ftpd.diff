@@ -1,0 +1,88 @@
+diff -urN vsftpd-1.0.1.orig/Makefile vsftpd-1.0.1/Makefile
+--- vsftpd-1.0.1.orig/Makefile	Mon Oct  8 23:35:27 2001
++++ vsftpd-1.0.1/Makefile	Fri Mar  1 23:14:33 2002
+@@ -1,10 +1,9 @@
+ # Makefile for systems with GNU tools
+-CC 	=	gcc
+ INSTALL	=	install
+ IFLAGS  = -idirafter dummyinc
+ #CFLAGS = -g
+-CFLAGS	=	-O2 -Wall -W -Wshadow #-pedantic -Werror -Wconversion
++CFLAGS	=	-Os -Wall -W
+ 
+-LIBS	=	`./vsf_findlibs.sh`
++LIBS	=	-lcrypt
+ LINK	=	-Wl,-s
+ 
+diff -urN vsftpd-1.0.1.orig/sysdeputil.c vsftpd-1.0.1/sysdeputil.c
+--- vsftpd-1.0.1.orig/sysdeputil.c	Tue Nov 13 22:12:54 2001
++++ vsftpd-1.0.1/sysdeputil.c	Fri Mar  1 23:01:53 2002
+@@ -53,5 +53,5 @@
+ #define VSF_SYSDEP_HAVE_SHADOW
+ #define VSF_SYSDEP_HAVE_USERSHELL
+-#define VSF_SYSDEP_HAVE_LIBCAP
++#undef VSF_SYSDEP_HAVE_LIBCAP
+ #define VSF_SYSDEP_HAVE_UTMPX
+ 
+diff -urN vsftpd-1.0.1.orig/vsftpd-dbox2.conf vsftpd-1.0.1/vsftpd-dbox2.conf
+--- vsftpd-1.0.1.orig/vsftpd-dbox2.conf	Thu Jan  1 01:00:00 1970
++++ vsftpd-1.0.1/vsftpd-dbox2.conf	Fri Mar  1 23:13:43 2002
+@@ -0,0 +1,13 @@
++# config file /etc/vsftpd.conf
++
++anonymous_enable=NO
++local_enable=YES
++write_enable=YES
++local_umask=022
++dirmessage_enable=YES
++xferlog_enable=NO
++connect_from_port_20=YES
++secure_chroot_dir=/share/empty
++use_sendfile=NO
++ftpd_banner=Welcome to the PLi dreambox FTP server
++
+
+diff -urN vsftpd-2.0.5.orig/defs.h vsftpd-2.0.5/defs.h
+--- vsftpd-2.0.5.orig/defs.h	2006-07-02 01:04:07.000000000 +0200
++++ vsftpd-2.0.5/defs.h	2006-11-11 11:47:13.000000000 +0100
+@@ -1,7 +1,8 @@
+ #ifndef VSF_DEFS_H
+ #define VSF_DEFS_H
+ 
+-#define VSFTP_DEFAULT_CONFIG    "/etc/vsftpd.conf"
++#define VSFTP_DEFAULT_CONFIG1    "/var/etc/vsftpd.conf"
++#define VSFTP_DEFAULT_CONFIG2    "/etc/vsftpd.conf"
+ 
+ #define VSFTP_COMMAND_FD        0
+ 
+diff -urN vsftpd-2.0.5.orig/main.c vsftpd-2.0.5/main.c
+--- vsftpd-2.0.5.orig/main.c	2006-07-03 14:26:08.000000000 +0200
++++ vsftpd-2.0.5/main.c	2006-11-11 12:04:07.000000000 +0100
+@@ -23,6 +23,8 @@
+ #include "vsftpver.h"
+ #include "ssl.h"
+ 
++#include <unistd.h>
++
+ /*
+  * Forward decls of helper functions
+  */
+@@ -66,7 +68,17 @@
+     0
+   };
+   int config_specified = 0;
+-  const char* p_config_name = VSFTP_DEFAULT_CONFIG;
++
++  const char* p_config_name = NULL;
++  // PLi addition
++  if (access(VSFTP_DEFAULT_CONFIG1, R_OK) == 0)
++  {
++     p_config_name = VSFTP_DEFAULT_CONFIG1;
++  }
++  else
++  {
++     p_config_name = VSFTP_DEFAULT_CONFIG2;
++  }
+   /* Zero or one argument supported. If one argument is passed, it is the
+    * path to the config file
+    */

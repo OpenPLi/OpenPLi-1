@@ -1,0 +1,24 @@
+<!--
+	MV icons.
+
+	See icons.esml for channel icons.
+
+	Important: this file and the images mentioned are
+        only loaded the FIRST TIME the plugin is run after
+        every restart of the dreambox.
+-->
+
+<eskin>
+
+<images basepath="mvicons" target="fb">
+	<img name="mv.star" src="mv.star.png" />
+</images>
+
+
+<!-- MV internal flag, don't touch! -->
+ 
+<values>
+	<value name="mvSkinLoadedFlag" value="1" />
+</values>
+
+</eskin>

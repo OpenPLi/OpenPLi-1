@@ -1,0 +1,87 @@
+<script>
+function startCHTTPD()
+{
+	document.location = "/cgi-bin/startCHTTPD";
+	setTimeout("document.location.reload()", 500);
+}
+function stopCHTTPD()
+{
+	document.location = "/cgi-bin/stopCHTTPD";
+	setTimeout("document.location.reload()", 500);
+}
+</script>
+<form name="chttpdsettings" action="/cgi-bin/setCHTTPDsettings">
+<table border="0" cellspacing="5" cellpadding="0">
+<tr>
+	<td>CHTTPD Status:</td>
+	<td>#STATUS#</td>
+</tr>
+</table>
+<br>
+#STOPBUTTON##STARTBUTTON#
+<br><br>
+<table border="0" cellspacing="5" cellpadding="0">
+<tr>
+	<td>Autostart:</td>
+	<td>
+		<input type="checkbox" name="AutoStart" value="on" #AUTOSTART#>
+	</td>
+</tr>
+<tr>
+	<td>Port:</td>
+	<td>
+		<input style="color:#000000" name="Port" type="text" size="5" maxlength="5" value="#PORT#">
+	</td>
+</tr>
+<tr>
+	<td>Authentification:</td>
+	<td>
+		<input type="checkbox" name="MustAuthenticate" value="on" #MUSTAUTHENTICATE#>
+	</td>
+</tr>
+<tr>
+	<td>User:</td>
+	<td>
+		<input style="color:#000000" name="AuthUser" type="text" size="20" maxlength="256" value="#AUTHUSER#">
+	</td>	
+</tr>
+<tr>
+	<td>Password:</td>
+	<td>
+		<input style="color:#000000" name="AuthPassword" type="text" size="20" maxlength="256" value="#AUTHPASSWORD#">
+	</td>	
+</tr>
+<tr>
+	<td>Private Document Root:</td>
+	<td>
+		<input style="color:#000000" name="PrivateDocumentRoot" type="text" size="40" maxlength="256" value="#PRIVATEDOCUMENTROOT#">
+	</td>	
+</tr>
+<tr>
+	<td>Public Document Root:</td>
+	<td>
+		<input style="color:#000000" name="PublicDocumentRoot" type="text" size="40" maxlength="256" value="#PUBLICDOCUMENTROOT#">
+	</td>	
+</tr>
+<tr>
+	<td>Logging:</td>
+	<td>
+		<input type="checkbox" name="Log" value="on" #LOG#>
+	</td>
+</tr>
+<tr>
+	<td>Verbose:</td>
+	<td>
+		<input type="checkbox" name="Verbose" value="on" #VERBOSE#>
+	</td>
+</tr>
+<tr>
+	<td>Enable Threads:</td>
+	<td>
+		<input type="checkbox" name="Threads" value="on" #THREADS#>
+	</td>
+</tr>
+</table>
+<br>
+<input style="color: #000000; width: 100px" type="submit" size="100px" value="Save">
+</form>

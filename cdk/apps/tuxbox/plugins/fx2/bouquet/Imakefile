@@ -1,0 +1,14 @@
+all:: bouquet.so
+
+#PREF=powerpc-linux-
+CC=$(PREF)gcc
+STRIP=$(PREF)strip
+CDEBUGFLAGS=-g -O2 -Wall -pedantic -DUSEX
+INCLUDES=-I. -I../lib -I../../include -I../..
+
+bouquet.so: somain.o $(OBJS)
+	$(CC) -o bouquet.so -shared -Wl,-soname,bouquet.so somain.o
+	$(STRIP) bouquet.so
+
+clean::
+	rm -f bouquet.so

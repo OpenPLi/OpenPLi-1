@@ -1,0 +1,194 @@
+diff -Naur xmlparse-0.9.3.orig/Makefile.am xmlparse-0.9.3/Makefile.am
+--- xmlparse-0.9.3.orig/Makefile.am	Fri May 12 20:34:48 2000
++++ xmlparse-0.9.3/Makefile.am	Wed Aug 14 22:52:31 2002
+@@ -6,9 +6,9 @@
+ #      $Date: 2000/05/12 18:34:48 $
+ #
+ 
+-AUTOMAKE_OPTIONS = foreign
++AUTOMAKE_OPTIONS = gnu
+ 
+-SUBDIRS = lib src gendoc
++SUBDIRS = lib
+ 
+ doc:
+ 	cd gendoc; make doc
+diff -Naur xmlparse-0.9.3.orig/configure.in xmlparse-0.9.3/configure.in
+--- xmlparse-0.9.3.orig/configure.in	Wed Aug  9 21:35:54 2000
++++ xmlparse-0.9.3/configure.in	Wed Aug 14 22:52:31 2002
+@@ -3,6 +3,8 @@
+ 
+ AM_INIT_AUTOMAKE(xmlparse, 0.9.3)
+ 
++AC_CONFIG_AUX_DIR(.)
++
+ dnl Checks for programs.
+ AC_PROG_AWK
+ AC_PROG_CC
+@@ -30,7 +32,7 @@
+ #AC_CHECK_FUNCS(strdup strtol)
+ 
+ AC_ARG_ENABLE(ambiguous, [  --enable-ambiguous     use lib stdc++ v3 [default=no]],
+-                        , enable_ambiguous="yes")
++                        , enable_ambiguous="no")
+ 
+ if test "x$enable_ambiguous" = "xyes"; then
+   CXXFLAGS=" $CXXFLAGS -DCHECK_AMBIGUOUS"
+@@ -39,12 +41,8 @@
+ AC_ARG_ENABLE(libstdcpp3, [  --enable-libstdcpp3     use lib stdc++ v3 [default=no]],
+                         , enable_libstdcpp3="no")
+ 
+-if test "x$enable_libstdcpp3" = "xyes"; then
+-  CXXFLAGS=" $CXXFLAGS -fhonor-std"
+-else
++if test "x$enable_libstdcpp3" = "xno"; then
+   CXXFLAGS=" $CXXFLAGS -D_GLIBSTDCPP2_"
+ fi
+ 
+-LDFLAGS=" $LDFLAGS -rpath \$(libdir)"
+-
+-AC_OUTPUT(gendoc/Makefile lib/Makefile src/Makefile Makefile)
++AC_OUTPUT(lib/Makefile Makefile)
+diff -Naur xmlparse-0.9.3.orig/include/extended_api.h xmlparse-0.9.3/include/extended_api.h
+--- xmlparse-0.9.3.orig/include/extended_api.h	Sun Aug  6 19:20:33 2000
++++ xmlparse-0.9.3/include/extended_api.h	Wed Aug 14 22:52:31 2002
+@@ -86,9 +86,9 @@
+     ExtendedException(const ExtendedException& rhs) {}; 
+     ExtendedException& operator=(const ExtendedException& rhs); 
+ 
+-    virtual ~ExtendedException(void) { };
++    virtual ~ExtendedException(void) throw() { };
+ 
+-    virtual const char* what() const = 0;
++    virtual const char* what() const throw() = 0;
+ 
+ #ifndef _GLIBSTDCPP2_
+     virtual const std::exception* getException() const { };
+@@ -110,7 +110,7 @@
+     ExtendedParseException(const ExtendedParseException&);
+     ExtendedParseException& operator=(const ExtendedParseException&);
+ 
+-    virtual ~ExtendedParseException() { };
++    virtual ~ExtendedParseException() throw() { };
+ 
+     virtual const std::string& getPublicId() const = 0;
+     virtual const std::string& getSystemId() const = 0;
+diff -Naur xmlparse-0.9.3.orig/include/sax.h xmlparse-0.9.3/include/sax.h
+--- xmlparse-0.9.3.orig/include/sax.h	Sun Aug 20 00:52:45 2000
++++ xmlparse-0.9.3/include/sax.h	Wed Aug 14 22:52:31 2002
+@@ -81,9 +81,9 @@
+     SAXException(const SAXException& rhs) {}; 
+     SAXException& operator=(const SAXException& rhs); 
+ 
+-    virtual ~SAXException(void) { };
++    virtual ~SAXException(void) throw () { };
+ 
+-    virtual const char* what() const = 0;
++    virtual const char* what() const throw() = 0;
+ 
+ #ifndef _GLIBSTDCPP2_
+     virtual const std::exception* getException() const { };
+@@ -109,7 +109,7 @@
+     SAXParseException(const SAXParseException&);
+     SAXParseException& operator=(const SAXParseException&);
+ 
+-    virtual ~SAXParseException() { };
++    virtual ~SAXParseException() throw() { };
+ 
+     virtual const std::string& getPublicId() const = 0;
+     virtual const std::string& getSystemId() const = 0;
+diff -Naur xmlparse-0.9.3.orig/lib/Makefile.am xmlparse-0.9.3/lib/Makefile.am
+--- xmlparse-0.9.3.orig/lib/Makefile.am	Sun Aug 20 00:52:46 2000
++++ xmlparse-0.9.3/lib/Makefile.am	Wed Aug 14 22:52:51 2002
+@@ -7,22 +7,19 @@
+ #
+ 
+ 
+-AUTOMAKE_OPTIONS = foreign
++AUTOMAKE_OPTIONS = gnu
+ 
+-bin_PROGRAMS = catalog_test
+ 
+ 
+ lib_LTLIBRARIES = libXMLparse.la
+ #noinst_LIBRARIES = libXMLparse.a
+ 
+-catalog_test_SOURCES = catalog.cc catalogparser.cc stringkey.cc
+-catalog_test_CXXFLAGS = -DTEST
+ 
+ libXMLparse_la_SOURCES = \
+ attribute.cc attributedecl.cc charconv.cc content.cc doctype.cc element.cc elementdecl.cc entity.cc entitylist.cc nextlist.cc notation.cc notationlist.cc parse.cc scanner.cc stringkey.cc xmlerrorhandler.cc xmllex.ll FlexLexer.h XmlFlexLexer.h attribute.h attributedecl.h charconv.h content.h debug.h doctype.h element.h elementdecl.h entity.h entitylist.h hashmap.h locatorex.h locatorimpl.h nametab.h nextlist.h notation.h notationlist.h parse.h scanner.h stringkey.h xmlerrorhandler.h xmlparseexception.h
+ 
+ xmlparsedir = @includedir@
+-xmlparse_HEADERS = ../include/gensaxparser.h ../include/sax.h
++xmlparse_HEADERS = ../include/gensaxparser.h ../include/sax.h ../include/extended_api.h
+ 
+ libXMLparse_la_LDFLAGS = -version-info 1:1:0
+ 
+diff -Naur xmlparse-0.9.3.orig/lib/exmlparseexception.h xmlparse-0.9.3/lib/exmlparseexception.h
+--- xmlparse-0.9.3.orig/lib/exmlparseexception.h	Sun Aug  6 17:52:48 2000
++++ xmlparse-0.9.3/lib/exmlparseexception.h	Wed Aug 14 22:52:31 2002
+@@ -80,9 +80,9 @@
+ 	{};
+ 
+     /// destructor
+-    ~EXmlParseException(void) {};
++    ~EXmlParseException(void) throw() {};
+ 
+-    virtual const char *what(void) const {
++    virtual const char *what(void) const throw() {
+ 	return message.c_str();
+     }
+     virtual const std::string& getPublicId(void) const {
+diff -Naur xmlparse-0.9.3.orig/lib/parse.cc xmlparse-0.9.3/lib/parse.cc
+--- xmlparse-0.9.3.orig/lib/parse.cc	Sun Aug 20 00:52:50 2000
++++ xmlparse-0.9.3/lib/parse.cc	Wed Aug 14 22:52:31 2002
+@@ -70,7 +70,7 @@
+ 
+ void XmlParser::reportError(XmlErrorHandler::ErrorType level,
+ 			    const string &errtxt,
+-			    int printToken=1)
++			    int printToken)
+ {
+     string txt = errtxt;
+     if ( printToken ) {
+@@ -2437,9 +2437,9 @@
+ }
+ 
+ int XmlParser::setInput(Entity *entity,
+-			istream *inputStream = NULL,
+-			const string &encoding = "",
+-			bool parseDTD = false, bool document = false )
++			istream *inputStream,
++			const string &encoding,
++			bool parseDTD, bool document)
+ {
+     string filename;
+ 
+diff -Naur xmlparse-0.9.3.orig/lib/scanner.cc xmlparse-0.9.3/lib/scanner.cc
+--- xmlparse-0.9.3.orig/lib/scanner.cc	Sun Aug 20 00:52:53 2000
++++ xmlparse-0.9.3/lib/scanner.cc	Wed Aug 14 22:52:31 2002
+@@ -470,7 +470,7 @@
+ int XmlScanner::setInput( Entity *entity, 
+ 			  const string &filename, istream *inputStream,
+ 			  const string &encoding, string &errorMsg,
+-			  bool parseDTD = false )
++			  bool parseDTD )
+ {
+     YY_BUFFER_STATE buffer = yy_create_buffer(0,YY_BUF_SIZE);
+ 
+diff -Naur xmlparse-0.9.3.orig/lib/xmlparseexception.h xmlparse-0.9.3/lib/xmlparseexception.h
+--- xmlparse-0.9.3.orig/lib/xmlparseexception.h	Mon May  1 19:49:22 2000
++++ xmlparse-0.9.3/lib/xmlparseexception.h	Wed Aug 14 22:52:31 2002
+@@ -80,9 +80,9 @@
+ 	{};
+ 
+     /// destructor
+-    ~XmlParseException(void) {};
++    ~XmlParseException(void) throw() {};
+ 
+-    virtual const char *what(void) const {
++    virtual const char *what(void) const throw() {
+ 	return message.c_str();
+     }
+     virtual const std::string& getPublicId(void) const {

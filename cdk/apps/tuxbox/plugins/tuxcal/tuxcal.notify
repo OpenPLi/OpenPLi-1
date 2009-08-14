@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$1" != "" ] ; then
+  echo timer event
+else
+  if [ "$2" != "" ] ; then
+    echo birthday event
+  else
+    echo event
+  fi;
+fi;
+

@@ -1,0 +1,45 @@
+a:link    { color:#eeaa00; }
+a:visited { color:#eeaa00; }
+a:hover   { color:#000000; background-color:#0066ff;
+		border-right-color:#ff0000; 
+		border-left-color:#ff0000;
+		border-top-width:1px;
+ 		border-top-style:solid;
+  		border-top-color:#ff0000;	}
+a:active  { 	border-right-color:#ff0000; 
+		border-left-color:#ff0000;	}
+
+a     { display:block; width:250px; height:16px;
+	margin-top:0px; margin-left:0px;
+	text-align:center; vertical-align:middle;
+	text-decoration:none; 
+	border-style:none; border-width:0px; padding:0px; 
+	border-right-width:6px;
+ 	border-right-style:solid;
+  	border-right-color:#0066ff;
+	border-left-width:6px;
+ 	border-left-style:solid;
+  	border-left-color:#0066ff;
+	background-color:#000000;	}
+
+th    { font-size:14px; color:#0066ff;
+	text-align:center; vertical-align:top; padding-left:22px;
+	font-family:Trek DS9 Credits Text,Trek,Arial;
+	background-image:url(beginn.gif);background-repeat:no-repeat;
+	width:0px;height:22px;	}
+.ende { background-image:url(ende.gif);background-repeat:no-repeat;	}
+
+td    {	font-size:13px; color:#006699;
+	text-align:left; vertical-align:top; padding-left:3px;
+	font-family:Trek DS9 Credits Text,Trek,Arial;
+	width:250px;	}
+
+body  {	background-color:#000000;
+	scrollbar-base-color:#000000;
+	scrollbar-3dlight-color:#000000;
+	scrollbar-arrow-color:#000000;
+	scrollbar-darkshadow-color:#000000;
+	scrollbar-face-color:#ff8800;
+	scrollbar-highlight-color:#ff8800;
+	scrollbar-shadow-color:#000000;
+	scrollbar-track-color:#000000;		}

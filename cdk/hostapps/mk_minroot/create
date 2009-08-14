@@ -1,0 +1,207 @@
+#!/usr/bin/perl
+
+
+#        make minroot  -   DBoxII-Project
+#
+#        Copyright (C) 2001 Steffen Hehn 'McClean'
+#        Homepage: http://dbox.cyberphoria.org/
+#
+#        Kommentar:
+#
+#	 Ist eine kleine noch recht unsaubere Lösung um aus dem cdk eine kleine binary-dist zu machen
+#	 um daraus z.b. ein Flashimage zu erstellen.
+#
+#
+#        License: GPL
+#
+#        This program is free software; you can redistribute it and/or modify
+#        it under the terms of the GNU General Public License as published by
+#        the Free Software Foundation; either version 2 of the License, or
+#        (at your option) any later version.
+#
+#        This program is distributed in the hope that it will be useful,
+#        but WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#        GNU General Public License for more details.
+#
+#        You should have received a copy of the GNU General Public License
+#        along with this program; if not, write to the Free Software
+#        Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+
+$cdkdir = 	"../../../dbox2/cdkroot/";
+$releasedir = 	"../../../dbox2/flashroot/";
+$stripcmd ="powerpc-tuxbox-linux-gnu-strip";
+
+
+$mode = "";
+
+$conffile = $ARGV[0];
+
+
+if($conffile eq "")
+{
+	print "usage: create <configfile>\n\n";
+	exit -1;
+}
+
+
+
+print "make minroot....\n\n";
+print "configfile: " . $conffile . "\n\n";
+
+execCommand("rm -Rf " . $releasedir);
+execCommand("mkdir " . $releasedir);
+
+open(DAT, "<". $conffile) || 
+	die "file not found: flashroot.lst\n";
+while(<DAT>)
+{
+	$akt = $_;
+	$akt =~ s/\n//g;
+	if($akt ne "")
+	{
+		if(substr($akt,0,1) ne "#")
+		{
+			parseLine( $akt );
+		}
+	}
+}
+close(DAT);
+
+
+
+#-----------------------------------------------------
+
+sub parseLine
+{
+	#print "pa: " . $_[0] . "\n";
+	$akt = $_[0];
+
+	if($akt eq "[dir]")
+	{
+		$mode = "dir";
+	}
+        elsif($akt eq "[dircopy]")
+        {
+                $mode = "dircopy";
+        }
+ 	elsif($akt eq "[files]")
+        {
+                $mode = "file";
+        }
+        elsif($akt eq "[strip]")
+        {
+                $mode = "strip";
+        }
+        elsif($akt eq "[remove]")
+        {
+                $mode = "remove";
+        }
+        elsif($akt eq "[link]")
+        {
+                $mode = "link";
+        }
+        elsif($akt eq "[exec]")
+        {
+                $mode = "exec";
+        }
+	else
+	{
+		#print "do: " . $mode . " - " . $akt . "\n";
+		if($mode eq "dir")
+		{
+			createDir( $akt );
+		}
+		elsif($mode eq "dircopy")
+                {
+                        copyDir( $akt );
+                }
+                elsif($mode eq "file")
+                {
+                        copyFile( $akt );
+                }
+                elsif($mode eq "strip")
+                {
+                        strip( $akt );
+                }
+                elsif($mode eq "remove")
+                {
+                        remove( $akt );
+                }
+		elsif($mode eq "link")
+                {
+                        link_it( $akt );
+                }
+                elsif($mode eq "exec")
+                {
+                        exec_it( $akt );
+                }
+	}
+}
+
+
+
+sub createDir
+{
+	$command = "mkdir " . $releasedir . $_[0];
+	#print "create dir: " . $_[0] . " - >" . $command . "<\n";
+	execCommand( $command );
+}
+
+sub copyDir
+{
+	$command = "cp -aR " . $cdkdir . $_[0] . " " . $releasedir . $_[0];
+        #print "copy dir: " . $_[0] . " - >" . $command . "<\n";
+	execCommand( $command );
+}
+
+sub copyFile
+{
+	$dir = substr( $_[0], 0, rindex($_[0], "/"));
+	$command = "cp -a " . $cdkdir . $_[0] . " " . $releasedir . $dir;
+        #print "copy file: " . $_[0] .  " - >" . $command . "<\n";
+	execCommand( $command );
+}
+
+sub strip
+{
+        $command = $stripcmd . " " . $releasedir . $_[0];
+        #print "strip: " . $_[0] . " - >" . $command . "<\n";
+	execCommand( $command );
+}
+
+sub remove
+{
+        $command = "rm -Rf " . $releasedir . $_[0];
+        #print "remove: " . $_[0] . " - >" . $command . "<\n";
+        execCommand( $command );
+}
+
+sub link_it
+{
+	($from, $to) = split(/ /,$_[0],2);
+        $command = "ln -s " . $from . " " . $releasedir . $to;
+        #print "link: " . $_[0] . " - >" . $command . "<\n";
+        execCommand( $command );
+}
+
+sub exec_it
+{
+	$releasedirtmp = substr($releasedir, 0, length($releasedir)-1 );
+	$cdkdirtmp = substr($cdkdir, 0, length($cdkdir)-1 );
+        $command = $_[0];
+	$command =~ s/\$RELEASEDIR/$releasedirtmp/g;
+        $command =~ s/\$CDKDIR/$cdkdirtmp/g;
+        #print "exec: " . $_[0] . " - >" . $command . "<\n";
+	execCommand( $command );
+}
+
+
+sub execCommand
+{
+	#print "exec: " . $_[0] . "\n";
+	$erg = `$_[0]`;
+	#print " -> " . $erg . "\n";
+}

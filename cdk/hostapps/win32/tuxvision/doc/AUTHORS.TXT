@@ -1,0 +1,5 @@
+
+DBOXII Capture/Render Filter and the TuxVision app
+was written by Bernd Scharping, bernd@transputer.escape.de
+
+- Remultiplexing path was adopted from "grab" written by Peter Niemayer

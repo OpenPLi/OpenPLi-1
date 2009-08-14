@@ -1,0 +1,65 @@
+#! /bin/sh
+#
+# 1.00 Mirakels: Wait for enigma and start emud
+#
+VERSION=1.01
+
+PROGNAME=`basename $0`
+
+#
+# Check for new version
+#
+if [ -x /var/bin/$PROGNAME ]; then
+    CURR_VERSION=`echo $VERSION | tr -d '.'`
+    VAR_VERSION=`grep ^VERSION= /var/bin/$PROGNAME | cut -d= -f2 | tr -d '.'`
+    [ "$VAR_VERSION" -gt "$CURR_VERSION" ] && exec /var/bin/$PROGNAME
+fi
+
+PATH=/usr/bin:/var/bin:/bin:/sbin
+
+
+
+
+
+log()
+{
+     dat=`date "+%Y%m%d-%H%M%S"`
+     echo "$dat: $*"
+}
+
+
+
+wait_for_enigma()
+{
+    log "Waiting for enigma $*"
+    PID=""
+    let PID=`pidof enigma`
+    while [ -z "$PID" ] ; do
+        let PID=`pidof enigma`
+        sleep 1
+    done
+    log "    Enigma started"
+}
+
+
+
+#
+# MAIN
+#
+
+
+log "$PROGNAME version $VERSION"
+#trap "start_emu_daemon none ; exit" 0 1 2 3 15
+
+# [ -e /var/etc/rc.config ] && . /var/etc/rc.config || . /var_init/etc/rc.config
+
+#wait_for_enigma
+
+sleep 4
+
+/bin/plimgr $*
+
+#
+# The End
+#
+

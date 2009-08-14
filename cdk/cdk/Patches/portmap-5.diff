@@ -1,0 +1,304 @@
+diff -urN portmap-5.orig/BLURB portmap-5/BLURB
+--- portmap-5.orig/BLURB	1996-07-06 23:09:46.000000000 +0200
++++ portmap-5/BLURB	2002-07-26 18:43:34.000000000 +0200
+@@ -1,3 +1,6 @@
++
++###############################################################################
++
+ @(#) BLURB 1.5 96/07/06 23:09:45
+ 
+ This is the fifth replacement portmapper release.
+diff -urN portmap-5.orig/daemon.c portmap-5/daemon.c
+--- portmap-5.orig/daemon.c	1992-06-11 22:53:12.000000000 +0200
++++ portmap-5/daemon.c	2002-07-26 18:43:34.000000000 +0200
+@@ -36,11 +36,8 @@
+ #endif /* LIBC_SCCS and not lint */
+ 
+ #include <fcntl.h>
+-
+-/* From unistd.h */
+-#define STDIN_FILENO	0
+-#define STDOUT_FILENO	1
+-#define STDERR_FILENO	2
++#include <unistd.h>
++#include <sys/types.h>
+ 
+ /* From paths.h */
+ #define _PATH_DEVNULL	"/dev/null"
+diff -urN portmap-5.orig/from_local.c portmap-5/from_local.c
+--- portmap-5.orig/from_local.c	1996-05-31 15:52:58.000000000 +0200
++++ portmap-5/from_local.c	2002-07-26 18:43:34.000000000 +0200
+@@ -51,6 +51,9 @@
+ #include <net/if.h>
+ #include <sys/ioctl.h>
+ #include <syslog.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
+ 
+ #ifndef TRUE
+ #define	TRUE	1
+diff -urN portmap-5.orig/Makefile portmap-5/Makefile
+--- portmap-5.orig/Makefile	1996-07-06 23:06:19.000000000 +0200
++++ portmap-5/Makefile	2002-07-26 21:00:57.000000000 +0200
+@@ -8,15 +8,16 @@
+ # if you disagree. See `man 3 syslog' for examples. Some syslog versions
+ # do not provide this flexibility.
+ #
+-FACILITY=LOG_MAIL
++FACILITY=LOG_DAEMON
+ 
+ # To disable tcp-wrapper style access control, comment out the following
+ # macro definitions.  Access control can also be turned off by providing
+ # no access control tables. The local system, since it runs the portmap
+ # daemon, is always treated as an authorized host.
+ 
+-HOSTS_ACCESS= -DHOSTS_ACCESS
+-WRAP_LIB = $(WRAP_DIR)/libwrap.a
++#HOSTS_ACCESS= -DHOSTS_ACCESS
++#WRAP_LIB = $(WRAP_DIR)/libwrap.a
++#WRAP_LIB = -lwrap
+ 
+ # Comment out if your RPC library does not allocate privileged ports for
+ # requests from processes with root privilege, or the new portmap will
+@@ -81,7 +82,7 @@
+ # libwrap.a object library. WRAP_DIR should specify the directory with
+ # that library.
+ 
+-WRAP_DIR= ../tcp_wrappers
++WRAP_DIR= $(TCPD_DIR)
+ 
+ # Auxiliary object files that may be missing from your C library.
+ #
+@@ -99,22 +100,31 @@
+ 
+ # Comment out if your compiler talks ANSI and understands const
+ #
+-CONST   = -Dconst=
++#CONST   = -Dconst=
+ 
+ ### End of configurable stuff.
+ ##############################
+ 
++GLIBC=$(shell grep -s -c __GLIBC__ /usr/include/features.h)
++
++ifeq ($(GLIBC),0)
++LIBS   += # -lbsd
++else
++LIBS   += -lnsl
++endif
++
++
+ SHELL	= /bin/sh
+ 
+-COPT	= $(CONST) -Dperror=xperror $(HOSTS_ACCESS) $(CHECK_PORT) \
++COPT	= $(CONST) $(HOSTS_ACCESS) $(CHECK_PORT) \
+ 	$(SYS) -DFACILITY=$(FACILITY) $(ULONG) $(ZOMBIES) $(SA_LEN) \
+ 	$(LOOPBACK) $(SETPGRP)
+-CFLAGS	= $(COPT) -O $(NSARCHS)
++CFLAGS	= -Wall $(COPT) -O2 $(NSARCHS)
+ OBJECTS	= portmap.o pmap_check.o from_local.o $(AUX)
+ 
+ all:	portmap pmap_dump pmap_set
+ 
+-portmap: $(OBJECTS) $(WRAP_DIR)/libwrap.a
++portmap: $(OBJECTS) # $(WRAP_DIR)/libwrap.a
+ 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(WRAP_LIB) $(LIBS)
+ 
+ pmap_dump: pmap_dump.c
+@@ -129,6 +139,10 @@
+ get_myaddress: get_myaddress.c
+ 	cc $(CFLAGS) -DTEST -o $@ get_myaddress.c $(LIBS)
+ 
++install: all
++	install -m 0755 -s portmap ${BASEDIR}/sbin
++
++
+ lint:	
+ 	lint $(COPT) $(OBJECTS:%.o=%.c)
+ 
+diff -urN portmap-5.orig/pmap_check.c portmap-5/pmap_check.c
+--- portmap-5.orig/pmap_check.c	1996-07-07 10:49:10.000000000 +0200
++++ portmap-5/pmap_check.c	2002-07-26 18:44:14.000000000 +0200
+@@ -45,6 +45,9 @@
+ #include <netinet/in.h>
+ #include <rpc/rpcent.h>
+ #endif
++#include <sys/types.h>
++#include <unistd.h>
++//#include <tcpd.h>
+ 
+ extern char *inet_ntoa();
+ 
+diff -urN portmap-5.orig/pmap_dump.c portmap-5/pmap_dump.c
+--- portmap-5.orig/pmap_dump.c	1992-06-11 22:53:16.000000000 +0200
++++ portmap-5/pmap_dump.c	2002-07-26 18:43:34.000000000 +0200
+@@ -23,6 +23,19 @@
+ 
+ static char *protoname();
+ 
++#ifndef INADDR_LOOPBACK
++#define INADDR_LOOPBACK ntohl(inet_addr("127.0.0.1"))
++#endif
++
++static void    get_myloopaddress(addrp)
++struct sockaddr_in *addrp;
++{
++    memset((char *) addrp, 0, sizeof(*addrp));
++    addrp->sin_family = AF_INET;
++    addrp->sin_port = htons(PMAPPORT);
++    addrp->sin_addr.s_addr = htonl(INADDR_LOOPBACK);
++}
++
+ main(argc, argv)
+ int     argc;
+ char  **argv;
+@@ -31,7 +44,7 @@
+     register struct pmaplist *list;
+     register struct rpcent *rpc;
+ 
+-    get_myaddress(&addr);
++    get_myloopaddress(&addr);
+ 
+     for (list = pmap_getmaps(&addr); list; list = list->pml_next) {
+ 	rpc = getrpcbynumber((int) list->pml_map.pm_prog);
+diff -urN portmap-5.orig/pmap_set.c portmap-5/pmap_set.c
+--- portmap-5.orig/pmap_set.c	1996-07-06 23:06:23.000000000 +0200
++++ portmap-5/pmap_set.c	2002-07-26 18:43:34.000000000 +0200
+@@ -47,9 +47,9 @@
+ int    *prot;
+ unsigned *port;
+ {
+-    char    proto_name[BUFSIZ];
++    char    proto_name[256];
+ 
+-    if (sscanf(buf, "%lu %lu %s %u", prog, vers, proto_name, port) != 4) {
++    if (sscanf(buf, "%lu %lu %255s %u", prog, vers, proto_name, port) != 4) {
+ 	return (0);
+     }
+     if (strcmp(proto_name, "tcp") == 0) {
+diff -urN portmap-5.orig/portmap.c portmap-5/portmap.c
+--- portmap-5.orig/portmap.c	1996-07-06 23:06:24.000000000 +0200
++++ portmap-5/portmap.c	2002-07-26 18:43:34.000000000 +0200
+@@ -80,6 +80,9 @@
+  * Mountain View, California  94043
+  */
+ 
++#if defined(__GLIBC__)
++#include <rpc/xdr.h>
++#endif /* __GLIBC__ */
+ #include <rpc/rpc.h>
+ #include <rpc/pmap_prot.h>
+ #include <stdio.h>
+@@ -94,6 +97,8 @@
+ #ifdef SYSV40
+ #include <netinet/in.h>
+ #endif
++#include <sys/types.h>
++#include <unistd.h>
+ 
+ extern char *strerror();
+ #include <stdlib.h>
+@@ -350,7 +355,7 @@
+ 		 */
+ 		/* remote host authorization check */
+ 		check_default(svc_getcaller(xprt), rqstp->rq_proc, (u_long) 0);
+-		if (!svc_sendreply(xprt, xdr_void, (caddr_t)0) && debugging) {
++		if (!svc_sendreply(xprt, (xdrproc_t) xdr_void, (caddr_t)0) && debugging) {
+ 			abort();
+ 		}
+ 		break;
+@@ -359,7 +364,7 @@
+ 		/*
+ 		 * Set a program,version to port mapping
+ 		 */
+-		if (!svc_getargs(xprt, xdr_pmap, &reg))
++		if (!svc_getargs(xprt, (xdrproc_t) xdr_pmap, (caddr_t) &reg))
+ 			svcerr_decode(xprt);
+ 		else {
+ 			/* reject non-local requests, protect priv. ports */
+@@ -401,7 +406,7 @@
+ 				ans = 1;
+ 			}
+ 		done:
+-			if ((!svc_sendreply(xprt, xdr_int, (caddr_t)&ans)) &&
++			if ((!svc_sendreply(xprt, (xdrproc_t) xdr_int, (caddr_t)&ans)) &&
+ 			    debugging) {
+ 				(void) fprintf(stderr, "svc_sendreply\n");
+ 				abort();
+@@ -413,7 +418,7 @@
+ 		/*
+ 		 * Remove a program,version to port mapping.
+ 		 */
+-		if (!svc_getargs(xprt, xdr_pmap, &reg))
++		if (!svc_getargs(xprt, (xdrproc_t) xdr_pmap, (caddr_t) &reg))
+ 			svcerr_decode(xprt);
+ 		else {
+ 			ans = 0;
+@@ -447,7 +452,7 @@
+ 					prevpml->pml_next = pml;
+ 				free(t);
+ 			}
+-			if ((!svc_sendreply(xprt, xdr_int, (caddr_t)&ans)) &&
++			if ((!svc_sendreply(xprt, (xdrproc_t) xdr_int, (caddr_t)&ans)) &&
+ 			    debugging) {
+ 				(void) fprintf(stderr, "svc_sendreply\n");
+ 				abort();
+@@ -459,7 +464,7 @@
+ 		/*
+ 		 * Lookup the mapping for a program,version and return its port
+ 		 */
+-		if (!svc_getargs(xprt, xdr_pmap, &reg))
++		if (!svc_getargs(xprt, (xdrproc_t) xdr_pmap, (caddr_t) &reg))
+ 			svcerr_decode(xprt);
+ 		else {
+ 			/* remote host authorization check */
+@@ -474,7 +479,7 @@
+ 				port = fnd->pml_map.pm_port;
+ 			else
+ 				port = 0;
+-			if ((!svc_sendreply(xprt, xdr_int, (caddr_t)&port)) &&
++			if ((!svc_sendreply(xprt, (xdrproc_t) xdr_int, (caddr_t)&port)) &&
+ 			    debugging) {
+ 				(void) fprintf(stderr, "svc_sendreply\n");
+ 				abort();
+@@ -486,7 +491,7 @@
+ 		/*
+ 		 * Return the current set of mapped program,version
+ 		 */
+-		if (!svc_getargs(xprt, xdr_void, NULL))
++		if (!svc_getargs(xprt, (xdrproc_t) xdr_void, (caddr_t) NULL))
+ 			svcerr_decode(xprt);
+ 		else {
+ 			/* remote host authorization check */
+@@ -497,7 +502,7 @@
+ 			} else {
+ 				p = pmaplist;
+ 			}
+-			if ((!svc_sendreply(xprt, xdr_pmaplist,
++			if ((!svc_sendreply(xprt, (xdrproc_t) xdr_pmaplist,
+ 			    (caddr_t)&p)) && debugging) {
+ 				(void) fprintf(stderr, "svc_sendreply\n");
+ 				abort();
+@@ -645,7 +650,7 @@
+ 	timeout.tv_sec = 5;
+ 	timeout.tv_usec = 0;
+ 	a.rmt_args.args = buf;
+-	if (!svc_getargs(xprt, xdr_rmtcall_args, &a))
++	if (!svc_getargs(xprt, (xdrproc_t) xdr_rmtcall_args, (caddr_t) &a))
+ 		return;
+ 	/* host and service access control */
+ 	if (!check_callit(svc_getcaller(xprt), 
+@@ -674,9 +679,9 @@
+ 			   au->aup_uid, au->aup_gid, au->aup_len, au->aup_gids);
+ 		}
+ 		a.rmt_port = (u_long)port;
+-		if (clnt_call(client, a.rmt_proc, xdr_opaque_parms, &a,
+-		    xdr_len_opaque_parms, &a, timeout) == RPC_SUCCESS) {
+-			svc_sendreply(xprt, xdr_rmtcall_result, (caddr_t)&a);
++		if (clnt_call(client, a.rmt_proc, (xdrproc_t) xdr_opaque_parms, (char*) &a,
++		    (xdrproc_t) xdr_len_opaque_parms, (char*) &a, timeout) == RPC_SUCCESS) {
++			svc_sendreply(xprt, (xdrproc_t) xdr_rmtcall_result, (caddr_t)&a);
+ 		}
+ 		AUTH_DESTROY(client->cl_auth);
+ 		clnt_destroy(client);

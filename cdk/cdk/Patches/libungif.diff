@@ -1,0 +1,34 @@
+diff -Naur libungif-4.1.0.orig/configure libungif-4.1.0/configure
+--- libungif-4.1.0.orig/configure	1999-01-20 04:32:09.000000000 +0000
++++ libungif-4.1.0/configure	2003-12-05 08:08:13.000000000 +0000
+@@ -2866,6 +2866,7 @@
+ 
+ echo $ac_n "checking whether setvbuf arguments are reversed""... $ac_c" 1>&6
+ echo "configure:2869: checking whether setvbuf arguments are reversed" >&5
++ac_cv_func_setvbuf_reversed=no
+ if eval "test \"`echo '$''{'ac_cv_func_setvbuf_reversed'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+diff -Naur libungif-4.1.0.orig/ltconfig libungif-4.1.0/ltconfig
+--- libungif-4.1.0.orig/ltconfig	1998-09-10 08:42:47.000000000 +0100
++++ libungif-4.1.0/ltconfig	2003-11-19 21:15:59.000000000 +0000
+@@ -1210,7 +1210,6 @@
+   else
+     # Only the GNU ld.so supports shared libraries on MkLinux.
+     case "$host_cpu" in
+-    powerpc*) dynamic_linker=no ;;
+     *) dynamic_linker='Linux ld.so' ;;
+     esac
+   fi
+diff -Naur libungif-4.1.0.orig/Makefile.in libungif-4.1.0/Makefile.in
+--- libungif-4.1.0.orig/Makefile.in	1999-02-09 21:25:09.000000000 +0000
++++ libungif-4.1.0/Makefile.in	2003-12-05 08:14:29.000000000 +0000
+@@ -76,7 +76,7 @@
+ X11_LIB = @X11_LIB@
+ X_CFLAGS = @X_CFLAGS@
+ 
+-SUBDIRS = lib util doc pic
++SUBDIRS = lib
+ EXTRA_DIST = Makefile.unx ONEWS UNCOMPRESSED_GIF autogen.sh libungif.spec make-ibm.bat test-ibm.bat test-unx libungif.lsm TODO BUGS
+ TESTS=test-unx
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4

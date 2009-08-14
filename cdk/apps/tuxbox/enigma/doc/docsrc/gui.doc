@@ -1,0 +1,113 @@
+/**
+
+\page gui GUI
+
+As already described in the \ref general section, enigma provides an api for gui functionality.
+
+Let's refine what a widget is:
+
+A widget is a rectangular area on the screen with a content, for example a label, a decorated window, a button
+or anything else. Widgets can have child widgets. Child widgets life inside a special area of the parent widget,
+inside the clientrect. The clientrect is another rectangular area which is completely inside of the parent widget.
+More specific, it's the whole parent widget minus it's borders ("decoration"). For example, the titlebar of a window
+isn't belonging to the clientrect, but everything else is.
+
+Say we want to display a message on the screen (and we forget about the fact that enigma provides you a ready-to-use
+messagebox). We like to create a window first:
+
+\sa eWidget the generic widget, baseclass for all widgets
+\sa eWindow the decorated, toplevel widget
+
+\code
+eWindow *window=new eWindow();
+\endcode
+
+Now we want to set it to the right position:
+
+\code
+window->move(ePoint(100, 100));
+window->resize(ePoint(400, 300));
+\endcode
+
+Now we want to show it onto the screen since it's hidden by default:
+
+\code
+window->show();
+\endcode
+
+But we still need to set a title:
+\code
+window->setText("Hello world!");
+\endcode
+
+We might put the \c show at the end if we like to avoid any flickering which occurs otherwise.
+
+But doesn't the widget looks a bit empty? Let's insert some text into it:
+
+\code
+eLabel *label=new eLabel(window);
+label->setText("foobar");
+label->setFont(gFont("NimbusSansL-Regular Sans L Regular", 12));
+label->move(ePoint(0, 0));
+label->resize(window->getClientRectSize());
+\endcode
+
+So we created a label inside the parent, in this case \c window. We set some text and a font.
+
+We still need something to press on, say, a button.
+
+\code
+eButton *button=new eButton(window);
+button->setText("quit");
+button->move(ePoint(50, 50));
+button->resize(ePoint(100, 100));
+\endcode
+
+But something must happen when we press the button. So we \e connect it. Connections are done using \ref signalslot. 
+As a summary, \c eButton offers a signal called \c eButton::selected. We simply connect it onto \c accepted here, but
+we could use any own function here.
+
+\code
+window->CONNECT(button->selected, eWindow::accepted);
+\endcode
+ ------------ dass muss nochmal nachgeguckt werden ------------
+
+Then off we go: Since we want to wait until the user pressed a button, we're making the "dialog" \e modal. Modal means that
+the call is synchronous.
+
+\code
+...
+window->show();
+window->exec();
+window->hide();
+delete window;
+\endcode
+
+\c exec returns when \c eButton::selected is emittet and \c eWindow::accepted is called. \c hide hides the window again.
+After that, we destroy the window. Note that all child widgets get destroyed too.
+
+It's perfectly ok to inherit \c eWindow. Normal dialogs are done that way.
+For example, a simple dialog looks like this:
+\code
+class SimpleDLG: public eWindow
+{
+	eButton *b_quit;
+public:
+	SimpleDLG(): eWindow(0)
+	{
+		setText("A simple dialog");
+		move(ePoint(100, 100));
+		resize(eSize(500, 400));
+		
+		b_quit=new eButton(this);
+		b_quit->move(ePoint(0, 30));
+		b_quit->resize(eSize(clientrect.width(), 30));
+		b_quit->setText("ok");
+		CONNECT(b_quit->selected, SimpleDLG::accept);
+	}
+};
+\endcode
+
+Everything fine? Then jump into the \ref skin section!
+
+*/

@@ -1,0 +1,79 @@
+#!/bin/sh
+
+#
+# tuxmail	Init-Script for TuxMail-Daemon
+#
+# Author:	Thomas "LazyT" Loewe
+# Version:	1.00
+#
+
+PID=`pidof tuxmaild`
+
+case $1 in
+
+start)
+	echo "Starting TuxMail Daemon..."
+
+	if [ $PID ]; then
+	    echo "TuxMailD already running with PID=$PID"
+	else
+	    if [ $2 ]; then echo "optional Parameter $2"; fi
+	    if [ $3 ]; then echo "optional Parameter $3"; fi
+
+	    /usr/bin/tuxmaild $2 $3
+	fi
+	;;
+
+stop)
+	echo "Stopping TuxMail Daemon..."
+
+	if [ $PID ]; then
+	    kill $PID
+	    PID=
+	else
+	    echo "TuxMailD not running"
+	fi
+	;;
+
+status)
+	echo "Checking TuxMail Daemon..."
+
+	if [ $PID ]; then
+	    echo "TuxMailD running with PID=$PID"
+	else
+	    echo "TuxMailD not running"
+	fi
+	;;
+
+restart)
+	$0 stop
+	$0 start
+	;;
+
+reload)
+	echo "Reloading TuxMail Daemon..."
+
+	if [ $PID ]; then
+	    kill -hup $PID
+	else
+	    echo "TuxMailD not running"
+	fi
+	;;
+
+pause)
+	echo "Pausing TuxMail Daemon..."
+
+	if [ $PID ]; then
+	    kill -usr1 $PID
+	else
+	    echo "TuxMailD not running"
+	fi
+	;;
+
+*)
+        echo "TuxMailD Usage: $0 {start [-nodelay][-syslog]|stop|status|restart|reload|pause}"
+	;;
+
+esac
+
+exit 0

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+CAMNAME2="Newcamd"
+
+case "$1" in
+	start)
+		echo "[SCRIPT] $1: Starting $CAMNAME2"
+		rm -f /tmp/camd.socket
+		/var/bin/newcamd &
+		;;
+	stop)
+		echo "[SCRIPT] $1: Stopping $CAMNAME2"
+		kill `cat /tmp/newcamd.pid 2>/dev/null` 2>/dev/null
+		# newcamd does not always seems to stop
+		usleep 500000
+		pids=`pidof newcamd`
+		if [ -n "$pids" ] ; then
+			kill -9 $pids > /dev/null 2>&1
+		fi
+		;;
+	*)
+		$0 stop
+		exit 1
+		;;
+esac
+
+exit 0

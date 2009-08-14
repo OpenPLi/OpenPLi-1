@@ -1,0 +1,32 @@
+Formate der Logos:  (misc/ppcboot/dbox/logo)
+
+FB Logo	  : 1 Frame MPEG1 720*576  
+LCD Logo  : RAW 120*64 , grösse 7680 Bytes 1Kanal 8bit
+
+ppcboot unterstützt Logos aus dem Flash und über tftp
+
+FLASH :
+dafür gibt es das idxfs misc/idxfs/mkfs.idxfs
+
+ins idxfs kommen kernel , logo-lcd logo-fb 
+und ppcboot läd das dann alles aus dem idxfs 
+(bei erstellen von idxfs müsst ihr alle drei Dateien angeben,
+da ihr noch keinen Kernel habt müsst ihr ne dummy Datei für ihn 
+anlegen , sonst gehsts nicht)
+
+das image.idx muss ins flash an stelle Ox20000
+
+also ppcboot laden  
+
+bootp 100000 /tftpboot/image.idx  	(image.idx in Speicher laden)   
+protect off 100c0000 107fffff  		(Flash ab 0xc0000 unprotecten)
+erase 100c0000 107fffff       		(Flash ab 0xc0000 löschen)
+cp.l 100000 100c0000 28000     		(image.idx vom Speicher ins Flash kopieren)
+
+danach sollte er die logos aus dem Flash laden 
+ps : mit bootidxfs ladet ihr den Kernel der im idxfs ist
+
+
+TFTP:
+Die logos mit den Namen 
+logo-fb und logo-lcd müssen in das dir in dem auch ppcboot liegt 

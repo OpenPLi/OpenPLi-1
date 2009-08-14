@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# This script starts the automounter. It is basically an example that
+# can be customized by the user.
+
+# Useful commands:
+
+# Force unmount of unused automounted file systems:
+# 	kill -USR1 `cat /var/run/automount.pid`	
+# Unmount and exit cleanly:
+# 	kill -TERM `cat /var/run/automount.pid`
+
+
+# Production parameters
+TIMEOUT=600
+DEBUG=
+VERBOSE=
+# Use ghosting, does not break anything if kernel support not present. 
+GHOSTING=-g
+
+# Debug parameters (note that DEBUG and VERBOSE are meaningful only with
+# syslogd)
+#TIMEOUT=30
+#DEBUG=-d
+#VERBOSE=-v
+
+PIDFILE=/var/run/automount.pid
+
+# The parent directory of AUTOFSMOUNT must be absolute, must exist,
+# and be writeable. The AUTOFSMOUNTDIR should not exist.
+#AUTOFSMOUNTDIR=/autofs
+AUTOFSMOUNTDIR=/var/autofs
+#MAPFILE=/etc/auto.net
+MAPFILE=/var/etc/auto.net
+
+echo "Starting the automounter"
+
+MD=/lib/modules/$(uname -r)/
+
+grep -q autofs4 /proc/modules || insmod $MD/kernel/fs/autofs4/autofs4.ko
+mkdir /tmp/lock
+ln -sf /tmp/lock /var
+ 
+if [ -e $MAPFILE ] ; then
+    automount $DEBUG $GHOSTING $VERBOSE -t $TIMEOUT -p $PIDFILE $AUTOFSMOUNTDIR file $MAPFILE
+fi

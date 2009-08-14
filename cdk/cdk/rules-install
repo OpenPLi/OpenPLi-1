@@ -1,0 +1,151 @@
+# install rules for cdk
+#
+# fields (separated by ';')
+#   name
+#   rules ('make', 'install', 'link', 'archive') and arguments
+#   ...
+#
+
+#
+# core
+#
+linux
+linux_libc_headers
+binutils;make:install
+bootstrap_gcc;make:install
+gcc;make:install
+glibc;make:install:install_root=TARGET
+uclibc;make:install:DEVEL_PREFIX=TARGET;install:-m644:lib/libc.a:TARGET/lib/libc_pic.a;install:-m644:lib/libcrypt.a:TARGET/lib/libcrypt_pic.a;install:-m644:lib/libm.a:TARGET/lib/libm_pic.a;
+watchdog;make:install:DESTDIR=TARGET
+
+
+#
+# root
+#
+busybox;make:install:PREFIX=TARGET
+busybox12;make:install:PREFIX=TARGET
+busybox17;make:install:PREFIX=TARGET
+busybox113;make:install:DESTDIR=$(targetprefix)
+ftpd;install:-m755:vsftpd:TARGET/sbin/in.ftpd;install:-m644:vsftpd-dbox2.conf:TARGET/etc/vsftpd.conf;install:-d:TARGET/share/empty
+inetd;install:-m755:inetd:TARGET/sbin
+modutils;make:install-bin:sbindir=TARGET/sbin
+netkit_telnet;install:-m755:telnet/telnet:TARGET/bin/telnet;install:-m755:telnetd/telnetd:TARGET/sbin/in.telnetd
+portmap;make:install:BASEDIR=TARGET
+procps;remove:TARGET/bin/ps;install:-m755:top:ps/ps:TARGET/bin
+procps3;remove:TARGET/bin/ps;install:-m755:top:ps/ps:TARGET/bin;install:-m755:proc/libproc-3.2.7.so:TARGET/lib
+
+#
+# contrib libs
+#
+libdirectfb;rewrite-pkgconfig:directfb.pc;rewrite-pkgconfig:directfb-internal.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGET/lib/libdirectfb.la
+libdirectfbpp;rewrite-pkgconfig:dfb++.pc;make:install:DESTDIR=TARGET
+libppdirectfb;rewrite-pkgconfig:++dfb.pc;make:install:DESTDIR=TARGET
+libboost;remove:TARGET/include/boost;move:boost:TARGET/include/boost
+libcrypto;install:libcrypto.so.0.9.7:TARGET/lib;link:libcrypto.so.0.9.7:TARGET/lib/libcrypto.so.0;link:libcrypto.so.0:TARGET/lib/libcrypto.so;install:libssl.so.0.9.7:TARGET/lib;link:libssl.so.0.9.7:TARGET/lib/libssl.so.0;link:libssl.so.0:TARGET/lib/libssl.so;install:-d:TARGET/include/openssl;make:install_cdk:INSTALL_PREFIX=TARGET:INSTALLTOP=
+libcurl;make:install:DESTDIR=TARGET
+libcommoncplusplus;make:install;link:TARGET/bin/ccgnu2-config:HOST/bin/ccgnu2-config
+libdb2;make:install:DESTDIR=TARGET
+libdvbpsi;make:install:DESTDIR=TARGET
+libevent;make:install:DESTDIR=TARGET
+libffi;make:install
+libfreetype;make:install:libdir=TARGET/lib:includedir=TARGET/include:bindir=TARGET/bin:prefix=TARGET
+libfreetype21;make:install:libdir=TARGET/lib:includedir=TARGET/include:bindir=TARGET/bin:prefix=TARGET
+libfribidi;rewrite-pkgconfig:fribidi.pc;make:install:DESTDIR=TARGET
+libgmp;make:install
+libjpeg;make:install-lib:prefix=TARGET
+libmad;rewrite-pkgconfig:mad.pc;make:install:DESTDIR=TARGET;install:-m644:mad.pc:TARGET/lib/pkgconfig
+libid3tag;rewrite-pkgconfig:id3tag.pc;make:install:DESTDIR=TARGET;install:-m644:id3tag.pc:TARGET/lib/pkgconfig
+libncurses;make:install.libs:DESTDIR=TARGET
+libnet;make:install;install:-m755:libnet-config:TARGET/bin/libnet-config;link:TARGET/bin/libnet-config:HOST/bin/libnet-config
+libnids;make:install
+libpcap;make:install
+libpopt;make:install
+libpng;make:install-static:install-shared:install-config:prefix=TARGET;link:TARGET/bin/libpng-config:HOST/bin/libpng-config
+libreadline;make:install:DESTDIR=TARGET
+libsdl;make:install:DESTDIR=TARGET
+libsdl_image;make:install:DESTDIR=TARGET
+libsdl_mixer;make:install:DESTDIR=TARGET
+libsdl_sound;make:install:DESTDIR=TARGET
+libsdl_net;make:install:DESTDIR=TARGET
+libsigc;rewrite-pkgconfig:sigc++-1.2.pc;make:install:DESTDIR=TARGET
+libungif;make:install:DESTDIR=TARGET
+libupnp;make:install:DESTDIR=TARGET
+libvorbisidec;rewrite-pkgconfig:vorbisidec.pc;make:install:DESTDIR=TARGET;install:-m644:vorbisidec.pc:TARGET/lib/pkgconfig
+libflac;rewrite-pkgconfig:flac.pc;make:install:DESTDIR=TARGET;install:-m644:flac.pc:TARGET/lib/pkgconfig
+libxmlparse;make:install
+libxmlwrapp;make:install;link:TARGET/bin/xmlwrapp-config:HOST/bin/xmlwrapp-config
+libxml2;rewrite-pkgconfig:libxml-2.0.pc;make:install:DESTDIR=TARGET
+libz;make:install:prefix=TARGET
+
+#
+# contrib apps
+#
+console_data;make:install
+console_tools;make:install
+dsniff;make:install:install_prefix=TARGET
+fbset;install:-m755:fbset:TARGET/bin
+lirc;make:install
+lsof;install:-m755:lsof:TARGET/sbin
+polipo;install:-m755:polipo:TARGET/bin
+pump;make:install:DEST=TARGET
+ssh;make:install:DESTDIR=TARGET
+tcpdump;make:install
+tor;make:install:DESTDIR=TARGET
+ushare;make:install:DESTDIR=TARGET
+xrc;make:install
+thttpd;make:install
+e2fsprogs;make:install
+reiserfsprogs;make:install
+utillinux;make:install:SBINDIR=TARGET/sbin MAN8DIR=TARGET/man
+samba;make
+samba3;make
+etherwake;make:install:INSTALL="$(INSTALL)" DESTDIR=$(targetprefix)
+diffutils;install:-m755:src/diff:TARGET/bin
+less;install:-m755:less:TARGET/bin
+sqlite;make
+dropbear;install:-m755:dropbearmulti:TARGET/sbin;link:dropbearmulti:TARGET/sbin/dropbear;link:dropbearmulti:TARGET/sbin/dropbearkey;link:dropbearmulti:TARGET/sbin/scp;link:/var/.ssh:TARGET/.ssh;link:/var/etc/dropbear:TARGET/etc/dropbear
+fuse;make
+djmount;make
+
+
+#
+# development tools
+#
+gdb;make:install-gdb:prefix=TARGET
+insight;make:install-gdb:prefix=TARGET
+ltrace;make:install:DESTDIR=TARGET
+strace;make:install
+nano;make:install:DESTDIR=TARGET
+joe;make:install:prefix=TARGET
+
+#
+# java
+#
+kaffe;make:install
+kaffeh;make:install
+
+#
+# fun stuff
+#
+gnuboy;make:install
+scummvm;install:-m755:scummvm:TARGET/bin
+sdldoom;make:install:DESTDIR=TARGET
+wxbase;make:install:DESTDIR=TARGET
+amule;make:install:DESTDIR=TARGET
+ctorrent;make:install:DESTDIR=TARGET
+
+#
+# dvb apps
+#
+dvbdate;install:-m755:dvbdate:TARGET/bin
+dvbstream;install:-m755:dvbstream:rtpfeed:TARGET/bin
+dvbtext;install:-m755:dvbtext:TARGET/bin
+dvbtune;install:-m755:dvbtune:TARGET/bin
+vls;make:install:DESTDIR=TARGET
+
+#
+# mksquashfs with LZMA support
+#
+squashfs
+
+>>?;rules-install-local

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<currentservicedata>
+	<service>
+		<name>#NAME#</name>
+		<reference>#REFERENCE#</reference>
+	</service>
+	<audio_channels>
+		#AUDIOCHANNELS#
+	</audio_channels>
+	<audio_track>
+		#AUDIOTRACK#
+	</audio_track>
+	<video_channels>
+		#VIDEOCHANNELS#
+	</video_channels>
+	<current_event>
+		<date>#NOWDATE#</date>
+		<time>#NOWT#</time>
+		<start>#NOWSTART#</start>
+		<duration>#NOWD#</duration>
+		<description>#NOWST#</description>
+		<details>#NOWLT#</details>
+	</current_event>
+	<next_event>
+		<date>#NEXTDATE#</date>
+		<time>#NEXTT#</time>
+		<start>#NEXTSTART#</start>
+		<duration>#NEXTD#</duration>
+		<description>#NEXTST#</description>
+		<details>#NEXTLT#</details>
+	</next_event>
+</currentservicedata>
+

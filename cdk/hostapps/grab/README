@@ -1,0 +1,222 @@
+
+Note: This is a stripped down version of the original grab by Peter Niemayer
+      which does not support dbox1.
+
+Contents of this README:
+------------------------
+
+- What is this program?
+- Features
+- What you need to use it
+- How do I record?
+- Recording from a dbox2
+- Recording to standard-out
+- How can I time my recordings?
+- How can I record MPEG-2 with AC3 sound?
+- Syncs and drop-outs
+- Compiling
+- Problems, todo
+- Authors
+- Links
+
+
+What is this program?
+---------------------
+
+"grab" allows you to record what your dbox is showing as
+(somewhat DVD-compatible) MPEG-2 files on your harddisk.
+You can watch the resulting MPEG-2 files with any ordinary
+DVD- or MPEG-2 player software (such as "mplayer" under
+Linux, see http://mplayer.sourceforge.net/ )
+
+
+Features:
+---------
+
+- Works with dbox2/Linux
+
+- Direct .mpg recording, no further steps necessary. You
+  can even watch the stream while it is still recording.
+
+- Excellent audio/video synchronisation.
+
+- MPEG Audio Layer 2 and AC3 sound support. 
+  
+- Automatic end-of-record after a specified amount of minutes.
+  Use the "at" command of Unix to schedule your recordings.
+
+- Automatic multi-file write, just specify the number of MB
+  per file to write.
+
+- Very little CPU and I/O consumption.
+
+- Robust against drop-outs and data errors - so your recording
+  won't be useless just because there was some snow on the
+  sattelite dish... :-)
+
+- Generated .mpg files should be compatible with almost any software.
+  However, complete compatibility is nothing anyone can guarantee :-)
+
+
+What you need to use it
+-----------------------
+
+You need
+
+- this software (should run on kernels >= 2.2)
+- a dbox2 running linux and streampes on it
+
+
+How do I record?
+----------------
+
+First, try "grab -h" to get a small listing of the
+available command line flags.
+
+Then just start the recording. BTW: By default, the generated
+files are named "vts_01_?.vob" and no longer than 1000MB,
+so they should be compatible with many DVD players.
+
+
+Recording from a dbox2:
+-----------------------
+
+You need an ethernet connection from your computer to your dbox2
+running Linux.
+
+Use the "-host", "-port" and "-p" options to specify the IP/hostname,
+port and PIDs to use for the dbox2 connection.
+
+
+Recording to standard-out:
+--------------------------
+
+You can use "-" as output filename to direct grab to emit the
+MPEG-2 stream to standard-out. This way, you can pipe the output
+directly to some other software. Example:
+
+grab -q -o - | mplayer -
+
+
+How can I time my recordings?
+-----------------------------
+
+Use the Unix "at" command to register a recording job, use
+the "-m <minutes>" option of grab to choose the length of
+your recording.
+
+Please consult the man-page of "at". It's really easy:
+
+- first, tune into the tv station you want to record from and
+  put your zapping application into record mode
+
+- on your computer, change to the directory where you want to
+  record the files
+
+- type "at 13:45" at the command line to start your recording
+  at 13:45h this day. Better start 5min before your movie
+  begins...
+
+- now you'll be shown a prompt by "at", just type the recording
+  command now, something like "grab -m 130 -q -p ff 100" to
+  record 130 minutes of video pid ff and audio pid 100.
+
+- type CTRL+D after the last line of your "at"-job. You'll
+  return to the command line and your "at"-job is registered.
+  You may log out, then - the at job will be started in the
+  background by the "at daemon" (atd), and the results will
+  be sent to you by mail
+  
+
+How can I record MPEG-2 with AC3 sound?
+----------------------------------------
+
+FIXME: does this work with dbox2?
+
+Syncs and drop-outs:
+--------------------
+
+You'll notice that grab tells you about "syncs" and "drop-outs".
+What is that?
+
+- A "sync" is when grab thinks that it has found a good spot for starting
+  to write a well syncronized MPEG-2 stream. So you should expect
+  at least 1 sync in a recording session
+  
+- Whenever grab detects that the a/v synchronization is lost,
+  it will try to resync. That is, why you may see more than one
+  sync in a recording session
+  
+- Some DVB broadcasters like to start each movie (and even small
+  advertisment trailers) with a newly initialized presentation time
+  stamp (PTS). Therefore, there may be resyncs occuring between
+  movies/clips/whatever. By default, grab will start writing a new
+  file on resync. This may help you getting rid of garbage before/after
+  what you wanted to record.
+  
+- Buffer-overruns or receiver problems may cause resyncs. If you
+  plug out your antenna, grab will most probably need to resync.
+
+- A "drop-out" is a missing part in the recorded MPEG-2 stream.
+  When grab loses synchronization, there will be a drop-out in your
+  recording until synchronization is done again.
+
+- With any resync, a drop-out of at least 2 seconds will occur.
+  So it is normal to have 2 seconds dropped from the beginning and
+  more if there are more resyncs, later.
+  While a resync may cause a new file to be written, a new file start
+  due to the size limit will _not_ cause any resync or drop-out.
+
+Compiling:
+----------
+
+To compile grab, just cd to the "src" directory and type "make".
+Please help yourself if you can.
+
+
+
+Problems, todo:
+---------------
+
+- should brush up the user-interface a little, the status output is
+  currently not optimal and some bizarre things are emitted to the
+  console :-)
+
+- need compatibility checking with plenty of hard- and software.  
+  
+- PTS overflows currently cause a resync. That's not a big problem,
+  but it would be nice to get rid of it anyway.
+
+
+Authors:
+--------
+
+- grab was written by Peter Niemayer.
+- modifications to work with "Linux for dbox2" by Felix Domke
+- AC3 tables were taken from libac3 by Aaron Holtzman
+
+
+Links:
+------
+
+/* for the original version of this software */
+
+Don't expect end-user support from the authors of this free software.
+If you wish to exchange thoughts on this program, visit the "Linux tools"
+discussion board at
+
+http://www.no-access.de/
+
+
+You'll hopefully find the most recent version of this software at
+
+http://niemayer.freewebsites.com/
+
+
+
+
+
+Enjoy,
+
+Peter Niemayer
+

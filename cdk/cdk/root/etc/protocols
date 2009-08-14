@@ -1,0 +1,36 @@
+#
+# protocols	This file describes the various protocols that are
+#		available from the TCP/IP subsystem.  It should be
+#		consulted instead of using the numbers in the ARPA
+#		include files, or, worse, just guessing them.
+#
+
+ip		0	IP		# internet protocol v4
+icmp		1	ICMP		# internet control message protocol
+igmp		2	IGMP		# internet group multicast protocol
+ggp		3	GGP		# gateway-gateway protocol
+tcp		6	TCP		# transmission control protocol
+egp		8	EGP		# exterior gateway protocol
+pup		12	PUP		# PARC universal packet protocol
+udp		17	UDP		# user datagram protocol
+hmp		20	HMP		# host monitoring protocol
+idp		22	IDP		# WhatsThis?
+rdp		27	RDP		# "reliable datagram" protocol
+iso-tp4		29	ISO-TP4		# ISO Transport Protocol Class 4
+#
+# Internet (IPv6) extension headers
+#
+hopopt		0	HOPOPT		# Hop-by-hop optons for IPv6
+ipv6		41	IPv6		# IPv6
+ipv6-route	43	IPv6-Route	# Routing Header for IPv6
+ipv6-frag	44	IPv6-Frag	# Fragment Header for IPv6
+ipv6-crypt	50	IPv6-Crypt	# Encryption Header for IPv6
+ipv6-auth	51	IPv6-Auth	# Authentication Header for IPv6
+icmpv6		58	IPv6-ICMP ICMPV6 ipv6-icmp icmp6 # ICMP for IPv6
+ipv6-nonxt	59	IPv6-NoNxt	# No Next Header for IPv6
+ipv6-opts	60	IPv6-Opts	# Destination Options for IPv6
+iso-ip		80	ISO-IP		# ISO Internet Protocol
+encap		98	ENCAP		# RFC1241 encapsulation
+raw		255	RAW		# RAW IP interface
+
+# End.

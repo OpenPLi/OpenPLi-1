@@ -1,0 +1,22 @@
+<script>
+	function movieSourceChange()
+	{
+		var i = document.moviesourceselector.moviesources.selectedIndex;
+		var movieSource = document.moviesourceselector.moviesources.options[i].value;
+		document.location = "/control/selectMovieSource?id=" + movieSource;
+		window.setTimeout("document.location.reload()", 15000);
+	}
+</script>
+<form name="moviesourceselector">
+	<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>Select Movie Source:&nbsp;</td>
+		<td>
+			<select name="moviesources" size="1" onChange="movieSourceChange()">
+				#OPTIONS#
+			</select>
+		</td>
+	</tr>
+	</table>
+</form>
+

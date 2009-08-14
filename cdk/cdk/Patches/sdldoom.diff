@@ -1,0 +1,20 @@
+--- Archive/sdldoom-1.10/i_video.c	1999-12-21 06:16:17.000000000 +0100
++++ sdldoom-1.10/i_video.c	2002-07-26 03:49:25.000000000 +0200
+@@ -47,7 +47,7 @@
+ // replace each 320x200 pixel with multiply*multiply pixels.
+ // According to Dave Taylor, it still is a bonehead thing
+ // to use ....
+-static int	multiply=1;
++static int	multiply=2;
+ 
+ 
+ //
+@@ -450,7 +450,7 @@
+         I_Error("Smallest available mode (%dx%d) is too large!",
+ 						video_w, video_h);
+     }
+-    screen = SDL_SetVideoMode(video_w, video_h, 8, video_flags);
++    screen = SDL_SetVideoMode(640, 480, 8, video_flags);
+     if ( screen == NULL ) {
+         I_Error("Could not set %dx%d video mode: %s", video_w, video_h,
+ 							SDL_GetError());

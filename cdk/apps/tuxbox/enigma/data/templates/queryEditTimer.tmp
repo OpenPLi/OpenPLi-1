@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Question</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function yes()
+			{
+				document.location = "#URL#";
+			}
+			function no()
+			{
+				document.close();
+			}
+		</script>
+	</head>
+	<body>
+		<b>ATTENTION</b>: This timer event is currently active. 
+		<br>
+		Only timer end time and post-event action can be changed.
+		<br>
+		Do you want to do this?
+		<br><br>
+		<input name="yes" type="button" style="width: 100px; height: 22px; background-color: #1FCB12" value="YES" onClick=javascript:yes()>
+		<input name="no" type="button" style="width: 100px; height: 22px; background-color: #CB0303" value="NO" onClick=javascript:no()>
+	</body>
+</html>

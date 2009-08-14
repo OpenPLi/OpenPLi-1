@@ -1,0 +1,12 @@
+{ 0x00, 0x00, "Reserved | DVB" },
+{ 0x60, 0x60, "Abstract Service Descriptor" },
+{ 0x61, 0x61, "Unbound Application Descriptor" },
+{ 0x62, 0x62, "Privilieged Certification Descriptor" },
+{ 0x63, 0x63, "Application Storage Descriptor" },
+{ 0x64, 0x64, "OCAP_J Registered API Descriptor" },
+{ 0x6B, 0x6B, "OCAP 1.0: OC-SP-OCAP1.0 V1.0.2: Table 11-12: addressing_descriptor | Cable Television Laboratories, Inc." },
+{ 0x6C, 0x6C, "OCAP 1.0: OC-SP-OCAP1.0 V1.0.2: Table 11-19: addressing_attribute_descriptor | Cable Television Laboratories, Inc." },
+{ 0x6D, 0x6D, "OCAP 1.0: OC-SP-OCAP1.0 V1.0.2: Table 11-20: addressable_application_descriptor | Cable Television Laboratories, Inc." },
+{ 0x60, 0x7F, "reserved to MHP" },
+{ 0x80, 0xFF, "user defined" },
+{ 0, 0, NULL }

@@ -1,0 +1,52 @@
+#!/bin/sh
+if [ -e /tmp/ecm.info ] ; then
+
+	EcmInfo=`cat /tmp/ecm.info`
+
+	echo $EcmInfo | sed -e "s/^.*CaID 0x\(....\).*$/\1 /" -e "s/^.*caid: 0x\(.*\)provider.*$/\1 /"
+
+	if ! echo $EcmInfo | grep "====" >/dev/null; then
+
+		# CCcam
+		address=`echo "$EcmInfo" | sed -e "/address:/!d" -e "s/ *//g" -e "s/address://" -e "s/:.*$//" -e "s/:.*$//"`
+		using=`echo "$EcmInfo" | sed -e "/using:/!d" -e "s/ *//g" -e "s/using://"`
+		hops=`echo "$EcmInfo" | sed -e "/hops:/!d" -e "s/ *//g" -e "s/hops://"`
+		time=`echo "$EcmInfo" | sed -e "/time:/!d" -e "s/ *//g" -e "s/ecmtime://"`
+		share=`echo "$EcmInfo" | sed -e "/share:/!d" -e "s/ *//g" -e "s/share://"`
+		if [ $address ]; then
+			echo $address
+			if [ $hops -gt 0 ]; then
+				echo "$address @$hops ($time)"
+			else
+				echo "$address ($time)"
+			fi				 	
+		else
+			echo $using
+			echo "$using ($time)"
+		fi
+		echo $time
+		echo $share
+
+	elif [ `echo $EcmInfo | sed "s/^.*decode:\(.*\).*$/\1/"` = "Network" ] ; then
+
+		# Gbox with network share
+		cardid=`echo $EcmInfo | sed "s/^.*prov: \(....\).*$/\1/"` 
+		cardline=`sed -e "/id:$cardid/!d" /tmp/share.info | head -n 1`
+		echo $cardline | cut -d " " -f4
+		echo $cardline | cut -d " " -f4,10,8,9 | sed -e "s/Lev:/l:/" -e "s/dist:/d:/"
+		echo
+		echo $cardid
+	else
+
+		# Gbox emu or local card
+		emuinfo=`echo $EcmInfo | sed "s/^.*decode:\(.*\).*$/\1/"`
+		echo $emuinfo
+		echo $emuinfo 	
+	fi
+
+else
+
+	# No /tmp/ecm.info file available so cannot decode or FTA
+	echo "0"
+
+fi

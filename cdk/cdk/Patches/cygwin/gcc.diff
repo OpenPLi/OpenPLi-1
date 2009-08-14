@@ -1,0 +1,18 @@
+diff -Naur gcc-3.2/config/mt-linux gcc-3.2.ok/config/mt-linux
+--- gcc-3.2/config/mt-linux	2001-05-22 01:17:23.000000000 +0000
++++ gcc-3.2.ok/config/mt-linux	2002-05-18 07:39:10.000000000 +0000
+@@ -1 +1 @@
+-CXXFLAGS_FOR_TARGET = $(CXXFLAGS) -D_GNU_SOURCE
++CXXFLAGS_FOR_TARGET = $(CXXFLAGS) -D_GNU_SOURCE -Os -fomit-frame-pointer
+diff -Naur gcc-3.2/gcc/config/i386/xm-cygwin.h gcc-3.2.ok/gcc/config/i386/xm-cygwin.h
+--- gcc-3.2/gcc/config/i386/xm-cygwin.h	2001-10-31 14:32:30.000000000 +0000
++++ gcc-3.2.ok/gcc/config/i386/xm-cygwin.h	2002-05-18 08:05:48.000000000 +0000
+@@ -19,7 +19,7 @@
+ the Free Software Foundation, 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.  */
+ 
+-#define HOST_EXECUTABLE_SUFFIX ".exe"
++//#define HOST_EXECUTABLE_SUFFIX ".exe"
+ 
+ /* Even though Cygwin tries to hide the DOS based filesystem, it
+    still shows though at times.  */

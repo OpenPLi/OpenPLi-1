@@ -1,0 +1,17 @@
+<html>
+<head>
+<script>
+function update()
+{
+	parent.updateVideoBar(progress1, progress2, completion);
+}
+</script>
+</head>
+<body onLoad="update()">
+<script>
+	var progress1 = "#PROGRESSMESSAGE1#";
+	var progress2 = "#PROGRESSMESSAGE2#";
+	var completion = #PROGRESSCOMPLETE#;
+</script>
+</body>
+</html>

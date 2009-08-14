@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>controlpanel</title>
+<style type="text/css">
+<!--
+img {border:0;}
+//-->
+</style>
+<script language="JavaScript">
+<!--
+button= new Image();
+button.src = "/images/shutdown_off.jpg";
+button= new Image();
+button.src = "/images/shutdown_on.jpg";
+button= new Image();
+button.src = "/images/volplu_off.jpg";
+button= new Image();
+button.src = "/images/volplu_on.jpg";
+button= new Image();
+button.src = "/images/volmin_off.jpg";
+button= new Image();
+button.src = "/images/volmin_on.jpg";
+button= new Image();
+button.src = "/images/mute_off.jpg";
+button= new Image();
+button.src = "/images/mute_on.jpg";
+button= new Image();
+button.src = "/images/muted_off.jpg";
+button= new Image();
+button.src = "/images/muted_on.jpg";
+button= new Image();
+button.src = "/images/tv_off.jpg";
+button= new Image();
+button.src = "/images/tv_on.jpg";
+button= new Image();
+button.src = "/images/radio_off.jpg";
+button= new Image();
+button.src = "/images/radio_on.jpg";
+-->
+</script>
+</head>
+<body bgcolor=#000000 text=#ffffff leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<table border=0 cellpadding=0 cellspacing=0 width=172>
+	<tr>
+		<td colspan=3><img src=../images/left_01.jpg width=172 height=76><br></td>
+	</tr>
+	<tr>
+		<td rowspan=2><img src=../images/left_02.jpg width=106 height=51><br></td>
+		<td><a href=/fb/switch.dbox2?shutdown target=_top onMouseOver="shutdown.src='../images/shutdown_on.jpg';" onMouseOut="shutdown.src='../images/shutdown_off.jpg';"><img src=../images/shutdown_off.jpg width=25 height=26 border=0 name=shutdown></a><br></td>
+		<td rowspan=2><img src=../images/left_04.jpg width=41 height=51><br></td>
+	</tr>
+	<tr>
+		<td><img src=../images/left_03.jpg width=25 height=25><br></td>
+	</tr>
+</table>
+<table border=0 cellpadding=0 cellspacing=0 width=172>
+	<tr>
+		<td rowspan=2><img src=../images/left_05.jpg width=14 height=38><br></td>
+		<td>
+			<table border=0 cellpadding=0 cellspacing=0>
+				<tr>
+					<td><a href=/fb/controlpanel.dbox2?volumeminus target=navi onMouseOver="volmin.src='../images/volmin_on.jpg';" onMouseOut="volmin.src='../images/volmin_off.jpg';"><img src=../images/volmin_off.jpg width=24 height=28 border=0 name=volmin></a><br></td>
+					<td><img src=../images/left_06.jpg width=52 height=28><br></td>
+					<td><a href=/fb/controlpanel.dbox2?volumeplus target=navi onMouseOver="volplu.src='../images/volplu_on.jpg';" onMouseOut="volplu.src='../images/volplu_off.jpg';"><img src=../images/volplu_off.jpg width=24 height=28 border=0 name=volplu><br></td>
+				</tr>
+			</table>
+		</td>
+		<td rowspan=2><img src=../images/left_07.jpg width=19 height=38><br></td>

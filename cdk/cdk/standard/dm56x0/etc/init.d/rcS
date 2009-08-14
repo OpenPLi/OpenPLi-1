@@ -1,0 +1,150 @@
+#!/bin/sh
+
+echo rcS starting
+
+/bin/mount -n -t proc proc /proc
+/bin/mount -n -t devpts devpts /dev/pts
+export INSMOD="/sbin/insmod"
+export MODDIR="/lib/modules/"$(uname -r)
+#export TZ=CET-1CEST,M3.5.0/2,M10.5.0/3
+/etc/init.d/init1
+
+#set environment variables ( mID )
+. /proc/bus/dbox.sh
+
+export LD_LIBRARY_PATH=/tmp:/var/lib:/lib:$LD_LIBRARY_PATH
+export PATH=/tmp:/var/bin:$PATH
+
+echo Mounting /var
+/bin/mount -t jffs2 /dev/mtdblock/1 /var
+
+PLI_VERSION=PLIVERSION
+
+eval `grep ^version /.version`
+VERSION=`echo $version | cut -c 1-12` 
+
+[ ! -e /root/platform/kernel/bild ] && mount -t cramfs /dev/mtdblock/6 /root
+/bin/showlogo
+
+mount -t ramfs none /tmp
+chmod 1777 /tmp
+
+# set a hostname, mounting will otherwise fail
+[ ! -e /var/etc/hostname ] && cp /var_init/etc/hostname /var/etc/hostname
+/bin/hostname -F /var/etc/hostname
+
+# bring up loopback interface
+/sbin/ifconfig lo 127.0.0.1 netmask 255.0.0.0 up
+
+# we are now trying to get up eth0 so we can do mountings!
+/bin/setupnetwork > /tmp/iplog.log
+
+init=0
+[ -e /var/.pli_init-$PLI_VERSION ] || init=1
+
+if [ $init -eq 1 ] ; then 
+	echo First boot
+	# first make a backup to tempdir
+	/bin/backupflash.sh
+	echo Unmounting /var
+	umount /var
+	echo Flash erasing
+	/bin/eraseall /dev/mtd/1 
+	echo Mounting /var
+	/bin/mount -t jffs2 /dev/mtdblock/1 /var	
+	cp -a /var_init/* /var
+	touch /var/.pli_init-$PLI_VERSION
+	/bin/movevar.sh unmove
+else
+	echo Not first boot, no flash erase is needed
+fi
+
+#check if a dir /media/var/pli/removeatboot is present, if so delete it now
+[ -d /media/var/pli/removeatboot ] && rm -rf /media/var/pli/removeatboot
+
+# Rename old var path
+[ -d /media/var/pli/$version/var ] && mv /media/var/pli/$version /media/var/pli/$VERSION
+
+# Check where /var has to be mounted
+echo "Booting version : "$VERSION >> /tmp/boot.log
+if [ -d /media/var/pli/$VERSION/var ] ; then
+	echo "Mounting /var on Network" >> /tmp/boot.log 
+	umount /var
+	/bin/mount -o bind /media/var/pli/$VERSION/var /var
+	if [ $init -eq 1 ] ; then
+		rm -rf /var/*
+	fi
+else
+	echo "starting in flash" >> /tmp/boot.log 
+fi 
+
+# allways mount var_flash
+mount -t jffs2 /dev/mtdblock/1 /var_flash
+
+# If there are backup files now is the time to copy them back ;-)
+[ -d "/tmp/var_backup" ] && /bin/restoreflash.sh
+
+#create empty keyfile for keyfile updater
+[ ! -f "/var/keys/irdeto" ]      && touch /var/keys/irdeto
+[ ! -f "/var/keys/SoftCam.Key" ] && touch /var/keys/SoftCam.Key
+
+[ ! -d "/var/tuxbox/scce" ] && ln -s /var/scce /var/tuxbox/scce
+
+ln -s /dev/dvb/card0/demux0 /dev/dvb/card0/demux1
+ln -s /dev/dvb/card0/dvr0 /dev/dvb/card0/dvr1
+
+ln -sf sound/dsp /dev/dsp
+ln -sf fb/0 /dev/fb0
+ln -s /dev/input/mice /dev/psaux 
+ln -s /dev/input/mice /dev/mouse 
+
+[ -e /var/etc/rc.config ] && . /var/etc/rc.config || . /var_init/etc/rc.config
+
+/sbin/inetd &
+
+[ -e /var/etc/init ] &&	. /var/etc/init
+
+swapon -a &
+
+# If Inadyn is installed and enabled start it
+if [ "$INADYN" = enabled ] ; then
+    echo "Going to start Inadyn"
+    /var/bin/inadyn --input_file /var/etc/inadyn.config
+fi 
+
+# If firewall needs to be started do it now
+if [ "$FIREWALL" = enabled -a -x "/var/bin/firewall.sh" ] ; then
+	( /var/bin/firewall.sh start ) &
+fi
+
+# If Cron is enabled start it
+if	[ "$CRON" = enabled ] ; then 
+	crond &
+fi
+
+if [ "$SYSLOG_LOG" = enabled ] ; then
+	if [ -n "$SYSLOG_HOST" ] ; then
+		syslogd -R $SYSLOG_HOST
+	else
+		syslogd
+	fi
+	klogd
+fi
+
+if [ "$GSUB" = enabled ] ; then 
+    /var/bin/gSUB &
+fi
+
+if [ -x /var/bin/pli_ecmhelper ] ; then
+	/var/bin/pli_ecmhelper
+else
+	/bin/pli_ecmhelper
+fi
+
+if [ -x /var/bin/dropbear.sh ] ; then
+	/var/bin/dropbear.sh
+fi
+
+exec /bin/start_enigma
+
+exit 0

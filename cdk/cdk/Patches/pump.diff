@@ -1,0 +1,1021 @@
+diff -urN pump-0.8.11.orig/Makefile pump-0.8.11/Makefile
+--- pump-0.8.11.orig/Makefile	Thu Mar  1 08:15:22 2001
++++ pump-0.8.11/Makefile	Fri Jul 19 16:14:36 2002
+@@ -1,24 +1,16 @@
+-SBINPATH = $(RPM_BUILD_ROOT)/sbin
+-USRSBINPATH = $(sbindir)
+-USRLIBPATH = $(libdir)
+-INCPATH = $(includedir)
+-MAN8PATH = $(mandir)/man8
+-CFLAGS = -I. -Wall -g $(RPM_OPT_FLAGS) -D__STANDALONE__ -DVERSION=\"$(VERSION)\"
++SBINPATH = $(DEST)/sbin
++CFLAGS := $(CFLAGS) -I. -Ddebian -D__STANDALONE__ -DVERSION=\"$(VERSION)\"
+ CVSROOT = $(shell cat CVS/Root)
+ 
+-LOADLIBES = /usr/lib/libpopt.a -lresolv
+-LDFLAGS = -g
++LOADLIBES := -lpopt -lresolv
+ 
+ VERSION=0.8.11
+ CVSTAG = r$(subst .,-,$(VERSION))
+ 
+-all:	pump netconfig
++all:	pump
+ 
+ pump:	pump.o config.o libpump.a(dhcp.o)
+ 
+-netconfig:	net.o libpump.a(dhcp.o)
+-	$(CC) -o netconfig net.o libpump.a $(LOADLIBES) -lnewt -lslang
+-
+ pump.o: pump.c pump.h
+ 
+ config.o: config.c pump.h
+@@ -32,13 +24,8 @@
+ 	rm -f pump-*.tar.gz *~
+ 
+ install:
+-	mkdir -p $(SBINPATH) $(MAN8PATH) $(USRSBINPATH)
+-	mkdir -p $(USRLIBPATH) $(INCPATH)
+-	install -m 755 -s netconfig $(USRSBINPATH)/netconfig
++	mkdir -p $(SBINPATH)
+ 	install -m 755 -s pump $(SBINPATH)/pump
+-	install -m 644 pump.8 $(MAN8PATH)
+-	install -m 644 libpump.a $(USRLIBPATH)
+-	install -m 644 pump.h $(INCPATH)
+ 
+ create-archive: tag-archive
+ 	@rm -rf /tmp/pump
+diff -urN pump-0.8.11.orig/config.c pump-0.8.11/config.c
+--- pump-0.8.11.orig/config.c	Thu Feb  1 23:58:16 2001
++++ pump-0.8.11/config.c	Fri Jul 19 16:14:20 2002
+@@ -182,6 +182,12 @@
+ 		return 1;
+ 	    }
+ 	    override->flags |= OVERRIDE_FLAG_NODNS;
++	} else if (!strcmp(start, "nobootp")) {
++	    if (*rest) {
++		parseError(*lineNum, "unexpected argument to nobootp directive");
++		return 1;
++	    }
++	    override->flags |= OVERRIDE_FLAG_NOBOOTP;
+ 	} else if (!strcmp(start, "nogateway")) {
+ 	    if (*rest) {
+ 		parseError(*lineNum, "unexpected argument to nogateway directive");
+diff -urN pump-0.8.11.orig/dhcp.c pump-0.8.11/dhcp.c
+--- pump-0.8.11.orig/dhcp.c	Tue Feb 27 18:03:02 2001
++++ pump-0.8.11/dhcp.c	Fri Jul 19 16:14:20 2002
+@@ -31,9 +31,11 @@
+ #include <netinet/in.h>
+ #include <netinet/ip.h>
+ #include <netinet/udp.h>
++#include <netpacket/packet.h>
+ #include <popt.h>
+ #include <resolv.h>
+ #include <signal.h>
++#include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -47,6 +49,7 @@
+ #include <sys/wait.h>
+ #include <syslog.h>
+ #include <unistd.h>
++#include <time.h>
+ 
+ #include "pump.h"
+ 
+@@ -123,6 +126,12 @@
+     bp_int16 len;
+ };
+ 
++struct ippkt {
++    struct ip ip;
++    struct udphdr udp;
++    char payload[sizeof(struct bootpRequest)];
++} __attribute__ ((packed));
++
+ static void parseReply(struct bootpRequest * breq, struct pumpNetIntf * intf);
+ static char * prepareRequest(struct bootpRequest * breq,
+ 			     int sock, char * device, time_t startTime);
+@@ -131,36 +140,24 @@
+ static char * handleTransaction(int s, struct pumpOverrideInfo * override, 
+ 				struct bootpRequest * breq,
+ 			        struct bootpRequest * bresp, 
+-			        struct sockaddr_in * serverAddr,
++			        struct sockaddr * serverAddr,
++			        socklen_t serverAddrLen,
+ 				struct sockaddr_in * respondant,
+-				int useBootpPacket, 
++				int useBootpPacket, int raw,
+ 				time_t startTime, int dhcpResponseType);
+ static int dhcpMessageType(struct bootpRequest * response);
+-static int oldKernel(void);
+ static char * getInterfaceInfo(struct pumpNetIntf * intf, int s);
+ static char * perrorstr(char * msg);
+ static void addClientIdentifier(int flags, struct bootpRequest * req);
+ static void buildRequest(struct bootpRequest * req, int flags, int type,
+ 		         char * reqHostname, int lease);
+ static void updateSecCount(struct bootpRequest * breq, time_t startTime);
++static void makeraw(struct ippkt *buf, const void *payload, size_t len);
++static uint32_t checksum(const void *, size_t, uint32_t);
++static uint32_t wrapsum(uint32_t);
+ 
+ static const char vendCookie[] = { 99, 130, 83, 99, 255 };
+ 
+-static int oldKernel(void) {
+-    struct utsname ubuf;
+-    int major1, major2;
+-
+-    uname(&ubuf);
+-    if (!strcasecmp(ubuf.sysname, "linux")) {
+-	if (sscanf(ubuf.release, "%d.%d", &major1, &major2) != 2 ||
+-		(major1 < 2) || (major1 == 2 && major2 == 0)) {
+-	    return 1;
+-	}
+-    }
+-
+-    return 0;
+-}
+-
+ static char * getInterfaceInfo(struct pumpNetIntf * intf, int s) {
+     struct ifreq req;
+     struct sockaddr_in * addrp;
+@@ -174,6 +171,10 @@
+     intf->broadcast = addrp->sin_addr;
+     intf->set = PUMP_INTFINFO_HAS_BROADCAST;
+ 
++    if (ioctl(s, SIOCGIFINDEX, &req))
++	return perrorstr("SIOCGIFINDEX");
++    intf->ifindex = req.ifr_ifindex;
++
+     return NULL;
+ }
+ 
+@@ -246,28 +247,38 @@
+     strcpy(req.ifr_name, intf->device);
+    
+     addrp->sin_addr = intf->ip;
+-    if (ioctl(s, SIOCSIFADDR, &req))
+-	return perrorstr("SIOCSIFADDR");
++    if (ioctl(s, SIOCSIFADDR, &req)) {
++	rc = perrorstr("SIOCSIFADDR");
++	goto out;
++    }
+ 
+     addrp->sin_addr = intf->netmask;
+-    if (ioctl(s, SIOCSIFNETMASK, &req))
+-	return perrorstr("SIOCSIFNETMASK");
++    if (ioctl(s, SIOCSIFNETMASK, &req)) {
++	rc = perrorstr("SIOCSIFNETMASK");
++	goto out;
++    }
+ 
+     addrp->sin_addr = intf->broadcast;
+-    if (ioctl(s, SIOCSIFBRDADDR, &req))
+-	return perrorstr("SIOCSIFBRDADDR");
++    if (ioctl(s, SIOCSIFBRDADDR, &req)) {
++	rc = perrorstr("SIOCSIFBRDADDR");
++	goto out;
++    }
+ 
+     /* Bring up the device, and specifically allow broadcasts through it.
+        Don't mess with flags we don't understand though. */
+-    if (ioctl(s, SIOCGIFFLAGS, &req))
+-	return perrorstr("SIOCGIFFLAGS");
++    if (ioctl(s, SIOCGIFFLAGS, &req)) {
++	rc = perrorstr("SIOCGIFFLAGS");
++	goto out;
++    }
+ 
+     req.ifr_flags |= IFF_UP | IFF_RUNNING | IFF_BROADCAST;
+ 
+-    if (ioctl(s, SIOCSIFFLAGS, &req))
+-	return perrorstr("SIOCSIFFLAGS");
++    if (ioctl(s, SIOCSIFFLAGS, &req)) {
++	rc = perrorstr("SIOCSIFFLAGS");
++	goto out;
++    }
+ 
+-    if (!strcmp(intf->device, "lo") || oldKernel()) {
++    if (!strcmp(intf->device, "lo")) {
+ 	/* add a route for this network */
+ 	route.rt_dev = intf->device;
+ 	route.rt_flags = RTF_UP;
+@@ -282,11 +293,14 @@
+ 
+ 	if (ioctl(s, SIOCADDRT, &route)) {
+ 	    /* the route cannot already exist, as we've taken the device down */
+-	    return perrorstr("SIOCADDRT 1");
++	    rc = perrorstr("SIOCADDRT 1");
++	    goto out;
+ 	}
+     }
+ 
+-    return NULL;
++out:
++    close(s);
++    return rc;
+ }
+ 
+ int pumpSetupDefaultGateway(struct in_addr * gw) {
+@@ -311,17 +325,18 @@
+     route.rt_dev = NULL;
+ 
+     if (ioctl(s, SIOCADDRT, &route)) {
++	close(s);
+ 	syslog(LOG_ERR, "failed to set default route: %s", strerror(errno));
+ 	return -1;
+     }
+ 
++    close(s);
+     return 0;
+ }
+ 
+ char * pumpPrepareInterface(struct pumpNetIntf * intf, int s) {
+     struct sockaddr_in * addrp;
+     struct ifreq req;
+-    struct rtentry route;
+ 
+     memset(&req,0,sizeof(req));
+ 
+@@ -338,15 +353,9 @@
+     if (ioctl(s, SIOCSIFADDR, &req))
+ 	return perrorstr("SIOCSIFADDR");
+ 
+-    if (oldKernel()) {
+-	if (ioctl(s, SIOCSIFNETMASK, &req))
+-	    return perrorstr("SIOCSIFNETMASK");
+-
+-	/* the broadcast address is 255.255.255.255 */
+-	memset(&addrp->sin_addr, 255, sizeof(addrp->sin_addr));
+-	if (ioctl(s, SIOCSIFBRDADDR, &req))
+-	    return perrorstr("SIOCSIFBRDADDR");
+-    }
++    if (ioctl(s, SIOCGIFINDEX, &req))
++	return perrorstr("SIOCGIFINDEX");
++    intf->ifindex = req.ifr_ifindex;
+ 
+     if (ioctl(s, SIOCGIFFLAGS, &req))
+ 	return perrorstr("SIOCGIFFLAGS");
+@@ -354,32 +363,13 @@
+     if (ioctl(s, SIOCSIFFLAGS, &req))
+ 	return perrorstr("SIOCSIFFLAGS");
+ 
+-    memset(&route, 0, sizeof(route));
+-    memcpy(&route.rt_gateway, addrp, sizeof(*addrp));
+-
+-    addrp->sin_family = AF_INET;
+-    addrp->sin_port = 0;
+-    addrp->sin_addr.s_addr = INADDR_ANY;
+-    memcpy(&route.rt_dst, addrp, sizeof(*addrp));
+-    memcpy(&route.rt_genmask, addrp, sizeof(*addrp));
+-
+-    route.rt_dev = intf->device;
+-    route.rt_flags = RTF_UP;
+-    route.rt_metric = 0;
+-
+-    if (ioctl(s, SIOCADDRT, &route)) {
+-	if (errno != EEXIST) {
+-	    close(s);
+-	    return perrorstr("SIOCADDRT 3");
+-	}
+-    }
+-
+     return NULL;
+ }
+ 
+ static int dhcpMessageType(struct bootpRequest * response) {
+     unsigned char * chptr;
+     unsigned char option, length;
++
+    
+     chptr = response->vendor;
+ 
+@@ -704,7 +694,8 @@
+     syslog (LOG_DEBUG, "%s: bootfile: %s", name, breq->bootfile);
+     
+     vndptr = breq->vendor;
+-    sprintf (vendor, "0x%02x 0x%02x 0x%02x 0x%02x", *vndptr++, *vndptr++, *vndptr++, *vndptr++);
++    sprintf (vendor, "0x%02x 0x%02x 0x%02x 0x%02x", vndptr[0], vndptr[1], vndptr[2], vndptr[3]);
++    vndptr += 4;
+     syslog (LOG_DEBUG, "%s: vendor: %s", name, vendor);
+     
+     
+@@ -746,11 +737,12 @@
+ }
+ 
+ static char * handleTransaction(int s, struct pumpOverrideInfo * override, 
+-				struct bootpRequest * breq,
++			        struct bootpRequest * breq,
+ 			        struct bootpRequest * bresp, 
+-			        struct sockaddr_in * serverAddr,
++			        struct sockaddr * serverAddr,
++			        socklen_t serverAddrLen,
+ 				struct sockaddr_in * respondant,
+-				int useBootpPacket, 
++				const int useBootpPacket, const int raw,
+ 				time_t startTime, int dhcpResponseType) {
+     struct timeval tv;
+     fd_set readfs;
+@@ -768,6 +760,9 @@
+     struct udphdr * udpHdr = NULL;
+     struct psuedohUdpHeader pHdr;
+     time_t start = pumpUptime();
++    struct ippkt buf;
++    void * pkt;
++    size_t pktlen, breqlen;
+     
+     memset(&pHdr,0,sizeof(pHdr));
+     debugbootpRequest("breq", breq);
+@@ -784,17 +779,26 @@
+ 	return strerror(errno);
+     }
+ 
+-    while (!gotit && tries) {
+-	i = sizeof(*breq);
+-	if (useBootpPacket)
+-	    i -= (DHCP_VENDOR_LENGTH - BOOTP_VENDOR_LENGTH);
++    pkt = breq;
++    breqlen = sizeof(*breq);
++    if (useBootpPacket)
++	breqlen -= (DHCP_VENDOR_LENGTH - BOOTP_VENDOR_LENGTH);
++    pktlen = breqlen;
++    if (raw) {
++	pkt = &buf;
++	pktlen += sizeof(struct ip) + sizeof(struct udphdr);
++    }
+ 
++    while (!gotit && tries) {
+ 	if (resend) {
+ 	    if (startTime != -1)
+ 		updateSecCount(breq, startTime);
+ 
+-	    if (sendto(s, breq, i, 0, (struct sockaddr *) serverAddr, 
+-		       sizeof(*serverAddr)) != i) {
++	    if (raw)
++		makeraw(&buf, breq, breqlen);
++
++	    if (sendto(s, pkt, pktlen, 0, (struct sockaddr *) serverAddr, 
++		       serverAddrLen) != pktlen) {
+ 		close(sin);
+ 		return perrorstr("sendto");
+ 	    }
+@@ -1003,7 +1007,7 @@
+     }
+ 
+     if (setsockopt(s, SOL_SOCKET, SO_BINDTODEVICE, device, strlen(device)+1)) {
+-	syslog(LOG_ERR, "SO_BINDTODEVICE %s (%d) failed: %s", device, strlen(device), strerror(errno));
++	syslog(LOG_ERR, "SO_BINDTODEVICE %s (%zu) failed: %s", device, strlen(device), strerror(errno));
+     }
+ 
+     memset(&clientAddr.sin_addr, 0, sizeof(&clientAddr.sin_addr));
+@@ -1053,6 +1057,7 @@
+ 		      strlen(intf->hostname) + 1, intf->hostname);
+     } else {
+ 	gethostname(hostname, sizeof(hostname));
++	hostname[sizeof(hostname) - 1] = 0;
+ 	if (strcmp(hostname, "localhost") && 
+ 	    strcmp(hostname, "localhost.localdomain")) {
+ 	    addVendorCode(&breq, BOOTP_OPTION_HOSTNAME, 
+@@ -1064,8 +1069,8 @@
+     serverAddr.sin_port = htons(BOOTP_SERVER_PORT);	/* bootp server */
+     serverAddr.sin_addr = intf->bootServer;
+ 
+-    handleTransaction(s, NULL, &breq, &bresp, &serverAddr, NULL, 0, 
+-		      -1, NORESPONSE);
++    handleTransaction(s, NULL, &breq, &bresp, (struct sockaddr *) &serverAddr,
++		      sizeof(serverAddr), NULL, 0, 0, -1, NORESPONSE);
+ 
+     pumpDisableInterface(intf->device);
+     close(s);
+@@ -1097,7 +1102,7 @@
+ 
+     if ((chptr = prepareRequest(&breq, s, intf->device, pumpUptime()))) {
+ 	close(s);
+-	while (1);	/* problem */
++	return 1;
+     }
+ 
+     messageType = DHCP_TYPE_REQUEST;
+@@ -1113,6 +1118,7 @@
+ 		      intf->hostname);
+     } else {
+ 	gethostname(hostname, sizeof(hostname));
++	hostname[sizeof(hostname) - 1] = 0;
+ 	if (strcmp(hostname, "localhost") && 
+ 	    strcmp(hostname, "localhost.localdomain")) {
+ 	    addVendorCode(&breq, BOOTP_OPTION_HOSTNAME, 
+@@ -1127,8 +1133,9 @@
+     serverAddr.sin_port = htons(BOOTP_SERVER_PORT);	/* bootp server */
+     serverAddr.sin_addr = intf->bootServer;
+ 
+-    if (handleTransaction(s, NULL, &breq, &bresp, &serverAddr, NULL, 0,
+-			   startTime, DHCP_TYPE_ACK)) {
++    if (handleTransaction(s, NULL, &breq, &bresp,
++			  (struct sockaddr *) &serverAddr, sizeof(serverAddr),
++			  NULL, 0, 0, startTime, DHCP_TYPE_ACK)) {
+ 	close(s);
+ 	return 1;
+     }
+@@ -1212,6 +1219,7 @@
+     if (!reqHostname) {
+ 	reqHostname = alloca(200);
+ 	gethostname(reqHostname, 200);
++	reqHostname[199] = 0;
+ 	if (!strcmp(reqHostname, "localhost") ||
+ 	    !strcmp(reqHostname, "localhost.localdomain"))
+ 	    reqHostname = NULL;
+@@ -1231,12 +1239,10 @@
+ 		   struct pumpOverrideInfo * override) {
+     int s;
+     struct sockaddr_in serverAddr;
+-    struct sockaddr_in clientAddr;
+-    struct sockaddr_in broadcastAddr;
++    struct sockaddr_ll broadcastAddr;
+     struct bootpRequest breq, bresp;
+     unsigned char * chptr;
+     time_t startTime = pumpUptime();
+-    int true = 1;
+     char * saveDeviceName;
+     unsigned char messageType;
+ 
+@@ -1251,16 +1257,11 @@
+     intf->reqLease = reqLease;
+     intf->set |= PUMP_INTFINFO_HAS_REQLEASE;
+ 
+-    s = socket(AF_INET, SOCK_DGRAM, 0);
++    s = socket(AF_PACKET, SOCK_DGRAM, ntohs(ETH_P_IP));
+     if (s < 0) {
+ 	return perrorstr("socket");
+     }
+ 
+-    if (setsockopt(s, SOL_SOCKET, SO_BROADCAST, &true, sizeof(true))) {
+-	close(s);
+-	return perrorstr("setsockopt");
+-    }
+-
+     if (flags & PUMP_FLAG_NOCONFIG) {
+ 	if ((chptr = getInterfaceInfo(intf, s))) {
+ 	    close(s);
+@@ -1286,16 +1287,6 @@
+ 		      strlen(reqHostname) + 1, reqHostname);
+     }
+ 
+-    memset(&clientAddr.sin_addr, 0, sizeof(&clientAddr.sin_addr));
+-    clientAddr.sin_family = AF_INET;
+-    clientAddr.sin_port = htons(BOOTP_CLIENT_PORT);	/* bootp client */
+-
+-    if (bind(s, (struct sockaddr *) &clientAddr, sizeof(clientAddr))) {
+-	pumpDisableInterface(intf->device);
+-	close(s);
+-	return perrorstr("bind");
+-    }
+-
+     memset(&serverAddr,0,sizeof(serverAddr));
+     serverAddr.sin_family = AF_INET;
+     serverAddr.sin_port = htons(BOOTP_SERVER_PORT);	/* bootp server */
+@@ -1307,22 +1298,19 @@
+ #endif 
+ 
+     memset(&broadcastAddr,0,sizeof(broadcastAddr));
+-    broadcastAddr.sin_family = AF_INET;
+-    broadcastAddr.sin_port = htons(BOOTP_SERVER_PORT);
+-
+-#if 0
+-    /* this too! */
+-    if (intf->set & PUMP_INTFINFO_HAS_BROADCAST)
+-	broadcastAddr.sin_addr = intf->broadcast;
+-#endif
+-
+-    memset(&broadcastAddr.sin_addr, 0xff, 
+-	   sizeof(broadcastAddr.sin_addr));  /* all 1's broadcast */
++    memset(&broadcastAddr.sll_addr, ~0, ETH_ALEN);
++    broadcastAddr.sll_halen = ETH_ALEN;
++    broadcastAddr.sll_ifindex = intf->ifindex;
++    broadcastAddr.sll_protocol = htons(ETH_P_IP);
+ 
+     syslog (LOG_DEBUG, "PUMP: sending discover\n");
+ 
+-    if ((chptr = handleTransaction(s, override, &breq, &bresp, &broadcastAddr,
+-				   NULL, 1, startTime, DHCP_TYPE_OFFER))) {
++    if (override && (override->flags & OVERRIDE_FLAG_NOBOOTP))
++      syslog (LOG_DEBUG, "PUMP: Ignoring non-DHCP BOOTP responses\n");
++ 
++    if ((chptr = handleTransaction(s, override, &breq, &bresp,
++				   (struct sockaddr *) &broadcastAddr,
++				   sizeof(broadcastAddr), NULL, (override && (override->flags & OVERRIDE_FLAG_NOBOOTP))?0:1, 1, startTime, DHCP_TYPE_OFFER))) {
+ 	close(s);
+ 	pumpDisableInterface(intf->device);
+ 	return chptr;
+@@ -1343,7 +1331,9 @@
+ 
+ 	/* Send another DHCP_DISCOVER with the proper option list */
+ 	if ((chptr = handleTransaction(s, override, &breq, &bresp, 
+-				       &broadcastAddr, NULL, 0, 
++				       (struct sockaddr *) &broadcastAddr,
++				       sizeof(broadcastAddr),
++				       NULL, 0, 1,
+ 				       startTime, DHCP_TYPE_OFFER))) {
+ 	    close(s);
+ 	    pumpDisableInterface(intf->device);
+@@ -1361,7 +1351,7 @@
+ 
+ 	if (getVendorCode(&bresp, DHCP_OPTION_SERVER, &serverAddr.sin_addr, sizeof(struct in_addr))) {
+ 	    syslog (LOG_DEBUG, "DHCPOFFER didn't include server address");
+-	    intf->bootServer = broadcastAddr.sin_addr;
++	    intf->bootServer.s_addr = INADDR_BROADCAST;
+ 	}
+ 
+ 	initVendorCodes(&breq);
+@@ -1374,7 +1364,9 @@
+ 	/* why do we need to use the broadcast address here? better reread the
+ 	   spec! */
+ 	if ((chptr = handleTransaction(s, override, &breq, &bresp, 
+-				       &broadcastAddr, NULL, 0, 
++				       (struct sockaddr *) &broadcastAddr,
++				       sizeof(broadcastAddr),
++				       NULL, 0, 1,
+ 				       startTime, DHCP_TYPE_ACK))) {
+ 	    close(s);
+ 	    pumpDisableInterface(intf->device);
+@@ -1387,7 +1379,7 @@
+ 
+ 	if (getVendorCode(&bresp, DHCP_OPTION_SERVER, &intf->bootServer, sizeof(struct in_addr))) {
+ 	    syslog (LOG_DEBUG, "DHCPACK didn't include server address");
+-	    intf->bootServer = broadcastAddr.sin_addr;
++	    intf->bootServer.s_addr = INADDR_BROADCAST;
+ 	}
+ 
+ 	intf->set |= PUMP_INTFINFO_HAS_BOOTSERVER;
+@@ -1445,3 +1437,68 @@
+     return (time_t)secs;
+ }
+ 
++static void makeraw(struct ippkt *buf, const void *payload, size_t len) {
++	size_t total = sizeof(struct ip) + sizeof(struct udphdr) + len;
++
++	buf->ip.ip_v = 4;
++	buf->ip.ip_hl = 5;
++	buf->ip.ip_tos = IPTOS_LOWDELAY;
++	buf->ip.ip_len = htons(total);
++	buf->ip.ip_id = 0;
++	buf->ip.ip_off = 0;
++	buf->ip.ip_ttl = 16;
++	buf->ip.ip_p = IPPROTO_UDP;
++	buf->ip.ip_sum = 0;
++	buf->ip.ip_src.s_addr = INADDR_ANY;
++	buf->ip.ip_dst.s_addr = INADDR_BROADCAST;
++
++	buf->ip.ip_sum = wrapsum(checksum(&buf->ip, sizeof(buf->ip), 0));
++
++	buf->udp.source = htons(BOOTP_CLIENT_PORT);
++	buf->udp.dest = htons(BOOTP_SERVER_PORT);
++	buf->udp.len = htons(sizeof(struct udphdr) + len);
++	buf->udp.check = 0;
++
++	buf->udp.check =
++		wrapsum(
++			checksum(
++				&buf->udp, sizeof(buf->udp),
++				checksum(
++					payload, len, 
++					checksum(
++						&buf->ip.ip_src,
++						2 * sizeof(buf->ip.ip_src),
++						IPPROTO_UDP +
++							(uint32_t) 
++							ntohs(buf->udp.len)
++					)
++				)
++			)
++		);
++
++	memcpy(buf->payload, payload, len);
++}
++
++uint32_t checksum(const void *buf, size_t len, uint32_t sum) {
++	const char *p = buf;
++	size_t i;
++
++	for (i = 0; i < (len & ~1); i += 2) {
++		sum += ntohs(*(uint16_t *)(p + i));
++		if (sum > 0xffff)
++			sum -= 0xffff;
++	}
++
++	if (i < len) {
++		sum += p[i] << 8;
++		if (sum > 0xffff)
++			sum -= 0xffff;
++	}
++
++	return sum;
++}
++
++uint32_t wrapsum(uint32_t sum) {
++	sum = ~sum & 0xffff;
++	return htons(sum);
++}
+diff -urN pump-0.8.11.orig/net.c pump-0.8.11/net.c
+--- pump-0.8.11.orig/net.c	Thu Mar  1 08:15:22 2001
++++ pump-0.8.11/net.c	Fri Jul 19 16:14:20 2002
+@@ -738,6 +738,7 @@
+ int main(int argc, const char **argv) {
+     int netSet, rc;
+     int x;
++    int noDns = 0;
+     char * bootProto = NULL;
+     char * device = NULL;
+     char * hostname = NULL;
+@@ -768,6 +769,9 @@
+ 	    },
+ 	    { "device", 'd', POPT_ARG_STRING, &device, 0,
+ 	      _("Network device"), NULL 
++	    },
++	    { "nodns", '\0', POPT_ARG_NONE, &noDns, 0,
++	      _("No DNS lookups"), NULL 
+ 	    },
+ 	    { 0, 0, 0, 0, 0 }
+     };
+diff -urN pump-0.8.11.orig/pump.8 pump-0.8.11/pump.8
+--- pump-0.8.11.orig/pump.8	Thu Feb  1 23:58:16 2001
++++ pump-0.8.11/pump.8	Fri Jul 19 16:14:20 2002
+@@ -51,7 +51,7 @@
+ -s	--status	Display interface status
+ -d	--no-dns	Don't update resolv.conf
+   	--no-gateway	Don't configurate a default route for this interface
+-	--win-client-id	Specify a Windows-like client identifier
++	--win-client-ident	Specify a Windows-like client identifier
+ -?	--help	Show this help message
+ 	--usage	Display brief usage message
+ .TE
+@@ -92,7 +92,7 @@
+ 
+ .pp
+ This configuration file tells pump to use a specific DNS search path rather
+-deriving one from the DHCP or BOOTP server response, to retry each request
++than deriving one from the DHCP or BOOTP server response, to retry each request
+ 3 times (for a total of 4 tries), and not to change any DNS configuration
+ when it's configuring the eth1 device.
+ 
+diff -urN pump-0.8.11.orig/pump.c pump-0.8.11/pump.c
+--- pump-0.8.11.orig/pump.c	Thu Mar  1 08:15:22 2001
++++ pump-0.8.11/pump.c	Fri Jul 19 16:14:20 2002
+@@ -52,6 +52,8 @@
+ #include "config.h"
+ #include "pump.h"
+ 
++int verbose = 0;
++
+ #define N_(foo) (foo)
+ 
+ #define PROGNAME "pump"
+@@ -67,7 +69,7 @@
+ 	struct {
+ 	    char device[20];
+ 	    int flags;
+-	    int reqLease;			/* in hours */
++	    int reqLease;			/* in seconds */
+ 	    char reqHostname[200];
+ 	} start;
+ 	int result;				/* 0 for success */
+@@ -283,6 +285,10 @@
+ }
+ 
+ static void callIfupPost(struct pumpNetIntf* intf) {
++#ifdef debian
++    /* can/should we call a debian one? */
++    return;
++#else
+     pid_t child;
+     char * argv[3];
+     char arg[64];
+@@ -304,6 +310,7 @@
+     }
+ 
+     waitpid(child, NULL, 0);
++#endif
+ }
+ 
+ static void callScript(char* script,int msg,struct pumpNetIntf* intf) {
+@@ -319,6 +326,10 @@
+     nextArg = argv + 3;
+ 
+     switch (msg) {
++	default:
++#ifdef DEBUG
++		abort();
++#endif
+ 	case PUMP_SCRIPT_NEWLEASE:
+ 	    class = "up";
+ 	    chptr = inet_ntoa(intf->ip);
+@@ -386,7 +397,36 @@
+ 	closest = -1;
+ 	if (numInterfaces) {
+ 	    for (i = 0; i < numInterfaces; i++)
+-		if ((intf[i].set & PUMP_INTFINFO_HAS_LEASE) && 
++		/* if this interface has an expired lease due to
++		 * renewal failures and it's time to try again to
++		 * get a new lease, then try again
++		 *
++		 * note: this trys every 30 secs FOREVER; this may
++		 * or may not be desirable.  could also have a back-off
++		 * hueristic that increases the retry delay after each
++		 * failed attempt and a maximum number of tries or
++		 * maximum period of time to try for.
++		 */
++		if ((intf[i].set & PUMP_INTFINFO_NEEDS_NEWLEASE) &&
++		   (intf[i].renewAt < pumpUptime())) {
++		    if (pumpDhcpRun(intf[i].device, 0, 
++			  intf[i].reqLease,
++			  intf[i].set & PUMP_NETINFO_HAS_HOSTNAME
++			    ? intf[i].hostname : NULL,
++			  intf + i, overrides)) {
++
++			    /* failed to get a new lease, so try
++			     * again in 30 seconds
++                             */
++			    intf[i].renewAt = pumpUptime() + 30;
++
++		    } else {
++			intf[i].set &= ~PUMP_INTFINFO_NEEDS_NEWLEASE;
++			callScript(overrides->script, PUMP_SCRIPT_NEWLEASE,
++				   &intf[i]);
++                    }
++		}
++		else if ((intf[i].set & PUMP_INTFINFO_HAS_LEASE) && 
+ 			(closest == -1 || 
+ 			       (intf[closest].renewAt > intf[i].renewAt)))
+ 		    closest = i;
+@@ -398,7 +438,12 @@
+ 				"failed to renew lease for device %s",
+ 				intf[closest].device);
+ 
+-			if ((intf[closest].renewAt += pumpUptime() + 30) >
++			/* if the renewal failed, then set renewAt to
++			 * try again in 30 seconds AND then if renewAt's
++			 * value is after the lease expiration then
++			 * try to get a fresh lease for the interface
++			 */
++			if ((intf[closest].renewAt = pumpUptime() + 30) >
+ 			    intf[closest].leaseExpiration) {
+ 			    o = overrides;
+ 			    while (*o->intf.device &&
+@@ -408,6 +453,8 @@
+ 			    if (!*o->intf.device) o = overrides;
+ 
+ 			    intf[closest].set &= ~PUMP_INTFINFO_HAS_LEASE;
++			    intf[closest].set |= PUMP_INTFINFO_NEEDS_NEWLEASE;
++
+ 
+ 			    if (pumpDhcpRun(intf[closest].device, 
+ 				  intf[closest].flags, 
+@@ -415,6 +462,16 @@
+ 				  intf[closest].set & PUMP_NETINFO_HAS_HOSTNAME
+ 				    ? intf[closest].hostname : NULL,
+ 				  intf + closest, o)) {
++ 
++ 				    /* failed to get a new lease, so try
++				     * again in 30 seconds
++                                      */
++				    intf[closest].renewAt = pumpUptime() + 30;
++#if 0
++ 	/* ifdef this out since we now try more than once to get
++ 	 * a new lease and don't, therefore, want to remove the interface
++ 	 */
++ 
+ 				if (numInterfaces == 1) {
+ 				    callScript(o->script, PUMP_SCRIPT_DOWN,
+ 					       &intf[closest]);
+@@ -426,7 +483,10 @@
+ 
+ 				intf[i] = intf[numInterfaces - 1];
+ 				numInterfaces--;
++#endif
+ 			    } else {
++				intf[closest].set &=
++					~PUMP_INTFINFO_NEEDS_NEWLEASE;
+ 				callScript(o->script, PUMP_SCRIPT_NEWLEASE,
+ 					   &intf[closest]);
+                             }
+@@ -444,7 +504,7 @@
+ 
+ 	if (select(sock + 1, &fds, NULL, NULL, 
+ 		   closest != -1 ? &tv : NULL) > 0) {
+-	    conn = accept(sock, &addr, &addrLength);
++	    conn = accept(sock, (struct sockaddr *) &addr, &addrLength);
+ 
+ 	    if (read(conn, &cmd, sizeof(cmd)) != sizeof(cmd)) {
+ 		close(conn);
+@@ -619,6 +679,7 @@
+ 	    exit(1);
+ 	}
+ 
++	chdir("/");
+ 	unlink(CONTROLSOCKET);
+ 	umask(077);
+ 	if (bind(sock, (struct sockaddr *) &addr, addrLength)) {
+@@ -754,11 +815,12 @@
+     int rc;
+     int test = 0;
+     int flags = 0;
+-    int lease = 12;
++    int lease_hrs = 0;
++    int lease = 12*3600;
+     int killDaemon = 0;
+     int winId = 0;
+     int release = 0, renew = 0, status = 0, lookupHostname = 0, nodns = 0;
+-    int nogateway = 0;
++    int nogateway = 0, nobootp = 0;
+     struct command cmd, response;
+     char * configFile = "/etc/pump.conf";
+     struct pumpOverrideInfo * overrides;
+@@ -774,20 +836,26 @@
+ 			N_("iface") },
+ 	    { "kill", 'k', POPT_ARG_NONE, &killDaemon, 0,
+ 			N_("Kill daemon (and disable all interfaces)"), NULL },
+-	    { "lease", 'l', POPT_ARG_INT, &lease, 0,
++	    { "lease", 'l', POPT_ARG_INT, &lease_hrs, 0,
+ 			N_("Lease time to request (in hours)"), N_("hours") },
++	    { "leasesecs", 'L', POPT_ARG_INT, &lease, 0,
++			N_("Lease time to request (in seconds)"), N_("seconds") },
+ 	    { "lookup-hostname", '\0', POPT_ARG_NONE, &lookupHostname, 0,
+ 			N_("Force lookup of hostname") },
+ 	    { "release", 'r', POPT_ARG_NONE, &release, 0,
+ 			N_("Release interface"), NULL },
+ 	    { "renew", 'R', POPT_ARG_NONE, &renew, 0,
+ 			N_("Force immediate lease renewal"), NULL },
++            { "verbose", 'v', POPT_ARG_NONE, &verbose, 0,
++                        N_("Log verbose debug info"), NULL },
+ 	    { "status", 's', POPT_ARG_NONE, &status, 0,
+ 			N_("Display interface status"), NULL },
+ 	    { "no-dns", 'd', POPT_ARG_NONE, &nodns, 0,
+ 			N_("Don't update resolv.conf"), NULL },
+ 	    { "no-gateway", '\0', POPT_ARG_NONE, &nogateway, 0,
+ 			N_("Don't set a gateway for this interface"), NULL },
++	    { "no-bootp", '\0', POPT_ARG_NONE, &nobootp, 0,
++	                N_("Ignore non-DHCP BOOTP responses"), NULL },
+ 	    { "win-client-ident", '\0', POPT_ARG_NONE, &winId, 0,
+ 			N_("Set the client identifier to match Window's") },
+ 	    /*{ "test", 't', POPT_ARG_NONE, &test, 0,
+@@ -831,6 +899,8 @@
+ 	flags |= PUMP_FLAG_FORCEHNLOOKUP;
+     if (nodns)
+ 	overrides->flags |= OVERRIDE_FLAG_NODNS;
++    if (nobootp)
++	overrides->flags |= OVERRIDE_FLAG_NOBOOTP;
+     if (nogateway)
+ 	overrides->flags |= OVERRIDE_FLAG_NOGATEWAY;
+ 
+@@ -853,7 +923,10 @@
+ 	cmd.type = CMD_STARTIFACE;
+ 	strcpy(cmd.u.start.device, device);
+ 	cmd.u.start.flags = flags;
+-	cmd.u.start.reqLease = lease * 60 * 60;
++	if(lease_hrs)
++		cmd.u.start.reqLease = lease_hrs * 60 * 60;
++	else
++		cmd.u.start.reqLease = lease;
+ 	strcpy(cmd.u.start.reqHostname, hostname);
+     }
+ 
+diff -urN pump-0.8.11.orig/pump.h pump-0.8.11/pump.h
+--- pump-0.8.11.orig/pump.h	Thu Feb  1 23:58:16 2001
++++ pump-0.8.11/pump.h	Fri Jul 19 16:14:20 2002
+@@ -23,6 +23,7 @@
+ #define PUMP_INTFINFO_HAS_LEASE		(1 << 7)
+ #define PUMP_INTFINFO_HAS_REQLEASE	(1 << 8)
+ #define PUMP_INTFINFO_HAS_NEXTSERVER	(1 << 9)
++#define PUMP_INTFINFO_NEEDS_NEWLEASE	(1 << 10)
+ 
+ #define PUMP_NETINFO_HAS_LOGSRVS	(1 << 15)
+ #define PUMP_NETINFO_HAS_LPRSRVS	(1 << 16)
+@@ -47,6 +48,7 @@
+ /* all of these in_addr things are in network byte order! */
+ struct pumpNetIntf {
+     char device[10];
++    int ifindex;
+     int set;
+     struct in_addr ip, netmask, broadcast, network;
+     struct in_addr bootServer, nextServer;
+@@ -74,6 +76,7 @@
+ #define OVERRIDE_FLAG_NODNS		(1 << 0)
+ #define OVERRIDE_FLAG_NONISDOMAIN	(1 << 1)
+ #define OVERRIDE_FLAG_NOGATEWAY		(1 << 2)
++#define OVERRIDE_FLAG_NOBOOTP           (1 << 3)
+ 
+ struct pumpOverrideInfo {
+     struct pumpNetIntf intf;
+@@ -100,6 +103,8 @@
+ #define RESULT_OKAY		0
+ #define RESULT_FAILED		1
+ #define RESULT_UNKNOWNIFACE	2
++
++extern int verbose;
+ 
+ 
+ #endif
+diff -urN pump-0.8.11.orig/pump.spec pump-0.8.11/pump.spec
+--- pump-0.8.11.orig/pump.spec	Thu Mar  1 08:24:30 2001
++++ pump-0.8.11/pump.spec	Fri Jul 19 16:14:20 2002
+@@ -1,36 +1,55 @@
+ Summary: A Bootp and DHCP client for automatic IP configuration.
+ Name: pump
+ Version: 0.8.11
+-Release: 1
++Release: 7
+ Group: System Environment/Daemons
+-Copyright: MIT
++License: MIT
+ BuildRoot: %{_tmppath}/%{name}-root
+ Source: pump-%{version}.tar.gz
+-Obsoletes: bootpc netconfig
++Obsoletes: bootpc
++BuildRequires: newt-devel
+ Requires: initscripts >= 3.92
++Patch: pump-0.8.11-nobootp.patch
++Patch1: pump-0.8.11-retry-forever.patch
++Patch2: pump-0.8.11-21088.patch
++Patch3: pump-0.8.11-17724.patch
+ 
+ %description
+ DHCP (Dynamic Host Configuration Protocol) and BOOTP (Boot Protocol)
+ are protocols which allow individual devices on an IP network to get
+ their own network configuration information (IP address, subnetmask,
+-broadcast address, etc.) from network servers.  The overall purpose of
++broadcast address, etc.) from network servers. The overall purpose of
+ DHCP and BOOTP is to make it easier to administer a large network.
+ 
+ Pump is a combined BOOTP and DHCP client daemon, which allows your
+-machine to retrieve configuration information from a server.  You
++machine to retrieve configuration information from a server. You
+ should install this package if you are on a network which uses BOOTP
+ or DHCP.
+ 
+ %package devel
+-Summary: Development tools for sending dhcp requests
++Summary: Development tools for sending DHCP and BOOTP requests.
+ Group: Development/Libraries
+ 
+ %description devel
+ The pump-devel package provides system developers the ability to send
+-bootp and dhcp requests from their programs.
++BOOTP and DHCP requests from their programs. BOOTP and DHCP are
++protocols used to provide network configuration information to
++networked machines.
++
++%package -n netconfig
++Group: Applications/System
++Summary: A text-based tool for simple configuration of ethernet devices.
++
++%description -n netconfig
++A text-based tool for simple configuration of ethernet devices.
++
+ 
+ %prep
+ %setup -q
++%patch -p1
++%patch1 -p1
++%patch2 -p1
++%patch3 -p1
+ 
+ %build
+ make
+@@ -45,7 +64,6 @@
+ 
+ %files
+ %defattr(-,root,root)
+-%{_sbindir}/*
+ /sbin/pump
+ %{_mandir}/*/*
+ 
+@@ -54,7 +72,29 @@
+ %{_libdir}/libpump.a
+ %{_includedir}/pump.h
+ 
++%files -n netconfig
++%defattr(-,root,root)
++%{_sbindir}/netconfig
++
+ %changelog
++* Sun Aug 26 2001 Elliot Lee <sopwith@redhat.com>
++- Fix one half #17724
++
++* Wed Jul 25 2001 Trond Eivind Glomsrød <teg@redhat.com>
++- Don't obsolete netconfig, it's now separate again
++
++* Tue Jul 24 2001 Elliot Lee <sopwith@redhat.com>
++- Fix installer segfaults with nobootp patch.
++
++* Mon Jul 23 2001 Trond Eivind Glomsrød <teg@redhat.com>
++- split out netconfig to a package of its own
++
++* Thu Jul 19 2001 Elliot Lee <sopwith@redhat.com>
++- Patch from bugs #19501, #19502, #21088, etc.
++
++* Sun Jun 24 2001 Elliot Lee <sopwith@redhat.com>
++- Bump release + rebuild.
++
+ * Thu Mar  1 2001 Bill Nottingham <notting@redhat.com>
+ - make netconfig much more sane (#30008, in essence)
+ 

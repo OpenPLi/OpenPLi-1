@@ -1,0 +1,13 @@
+diff -Naur kaffe-1.0.6.orig/libraries/clib/native/System.c kaffe-1.0.6/libraries/clib/native/System.c
+--- kaffe-1.0.6.orig/libraries/clib/native/System.c	Thu Jun 22 16:17:11 2000
++++ kaffe-1.0.6/libraries/clib/native/System.c	Sat Jan  5 13:25:47 2002
+@@ -20,9 +20,7 @@
+ #if defined(HAVE_PWD_H)
+ #include <pwd.h>
+ #endif
+-#if defined(HAVE_TIME_H)
+ #include <time.h>
+-#endif
+ #include <ctype.h>
+ #include "../../../kaffe/kaffevm/classMethod.h"
+ #include "../../../kaffe/kaffevm/gtypes.h"

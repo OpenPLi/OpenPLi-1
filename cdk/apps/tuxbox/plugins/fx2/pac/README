@@ -1,0 +1,18 @@
+
+# how to compile :
+
+$ make
+
+-----------
+
+Wenn das Imakefile veraendert wird muss per
+$ make Makefile
+oder
+$ xmkmf
+ein neues Makefile erstellt werden
+
+Das Game laueft auch auf 800x600x8bit FB auf i386 PCs
+dazu nur die Zeile CC=power... mit nem Komentar versehen
+neues Makefile, uU 'make clean' Es ist dann Tastatursteuerung
+<- -> ^ v  (^C Abbruch, Return wie OK )
+

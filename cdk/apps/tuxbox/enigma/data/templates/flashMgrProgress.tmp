@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script language="javascript" type="text/javascript" src="dhtml.js"></script>
+		<script>
+		var stopTimer = 0;
+		var updateTimer = setTimeout("update()", 5000);
+		function update()
+		{
+			videoData.location.reload();
+			updateTimer = setTimeout("update()", 5000);
+		}
+		function updateVideoBar(progress1, progress2, completion)
+		{
+			completion = completion / 5;
+			for (var i = 1; i <= 20; i += 1)
+			{
+				if (i <= completion)
+					getElem("id", "vid" + i, null).src = "led_on.gif";
+				else
+					getElem("id", "vid" + i, null).src = "led_off.gif";
+			}
+			getElem("id", "progress1", null).firstChild.nodeValue = progress1;
+			getElem("id", "progress2", null).firstChild.nodeValue = progress2;
+			if (stopTimer == 1)
+				clearTimeout(updateTimer);
+			if (completion >= 20)
+				stopTimer = 1;
+		}
+		function kill()
+		{
+			document.location = "/cgi-bin/killFlashOps";
+		}
+		</script>
+	</head>
+	<body onUnLoad="kill()" style="padding: 10px; background-color: #F4F4F4" leftmargin=0 topmargin=0 marginwidth=0 marginheight=0 id="contentcell">
+		<table style="table-layout: fixed" id="videocontrol" width="630px" height="50px" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td id="progress1" valign="center">&nbsp;</td>
+		</tr>
+		<tr>
+			<td id="progress2" valign="center">&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="width:380px">
+				<table border="0" width="380px" height="50px" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="40px">&nbsp;</td>
+					<td valign="middle">
+						<table border="1" cellspacing="0" cellpadding="0">
+						<tr>
+							<td><img id="vid1" border="0" src="led_off.gif"></td>
+							<td><img id="vid2" border="0" src="led_off.gif"></td>
+							<td><img id="vid3" border="0" src="led_off.gif"></td>
+							<td><img id="vid4" border="0" src="led_off.gif"></td>
+							<td><img id="vid5" border="0" src="led_off.gif"></td>
+							<td><img id="vid6" border="0" src="led_off.gif"></td>
+							<td><img id="vid7" border="0" src="led_off.gif"></td>
+							<td><img id="vid8" border="0" src="led_off.gif"></td>
+							<td><img id="vid9" border="0" src="led_off.gif"></td>
+							<td><img id="vid10" border="0" src="led_off.gif"></td>
+							<td><img id="vid11" border="0" src="led_off.gif"></td>
+							<td><img id="vid12" border="0" src="led_off.gif"></td>
+							<td><img id="vid13" border="0" src="led_off.gif"></td>
+							<td><img id="vid14" border="0" src="led_off.gif"></td>
+							<td><img id="vid15" border="0" src="led_off.gif"></td>
+							<td><img id="vid16" border="0" src="led_off.gif"></td>
+							<td><img id="vid17" border="0" src="led_off.gif"></td>
+							<td><img id="vid18" border="0" src="led_off.gif"></td>
+							<td><img id="vid19" border="0" src="led_off.gif"></td>
+							<td><img id="vid20" border="0" src="led_off.gif"></td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		<tr>
+		</table>
+		<iframe name="videoData" src="/cgi-bin/flashProgressData" width="100%" height="0" frameborder="0" framemargin="0" framewidth="0"></iframe>
+	</body>
+</html>

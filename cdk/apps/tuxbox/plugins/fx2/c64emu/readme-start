@@ -1,0 +1,23 @@
+
+
+
+starten mit:
+
+c64emu <d64image> [kbdfile]
+
+wird das kbdfile nicht genannt, benutzt er d64file-name mit endung .kbd
+
+:)
+
+beispiel:
+c64emu Yathzee.d64 Yathzee.kbd			( das d64 hat nur yathzee )
+c64emu Disk001a.d64 GianaSisters.kbd	( hier ist giana nur eins von viele )
+
++------------------------------------------+
+| dank an die Macher der Emu : Frodo    :) |
+|                                          |
+| diese war grundlage fuer die c64emu      |
++------------------------------------------+
+
+note!
+ich hab festgestellt, das die hyperloader meistens nicht gehen

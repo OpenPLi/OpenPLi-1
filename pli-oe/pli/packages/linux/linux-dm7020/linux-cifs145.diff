@@ -1,0 +1,40 @@
+--- linux-2.6.9/fs/cifs/cifsfs.c.org	2007-03-16 19:05:27.000000000 +0100
++++ linux-2.6.9/fs/cifs/cifsfs.c	2007-03-16 19:07:35.000000000 +0100
+@@ -87,6 +87,17 @@
+ 
+ extern kmem_cache_t *cifs_oplock_cachep;
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 16)
++void * kzalloc(size_t size, unsigned flgs)
++{
++	void * buf;
++	buf = kmalloc(size, flgs);
++	if(buf != NULL)
++		memset(buf, 0, size);
++	return buf;
++}
++#endif
++
+ static int
+ cifs_read_super(struct super_block *sb, void *data,
+ 		const char *devname, int silent)
+@@ -170,19 +181,6 @@
+ 	return;
+ }
+ 
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 16)
+-#if LINUX_VERSION_CODE != KERNEL_VERSION(2, 6, 9)
+-void * kzalloc(size_t size, unsigned flgs)
+-{
+-	void * buf;
+-	buf = kmalloc(size, flgs);
+-	if(buf != NULL)
+-		memset(buf, 0, size);
+-	return buf;
+-}
+-#endif
+-#endif
+-
+ 
+ static int
+ cifs_statfs(struct super_block *sb, struct kstatfs *buf)

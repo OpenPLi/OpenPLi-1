@@ -1,0 +1,22 @@
+all:: pacman.so
+
+#PREF=powerpc-linux-
+CC=$(PREF)gcc
+STRIP=$(PREF)strip
+CDEBUGFLAGS=-g -O2 -Wall -pedantic -DUSEX
+INCLUDES=-I. -I../lib -I../../include
+OBJS=maze.o
+
+SingleProgramTarget(pac,main.o $(OBJS),,-L../lib -lfx2 -lX11)
+
+maze.o: pics.h level.h
+
+pacman.so: somain.o $(OBJS)
+	$(CC) -o pacman.so -shared -Wl,-soname,pacman.so somain.o $(OBJS)
+	$(STRIP) pacman.so
+
+InstallMultipleFlags(pacman.so,../../mczap/neutrinoNG/games,-m 755)
+InstallMultipleFlags(pacman.cfg,../../mczap/neutrinoNG/games,-m 644)
+
+clean::
+	rm -f pacman.so

@@ -1,0 +1,21 @@
+all:: lemmings.so
+
+#PREF=powerpc-linux-
+CC=$(PREF)gcc
+STRIP=$(PREF)strip
+CDEBUGFLAGS=-g -O2 -Wall -pedantic -DUSEX
+INCLUDES=-I. -I../lib -I../../include -I../..
+OBJS=sprite.o pic.o lemm.o sound.o
+
+SingleProgramTarget(lemmings,main.o $(OBJS),,-L../lib -lfx2 -lX11)
+
+board.o: pics.h
+
+lemmings.so: somain.o $(OBJS)
+	$(CC) -o lemmings.so -shared -Wl,-soname,lemmings.so somain.o $(OBJS)
+	$(STRIP) lemmings.so
+
+InstallMultipleFlags(lemmings.so,../../mczap/neutrinoNG/games,-m 755)
+
+clean::
+	rm -f lemmings.so

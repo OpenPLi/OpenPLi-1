@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: tuxbox-lcddisplay
+Description: lcddisplay
+Version: @VERSION@
+Libs: -L${libdir} -llcddisplay @PNG_LIBS@
+Cflags: -I${includedir}/tuxbox

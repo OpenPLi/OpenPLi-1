@@ -1,0 +1,696 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plisetup\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-11 21:02+0200\n"
+"PO-Revision-Date: 2007-05-12 15:23+0100\n"
+"Last-Translator: Patrik Nilsson <hutten@home.se>\n"
+"Language-Team: en <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../camx.cpp:50
+msgid "Camx settings plugin v"
+msgstr "Camx inställningar plugin v"
+
+#: ../camx.cpp:65 ../wifi.cpp:192
+msgid "Save changes"
+msgstr "Spara ändringar"
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr "Avsluta"
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr "Avsluta plugin (glöm inte att spara)"
+
+#: ../camx.cpp:94 ../setup_main.cpp:89 ../setup_main.cpp:144 ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr "Om"
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr "Om detta plugin"
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr "Kunde inte hitta kortinfo"
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr "SoftCam Installation"
+
+#: ../emuconfig.cpp:103
+msgid "Select softcam for this channel"
+msgstr "Välj softcam för denna kanal"
+
+#: ../emuconfig.cpp:114
+msgid "Select softcam for this provider"
+msgstr "Välj softcam för denna operatör"
+
+#: ../emuconfig.cpp:119
+msgid "Default SoftCam"
+msgstr "Standard SoftCam"
+
+#: ../emuconfig.cpp:126
+msgid "Select default softcam"
+msgstr "Välj standard softcam"
+
+#: ../emuconfig.cpp:131
+msgid "Cardserver"
+msgstr "Kortserver"
+
+#: ../emuconfig.cpp:138
+msgid "Select cardserver"
+msgstr "Välj kortserver"
+
+#: ../emuconfig.cpp:143
+msgid "Auto reconnect cahandler"
+msgstr "Autoanslut ca-hant."
+
+#: ../emuconfig.cpp:146
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "Försök återansluta när anslutningen till ca-hanteraren bryts"
+
+#: ../emuconfig.cpp:151
+msgid "Can handle two services"
+msgstr "Kan hantera två kanaler"
+
+#: ../emuconfig.cpp:154
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "Cam eller common interface kan hantera två kanaler samtidigt"
+
+#: ../emuconfig.cpp:162 ../emuconfig.cpp:530
+msgid "-- None --"
+msgstr "-- Inga --"
+
+#: ../emuconfig.cpp:205 ../setup_firewall.cpp:83 ../setup_gbox.cpp:247
+#: ../setup_rdg.cpp:79 ../setup_tpl.cpp:75 ../wifi.cpp:191
+msgid "Save"
+msgstr "Spara"
+
+#: ../emuconfig.cpp:206
+msgid "Save settings"
+msgstr "Spara inställningar"
+
+#: ../emuconfig.cpp:213
+msgid "List stickies"
+msgstr "Lista stickies"
+
+#: ../emuconfig.cpp:214
+msgid "List current stickies"
+msgstr "Lista nuvarande stickies"
+
+#: ../emuconfig.cpp:223
+msgid "Cardinfo"
+msgstr "Kortinfo"
+
+#: ../emuconfig.cpp:224
+msgid "Get cardinfo from current active cardserver"
+msgstr "Hämta kortinfo från nuvarande aktiva kortserver"
+
+#: ../emuconfig.cpp:233
+msgid "Save and restart cam"
+msgstr "Spara och starta om cam"
+
+#: ../emuconfig.cpp:234
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "Spara ändringar, starta om softcam och återgå till enigma"
+
+#: ../emuconfig.cpp:243
+msgid "Restart cardserver"
+msgstr "Starta om kortserver"
+
+#: ../emuconfig.cpp:244
+msgid "Press OK to restart the cardserver"
+msgstr "Tryck OK för att starta om kortservern"
+
+#: ../emuconfig.cpp:379
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+"Sparar inställningar\n"
+"och startar softcam"
+
+#: ../emuconfig.cpp:379
+msgid "Softcam config info"
+msgstr "Softcam config info"
+
+#: ../emuconfig.cpp:480
+msgid "Restarting cardserver"
+msgstr "Startar om kortservern"
+
+#: ../emuconfig.cpp:480
+msgid "Cardserver info"
+msgstr "Kortserver info"
+
+#: ../emuconfig.cpp:518 ../emuconfig.cpp:634
+msgid "Channel"
+msgstr "Kanal"
+
+#: ../emuconfig.cpp:519 ../emuconfig.cpp:639
+msgid "Provider"
+msgstr "Operatör"
+
+#: ../emuconfig.cpp:531 ../emuconfig.cpp:532
+msgid "-- Default --"
+msgstr "-- Standard --"
+
+#: ../emuconfig.cpp:588
+msgid "getting cardinfo"
+msgstr "hämtar kortinfo"
+
+#: ../emuconfig.cpp:604
+msgid "Current Stickies"
+msgstr "Nuvarande Stickies"
+
+#: ../emuconfig.cpp:606
+msgid "Sticky Settings 1"
+msgstr "Sticky Inställningar 1"
+
+#: ../gpanel.cpp:191 ../gpanel.cpp:217 ../gpanel.cpp:228 ../ppanel.cpp:1143
+msgid "Error!"
+msgstr "Fel!"
+
+#: ../ppanel.cpp:128
+msgid "Script output"
+msgstr "Skript utdata"
+
+#: ../ppanel.cpp:201
+msgid "Downloading"
+msgstr "Laddar ner"
+
+#: ../ppanel.cpp:217
+msgid "Please wait"
+msgstr "Vänligen vänta"
+
+#: ../ppanel.cpp:247
+msgid ""
+"Download failed.\n"
+"Please check available space and your communication settings."
+msgstr ""
+"Nerladdningen mislyckades.\n"
+"Vänligen kolla ledigt minne och dina kommunikations inställningar."
+
+#: ../ppanel.cpp:271
+#, c-format
+msgid "Installing %s"
+msgstr "Installerar %s"
+
+#: ../ppanel.cpp:313
+msgid "Install failed."
+msgstr "Intallationen misslyckades."
+
+#: ../ppanel.cpp:343
+msgid "Continue"
+msgstr "Fortsätt"
+
+#: ../ppanel.cpp:462
+msgid "Press OK"
+msgstr "Tryck OK"
+
+#: ../ppanel.cpp:489
+#, c-format
+msgid ""
+"Are you sure to open\n"
+"%s?"
+msgstr ""
+"Är du säker på att öppna\n"
+"%s?"
+
+#: ../ppanel.cpp:549
+#, c-format
+msgid ""
+"Are you sure to download\n"
+"%s?"
+msgstr ""
+"Är du säker på att ladda ner\n"
+"%s?"
+
+#: ../ppanel.cpp:563 ../ppanel.cpp:791 ../ppanel.cpp:1016
+#, c-format
+msgid "Downloading %s"
+msgstr "Laddar ner %s"
+
+#: ../ppanel.cpp:619 ../ppanel.cpp:668
+#, c-format
+msgid ""
+"Are you sure to execute\n"
+"%s?"
+msgstr ""
+"Är du säker på att exekvera\n"
+"%s?"
+
+#: ../ppanel.cpp:734
+#, c-format
+msgid ""
+"Are you sure to install\n"
+"%s?"
+msgstr ""
+"Är du säker på att installera\n"
+"%s?"
+
+#: ../ppanel.cpp:814
+msgid ""
+"The package cannot be installed because it's already installed. Please "
+"remove the previous version first."
+msgstr ""
+"Paketet kan inte installeras för att det redan är installerat. Var vänlig "
+"att ta bort den förra versionen först."
+
+#: ../ppanel.cpp:815
+msgid "Installing not possible"
+msgstr "Installation inte möjlig"
+
+#: ../ppanel.cpp:830 ../ppanel.cpp:839
+msgid "Manual Install"
+msgstr "Manuell Installation"
+
+#: ../ppanel.cpp:837
+msgid "Select package to install"
+msgstr "Välj paket att installera"
+
+#: ../ppanel.cpp:925 ../ppanel.cpp:931
+msgid "Remove Software"
+msgstr "Ta bort Mjukvara"
+
+#: ../ppanel.cpp:929
+msgid "Select package to remove"
+msgstr "Välj paket att ta bort"
+
+#: ../ppanel.cpp:951
+#, c-format
+msgid ""
+"Are you sure to remove\n"
+"%s?"
+msgstr ""
+"Är du säker på att ta bort\n"
+"%s?"
+
+#: ../ppanel.cpp:959
+#, c-format
+msgid "Removing %s"
+msgstr "Tar bort %s"
+
+#: ../ppanel.cpp:995
+#, c-format
+msgid ""
+"Are you sure to play\n"
+"%s?"
+msgstr ""
+"Är du säker på att spela\n"
+"%s?"
+
+#: ../ppanel.cpp:1087
+#, c-format
+msgid ""
+"Are you sure to write\n"
+"%s?"
+msgstr ""
+"Är du säker på att skriva\n"
+"%s?"
+
+#: ../ppanel.cpp:1218 ../setup_main.cpp:106 ../setup_main.cpp:172
+#: ../setup_main.cpp:233 ../setup_main.cpp:253
+msgid "setup"
+msgstr "installation"
+
+#: ../ppanel.cpp:1332
+msgid "Please select an item"
+msgstr "Vänligen välj en post"
+
+#: ../ppanel.cpp:1355
+msgid "latest"
+msgstr "senaste"
+
+#: ../ppanel.cpp:1401
+msgid ""
+"A new menu is available. The new menu will be visible if you return to the "
+"setup panel.You can continue your work here after pressing OK."
+msgstr ""
+"En ny meny finns tillgänglig. Den nya menyn blir synlig när du återgår till "
+"installations panelen. Du kan fortsätta ditt arbete här efter ha tryckt OK."
+
+#: ../ppanel.cpp:1403
+msgid "Automatic menu update"
+msgstr "Automatisk uppdatering av meny"
+
+#: ../ppanel.cpp:1562 ../ppanel.cpp:1660
+#, c-format
+msgid ""
+"%s\n"
+"%d bytes downloaded\n"
+"Press exit to cancel download"
+msgstr ""
+"%s\n"
+"%d bytes nedladdat\n"
+"Tryck exit för att avbryta nedladdning"
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr "Konfigurera brandvägg"
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr "Skriv in IP adress för att tillåta åtkomst"
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr "Skriv in värdnamn för att tillåta åtkomst"
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr "spara ändringar och starta om brandvägg"
+
+#: ../setup_gbox.cpp:159 ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr "GBOX-Installation"
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr "Arbets Läge"
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr "Välj arbets läge"
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr "Up. Läge:"
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr "Välj Nyckel Uppdaterings läge"
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr "Visa ECM:"
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr "Visa ECM meddelande i konsol?"
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr "N. Mapp:"
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr "Välj mapp för Nycklar"
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr "Visa EMM:"
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr "Visa EMM meddelande i konsol?"
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr "AU:"
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr "Välj AU läge"
+
+#: ../setup_gbox.cpp:252 ../setup_rdg.cpp:84 ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr "Spara ändringar och återgå"
+
+#: ../setup_gbox.cpp:260 ../setup_rdg.cpp:92 ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr "Avbryt"
+
+#: ../setup_gbox.cpp:263 ../setup_rdg.cpp:95 ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr "Ignorera ändringar och återgå"
+
+#: ../setup_gbox.cpp:270 ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr "Standards"
+
+#: ../setup_gbox.cpp:273 ../setup_rdg.cpp:105 ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr "Ladda bra standardinställningar för lokalt CS"
+
+#: ../setup_main.cpp:73
+msgid "SoftCam setup"
+msgstr "SoftCam installation"
+
+#: ../setup_main.cpp:73
+msgid "Open SoftCam setup"
+msgstr "Öppna SoftCam installation"
+
+#: ../setup_main.cpp:75
+msgid "Show installed PPanels"
+msgstr "Visa installerade PPaneler"
+
+#: ../setup_main.cpp:75
+msgid "Show all installed PPanels"
+msgstr "Visa alla installerade PPaneler"
+
+#: ../setup_main.cpp:77
+msgid "Software Management"
+msgstr "Hantera Mjukvara"
+
+#: ../setup_main.cpp:77
+msgid "Install and remove software"
+msgstr "Installera och ta bort mjukvara"
+
+#: ../setup_main.cpp:79
+msgid "Backup/restore"
+msgstr "Säkerhetskopiera/återställ"
+
+#: ../setup_main.cpp:79
+msgid "Backup and restore your Dreambox"
+msgstr "Säkerhetskopiera och återställ din Dreambox"
+
+#: ../setup_main.cpp:81
+msgid "Dreambox settings"
+msgstr "Dreambox inställningar"
+
+#: ../setup_main.cpp:82
+msgid "Change several settings of the Dreambox"
+msgstr "Ändra flera inställningar på Dreamboxen"
+
+#: ../setup_main.cpp:86
+msgid "PLi news"
+msgstr "PLi nyheter"
+
+#: ../setup_main.cpp:87
+msgid "Info and news about PLi"
+msgstr "Nyheter och info om PLi"
+
+#: ../setup_main.cpp:213
+#, c-format
+msgid "/var used %d%%"
+msgstr "/var använt %d%%"
+
+#: ../setup_main.cpp:222
+#, c-format
+msgid "recordings %d%%"
+msgstr "hårddisk %d%%"
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr "Radegast installation"
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr "standards"
+
+#: ../setup_runapp.cpp:65
+msgid "Close"
+msgstr "Stäng"
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr "kan inte exekvera skript."
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr "Ett fel uppstod under exekvering"
+
+#: ../wifi.cpp:89 ../wifi.cpp:373 ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr "Wifi plugin v"
+
+#: ../wifi.cpp:89
+msgid " - network settings"
+msgstr " - nätverksinställningar"
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr "Aktivera Wifi"
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr "Aktivera eller avaktivera Wifi"
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr "IP"
+
+#: ../wifi.cpp:112
+msgid "Enter your IP address"
+msgstr "Skriv in din IP adress"
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr "Nätmask"
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr "Skriv in din nätmask"
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr "Gateway"
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr "Skriv in din gateway IP adress"
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr "DNS"
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr "Skriv in din Dynamiska Namn Server IP adress"
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr "Link: 0"
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr "Level: 0"
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr "Noise: 0"
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr "Avsluta"
+
+#: ../wifi.cpp:202
+msgid "Exit this plugin, don't forget to save!"
+msgstr "Avsluta detta plugin, glöm inte att spara!"
+
+#: ../wifi.cpp:211 ../wifi.cpp:463
+msgid "Next"
+msgstr "Nästa"
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr "Ställ in säkerhets inställningar"
+
+#: ../wifi.cpp:222
+msgid "About the Wifi plugin"
+msgstr "Om Wifi plugin"
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+"Plugin av dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivrutiner släppta under GPL\n"
+"av AbsoluteValue Systems, Inc.\n"
+"\n"
+"Tack till Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testare\n"
+"och övriga"
+
+#: ../wifi.cpp:373
+msgid " - security settings"
+msgstr " - säkerhetsinställningar"
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr "SSID"
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr "Skriv SSID"
+
+#: ../wifi.cpp:397
+msgid "Mode"
+msgstr "Läge"
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr "Välj mellan öppet system, delad nyckel eller ad hoc uppkoppling"
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr "öppet system"
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr "delad nyckel"
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr "ad hoc"
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr "Aktivera wep nyckel"
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr "Aktivera eller avaktivera wep nyckel"
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr "Wep nyckel"
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr "Skriv in wep nyckel, 10 eller 26 hex siffror"
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr "Skriv 0..9, a..f, ok för att spara (hjälp finns)"
+
+#: ../wifi.cpp:453 ../wifi.cpp:601
+msgid "Prev"
+msgstr "Förra"
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr "Tillbaka till nätverksinställningar"
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr "Visa logg-bild"
+
+#: ../wifi.cpp:571
+msgid " - logging"
+msgstr " - loggar"
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr "Hittar ingen wifi logg"

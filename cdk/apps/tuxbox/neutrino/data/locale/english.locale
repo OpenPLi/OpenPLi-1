@@ -1,0 +1,573 @@
+menu.back back
+
+options.off off
+options.on on
+options.serial serial
+options.fb framebuffer
+options.null null
+
+mainmenu.head Main menue
+mainmenu.tvmode TV-Mode
+mainmenu.radiomode Radio-Mode
+mainmenu.scartmode Scart-Mode
+mainmenu.games Games
+mainmenu.sleeptimer SleepTimer
+mainmenu.shutdown Shutdown
+mainmenu.settings Settings
+mainmenu.service Service
+mainmenu.streaming Streaming (record)
+mainmenu.streaming_start start
+mainmenu.streaming_stop stop
+
+servicemenu.head Service
+servicemenu.update Software Update
+servicemenu.scants Servicescan
+servicemenu.ucodecheck Check ucodes
+
+cablesetup.provider cable provider
+
+satsetup.disqeqc DiSEqC
+satsetup.satellite Satellite
+satsetup.extended DiSEqC-setings
+satsetup.nodiseqc no DiSEqC
+satsetup.minidiseqc Mini-DiSEqC
+satsetup.diseqc10 DiSEqC 1.0
+satsetup.diseqc11 DiSEqC 1.1
+satsetup.smatvremote SMATV Remote Tuning
+satsetup.diseqcrepeat DiSEqC-repeats
+
+mainsettings.head Settings
+mainsettings.savesettingsnow save settings now
+mainsettings.language Language
+mainsettings.audio Audio
+mainsettings.video Video
+mainsettings.network Network
+mainsettings.streaming Streamingserver
+mainsettings.colors Colors / themes / font
+mainsettings.lcd LC-Display
+mainsettings.keybinding Key Setup
+mainsettings.misc Misc settings
+mainsettings.scan Scan settings
+
+miscsettings.head Misc settings
+miscsettings.shutdown_real Enable standby
+miscsettings.boxtype DBox type
+miscsettings.startneutrinodirect start neutrino directly
+miscsettings.general General
+miscsettings.fb_destination Expert! Boot-Console
+
+languagesetup.head Language Setup
+languagesetup.select Language
+
+audiomenu.head Audio Settings
+audiomenu.analogout Analog Output
+audiomenu.monoright mono right
+audiomenu.monoleft mono left
+audiomenu.stereo stereo
+audiomenu.dolbydigital Dolby Digital
+
+videomenu.head Video Settings
+videomenu.screensetup Screen Setup
+videomenu.videosignal VideoOutput
+videomenu.videosignal_rgb RGB
+videomenu.videosignal_svideo S-Video
+videomenu.videosignal_composite Composite
+videomenu.videoformat Format
+videomenu.videoformat_43 4:3
+videomenu.videoformat_169 16:9
+videomenu.videoformat_autodetect autodetect
+videomenu.vcrswitch Switch Scart automatically
+
+networkmenu.head Network Settings
+networkmenu.test test network now
+networkmenu.show show active network settings
+networkmenu.setupnow setup network now
+networkmenu.setuponstartup setup network on startup
+networkmenu.ipaddress IP-Address
+networkmenu.netmask Netmask
+networkmenu.broadcast Broadcast
+networkmenu.gateway Default Gateway
+networkmenu.nameserver Nameserver
+
+streamingmenu.head Streamingserver Settings
+streamingmenu.usestreamserver use streamingserver
+streamingmenu.streamingserver Streamingserver
+streamingmenu.streamingserverport Port
+streamingmenu.stopplayback stop Playback
+streamingmenu.stopsectionsd stop Sectionsd 
+
+
+ping.ok is reachable (ping)
+ping.unreachable is unreachable
+ping.protocol is unreachable (host or protocol error)
+ping.socket is unreachable (socket error)
+
+ipsetup.hint_1 Use 0..9, or use Up/Down,
+ipsetup.hint_2 OK saves, Home aborts
+
+colormenu.head Color Settings
+colormenu.statusbar Infobar
+colormenu.themeselect select theme
+colormenu.font Font size
+colormenu.menucolors Menucolor
+colormenu.background Background
+colormenu.background_head Background
+colormenu.textcolor Textcolor
+colormenu.textcolor_head Textcolor
+colormenu.fade Fade menus
+
+colorthememenu.head Theme Selector
+colorthememenu.neutrino_theme Neutrino Theme
+colorthememenu.classic_theme Classic Theme
+
+colormenusetup.head Menu Colors
+colormenusetup.menuhead Menu Header
+colormenusetup.menucontent Window-Content
+colormenusetup.menucontent_inactive Window-Content inactive
+colormenusetup.menucontent_selected Window-Content selected
+
+colorstatusbar.head Infobar
+colorstatusbar.text Infobar
+
+repeatblocker.hint_1 Shortest time (in ms) to recognize 2 keystrokes
+repeatblocker.hint_2 Enter 0 to switch of the blocker (red is space)
+
+keybindingmenu.RC Key repeat-blocker
+keybindingmenu.repeatblock repeat delay
+keybindingmenu.repeatblockgeneric generic delay
+keybindingmenu.head Keybinding Setup
+keybindingmenu.modechange Modechange
+keybindingmenu.channellist Channellist
+keybindingmenu.quickzap Quickzap
+keybindingmenu.tvradiomode TV/Radio-mode
+keybindingmenu.tvradiomode_head TV/Radio-mode
+keybindingmenu.pageup page up
+keybindingmenu.pageup_head Keysetup page up
+keybindingmenu.pagedown page down
+keybindingmenu.pagedown_head Keysetup page down
+keybindingmenu.cancel close channellist
+keybindingmenu.cancel_head channellist close
+keybindingmenu.channelup channel up
+keybindingmenu.channelup_head Keysetup channel up
+keybindingmenu.channeldown channel down
+keybindingmenu.channeldown_head Keysetup channel down
+keybindingmenu.bouquetup next bouquet
+keybindingmenu.bouquetup_head keysetup next bouquet
+keybindingmenu.bouquetdown bouquet back
+keybindingmenu.bouquetdown_head keysetup bouquet back
+keybindingmenu.bouquethandling Bouquet-control
+keybindingmenu.bouquetchannels_on_ok current bouquet
+keybindingmenu.bouquetlist_on_ok bouquet-list
+keybindingmenu.allchannels_on_ok all-services
+keybindingmenu.subchannelup subchannel up
+keybindingmenu.subchannelup_head key subchannel up
+keybindingmenu.subchanneldown subchannel down
+keybindingmenu.subchanneldown_head key subchannel down
+
+colorchooser.red red
+colorchooser.green green
+colorchooser.blue blue
+colorchooser.alpha alpha
+
+lcdmenu.head LCD Settings
+lcdmenu.inverse Invert
+lcdmenu.power Power
+lcdmenu.lcdcontroler Contrast / Brightness
+
+lcdcontroler.head LCD Stettings
+lcdcontroler.contrast Contrast
+lcdcontroler.brightness normal Brightness
+lcdcontroler.brightnessstandby Standby Brightness
+
+keychoosermenu.setnew setup new key
+keychoosermenu.setnone no key
+keychoosermenu.currentkey current key
+
+keychooser.head Setup new Key
+keychooser.text1 Please press the new key
+keychooser.text2 wait a few seconds for abort
+
+screensetup.upperleft rot = setup upper left
+screensetup.lowerright grün = setup lower right
+
+channellist.head All Services
+channellist.nonefound No channels were found!\nPlease execute a scan\n(dbox-key -> service)
+channellist.since since %02d:%02d
+
+infoviewer.epgnotload EPG not loaded....
+infoviewer.epgwait waiting for EPG...
+infoviewer.streaminfo Features
+infoviewer.eventlist Event-List
+infoviewer.languages Audio
+infoviewer.notavailable Channel not available
+infoviewer.cantdecode Channel can't be decoded
+infoviewer.selecttime Timeselection
+infoviewer.nocurrent No info for current program available
+infoviewer.noepg EPG not available
+infoviewer.subservice Subservices
+infoviewer.waittime Waiting for time...
+
+epgviewer.notfound no epg found
+epgviewer.nodetailed No detailed informations available
+epgviewer.More_Screenings More Screenings on this Channel
+epglist.head Event-list - %s
+epglist.noevents EPG is not available...
+
+streaminfo.head Stream-Information
+streaminfo.resolution Resolution
+streaminfo.bitrate Bitrate
+streaminfo.aratio Aspect Radio
+streaminfo.aratio_unknown Aspect Radio: unknown
+streaminfo.framerate Framerate
+streaminfo.framerate_unknown Framerate: unknown
+streaminfo.audiotype Audiotype
+streaminfo.audiotype_unknown Audiotype: unknown
+streaminfo.not_crypted not crypted
+streaminfo.ecm_invalid invalid CA-system
+streaminfo.not_available not available
+
+streamfeatures.head Features
+streamfeatures.info Stream-Information
+
+apidselector.head Select language
+
+nvodselector.head Select starting-time
+nvodselector.subservice Select Subservice
+nvodselector.directormode Direct-Mode
+
+ucodecheck.head UCode check
+ucodecheck.avia500 Avia 500
+ucodecheck.avia600 Avia 600
+ucodecheck.ucode UCode
+ucodecheck.cam-alpha Cam-Alpha
+
+
+
+date.Mon  Mon
+date.Tue  Tue
+date.Wed  Wed
+date.Thu  Thu
+date.Fri  Fri
+date.Sat  Sat
+date.Sun  Sun
+
+date.Jan  Jan
+date.Feb  Feb
+date.Mar  Mar
+date.Apr  Apr
+date.May  May
+date.Jun  Jun
+date.Jul  Jul
+date.Aug  Aug
+date.Sep  Sep
+date.Oct  Oct
+date.Nov  Nov
+date.Dec  Dec
+
+nvod.starting (starting in %d min)
+nvod.proz (%d%% over)
+
+scants.head Scan transponder
+scants.startnow start scan
+scants.actsatellite Satellite:
+scants.astra Astra
+scants.hotbird Hotbird
+scants.kopernikus Kopernikus
+scants.sirius Sirius
+scants.thor Thor
+scants.digituerk Digituerk
+scants.tuerksat Tuerksat
+scants.transponders Transponders:
+scants.services Services:
+scants.bouquet Bouquet
+scants.bouquet_leave leave current
+scants.bouquet_create create new
+scants.bouquet_erase erase all
+scants.finished Transponderscan finished successfully!
+
+flashupdate.head Software Update
+flashupdate.action Action:
+flashupdate.globalprogress Global Progress:
+flashupdate.getinfofile getting versioninfo
+flashupdate.getinfofileerror can't get versioninfo
+flashupdate.getupdatefile getting update
+flashupdate.getupdatefileerror can't get update
+flashupdate.cantopenfile can't open file
+flashupdate.fileis0bytes the filesize is 0 Bytes
+flashupdate.eraseingflash erasing flash
+flashupdate.programmingflash programming flash
+flashupdate.cantopenmtd can't open mtd-device
+flashupdate.ready ready
+flashupdate.reboot rebooting box....
+flashupdate.updatemode Updatemode
+flashupdate.updatemode_manual manual (ftp)
+flashupdate.updatemode_internet internet
+flashupdate.currentversion_sep Current version
+flashupdate.currentversiondate Date
+flashupdate.currentversiontime Time
+flashupdate.currentversionbaseversion Baseimage
+flashupdate.currentversionsnapshot ImageType
+flashupdate.checkupdate search for new version
+flashupdate.versioncheck checking version
+flashupdate.nonewversion no new version available
+flashupdate.md5check checking image
+flashupdate.md5sumerror image has errors
+flashupdate.proxyserver_sep Proxyserver
+flashupdate.proxyserver Hostname
+flashupdate.proxyserver_hint1 enter proxyserver name or ip, use host:port
+flashupdate.proxyserver_hint2 a empty entry means no proxy
+flashupdate.proxyusername Username
+flashupdate.proxyusername_hint1 enter the proxyserver username
+flashupdate.proxyusername_hint2 a empty entry means no proxy-auth
+flashupdate.proxypassword Password
+flashupdate.proxypassword_hint1 enter the proxyserver password
+flashupdate.proxypassword_hint2
+flashupdate.msgbox Found the following new image:\nDate: %s, %s\nBaseImage: %s\nImageType: %s\n\nDo you want to download and install this version now?
+flashupdate.msgbox_manual Found the following new image:\nDate: %s, %s\nBaseImage: %s\nImageType: %s\n\nDo you want to install this version now?
+flashupdate.expertfunctions Expert-functions
+flashupdate.readflash Read whole image
+flashupdate.writeflash Write whole image
+flashupdate.readflashmtd Read one partition
+flashupdate.writeflashmtd Write one partition
+flashupdate.savesuccess The image was successfully saved \nunder %s.
+flashupdate.mtdselector Partition-Selector
+flashupdate.titlereadflash Reading Flash
+flashupdate.actionreadflash reading
+flashupdate.fileselector File-Selector
+flashupdate.titlewriteflash Writing Flash
+flashupdate.actionwriteflash writing
+flashupdate.flashreadyreboot The image was successfully flashed.\nThe DBox will be rebooted now.
+flashupdate.reallyflashmtd Do you really want to flash?\n\nIf a error occurs or the image is not\nvalid, the box will not boot after flashing.\n\nImagename: %s\nTarget: %s
+
+bouqueteditor.name Bouquet-editor
+bouqueteditor.delete Delete
+bouqueteditor.add Add
+bouqueteditor.move Move
+bouqueteditor.rename Rename
+bouqueteditor.hide Hide
+bouqueteditor.lock Lock
+bouqueteditor.newbouquetname New name of bouquets
+bouqueteditor.bouquetname Name of bouquets
+bouqueteditor.savechanges? Do you want to save the changes?
+bouqueteditor.savingchanges Saving changes. Please wait ...
+bouqueteditor.discardingchanges Discarding changes. Please wait ..
+bouqueteditor.switch add/remove
+bouqueteditor.switchmode TV/Radio
+bouqueteditor.return ready
+
+messagebox.yes Yes
+messagebox.no No
+messagebox.cancel Cancel
+messagebox.back Back
+messagebox.error Error
+messagebox.discard Discard changes?
+messagebox.info Information
+
+settings.noconffile No neutrino-settings found.\nUseing defaults.
+settings.missingoptionsconffile The neutrino-settings have been updated.\nNew Options will be set to default.
+
+cam.wrong ATTENTION, YOUR CARD \nDOES NOT MATCH CAMALPHA.BIN!!\n\nDo you whish to get this warning again?
+ucodes.failure ATTENTION, µCodes could NOT be found!\n\nPlease upload them via FTP (or DBox-BootManager),\nthen restart your DBox!
+
+stringinput.caps caps / no caps
+
+streamingserver.noconnect No connection to streamingserver.\nRecording canceled.
+
+GENRE.MOVIE.0 Spielfilm / Drama
+GENRE.MOVIE.1 detective/thriller
+GENRE.MOVIE.2 adventure/western/war
+GENRE.MOVIE.3 science fiction/fantasy/horror
+GENRE.MOVIE.4 comedy
+GENRE.MOVIE.5 soap/melodrama/folkloric
+GENRE.MOVIE.6 romance
+GENRE.MOVIE.7 serious/classical/religious/historical movie/drama
+GENRE.MOVIE.8 adult movie/drama
+
+GENRE.NEWS.0 Nachrichten
+GENRE.NEWS.1 news/weather report
+GENRE.NEWS.2 news magazine
+GENRE.NEWS.3 documentary
+GENRE.NEWS.4 discussion/interview/debate
+
+GENRE.SHOW.0 Show / Gameshow
+GENRE.SHOW.1 game show/quiz/contest
+GENRE.SHOW.2 variety show
+GENRE.SHOW.3 talk show
+
+GENRE.SPORTS.0 Sport
+GENRE.SPORTS.1 special events (Olympic Games,World Cup etc.)
+GENRE.SPORTS.2 sports magazines
+GENRE.SPORTS.3 football/soccer
+GENRE.SPORTS.4 tennis/squash
+GENRE.SPORTS.5 team sports (excluding football)
+GENRE.SPORTS.6 athletics
+GENRE.SPORTS.7 motor sport
+GENRE.SPORTS.8 water sport
+GENRE.SPORTS.9 winter sports
+GENRE.SPORTS.10 equestrian
+GENRE.SPORTS.11 martial sports
+
+GENRE.CHILDRENs_PROGRAMMES.0 Kinder / Jugendprogramm
+GENRE.CHILDRENs_PROGRAMMES.1 pre-school children's programmes
+GENRE.CHILDRENs_PROGRAMMES.2 entertainment programmes for 6 to 14
+GENRE.CHILDRENs_PROGRAMMES.3 entertainment programmes for 10 to 16
+GENRE.CHILDRENs_PROGRAMMES.4 informational/educational/school programmes
+GENRE.CHILDRENs_PROGRAMMES.5 cartoons/puppets
+
+GENRE.MUSIC_DANCE.0 Musik / Ballet / Tanz
+GENRE.MUSIC_DANCE.1 rock/pop
+GENRE.MUSIC_DANCE.2 serious music/classical music
+GENRE.MUSIC_DANCE.3 folk/traditional music
+GENRE.MUSIC_DANCE.4 jazz
+GENRE.MUSIC_DANCE.5 musical/opera
+GENRE.MUSIC_DANCE.6 ballet
+
+GENRE.ARTS.0 Kunst / Kultur
+GENRE.ARTS.1 performing arts
+GENRE.ARTS.2 fine arts
+GENRE.ARTS.3 religion
+GENRE.ARTS.4 popular culture/traditional arts
+GENRE.ARTS.5 literature
+GENRE.ARTS.6 film/cinema
+GENRE.ARTS.7 experimental film/video
+GENRE.ARTS.8 broadcasting/press
+GENRE.ARTS.9 new media
+GENRE.ARTS.10 arts/culture magazines
+GENRE.ARTS.11 fashion
+
+GENRE.SOZIAL_POLITICAL.0 Sozial & Politikereignisse / Wirtschaft
+GENRE.SOZIAL_POLITICAL.1 magazines/reports/documentary
+GENRE.SOZIAL_POLITICAL.2 economics/social advisory
+GENRE.SOZIAL_POLITICAL.3 remarkable people
+
+GENRE.DOCUS_MAGAZINES.0 Doku / Magazin
+GENRE.DOCUS_MAGAZINES.1 nature/animals/environment
+GENRE.DOCUS_MAGAZINES.2 technology/natural sciences
+GENRE.DOCUS_MAGAZINES.3 medicine/physiology/psychology
+GENRE.DOCUS_MAGAZINES.4 foreign countries/expeditions
+GENRE.DOCUS_MAGAZINES.5 social/spiritual sciences
+GENRE.DOCUS_MAGAZINES.6 further education
+GENRE.DOCUS_MAGAZINES.7 languages
+
+GENRE.TRAVEL_HOBBIES.0 Reise & Freizeit
+GENRE.TRAVEL_HOBBIES.1 tourism/travel
+GENRE.TRAVEL_HOBBIES.2 handicraft
+GENRE.TRAVEL_HOBBIES.3 motoring
+GENRE.TRAVEL_HOBBIES.4 fitness & health
+GENRE.TRAVEL_HOBBIES.5 cooking
+GENRE.TRAVEL_HOBBIES.6 advertisement/shopping
+GENRE.TRAVEL_HOBBIES.7 gardening
+
+GENRE.UNKNOWN Unbekannt
+
+parentallock.parentallock Youth protection
+
+parentallock.prompt prompt for PIN
+parentallock.never never
+parentallock.onstart on start
+parentallock.changetolocked on locked bouquets
+parentallock.onsignal on broadcasted lock
+parentallock.lockedsender Locked sender...
+parentallock.lockedprogram Locked program (from %d years up)
+parentallock.head Enter Parental Lock PIN code
+
+parentallock.lockage lock program
+parentallock.lockage12 from 12 years up
+parentallock.lockage16 from 16 years up
+parentallock.lockage18 from 18 years up
+
+parentallock.changepin change PIN code
+parentallock.changepin_hint1 Enter your new youth protection pin code here!
+
+pinprotection.wrongcode PIN-Code was wrong! Try again.
+pinprotection.head Enter PIN code
+
+favorites.bouquetname My Favorites
+favorites.nobouquets Favorites are available with activated Bouquets only.
+favorites.addchannel The current channel will be added \nto the bouquet "My Favorites". \n This will take a few seconds...
+favorites.menueadd add channel to favorites
+favorites.bqcreated Bouquet "My Favorites" has been created...\n
+favorites.chadded The current channel has been added to your favorites...\n
+favorites.chalreadyinbq The current channel is already in your favorites...\n
+favorites.finalhint \nUse the bouqueteditor to modify your favorites.\n
+
+sleeptimerbox.title Sleeptimer
+sleeptimerbox.hint1 Shutdown time in min. (000=off)
+sleeptimerbox.hint2 The dbox2 will shutdown after this time.
+sleeptimerbox.announce Sleeptimer in 1 min
+
+zaptotimer.announce Zapto timer in one minute
+recordtimer.announce Recording starts in one minute
+shutdowntimer.announce Box will shutdown in 1 min.\nCancel Sutdown ?
+
+timerbar.channelswitch Schedule
+timerbar.recordevent Record
+timer.eventtimed.title Schedule Event
+timer.eventtimed.msg The event is scheduled.\nThe dbox2 will power on and \nswitch to this channel at the given time.
+timer.eventrecord.title Schedule Record
+timer.eventrecord.msg   ... TO be DONE, or not to be done
+timerlist.name Timerlist
+timerlist.delete Delete
+timerlist.deleting Deleting timer
+timerlist.empty There are no timers at the moment
+timerlist.type.shutdown Shutdown
+timerlist.type.nextprogram Next program
+timerlist.type.zapto Zap to
+timerlist.type.standby Standby
+timerlist.type.record Record
+timerlist.type.remind Reminder
+timerlist.type.sleeptimer Sleeptimer
+timerlist.type.unknown Unknown
+timerlist.repeat.once once
+timerlist.repeat.daily daily
+timerlist.repeat.weekly weekly
+timerlist.repeat.biweekly biweekly
+timerlist.repeat.fourweekly fourweekly
+timerlist.repeat.monthly monthly
+timerlist.repeat.byeventdescription see timer
+timerlist.repeat.unknown unknown
+timerlist.program.unknown Program unknown
+timerlist.standby.off Leave standby
+timerlist.standby.on Enter standby
+timerlist.alarmtime Alarmtime
+timerlist.stoptime Stoptime
+timerlist.new New timer
+timerlist.menumodify Modify timer
+timerlist.type Timertyp
+timerlist.repeat Repeat
+timerlist.save Save timer
+timerlist.standby SB mode
+timerlist.channel Channel
+timerlist.menunew New timer
+timerlist.reload Reload
+timerlist.modify Modify
+timerlist.message Message
+timersettings.separator Timersettings
+timersettings.record_safety_time Record time correction
+
+fontsize.menu Menutext
+fontsize.menu_title Menu Title
+fontsize.menu_info Menu Info
+fontsize.epg_title EPG Title
+fontsize.epg_info1 EPG Info 1
+fontsize.epg_info2 EPG Info 2
+fontsize.epg_date EPG Date
+fontsize.alert Alert
+fontsize.eventlist_title Title
+fontsize.eventlist_itemlarge large
+fontsize.eventlist_itemsmall small
+fontsize.eventlist_datetime date / time
+fontsize.channellist Channellist
+fontsize.channellist_descr Description
+fontsize.channellist_number Number
+fontsize.channel_num_zap keine Ahnung
+fontsize.infobar_number Number
+fontsize.infobar_channame Channel name
+fontsize.infobar_info info
+fontsize.infobar_small small
+
+fontmenu.head Fontsize settings
+fontmenu.channellist Channellist
+fontmenu.eventlist Eventlist
+fontmenu.epg EPG
+fontmenu.infobar Infobar

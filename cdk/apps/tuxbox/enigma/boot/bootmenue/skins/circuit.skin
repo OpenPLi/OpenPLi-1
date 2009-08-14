@@ -1,0 +1,14 @@
+#startmenu-skin-file
+#by digi_casi
+
+#first-line=x,y,font-size,r,g,b
+first-line=150,125,40,50,50,240
+
+#menu-size=left,top,x-size, y-size
+menu-size=150,130,330,230
+
+#select-color=r,g,b
+select-color=50,50,240
+
+#string-color=r,g,b
+string-color=240,240,240

@@ -1,0 +1,11 @@
+--- plugins/Makefile.am~	2009-06-01 17:44:21.000000000 +0200
++++ plugins/Makefile.am	2009-06-01 17:44:21.000000000 +0200
+@@ -1,7 +1,7 @@
+ AUTOMAKE_OPTIONS = gnu
+ 
+ SUBDIRS = \
+-	include tuxmail tuxtxt tuxcom tuxcal fx2 vncviewer enigma
++	include tuxmail tuxtxt tuxcom tuxcal fx2 vncviewer
+ 
+ if BOXTYPE_DREAMBOX
+ SUBDIRS += pip mosaic

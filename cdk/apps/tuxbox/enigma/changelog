@@ -1,0 +1,170 @@
+200212300350 3 * Add manual rotor setup
+200212300350 5 * Add rotor running message
+200212300350 5 56 Fix mute bug
+200212300350 7 * Fix EPG sort bug
+200301021610 7 * Some speedups
+200301022024 3 5 Support for checking harddisks
+200301100415 8 * Many gui speed fixes
+200301050512 2 * Fix timer bugs
+200301070622 5 * Fix skinsetup
+200301090533 6 * Add Scrollbar in even info window (now we display the complete event information)
+200301110314 6 * Fix audio stream description
+200301110314 6 * Show short description is OSD on nvod subservices ( prem direkt )
+200301130158 5 * TS files contains SIT and default PIDs
+200301130158 2 * Selected language in recording will be default while playing
+200301160000 1 * New languages and fixes
+200301191844 2 * Czech EPG support
+200301200416 3 * Changelog support in upgrade
+200301301950 6 4 Removed old dreambox RC
+200301301950 6 * Language setup wizard
+200301301950 4 56 MPEG Player
+200301301950 7 * New Runlevels (for plugins)
+200301300947 5 * Added default AC3 sound option
+200301301956 7 * Added language Wizzard on first enigma start
+200302032000 4 56 Improved readability of fonts
+200302032000 3 * Implemented shortcuts in setup menu
+200302040332 4 * Add support for multiple favourite lists ( user bouquets )
+200302040332 4 * Add lastchannel zapping with Key 0
+200302072045 8 * Show short service names in LCD when avail
+200302072045 8 * Fix handy style browsing in original sorted DVB bouquets
+200302082206 6 * Add support to rename recorded movies ( not the filenames ) 
+200302082206 8 * Show filename of recorded movies in channelinfo
+200302091843 5 * Extended Event Info is now working on subservices and nvod channels
+200302091500 6 * Diseqc setup wizard
+200302112339 2 * New format for services bouquets and favourite lists this is important for better support of services with non unique tsid/onid combinations ( feed and SCPCs )
+200302112101 5 * Show correct free diskspace on mounted nfs shares
+200302112101 5 * Add partitioncheck support for reiserfs partitions
+200302112101 3 * Add for each satellit two new folders in serviceselector ( on contains all services of ths satellite, and the other contains all bouquets of ths satellite )
+200302122208 4 * Show Orbital Position in Channelinfo and OSD Info bar
+200302122243 5 * Add nGrab Streaming Server Support ( PES Streaming over Network)
+200302131538 5 * Translation info will be shown in "about" dialog
+200302182213 4 * Add help window support
+200302190420 2 * Add full DiSEqC 1.1 support ( uncommitted switches )
+200302190420 3 * Fix support for Rotors behind DiSEqC Switches
+200302190420 6 * Show Streaminfo on doubleklick Info Button
+200302242113 4 * Volume&mute keys will work everywhere
+200302242125 6 * Add support to zap with numbers in the service selector ( only in user bouquets )
+200302242125 6 * Add support to rename each service in a user bouquet ( recorded movies / DVB services )
+200302242125 6 * Add support to add single linkage services in user bouquets
+200303040053 5 * Add support to add and remove timers in eventview
+200303070225 4 * Add support for subservice zapping ( F1, Bundesliga )
+200303070225 4 * Fix Timer ugly timer bug.. timer is now okay
+200303080430 5 * Delayed go to standby after running timer event
+200303081912 6 * MP3 ID3 Tag improvements... parse on demand
+200303100238 3 * Add many funktions to reload settings on run time... ( https://lists.berlios.de/pipermail/tuxbox-cvs/2003-March/010829.html )
+200303101819 5 * Add alternative bouquet switching style in service selector ( can be enabled in rc setup ) red -> TV Service, green -> Satellites, yellow DVB-Bouquets, blue -> User bouquets
+200303110429 6 * Reenable bouquet + - keys with closed service selector ( https://lists.berlios.de/pipermail/tuxbox-cvs/2003-March/010845.html )
+200303141538 7 * Add second plugin directory (/var/tuxbox/plugins)
+200303141538 5 * Now timers kann directly added with  - green button for DVR Timer,  - yellow button for NGRAB Timer,  - blue button for switch timer in EPG and eventview
+200303141538 7 * Add plugin offset setup dialog ( in osd setup ) ( tuxtxt )
+200303150314 5 * On recorded movies "This service could not be descrambled" never more appear on screen
+200303150314 3 * Remove bug which prevent pause and play on recorded ts which was recorded  on a scrambles service
+200303152100 7 * Now plugins can be started with http://boxip/cgi-bin/startPlugin?path=/bla&name=pluginname.cfg
+200303161435 3 * Important timer bugfix
+200303170100 5 * Fix PES streaming ( tuxvision and other )
+200303170100 7 * Bugfix Internet radio description showing
+200303170100 6 6 Add missing mkreiserfs
+200303211951 5 56 Add new Colorformat YPbPr ( for beamers )
+200304040020 7 * Add possibility to display remaining time in infobar
+200304050000 7 * Add many testscreens
+200304090124 2 56 Add Timeshift
+200304131503 4 * Redesign Timer .. for repeated Events
+200304131503 5 * Add support to select subservices in Timer (when exist)
+200304131503 4 * Add support to edit satellites.xml ( transponders for scan )
+200304131503 5 * Add support to lock setup with a PIN ( parental locking follows... )
+200304172159 5 * Don't change voltage on PIN8 in Standby
+200304192330 4 * Fix repeated timer.. and overlapping test ( hope its now okay )
+200304211300 4 * Many other timer bugs fixed
+200304292117 4 * another time bug fixed
+200305061831 4 56 Fix CI init ( no more need manual reset the CI after boot )
+200305071857 7 * Add simple Parentallocking
+200305081851 8 * Add Sleeptimer to new Shutdonw Menu ( press power button for more than one second)
+200305080239 6 * Add Multi EPG for better overview ( in service list press info on a channel )
+200305080239 6 * Add Powersave in Standby ( shut off LNB Power )
+200305100255 5 * Improved EPG Cache 
+200305102104 5 234 Add automatic scart switching
+200305120402 5 * Add reboot to shutdown menu
+200305121415 5 * Add FastDiSEqC Option see here http:://lists.berlios.de/pipermail/tuxbox-cvs/2003-May/011632.html
+200305152001 5 * Add Colorbuttons to serviceselector ( which colorbutton do what )
+200305171541 6 * Add ability to set NextCharTimeout ( RC Setup )
+200305180353 2 * Add time zone setup
+200305181446 6 * Improve Multi EPG ( faster and scrollsupport )
+200305190457 8 * Many gui speed fixes
+200305190558 8 * Many LCD Fixes
+200305221517 5 * Fix slow service scan
+200305230535 7 * Add ability to wakeup a ngrab server with Wake On LAN
+200305230535 7 * add many regitry buffer flushes
+200305241612 5 * fix not correct working Lame/Home Button
+200305241612 4 * Add ability to change skin without complete reboot
+200305241612 4 234 Do first work on wakeup from deep standby
+200305252354 5 * Work on Pid Caching.. AC3 PIDs now cached too
+200305261321 4 * Dont set hardly 4:3 mode in 16:9 TVs ( i think cinerrama or othe modes now works better )
+200305261321 4 * Tuxtxt can now change the WSS and Scart Voltage ( it can switch tv to 16:9 Anamorph mode )
+200305261636 6 * Support for persistent plugins, plugins can hook into the setup
+200305300307 8 * Add ability to change timer begin-/endtime in minute steps with vol +/- and bouq +/- buttons
+200305300307 3 * Add much better handling for broken provider UTC Times ( now the time should be correct on all transponders ) 
+200305300307 5 * Final Multi EPG Fix
+200305300307 5 * Add ability to hide the infobar when playing VOB/MPG or other files
+200305300540 4 * Little better MPEG1/MPEG2 ( need improvements )
+200305310036 7 * Add A/V Setup ( move entries from normal setup into this )
+200306011945 5 * Dont scan non locking transponders more than once
+200306030130 5 * Improve transpoder editor ( satellites.xml ) now satellite scan optins and name can changed
+200306061841 5 * Add ability to enable/disable the color buttons in service selector ( in service context menu )
+200309102021 5 * Fix MultiEPG (show correct services after open)
+200309132139 5 * Fix Timer bug (show ngrab timer in timer edit view)
+200309132139 5 * Small overlapp detecion timer fix (aborted repeated events)
+200309132139 5 45 Many work on better CI support
+200309140313 5 * Fix MP3 internet radio support
+200309141456 5 * Marker Support fixed ( add from within enigma was broken)
+200309142349 5 5 Add Auto scart switching support for dreambox (dm7000)
+200309172033 5 45 Fix CI number input fields
+200309202130 5 * Add Multi sat scan
+200309211537 5 * Add only free scan ( unscrambled services )
+200309221720 5 5 Add support to update pids for a running recording
+200309221720 5 * Fix function of bouq up/down keys (when servicelist is closed)
+200309221720 5 * Readd [GO UP] entry in normal service lists
+200309252300 45 * MMI fixes ( another CI number input fix ), better MMI close handling
+200309281217 5 * Dont rezapp when play button pressed and no file mode running
+200309281217 5 45 Fix no selectable audio tracks bug
+200309281217 5 45 Fix no more playable ts files without enigma private descriptor
+200309281217 6 45 Fix errors in recorded ts files
+200310021730 2 5 Fix recording services with higher bitrates (MTV2... CT1 or other)
+200310031400 5 * Fix reboot after Flash update...
+200310040230 3 5 No more corrupt recordings.epl when no space left on the hdd
+200310040230 5 5 Small timer fix when no more hdd space is left
+200310040230 5 5 Short [GO UP] entry fix in move mode
+200310091740 5 45 Fix no more updating infobar
+200310112200 3 45 No more lost packets in recordings
+200310131345 5 * No more reboot, when try to switch via service number to a locked service
+200310140017 5 * Add ability to play TS files without enigma private descriptor and outside of the recordings.epl but PAT and PMT must exist
+200310141530 5 * Don't hide infobar in radio mode
+200310161225 5 * Improve Satfinder
+200310161225 5 56 Fix no more updating infobar
+200310191730 7 * Show DESCRIPTION field in M3U Files
+200310201030 3 5 Add ability to change service on the same transponder during DVR recording (only FreeTV yet)
+200310201030 3 5 Add ability to play other recorded movies during DVR recording
+200310231500 5 * Improove Textinputfield ( show only useable chars )
+200310231500 5 5 Fix blackscreen bug after hdd scan
+200310301230 5 5 Improve MPEG2/MPEG1/VOB Player (better sync)
+200310301230 5 5 Add ability to select audio tracks in VOB Files 
+200310301230 5 5 Add ability to play AC3 audio in VOB Files.. (only optical out)
+200311041500 5 * Many gui improvements (fixes, scrollbar added)
+200311301520 5 * Fix Hotbird Scan ( fix for incomplete Sections )
+200311301520 5 * Another one change path of satellites.xml to /share/tuxbox
+200312011330 5 5 Small Audio/Video sync problem fixed
+200312021300 5 56 Add radio mp3 and scan background picture.. update bootlogo
+200312030130 5 56 No more block artefacts with some CIs on FreeTV services
+200312040100 5 56 important PPPOE Router fix.. FTP WWW Telnet and Samba Ports were open
+200312041830 5 56 compatibility fix ( /var/tmp is now a symlink to /tmp )
+200312041830 5 5 MPEG1/MPEG2 Playback fix... after find the first audio stream id we seek to begin of the file
+200312051530 5 * Scan improovements .. (faster scan and never more scan unusable transponders)
+200312082200 5 5 MPEG2/VOB Playback much better sync
+200312101700 5 5 Creating ext3 filesystems was broken in 1.07.1 .. fixed this
+200312101745 5 * Fix small bug in service organising
+200312121330 4 56 small CI fix for many CI's
+200312131430 5 * Infobar showing time fixed ( after zap to new service )
+200312151215 4 5 Much better sync when playing PS (VCD/SVCD/MVCD/VOB)
+200312172100 4 56 Support for dreamcrypt smartcards added (all cardreaders can handle this now)
+200312221545 5 * Zap to services in any bouquet is now possible (via servicenumber)
+200312221545 5 * Add support for bouquets in file mode
+200808212212 2 * Add skin preview

@@ -1,0 +1,19 @@
+all:: vierg.so
+
+#PREF=powerpc-linux-
+CC=$(PREF)gcc
+STRIP=$(PREF)strip
+CDEBUGFLAGS=-g -O2 -Wall -pedantic -DUSEX
+INCLUDES=-I. -I../lib -I../../include
+OBJS=board.o
+
+SingleProgramTarget(vierg,main.o $(OBJS),,-L../lib -lfx2 -lX11)
+
+board.o: pics.h
+
+vierg.so: somain.o $(OBJS)
+	$(CC) -o vierg.so -shared -Wl,-soname,vierg.so somain.o $(OBJS)
+	$(STRIP) vierg.so
+
+clean::
+	rm -f vierg.so

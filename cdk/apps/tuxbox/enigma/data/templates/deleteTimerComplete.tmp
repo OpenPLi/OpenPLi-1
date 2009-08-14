@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<title>Complete</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function init()
+			{
+				setTimeout("window.close()", 5000);
+			}
+		</script>
+	</head>
+	<body onLoad="init()" onUnload="parent.window.opener.location.reload(true)">
+		Timer event deleted successfully.
+	</body>
+</html>

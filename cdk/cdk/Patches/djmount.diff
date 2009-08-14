@@ -1,0 +1,27 @@
+Only in djmount-0.71-good/libupnp/config.aux: config.rpath
+diff -u -r djmount-0.71/libupnp/m4/rt_bool_arg_enable.m4 djmount-0.71-good/libupnp/m4/rt_bool_arg_enable.m4
+--- djmount-0.71/libupnp/m4/rt_bool_arg_enable.m4	2006-08-27 22:12:21.000000000 +0200
++++ djmount-0.71-good/libupnp/m4/rt_bool_arg_enable.m4	2008-03-03 18:13:42.492513000 +0100
+@@ -32,9 +32,8 @@
+ 			     	         [enable $3 @<:@default=disabled@:>@]),
+ 			[m4_fatal([incorrect boolean argument '$2'])]
+ 		               )])
+-	test "x$enable_[$1]" != [x]m4_if([$2],[yes],[no],[yes]) dnl
+-		&& enable_[]Name=[$2]
+-	AC_MSG_RESULT($enable_[]Name)dnl
++	test "x$enable_[$1]" != [x]m4_if([$2],[yes],[no],[yes])	&& enable_[]Name=[$2]
++	AC_MSG_RESULT($enable_[]Name)
+ 	AM_CONDITIONAL([ENABLE_]NAME, test x"$enable_[]Name" = xyes)
+ 	dnl
+ 	m4_popdef([NAME])dnl
+@@ -43,4 +42,3 @@
+ ])dnl
+ 
+ 
+-
+diff -N -u -r /dev/null djmount-0.71-good/libupnp/config.aux/config.rpath
+--- /dev/null   2007-11-03 03:49:14.356084750 +0100
++++ djmount-0.71-good/libupnp/config.aux/config.rpath   2008-03-03 20:29:54.625615601 +0100
+@@ -0,0 +1 @@
++
+-

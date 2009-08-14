@@ -1,0 +1,189 @@
+<eskin>
+	<author>
+		<name>Steffen Hehn</name>
+		<email>McClean@sth-tech.de</email>
+	</author>
+
+	<fonts>
+		<font file="bluehigh.ttf" name="Blue.Regular" /> <!-- Found at dafont.com freeware -->
+		<font file="bluebold.ttf" name="Blue.Bold" /> <!-- Found at dafont.com freeware -->
+		<font file="pakenham.ttf" name="lcd" /> <!-- Found at dafont.com freeware -->
+	</fonts>
+
+	<fontalias>
+		<map name="eStatusBar" font="Blue.Regular" size="24" />
+		<map name="eWindow.TitleBar" font="Blue.Bold" size="32" />
+		<map name="eWindow.Childs" font="Blue.Regular" size="30" />
+
+		<map name="eListBox.EntryText.normal" font="Blue.Regular" size="30" />
+		<map name="eServiceSelector.singleColumn.Entry.Name" font="Blue.Regular" size="30" />
+		<!--map name="eBouquetSelector.Entry.Name" font="Blue.Regular" size="32" /-->
+		<map name="eEPGSelector.Entry.Description" font="Blue.Regular" size="30" />
+		<map name="eEPGSelector.Entry.DateTime" font="Blue.Bold" size="24" />
+
+		<map name="eventview.description" font="Blue.Regular" size="32" />
+		<map name="eventview.date" font="Blue.Regular" size="30" />
+		<map name="eventview.time" font="Blue.Regular" size="30" />
+		<map name="eventview.channel" font="Blue.Regular" size="30" />
+
+		<map name="lcd.menu.title" font="lcd" size="24" />
+		<map name="lcd.menu.element" font="lcd" size="26" />
+
+		<map name="lcd.main.service_name" font="lcd" size="30" />
+		<map name="lcd.main.clock" font="lcd" size="28" />
+	</fontalias>
+
+	<colors>
+		<color name="header" color="#030FA4" end="#FFE403" size="16" />
+		<color name="content" color="#22030F60" end="#ffffff" size="16" />
+		<color name="content_selected" color="#2290A0FF" end="#000F33" size="16" />
+		<color name="shadow_red" color="#586D88" end="#ff0303" size="4" />
+
+		<color name="osd_normal" color="#11000F9A" end="#ffffff" size="16" />
+		<color name="osd_epg" color="#11000F9A" end="#9090e0" size="16" />
+		<color name="osd_shadowcol" color="#11030320" />
+		<color name="osd_shadow" color="#11030320" end="#B1B2D9" size="16" />
+		<color name="osd_timebar" color="#1010AA"/>
+		<color name="osd_timebarborder" color="#ffffff"/>
+
+		<color name="shadow_red" color="#11030320" end="#ff0303" size="16" />
+		<color name="shadow_green" color="#11030320" end="#03ff03" size="16" />
+		<color name="shadow_yellow" color="#11030320" end="#ffff03" size="16" />
+		<color name="shadow_blue" color="#11030320" end="#0303ff" size="16" />
+		<color name="shadow_gray" color="#11030320" end="#282828" size="16" />
+	</colors>
+
+	<colorscheme>
+		<map name="listbox.normal.background" color="content+2" />
+		<map name="number.normal.background" color="content+3" />
+		<map name="button.normal.background" color="content+3" />
+
+		<map name="eStatusBar.background" color="content+1" />
+		<map name="eStatusBar.foreground" color="content+15" />
+
+		<map name="global.normal.background" color="content" />
+		<map name="global.normal.foreground" color="content+15" />
+
+
+		<map name="global.selected.background" color="content_selected" />
+		<map name="global.selected.foreground" color="content_selected+15" />
+
+		<map name="global.disabled.background" color="content" />
+		<map name="global.disabled.foreground" color="content+7" />
+
+		<map name="eWindow.titleBar" color="header" />
+		<map name="eWindow.titleBarFont" color="header+15" />
+
+		<map name="eProgress.border" color="osd_normal+15" />
+		<map name="eProgress.left" color="osd_normal+10" />
+		<map name="eProgress.right" color="osd_normal+5" />
+		<map name="eSlider.activated.left" color="shadow_red+3" />
+		<map name="eSlider.activated.right" color="shadow_blue" />
+		
+		<map name="eServiceSelector.highlight.background" color="content_selected" />
+		<map name="eServiceSelector.highlight.foreground" color="content_selected+15" />
+
+	</colorscheme>
+
+	<values>
+		<value name="eComboBox.smallButton.decoWidth" value="25" />
+		<value name="eWindow.titleFontSize" value="25" />
+		<value name="eWindow.borderLeft" value="0" />
+		<value name="eWindow.borderRight" value="0" />
+		<value name="eWindow.borderBottom" value="0" />
+		<value name="eWindow.borderTop" value="32" />
+		<value name="eWindow.titleOffsetLeft" value="0" />
+		<value name="eWindow.titleOffsetTop" value="0" />
+		<value name="eWindow.titleHeight" value="32" />
+		<value name="fontsize" value="24" />
+	</values>
+
+	<images basepath="pli_shared" target="fb">
+ 		<img name="no_pig" src="my_pig_image.png" />
+	</images>	
+
+	<images basepath="" target="fb">
+		<img name="eComboBox.arrow" src="neutrino/combo_arrow.png" />
+		<img name="button_red" src="button_red.png" />
+		<img name="button_green" src="button_green.png" />
+		<img name="button_yellow" src="button_yellow.png" />
+		<img name="button_blue" src="button_blue.png" />
+		<img name="button_gray" src="button_gray.png" />
+		<img name="osd_crypt_on" src="neutrino/crypt_on.png" />
+		<img name="osd_format_on" src="neutrino/format_on.png" />
+		<img name="osd_dolby_on" src="dolby_on.png" />
+		<img name="osd_dolby_off" src="neutrino/dolby_off.png" />
+		<img name="osd_crypt_off" src="neutrino/crypt_off.png" />
+		<img name="osd_format_off" src="neutrino/format_off.png" />
+	</images>
+
+	<object name="ezap_main">
+		<eZapMain position="50:355" size="670:180">
+
+			<!--kanalnummer-->
+			<eWidget position="4:3" size="143:82" backgroundColor="osd_normal" />
+
+			<!--hauptbox-->
+			<eWidget position="127:60" size="468:35" backgroundColor="osd_normal" />
+			<eWidget position="34:95" size="561:75" backgroundColor="osd_normal" />
+
+			<!--schatten-->
+			<eWidget position="14:85" size="143:10" backgroundColor="osd_shadowcol" />
+			<eWidget position="147:15" size="10:80" backgroundColor="osd_shadowcol" />
+			<eWidget position="157:35" size="448:25" backgroundColor="osd_shadowcol" />
+			<eWidget position="44:170" size="561:10" backgroundColor="osd_shadowcol" />
+			<eWidget position="595:35" size="10:135" backgroundColor="osd_shadowcol" />
+
+			<!--
+			<eWidget position="560:69" size="95:20" backgroundColor="osd_timebarborder" />
+			<eWidget position="562:71" size="91:16" backgroundColor="osd_timebar" />
+			-->
+
+			<!--texte-->
+			<eLabel position="10:5" size="130:50" font="Nimbus;50" name="ch_number" align="center"
+				backgroundColor="osd_normal" foregroundColor="osd_normal+15" />
+
+			<eLabel position="170:61" size="415:40" font="Nimbus;34" name="ch_name"
+				backgroundColor="osd_normal" foregroundColor="osd_normal+15" />
+
+			<eLabel position="50:102" size="75:27" font="Nimbus;25" name="e_now_time"
+				backgroundColor="osd_epg" foregroundColor="osd_epg+15" />
+			<eLabel position="50:134" size="75:27" font="Nimbus;25" name="e_next_time"
+				backgroundColor="osd_epg" foregroundColor="osd_epg+15" />
+
+			<eLabel position="140:102" size="345:35" font="Nimbus;25" name="e_now_title"
+				backgroundColor="osd_epg" foregroundColor="osd_epg+15" />
+			<eLabel position="140:134" size="345:35" font="Nimbus;25" name="e_next_title"
+				backgroundColor="osd_epg" foregroundColor="osd_epg+15" />
+
+			<eLabel position="495:102" size="90:35" font="Nimbus;25" name="e_now_duration" align="right"
+				backgroundColor="osd_epg" foregroundColor="osd_epg+15" />
+			<eLabel position="495:134" size="90:35" font="Nimbus;25" name="e_next_duration" align="right"
+				backgroundColor="osd_epg" foregroundColor="osd_epg+15" />
+
+			<eLabel position="521:35" size="65:21" font="Nimbus;21" name="time" align="right"
+				backgroundColor="osd_shadow" foregroundColor="osd_shadow+15" />
+
+			<eProgress position="14:62" size="95:17" name="progress_bar" foregroundColor="osd_normal" border="1" />
+
+			<eLabel position="170:37" size="104:24" pixmap="osd_crypt_on" name="osd_crypt_on" />
+			<eLabel position="193:39" size="104:24" pixmap="osd_format_on" name="osd_format_on"/>
+			<eLabel position="238:41" size="104:24" pixmap="osd_dolby_on" name="osd_dolby_on"/>
+			<eLabel position="193:39" size="104:24" pixmap="osd_format_off" name="osd_format_off"/>
+			<eLabel position="238:41" size="104:24" pixmap="osd_dolby_off" name="osd_dolby_off"/>
+			<eLabel position="170:37" size="104:24" pixmap="osd_crypt_off" name="osd_crypt_off"/>
+			<eLabel name="description" />
+
+			<eLabel position="276:42" size="12:12" pixmap="button_red" name="button_red_enabled" alphatest="on" />
+			<eLabel position="296:42" size="12:12" pixmap="button_green" name="button_green_enabled" alphatest="on" />
+			<eLabel position="316:42" size="12:12" pixmap="button_yellow" name="button_yellow_enabled" alphatest="on" />
+			<eLabel position="336:42" size="12:12" pixmap="button_blue" name="button_blue_enabled" alphatest="on" />
+
+			<eLabel position="276:42" size="12:12" pixmap="button_gray" name="button_red_disabled" alphatest="on" />
+			<eLabel position="296:42" size="12:12" pixmap="button_gray" name="button_green_disabled" alphatest="on" />
+			<eLabel position="316:42" size="12:12" pixmap="button_gray" name="button_yellow_disabled" alphatest="on" />
+			<eLabel position="336:42" size="12:12" pixmap="button_gray" name="button_blue_disabled" alphatest="on" />
+	
+		</eZapMain>
+	</object>
+</eskin>

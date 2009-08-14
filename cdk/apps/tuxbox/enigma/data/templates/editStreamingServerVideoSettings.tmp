@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>Streaming Server Video Settings</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function submitSettings()
+			{
+				var transcodeAudio = "off";
+				if (document.f1.transcodeAudio.checked)
+					transcodeAudio = "on";
+				var transcodeVideo = "off";
+				if (document.f1.transcodeVideo.checked)
+					transcodeVideo = "on";
+			  var soutadd = "off";
+				if (document.f1.soutadd.checked)
+					soutadd = "on";
+				var parms = "name=" + document.f1.name.value + "&extension=" + document.f1.extension.value + "&transcodeVideo=" + transcodeVideo + "&videoRate=" + document.f1.videoRate.value + "&videoRatio=" + document.f1.videoRatio.value + "&videoCodec=" + document.f1.videoCodec.value + "&transcodeAudio=" + transcodeAudio + "&audioRate=" + document.f1.audioRate.value + "&fps=" + document.f1.fps.value + "&soutadd=" + soutadd;
+				document.location = "/cgi-bin/setStreamingServerVideoSettings?" + parms;
+				setTimeout("window.close()", 500);
+			}
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4;" onUnload="parent.window.opener.location.reload(true)">
+		<form name="f1" action="/cgi-bin/setStreamingServerSettings">
+			<table border="0" cellpadding="0" cellspacing="10">
+			<tbody>
+				<tr>
+					<td>Video Type:</td>
+					<td>
+						<input name="name" type="text" size="10" maxlength="10" value="#NAME#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>File Extension:</td>
+					<td>
+						<input name="extension" type="text" size="5" maxlength="5" value="#EXTENSION#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>Transcode Video:</td>
+					<td><input type="checkbox" name="transcodeVideo" value="on" #TRANSCODEVIDEO#></td>
+				</tr>
+				<tr>
+					<td>Video Codec:</td>
+					<td>
+						<select name="videoCodec" size="1">
+							#VIDEOCODECS#
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Video Rate:</td>
+					<td>
+						<input name="videoRate" type="text" size="6" maxlength="6" value="#VIDEORATE#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>Video Ratio:</td>
+					<td>
+						<select name="videoRatio" size="1">
+							#VIDEORATIOS#
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Transcode Audio:</td>
+					<td><input type="checkbox" name="transcodeAudio" value="on" #TRANSCODEAUDIO#></td>
+				</tr>
+				<tr>
+					<td>Audio Rate:</td>
+					<td>
+						<input name="audioRate" type="text" size="6" maxlength="6" value="#AUDIORATE#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>Frames per second:</td>
+					<td>
+						<input name="fps" type="text" size="6" maxlength="6" value="#FPS#" style="color: #000000">
+					</td>
+				</tr>	
+				<tr>
+					  <td>Auto Subtitles:</td>
+					  <td><input type="checkbox" name="soutadd" value="on" #SOUTADD#></td>
+				</tr>
+				<tr>
+					<td colspan="2">#CHANGEBUTTON#</td>
+				</tr>
+			</tbody>
+			</table>
+		</form>
+	</body>
+</html>

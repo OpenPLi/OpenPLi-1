@@ -1,0 +1,714 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: plisetup\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-02 14:39+0100\n"
+"PO-Revision-Date: 2007-05-09 20:37+0100\n"
+"Last-Translator: Tom Ford\n"
+"Language-Team: Tom.R.Ford@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../backup.cpp:27
+#, fuzzy
+msgid "Backup and restore"
+msgstr "备份/恢复"
+
+#: ../backup.cpp:31
+#, fuzzy
+msgid "Backup Dreambox"
+msgstr "备份和恢复你的 Dreambox"
+
+#: ../backup.cpp:32
+#, fuzzy
+msgid "Make a backup of your Dreambox"
+msgstr "备份和恢复你的 Dreambox"
+
+#: ../backup.cpp:33
+#, fuzzy
+msgid "Restore Dreambox"
+msgstr "备份和恢复你的 Dreambox"
+
+#: ../backup.cpp:34
+#, fuzzy
+msgid "Restore a backup to your Dreambox"
+msgstr "备份和恢复你的 Dreambox"
+
+#: ../backup.cpp:61 ../backup.cpp:81
+#, fuzzy
+msgid "Backup"
+msgstr "备份/恢复"
+
+#: ../backup.cpp:67
+msgid "Backup device:"
+msgstr ""
+
+#: ../backup.cpp:75
+msgid "Select a backup device or mount"
+msgstr ""
+
+#: ../backup.cpp:82
+msgid "Make a backup now"
+msgstr ""
+
+#: ../backup.cpp:91
+msgid "Making backup, please wait"
+msgstr ""
+
+#: ../backup.cpp:121 ../backup.cpp:173
+msgid "Restore"
+msgstr ""
+
+#: ../backup.cpp:127
+#, fuzzy
+msgid "Restore device:"
+msgstr "重启卡片服务器"
+
+#: ../backup.cpp:135
+msgid "Select the restore device or mount"
+msgstr ""
+
+#: ../backup.cpp:145
+msgid "What to restore:"
+msgstr ""
+
+#: ../backup.cpp:150
+#, fuzzy
+msgid "Select what you want to restore"
+msgstr "选择包删除"
+
+#: ../backup.cpp:166
+msgid "Reload Enigma"
+msgstr ""
+
+#: ../backup.cpp:167
+msgid "Reload Enigma settings now"
+msgstr ""
+
+#: ../backup.cpp:174
+msgid "Restore Dreambox now"
+msgstr ""
+
+#: ../backup.cpp:185
+#, fuzzy
+msgid "Restoring, please wait"
+msgstr "请稍等"
+
+#: ../backup.cpp:195
+msgid "Reloading Enigma settings, please wait"
+msgstr ""
+
+#: ../camx.cpp:50
+#, fuzzy
+msgid "Camx settings plugin v"
+msgstr "Dreambox 设置"
+
+#: ../camx.cpp:65 ../wifi.cpp:192
+msgid "Save changes"
+msgstr "保存修改"
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr "离开"
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr "退出插件 (不要忘记保存)"
+
+#: ../camx.cpp:94 ../setup_main.cpp:89 ../setup_main.cpp:142 ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr "关于"
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr "关于这个插件"
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr "无法找到卡片信息"
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr "SoftCam 设置"
+
+#: ../emuconfig.cpp:103
+msgid "Select softcam for this channel"
+msgstr "选择该频道用的 SoftCam"
+
+#: ../emuconfig.cpp:114
+msgid "Select softcam for this provider"
+msgstr "选择这个提供商的 SoftCam"
+
+#: ../emuconfig.cpp:119
+msgid "Default SoftCam"
+msgstr "默认 SoftCam"
+
+#: ../emuconfig.cpp:126
+msgid "Select default softcam"
+msgstr "选择默认的 SoftCam"
+
+#: ../emuconfig.cpp:131
+msgid "Cardserver"
+msgstr "卡片服务器"
+
+#: ../emuconfig.cpp:138
+msgid "Select cardserver"
+msgstr "选择卡片服务器"
+
+#: ../emuconfig.cpp:143
+msgid "Auto reconnect cahandler"
+msgstr "自动重连 CA 操作"
+
+#: ../emuconfig.cpp:146
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "扩展连接中断后尝试重新连接"
+
+#: ../emuconfig.cpp:151
+msgid "Can handle two services"
+msgstr "支持多节目"
+
+#: ../emuconfig.cpp:154
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "Cam 或通常界面能同时支持多个节目"
+
+#: ../emuconfig.cpp:162 ../emuconfig.cpp:526
+msgid "-- None --"
+msgstr "-- 无 --"
+
+#: ../emuconfig.cpp:205 ../setup_firewall.cpp:83 ../setup_gbox.cpp:247
+#: ../setup_rdg.cpp:79 ../setup_tpl.cpp:75 ../wifi.cpp:191
+msgid "Save"
+msgstr "保存"
+
+#: ../emuconfig.cpp:206
+msgid "Save settings"
+msgstr "保存设置"
+
+#: ../emuconfig.cpp:213
+msgid "List stickies"
+msgstr "列出关联"
+
+#: ../emuconfig.cpp:214
+msgid "List current stickies"
+msgstr "列出当前关联"
+
+#: ../emuconfig.cpp:223
+msgid "Cardinfo"
+msgstr "卡片信息"
+
+#: ../emuconfig.cpp:224
+msgid "Get cardinfo from current active cardserver"
+msgstr "从当前活动卡片服务器获取卡片信息"
+
+#: ../emuconfig.cpp:233
+msgid "Save and restart cam"
+msgstr "保存并重启 Cam"
+
+#: ../emuconfig.cpp:234
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "保存修改,重启 SoftCam 并返回到 Enigma"
+
+#: ../emuconfig.cpp:243
+msgid "Restart cardserver"
+msgstr "重启卡片服务器"
+
+#: ../emuconfig.cpp:244
+msgid "Press OK to restart the cardserver"
+msgstr "按 OK 重新启动卡片服务器"
+
+#: ../emuconfig.cpp:379
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+"保存设置\n"
+"并启动 SoftCam"
+
+#: ../emuconfig.cpp:379
+msgid "Softcam config info"
+msgstr "SoftCam 配置信息"
+
+#: ../emuconfig.cpp:476
+msgid "Restarting cardserver"
+msgstr "正在重启卡片服务器"
+
+#: ../emuconfig.cpp:476
+msgid "Cardserver info"
+msgstr "卡片服务器信息"
+
+#: ../emuconfig.cpp:514 ../emuconfig.cpp:630
+msgid "Channel"
+msgstr "频道"
+
+#: ../emuconfig.cpp:515 ../emuconfig.cpp:635
+msgid "Provider"
+msgstr "提供商"
+
+#: ../emuconfig.cpp:527 ../emuconfig.cpp:528
+msgid "-- Default --"
+msgstr "-- 默认 --"
+
+#: ../emuconfig.cpp:584
+msgid "getting cardinfo"
+msgstr "正在获取卡片信息"
+
+#: ../emuconfig.cpp:600
+msgid "Current Stickies"
+msgstr "当前关联"
+
+#: ../emuconfig.cpp:602
+msgid "Sticky Settings 1"
+msgstr "粘贴设置1"
+
+#: ../gpanel.cpp:191 ../gpanel.cpp:217 ../gpanel.cpp:228
+msgid "Error!"
+msgstr "错误!"
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr "配置防火墙"
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr "输入允许访问的IP地址"
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr "输入允许访问的主机名"
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr "保存修改并重启防火墙"
+
+#: ../setup_gbox.cpp:159 ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr ""
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr "工作模式"
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr "选择工作模式"
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr "更新模式:"
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr "选择 Key 更新模式"
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr "ECM 显示:"
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr "在控制台显示 ECM 信息?"
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr "K. 文件夹:"
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr "选择 Keys 文件夹"
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr "EMM 显示:"
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr "在控制台显示 EMM 信息?"
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr ""
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr "选择AU模式"
+
+#: ../setup_gbox.cpp:252 ../setup_rdg.cpp:84 ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr "保存更改并返回"
+
+#: ../setup_gbox.cpp:260 ../setup_rdg.cpp:92 ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr "中断"
+
+#: ../setup_gbox.cpp:263 ../setup_rdg.cpp:95 ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr "忽略改变并返回"
+
+#: ../setup_gbox.cpp:270 ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr "默认"
+
+#: ../setup_gbox.cpp:273 ../setup_rdg.cpp:105 ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr ""
+
+#: ../setup_main.cpp:73
+msgid "SoftCam setup"
+msgstr "SoftCam 设置"
+
+#: ../setup_main.cpp:73
+msgid "Open SoftCam setup"
+msgstr "打开 SoftCam 设置"
+
+#: ../setup_main.cpp:75
+msgid "Software Management"
+msgstr "软件管理"
+
+#: ../setup_main.cpp:75
+msgid "Install and remove software"
+msgstr "安装和删除软件"
+
+#: ../setup_main.cpp:77
+msgid "Backup/restore"
+msgstr "备份/恢复"
+
+#: ../setup_main.cpp:77 ../setup_main.cpp:79
+msgid "Backup and restore your Dreambox"
+msgstr "备份和恢复你的 Dreambox"
+
+#: ../setup_main.cpp:79
+#, fuzzy
+msgid "Backup/restore (new)"
+msgstr "备份/恢复"
+
+#: ../setup_main.cpp:81
+msgid "Dreambox settings"
+msgstr "Dreambox 设置"
+
+#: ../setup_main.cpp:82
+msgid "Change several settings of the Dreambox"
+msgstr "改变 Dreambox 的一些设置"
+
+#: ../setup_main.cpp:86
+msgid "PLi news"
+msgstr "PLi 新闻"
+
+#: ../setup_main.cpp:87
+msgid "Info and news about PLi"
+msgstr "关于 PLi 的信息和新闻"
+
+#: ../setup_main.cpp:178
+#, c-format
+msgid "/var used %d%%"
+msgstr "/var已使用 %d%%"
+
+#: ../setup_main.cpp:187
+#, c-format
+msgid "recordings %d%%"
+msgstr "录像 %d%%"
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr "Radegast 设置"
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr "默认"
+
+#: ../setup_runapp.cpp:65
+msgid "Close"
+msgstr "关闭"
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr "无法运行脚本"
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr "运行时发生了一个错误"
+
+#: ../wifi.cpp:89 ../wifi.cpp:373 ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr ""
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr ""
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr ""
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr ""
+
+#: ../wifi.cpp:112
+#, fuzzy
+msgid "Enter your IP address"
+msgstr "输入允许访问的IP地址"
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr ""
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr ""
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr ""
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr ""
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr ""
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr ""
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr ""
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr ""
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr ""
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr "退出"
+
+#: ../wifi.cpp:202
+#, fuzzy
+msgid "Exit this plugin, don't forget to save!"
+msgstr "退出插件 (不要忘记保存)"
+
+#: ../wifi.cpp:211 ../wifi.cpp:463
+msgid "Next"
+msgstr ""
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr "调整安全设置"
+
+#: ../wifi.cpp:222
+#, fuzzy
+msgid "About the Wifi plugin"
+msgstr "关于这个插件"
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr ""
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr ""
+
+#: ../wifi.cpp:397
+#, fuzzy
+msgid "Mode"
+msgstr "更新模式:"
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr ""
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr ""
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr ""
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr ""
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr ""
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr ""
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr ""
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr ""
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr ""
+
+#: ../wifi.cpp:453 ../wifi.cpp:601
+msgid "Prev"
+msgstr ""
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr ""
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr ""
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr ""
+
+#~ msgid ""
+#~ "%s\n"
+#~ "%d bytes downloaded\n"
+#~ "Press exit to cancel download"
+#~ msgstr ""
+#~ "%s\n"
+#~ "%d 字节已下载\n"
+#~ "按 EXIT 键取消下载"
+
+#~ msgid ""
+#~ "A new menu is available. The new menu will be visible if you return to "
+#~ "the setup panel.You can continue your work here after pressing OK."
+#~ msgstr ""
+#~ "有一个新菜单可用.你返回到设置面板就可以看到.按 OK 后你可以继续做你的操作."
+
+#~ msgid ""
+#~ "Are you sure to download\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "你确认要下载\n"
+#~ "%s吗?"
+
+#~ msgid ""
+#~ "Are you sure to execute\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "你确认要运行\n"
+#~ "%s吗?"
+
+#~ msgid ""
+#~ "Are you sure to install\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "你确认要安装\n"
+#~ "%s吗?"
+
+#~ msgid ""
+#~ "Are you sure to open\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "你确认要打开\n"
+#~ "%s吗?"
+
+#~ msgid ""
+#~ "Are you sure to play\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "你确认要播放\n"
+#~ "%s吗?"
+
+#~ msgid ""
+#~ "Are you sure to remove\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "你确认要移除\n"
+#~ "%s吗?"
+
+#~ msgid ""
+#~ "Are you sure to write\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "你确认要写入\n"
+#~ "%s吗?"
+
+#~ msgid "Automatic menu update"
+#~ msgstr "自动更新菜单"
+
+#~ msgid "Continue"
+#~ msgstr "继续"
+
+#~ msgid ""
+#~ "Download failed.\n"
+#~ "Please check available space and your communication settings."
+#~ msgstr ""
+#~ "下载失败\n"
+#~ "请检查可用空间和网络设置."
+
+#~ msgid "Downloading"
+#~ msgstr "下载中"
+
+#~ msgid "Downloading %s"
+#~ msgstr "正在下载%s"
+
+#~ msgid "Install failed."
+#~ msgstr "安装失败"
+
+#~ msgid "Installing %s"
+#~ msgstr "正在安装%s"
+
+#~ msgid "Installing not possible"
+#~ msgstr "现在安装不可能"
+
+#~ msgid "Manual Install"
+#~ msgstr "手动安装"
+
+#~ msgid "Please select an item"
+#~ msgstr "请选择一个条目"
+
+#~ msgid "Press OK"
+#~ msgstr "按 OK"
+
+#~ msgid "Remove Software"
+#~ msgstr "删除软件"
+
+#~ msgid "Removing %s"
+#~ msgstr "正在删除%s"
+
+#~ msgid "Script output"
+#~ msgstr "脚本输出"
+
+#~ msgid "Select package to install"
+#~ msgstr "选择包安装"
+
+#~ msgid "Show all installed PPanels"
+#~ msgstr "显示所有已安装的 PPanels"
+
+#~ msgid "Show installed PPanels"
+#~ msgstr "显示已安装的 PPanels"
+
+#~ msgid ""
+#~ "The package cannot be installed because it's already installed. Please "
+#~ "remove the previous version first."
+#~ msgstr "该包不能安装因为已经安装.请先移除以前的版本."
+
+#~ msgid "latest"
+#~ msgstr "最新"

@@ -1,0 +1,32 @@
+# make rules for cdk
+# ruleset: cygwin
+#
+# look at rules-make
+#
+
+#
+# core
+#
+linux;2.4.20-dbox2;linux-2.4.20;linux-2.4.20.tar.bz2:linux-dbox2-2.4.20-2.diff.bz2:cygwin/linux.diff;remove:linux;extract:linux-2.4.20.tar.bz2;patch:linux-dbox2-2.4.20-2.diff.bz2;patch:cygwin/linux.diff;link:linux-2.4.20:linux
+bootstrap_gcc;3.2;gcc-3.2;gcc-core-3.2.tar.gz:gcc-core.diff;extract:gcc-core-3.2.tar.gz;patch:gcc-core.diff;patch:cygwin/gcc.diff
+glibc;2.2.5;glibc-2.2.5;glibc-2.2.5.tar.bz2:glibc-linuxthreads-2.2.5.tar.bz2:glibc.diff;extract:glibc-2.2.5.tar.bz2;dirextract:glibc-linuxthreads-2.2.5.tar.bz2;patch:glibc.diff;patch:cygwin/glibc.diff
+gcc;3.2;gcc-3.2;gcc-core-3.2.tar.gz:gcc-g++-3.2.tar.gz;extract:gcc-core-3.2.tar.gz;extract:gcc-g++-3.2.tar.gz;patch:cygwin/gcc.diff
+
+#
+# contrib libs
+#
+libfreetype;2.1.3;freetype-2.1.3;freetype-2.1.3.tar.bz2;extract:freetype-2.1.3.tar.bz2;patch:cygwin/freetype.diff
+libz;1.1.4;zlib-1.1.4;zlib-1.1.4.tar.bz2:zlib.diff:cygwin/zlib.diff;extract:zlib-1.1.4.tar.bz2;patch:zlib.diff;patch:cygwin/zlib.diff
+
+#
+# java
+#
+# for ppc
+# kaffe;1.0.6;kaffe-1.0.6;kaffe-1.0.6.tar.gz:kaffe.diff;extract:kaffe-1.0.6.tar.gz;patch:kaffe.diff
+# we need kaffeh to build
+kaffeh;1.0.6;kaffe-1.0.6;kaffe-1.0.6.tar.gz:kaffeh.diff;extract:kaffe-1.0.6.tar.gz;patch:kaffeh.diff;patch:cygwin/kaffeh.diff
+
+#
+# include
+#
+>>>;rules-make

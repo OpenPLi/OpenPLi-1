@@ -1,0 +1,81 @@
+#
+#  $(CONFIGDIR)/lcdmenu.conf
+#
+# 1.) do not change this file while lcdmenu is running!
+# 2.) a number can be any combination of 0-9.
+# 3.) a boolean can be true or false.
+#
+
+#
+# option: font_size (number)
+# default: 12
+#
+font_size=12
+
+#
+# option: line_spacing (number)
+# default: 3
+#
+# sets the spacing between two menu entries.
+#
+line_spacing=3
+
+#
+# option: default_entry (number)
+# default: 0
+#
+# sets the default selection when lcdmenu starts by its index.
+# the first index is 0.
+#
+default_entry=0
+
+#
+# option: text_align (number)
+# default: 0
+#
+# sets text align style for main menu.
+# 0 = left
+# 1 = centered
+#
+text_align=0
+
+#
+# option: show_numbers (boolean)
+# default: false
+#
+# enables display of remote control number key before each menu item.
+#
+show_numbers=false
+
+#
+# option: pin (string)
+# default: __lUISdFwUYjg (0000)
+#
+pin=__lUISdFwUYjg
+
+#
+# option: menu_items (string, ...)
+# default: EliteDVB,Neutrino,Lcars,Maintenance
+#
+menu_items=Enigma,Neutrino,Lcars,Maintenance,Put,Your,Start,Items,Here
+
+#
+# option: pin_protect (number, ...)
+# default: none
+#
+pin_protect=
+
+#
+# option: timeout (number)
+# default: 10 seconds
+#
+timeout=10
+
+#
+# option: visible_entries (number)
+# default: 4
+#
+# number of visible entries at once
+#
+visible_entries=4
+

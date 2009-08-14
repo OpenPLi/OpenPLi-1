@@ -1,0 +1,17 @@
+# /etc/profile
+
+export PATH="/sbin:/bin"
+
+# get environment from info module
+. /proc/bus/dbox.sh                                                             
+
+# timezone, only applicable for middle europe
+# export TZ=CET-1CEST,M3.5.0/2,M10.5.0/3
+
+export PS1='\w > '
+alias ll='ls -la'
+alias dir='ls -la'
+
+if [ -e /var/etc/profile ] ; then
+	. /var/etc/profile
+fi

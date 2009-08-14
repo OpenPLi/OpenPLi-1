@@ -1,0 +1,3 @@
+Mit "./create enigma.lst" erstellt man eine enigma-yadd die sehr sehr klein ist und auch in ein image passt..
+das erzeugte directory findet man unter /dbox2/flashroot
+Das ganze ist auch per ppcboot dann mit menüpunkt 5 bootbar

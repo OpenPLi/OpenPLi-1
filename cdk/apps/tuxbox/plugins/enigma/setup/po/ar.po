@@ -1,0 +1,709 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plisetup\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-04-26 22:33+0200\n"
+"PO-Revision-Date: 2007-05-15 21:44+0200\n"
+"Last-Translator: Adel Hajjajj <adel@dreamgaza.com>\n"
+"Language-Team: Adel <adel@dreamgaza.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../camx.cpp:50
+msgid "Camx settings plugin v"
+msgstr "أعدادات المرفقات كامكس"
+
+#: ../camx.cpp:65
+#: ../wifi.cpp:192
+msgid "Save changes"
+msgstr "أحفظ التغيرات"
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr "أنهاء"
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr "أخرج من المرفقات ولا تنسى حفظ الاعدادات"
+
+#: ../camx.cpp:94
+#: ../setup_main.cpp:117
+#: ../setup_main.cpp:172
+#: ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr "عن"
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr "معلومات هذا المرفق"
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr "لا يستطيع ايجاد معلومات الكرت"
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr "أعدادات الكامة "
+
+#: ../emuconfig.cpp:103
+msgid "Select softcam for this service"
+msgstr "أختار الكامة لهذة القناة"
+
+#: ../emuconfig.cpp:114
+msgid "Select softcam for this provider"
+msgstr "أختار الكامة لهذة الباقة"
+
+#: ../emuconfig.cpp:119
+msgid "Default SoftCam"
+msgstr "الكامة الآفتراضية "
+
+#: ../emuconfig.cpp:126
+msgid "Select default softcam"
+msgstr "أختار الكامة الافتراضية"
+
+#: ../emuconfig.cpp:131
+msgid "Cardserver"
+msgstr "مشغل الكامة"
+
+#: ../emuconfig.cpp:138
+msgid "Select cardserver"
+msgstr "اختار مشغل الكامة"
+
+#: ../emuconfig.cpp:143
+msgid "Auto reconnect cahandler"
+msgstr "اعادة الاتصال الاتوماتيكي"
+
+#: ../emuconfig.cpp:146
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "محاولة اعادة الاتصال عند فقدانة"
+
+#: ../emuconfig.cpp:151
+msgid "Can handle two services"
+msgstr "يستطيع التعامل مع قناتان"
+
+#: ../emuconfig.cpp:154
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "الكامة تستطيع التعامل مع قناتان"
+
+#: ../emuconfig.cpp:162
+#: ../emuconfig.cpp:530
+msgid "-- None --"
+msgstr "بدون"
+
+#: ../emuconfig.cpp:205
+#: ../setup_firewall.cpp:83
+#: ../setup_gbox.cpp:247
+#: ../setup_rdg.cpp:79
+#: ../setup_tpl.cpp:75
+#: ../wifi.cpp:191
+msgid "Save"
+msgstr "احفظ"
+
+#: ../emuconfig.cpp:206
+msgid "Save settings"
+msgstr "احفظ الاعدادات "
+
+#: ../emuconfig.cpp:213
+msgid "List stickies"
+msgstr "قائمة الستاتك"
+
+#: ../emuconfig.cpp:214
+msgid "List current stickies"
+msgstr "القائمة الحالية "
+
+#: ../emuconfig.cpp:223
+msgid "Cardinfo"
+msgstr "معلومات الكرت"
+
+#: ../emuconfig.cpp:224
+msgid "Get cardinfo from current active cardserver"
+msgstr "احصل على معلومات الكرت من مشغل الكامة الحالي"
+
+#: ../emuconfig.cpp:233
+msgid "Save and restart cam"
+msgstr "احفظ وأعد تشغيل الكامة"
+
+#: ../emuconfig.cpp:234
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "احفظ التغيرات واعد تشغيل الكامة ثم العودة الى الانجما"
+
+#: ../emuconfig.cpp:243
+msgid "Restart cardserver"
+msgstr "اعادة تشغيل مشغل الكامة"
+
+#: ../emuconfig.cpp:244
+msgid "Press OK to restart all selected services"
+msgstr "اظغط موافق لاعادة تشغيل الكل "
+
+#: ../emuconfig.cpp:379
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr "احفظ الاعدادات واعد تشغيل الكامة "
+
+#: ../emuconfig.cpp:379
+msgid "Softcam config info"
+msgstr "معلومات اعدادات الكامة"
+
+#: ../emuconfig.cpp:480
+msgid "Restarting cardserver"
+msgstr "اعادة تشغيل مشغل الكامة"
+
+#: ../emuconfig.cpp:480
+msgid "Cardserver info"
+msgstr "معلومات مشغل الكامة"
+
+#: ../emuconfig.cpp:518
+#: ../emuconfig.cpp:634
+msgid "Channel"
+msgstr "القناة"
+
+#: ../emuconfig.cpp:519
+#: ../emuconfig.cpp:639
+msgid "Provider"
+msgstr "الباقة"
+
+#: ../emuconfig.cpp:531
+#: ../emuconfig.cpp:532
+msgid "-- Default --"
+msgstr "افتراضي"
+
+#: ../emuconfig.cpp:588
+msgid "getting cardinfo"
+msgstr "الحصول على معلومات الكرت"
+
+#: ../emuconfig.cpp:604
+msgid "Current Stickies"
+msgstr "الوضع الحالي"
+
+#: ../emuconfig.cpp:606
+msgid "Sticky Settings 1"
+msgstr "الاعدادات المثبتة"
+
+#: ../gpanel.cpp:191
+#: ../gpanel.cpp:217
+#: ../gpanel.cpp:228
+#: ../ppanel.cpp:1143
+msgid "Error!"
+msgstr "خطاء"
+
+#: ../ppanel.cpp:128
+msgid "Script output"
+msgstr "مخرج السكربت"
+
+#: ../ppanel.cpp:201
+msgid "Downloading"
+msgstr "التحميل "
+
+#: ../ppanel.cpp:217
+msgid "Please wait"
+msgstr "الرجاء الانتظار"
+
+#: ../ppanel.cpp:247
+msgid ""
+"Download failed.\n"
+"Please check available space and your communication settings."
+msgstr "فشل في التحميل الرجاء التاكد من المساحة المتبقية "
+
+#: ../ppanel.cpp:271
+#, c-format
+msgid "Installing %s"
+msgstr "تثبيت %s"
+
+#: ../ppanel.cpp:313
+msgid "Install failed."
+msgstr "فشل في التثبيت"
+
+#: ../ppanel.cpp:343
+msgid "Continue"
+msgstr "المتابعة"
+
+#: ../ppanel.cpp:462
+msgid "Press OK"
+msgstr "اضعط موافق"
+
+#: ../ppanel.cpp:489
+#, c-format
+msgid ""
+"Are you sure to open\n"
+"%s?"
+msgstr "هل انت متاكد من فتح %s؟"
+
+#: ../ppanel.cpp:549
+#, c-format
+msgid ""
+"Are you sure to download\n"
+"%s?"
+msgstr "هل انت متاكد من تحميل %s؟"
+
+#: ../ppanel.cpp:563
+#: ../ppanel.cpp:791
+#: ../ppanel.cpp:1016
+#, c-format
+msgid "Downloading %s"
+msgstr "تحميل %s؟"
+
+#: ../ppanel.cpp:619
+#: ../ppanel.cpp:668
+#, c-format
+msgid ""
+"Are you sure to execute\n"
+"%s?"
+msgstr "هل انت متاكد من تنفيذ %s؟"
+
+#: ../ppanel.cpp:734
+#, c-format
+msgid ""
+"Are you sure to install\n"
+"%s?"
+msgstr "هل انت متاكد من تثبيت %s؟"
+
+#: ../ppanel.cpp:814
+msgid "The package cannot be installed because it's already installed. Please remove the previous version first."
+msgstr "لا تستطيع التثبيت وذلك لانها متثبتة مسبقا"
+
+#: ../ppanel.cpp:815
+msgid "Installing not possible"
+msgstr "التثبيت غير ممكن"
+
+#: ../ppanel.cpp:830
+#: ../ppanel.cpp:839
+msgid "Manual Install"
+msgstr "التثبيت اليدوي"
+
+#: ../ppanel.cpp:837
+msgid "Select package to install"
+msgstr "اختار الحزمة المراد تثبيتها"
+
+#: ../ppanel.cpp:925
+#: ../ppanel.cpp:931
+msgid "Remove Software"
+msgstr "حذف الكامة"
+
+#: ../ppanel.cpp:929
+msgid "Select package to remove"
+msgstr "اختار الحزمة المراد حذفها"
+
+#: ../ppanel.cpp:951
+#, c-format
+msgid ""
+"Are you sure to remove\n"
+"%s?"
+msgstr "هل انت متاكد من الحذف %s؟"
+
+#: ../ppanel.cpp:959
+#, c-format
+msgid "Removing %s"
+msgstr "حذف %s؟"
+
+#: ../ppanel.cpp:995
+#, c-format
+msgid ""
+"Are you sure to play\n"
+"%s?"
+msgstr "هل انت متاكد من التشغيل %s؟"
+
+#: ../ppanel.cpp:1087
+#, c-format
+msgid ""
+"Are you sure to write\n"
+"%s?"
+msgstr "هل انت متاكد من الكتابة %s؟"
+
+#: ../ppanel.cpp:1218
+#: ../setup_main.cpp:134
+#: ../setup_main.cpp:200
+#: ../setup_main.cpp:259
+#: ../setup_main.cpp:279
+msgid "setup"
+msgstr "أعدادات"
+
+#: ../ppanel.cpp:1332
+msgid "Please select an item"
+msgstr "الرجاء اختيار مادة "
+
+#: ../ppanel.cpp:1355
+msgid "latest"
+msgstr "الاخير"
+
+#: ../ppanel.cpp:1401
+msgid "A new menu is available. The new menu will be visible if you return to the setup panel.You can continue your work here after pressing OK."
+msgstr "قائمة جديدة متوفرة عند العودة الى"
+
+#: ../ppanel.cpp:1403
+msgid "Automatic menu update"
+msgstr "تحديث القائمة الاتوماتيكي"
+
+#: ../ppanel.cpp:1562
+#: ../ppanel.cpp:1660
+#, c-format
+msgid ""
+"%s\n"
+"%d bytes downloaded\n"
+"Press exit to cancel download"
+msgstr ""
+"%s\n"
+"%d تم تنزيل بايت\n"
+"اضغط خروج لألغاء التنزيل "
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr "اعدادات جدار الحماية"
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr "أدخال الاي بي المراد السماح له"
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr "أدخال الاسم الضيف المراد السماح له"
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr "أحفظ الاعدادات واعد تشغيل جدار الحماية "
+
+#: ../setup_gbox.cpp:159
+#: ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr "أعدادات الجي بوكس"
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr "نطاق العمل"
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr "اختيار نطاق العمل"
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr "Up. Mode:"
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr "اختار نطاق تحديث المفتاح"
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr "Disp ECM:"
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr "أعرض رسائل ECM "
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr "K. Folder:"
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr "اختار المجلد للمفاتيح"
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr "Disp EMM:"
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr "أعرض رسائل EMM "
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr "AU:"
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr "اختار نطاق التطوير الاتوماتيكي "
+
+#: ../setup_gbox.cpp:252
+#: ../setup_rdg.cpp:84
+#: ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr "احفظ التغيرات وارجع للخلف"
+
+#: ../setup_gbox.cpp:260
+#: ../setup_rdg.cpp:92
+#: ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr "الخروج"
+
+#: ../setup_gbox.cpp:263
+#: ../setup_rdg.cpp:95
+#: ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr "تجاهل التغيرات واخرج"
+
+#: ../setup_gbox.cpp:270
+#: ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr "الافتراضية"
+
+#: ../setup_gbox.cpp:273
+#: ../setup_rdg.cpp:105
+#: ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr "حمل افضل اعدادات افتراضية للمشاركة المحلية"
+
+#: ../setup_main.cpp:101
+msgid "SoftCam setup"
+msgstr "اعدادات الكامة"
+
+#: ../setup_main.cpp:101
+msgid "Open SoftCam setup"
+msgstr "فتح اعدادات الكامة"
+
+#: ../setup_main.cpp:103
+msgid "Show installed PPanels"
+msgstr "اظهر القوائم المثبتة"
+
+#: ../setup_main.cpp:103
+msgid "Show all installed PPanels"
+msgstr "اظهر كل القوائم المثبتة"
+
+#: ../setup_main.cpp:105
+msgid "Software Management"
+msgstr "ادارة الكامة"
+
+#: ../setup_main.cpp:105
+msgid "Install and remove software"
+msgstr "تثبيت والغاء الكامة"
+
+#: ../setup_main.cpp:107
+msgid "Backup/restore"
+msgstr "نسخ او استرجاع الاعدادات"
+
+#: ../setup_main.cpp:107
+msgid "Backup and restore your Dreambox"
+msgstr "نسخ او استرجاع الاعدادات الى الدريم "
+
+#: ../setup_main.cpp:109
+msgid "Dreambox settings"
+msgstr "اعدادات الدريم "
+
+#: ../setup_main.cpp:110
+msgid "Change several settings of the Dreambox"
+msgstr "غير الكثير من العدادات في الدريم"
+
+#: ../setup_main.cpp:114
+msgid "PLi news"
+msgstr "اخبار فريق PLI"
+
+#: ../setup_main.cpp:115
+msgid "Info and news about PLi"
+msgstr "معلومات واخبار الفريق "
+
+#: ../setup_main.cpp:241
+#, c-format
+msgid "/var used %d%%"
+msgstr "/var المستخدمة %d%%"
+
+#: ../setup_main.cpp:249
+#, c-format
+msgid "recordings %d%%"
+msgstr "التسجيل %d%%"
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr "اعدادات رادجيست"
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr "الافتراضية"
+
+#: ../setup_runapp.cpp:65
+msgid "Close"
+msgstr "اغلق"
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr "لا يمكن التنفيذ"
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr "حدث خطاء اثناء التنفيذ"
+
+#: ../wifi.cpp:89
+#: ../wifi.cpp:373
+#: ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr "Wifi مرفق"
+
+#: ../wifi.cpp:89
+msgid " - network settings"
+msgstr "أعدادات الشبكة"
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr "تمكين Wifi"
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr "تمكين او تعطيل Wifi"
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr "IP"
+
+#: ../wifi.cpp:112
+msgid "Enter your IP address"
+msgstr "ادخل عنوان الاي بي الخاص بك"
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr "Netmask"
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr "Netmask الخاص بك"
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr "Gateway"
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr "Gateway الخاص بك"
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr "DNS"
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr "Enter your Dynamic Name Server IP address"
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr "الريط: 0"
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr "المستوى: 0"
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr "Noise: 0"
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr "خروج"
+
+#: ../wifi.cpp:202
+msgid "Exit this plugin, don't forget to save!"
+msgstr "الخروج من هذا المرفق ولا تنسى حفظ الاعدادات"
+
+#: ../wifi.cpp:211
+#: ../wifi.cpp:463
+msgid "Next"
+msgstr "التالي"
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr "ضع اعاداضع اعدادات الأمان"
+
+#: ../wifi.cpp:222
+msgid "About the Wifi plugin"
+msgstr "عن Wifi"
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+"المرفقات بواسطة dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"شكر لكل من Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"واخرين "
+
+#: ../wifi.cpp:373
+msgid " - security settings"
+msgstr "اعدادات الأمان"
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr "SSID"
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr "ادخال SSID"
+
+#: ../wifi.cpp:397
+msgid "Mode"
+msgstr "النطاق"
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr "اختيار بين الانضمة المختلفة"
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr "النضام المفتوح"
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr "مفتاح المشاركة"
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr "ad hoc"
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr "تمكين wep key"
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr "تمكين او ابطال wep key"
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr "Wep key"
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr "Enter wep key, 10 or 26 hexadecimal digits"
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr "Enter 0..9, a..f, ok to save (help is available)"
+
+#: ../wifi.cpp:453
+#: ../wifi.cpp:601
+msgid "Prev"
+msgstr "السابق"
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr "العودة لأعدادات الشيكة"
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr "اظهار شاشة الاخراج"
+
+#: ../wifi.cpp:571
+msgid " - logging"
+msgstr "الاخراج"
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr "لا يوجد شاشة اخراج لل wif"
+

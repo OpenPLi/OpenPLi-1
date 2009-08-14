@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/xml/serviceepg.xsl"?>
+<service_epg>
+	<service>
+		<reference>#REFERENCE#</reference>
+		<name>#NAME#</name>
+	</service>
+	#BODY#
+</service_epg>

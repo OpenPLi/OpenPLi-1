@@ -1,0 +1,18 @@
+--- ushare-1.1a/src/mime.c.orig	2008-03-30 10:43:07.000000000 +0100
++++ ushare-1.1a/src/mime.c	2008-03-30 10:46:30.000000000 +0100
+@@ -55,6 +55,15 @@
+   { "m4p",   UPNP_VIDEO, "http-get:*:video/mp4:"},
+   { "mp4ps", UPNP_VIDEO, "http-get:*:video/x-nerodigital-ps:"},
+   { "ts",    UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "001",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "002",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "003",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "004",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "005",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "006",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "007",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "008",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
++  { "009",   UPNP_VIDEO, "http-get:*:video/mpeg2:"},
+   { "ogm",   UPNP_VIDEO, "http-get:*:video/mpeg:"},
+   { "mkv",   UPNP_VIDEO, "http-get:*:video/mpeg:"},
+   { "rmvb",  UPNP_VIDEO, "http-get:*:video/mpeg:"},

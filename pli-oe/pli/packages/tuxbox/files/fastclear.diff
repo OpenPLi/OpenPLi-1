@@ -1,0 +1,12 @@
+diff -u libs/libtuxtxt_orig/tuxtxt_common.h libs/libtuxtxt/tuxtxt_common.h
+--- libs/libtuxtxt_orig/tuxtxt_common.h	2009-01-29 21:26:49.000000000 +0100
++++ libs/libtuxtxt/tuxtxt_common.h	2009-01-29 21:28:12.000000000 +0100
+@@ -5501,7 +5501,7 @@
+ 		FT_Done_FreeType(renderinfo->library);
+ 	renderinfo->manager = 0;
+ 	renderinfo->library = 0;
+-	tuxtxt_ClearFB(renderinfo,renderinfo->previousbackcolor);
++	memset(renderinfo->lfb, 0, renderinfo->fix_screeninfo.smem_len);
+ 	/* unmap framebuffer */
+ 	munmap(renderinfo->lfb, renderinfo->fix_screeninfo.smem_len);
+ 	printf("[TTX] Rendering ended\n");

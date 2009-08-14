@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# RDIMAGE=/LinuxPPC/usr/src/linux/arch/ppc/mbxboot/ramdisk.image.gz
+RDIMAGE=initrd
+
+#gzip -c $RDIMAGE > $RDIMAGE.gz
+
+tools/mkimage -n 'dbox2' -A ppc -O linux -T kernel -C gzip \
+        -a 00000000 -e 00000000 \
+        -d /LinuxPPC/usr/src/linux/arch/ppc/coffboot/vmlinux.gz \
+           /tftpboot/dbox-linux
+
+#tools/mkimage -n 'dbox2 initrd image' \
+#        -A ppc -O linux -T ramdisk -C gzip \
+#        -d $RDIMAGE.gz     \
+#          /tftpboot/dbox-initrd

@@ -1,0 +1,686 @@
+# translation of fy.po to frysk
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Gerrit <gerrit@nedlinux.nl>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: fy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-19 00:24+0200\n"
+"PO-Revision-Date: 2007-05-19 09:19+0200\n"
+"Last-Translator: Gerrit <gerrit@nedlinux.nl>\n"
+"Language-Team: frysk <fy@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: ../camx.cpp:50
+msgid "Camx settings plugin v"
+msgstr "Camx ynstekker ynstellingen v"
+
+#: ../camx.cpp:65 ../wifi.cpp:192
+msgid "Save changes"
+msgstr "wizigingen opslaan"
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr "Stopje"
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr "Ofslute ynstekkers (earst opslaan)"
+
+#: ../camx.cpp:94 ../setup_main.cpp:89 ../setup_main.cpp:144 ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr "Oer.."
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr "Oer dizze ynstekker"
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr "Gjin kaartynfo anwêzig"
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr "Softcam ynstellingen"
+
+#: ../emuconfig.cpp:103
+msgid "Select softcam for this channel"
+msgstr "Kies softcam foar dit kanaal"
+
+#: ../emuconfig.cpp:114
+msgid "Select softcam for this provider"
+msgstr "Kies softcam foar dizze leveransier"
+
+#: ../emuconfig.cpp:119
+msgid "Default SoftCam"
+msgstr "Standert softcam"
+
+#: ../emuconfig.cpp:126
+msgid "Select default softcam"
+msgstr "Kies standert softcam"
+
+#: ../emuconfig.cpp:131
+msgid "Cardserver"
+msgstr "Kaartserver"
+
+#: ../emuconfig.cpp:138
+msgid "Select cardserver"
+msgstr "Kies kaartserver"
+
+#: ../emuconfig.cpp:143
+msgid "Auto reconnect cahandler"
+msgstr "Auto ferbine cahandler"
+
+#: ../emuconfig.cpp:146
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "Opnei oanslute by ferbrekken fan cahandler ferbyning"
+
+#: ../emuconfig.cpp:151
+msgid "Can handle two services"
+msgstr "Kin twa services oan"
+
+#: ../emuconfig.cpp:154
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "Cam of Common interface kin twa services tagelyk oan"
+
+#: ../emuconfig.cpp:162 ../emuconfig.cpp:530
+msgid "-- None --"
+msgstr "-- Gjin --"
+
+#: ../emuconfig.cpp:205 ../setup_firewall.cpp:83 ../setup_gbox.cpp:247
+#: ../setup_rdg.cpp:79 ../setup_tpl.cpp:75 ../wifi.cpp:191
+msgid "Save"
+msgstr "Opslaan"
+
+#: ../emuconfig.cpp:206
+msgid "Save settings"
+msgstr "Ynstellingen opslaan"
+
+#: ../emuconfig.cpp:213
+msgid "List stickies"
+msgstr "List stickies"
+
+#: ../emuconfig.cpp:214
+msgid "List current stickies"
+msgstr "List aktieve stickies"
+
+#: ../emuconfig.cpp:223
+msgid "Cardinfo"
+msgstr "Kaartynfo"
+
+#: ../emuconfig.cpp:224
+msgid "Get cardinfo from current active cardserver"
+msgstr "Kaartynfo fan aktieve cardserver helje"
+
+#: ../emuconfig.cpp:233
+msgid "Save and restart cam"
+msgstr "Opslaan en opnij starte"
+
+#: ../emuconfig.cpp:234
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "Wizigingen opslaan, softcam opnij starte en wer werom nei enigma"
+
+#: ../emuconfig.cpp:243
+msgid "Restart cardserver"
+msgstr "KaartServer opnij starte"
+
+#: ../emuconfig.cpp:244
+msgid "Press OK to restart the cardserver"
+msgstr "Druk ok om kaartserver opnij te starten"
+
+#: ../emuconfig.cpp:379
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+"Ynstellingen opslaan\n"
+"en start softcam"
+
+#: ../emuconfig.cpp:379
+msgid "Softcam config info"
+msgstr "Softcam ynstellingen ynfo"
+
+#: ../emuconfig.cpp:480
+msgid "Restarting cardserver"
+msgstr "Kaartserver wurd opnij start"
+
+#: ../emuconfig.cpp:480
+msgid "Cardserver info"
+msgstr "Kaartserver ynfo"
+
+#: ../emuconfig.cpp:518 ../emuconfig.cpp:634
+msgid "Channel"
+msgstr "Kanaal"
+
+#: ../emuconfig.cpp:519 ../emuconfig.cpp:639
+msgid "Provider"
+msgstr "Leveransier"
+
+#: ../emuconfig.cpp:531 ../emuconfig.cpp:532
+msgid "-- Default --"
+msgstr "-- Standert --"
+
+#: ../emuconfig.cpp:588
+msgid "getting cardinfo"
+msgstr "Kaartynfo wurd ophelle"
+
+#: ../emuconfig.cpp:604
+msgid "Current Stickies"
+msgstr "Aktieve stickies"
+
+#: ../emuconfig.cpp:606
+msgid "Sticky Settings 1"
+msgstr "Sticky ynstellingen 1"
+
+#: ../gpanel.cpp:191 ../gpanel.cpp:217 ../gpanel.cpp:228 ../ppanel.cpp:1143
+msgid "Error!"
+msgstr "Fout !!"
+
+#: ../ppanel.cpp:128
+msgid "Script output"
+msgstr "Skript útfier"
+
+#: ../ppanel.cpp:201
+msgid "Downloading"
+msgstr "Ophelje fan.."
+
+#: ../ppanel.cpp:217
+msgid "Please wait"
+msgstr "Eefkes wachtsje"
+
+#: ../ppanel.cpp:247
+msgid ""
+"Download failed.\n"
+"Please check available space and your communication settings."
+msgstr ""
+"Opheljen mislearre.\n"
+"Kontrolearje skiifrûmte is en kommunikaasje ynstellingen"
+
+#: ../ppanel.cpp:271
+#, c-format
+msgid "Installing %s"
+msgstr "Ynstallearje fan %s"
+
+#: ../ppanel.cpp:313
+msgid "Install failed."
+msgstr "Ynstallearjen mislearre"
+
+#: ../ppanel.cpp:343
+msgid "Continue"
+msgstr "Trochgean"
+
+#: ../ppanel.cpp:462
+msgid "Press OK"
+msgstr "Druk Ok"
+
+#: ../ppanel.cpp:489
+#, c-format
+msgid ""
+"Are you sure to open\n"
+"%s?"
+msgstr ""
+"Wolle jo seker \n"
+"%s iepenje ?"
+
+#: ../ppanel.cpp:549
+#, c-format
+msgid ""
+"Are you sure to download\n"
+"%s?"
+msgstr ""
+"Wolle jo seker \n"
+"%s ophelje ?"
+
+#: ../ppanel.cpp:563 ../ppanel.cpp:791 ../ppanel.cpp:1016
+#, c-format
+msgid "Downloading %s"
+msgstr "Binnenhelje fan %s"
+
+#: ../ppanel.cpp:619 ../ppanel.cpp:668
+#, c-format
+msgid ""
+"Are you sure to execute\n"
+"%s?"
+msgstr ""
+"Wolle jo %s\n"
+"útfiere ?"
+
+#: ../ppanel.cpp:734
+#, c-format
+msgid ""
+"Are you sure to install\n"
+"%s?"
+msgstr ""
+"Wolle jo %s\n"
+"ynstallearje ?"
+
+#: ../ppanel.cpp:814
+msgid ""
+"The package cannot be installed because it's already installed. Please "
+"remove the previous version first."
+msgstr ""
+"Dit pakket kin net ynstallearre wurde, omdat it al anwêzig is. Ferwiderje "
+"earst de âlde ferzje."
+
+#: ../ppanel.cpp:815
+msgid "Installing not possible"
+msgstr "Ynstallaarsje net útfierber"
+
+#: ../ppanel.cpp:830 ../ppanel.cpp:839
+msgid "Manual Install"
+msgstr "Hânmatig ynstallearje"
+
+#: ../ppanel.cpp:837
+msgid "Select package to install"
+msgstr "Kies pakket foar ynstallaasje"
+
+#: ../ppanel.cpp:925 ../ppanel.cpp:931
+msgid "Remove Software"
+msgstr "Software ferwiderje"
+
+#: ../ppanel.cpp:929
+msgid "Select package to remove"
+msgstr "Kies pakket foar ferwiderjen"
+
+#: ../ppanel.cpp:951
+#, c-format
+msgid ""
+"Are you sure to remove\n"
+"%s?"
+msgstr ""
+"Wolle jo seker %s\n"
+"ferwiderje ?"
+
+#: ../ppanel.cpp:959
+#, c-format
+msgid "Removing %s"
+msgstr "%s wurd ferwidere"
+
+#: ../ppanel.cpp:995
+#, c-format
+msgid ""
+"Are you sure to play\n"
+"%s?"
+msgstr ""
+"Wolle jo seker %s\n"
+"ôfspielje"
+
+#: ../ppanel.cpp:1087
+#, c-format
+msgid ""
+"Are you sure to write\n"
+"%s?"
+msgstr ""
+"Wolle jo seker %s\n"
+"fuortskriuwe ?"
+
+#: ../ppanel.cpp:1218 ../setup_main.cpp:106 ../setup_main.cpp:172
+#: ../setup_main.cpp:233 ../setup_main.cpp:253
+msgid "setup"
+msgstr "ynstellingen"
+
+#: ../ppanel.cpp:1332
+msgid "Please select an item"
+msgstr "Kies in item"
+
+#: ../ppanel.cpp:1355
+msgid "latest"
+msgstr "lêste"
+
+#: ../ppanel.cpp:1401
+msgid ""
+"A new menu is available. The new menu will be visible if you return to the "
+"setup panel.You can continue your work here after pressing OK."
+msgstr ""
+"In nij menu is anwêzig. It nije menu wurd sichtber by it wer werom gean nei "
+"deynstellingen. Jo kinne hjir trochgean nei drukken op Ok."
+
+#: ../ppanel.cpp:1403
+msgid "Automatic menu update"
+msgstr "Automatysk menu bywurkje"
+
+#: ../ppanel.cpp:1562 ../ppanel.cpp:1660
+#, c-format
+msgid ""
+"%s\n"
+"%d bytes downloaded\n"
+"Press exit to cancel download"
+msgstr ""
+"%s\n"
+"%d bytes ophelle\n"
+"Druk exit om opheljen ôf te brekken"
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr "Firewall ynstelle"
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr "Ynjefte IP adres foar tagong fan IP"
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr "Ynjefte hostnamme foar tagong fan host"
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr "wizigingen opslaan en start firewall opnij"
+
+#: ../setup_gbox.cpp:159 ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr "GBOX ynstellingen"
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr "Wurk stand"
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr "Kies wurk stand"
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr "Up. Stand:"
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr "Kies kaai bywurk stand"
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr "ECM sjen :"
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr "ECM berjochten sjen litte op konsole?"
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr "K.Map:"
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr "Kies map foar kaaien"
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr "EMM sjen"
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr "EMM berjochten sjen litte op konsole ?"
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr "AU:"
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr "Kies AU stand"
+
+#: ../setup_gbox.cpp:252 ../setup_rdg.cpp:84 ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr "wizigingen opslaan en wer werom"
+
+#: ../setup_gbox.cpp:260 ../setup_rdg.cpp:92 ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr "Ôfbrekke"
+
+#: ../setup_gbox.cpp:263 ../setup_rdg.cpp:95 ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr "Wizigingen ôfbrekke en wer werom"
+
+#: ../setup_gbox.cpp:270 ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr "Standert waardes"
+
+#: ../setup_gbox.cpp:273 ../setup_rdg.cpp:105 ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr "Laad standert waardes foar lokale CS"
+
+#: ../setup_main.cpp:73
+msgid "SoftCam setup"
+msgstr "Softcam ynstellingen"
+
+#: ../setup_main.cpp:73
+msgid "Open SoftCam setup"
+msgstr "Softcam ynstellingen iepenje"
+
+#: ../setup_main.cpp:75
+msgid "Show installed PPanels"
+msgstr "Ynstallearre PPanels sjen litte"
+
+#: ../setup_main.cpp:75
+msgid "Show all installed PPanels"
+msgstr "Alle ynstallearre PPanels sjen litte"
+
+#: ../setup_main.cpp:77
+msgid "Software Management"
+msgstr "Software underhâld"
+
+#: ../setup_main.cpp:77
+msgid "Install and remove software"
+msgstr "ynstallearje en ferwiderje fan software"
+
+#: ../setup_main.cpp:79
+msgid "Backup/restore"
+msgstr "Backup/Restore"
+
+#: ../setup_main.cpp:79
+msgid "Backup and restore your Dreambox"
+msgstr "Backup en Restore fan Dreambox ynstellingen"
+
+#: ../setup_main.cpp:81
+msgid "Dreambox settings"
+msgstr "Dreambox ynstellingen"
+
+#: ../setup_main.cpp:82
+msgid "Change several settings of the Dreambox"
+msgstr "Feroarje ynstellingen fan de dreambox"
+
+#: ../setup_main.cpp:86
+msgid "PLi news"
+msgstr "PLI nijs"
+
+#: ../setup_main.cpp:87
+msgid "Info and news about PLi"
+msgstr "PLi ynfo en nijs"
+
+#: ../setup_main.cpp:213
+#, c-format
+msgid "/var used %d%%"
+msgstr "/var yn gebrûk %d%%"
+
+#: ../setup_main.cpp:222
+#, c-format
+msgid "recordings %d%%"
+msgstr "Opnâm %d%%"
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr "Radegast ynstellingen"
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr "standert ynstellingen"
+
+#: ../setup_runapp.cpp:65
+msgid "Close"
+msgstr "Ofslúte"
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr "kin skript net útfiere"
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr "De útfiering fan bestân hat mislearre"
+
+#: ../wifi.cpp:89 ../wifi.cpp:373 ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr "Wifi ynstekker v"
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr "Wifi ynskeakelje"
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr "Wifi yn/útskeakelje"
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr "IP"
+
+#: ../wifi.cpp:112
+msgid "Enter your IP address"
+msgstr "Ynjefte fan jo IP adres"
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr "Netmask"
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr "Ynjefte fan jo netmask"
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr "Gateway"
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr "Ynjefte fan jo gateway IP adres"
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr "DNS"
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr "Ynjefte fan jo D-DNS Server IP adres"
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr "Link: 0"
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr "Niveau: 0"
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr "Rûs: 0"
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr "Ofslúte"
+
+#: ../wifi.cpp:202
+msgid "Exit this plugin, don't forget to save!"
+msgstr "Ynstekker ôfslúte, earst opslaan!"
+
+#: ../wifi.cpp:211 ../wifi.cpp:463
+msgid "Next"
+msgstr "Folgende"
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr "Befeiligings ynstellingen"
+
+#: ../wifi.cpp:222
+msgid "About the Wifi plugin"
+msgstr "Oer de wifi ynstekker"
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+"Ynstekker troch dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi ynstekker frij jûn under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Danke wol Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"en oaren"
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr "SSID"
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr "Ynjefte fan SSID"
+
+#: ../wifi.cpp:397
+msgid "Mode"
+msgstr "Stand"
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr "Kies tusken iepen, dielde kaai of ad hoc ferbining"
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr "iepen systeem"
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr "Dielde kaai"
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr "ad hoc"
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr "wep kaai ynskeakelje"
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr "wep kaai yn/útskeakelje"
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr "Wep kaai"
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr "Ynjefte wep kaai, 10 of 26 hexadecimale karakters"
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr "Ynjefte fan 0..9, a..f, ok foar opslaan (help is anwêzig)"
+
+#: ../wifi.cpp:453 ../wifi.cpp:601
+msgid "Prev"
+msgstr "Foarige"
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr "Wer werom nei netwurk ynstellingen"
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr "Log skerm sjen litte"
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr "Gjin wifi log fûn"
+

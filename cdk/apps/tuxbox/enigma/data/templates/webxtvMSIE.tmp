@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>WEB-X-TV</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="MSHTML 6.00.2900.2668" name="GENERATOR">
+<link rel="stylesheet" type="text/css" href="webif.css">
+<script language="javascript" type="text/javascript" src="dhtml.js"></script>
+<script language="javascript" type="text/javascript" src="window.js"></script>
+<script language="javascript" type="text/javascript" src="index.js"></script>
+<script language="javascript" type="text/javascript" src="zap.js"></script>
+<script language="javascript" type="text/javascript" src="epg.js"></script>
+<script language="javascript" type="text/javascript">#ZAPDATA#</script>
+<script>
+var service = "";
+var wantToPlay = true;
+var vlc;
+
+function $(id)
+{
+	return document.getElementById(id);	
+}
+
+function usingZapstream()
+{
+	return (data && data.vlcparms && new String(data.vlcparms).indexOf(":31344") > 0);
+}
+
+function headerUpdateEPGData(serviceName, nowT, nowD, nowSt, nextT, nextD, nextSt)
+{
+	vlc = $("vlce") || $("vlc");
+	
+	if (document.service != data.vlcparms)
+	{
+		document.service = data.vlcparms;
+		if (wantToPlay==true)
+		{
+			play();
+		}
+	}
+	
+	getElem("id", "servicename", null).firstChild.nodeValue = serviceName;
+	getElem("id", "nowt", null).firstChild.nodeValue = nowT;
+	getElem("id", "nowd", null).firstChild.nodeValue = nowD;
+	if (!MS)
+		nowSt = nowSt.substr(0, 40);
+	getElem("id", "nowst", null).firstChild.nodeValue = nowSt;
+	getElem("id", "nextt", null).firstChild.nodeValue = nextT;
+ 	getElem("id", "nextd", null).firstChild.nodeValue = nextD;
+	if (!MS)
+		nextSt = nextSt.substr(0, 40);
+	getElem("id", "nextst", null).firstChild.nodeValue = nextSt;
+	
+	if (vlc.playlist.isPlaying)
+	{
+		showStopbutton();
+	}
+	else
+	{
+		showPlaybutton();
+	}
+}
+function initTV()
+{
+	vlc = $("vlce") || $("vlc");
+
+	init(); <!-- zap.js -->
+	update2();
+}
+function update2()
+{
+	data.location.reload();
+	setTimeout("update2()", 5000);
+}
+function go(targetURL)
+{
+	var options = new Array();
+
+	vlc.playlist.items.clear();
+	if ($("deinterlacemode").value)
+	{
+		options.push(":vout-filter=deinterlace");
+		options.push(":deinterlace-mode="+$("deinterlacemode").value);
+	}
+	options.push(":audio-track="+$("audiotrack").value);
+	var itemId = vlc.playlist.add(targetURL, null, options);
+	if( itemId != -1 )
+    	{	
+		vlc.playlist.playItem(itemId);
+	}
+}
+function changeaudiochannel()
+{
+	setTimeout('$("audiochannel").value = "" + vlc.audio.channel;', 50);
+}
+
+function play()
+{
+	wantToPlay = true;
+	go(data.vlcparms);
+}
+function stop()
+{
+	wantToPlay = false;
+	vlc.playlist.stop();
+	
+	vlc.playlist.items.clear();
+}
+function togglePlaystate()
+{
+	var button = $("playbutton");
+	if (wantToPlay)
+	{
+		stop();
+		showPlaybutton();
+	}
+	else
+	{
+		play();
+		showStopbutton();
+	}
+}
+function showPlaybutton()
+{
+	var button = $("playbutton");
+	button.src = "xplay.png";
+}
+function showStopbutton()
+{
+	var button = $("playbutton");
+	button.src = "xstop.png";
+}
+function setVlcVolume(volume)
+{
+	vlc.audio.volume = volume;
+	headerUpdateVlcVolumeBar(volume);
+}
+function toggleVlcMute()
+{
+	vlc.audio.toggleMute();
+	var mutebutton = $("mute");
+	if (vlc.audio.volume > 0)
+	{
+		mutebutton.src = "xspeak_on.png";
+	}
+	else
+	{
+		mutebutton.src = "xspeak_off.png";
+	}	
+}
+function headerUpdateVlcVolumeBar(volume)
+{
+	for (var i = 10; i <= 100; i += 10)
+	{
+		if (i <= volume)
+			$("imgVol" + i).src = "led_on.gif";
+		else
+			$("imgVol" + i).src = "led_off.gif";
+	}
+}
+function nextaudiotrack()
+{
+	setaudiotrack(parseInt($('audiotrack').value)+1);
+}
+function prevaudiotrack()
+{
+	setaudiotrack(parseInt($('audiotrack').value)-1);
+}
+function setaudiotrack(track)
+{
+	if (track < 0) track = 0;
+	$('audiotrack').value = ""+track;
+	play();	
+}
+function zapforward()
+{
+	if (usingZapstream())
+	{
+		zapChannelForward();
+	}
+	else
+	{
+		stop();
+		setTimeout("zapChannelForward()", 500);
+		setTimeout("play()", 1500);
+	}	
+	
+}
+function zapbackward()
+{
+	if (usingZapstream())
+	{
+		zapChannelBackward();
+	}
+	else
+	{
+		stop();
+		setTimeout("zapChannelBackward()", 500);
+		setTimeout("play()", 1500);
+	}	
+}
+function zap()
+{
+	currentChannel = $("channel").selectedIndex;
+	if (currentChannel >= 0)
+	{
+		if (usingZapstream())
+		{
+			zapToSelectedChannel();
+		}
+		else
+		{
+			stop();
+			setTimeout("zapToSelectedChannel()", 500);
+			setTimeout("play()", 1500);
+		}
+	}
+}
+function zapToSelectedChannel()
+{
+	switchChannel($("channel").options[currentChannel].value, currentBouquet, currentChannel);
+}
+function showDebugInfo()
+{
+	alert("VLC Version: "+vlc.VersionInfo);
+}
+
+
+if (navigator.appName.indexOf('Microsoft') != -1)
+{
+	var a = 0;
+	var b = 0;
+	function resizevlc()
+	{
+		b++;
+		if (a==b)
+		{
+			var vlccontainer = $("vlccontainer");
+			vlc.style.height = vlccontainer.clientHeight+"px";
+			vlc.style.width = vlccontainer.clientWidth+"px";
+		}
+	}
+
+	window.onresize = function()
+	{
+		window.setTimeout('resizevlc();', 100);
+		a++;
+	};
+}
+
+</SCRIPT>
+</HEAD>
+<BODY onLoad="initTV();" style="margin: 0px;padding: 0px;height:100%;width:100%;background-color:#000; ">
+<div class="header" style="position:absolute;height:60px;top:0px;width:100%;z-index:2;display:block;box-sizing:border-box;overflow:hidden;-moz-box-sizing:border-box;">
+	<span class="head" >Chan:&nbsp;</span>
+	<span id="servicename" class="servicename">&nbsp;</span>
+	<span><img id="imgCrypt" src="crypt_off.gif" border="0" alt=""></span>
+	<span class="head">Now:&nbsp;</span>
+	<span id="nowt" class="epgzeit_bold">&nbsp;</span>
+	<span id="nowd" class="epgdur">&nbsp;</span>
+	<span id="nowst" class="epgname_bold">&nbsp;</span>
+	<span class="head">Next:&nbsp;</span>
+	<span id="nextt" class="epgzeit_bold">&nbsp;</span>
+	<span id="nextd" class="epgdur">&nbsp;</span>
+	<span id="nextst" class="epgname_bold">&nbsp;</span>
+</div>
+<div style="position:absolute;height:30px;top:30px;width:100%;z-index:4;display:block;box-sizing:border-box;overflow:hidden;-moz-box-sizing:border-box;">
+	<div class="selectors">
+		<form name="channelselector">
+			<select id="bouquet" name="bouquet" onChange="bouquetChange();" size="1"></select>
+			<select id="channel" name="channel" onChange="zap();" size="1"></select>
+		</form>
+	</div>
+</div>
+<div id="vlccontainer" style="height:100%;width:100%;border-top:60px solid #000;border-bottom:30px solid #000;position:absolute;top:0px;left:0px;z-index:1;display:block;box-sizing:border-box;overflow:hidden;-moz-box-sizing:border-box;">
+<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+        codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab#Version=0,8,6,0"
+        id="vlc"
+        events="True"
+	width="100%"
+	height="100%">
+	<param name="MRL" value="" />
+	<param name="ShowDisplay" value="True" />
+	<param name="AutoLoop" value="False" />
+	<param name="AutoPlay" value="False" />
+	<param name="Volume" value="50" />
+	<param name="StartTime" value="0" />
+	<param name="toolbar" value="yes" />
+	
+	<EMBED pluginspage="http://www.videolan.org"
+	       type="application/x-vlc-plugin"
+	       progid="VideoLAN.VLCPlugin.2"
+		autoplay="no"
+		loop="no" 
+		toolbar="yes" 
+		width="100%"
+		height="100%"	
+		id="vlce"
+		name="vlc">
+	</EMBED>
+</OBJECT>
+
+
+</div>
+<div class="footer" style="position:absolute;height:30px;width:100%;bottom:0px;left:0px;z-index:2;display:block;box-sizing:border-box;overflow:hidden;-moz-box-sizing:border-box;">
+	<a class="control" href="javascript:zapbackward();"><img id="zapchannelbackward" src="xup.png" alt="zap backward" title="zap backward"></a>
+	<a class="control" href="javascript:zapforward();"><img id="zapchannelforward" src="xdown.png" alt="zap forward" title="zap forward"></a>
+	<a class="control" href="javascript:togglePlaystate();"><img id="playbutton" src="xplay.png" alt="play/stop" title="play/stop"></a>
+	<span id="volumebar" class="control">
+		<a href="javascript:setVlcVolume(10)"><img id="imgVol10" src="led_on.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(20)"><img id="imgVol20" src="led_on.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(30)"><img id="imgVol30" src="led_on.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(40)"><img id="imgVol40" src="led_on.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(50)"><img id="imgVol50" src="led_on.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(60)"><img id="imgVol60" src="led_off.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(70)"><img id="imgVol70" src="led_off.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(80)"><img id="imgVol80" src="led_off.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(90)"><img id="imgVol90" src="led_off.gif" width="14" height="8" alt=""></a>
+		<a href="javascript:setVlcVolume(100)"><img id="imgVol100" src="led_off.gif" width="14" height="8" alt=""></a>
+	</span>
+	<span id="mutebutton" class="control">
+		<a href="javascript:toggleVlcMute()"><img id="mute" src="xspeak_on.png" alt="mute" title="mute"></a>
+	</span>
+	<span id="subchannelbutton" class="control">
+		<a href="javascript:selectSubChannel()"><img id="subchannel" src="xtv.png" alt="select subchannel" title="select subchannel"></a>
+	</span>
+	<span id="audiotrackselect" class="control webxtext">
+		Audiotrack:
+		<input id="audiotrack" title="Current audio track" value="0" size="2" onchange="setaudiotrack(parseInt($('audiotrack').value));" />
+		<a href="javascript:prevaudiotrack();" title="Previous audio track">&lt;</a>
+		<a href="javascript:nextaudiotrack();" title="Next audio track">&gt;</a>
+	</span>
+	<span id="deinterlaceselect" class="control webxtext">
+		Deinterlace:
+		<select id="deinterlacemode" title="Deinterlace mode" onchange="play();">
+			<option value="">none</option>
+			<option value="discard">discard</option>
+			<option value="blend">blend</option>
+			<option value="mean">mean</option>
+			<option value="bob">bob</option>
+			<option value="linear">linear</option>
+			<option value="x">x</option>
+		</select>
+	</span>
+	<span id="debug" class="control">
+		<a href="#" onclick="showDebugInfo();">I</a>
+	</span>
+</div>
+
+<iframe name="data" style="display:none;" src="data" width="100%" height="0" frameborder="0" framemargin="0" framewidth="0" ></iframe>
+<iframe name="vlccmd" style="display:none;" src="" width="100%" height="0" frameborder="0" framemargin="0" framewidth="0" ></iframe>
+
+</BODY>
+</HTML>

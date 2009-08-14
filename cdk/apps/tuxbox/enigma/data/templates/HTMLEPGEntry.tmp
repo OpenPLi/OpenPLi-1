@@ -1,0 +1,13 @@
+<tr valign="middle">
+	<td><span class="time">#DATE# #TIME#</span></td>
+	<td>
+		<a href="javascript:record('#REFERENCE#','#START#','#DURATION#','#DESCRIPTIONJS#','#NAMEJS#','#TIMERENDACTION#')">
+			<img src="timer.gif" border="0">
+		</a>
+	</td>
+	<td class="genre#GENRECATEGORY#"> 
+		<span class="event"><b>#DESCRIPTION#</b></span>
+		<br><i>#GENRE#</i>&nbsp;#DURATION_MINUTS#<br>
+		<span class="description">#DETAILS#</span>
+	</td>
+</tr>

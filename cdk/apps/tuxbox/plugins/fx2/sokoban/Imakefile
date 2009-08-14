@@ -1,0 +1,19 @@
+all:: sokoban.so
+
+#PREF=powerpc-linux-
+CC=$(PREF)gcc
+STRIP=$(PREF)strip
+CDEBUGFLAGS=-g -O2 -Wall -pedantic -DUSEX
+INCLUDES=-I. -I../lib -I../../include
+OBJS=board.o
+
+SingleProgramTarget(sokoban,main.o $(OBJS),,-L../lib -lfx2 -lX11)
+
+board.o: pics.h
+
+sokoban.so: somain.o $(OBJS)
+	$(CC) -g -o sokoban.so -shared -Wl,-soname,sokoban.so somain.o $(OBJS)
+	$(STRIP) sokoban.so
+
+clean::
+	rm -f sokoban.so

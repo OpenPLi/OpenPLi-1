@@ -1,0 +1,205 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script language="javascript" type="text/javascript" src="window.js"></script>
+		<script language="javascript" type="text/javascript" src="index.js"></script>
+		<script language="javascript" type="text/javascript" src="dhtml.js"></script>
+		<script language="javascript" type="text/javascript" src="zap.js"></script>
+		<script language="javascript" type="text/javascript">#ZAPDATA#</script>
+		<script>
+			function encode_utf8(inputtext) 
+			{
+				inputtext = inputtext.replace(/\r\n/g, "\n");
+				var utftext = "";
+				for (var n = 0; n < inputtext.length; n++)
+				{
+					var c = inputtext.charCodeAt(n);
+					if (c < 128)
+						utftext += String.fromCharCode(c);
+					else 
+					if ((c > 127) && (c < 2048)) 
+					{
+						utftext += String.fromCharCode((c >> 6) | 192);
+						utftext += String.fromCharCode((c & 63) | 128);
+					}
+					else 
+					{
+						utftext += String.fromCharCode((c >> 12) | 224);
+						utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+						utftext += String.fromCharCode((c & 63) | 128);
+					}
+				}
+				return utftext;
+			}
+			
+			function decode_utf8(utftext) 
+			{
+				var plaintext = ""; 
+				var i = 0; 
+				var c = c1 = c2 = 0;
+				while (i < utftext.length)
+				{
+					c = utftext.charCodeAt(i);
+					if (c < 128) 
+					{
+						plaintext += String.fromCharCode(c);
+						i++;
+					}
+					else 
+					if ((c > 191) && (c < 224)) 
+					{
+						c2 = utftext.charCodeAt(i + 1);
+						plaintext += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+						i += 2;
+					}
+					else 
+					{
+						c2 = utftext.charCodeAt(i + 1); 
+						c3 = utftext.charCodeAt(i + 2);
+						plaintext += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+						i += 3;
+					}
+				}
+				return plaintext;
+			}
+			
+			function update_desc_field()
+			{
+				var i = document.channelselector.channel.selectedIndex;
+				var nm = document.channelselector.channel.options[i].text; 
+				var reg_exp = /^\[\d* MB\] (.*)$/;
+				if (reg_exp.test(nm)) 
+				{
+					nm = RegExp.$1;
+				}
+				document.channelselector.description.value = nm;
+			}
+
+			function renameMovie()
+			{
+				var selChannel = document.channelselector.channel.selectedIndex;
+				var channel = "";
+				var newname = document.channelselector.description.value ;
+
+				if (selChannel >= 0)
+				{
+					if (newname.length > 0)
+					{
+						currentChannel = selChannel;
+						channel = document.channelselector.channel.options[selChannel].value;
+						document.location = "/cgi-bin/renameMovie?ref="+channel+"&desc="+escape(encode_utf8(newname));
+						setTimeout("document.location.reload()", 1000);
+						document.channelselector.description.value = "" ;
+					}
+					else
+					{
+						alert("Please enter a new name first!");
+						document.channelselector.description.value = document.channelselector.channel.options[selChannel].text ;
+					}
+				}
+				else
+					alert("Please select a movie first!");
+			}
+				
+			function deleteMovie(channel)
+			{
+				if (window.confirm('Do you really want to delete this movie?'))
+				{
+					if (window.screen.width < 800)
+					{
+						document.location = "/cgi-bin/deleteMovie?ref=" + channel;
+					}
+					else
+					{
+						var selChannel = document.channelselector.channel.selectedIndex;
+						if (selChannel >= 0)
+						{
+							currentChannel = selChannel;
+							channel = document.channelselector.channel.options[selChannel].value;
+							document.location = "/cgi-bin/deleteMovie?ref=" + channel;
+							setTimeout("document.location.reload()", 3000);
+						}
+						else
+							alert("Please select a movie first!");
+					}
+				}
+			}
+			
+			function downloadMovie()
+			{
+				if (window.screen.width >= 800)
+				{
+					var selChannel = document.channelselector.channel.selectedIndex;
+					if (selChannel >= 0)
+					{
+						currentChannel = selChannel;
+						var channel = document.channelselector.channel.options[selChannel].value;
+						var pos = channel.indexOf("%2f");
+						if (pos >= 0)
+						{
+							var fileName = channel.substr(pos + 3, channel.length - pos - 3);
+							fileName = decode_utf8(unescape(fileName));
+							document.location = "/rootX/" + fileName;
+						}
+						else 
+							alert("Sorry, no valid filename");
+						}
+					else
+						alert("Please select a movie first!");
+				}
+				else
+					alert("Movie download is not supported on this device.");
+			}
+
+			function recoverMovies()
+			{
+				if (window.confirm('Do you really want to rebuild the movie playlist?'))
+				{
+					NewWindow("/cgi-bin/recoverRecordings", "recoverRecordings", "200", "100", "no", "7000");
+				}
+			}
+			function streamMovie()
+			{
+				var selChannel = document.channelselector.channel.selectedIndex;
+				if (selChannel >= 0)
+				{
+					currentChannel = selChannel;
+					channel = document.channelselector.channel.options[selChannel].value;
+					document.location = "/movie.m3u?ref=" + channel;
+				}
+				else
+					alert("Please select a movie first!");
+			}
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+		#MOVIESOURCES#
+		<form name="channelselector">
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="display:none;">
+						<select style="width: 0px; font-weight: bold; background-color: #F4F4F4" name="bouquet" size="0"></select>
+					</td>
+					<td>
+						<select style="width: 630px; font-weight: bold; background-color: #F4F4F4" name="channel" size="#SELSIZE#" onchange="javascript:update_desc_field()"></select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input name="description" type="text" size="82">#RENAMEBUTTON#
+					</td>
+				</tr>
+			</table>
+		</form>
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					#DELETEBUTTON##DOWNLOADBUTTON##STREAMBUTTON#
+				</td>
+			</tr>
+		</table>
+		<br>
+		#RECOVERBUTTON#
+		<script language="javascript" type="text/javascript">init();</script>
+	</body>
+</html>

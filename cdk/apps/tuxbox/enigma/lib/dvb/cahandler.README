@@ -1,0 +1,125 @@
+Camd.socket Connectionloss and a proposal for a new CaPMT interface.
+====================================================================
+
+In the old camd.socket implementation (called clientPMT) the emu plays
+the role of server to which enigma (the client) needs to connect. This
+has the disadvantage that enigma endlesly needs to poll for existance
+of camd.socket. Also when enigma has sent the pmt data, and the emu is
+somehow stopped and restarteed(or a different emu s started) the PMT
+data is not resend. A zap is needed to send new pmt data.
+
+Connection loss
+---------------
+An Connectionloss-detect mechanism is implemented to remove the need
+for a zap om change/restart of emus. Enigma dectects when the connection
+to the camd.socket is lost and starts retrying. As soon as an emu
+sets up the camd.socket again, enigma will immediately connect and
+resend the pmt data. This often allows for transparent emu changes!
+
+However, some emus have problems with this as it seems the connection
+is closed as soon as the PMT data has been send. Enigma sees this as
+connection loss and retries to connect to the emu. The emu will accept
+the connection thinking it will receive new PMT data (e.g. thinks a zap
+has been made).
+In itself this is not a big problem, but when the user has selected OSD
+output on channel changes he will get repeated OSD messages which
+will become quite annoying.
+
+Note: when no emu is run, enigma still tries to connect to /tmp/camd.socket.
+It will then forever retry every 5 .
+
+
+
+The new CaPMT interface
+-----------------------
+A new PMT interface is developped, so called serverPMT.  In this interface
+the server/client role is reversed.  Enigma will now be a server to which
+emu's (becoming a client) can connect to receive PMT information.
+This allows for faster ZTI times (zap to image).  Measurement have shown
+that passing PMT information from enigma to emu takes 16 to 32 millisends
+in the old clientPMT interface.  With the new serverPMT interface it just
+takes 2 milliseconds. (Of coarse one still has to wait for the emu to setup
+descrabling before you get proper view.)
+
+This also results in immediate view when an emu is started while enigma is
+already running (eliminating the need of the 'autozap' feature).  This is
+implemented using the CA/CI interface, which is adapted to work for emus.
+Switching emus becomes practically transparent (as long as the curernt CW
+interval is not ended during startuptime of the new emu).
+
+The serverPMT interface is a nice and clean interface.  Enigma will become
+passive and will not agressively try to make a camd.cocket connection.  As
+it plays the server role, it allows for many programs to get PMT data at
+the same time.  This makes it possible to build a very simple daemon to
+manage sticky emus per channel/provider or othere tools that can make use
+of PMT data. 
+
+In the new interface enigma sets up the /tmp/.listen.camd.socket and
+waits for connections to it. An emu should connect to this socket and
+leave it open. As soon as enigma detects the connection to the socket
+it will snet CAPMT data in the same format as in the camd.socket way.
+When somehow the connection gets lost (enigma crashes for example)
+the emu show periodically (every second for example) try to reconnect to
+the socket.
+
+The interface will use the list_management flag to indicate CAPMT data
+for more services is send.  Clients should check the ca_pmt_list_management
+field in the CAPMT objects, to determine whether an object is the first
+or last object in the list, an object in the middle, or perhaps an update
+for an existing service.  With this the emu can implement support for
+recording a service while viewing another.
+Furthermore the emu can check the cmd_id, to determine the function of
+the receiver CAPMT.
+
+ca_pmt_list_management values:
+
+	#define LIST_MORE	0x00	/* CA application should append a 'MORE' CAPMT object the list,
+					 * and start receiving the next object
+					 */
+	#define LIST_FIRST	0x01	/* CA application should clear the list when a 'FIRST' CAPMT object
+					 * is received, and start receiving the next object
+					 */
+	#define LIST_LAST	0x02	/* CA application should append a 'LAST' CAPMT object to the list,
+					 * and start working with the list
+					 */
+	#define LIST_ONLY	0x03	/* CA application should clear the list when an 'ONLY' CAPMT object
+					 * is received, and start working with the object
+					 */
+	#define LIST_ADD	0x04	/* CA application should append an 'ADD' CAPMT object to the current list,
+					 * and start working with the updated list
+					 */
+	#define LIST_UPDATE	0x05	/* CA application should replace an entry in the list with an
+					 * 'UPDATE' CAPMT object, and start working with the updated list
+					 */
+
+ca_pmt_cmd_id values:
+	#define CMD_OK_DESCRAMBLING	0x01	/* CA application should start descrambling the service in this CAPMT object,
+						 * as soon as the list of CAPMT objects is complete
+						 */
+	#define CMD_OK_MMI		0x02
+	#define CMD_QUERY		0x03
+	#define CMD_NOT_SELECTED 	0x04	/* CA application should stop descrambling this service
+						 * (used when the last service in a list has left, note
+						 * that there is no CI definition to send an empty list)
+						 */
+
+A client implementation can maintain two lists. On list of received CaPMT
+objects, and a second list for services the emu is desrambling.
+When a LIST_FIRST or LIST_ONLY is received, the first last can be discarded
+and rebuild with the new CaPMT data. But when a LIST_UPDATE is recieved
+the first list should be updated with the received CaPMT data.  When a
+LIST_ADD, LIST_LAST or LIST_UPDATE is received, the two list should be
+compared so the second list can be updated and hence the descrambler(s)
+can be reset.  In this way black holes in recordings can be avoided.
+For further details see DVB document A025, "Guideline for Implementation
+and Use of the Common Interface for DVB Decoder Applications"
+
+
+To allow for structured PMT distribution it is advised that any tool
+allows for a command line option to select the location off the socket
+it needs to connect to.  Default would be the /tmp/.listen.camd.socket.
+It is suggested to use the '-p' parameter for this. E.g.:
+
+    camd -p /tmp/pmt.socket
+
+

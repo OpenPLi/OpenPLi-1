@@ -1,0 +1,10 @@
+AiO Dreambox Screengrabber v0.6
+
+Written in 10/2006 by Seddi
+Contact: seddi@ihad.tv / http://www.ihad.tv
+
+
+Only tested with compiling inside OE so far, dont know if it smoothly works inside the tuxbox CDK.
+I use to compile this inside the OE devshell, just do a "autotools_do_configure" and "make" and
+it should work.
+The source works for mipsel (7025) as well as for the ppc boxes without any changes.

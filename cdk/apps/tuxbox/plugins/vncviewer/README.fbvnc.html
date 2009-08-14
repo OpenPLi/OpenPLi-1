@@ -1,0 +1,536 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  <head>
+    <title>
+      fbvnc - a framebuffer-based VNC client
+    </title>
+  </head>
+  <body bgcolor="#ffffff" text="black">
+
+<h1>fbvnc - a framebuffer-based VNC client</h1>
+
+<p>fbvnc is a framebuffer based viewer for the Virtual Network Computing (VNC)
+protocol. It is designed for Linux-based handhelds, such as the Compaq iPAQ and
+Sharp Zaurus, and controlled through the touch screen and hardware buttons. The
+intended use is to connect this client to a background Xvnc process also
+running on the handheld.</p>
+
+<p><b>Important:</b> This software is for Linux, it does <i>not</i> work on Windows CE.</p>
+
+<p>It offers the following features:</p>
+
+<ul>
+<li>virtual desktops larger than the physical display, using the touch
+  screen to pan the visible area
+
+<li>anti-aliased scaling (display a 640x480 desktop on a 320x240 display)
+
+<li>integrated full-featured keyboard (including all editing and function
+  keys), toggled on/off with a button - it is always available when you
+  need it, and doesn't get in the way if you don't.
+
+<li>supports three mouse buttons, and keyboard modified mouse events 
+  (i.e. Ctrl-&lt;Mouse1&gt; for accessing the xterm menu)
+
+<li>optional precise mouse button mode - the touch screen only moves the
+  pointer, and clicking a button generates mouse events (useful for
+  resizing windows and other cases where high accuracy is required)
+</ul>
+
+<p>And, of course, it offers the benefits of a VNC based solution - you can
+access your handheld desktop simultaneously from your PC over a network connection,
+or display a remote Linux or Windows desktop on the handheld. This is especially
+useful when combined with a wireless network.</p>
+
+<p>For more about VNC, please refer to the official web page:
+<a href="http://www.uk.research.att.com/vnc/">http://www.uk.research.att.com/vnc/</a>.</p>
+
+<p>fbvnc was written by Klaus Weidner <a
+href="mailto:kw@w-m-p.com">&lt;kw@w-m-p.com&gt;</a> and is distributed under the terms
+of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> as published by the <a href="http://www.gnu.org">Free Software Foundation.</a>
+It includes some code from the svncviewer for svgalib, written by Ganesh
+Varadarajan and Sitaram Iyer.</p>
+
+<h1>Screenshots</h1>
+
+    <table border=0>
+      <tr>
+	<td valign="top">
+	  <table border=1 width=320>
+	    <tr>
+	      <td valign="top">
+		<img src="img/screen-ace.gif" height=240 width=320>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td valign="top">
+		<b>Running DJ Delorie's "Ace of Penguins" games,
+		scaled down 2:1</b><p>
+	      </td>
+	    </tr>
+	  </table>
+	</td>
+	<td valign="top" rowspan=2>
+	  <table border=1 width=240>
+	    <tr>
+	      <td valign="top">
+		<img src="img/screen-nt.gif" height=320
+		     width=240>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td valign="top">
+		<b>NT server remote administration over wireless LAN, using portrait mode scaled down 2:1</b><p>
+		  </td>
+	    </tr>
+	  </table>
+	</td>
+      </tr>
+      <tr>
+	<td valign="top">
+	  <table border=1 width=320>
+	    <tr>
+	      <td valign="top">
+		<img src="img/screen-text.gif" height=240 width=320>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td valign="top">
+		<b>rxvt with 12x24 font, scaled down 3:1, using
+		subpixel (cleartype-like) antialiasing</b><p>
+	      </td>
+	    </tr>
+	  </table>
+	</td>
+      </tr>
+    </table>
+
+
+<h1>Why a VNC client?</h1>
+
+<p>You may be wondering if it makes sense to run a VNC client+server
+on the handheld instead of the native X server. Obviously all the features
+needed could also be integrated into the X server, but (since I am not
+familiar with the innards of the X server), I found it much easier to add
+them to the simple thin client for the VNC protocol. </p>
+
+<p>IMHO, the keyboard (or in general, the main input method) should not be an
+X client, because it is very hard to get the interaction between the user,
+the input program, the window manager and the application working
+smoothly. Those of you who have spent some time working with Xscribble
+or xvkbd might agree ;-)  (I do not want to disparage the authors of any
+of the programs involved - this is a fundamentally hard problem when
+working within the context of an X client.)</p>
+
+<p>The anti-aliased virtual desktop attempts to address the problem of the low
+screen resolution. Patching X applications to use less screen real estate is
+painful to impossible - and this way, many more programs are usable immediately
+without any changes. For example, the "ace of penguins" game suite (available
+from www.delorie.com) now works on the iPAQ unmodified, making the machine much
+more useful :-)  And IMHO, a 10x20 font scaled down to 5x10 is much more
+readable than an equivalently-sized non-antialiased font. (Note: fbvnc (and
+this text) was written in October 2000, at that time anti-aliasing was not
+yet available in the X server for the iPAQ.)</p>
+
+<h1>Installing and running fbvnc</h1>
+
+<p>If you just want the VNC client and already have a VNC server (i.e. on a
+different machine on the network), you just need the 'fbvnc' <a
+href='download/'>binary</a> for your architecture. Unzip it and put it in your
+path somewhere, it does not depend on any other files except for the C
+library. Run it from the command line and specify the server to connect to:</p>
+
+<blockquote><tt>$ fbvnc 10.1.1.3:0</tt></blockquote>
+
+<p>If you also want to run a VNC server on your handheld, you have several
+options. Check out the <a href='download'><b>chroot-debian</b></a> package
+(sorry, no web page yet) if you want a full Debian environment including X11,
+or use Qtopia-X.
+
+<h1>Controls</h1>
+
+
+    <table border=1>
+      <tr>
+	<td valign="top"><b>Overlay icon</b>
+	<td valign="top"><b>Action</b>
+
+      <tr>
+	<td valign="top"><img src='img/ico_volume.gif' width=50 height=9>
+	<td valign="top">Adjust audio volume (requires <tt>aumix</tt> binary).
+
+      <tr>
+	<td valign="top"><img src='img/ico_zoom.gif' width=50 height=9>
+	<td valign="top">Toggle landscape/portrait mode, and choose
+	scaling factor from 1:1 to 1:4.
+
+      <tr>
+	<td valign="top"><img src='img/ico_kbdtoggle.gif' width=15 height=9>
+	<td valign="top">Toggle overlay keyboard on/off (press 'pan' button
+	 to remove all overlays)
+
+      <tr>
+	<td valign="top"><img src='img/ico_mouse.gif' width=12 height=9>
+	<td valign="top">Toggle mouse mode between single button mode
+	  (the touchscreen produces left-button mouse clicks) and three-button mode (the
+	  touchscreen only moves the mouse, press buttons to generate
+	  mouse clicks).
+
+      <tr>
+	<td valign="top"><img src='img/ico_lamp.gif' width=10 height=10>
+	<td valign="top">Toggle backlight on/off.
+
+      <tr>
+	<td valign="top"><img src='img/kbd-trans-UC.gif' width=240 height=80><br><img src='img/kbd-trans-LC.gif' width=240 height=80>
+	<td valign="top">The keyboard - special key mappings are described below. The space bar (between the 'Alt' keys) works as usual, even though it's invisible.
+
+    </table>
+
+<p>The hardware buttons are used as follows:</p>
+
+    <table border=1>
+      <tr>
+	<td valign="top" colspan=2><b>Button</b>
+	<td valign="top" rowspan=2><b>"single button" mouse mode</b>
+	<td valign="top" rowspan=2><b>"three button" mouse mode</b>
+	<td valign="top" rowspan=2><b>with [Action] button</b>
+
+      <tr>
+	<td valign="top"><b>iPAQ</b>
+	<td valign="top"><b>Zaurus</b>
+
+      <tr>
+	<td valign="top">[Calendar]
+	<td valign="top">[Calendar]
+	<td valign="top">iPAQ: &lt;Tab&gt; key<br>Zaurus: &lt;Control&gt; key
+	<td valign="top">Mouse button one (left)
+	<td valign="top">Toggle mouse mode (1 or 3 buttons)
+
+      <tr>
+	<td valign="top">[Contacts]
+	<td valign="top">[Contacts]
+	<td valign="top">Page up (&lt;Prior&gt; keysym)
+	<td valign="top">Mouse button two (middle)
+	<td valign="top">Zoom desktop out
+
+      <tr>
+	<td valign="top">[Q]
+	<td valign="top">[Menu]
+	<td valign="top">Page down (&lt;Next&gt; keysym)
+	<td valign="top">Mouse button three (right)
+	<td valign="top">Zoom desktop in
+
+      <tr>
+	<td valign="top">[Start]
+	<td valign="top">[Home]
+	<td valign="top" colspan=2>Panning: press and hold button, and
+	drag the pointer to pan the virtual desktop<p>
+	  Press and release to toggle the keyboard overlay on/off<p>
+	  Press eight times in a row to recalibrate the touchscreen<p>
+	<td valign="top"><i>not mapped</i>
+
+      <tr>
+	<td valign="top"><i>n/a</i>
+	<td valign="top">[Mail]
+	<td valign="top" colspan=2>&lt;Tab&gt; key
+	<td valign="top">Rotate desktop
+
+      <tr>
+	<td valign="top" colspan=2>Cursor pad
+	<td valign="top" colspan=2>Arrow keys
+	<td valign="top">Pan desktop
+
+      <tr>
+	<td valign="top" colspan=2>[Action] (center of cursor pad)
+	<td valign="top" colspan=3>Use together with other buttons for additional functions
+
+      <tr>
+	<td valign="top"><i>n/a</i>
+	<td valign="top">[Cancel]
+	<td valign="top" colspan=2>&lt;Escape&gt; key
+	<td valign="top">Suspend handheld
+
+      <tr>
+	<td valign="top">[Record]
+	<td valign="top">[OK]
+	<td valign="top" colspan=2>&lt;Return&gt; key
+	<td valign="top">Toggle backlight
+
+    </table>
+
+<h1>Keyboard layout</h1>
+
+    <p>The modifier keys &lt;Shift&gt;, &lt;Ctrl&gt;, &lt;Alt&gt;, and
+      &lt;Fn&gt; are all sticky:
+    <ul>
+      <li>Click once to modify the next key only
+      <li>Click twice to lock the modifier (affecting all future keys and
+	mouse events)
+      <li>Click a third time to unlock
+    </ul></p>
+
+    <p>Additional functions are available through the "Fn" modifier key:</p>
+
+    <table border=1>
+      <tr>
+	<td valign="top">&lt;Fn&gt;-[ ]
+	<td valign="top">zoom the desktop in / out
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-&lt;Shift&gt;-Q		
+
+	<td valign="top">quit fbvnc, i.e. to get back to native X11 or QPE. Be
+	careful - you might lock yourself out of the iPAQ if you shut down all
+	GUIs. Re-run fbvnc to get a fresh client - as long as Xvnc is still
+	alive in the background, your X11 applications keep running while
+	you're disconnected.
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-x
+	<td valign="top">open emergency xterm (requires "xterm" binary)
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-1234567890-=
+	<td valign="top">Function keys F1..F12
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-Cursor
+	<td valign="top">PgUp, PgDown, Home, End
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-&lt;BackSpace&gt;
+	<td valign="top">Delete
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-&lt;Tab&gt;
+	<td valign="top">Insert
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-&lt;Escape&gt;
+	<td valign="top">Tilde ( ~ )
+
+      <tr>
+	<td valign="top">&lt;Fn&gt;-aouAOUsS
+	<td valign="top">German Umlaut (diaeresis)
+    </table>
+
+    <p>The full list is available in the function fn_translate() in the file
+      overlay.c :-)</p>
+
+<h1>FAQ: Frequently Asked Questions</h1>
+
+<dl>
+
+<dt><b>The touchscreen calibration is messed up</b>
+
+<dd>Either press the "pan" button eight times to force recalibration ([Start]
+on iPAQ, [Home] on Zaurus); or remove /etc/fbvnc-calibration.conf and restart
+fbvnc. You can cancel calibration by pushing a button if you get there
+accidentally.
+
+<dt><b>fbvnc connects and asks for the password, then hangs</b>
+
+<dd>fbvnc doesn't work from inside Qtopia due to a bug in Qtopia's virtual
+terminal handling (it refuses to release the terminal), which I unfortunately
+cannot work around from my code. You'll need to launch fbvnc from the text
+console. Shut down qtopia and log in on the console (Zaurus: press '/' during
+the countdown, then 'a' and log in as root).
+
+<dt><b>Suspend and light control don't work</b>
+
+<dd>On the Zaurus, the 'zapmd' daemon is required to enable these features.
+As far as I know, it's not available as a standalone package, but it
+is included in the X11-for-Zaurus package. The <b>chroot-debian</b>
+installation also includes a preconfigured zapmd.
+
+<!--
+<dt><b></b>
+<dd>
+-->
+
+</dl>
+
+<h1>Known Bugs</h1>
+
+<ul>
+
+<li><p>The grayscale iPAQs are not supported (neither is anything else that
+doesn't have a 16-bit color display) Since handling different pixel layouts
+would require a fair amount of work to support, this is unlikely to change
+anytime soon.</p>
+
+<li><p>The volume control tries to run "aumix", which isn't part of the familiar
+distribution. Nothing bad happens, the volume control just doesn't work if you don't have it.</p>
+
+</ul>
+
+<h1>Compiling the source code</h1>
+
+    <p>Note that you don't need to do these steps if you choose to
+    install the binary packages. If you want to experiment with the
+    code, read on...</p>
+
+    <p>Get the Unix source code for VNC, unpack and compile it. It is available
+    from <a href="http://www.uk.research.att.com/vnc/"
+    >http://www.uk.research.att.com/vnc/</a>.</p>
+
+    <p>You also need the ofbis library, available from:
+      <a href="http://osis.nocrew.org/ofbis/"
+	 >http://osis.nocrew.org/ofbis/</a>.
+      Set the path in fbvnc/Imakefile to match where you installed this
+      library.</p>
+
+    <p>Move the fbvnc directory into the VNC source directory:
+      <pre>
+      # mv fbvnc vnc_unixsrc/</pre>
+
+    <p>Now you can build the code:
+    <pre>
+      # cd fbvnc
+      # xmkmf
+      # make</pre>
+
+<h1>Changelog</h1>
+
+<h2>v1.0 - 2003-01-10</h2>
+
+<ul>
+
+<li>Remapped buttons - "pan" and "action" buttons are now separate
+
+<li>Automatic hardware detection - use the same binary for iPAQ and
+Zaurus (manual selection: command line flag '-hw zaurus' or '-hw ipaq')
+
+<li>Grid-based scrolling using hardware buttons (if you move and resize
+windows to exactly fit the current viewport, you can easily return to the exact same spot later)
+
+<li>Start in portrait mode by default
+
+</ul>
+
+<h2>v0.8 - 2002-12-25</h2>
+
+<ul>
+
+<li>Yes, a new release after over a year...
+
+<li>The Sharp Zaurus is now supported - you can use the hardware keyboard and the overlay interchangeably.
+
+<li>Touchscreen calibration support, saved in /etc/fbvnc-calibration.conf. To
+redo the calibration, press the 'pan' button ('Start' on iPAQ, 'Action'
+(center of cursor pad) on Zaurus) eight times.
+
+<li>The overlay keyboard now properly shows the shift state
+
+<li>Performance enhancements when overlays are active
+
+<li>Bugfixes - in older versions, some pixels were not redrawn correctly in scaled modes.
+
+<li>More keyboard shortcuts for functions, using the 'pan' button together
+with other keys. This doesn't work well on the iPAQ, because it can't register simultaneous button presses.
+
+<li>The overlay keyboard can be hidden by clicking the overlay icon (next to the mouse icon)
+
+</ul>
+
+<h2>v0.7 - 2001-08-24</h2>
+
+<ul>
+<li>I shouldn't make releases without having an iPAQ to test them on... the releases made Aug 22 had debugging output turned on, which slowed things down. This one fixes that but is otherwise identical to v0.6.
+</ul>
+
+<h2>v0.6 - 2001-08-22</h2>
+
+<ul>
+<li>On some iPAQs, fbvnc dies when the ofbis library is attempting to set the
+palette (FBsetcmap). This release uses a patched library that doesn't try to modify
+the color map. Thanks to Andreas Koenig for his help in tracking this down.
+</ul>
+
+<h2>v0.5 - 2001-08-22</h2>
+
+<ul>
+<li>Open /dev/ts, and (if that doesn't work) /dev/h3600_ts, since the distributions apparently can't decide where the touchscreen device should go...
+</ul>
+
+<h2>v0.4 - 2001-08-22</h2>
+
+<ul>
+<li>Fixed the portrait mode scaling bug - 3:1 and 4:1 scaling should work now in portrait mode as well.
+<li>Open /dev/h3600_ts instead of /dev/ts which is missing in current releases
+</ul>
+
+<h2>v0.3 - 2001-08-13</h2>
+
+<ul>
+<li>Allow quitting fbvnc with the combination Fn-Shift-Q (this was previously disabled for localhost use, but is quite useful when using fbvnc together with QPE or native X11 - quitting fbvnc switches back to the previously used desktop environment.)
+<li>Map the <tt>Calendar</tt> button to the <tt>Tab</tt> key - this is useful
+for filename completion when working with a Unix shell.
+<li>Updated the <tt>vnc</tt> shell script so that it doesn't launch a background VNC server if one appears to be running already.
+</ul>
+
+<h2>v0.2 - 2001-07-15</h2>
+
+<ul>
+<li>transparent overlays
+<li>subpixel-accuracy scaling
+<li>new logic for 3-button-mouse mode
+<li><i>ipkg</i>-compatible packaging
+</ul>
+
+<h2>v0.1 - 2000-10-30</h2>
+
+<ul>
+<li>Initial release
+</ul>
+
+<h1>Future plans and ideas (not yet implemented)</h1>
+
+<ul>
+
+<li><p>Add more overlay icons, i.e. a battery power display.</p>
+
+<li><p>If the VNC client and server are running on the same machine, a
+shared memory area (written by Xvnc and read by fbvnc) could be used
+to avoid duplicate bitmap storage and unnecessary overhead. The fbvnc
+screen redraws are already quite fast, performance is
+mostly limited by the overhead imposed by the TCP socket based VNC
+protocol.</p>
+
+<li><p>Optimize the scaled and rotated display modes further. The current
+	(v0.7) performance values for local screen redraw (no
+	communication with the VNC server) in frames per second are:
+
+	<table border=1>
+	  <tr>
+	    <td valign="top">
+	    <td valign="top">1:1
+	    <td valign="top">1:2
+	    <td valign="top">1:3
+	    <td valign="top">1:4
+
+	  <tr>
+	    <td valign="top">Landscape
+	    <td valign="top">191 fps
+	    <td valign="top">29.1 fps
+	    <td valign="top">12.5 fps
+	    <td valign="top">18.9 fps
+	  <tr>
+	    <td valign="top">Portrait
+	    <td valign="top">29.7 fps
+	    <td valign="top">12.3 fps
+	    <td valign="top">8.8 fps
+	    <td valign="top">10.0 fps
+	</table>
+      </p>
+
+
+<li><p>Implement virtual terminal switching, so that fbvnc could be used
+concurrently with Xfbdev or QPE. Currently, exiting fbvnc returns you to the
+	previously used virtual terminal. Re-run the <tt>vnc</tt>
+	shell script to reconnect to the session again.</p>
+
+</ul>
+
+  </body>
+</html>

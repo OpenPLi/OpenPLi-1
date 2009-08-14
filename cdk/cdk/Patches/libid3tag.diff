@@ -1,0 +1,31 @@
+--- libid3tag-0.15.1b/id3tag.pc 1970-01-01 01:00:00.000000000 +0100
++++ libid3tag-0.15.1bnew/id3tag.pc 2003-09-10 17:56:53.000000000 +0200
+@@ -0,0 +1,11 @@
++prefix=
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
++Name: id3tag
++Description: ID3 tag reading library
++Requires:
++Version: 0.15.1b
++Libs: -L${libdir} -lid3tag -lz
++Cflags: -I${includedir}
+--- libid3tag-0.15.1b/tag.c	Fri Apr 18 18:14:33 2003
++++ libid3tag-0.15.1bnew/tag.c	Mon Sep 26 22:29:24 2005
+@@ -714,9 +714,12 @@
+ 
+   frame = id3_tag_findframe(tag, ID3_FRAME_TRACK, 0);
+   if (frame) {
+-    unsigned int track;
++    id3_ucs4_t const *string;
++    unsigned int track = 0;
+ 
+-    track = id3_ucs4_getnumber(id3_field_getstrings(&frame->fields[1], 0));
++	string = id3_field_getstrings(&frame->fields[1], 0);
++	if (string)
++    	track = id3_ucs4_getnumber(string);
+     if (track > 0 && track <= 0xff) {
+       ptr[-2] = 0;
+       ptr[-1] = track;

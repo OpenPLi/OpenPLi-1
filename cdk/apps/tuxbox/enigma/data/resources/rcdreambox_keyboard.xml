@@ -1,0 +1,593 @@
+<rcdefaults>
+	<author>
+		<name>Felix Domke</name>
+		<email>tmbinc@gmx.net</email>
+	</author>
+
+	<device identifier="Dreambox IR Keyboard" >
+		<keys>
+			<key name="KEY_RESERVED" icode="0" />
+			<key name="KEY_ESC" icode="1" />
+			<key name="KEY_1" icode="2" />
+			<key name="KEY_2" icode="3" />
+			<key name="KEY_3" icode="4" />
+			<key name="KEY_4" icode="5" />
+			<key name="KEY_5" icode="6" />
+			<key name="KEY_6" icode="7" />
+			<key name="KEY_7" icode="8" />
+			<key name="KEY_8" icode="9" />
+			<key name="KEY_9" icode="10" />
+			<key name="KEY_0" icode="11" />
+			<key name="KEY_MINUS" icode="12" />
+			<key name="KEY_EQUAL" icode="13" />
+			<key name="KEY_BACKSPACE" icode="14" />
+			<key name="KEY_TAB" icode="15" />
+			<key name="KEY_Q" icode="16" />
+			<key name="KEY_W" icode="17" />
+			<key name="KEY_E" icode="18" />
+			<key name="KEY_R" icode="19" />
+			<key name="KEY_T" icode="20" />
+			<key name="KEY_Y" icode="21" />
+			<key name="KEY_U" icode="22" />
+			<key name="KEY_I" icode="23" />
+			<key name="KEY_O" icode="24" />
+			<key name="KEY_P" icode="25" />
+			<key name="KEY_LEFTBRACE" icode="26" />
+			<key name="KEY_RIGHTBRACE" icode="27" />
+			<key name="KEY_ENTER" icode="28" />
+			<key name="KEY_LEFTCTRL" icode="29" />
+			<key name="KEY_A" icode="30" />
+			<key name="KEY_S" icode="31" />
+			<key name="KEY_D" icode="32" />
+			<key name="KEY_F" icode="33" />
+			<key name="KEY_G" icode="34" />
+			<key name="KEY_H" icode="35" />
+			<key name="KEY_J" icode="36" />
+			<key name="KEY_K" icode="37" />
+			<key name="KEY_L" icode="38" />
+			<key name="KEY_SEMICOLON" icode="39" />
+			<key name="KEY_APOSTROPHE" icode="40" />
+			<key name="KEY_GRAVE" icode="41" />
+			<key name="KEY_LEFTSHIFT" icode="42" />
+			<key name="KEY_BACKSLASH" icode="43" />
+			<key name="KEY_Z" icode="44" />
+			<key name="KEY_X" icode="45" />
+			<key name="KEY_C" icode="46" />
+			<key name="KEY_V" icode="47" />
+			<key name="KEY_B" icode="48" />
+			<key name="KEY_N" icode="49" />
+			<key name="KEY_M" icode="50" />
+			<key name="KEY_COMMA" icode="51" />
+			<key name="KEY_DOT" icode="52" />
+			<key name="KEY_SLASH" icode="53" />
+			<key name="KEY_RIGHTSHIFT" icode="54" />
+			<key name="KEY_KPASTERISK" icode="55" />
+			<key name="KEY_LEFTALT" icode="56" />
+			<key name="KEY_SPACE" icode="57" />
+			<key name="KEY_CAPSLOCK" icode="58" />
+			<key name="KEY_F1" icode="59" />
+			<key name="KEY_F2" icode="60" />
+			<key name="KEY_F3" icode="61" />
+			<key name="KEY_F4" icode="62" />
+			<key name="KEY_F5" icode="63" />
+			<key name="KEY_F6" icode="64" />
+			<key name="KEY_F7" icode="65" />
+			<key name="KEY_F8" icode="66" />
+			<key name="KEY_F9" icode="67" />
+			<key name="KEY_F10" icode="68" />
+			<key name="KEY_NUMLOCK" icode="69" />
+			<key name="KEY_SCROLLLOCK" icode="70" />
+			<key name="KEY_KP7" icode="71" />
+			<key name="KEY_KP8" icode="72" />
+			<key name="KEY_KP9" icode="73" />
+			<key name="KEY_KPMINUS" icode="74" />
+			<key name="KEY_KP4" icode="75" />
+			<key name="KEY_KP5" icode="76" />
+			<key name="KEY_KP6" icode="77" />
+			<key name="KEY_KPPLUS" icode="78" />
+			<key name="KEY_KP1" icode="79" />
+			<key name="KEY_KP2" icode="80" />
+			<key name="KEY_KP3" icode="81" />
+			<key name="KEY_KP0" icode="82" />
+			<key name="KEY_KPDOT" icode="83" />
+			<key name="KEY_103RD" icode="84" />
+			<key name="KEY_F13" icode="85" />
+			<key name="KEY_102ND" icode="86" />
+			<key name="KEY_F11" icode="87" />
+			<key name="KEY_F12" icode="88" />
+			<key name="KEY_F14" icode="89" />
+			<key name="KEY_F15" icode="90" />
+			<key name="KEY_F16" icode="91" />
+			<key name="KEY_F17" icode="92" />
+			<key name="KEY_F18" icode="93" />
+			<key name="KEY_F19" icode="94" />
+			<key name="KEY_F20" icode="95" />
+			<key name="KEY_KPENTER" icode="96" />
+			<key name="KEY_RIGHTCTRL" icode="97" />
+			<key name="KEY_KPSLASH" icode="98" />
+			<key name="KEY_SYSRQ" icode="99" />
+			<key name="KEY_RIGHTALT" icode="100" />
+			<key name="KEY_LINEFEED" icode="101" />
+			<key name="KEY_HOME" icode="102" />
+			<key name="KEY_UP" icode="103" />
+			<key name="KEY_PAGEUP" icode="104" />
+			<key name="KEY_LEFT" icode="105" />
+			<key name="KEY_RIGHT" icode="106" />
+			<key name="KEY_END" icode="107" />
+			<key name="KEY_DOWN" icode="108" />
+			<key name="KEY_PAGEDOWN" icode="109" />
+			<key name="KEY_INSERT" icode="110" />
+			<key name="KEY_DELETE" icode="111" />
+			<key name="KEY_MACRO" icode="112" />
+			<key name="KEY_MUTE" icode="113" />
+			<key name="KEY_VOLUMEDOWN" icode="114" />
+			<key name="KEY_VOLUMEUP" icode="115" />
+			<key name="KEY_POWER" icode="116" />
+			<key name="KEY_KPEQUAL" icode="117" />
+			<key name="KEY_KPPLUSMINUS" icode="118" />
+			<key name="KEY_PAUSE" icode="119" />
+			<key name="KEY_F21" icode="120" />
+			<key name="KEY_F22" icode="121" />
+			<key name="KEY_F23" icode="122" />
+			<key name="KEY_F24" icode="123" />
+			<key name="KEY_KPCOMMA" icode="124" />
+			<key name="KEY_LEFTMETA" icode="125" />
+			<key name="KEY_RIGHTMETA" icode="126" />
+			<key name="KEY_COMPOSE" icode="127" />
+
+			<key name="KEY_STOP" icode="128" />
+			<key name="KEY_AGAIN" icode="129" />
+			<key name="KEY_PROPS" icode="130" />
+			<key name="KEY_UNDO" icode="131" />
+			<key name="KEY_FRONT" icode="132" />
+			<key name="KEY_COPY" icode="133" />
+			<key name="KEY_OPEN" icode="134" />
+			<key name="KEY_PASTE" icode="135" />
+			<key name="KEY_FIND" icode="136" />
+			<key name="KEY_CUT" icode="137" />
+			<key name="KEY_HELP" icode="138" />
+			<key name="KEY_MENU" icode="139" />
+			<key name="KEY_CALC" icode="140" />
+			<key name="KEY_SETUP" icode="141" />
+			<key name="KEY_SLEEP" icode="142" />
+			<key name="KEY_WAKEUP" icode="143" />
+			<key name="KEY_FILE" icode="144" />
+			<key name="KEY_SENDFILE" icode="145" />
+			<key name="KEY_DELETEFILE" icode="146" />
+			<key name="KEY_XFER" icode="147" />
+			<key name="KEY_PROG1" icode="148" />
+			<key name="KEY_PROG2" icode="149" />
+			<key name="KEY_WWW" icode="150" />
+			<key name="KEY_MSDOS" icode="151" />
+			<key name="KEY_COFFEE" icode="152" />
+			<key name="KEY_DIRECTION" icode="153" />
+			<key name="KEY_CYCLEWINDOWS" icode="154" />
+			<key name="KEY_MAIL" icode="155" />
+			<key name="KEY_BOOKMARKS" icode="156" />
+			<key name="KEY_COMPUTER" icode="157" />
+			<key name="KEY_BACK" icode="158" />
+			<key name="KEY_FORWARD" icode="159" />
+			<key name="KEY_CLOSECD" icode="160" />
+			<key name="KEY_EJECTCD" icode="161" />
+			<key name="KEY_EJECTCLOSECD" icode="162" />
+			<key name="KEY_NEXTSONG" icode="163" />
+			<key name="KEY_PLAYPAUSE" icode="164" />
+			<key name="KEY_PREVIOUSSONG" icode="165" />
+			<key name="KEY_STOPCD" icode="166" />
+			<key name="KEY_RECORD" icode="167" />
+			<key name="KEY_REWIND" icode="168" />
+			<key name="KEY_PHONE" icode="169" />
+			<key name="KEY_ISO" icode="170" />
+			<key name="KEY_CONFIG" icode="171" />
+			<key name="KEY_HOMEPAGE" icode="172" />
+			<key name="KEY_REFRESH" icode="173" />
+			<key name="KEY_EXIT" icode="174" />
+			<key name="KEY_MOVE" icode="175" />
+			<key name="KEY_EDIT" icode="176" />
+			<key name="KEY_SCROLLUP" icode="177" />
+			<key name="KEY_SCROLLDOWN" icode="178" />
+			<key name="KEY_KPLEFTPAREN" icode="179" />
+			<key name="KEY_KPRIGHTPAREN" icode="180" />
+
+			<key name="KEY_INTL1" icode="181" />
+			<key name="KEY_INTL2" icode="182" />
+			<key name="KEY_INTL3" icode="183" />
+			<key name="KEY_INTL4" icode="184" />
+			<key name="KEY_INTL5" icode="185" />
+			<key name="KEY_INTL6" icode="186" />
+			<key name="KEY_INTL7" icode="187" />
+			<key name="KEY_INTL8" icode="188" />
+			<key name="KEY_INTL9" icode="189" />
+			<key name="KEY_LANG1" icode="190" />
+			<key name="KEY_LANG2" icode="191" />
+			<key name="KEY_LANG3" icode="192" />
+			<key name="KEY_LANG4" icode="193" />
+			<key name="KEY_LANG5" icode="194" />
+			<key name="KEY_LANG6" icode="195" />
+			<key name="KEY_LANG7" icode="196" />
+			<key name="KEY_LANG8" icode="197" />
+			<key name="KEY_LANG9" icode="198" />
+
+			<key name="KEY_PLAYCD" icode="200" />
+			<key name="KEY_PAUSECD" icode="201" />
+			<key name="KEY_PROG3" icode="202" />
+			<key name="KEY_PROG4" icode="203" />
+			<key name="KEY_SUSPEND" icode="205" />
+			<key name="KEY_CLOSE" icode="206" />
+			<key name="KEY_PLAY" icode="207" />
+
+			<key name="KEY_FASTFORWARD" icode="208" />
+			<key name="KEY_BASSBOOST" icode="209" />
+			<key name="KEY_PRINT" icode="210" />
+			<key name="KEY_HP" icode="211" />
+			<key name="KEY_CAMERA" icode="212" />
+			<key name="KEY_SOUND" icode="213" />
+			<key name="KEY_QUESTION" icode="214" />
+			<key name="KEY_EMAIL" icode="215" />
+			<key name="KEY_CHAT" icode="216" />
+			<key name="KEY_SEARCH" icode="217" />
+			<key name="KEY_CONNECT" icode="218" />
+			<key name="KEY_FINANCE" icode="219" />
+			<key name="KEY_SPORT" icode="220" />
+			<key name="KEY_SHOP" icode="221" />
+			<key name="KEY_ALTERASE" icode="222" />
+			<key name="KEY_CANCEL" icode="223" />
+			<key name="KEY_BRIGHTNESSDOWN" icode="224" />
+			<key name="KEY_BRIGHTNESSUP" icode="225" />
+			<key name="KEY_MEDIA" icode="226" />
+
+			<key name="KEY_UNKNOWN" icode="240" />
+
+			<key name="KEY_BRIGHTNESSDOWN" icode="224" />
+			<key name="KEY_BRIGHTNESSUP" icode="225" />
+
+			<key name="KEY_OK" code="160" />
+			<key name="KEY_SELECT" code="161" />
+			<key name="KEY_GOTO" code="162" />
+			<key name="KEY_CLEAR" code="163" />
+			<key name="KEY_POWER2" code="164" />
+			<key name="KEY_OPTION" code="165" />
+			<key name="KEY_INFO" code="166" />
+			<key name="KEY_TIME" code="167" />
+			<key name="KEY_VENDOR" code="168" />
+			<key name="KEY_ARCHIVE" code="169" />
+			<key name="KEY_PROGRAM" code="16a" />
+			<key name="KEY_CHANNEL" code="16b" />
+			<key name="KEY_FAVORITES" code="16c" />
+			<key name="KEY_EPG" code="16d" />
+			<key name="KEY_PVR" code="16e" />
+			<key name="KEY_MHP" code="16f" />
+			<key name="KEY_LANGUAGE" code="170" />
+			<key name="KEY_TITLE" code="171" />
+			<key name="KEY_SUBTITLE" code="172" />
+			<key name="KEY_ANGLE" code="173" />
+			<key name="KEY_ZOOM" code="174" />
+			<key name="KEY_MODE" code="175" />
+			<key name="KEY_KEYBOARD" code="176" />
+			<key name="KEY_SCREEN" code="177" />
+			<key name="KEY_PC" code="178" />
+			<key name="KEY_TV" code="181" />
+			<key name="KEY_TV2" code="17a" />
+			<key name="KEY_VCR" code="17b" />
+			<key name="KEY_VCR2" code="17c" />
+			<key name="KEY_SAT" code="17d" />
+			<key name="KEY_SAT2" code="17e" />
+			<key name="KEY_CD" code="17f" />
+			<key name="KEY_TAPE" code="180" />
+			<key name="KEY_RADIO" code="179" />
+			<key name="KEY_TUNER" code="182" />
+			<key name="KEY_PLAYER" code="183" />
+			<key name="KEY_TEXT" code="184" />
+			<key name="KEY_DVD" code="185" />
+			<key name="KEY_AUX" code="186" />
+			<key name="KEY_MP3" code="187" />
+			<key name="KEY_AUDIO" code="188" />
+			<key name="KEY_VIDEO" code="189" />
+			<key name="KEY_DIRECTORY" code="18a" />
+			<key name="KEY_LIST" code="18b" />
+			<key name="KEY_MEMO" code="18c" />
+			<key name="KEY_CALENDAR" code="18d" />
+			<key name="KEY_RED" code="18e" />
+			<key name="KEY_GREEN" code="18f" />
+			<key name="KEY_YELLOW" code="190" />
+			<key name="KEY_BLUE" code="191" />
+			<key name="KEY_CHANNELUP" code="192" />
+			<key name="KEY_CHANNELDOWN" code="193" />
+			<key name="KEY_FIRST" code="194" />
+			<key name="KEY_LAST" code="195" />
+			<key name="KEY_AB" code="196" />
+			<key name="KEY_NEXT" code="197" />
+			<key name="KEY_RESTART" code="198" />
+			<key name="KEY_SLOW" code="199" />
+			<key name="KEY_SHUFFLE" code="19a" />
+			<key name="KEY_BREAK" code="19b" />
+			<key name="KEY_PREVIOUS" code="19c" />
+			<key name="KEY_DIGITS" code="19d" />
+			<key name="KEY_TEEN" code="19e" />
+			<key name="KEY_TWEN" code="19f" />
+
+			<key name="KEY_DEL_EOL" code="1c0" />
+			<key name="KEY_DEL_EOS" code="1c1" />
+			<key name="KEY_INS_LINE" code="1c2" />
+			<key name="KEY_DEL_LINE" code="1c3" />
+
+		</keys>
+		
+				<!-- globale shortcuts. sollten auf jeder FB zu finden sein. -->
+				<!-- generell ohne repeat. -->
+		<actionmap name="shortcut">
+			<action name="0" key="KEY_0" flags="m" />
+			<action name="1" key="KEY_1" flags="m" />
+			<action name="2" key="KEY_2" flags="m" />
+			<action name="3" key="KEY_3" flags="m" />
+			<action name="4" key="KEY_4" flags="m" />
+			<action name="5" key="KEY_5" flags="m" />
+			<action name="6" key="KEY_6" flags="m" />
+			<action name="7" key="KEY_7" flags="m" />
+			<action name="8" key="KEY_8" flags="m" />
+			<action name="9" key="KEY_9" flags="m" />
+			<action name="red" key="KEY_F1" flags="m" />
+			<action name="green" key="KEY_F2" flags="m" />
+			<action name="yellow" key="KEY_F3" flags="m" />
+			<action name="blue" key="KEY_F4" flags="m" />
+
+			<action name="red" key="KEY_RED" flags="m" />
+			<action name="green" key="KEY_GREEN" flags="m" />
+			<action name="yellow" key="KEY_YELLOW" flags="m" />
+			<action name="blue" key="KEY_BLUE" flags="m" />
+
+			<action name="escape" key="KEY_ESC" flags="mr" />
+		</actionmap>
+
+		<actionmap name="mainmenu">
+			<action name="close" key="KEY_SETUP" flags="m" />
+			<action name="prev" key="KEY_LEFT" flags="mr" />
+			<action name="next" key="KEY_RIGHT" flags="mr" />
+		</actionmap>
+
+		<actionmap name="cursor">
+			<action name="up" key="KEY_UP" flags="mr" />
+			<action name="down" key="KEY_DOWN" flags="mr" />
+			<action name="left" key="KEY_LEFT" flags="mr" />
+			<action name="right" key="KEY_RIGHT" flags="mr" />
+			<action name="ok" key="KEY_ENTER" flags="m" />
+			<action name="ok" key="KEY_OK" flags="m" />
+			<action name="ok" key="KEY_SPACE" flags="m" />
+			<action name="cancel" key="KEY_ESC" flags="mr" />
+			<action name="help" key="KEY_HELP" flags="m" />
+		</actionmap>
+
+		<actionmap name="textedit">
+			<action name="insertchar" key="KEY_INSERT" flags="mr" />
+			<action name="deletechar" key="KEY_DELETE" flags="mr" />
+			<action name="backspace" key="KEY_BACKSPACE" flags="mr" />
+		</actionmap>
+
+		<actionmap name="helpwindow">
+			<action name="close" key="KEY_OK" flags="m" />
+			<action name="close" key="KEY_HELP" flags="m" />
+			<action name="up" key="KEY_UP" flags="mr" />
+			<action name="down" key="KEY_DOWN" flags="mr" />
+		</actionmap>
+
+		<actionmap name="focus">
+			<action name="up" key="KEY_UP" flags="mr" />
+			<action name="down" key="KEY_DOWN" flags="mr" />
+			<action name="left" key="KEY_LEFT" flags="mr" />
+			<action name="right" key="KEY_RIGHT" flags="mr" />
+		</actionmap>
+
+		<actionmap name="list">
+			<action name="pagedown" key="KEY_PAGEDOWN" flags="mr" />
+			<action name="pageup" key="KEY_PAGEUP" flags="mr" />
+			<action name="pagedown" key="KEY_RIGHT" flags="mr" />
+			<action name="pageup" key="KEY_LEFT" flags="mr" />
+		</actionmap>
+
+		<actionmap name="enigmaMain">
+			<action name="showMainMenu" key="KEY_SETUP" flags="m" />
+			<action name="standby_press" key="KEY_POWER" flags="m" />
+			<action name="standby_repeat" key="KEY_POWER" flags="r" />
+			<action name="standby_release" key="KEY_POWER" flags="b" />
+			<action name="showSubservices" key="KEY_GREEN" flags="m" />
+			<!--action name="showPlugins" key="KEY_YELLOW" flags="m" /-->
+			<action name="yellowButton" key="KEY_YELLOW" flags="m" />
+			<action name="showAudio" key="KEY_AUDIO" flags="m" />
+			<action name="blueButton" key="KEY_BLUE" flags="m" />
+			<action name="pluginVTXT" key="KEY_TEXT" flags="m" />
+			<action name="showEPGList" key="KEY_RED" flags="m" />
+			<action name="playlistNextService" key="KEY_PAGEDOWN" flags="mr" />
+			<action name="playlistPrevService" key="KEY_PAGEUP" flags="mr" />
+			<action name="playlistNextService" key="KEY_FORWARD" flags="mr" />
+			<action name="playlistPrevService" key="KEY_BACK" flags="mr" />
+			<action name="stepBack" key="KEY_PAGEUP" flags="mr" />
+			<action name="stepForward" key="KEY_PAGEDOWN" flags="mr" />
+			<action name="stepBack" key="KEY_BACK" flags="mr" />
+			<action name="stepForward" key="KEY_FORWARD" flags="mr" />
+			<action name="nextService" key="KEY_RIGHT" flags="mr" />
+			<action name="prevService" key="KEY_LEFT" flags="mr" />
+			<action name="nextService" key="KEY_NEXTSONG" flags="mr" />
+			<action name="prevService" key="KEY_PREVIOUSSONG" flags="mr" />
+			<action name="volumeUp" key="KEY_VOLUMEUP" flags="mr" />
+			<action name="volumeDown" key="KEY_VOLUMEDOWN" flags="mr" />
+			<action name="toggleMute" key="KEY_MUTE" flags="mr" />
+
+			<action name="discrete_play" key="KEY_PLAY" flags="m" />
+			<action name="discrete_pause" key="KEY_PAUSE" flags="m" />
+
+			<action name="discrete_record" key="KEY_RECORD" flags="m" />
+			
+			<action name="discrete_startSkipF" key="KEY_FASTFORWARD" flags="m" />
+			<action name="discrete_repeatSkipF" key="KEY_FASTFORWARD" flags="r" />
+			<action name="discrete_stopSkipF" key="KEY_FASTFORWARD" flags="b" />
+
+			<action name="discrete_startSkipR" key="KEY_REWIND" flags="m" />
+			<action name="discrete_repeatSkipR" key="KEY_REWIND" flags="r" />
+			<action name="discrete_stopSkipR" key="KEY_REWIND" flags="b" />
+			
+			<action name="discrete_stop" key="KEY_STOP" flags="m" />
+
+			<action name="showUserBouquets" key="KEY_CHANNELUP" flags="m" />
+			<action name="showUserBouquets" key="KEY_CHANNELDOWN" flags="m" />
+			<action name="showRecMovies" key="KEY_CHANNELUP" flags="m" />
+			<action name="showPlaylist" key="KEY_CHANNELDOWN" flags="m" />
+			<action name="modeTV" key="KEY_TV" flags="m" />
+			<action name="modeRadio" key="KEY_RADIO" flags="m" />
+			<action name="modeFile" key="KEY_F8" flags="m" />
+			<action name="toggleDVRFunctions" key="KEY_VIDEO" flags="m" />
+		</actionmap>
+
+		<actionmap name="enigmaMain" style="default">
+			<action name="showInfobar" key="KEY_SPACE" flags="m" />
+			<action name="hideInfobar" key="KEY_SPACE" flags="m" />
+			<action name="showInfobar" key="KEY_ENTER" flags="m" />
+			<action name="hideInfobar" key="KEY_ENTER" flags="m" />
+			<action name="showInfobar" key="KEY_OK" flags="m" />
+			<action name="hideInfobar" key="KEY_OK" flags="m" />
+			<action name="serviceListDown" key="KEY_DOWN" flags="m" />
+			<action name="serviceListUp" key="KEY_UP" flags="m" />
+			<action name="showEPG" key="KEY_INFO" flags="m" />
+		</actionmap>
+
+		<actionmap name="enigmaMain" style="classic">
+			<action name="nextService" key="KEY_UP" flags="mr" />
+			<action name="prevService" key="KEY_DOWN" flags="mr" />
+			<action name="showInfobar" key="KEY_INFO" flags="m" />
+			<action name="showInfobarEPG" key="KEY_INFO" flags="m" />
+			<action name="hideInfobar" key="KEY_ESC" flags="m" />
+			<action name="showServiceSelector" key="KEY_ENTER" flags="m" />
+			<action name="showServiceSelector" key="KEY_OK" flags="m" />
+			<action name="showServiceSelector" key="KEY_SPACE" flags="m" />
+		</actionmap>
+
+		<actionmap name="enigmaGlobal">
+			<action name="volumeUp" key="KEY_VOLUMEUP" flags="mr" />
+			<action name="volumeDown" key="KEY_VOLUMEDOWN" flags="mr" />
+			<action name="toggleMute" key="KEY_MUTE" flags="m" />
+		</actionmap>
+
+		<actionmap name="rotorMenu" >
+			<action name="driveEastStep" key="KEY_RIGHT" flags="m" />
+			<action name="driveEast" key="KEY_RIGHT" flags="r" />
+			<action name="driveEastStop" key="KEY_RIGHT" flags="b" />
+			<action name="driveWestStep" key="KEY_LEFT" flags="m" />
+			<action name="driveWest" key="KEY_LEFT" flags="r" />
+			<action name="driveWestStop" key="KEY_LEFT" flags="b" />
+		</actionmap>
+
+		<actionmap name="serviceSelector">
+			<action name="nextBouquet" key="KEY_CHANNELUP" flags="mr" />
+			<action name="prevBouquet" key="KEY_CHANNELDOWN" flags="mr" />
+			<action name="gotoPrevMarker" key="KEY_HOME" flags="mr" />
+			<action name="gotoNextMarker" key="KEY_END" flags="mr" />
+			<action name="gotoPrevMarker" key="KEY_BACK" flags="mr" />
+			<action name="gotoNextMarker" key="KEY_FORWARD" flags="mr" />
+			<action name="pathUp" key="KEY_BACKSPACE" flags="mr" />
+			<action name="pathUp" key="KEY_0" flags="mr" />
+		</actionmap>
+
+		<actionmap name="serviceSelector" style="sselect_default">
+			<action name="showEPGSelector" key="KEY_INFO" flags="m" />
+			<action name="modeTV" key="KEY_TV" flags="m" />
+			<action name="modeRadio" key="KEY_RADIO" flags="m" />
+			<action name="modeFile" key="KEY_F8" flags="m" />
+			<action name="showAll" key="KEY_RED" flags="m" />
+			<action name="showSatellites" key="KEY_GREEN" flags="m" />
+			<action name="showProvider" key="KEY_YELLOW" flags="m" />
+			<action name="showBouquets" key="KEY_BLUE" flags="m" />
+			<action name="showMenu" key="KEY_MENU" flags="m" />
+			<action name="showMenu" key="KEY_SETUP" flags="m" />
+			<action name="toggleStyle" key="KEY_VIDEO" flags="m" />
+			<action name="toggleFocus" key="KEY_AUDIO" flags="m" />
+			<action name="delete" key="KEY_DELETE" flags="m" />
+			<action name="marker" key="KEY_INSERT" flags="m" />
+			<action name="modeFile" key="KEY_TEXT" flags="m" />
+		</actionmap>
+
+		<actionmap name="serviceSelector" style="sselect_edit">
+			<action name="mark" key="KEY_GREEN" flags="m" />
+			<action name="rename" key="KEY_YELLOW" flags="m" />
+			<action name="marker" key="KEY_BLUE" flags="m" />
+			<action name="marker" key="KEY_INSERT" flags="m" />
+			<action name="delete" key="KEY_RED" flags="m" />
+			<action name="delete" key="KEY_DELETE" flags="m" />
+			<action name="mark" key="KEY_SPACE" flags="m" />
+		</actionmap>
+
+		<actionmap name="numbers">
+			<action name="0" key="KEY_0" flags="mr" />
+			<action name="1" key="KEY_1" flags="mr" />
+			<action name="2" key="KEY_2" flags="mr" />
+			<action name="3" key="KEY_3" flags="mr" />
+			<action name="4" key="KEY_4" flags="mr" />
+			<action name="5" key="KEY_5" flags="mr" />
+			<action name="6" key="KEY_6" flags="mr" />
+			<action name="7" key="KEY_7" flags="mr" />
+			<action name="8" key="KEY_8" flags="mr" />
+			<action name="9" key="KEY_9" flags="mr" />
+			<action name="ext1" key="KEY_LEFT" flags="mr" />
+			<action name="ext2" key="KEY_RIGHT" flags="mr" />
+			<action name="backspace" key="KEY_BACKSPACE" flags="mr" />
+		</actionmap>
+
+		<actionmap name="multiEpg">
+			<action name="1" key="KEY_1" flags="m" />
+			<action name="2" key="KEY_2" flags="m" />
+			<action name="3" key="KEY_3" flags="m" />
+			<action name="4" key="KEY_4" flags="m" />
+			<action name="5" key="KEY_5" flags="m" />
+			<action name="6" key="KEY_6" flags="m" />
+			<action name="scrollback" key="KEY_BACK" flags="mr" />
+			<action name="scrollforward" key="KEY_FORWARD" flags="mr" />
+			<action name="ok" key="KEY_ENTER" flags="m" />
+			<action name="ok" key="KEY_OK" flags="m" />
+			<action name="exit" key="KEY_ESC" flags="m" />
+			<action name="showUserBouquets" key="KEY_CHANNELUP" flags="m" />
+			<action name="showUserBouquets" key="KEY_CHANNELDOWN" flags="m" />
+			<action name="showChannelEPG" key="KEY_SETUP" flags="m" />
+			<action name="searchEPG" key="KEY_AUDIO" flags="m" />
+		</actionmap>
+
+		<actionmap name="enigmaStandby">
+			<action name="wakeUp" key="KEY_POWER" flags="m" />
+		</actionmap>
+		<actionmap name="enigmaVCR">
+			<action name="volumeUp" key="KEY_VOLUMEUP" flags="mr" />
+			<action name="volumeDown" key="KEY_VOLUMEDOWN" flags="mr" />
+		</actionmap>
+		<actionmap name="epgSelector">
+			<action name="addDVRTimerEvent" key="KEY_GREEN" flags="m" />
+			<action name="addNGRABTimerEvent" key="KEY_YELLOW" flags="m" />
+			<action name="addSwitchTimerEvent" key="KEY_BLUE" flags="m" />
+			<action name="removeTimerEvent" key="KEY_RED" flags="m" />
+			<action name="removeTimerEvent" key="KEY_BACKSPACE" flags="m" />
+			<action name="removeTimerEvent" key="KEY_DELETE" flags="m" />
+			<action name="showExtendedInfo" key="KEY_INFO" flags="m" />
+			<action name="searchEPG" key="KEY_CHANNELDOWN" flags="m" />
+		</actionmap>
+		<actionmap name="timerEdit">
+			<action name="incBegTime" key="KEY_VOLUMEUP" flags="mr" />
+			<action name="decBegTime" key="KEY_VOLUMEDOWN" flags="mr" />
+			<action name="incEndTime" key="KEY_CHANNELUP" flags="mr" />
+			<action name="decEndTime" key="KEY_CHANNELDOWN" flags="mr" />
+		</actionmap>
+		<actionmap name="enigmaEventView">
+			<action name="close" key="KEY_INFO" flags="m" />
+		</actionmap>
+		<actionmap name="PluginOffsetActions">
+			<action name="store" key="KEY_ENTER" flags="m" />
+			<action name="store" key="KEY_OK" flags="m" />
+			<action name="leftTop" key="KEY_RED" flags="m" />
+			<action name="rightBottom" key="KEY_GREEN" flags="m" />
+		</actionmap>
+		<actionmap name="TransponderEditWindow">
+			<action name="addNetwork" key="KEY_GREEN" flags="m" />
+			<action name="removeNetwork" key="KEY_RED" flags="m" />
+			<action name="removeNetwork" key="KEY_DELETE" flags="m" />
+			<action name="removeNetwork" key="KEY_BACKSPACE" flags="m" />
+		</actionmap>
+		<actionmap name="EPGStyleSelector">
+			<action name="infoPressed" key="KEY_INFO" flags="m" />
+		</actionmap>
+	</device>
+</rcdefaults>

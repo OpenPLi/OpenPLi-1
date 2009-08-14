@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script language="javascript" type="text/javascript" src="window.js"></script>
+		<script language="javascript" type="text/javascript" src="index.js"></script>
+		<script>
+		function leftnavi(command)
+		{
+			parent.body.location = "body" + command;
+		}
+		</script>
+	</head>
+	<body id="leftnavi" style="background-image: url(back_bottom_left.png);">
+		#LEFTNAVI#
+		<script language="javascript" type="text/javascript">
+		if (parent.browser == 'MSIE') {
+			document.writeln ('<img src="corner-bottom-left.gif" style="position:absolute;bottom:-1px;left:0px">');
+		} else {
+			document.writeln ('<img src="corner-bottom-left.gif" style="position:absolute;bottom:0px;left:0px">');
+		}
+		</script>
+	</body>
+</html>

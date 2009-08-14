@@ -1,0 +1,37 @@
+diff -u -r1.73 -r1.74
+--- libc/csu/Makefile	2004/03/08 21:28:15	1.73
++++ libc/csu/Makefile	2004/08/20 20:12:43	1.74
+@@ -216,7 +216,9 @@
+ $(objpfx)version-info.h: $(common-objpfx)config.make $(all-Banner-files)
+ 	$(make-target-directory)
+ 	(case $(config-os) in \
+-	   linux*) version=`(echo -e "#include <linux/version.h>\nUTS_RELEASE"\
++	   linux*) version=`(printf '%s\n%s\n' \
++				    '#include <linux/version.h>' \
++				    UTS_RELEASE \
+ 			     | $(CC) $(CPPFLAGS) -E -P - | \
+ 			     sed -e 's/"\([^"]*\)".*/\1/p' -e d) 2>/dev/null`;\
+ 		   if [ -z "$$version" ]; then \
+@@ -231,8 +233,8 @@
+ 		   if [ -z "$$os" ]; then \
+ 		     os=Linux; \
+ 		   fi; \
+-		   echo "\"Compiled on a $$os $$version system" \
+-			"on `date +%Y-%m-%d`.\\n\"" ;; \
++		   printf '"Compiled on a %s %s system on %s.\\n"\n' \
++			  "$$os" "$$version" "`date +%Y-%m-%d`";; \
+ 	   *) ;; \
+ 	 esac; \
+ 	 files="$(all-Banner-files)";				\
+diff -u -r1.75 -r1.76
+--- libc/csu/Makefile	2005/01/03 17:57:14	1.75
++++ libc/csu/Makefile	2005/03/01 01:44:36	1.76
+@@ -241,7 +241,7 @@
+ 	 esac; \
+ 	 files="$(all-Banner-files)";				\
+ 	 if test -n "$$files"; then				\
+-	   echo "\"Available extensions:\\n\"";			\
++	   printf '"Available extensions:\\n"\n';		\
+ 	   sed -e '/^#/d' -e 's/^[[:space:]]*/	/'		\
+ 	       -e 's/^\(.*\)$$/\"\1\\n\"/' $$files;		\
+ 	 fi) > $@T

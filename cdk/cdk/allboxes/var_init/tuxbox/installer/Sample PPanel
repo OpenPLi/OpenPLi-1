@@ -1,0 +1,1 @@
+[ -f "/var/etc/ppanels/PPanel_tutorial.xml" ] && rm -f "/var/etc/ppanels/PPanel_tutorial.xml"

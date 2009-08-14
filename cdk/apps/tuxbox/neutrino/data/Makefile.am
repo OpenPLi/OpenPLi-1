@@ -1,0 +1,1 @@
+SUBDIRS = fonts icons locale

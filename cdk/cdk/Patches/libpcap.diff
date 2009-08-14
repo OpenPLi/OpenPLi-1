@@ -1,0 +1,11 @@
+--- libpcap-0.7.1/configure 	Mon Dec 10 09:34:21 2001
++++ libpcap-0.7.1/configure	Fri May 17 11:51:00 2002
+@@ -1725,7 +1725,7 @@
+  		if eval "test \"`echo '$''{'ac_cv_linux_vers'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+-  ac_cv_linux_vers=unknown
++  ac_cv_linux_vers=2
+ fi
+ 
+  	else

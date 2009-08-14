@@ -1,0 +1,13 @@
+#
+#  $Id: README,v 1.10 2002/04/18 13:38:36 obi Exp $
+#
+
+German readers:
+---------------
+doc/INSTALL.de		- installation instructions
+doc/README.3rdpary.de	- 3rd party code handling guidelines
+
+English readers:
+----------------
+doc/INSTALL.en		- installation instructions
+

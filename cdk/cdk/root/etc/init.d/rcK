@@ -1,0 +1,38 @@
+#!/bin/sh
+
+PATH=/sbin:/bin
+echo "system shutdown..."
+
+if [ -e /var/etc/uinit ] ; then
+	. /var/etc/uinit
+fi
+
+#set environment variable (mID)
+. /proc/bus/dbox.sh
+
+#DM7000
+if [ $mID -eq 05 ] ; then
+	killall -9 smbd
+	killall -9 nmbd	
+fi
+
+#Turn off swapspace
+if [ -r /proc/swaps ]; then
+	sync
+	cat /proc/swaps | \
+	while read SWAPSPACE remainder ; do
+		[ "$SWAPSPACE" = "Filename" ] && continue
+		swapoff $SWAPSPACE
+	done
+fi
+
+umount -a > /dev/null 2> /dev/null
+umount /mnt > /dev/null 2> /dev/null
+umount /var > /dev/null 2> /dev/null
+
+#DM7000
+if [ $mID -eq 05 ] ; then
+	/sbin/hdparm -y /dev/ide/host0/bus0/target0/lun0/disc
+	/sbin/hdparm -y /dev/ide/host0/bus0/target1/lun0/disc
+	/bin/lcdoff
+fi

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="/xml/streaminfo.xsl"?>
+<streaminfo>
+<frontend>#FRONTEND#</frontend>
+<service>
+	<name>#SERVICENAME#</name>
+	<reference>#SERVICEREFERENCE#</reference>
+</service>
+<provider>#PROVIDER#</provider>
+<vpid>#VPID#</vpid>
+<apid>#APID#</apid>
+<pcrpid>#PCRPID#</pcrpid>
+<tpid>#TPID#</tpid>
+<tsid>#TSID#</tsid>
+<onid>#ONID#</onid>
+<sid>#SID#</sid>
+<pmt>#PMT#</pmt>
+<video_format>#VIDEOFORMAT#</video_format>
+<namespace>#NAMESPACE#</namespace>
+<supported_crypt_systems>#SUPPORTEDCRYPTSYSTEMS#</supported_crypt_systems>
+<used_crypt_systems>#USEDCRYPTSYSTEMS#</used_crypt_systems>
+<satellite>#SATELLITE#</satellite>
+<frequency>#FREQUENCY#</frequency>
+<symbol_rate>#SYMBOLRATE#</symbol_rate>
+<polarisation>#POLARISATION#</polarisation>
+<inversion>#INVERSION#</inversion>
+<fec>#FEC#</fec>
+<snr>#SNR#</snr>
+<agc>#AGC#</agc>
+<ber>#BER#</ber>
+<lock>#LOCK#</lock>
+<sync>#SYNC#</sync>
+<modulation>#MODULATION#</modulation>
+<bandwidth>#BANDWIDTH#</bandwidth>
+<constellation>#CONSTELLATION#</constellation>
+<guardinterval>#GUARDINTERVAL#</guardinterval>
+<transmission>#TRANSMISSION#</transmission>
+<coderatelp>#CODERATELP#</coderatelp>
+<coderatehp>#CODERATEHP#</coderatehp>
+<hierarchyinfo>#HIERARCHYINFO#</hierarchyinfo>
+</streaminfo>

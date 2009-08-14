@@ -1,0 +1,177 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// German (Germany) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,0,0,16
+ PRODUCTVERSION 0,0,0,16
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080004b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "PRIVAT\0"
+            VALUE "FileDescription", "WinAmpOutputPlugin for DBOXII\0"
+            VALUE "FileVersion", "0, 0, 0, 16\0"
+            VALUE "InternalName", "WinAmpOutputPlugin\0"
+            VALUE "LegalCopyright", "Copyright © 2002 BSE\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "out_DBOXII.dll\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "WinAmpOutputPlugin\0"
+            VALUE "ProductVersion", "0, 0, 0, 16\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x800, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // German (Germany) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral (Sys. Default) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUSD)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG DIALOGEX 0, 0, 218, 241
+STYLE DS_SYSMODAL | DS_MODALFRAME | DS_SETFOREGROUND | DS_3DLOOK | DS_CENTER | 
+    WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU
+CAPTION "DBOXII Configuration"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,144,218,50,14
+    CONTROL         102,IDC_STATIC,"Static",SS_BITMAP,28,6,161,75
+    EDITTEXT        IDC_IPADDRESS,102,94,100,15,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_LOGIN,102,117,100,15,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_PASSWORD,102,141,100,15,ES_AUTOHSCROLL | WS_GROUP
+    CONTROL         "Disable Playback",IDC_STOPPLAYBACK,"Button",
+                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,13,170,73,10
+    LTEXT           "IPAddress",IDC_STATIC,16,95,69,10,SS_SUNKEN
+    LTEXT           "Login",IDC_STATIC,16,119,69,10,SS_SUNKEN
+    LTEXT           "Password",IDC_STATIC,16,143,69,10,SS_SUNKEN
+    GROUPBOX        "Decoder",IDC_STATIC,102,164,100,38,WS_GROUP,
+                    WS_EX_TRANSPARENT
+    CONTROL         "GTX",IDC_GTX,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,
+                    110,176,82,10
+    CONTROL         "ENX",IDC_ENX,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,
+                    110,186,82,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 234
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_TUX          BITMAP  DISCARDABLE     "tux.bmp"
+#endif    // Neutral (Sys. Default) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

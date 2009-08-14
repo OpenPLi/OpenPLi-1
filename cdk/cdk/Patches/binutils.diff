@@ -1,0 +1,12 @@
+diff -r -u binutils-2.13.90.0.18.old/ld/ldlex.l binutils-2.13.90.0.18/ld/ldlex.l
+--- binutils-2.13.90.0.18.old/ld/ldlex.l	2002-11-09 20:08:31.000000000 +0100
++++ binutils-2.13.90.0.18/ld/ldlex.l	2003-04-13 16:25:44.000000000 +0200
+@@ -611,7 +611,7 @@
+      int max_size;
+ {
+   *result = 0; 
+-  if (yy_current_buffer->yy_input_file)
++  if (YY_CURRENT_BUFFER->yy_input_file)
+     {
+       if (yyin)
+ 	{

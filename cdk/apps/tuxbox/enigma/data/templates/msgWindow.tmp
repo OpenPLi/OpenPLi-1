@@ -1,0 +1,9 @@
+<html>
+	<head>
+		<title>#TITLE#</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+	</head>
+	<body>
+		#MSG#
+	</body>
+</html>

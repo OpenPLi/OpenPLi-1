@@ -1,0 +1,397 @@
+diff -Naur gnuboy-1.0.3.orig/Makefile.in gnuboy-1.0.3/Makefile.in
+--- gnuboy-1.0.3.orig/Makefile.in	Tue Jul  3 18:31:18 2001
++++ gnuboy-1.0.3/Makefile.in	Sat Aug 10 15:26:10 2002
+@@ -18,7 +18,7 @@
+ 
+ SYS_DEFS = @DEFS@ @ENDIAN@ @ASM@ @SYS_DEFS@
+ SYS_OBJS = sys/nix/nix.o $(ASM_OBJS)
+-SYS_INCS = -I/usr/local/include @XINCS@ -I./sys/nix
++SYS_INCS = -I./sys/nix
+ 
+ FB_OBJS = @FB_OBJS@ @JOY@ @SOUND@
+ FB_LIBS = 
+@@ -30,8 +30,6 @@
+ SDL_LIBS = @SDL_LIBS@
+ SDL_CFLAGS = @SDL_CFLAGS@
+ 
+-X11_OBJS = sys/x11/xlib.o sys/x11/keymap.o @JOY@ @SOUND@
+-X11_LIBS = @XLIBS@ -lX11 -lXext
+ 
+ all: $(TARGETS)
+ 
+@@ -52,8 +50,6 @@
+ sys/sdl/keymap.o: sys/sdl/keymap.c
+ 	$(MYCC) $(SDL_CFLAGS) -c $< -o $@
+ 
+-xgnuboy: $(OBJS) $(SYS_OBJS) $(X11_OBJS)
+-	$(LD) $(LDFLAGS) $(OBJS) $(SYS_OBJS) $(X11_OBJS) -o $@ $(X11_LIBS)
+ 
+ install: all
+ 	$(INSTALL) -d $(bindir)
+diff -Naur gnuboy-1.0.3.orig/configure.in gnuboy-1.0.3/configure.in
+--- gnuboy-1.0.3.orig/configure.in	Mon Sep 24 03:09:31 2001
++++ gnuboy-1.0.3/configure.in	Sat Aug 10 15:26:10 2002
+@@ -21,7 +21,6 @@
+ 
+ 
+ 
+-LIBS="$LIBS -L/usr/local/lib -L/usr/X11R6/lib"
+ 
+ 
+ 
+@@ -38,22 +37,10 @@
+ SOUND=""
+ JOY=""
+ 
+-case `uname -s` in
+-Linux)
+ SYS_DEFS=-DIS_LINUX
+ AC_CHECK_HEADERS(sys/soundcard.h, [SOUND=sys/oss/oss.o])
+ AC_CHECK_HEADERS(linux/joystick.h, [JOY=sys/linux/joy.o])
+ test "$with_fb" = "no" || AC_CHECK_HEADERS(linux/fb.h, [with_fb=linux])
+-;;
+-FreeBSD)
+-SYS_DEFS=-DIS_FBSD
+-AC_CHECK_HEADERS(machine/soundcard.h, [SOUND=sys/oss/oss.o])
+-;;
+-OpenBSD)
+-SYS_DEFS=-DIS_OBSD
+-AC_CHECK_HEADERS(soundcard.h, [SOUND=sys/oss/oss.o])
+-;;
+-esac
+ 
+ test "$SOUND" || SOUND=sys/dummy/nosound.o
+ test "$JOY" || JOY=sys/dummy/nojoy.o
+@@ -94,17 +81,7 @@
+ fi
+ fi
+ 
+-AC_PATH_X
+-
+-if test "$no_x" != "yes" ; then
+-with_x=yes
+-AC_CHECK_LIB(Xext, XShmCreateImage)
+-AC_CHECK_HEADERS(sys/ipc.h sys/shm.h X11/extensions/XShm.h)
+-test "$x_includes" && XINCS="-I$x_includes"
+-test "$x_libraries" && XLIBS="-L$x_libraries"
+-else
+ with_x=no
+-fi
+ 
+ 
+ 
+@@ -149,27 +126,7 @@
+ CFLAGS="$CFLAGS -pg"
+ fi
+ 
+-if test "$enable_arch" = yes ; then
+-if test `uname -s` = Linux -a -f /proc/cpuinfo ; then
+-case `grep "model name" /proc/cpuinfo` in
+-*AMD-K6*) enable_arch=k6 ;;
+-*Pentium*Pro*|*Pentium\ I*|*Klamath*) enable_arch=i686 ;;
+-*Pentium*|*586*) enable_arch=i586 ;;
+-*486*) enable_arch=i486 ;;
+-*386*) enable_arch=i386 ;;
+-*) enable_arch=no ;;
+-esac
+-else
+ enable_arch=no
+-#case `uname -m` in
+-#i686) enable_arch=i686 ;;
+-#i586) enable_arch=i586 ;;
+-#i486) enable_arch=i486 ;;
+-#i386) enable_arch=i386 ;;
+-#*) enable_arch=no ;;
+-#esac
+-fi
+-fi
+ 
+ 
+ case `$CC --version` in
+@@ -201,9 +158,6 @@
+ 
+ CFLAGS="$CFLAGS -O3"
+ 
+-case `uname -m` in
+-i?86) CFLAGS="$CFLAGS -DALLOW_UNALIGNED_IO" ;;
+-esac
+ 
+ #case `$CC --version` in
+ #2.9*|3.*)
+@@ -228,15 +182,6 @@
+ 
+ esac
+ 
+-if test "$enable_asm" = yes ; then
+-case `uname -m` in
+-i?86)
+-AC_MSG_RESULT(using optimized i386 cores)
+-ASM="-DUSE_ASM -I./asm/i386" ; ASM_OBJS="asm/i386/cpu.o asm/i386/lcd.o asm/i386/refresh.s" ;;
+-*)
+-AC_MSG_RESULT(no optimized asm core available for `uname -m`) ;;
+-esac
+-fi
+ 
+ 
+ AC_SUBST(SYS_DEFS)
+@@ -249,8 +194,6 @@
+ AC_SUBST(SDL_CFLAGS)
+ AC_SUBST(SDL_LIBS)
+ AC_SUBST(TARGETS)
+-AC_SUBST(XINCS)
+-AC_SUBST(XLIBS)
+ 
+ AC_CONFIG_HEADER(sys/nix/config.h)
+ AC_OUTPUT(Makefile)
+diff -Naur gnuboy-1.0.3.orig/sys/linux/kb.c gnuboy-1.0.3/sys/linux/kb.c
+--- gnuboy-1.0.3.orig/sys/linux/kb.c	Tue Apr  3 08:22:31 2001
++++ gnuboy-1.0.3/sys/linux/kb.c	Sat Aug 10 15:26:10 2002
+@@ -12,6 +12,9 @@
+ #include <sys/vt.h>
+ #include <termios.h>
+ 
++#include <stdio.h>
++#include <dbox/fp.h>
++
+ #undef K_NUMLOCK
+ 
+ #include "defs.h"
+@@ -20,10 +23,11 @@
+ #include "input.h"
+ 
+ 
+-
+-#define TTY_DEVICE "/dev/tty"
++#define RC_DEVICE "/dev/dbox/rc0"
++#define TTY_DEVICE "/dev/console"
+ 
+ static int kbfd = -1;
++static int rcfd = -1;
+ 
+ static int initial_kbmode;
+ static struct termios initial_term, term;
+@@ -34,6 +38,9 @@
+ 
+ static struct vt_mode vtm, initial_vtm;
+ 
++static byte old_k=0xFF;
++int old_code;
++
+ extern int keymap[][2];
+ 
+ rcvar_t kb_exports[] =
+@@ -58,12 +65,8 @@
+ void kb_init()
+ {
+ 	kbfd = open(TTY_DEVICE, O_RDWR);
+-	if (!kbfd) die("no controlling terminal\n");
+ 	fcntl(kbfd, F_SETFL, O_NONBLOCK);
+ 
+-	if (ioctl(kbfd, KDSETMODE, KD_GRAPHICS) < 0)
+-		die("controlling terminal is not the graphics console\n");
+-	
+ 	ioctl(kbfd, KDGKBMODE, &initial_kbmode);
+ 	tcgetattr(kbfd, &initial_term);
+ 	
+@@ -84,6 +87,11 @@
+ 	vtm.relsig = SIGUSR1;
+ 	vtm.acqsig = SIGUSR2;
+ 	ioctl(kbfd, VT_SETMODE, &vtm);
++	rcfd = open(RC_DEVICE, O_RDWR);
++	if (!rcfd) die("couldn't open rc-device %s\n",RC_DEVICE);
++	fcntl(rcfd, F_SETFL, O_NONBLOCK);
++	/* disable if you have a new RC */
++	fcntl(rcfd, RC_IOCTL_BCODES,1);
+ }
+ 
+ 
+@@ -112,23 +120,26 @@
+ {
+ 	int i;
+ 	event_t ev;
+-	byte k;
+-	int st;
++	byte k[2];
+ 	
+-	while (read(kbfd, &k, 1) > 0)
++	while (read(rcfd, &k, 2) > 0)
+ 	{
+-		st = !(k & 0x80);
+-		k &= 0x7f;
+-		
+-		if (k == SCAN_ALT) alt = st;
+-		if (alt && k > SCAN_FBASE && k < SCAN_FBASE + 10)
+-			vcswitch(k - SCAN_FBASE);
+-		ev.type = st ? EV_PRESS : EV_RELEASE;
+-		for (i = 0; keymap[i][0]; i++)
+-			if (keymap[i][0] == k)
++	  
++	        if ((old_k != 255) && (old_k != k[1])) {
++		  ev.type=EV_RELEASE;
++		  ev.code=old_code;
++		  ev_postevent(&ev);
++		}
++	  
++		old_k=k[1];
++		for (i = 0; keymap[i][1]; i++)
++			if (keymap[i][0] == k[1])
+ 				break;
+-		if (!keymap[i][0]) continue;
++		if (!keymap[i][1]) continue;
++		
++		ev.type = EV_PRESS;
+ 		ev.code = keymap[i][1];
++		old_code= keymap[i][1];
+ 		ev_postevent(&ev);
+ 	}
+ }
+diff -Naur gnuboy-1.0.3.orig/sys/pc/keymap.c gnuboy-1.0.3/sys/pc/keymap.c
+--- gnuboy-1.0.3.orig/sys/pc/keymap.c	Sat Feb 17 01:41:12 2001
++++ gnuboy-1.0.3/sys/pc/keymap.c	Sat Aug 10 15:27:00 2002
+@@ -8,125 +8,27 @@
+ 
+ int keymap[][2] =
+ {
+-	{ 1, K_ESC },
+-	{ 2, '1' },
+-	{ 3, '2' },
+-	{ 4, '3' },
+-	{ 5, '4' },
+-	{ 6, '5' },
+-	{ 7, '6' },
+-	{ 8, '7' },
+-	{ 9, '8' },
+-	{ 10, '9' },
+-	{ 11, '0' },
+-	{ 12, K_MINUS },
+-	{ 13, K_EQUALS },
+-	{ 14, K_BS },
+-	{ 15, K_TAB },
+-	
+-	{ 16, 'q' },
+-	{ 17, 'w' },
+-	{ 18, 'e' },
+-	{ 19, 'r' },
+-	{ 20, 't' },
+-	{ 21, 'y' },
+-	{ 22, 'u' },
+-	{ 23, 'i' },
+-	{ 24, 'o' },
+-	{ 25, 'p' },
+-	
+-	{ 26, '[' },
+-	{ 27, ']' },
+-	
+-	{ 28, K_ENTER },
+-	{ 29, K_CTRL },
+-	
+-	{ 30, 'a' },
+-	{ 31, 's' },
+-	{ 32, 'd' },
+-	{ 33, 'f' },
+-	{ 34, 'g' },
+-	{ 35, 'h' },
+-	{ 36, 'j' },
+-	{ 37, 'k' },
+-	{ 38, 'l' },
+-	
+-	{ 39, K_SEMI },
+-	{ 40, '\'' },
+-	{ 41, K_TILDE },
+-	{ 42, K_SHIFT },
+-	{ 43, K_BSLASH },
+-	
+-	{ 44, 'z' },
+-	{ 45, 'x' },
+-	{ 46, 'c' },
+-	{ 47, 'v' },
+-	{ 48, 'b' },
+-	{ 49, 'n' },
+-	{ 50, 'm' },
+-	
+-	{ 51, ',' },
+-	{ 52, '.' },
+-	{ 53, '/' },
+-	
+-	{ 54, K_SHIFT },
+-	
+-	{ 55, K_NUMMUL },
+-	
+-	{ 56, K_ALT },
+-	{ 57, ' ' },
+-	{ 58, K_CAPS },
+-	
+-	{ 59, K_F1 },
+-	{ 60, K_F2 },
+-	{ 61, K_F3 },
+-	{ 62, K_F4 },
+-	{ 63, K_F5 },
+-	{ 64, K_F6 },
+-	{ 65, K_F7 },
+-	{ 66, K_F8 },
+-	{ 67, K_F9 },
+-	{ 68, K_F10 },
+-	
+-	{ 69, K_NUMLOCK },
+-	{ 70, K_SCROLL },
+-	
+-	{ 71, K_NUM7 },
+-	{ 72, K_NUM8 },
+-	{ 73, K_NUM9 },
+-	{ 74, K_NUMMINUS },
+-	{ 75, K_NUM4 },
+-	{ 76, K_NUM5 },
+-	{ 77, K_NUM6 },
+-	{ 78, K_NUMPLUS },
+-	{ 79, K_NUM1 },
+-	{ 80, K_NUM2 },
+-	{ 81, K_NUM3 },
+-	{ 82, K_NUM0 },
+-	{ 83, K_NUMDOT },
+-	
+-	{ 87, K_F11 },
+-	{ 88, K_F12 },
+-	
+-	{ 96, K_NUMENTER },
+-	{ 97, K_CTRL },
+-	{ 98, K_NUMDIV },
+-	{ 99, K_SYSRQ },
+-	
+-	{ 100, K_ALT },
+-	{ 101, K_PAUSE },
+-	{ 119, K_PAUSE },
+-	
+-	{ 102, K_HOME },
+-	{ 103, K_UP },
+-	{ 104, K_PRIOR },
+-	{ 105, K_LEFT },
+-	{ 106, K_RIGHT },
+-	{ 107, K_END },
+-	{ 108, K_DOWN },
+-	{ 109, K_NEXT },
+-	{ 110, K_INS },
+-	{ 111, K_DEL },
++	{ 0x0C, K_ESC },
++	{ 1, '1' },
++	{ 2, '2' },
++	{ 3, '3' },
++	{ 4, '4' },
++	{ 5, '5' },
++	{ 6, '6' },
++	{ 7, '7' },
++	{ 8, '8' },
++	{ 9, '9' },
++	{ 0, '0' },
++	{ 0x3B, K_ENTER }, /* menu: start */
++	{ 0x2D, K_CTRL }, /* info: b */
++	{ 0x55, K_ALT }, /* opt: a */
++	{ 0x52, ' ' }, /* mark: select */
++	{ 0x0E, K_UP },
++	{ 0x2F, K_LEFT },
++	{ 0x2E, K_RIGHT },
++	{ 0x0F, K_DOWN },
++	{ 0x20, K_INS }, /* radio: save state */
++	{ 0x27, K_DEL }, /* tv: return to saved state */
+ 
+ 	{ 0, 0 }
+ };

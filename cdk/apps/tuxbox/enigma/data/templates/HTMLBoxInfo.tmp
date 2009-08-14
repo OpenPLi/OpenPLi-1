@@ -1,0 +1,36 @@
+<table id="epg" width="100%" border="0" cellspacing="0" cellpadding="5">
+	<thead>
+		<tr>
+			<th colspan="2">About Box</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>Model</td><td>#MODEL#</td></tr>
+		<tr><td>Manufacturer</td><td>#MANUFACTURER#</td></tr>
+		<tr><td>Processor</td><td>#PROCESSOR#</td></tr>
+		<tr><td>Harddisk</td><td>#DISK#</td></tr>
+		<tr><td>USB Stick</td><td>#USBSTICK#</td></tr>
+		<tr><td>Linux Kernel</td><td>#LINUXKERNEL#</td></tr>
+		<tr><td>Firmware</td><td>#FIRMWARE#</td></tr>
+		<tr><td>FP Firmware</td><td>#FP#</td></tr>
+		<tr><td>Web Interface</td><td>#WEBIFVERSION# - PLi edition by [lite]</td></tr>
+		<tr><td>Thanks to</td>
+		    <td>PLi Core developers:<br>
+			dAF2000, mirakels, pieterg, PLi, Sat-Turner and Sjaaky.<br><br>
+			PLi Core graphical designer:<br>
+			lite.<br><br>
+			Other PLi Core members :<br>
+			Frenske, gerrit, hemertje, henksat, Hyunday Magic, littlesat, MickeyM,
+			radxnl, redneck eyeball, Rick Hunter, Roodkapke, RuKo, Tech and WanWizard.<br><br>
+			External PLi testers:<br>
+			bartender, boki15, donk, Hansaplast, hemispherical1, ims, jonc, mxracer,
+			nfnovice, raton_craquero, ronnie, saycbone, schumiNL, sunnyhighway and updatelee.<br><br>
+			Special thanks to all the translaters.<br>
+			Special thanks to our website sponsors, Exite, Graver and NedLinux for their web hosting<br>
+			And many other we forgot to mention.<br><br>
+			The EPGSearch screen was based on source code of the SourceForge Merlin project.
+		</td></tr>
+	</tbody>
+</table>
+
+

@@ -1,0 +1,186 @@
+<html>
+	<head>
+		<title>Enigma Web Interface - PLi Edition [#BOX#]</title>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script language="javascript" type="text/javascript" src="/window.js"></script>
+		<script language="javascript" type="text/javascript" src="/dhtml.js"></script>
+		<script language="javascript" type="text/javascript" src="/index.js"></script>
+		<script language="javascript" type="text/javascript" src="/mainfunc.js"></script>
+	</head>
+	<body id="index_big" style="margin: 0px; border: 0px; padding: 0px; background-color:#333333;" onLoad="init();testConn();" >
+		<table align="center" border="0" cellspacing="0" cellpadding="0" style="height:98%;width:780px">
+		<tr>
+			<td colspan="2">
+				<img id="imgTop" src="top-banner.jpg" width="780" height="111" alt="">
+				
+				<table style="width:780px;height:31px" cellpadding="0" cellspacing="0">
+					<tr>
+						<td align="left" width="31" class="head">Chan:&nbsp;</td>
+						<td align="left" id="servicename" class="servicename">&nbsp;</td>
+						<td align="left" width="12"><img id="imgCrypt" src="crypt_off.gif" border="0" alt=""></td>
+						<td align="left" width="27" class="head">Now:&nbsp;</td>
+						<td align="left" width="30" id="nowt" class="epgzeit_bold">&nbsp;</td>
+						<td align="left" style="padding:4px" width="10" id="nowd" class="epgdur">&nbsp;</td>
+						<td align="left" id="nowst" class="epgname_bold">&nbsp;</td>
+						<td align="left" width="30" class="head">Next:&nbsp;</td>
+						<td align="left" width="30" id="nextt" class="epgzeit_bold">&nbsp;</td>
+						<td align="left" style="padding:4px" width="10" id="nextd" class="epgdur">&nbsp;</td>
+						<td align="left" id="nextst" class="epgname_bold">&nbsp;</td>
+						<td width="166">
+						<table border="0" cellspacing="1" cellpadding="0" align="right">
+							<tr>
+								<td><a href="javascript:setVol(9)"><img id="imgVol9" src="led_on.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(15)"><img id="imgVol15" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(21)"><img id="imgVol21" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(27)"><img id="imgVol27" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(33)"><img id="imgVol33" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(39)"><img id="imgVol39" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(45)"><img id="imgVol45" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(51)"><img id="imgVol51" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(57)"><img id="imgVol57" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td><a href="javascript:setVol(63)"><img id="imgVol63" src="led_off.gif" border="0" width="14" height="8" alt=""></a></td>
+								<td>&nbsp;</td>
+								<td><a href="javascript:toggleMute()"><img id="mute" border="0" src="speak_on.gif" alt=""></a></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				<div id="newsticker"></div>
+			</td>
+		</tr>
+		<tr >
+			<td colspan="2" >
+				<table id="channavi" border="0" cellspacing="0" cellpadding="0" style="height:22px;width:780px;background-image: url(corner-top-left.gif);background-repeat: no-repeat;background-position: top left;" bgcolor="#6b8dc3">
+				<tr>
+					<td width="110" height="20" align="center" id="webx">
+						<script language="javascript" type="text/javascript">webxCheck();</script>
+					</td>
+					<td align="left" style="background-image: url(back_top_right.png);">
+					<!-- menu start -->
+					<map name="ctrl">
+					<area shape="circle" coords="10, 7, 6" href="javascript:video('rewind')" alt="Rewind">
+					<area shape="circle" coords="24, 7, 6" href="javascript:video('play')" alt="Play">
+					<area shape="circle" coords="38, 7, 6" href="javascript:video('pause')" alt="Pause">
+					<area shape="circle" coords="54, 7, 6" href="javascript:video('forward')" alt="Forward">
+					<area shape="circle" coords="71, 7, 6" href="javascript:video('stop')" alt="Stop">
+					<area shape="circle" coords="87, 7, 6" href="javascript:video('record')" alt="Record">
+					</map>
+					<table cellpadding="0" cellspacing="0" style="height:12px;width:100%;padding-bottom:1px">
+						<tr>
+							<td width="9">&nbsp;</td>
+							<td width="93" ><img id="img1" class="menuImg" src="arrow_up.png" alt=""><a id="link1" href="#" onmouseover="menuAct(1);" onclick="inAct(1);">Box Control</a></td>
+							<td width="99"><img id="img2" class="menuImg" src="arrow_up.png" alt=""><a id="link2" href="#" onmouseover="menuAct(2);" onclick="inAct(2);">Channel Info</a></td>
+							<td width="82"><img id="img3" class="menuImg" src="arrow_up.png" alt=""><a id="link3" href="#" onmouseover="menuAct(3);" onclick="inAct(3);">Shutdown</a></td>
+							<td><img id="img4" class="menuImg" src="arrow_up.png" alt=""><a id="link4" href="#" onmouseover="menuAct(4);" onclick="inAct(4);">About PLi®</a></td>
+							<td align="right" ><img src="dvr_menu.png" usemap="#ctrl" border="0" style="margin-bottom:-1px" alt=""></td>
+							<td align="right" style="color:#f2f3f5">|&nbsp;</td>
+							<td id="diskgb" align="right" width="60">&nbsp;</td>
+							<td id="diskh" align="right" width="90" style="page-break-inside: avoid;">&nbsp;</td>
+						</tr>
+					</table>
+					<!-- menu end -->
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table cellpadding="0" cellspacing="0" style="height:100%">
+					<tr>
+						<td height="38" valign="top" style="padding-top:8px;background-image:url(back_mid_left.png);">
+							<center><span id="videoTime">0:00</span></center>
+						</td>
+					</tr>
+					<tr>
+						<td style="background-image: url(back_bottom_left.png);"><iframe id="leftnavi" name="leftnavi"  src="leftnavi" scrolling="no" frameborder="0" marginwidth="0" marginheight="0"></iframe></td>
+					</tr>
+				</table>
+			</td>
+			<td style="height:100%;width:670px" valign="top">
+				<div id="menu1" class="submenu">
+					<div class="menuitem" onclick="inAct(1);topnavi('?mode=zap')"><a href="#">Zap</a></div>
+					<div class="menuitem" onclick="inAct(1);parent.body.mepg()"><a href="#" >Full EPG</a></div>
+					<div class="menuitem" onclick="inAct(1);topnavi('?mode=timers')"><a href="#" >Timer Edit</a></div>
+					<div class="menuitem" onclick="inAct(1);topnavi('?mode=control')"><a href="#" >Control Tools</a></div>
+					<div class="menuitem" onclick="inAct(1);topnavi('?mode=config')"><a href="#" >Configuration</a></div>
+					<div class="menuitem" onclick="inAct(1);NewWindow('body?mode=controlFBShot','Screenshot','740','636','no')"><a href="#" >Screenshot</a></div>
+					<div class="menuitem" onclick="inAct(1);remoteControl('dreambox')"><a href="#">Remote</a></div>
+					<div id="menuborder1"><img src="spacer.gif" width="1" height="1" alt=""></div>
+				</div>
+				<div id="menu2" class="submenu">
+					<div class="menuitem" onclick="inAct(2);openEPG('')"><a href="#">Channel EPG</a></div>
+					<div class="menuitem" onclick="inAct(2);selectSubChannel()"><a href="#">Video Channel</a></div>
+					<div class="menuitem" onclick="inAct(2);selectAudio()"><a href="#">Audio Channel</a></div>
+					<div class="menuitem" onclick="inAct(2);openSI()"><a href="#">Stream Info</a></div>
+					<div class="menuitem" onclick="inAct(2);teletext()"><a href="#">Teletext</a></div>
+					<div class="menuitem" onclick="inAct(2);vlc()"><a href="#">Video Capture</a></div>
+					<div class="menuitem" onclick="inAct(2);document.location='audio.pls'"><a href="#">Audio Capture</a></div>
+					<div id="menuborder2"><img src="spacer.gif" width="1" height="1" alt=""></div>
+				</div>
+				<div id="menu3" class="submenu">
+					<div class="menuitem" onclick="admin('shutdown')"><a href="#">Shutdown</a></div>
+					<div class="menuitem" onclick="admin('restart')"><a href="#">Restart</a></div>
+					<div class="menuitem" onclick="admin('reboot')"><a href="#">Reboot</a></div>
+					<div class="menuitem" onclick="admin('standby')"><a href="#">Standby</a></div>
+					<div class="menuitem" onclick="admin('wakeup')"><a href="#">Wakeup</a></div>
+					<div id="menuborder3"><img src="spacer.gif" width="1" height="1" alt=""></div>
+				</div>
+				<div id="menu4" class="submenu">
+					<div class="menuitem" onclick="inAct(4);testConn()"><a href="#">News ticker</a></div>
+					<div class="menuitem" onclick="inAct(4);window.open('http://www.pli-images.org/modules/wiki/index.php?wakka=E1');"><a href="#">PLi Wiki</a></div>
+					<div class="menuitem" onclick="inAct(4);topnavi('?mode=help')"><a href="#">About page</a></div>
+					<div id="menuborder4"><img src="spacer.gif" width="1" height="1" alt=""></div>
+				</div>
+				<table cellpadding="0" cellspacing="0" style="height:100%;width:670px;background-color:#f2f3f5" >
+					<tr>
+						<td valign="top">
+							<table cellspacing="0" cellpadding="0" style="width:670;background-image: url(corner-mid-left.gif);background-repeat: no-repeat;background-position: top left;" onmouseover="inActAll();" >
+								<tr>
+									<td>
+										<table border="0" cellpadding="0" style="width:650" cellspacing="0">
+											<tr>
+												<td id="title">&nbsp;</td>
+												<td align="right" id="recordChan" style="vertical-align:bottom">&nbsp;</td>
+												<td align="right" width="75"><img id="recording" width="72" border="0" src="trans.gif" alt="" style="margin-left:8px;margin-bottom:-9px"></td>
+											<tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<table cellpadding="0" style="width:650" cellspacing="0" id="minifinder">
+											<tr>
+												<td>snr </td><td><div class="bar"><div class="satbar" id="snrbar"></div></div></td>
+												<td id="snrval">&nbsp;</td>
+												<td>agc </td><td><div class="bar"><div class="satbar" id="agcbar" ></div></div></td>
+												<td id="agcval">&nbsp;</td>
+												<td>ber </td>
+												<td><div class="bar"><div class="satbar" id="berbar"></div></div></td>
+												<td id="berval">&nbsp;</td>
+												<td>&nbsp;<img id="satsync" src="lock_off.gif" height="8" width="8" alt=""> sync&nbsp;</td>
+												<td>&nbsp;<img id="satlock" src="lock_off.gif" height="8" width="8" alt=""> lock&nbsp;&nbsp;</td>
+												<td id="pids" width="142">&nbsp;</td>
+												<td><a class="minitext" href="#" onclick="window.open('sf.html',null,'height=400,width=550,status=0,toolbar=0,menubar=0,location=0,scrollbars=0,resizable=0');">zoom</a></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td bgcolor="#f2f3f5" style="height:100%;background-image: url(corner-bottom-right.gif);background-repeat: no-repeat;background-position: bottom right;">
+							<iframe style="height:99%;width:670px;" name="body" src="body" scrolling="auto" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+		<iframe name="vlccmd" src="blank" height="0" frameborder="0" ></iframe>
+		<iframe name="data" id="data" src="data" height="0" frameborder="0" ></iframe>
+	</body>
+</html>

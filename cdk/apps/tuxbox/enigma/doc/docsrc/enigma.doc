@@ -1,0 +1,20 @@
+/**
+
+\page index Index
+ 
+<h1>
+Enigma Documentation
+</h1>
+
+This documentation is mainly written for developers and not for endusers. Therefore 
+it stricly technical and in english.
+
+At the top you can find source file oriented documentation as a reference. Additionally,
+here are some chapters especially for new users.
+
+\arg \ref general
+\arg \ref gui
+\arg \ref skin
+\arg \ref dvb
+
+*/

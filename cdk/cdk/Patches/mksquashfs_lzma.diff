@@ -1,0 +1,12 @@
+diff -Naur squashfs3.0/squashfs-tools/Makefile squashfs3.0.patched/squashfs-tools/Makefile
+--- squashfs3.0/squashfs-tools/Makefile	2006-03-15 21:36:20.000000000 +0000
++++ squashfs3.0.patched/squashfs-tools/Makefile	2006-09-03 07:34:24.899323698 +0100
+@@ -5,7 +5,7 @@
+ all: mksquashfs unsquashfs
+ 
+ mksquashfs: mksquashfs.o read_fs.o sort.o
+-	$(CC) mksquashfs.o read_fs.o sort.o -lz -o $@
++	$(CXX) mksquashfs.o read_fs.o sort.o -L../../C/7zip/Compress/LZMA_Lib -llzma -o $@
+ 
+ mksquashfs.o: mksquashfs.c squashfs_fs.h mksquashfs.h global.h sort.h
+ 

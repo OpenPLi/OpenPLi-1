@@ -1,0 +1,12 @@
+diff -Naur etherwake-1.08.orig/Makefile patched/Makefile
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ etherwake-1.08.orig/Makefile	2004-11-19 23:33:57.000000000 +0100
+@@ -0,0 +1,8 @@
++all: 
++	$(CC) $(CFLAGS) -o etherwake ether-wake.c
++
++clean:
++	rm etherwake
++	
++install:
++	$(INSTALL) etherwake $(DESTDIR)/bin

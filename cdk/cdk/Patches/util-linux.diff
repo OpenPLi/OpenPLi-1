@@ -1,0 +1,90 @@
+--- util-linux-2.12i/MCONFIG	2004-11-04 18:15:32.000000000 +0100
++++ util-linux-2.12i/MCONFIG	2004-11-18 21:44:37.000000000 +0100
+@@ -35,7 +35,7 @@
+ 
+ # If HAVE_PASSWD is set to "yes", then passwd will not be built or
+ # installed from the login-utils subdirectory.
+-HAVE_PASSWD=no
++HAVE_PASSWD=yes
+ 
+ # If you use chfn and chsh from this package, REQUIRE_PASSWORD will require
+ # non-root users to enter the account password before updating /etc/passwd.
+@@ -64,12 +64,12 @@
+ # If HAVE_WRITE is set to "yes", then write will not be built or
+ # installed from the misc-utils subdirectory.
+ # (There is a network aware write in netwrite from NetKit 0.16 or later.)
+-HAVE_WRITE=no
++HAVE_WRITE=yes
+ 
+ # If HAVE_GETTY is set to "yes", then agetty will not be built or
+ # installed from the login-utils subdirectory.  Note that agetty can
+ # co-exist with other gettys, so this option should never be used.
+-HAVE_GETTY=no
++HAVE_GETTY=yes
+ 
+ # If USE_TTY_GROUP is set to "yes", then wall and write will be installed
+ # setgid to the "tty" group, and mesg will only set the group write bit.
+@@ -82,7 +82,7 @@
+ # If HAVE_KILL is set to "yes", then kill will not be built or
+ # installed from the misc-utils subdirectory.
+ # (There is also a kill in the procps package.)
+-HAVE_KILL=no
++HAVE_KILL=yes
+ 
+ # If ALLOW_VCS_USE is set to "yes", then login will chown /dev/vcsN
+ # to the current user, allowing her to make a screendump and do other
+@@ -97,19 +97,19 @@
+ # If HAVE_SLN is set to "yes", then sln won't be installed
+ # (but the man page sln.8 will be installed anyway).
+ # sln also comes with libc and glibc.
+-HAVE_SLN=no
++HAVE_SLN=yes
+ 
+ # If HAVE_FDUTILS is set to "yes", then setfdprm won't be installed.
+-HAVE_FDUTILS=no
++HAVE_FDUTILS=yes
+ 
+ # If SILENT_PG is set to "yes", then pg will not ring the bell
+ # when an invalid key is pressed
+-SILENT_PG=no
++SILENT_PG=yes
+ 
+ # If configure decides that Native Language Support (NLS) is available,
+ # it sets MAY_ENABLE_NLS in defines.h. If you don't want NLS, set
+ # DISABLE_NLS to "yes".
+-DISABLE_NLS=no
++DISABLE_NLS=yes
+ 
+ # Different optimizations for different cpus.
+ # gcc 3.0 likes options -mcpu=i486 instead of -m486
+--- util-linux-2.12i/Makefile	2003-01-27 14:26:41.000000000 +0100
++++ util-linux-2.12i/Makefile	2004-11-18 21:49:18.000000000 +0100
+@@ -9,16 +9,7 @@
+ include ./MCONFIG
+ 
+ SUBDIRS=po \
+-	lib \
+-	getopt \
+-	disk-utils \
+-	login-utils \
+-	misc-utils \
+-	mount \
+-	fdisk \
+-	hwclock \
+-	sys-utils \
+-	text-utils
++	fdisk
+ 
+ .PHONEY: all install clean now
+ all:	defines.h
+--- util-linux-2.12i/fdisk/Makefile	2004-09-06 22:28:58.000000000 +0200
++++ util-linux-2.12i/fdisk/Makefile	2004-11-18 21:53:50.000000000 +0100
+@@ -22,7 +22,7 @@
+ MAN8:=$(MAN8) fdisk.8
+ 
+ ifneq "$(ARCH)" "sparc"
+-SBIN:=$(SBIN) $(CFDISK) sfdisk
++SBIN:=$(SBIN) sfdisk
+ MAN8:=$(MAN8) cfdisk.8 sfdisk.8
+ endif
+ 

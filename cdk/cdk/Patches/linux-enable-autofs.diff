@@ -1,0 +1,48 @@
+diff -U 3 -H -d -r -N -- config/dm500_defconfig linux-2.6.9/arch/ppc/configs/dm500_defconfig
+--- config/dm500_defconfig	2007-09-20 12:30:08.000000000 +0200
++++ linux-2.6.9/arch/ppc/configs/dm500_defconfig	2007-09-29 12:59:22.000000000 +0200
+@@ -622,7 +622,7 @@
+ # CONFIG_ROMFS_FS is not set
+ # CONFIG_QUOTA is not set
+ # CONFIG_AUTOFS_FS is not set
+-# CONFIG_AUTOFS4_FS is not set
++CONFIG_AUTOFS4_FS=m
+ 
+ #
+ # CD-ROM/DVD Filesystems
+diff -U 3 -H -d -r -N -- config/dm56x0_defconfig linux-2.6.9/arch/ppc/configs/dm56x0_defconfig
+--- config/dm56x0_defconfig	2007-09-20 12:30:08.000000000 +0200
++++ linux-2.6.9/arch/ppc/configs/dm56x0_defconfig	2007-09-29 12:59:06.000000000 +0200
+@@ -622,7 +622,7 @@
+ # CONFIG_ROMFS_FS is not set
+ # CONFIG_QUOTA is not set
+ # CONFIG_AUTOFS_FS is not set
+-# CONFIG_AUTOFS4_FS is not set
++CONFIG_AUTOFS4_FS=m
+ 
+ #
+ # CD-ROM/DVD Filesystems
+diff -U 3 -H -d -r -N -- config/dm7000_defconfig linux-2.6.9/arch/ppc/configs/dm7000_defconfig
+--- config/dm7000_defconfig	2007-09-20 12:30:08.000000000 +0200
++++ linux-2.6.9/arch/ppc/configs/dm7000_defconfig	2007-09-29 12:58:45.000000000 +0200
+@@ -812,7 +812,7 @@
+ # CONFIG_ROMFS_FS is not set
+ # CONFIG_QUOTA is not set
+ # CONFIG_AUTOFS_FS is not set
+-# CONFIG_AUTOFS4_FS is not set
++CONFIG_AUTOFS4_FS=m
+ 
+ #
+ # CD-ROM/DVD Filesystems
+diff -U 3 -H -d -r -N -- config/dm7020_defconfig linux-2.6.9/arch/ppc/configs/dm7020_defconfig
+--- config/dm7020_defconfig	2007-09-20 12:30:04.000000000 +0200
++++ linux-2.6.9/arch/ppc/configs/dm7020_defconfig	2007-09-29 12:59:36.000000000 +0200
+@@ -873,7 +873,7 @@
+ # CONFIG_ROMFS_FS is not set
+ # CONFIG_QUOTA is not set
+ # CONFIG_AUTOFS_FS is not set
+-# CONFIG_AUTOFS4_FS is not set
++CONFIG_AUTOFS4_FS=m
+ 
+ #
+ # CD-ROM/DVD Filesystems

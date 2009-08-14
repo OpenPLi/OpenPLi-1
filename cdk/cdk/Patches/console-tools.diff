@@ -1,0 +1,83 @@
+diff -Naur console-tools-0.2.3.orig/lib/misc-console-utils.c console-tools-0.2.3/lib/misc-console-utils.c
+--- console-tools-0.2.3.orig/lib/misc-console-utils.c	Mon Oct 25 22:24:47 1999
++++ console-tools-0.2.3/lib/misc-console-utils.c	Tue Apr  2 15:23:58 2002
+@@ -73,7 +73,7 @@
+   if (fd >= 0)
+     return fd;
+   
+-  fd = open_a_console("/dev/tty0");
++  fd = open_a_console("/dev/vc/0");
+   if (fd >= 0)
+     return fd;
+   
+diff -Naur console-tools-0.2.3.orig/vttools/openvt.c console-tools-0.2.3/vttools/openvt.c
+--- console-tools-0.2.3.orig/vttools/openvt.c	Tue Aug 31 22:50:12 1999
++++ console-tools-0.2.3/vttools/openvt.c	Tue Apr  2 15:22:51 2002
+@@ -61,7 +61,7 @@
+  * Where your VTs are hidden
+  */
+ #ifdef __linux__
+-#define VTNAME "/dev/tty%d"
++#define VTNAME "/dev/vc/%d"
+ #endif
+ 
+ #ifdef ESIX_5_3_2_D
+@@ -397,7 +397,7 @@
+     }
+ 	
+   /* get the current tty */
+-  sprintf(filename,"/dev/tty%d", curvt);
++  sprintf(filename,"/dev/vc/%d", curvt);
+   if (stat(filename,&buf))
+     {
+       perror(filename);
+diff -Naur console-tools-0.2.3.orig/vttools/resizecons.c console-tools-0.2.3/vttools/resizecons.c
+--- console-tools-0.2.3.orig/vttools/resizecons.c	Fri Apr  9 00:11:15 1999
++++ console-tools-0.2.3/vttools/resizecons.c	Tue Apr  2 15:21:51 2002
+@@ -366,7 +366,7 @@
+   for (i=0; i<16; i++)
+       if (vtstat.v_state & (1<<i)) 
+          {
+-	   sprintf(tty, "/dev/tty%d", i);
++	   sprintf(tty, "/dev/vc/%d", i);
+ 	   if ((fd = open(tty, 0)) > 0) 
+ 	     {
+ 	       if(ioctl(fd, TIOCSWINSZ, &winsize))
+diff -Naur console-tools-0.2.3.orig/vttools/screendump.c console-tools-0.2.3/vttools/screendump.c
+--- console-tools-0.2.3.orig/vttools/screendump.c	Fri Apr  9 00:11:15 1999
++++ console-tools-0.2.3/vttools/screendump.c	Tue Apr  2 15:22:16 2002
+@@ -139,7 +139,7 @@
+       unsigned char *screenbuf;
+       
+       fprintf(stderr, _("Could not use /dev/vcs*, trying TIOCLINUX\n"));
+-      sprintf(consnam, "/dev/tty%d", cons);
++      sprintf(consnam, "/dev/vc/%d", cons);
+       if((fd = open(consnam, 0)) < 0) 
+ 	{
+ 	  perror(consnam);
+diff -Naur console-tools-0.2.3.orig/kbdtools/showkey.c console-tools-0.2.3/kbdtools/showkey.c
+--- console-tools-0.2.3.orig/kbdtools/showkey.c	Fri Nov 11 00:11:15 2005
++++ console-tools-0.2.3/kbdtools/showkey.c	Fri Nov 11 15:22:16 2005
+@@ -267,6 +267,7 @@
+ 	case cmd_keymap:
+ 	  printf(")\n");
+ 	default:
++	  break;
+ 	}
+     }
+ 
+diff -Naur console-tools-0.2.3.orig/contrib/codepage.c console-tools-0.2.3/contrib/codepage.c
+--- console-tools-0.2.3.orig/contrib/codepage.c	Fri Nov 11 00:11:15 2005
++++ console-tools-0.2.3/contrib/codepage.c	Fri Nov 11 15:22:16 2005
+@@ -227,9 +227,8 @@
+ 	if (optc)
+ 	  return 0;
+ 
+-        fprintf(stderr, "\
+-Warning: CP format is a hack!\n
+-         The files produced may or may not be usable!\n");
++        fprintf(stderr, "Warning: CP format is a hack!\n"
++         "The files produced may or may not be usable!\n");
+ 
+ 	sprintf(outfile, "%d.cp", CPEntryHeader.codepage);
+ 	if ((out = fopen(outfile, "w")) == NULL) {

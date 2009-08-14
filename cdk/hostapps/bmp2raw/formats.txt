@@ -1,0 +1,39 @@
+So, an dieser Stelle die Format-Beschreibungen der Verwendeten
+Dateiformate.
+
+
+
+RAW (Icons für lcdd und Framebuffer)
+====================================
+
+HEADER
+Position	Typ	Name	Bedeutung
+0x0000		short	width	Breite des Icons (LE)
+0x0002		short	height	Höhe des Icons (LE)
+0x0004		char	tr	Transparenz-Farbe (wird nicht gezeichnet)
+0x0005		char[]	data	Bild-Daten
+
+DATEN
+für LCD:	char[height][width/2], pro byte zwei Pixel, hi-nibble links
+für FB:		char[height][width], pro byte ein Pixel, 0..255
+
+LE = Little Endian byte order = wie bei intel ;)
+
+ANI (Animation für LCD, proposal)
+=================================
+
+HEADER
+Position	Typ	Name	Bedeutung
+0x0000		char[4]	magic	= "LCDA"
+0x0004		u_short	format	Format der Bilder, s.u. (N)
+0x0006		u_short	width	Breite der Bilder (N)
+0x0008		u_short	height	Höhe der Bilder (N)
+0x000a		u_short count	Anzahl der Bilder (N)
+0x000c		u_long	delay	Wartezeit zwischen den Bildern (in µs; N)
+0x0010		char[]	data	Einzel-Bilder
+
+DATEN
+format=0:	char[height/8][width], pro Byte 8 übereinander liegende Pixel
+format=?:	nicht definiert
+
+N = network byte order (man benutze htons und ntohs, htonl und ntohl)

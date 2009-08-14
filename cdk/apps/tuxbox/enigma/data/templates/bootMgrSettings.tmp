@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>BootManager Settings</title>
+		<script>
+			function submitSettings()
+			{
+				var i = document.settings.skinName.selectedIndex;
+				var skinName = document.settings.skinName.options[i].value;
+				var mpoint = document.settings.mpoint.value;
+				var randomSkin = document.settings.randomSkin.value;
+				var selectedEntry = document.settings.selectedEntry.value;
+				var videoFormat = document.settings.videoFormat.value;
+				var skinPath1 = document.settings.skinPath1.value;
+				var skinPath2 = document.settings.skinPath2.value;
+				var skinName = document.settings.skinName.value; 
+				var timeoutValue = document.settings.timeoutValue.value;
+				document.location = "/cgi-bin/setbootmanagersettings?skinName=" + skinName + "&mpoint=" + mpoint + "&randomSkin=" + randomSkin + "&selectedEntry=" + selectedEntry + "&videoFormat=" + videoFormat + "&skinPath1=" + skinPath1 + "&skinPath2=" + skinPath2 + "&timeoutValue=" + timeoutValue;
+				window.setTimeout("window.close()", 3000);
+			}
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4">
+		<form name="settings">
+			<table border="0" cellspacing="5" cellpadding="0">
+			<tr>
+				<td>Skin path 1:</td>
+				<td>
+					<input style="color:#000000" name="skinPath1" type="text" size="50" maxlength="50" value="#SKINPATH1#" readonly>&nbsp;
+				</td>
+				<td>
+					skins can be in this directory...
+				</td>
+			</tr>
+			<tr>
+				<td>Skin path 2:</td>
+				<td>
+					<input style="color:#000000" name="skinPath2" type="text" size="50" maxlength="50" value="#SKINPATH2#" readonly>&nbsp;
+				</td>
+				<td>
+					... or this directory
+				</td>
+			</tr>
+			<tr>
+				<td>Skin name:</td>
+				<td>
+					<select name="skinName" size="1">
+						#SKINOPTIONS#
+					</select>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>Menu timeout:</td>
+				<td>
+					<input style="color:#000000" name="timeoutValue" type="text" size="3" maxlength="3" value="#TIMEOUTVALUE#">
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>Mount Point:</td>
+				<td>
+					<input style="color:#000000" name="mpoint" type="text" size="50" maxlength="50" value="#MPOINT#">
+				</td>
+				<td>root directory of images</td>
+			</tr>
+			<tr>
+				<td>Random Skin:</td>
+				<td>
+					<input style="color:#000000" name="randomSkin" type="text" size="3" maxlength="3" value="#RANDOMSKIN#">
+				</td>
+				<td>0/1</td>
+			</tr>
+			<tr>
+				<td>Video format:</td>
+				<td>
+					<input style="color:#000000" name="videoFormat" type="text" size="3" maxlength="3" value="#VIDEOFORMAT#">
+				</td>
+				<td>0: rgb, 1: fbas, 2: svideo, 3: component</td>
+			</tr>
+			<tr>
+				<td>Selected Image:</td>
+				<td>
+					<input style="color:#000000" name="selectedEntry" type="text" size="50" maxlength="50" value="#SELECTEDENTRY#" readonly>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			</table>
+			<br>
+			#BUTTONSUBMIT#
+		</form>
+	</body>
+</html>

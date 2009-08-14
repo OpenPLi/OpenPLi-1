@@ -1,0 +1,26 @@
+h1    {	color:#8800ff; 
+	font-family:Trek DS9 Credits Text,Trek,Arial;
+	font-size:22px; font-style:italic; }
+
+textarea { font-size:14px; color:#016496;
+	font-family:Arial;
+	border-color:#ff9700; border-width:9px;	border-style:ridge;
+	text-align:center;
+	padding:10px;
+	margin:20px;	}
+
+p     {	font-size:14px; color:#016496;
+	font-family:Trek DS9 Credits Text,Trek,Arial;	
+	font-weight:lighter;
+	margin-left:20px;
+	}
+
+body,textarea  { background-color:#000000;
+	scrollbar-base-color:#000000;
+	scrollbar-3dlight-color:#000000;
+	scrollbar-arrow-color:#000000;
+	scrollbar-darkshadow-color:#000000;
+	scrollbar-face-color:#ff8800;
+	scrollbar-highlight-color:#ff8800;
+	scrollbar-shadow-color:#000000;
+	scrollbar-track-color:#000000;		}

@@ -1,0 +1,47 @@
+Diese ppcboot-Version hat ein paar nette Patches, die es ermöglichen,
+endlich eine universelle Version für alle zu verwenden (weil die IP-Adresse
+nicht mehr angepasst werden muß!), und eine problemlose Koexistenz von cdk, 
+tiab und zwei Test-Systemen erlaubt.
+
+Dazu sind aber ein paar Änderungen im Dateisystem notwendig!
+
+  1. Koexistenz verschieder Systeme
+
+  Es ist jetzt möglich, problemlos z.B. sowohl cdk wie auch tiab
+  zu installieren, und zu Testzwecken noch weitere Systeme. Dazu
+  sind im ppcboot die Namen von vier Systemen definiert: 'cdk',
+  'tiab', 'test1' und 'test2'.
+
+  Beim PPCBoot-Start kann man ein System auswählen, standardmäßig
+  wird das erste System, also 'cdk' gestartet.
+
+
+  2. Verzeichnislayout
+
+  Die Files für die dbox liegen jetzt generell in /dbox2. Das ist
+  das Verzeichnis, welches Ihr per NFS exportieren müßt.
+
+  Darunter gibt es einige Unterverzeichnisse. Um die Koexistenz
+  verschiedener Systeme zu ermöglichen, gibt es für jedes Root-FS
+  ein eigenes Verzeichnis mit dem Namen des Systemes. 
+
+  Also hat cdk das Verzeichnis /dbox2/cdk, und tiab /dbox2/tiab.
+
+  Außerdem gibt es ein Verzeichnis /dbox2/images, welches das
+  Verzeichnis für den TFTP-Server ist. Darin liegt zum einen 
+  ppcboot (mit dem Dateinamen 'ppcboot'), zum anderen die Kernel
+  der verschiedenen Systeme mit den Namen 'kernel-<system>', also
+  z.B. 'kernel-cdk' oder 'kernel-tiab'.
+
+ 
+  3. IP-Adresse
+
+  In den meisten Fällen wird das NFS-Root wohl auf der selben Kiste
+  sein, wie der TFTP-Server. Deswegen nimmt ppcboot jetzt die IP-Adresse
+  des TFTP-Servers, und gibt sie als Parameter für das NFS-Root dem
+  Kernel. Dadurch ist es unnötig geworden, das ppcboot für eine bestimmte
+  IP anzupassen. 
+
+
+kju, 24. Mai 2001
+  

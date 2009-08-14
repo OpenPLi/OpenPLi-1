@@ -1,0 +1,25 @@
+<rcdefaults>
+	<author>
+		<name>Felix Domke</name>
+		<email>tmbinc@gmx.net</email>
+	</author>
+
+	<device identifier="DBoxButton" >
+		<keys>
+			<key name="power" code="1" />
+			<key name="up" code="2" />
+			<key name="down" code="3" />
+		</keys>
+
+		<actionmap name="enigmaMain">
+			<action name="standby_nomenu_press" key="power" flags="m" />
+			<action name="standby_repeat" key="power" flags="r" />
+			<action name="standby_release" key="power" flags="b" />
+			<action name="nextService" key="down" flags="mr" />
+			<action name="prevService" key="up" flags="mr" />
+		</actionmap>
+		<actionmap name="enigmaStandby">
+			<action name="wakeUp" key="power" flags="m" />
+		</actionmap>
+	</device>
+</rcdefaults>

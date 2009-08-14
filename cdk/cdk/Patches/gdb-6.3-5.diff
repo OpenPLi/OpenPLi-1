@@ -1,0 +1,3516 @@
+2004-10-11
+
+This patch is not submitted.  Many of these functions should be passing
+a frame around rather than calling get_selected_frame, but at least it
+is an improvement over deprecated_selected_frame.
+
+Index: gdb-6.3/gdb/breakpoint.c
+===================================================================
+--- gdb-6.3.orig/gdb/breakpoint.c	2004-10-08 13:30:46.000000000 -0400
++++ gdb-6.3/gdb/breakpoint.c	2004-11-09 22:55:11.231620957 -0500
+@@ -922,7 +922,7 @@ insert_bp_location (struct bp_location *
+       /* FIXME drow/2003-09-09: It would be nice if evaluate_expression
+ 	 took a frame parameter, so that we didn't have to change the
+ 	 selected frame.  */
+-      saved_frame_id = get_frame_id (deprecated_selected_frame);
++      saved_frame_id = get_frame_id (get_selected_frame ());
+ 
+       /* Determine if the watchpoint is within scope.  */
+       if (bpt->owner->exp_valid_block == NULL)
+@@ -5464,14 +5464,9 @@ break_at_finish_at_depth_command_1 (char
+ 
+       if (default_breakpoint_valid)
+ 	{
+-	  if (deprecated_selected_frame)
+-	    {
+-	      selected_pc = get_frame_pc (deprecated_selected_frame);
+-	      if (arg)
+-		if_arg = 1;
+-	    }
+-	  else
+-	    error ("No selected frame.");
++	  selected_pc = get_frame_pc (get_selected_frame ());
++	  if (arg)
++	    if_arg = 1;
+ 	}
+       else
+ 	error ("No default breakpoint address now.");
+@@ -5542,15 +5537,10 @@ break_at_finish_command_1 (char *arg, in
+     {
+       if (default_breakpoint_valid)
+ 	{
+-	  if (deprecated_selected_frame)
+-	    {
+-	      addr_string = xstrprintf ("*0x%s",
+-					paddr_nz (get_frame_pc (deprecated_selected_frame)));
+-	      if (arg)
+-		if_arg = 1;
+-	    }
+-	  else
+-	    error ("No selected frame.");
++	  addr_string = xstrprintf ("*0x%s",
++				    paddr_nz (get_frame_pc (get_selected_frame ())));
++	  if (arg)
++	    if_arg = 1;
+ 	}
+       else
+ 	error ("No default breakpoint address now.");
+@@ -6082,7 +6072,7 @@ until_break_command (char *arg, int from
+ {
+   struct symtabs_and_lines sals;
+   struct symtab_and_line sal;
+-  struct frame_info *prev_frame = get_prev_frame (deprecated_selected_frame);
++  struct frame_info *prev_frame = get_prev_frame (get_selected_frame ());
+   struct breakpoint *breakpoint;
+   struct cleanup *old_chain;
+   struct continuation_arg *arg1;
+@@ -6119,7 +6109,7 @@ until_break_command (char *arg, int from
+     /* Otherwise, specify the current frame, because we want to stop only
+        at the very same frame.  */
+     breakpoint = set_momentary_breakpoint (sal,
+-					   get_frame_id (deprecated_selected_frame),
++					   get_frame_id (get_selected_frame ()),
+ 					   bp_until);
+ 
+   if (!target_can_async_p ())
+Index: gdb-6.3/gdb/cli/cli-cmds.c
+===================================================================
+--- gdb-6.3.orig/gdb/cli/cli-cmds.c	2004-09-11 06:24:53.000000000 -0400
++++ gdb-6.3/gdb/cli/cli-cmds.c	2004-11-09 22:51:07.323246218 -0500
+@@ -845,10 +845,7 @@ disassemble_command (char *arg, int from
+   name = NULL;
+   if (!arg)
+     {
+-      if (!deprecated_selected_frame)
+-	error ("No frame selected.\n");
+-
+-      pc = get_frame_pc (deprecated_selected_frame);
++      pc = get_frame_pc (get_selected_frame ());
+       if (find_pc_partial_function (pc, &name, &low, &high) == 0)
+ 	error ("No function contains program counter for selected frame.\n");
+ #if defined(TUI)
+Index: gdb-6.3/gdb/f-valprint.c
+===================================================================
+--- gdb-6.3.orig/gdb/f-valprint.c	2003-10-14 02:51:14.000000000 -0400
++++ gdb-6.3/gdb/f-valprint.c	2004-11-09 22:51:07.326245632 -0500
+@@ -76,7 +76,7 @@ f77_get_dynamic_lowerbound (struct type 
+   switch (TYPE_ARRAY_LOWER_BOUND_TYPE (type))
+     {
+     case BOUND_BY_VALUE_ON_STACK:
+-      current_frame_addr = get_frame_base (deprecated_selected_frame);
++      current_frame_addr = get_frame_base (get_selected_frame ());
+       if (current_frame_addr > 0)
+ 	{
+ 	  *lower_bound =
+@@ -100,7 +100,7 @@ f77_get_dynamic_lowerbound (struct type 
+       break;
+ 
+     case BOUND_BY_REF_ON_STACK:
+-      current_frame_addr = get_frame_base (deprecated_selected_frame);
++      current_frame_addr = get_frame_base (get_selected_frame ());
+       if (current_frame_addr > 0)
+ 	{
+ 	  ptr_to_lower_bound =
+@@ -134,7 +134,7 @@ f77_get_dynamic_upperbound (struct type 
+   switch (TYPE_ARRAY_UPPER_BOUND_TYPE (type))
+     {
+     case BOUND_BY_VALUE_ON_STACK:
+-      current_frame_addr = get_frame_base (deprecated_selected_frame);
++      current_frame_addr = get_frame_base (get_selected_frame ());
+       if (current_frame_addr > 0)
+ 	{
+ 	  *upper_bound =
+@@ -163,7 +163,7 @@ f77_get_dynamic_upperbound (struct type 
+       break;
+ 
+     case BOUND_BY_REF_ON_STACK:
+-      current_frame_addr = get_frame_base (deprecated_selected_frame);
++      current_frame_addr = get_frame_base (get_selected_frame ());
+       if (current_frame_addr > 0)
+ 	{
+ 	  ptr_to_upper_bound =
+@@ -630,10 +630,7 @@ info_common_command (char *comname, int 
+      first make sure that it is visible and if so, let 
+      us display its contents */
+ 
+-  fi = deprecated_selected_frame;
+-
+-  if (fi == NULL)
+-    error ("No frame selected");
++  fi = get_selected_frame ();
+ 
+   /* The following is generally ripped off from stack.c's routine 
+      print_frame_info() */
+@@ -722,10 +719,7 @@ there_is_a_visible_common_named (char *c
+   if (comname == NULL)
+     error ("Cannot deal with NULL common name!");
+ 
+-  fi = deprecated_selected_frame;
+-
+-  if (fi == NULL)
+-    error ("No frame selected");
++  fi = get_selected_frame ();
+ 
+   /* The following is generally ripped off from stack.c's routine 
+      print_frame_info() */
+Index: gdb-6.3/gdb/infcmd.c
+===================================================================
+--- gdb-6.3.orig/gdb/infcmd.c	2004-09-13 14:26:28.000000000 -0400
++++ gdb-6.3/gdb/infcmd.c	2004-11-09 22:57:37.274099559 -0500
+@@ -1214,10 +1214,8 @@ finish_command (char *arg, int from_tty)
+     error ("The \"finish\" command does not take any arguments.");
+   if (!target_has_execution)
+     error ("The program is not running.");
+-  if (deprecated_selected_frame == NULL)
+-    error ("No selected frame.");
+ 
+-  frame = get_prev_frame (deprecated_selected_frame);
++  frame = get_prev_frame (get_selected_frame ());
+   if (frame == 0)
+     error ("\"finish\" not meaningful in the outermost frame.");
+ 
+@@ -1235,7 +1233,7 @@ finish_command (char *arg, int from_tty)
+ 
+   /* Find the function we will return from.  */
+ 
+-  function = find_pc_function (get_frame_pc (deprecated_selected_frame));
++  function = find_pc_function (get_frame_pc (get_selected_frame ()));
+ 
+   /* Print info on the selected frame, including level number but not
+      source.  */
+@@ -1600,13 +1598,11 @@ registers_info (char *addr_exp, int fpre
+ 
+   if (!target_has_registers)
+     error ("The program has no registers now.");
+-  if (deprecated_selected_frame == NULL)
+-    error ("No selected frame.");
+ 
+   if (!addr_exp)
+     {
+       gdbarch_print_registers_info (current_gdbarch, gdb_stdout,
+-				    deprecated_selected_frame, -1, fpregs);
++				    get_selected_frame (), -1, fpregs);
+       return;
+     }
+ 
+@@ -1644,7 +1640,7 @@ registers_info (char *addr_exp, int fpre
+ 	if (regnum >= 0)
+ 	  {
+ 	    gdbarch_print_registers_info (current_gdbarch, gdb_stdout,
+-					  deprecated_selected_frame, regnum, fpregs);
++					  get_selected_frame (), regnum, fpregs);
+ 	    continue;
+ 	  }
+       }
+@@ -1658,7 +1654,7 @@ registers_info (char *addr_exp, int fpre
+ 	    && regnum < NUM_REGS + NUM_PSEUDO_REGS)
+ 	  {
+ 	    gdbarch_print_registers_info (current_gdbarch, gdb_stdout,
+-					  deprecated_selected_frame, regnum, fpregs);
++					  get_selected_frame (), regnum, fpregs);
+ 	    continue;
+ 	  }
+       }
+@@ -1684,7 +1680,7 @@ registers_info (char *addr_exp, int fpre
+ 		if (gdbarch_register_reggroup_p (current_gdbarch, regnum,
+ 						 group))
+ 		  gdbarch_print_registers_info (current_gdbarch,
+-						gdb_stdout, deprecated_selected_frame,
++						gdb_stdout, get_selected_frame (),
+ 						regnum, fpregs);
+ 	      }
+ 	    continue;
+@@ -1714,8 +1710,6 @@ print_vector_info (struct gdbarch *gdbar
+ {
+   if (!target_has_registers)
+     error ("The program has no registers now.");
+-  if (deprecated_selected_frame == NULL)
+-    error ("No selected frame.");
+ 
+   if (gdbarch_print_vector_info_p (gdbarch))
+     gdbarch_print_vector_info (gdbarch, file, frame, args);
+@@ -1740,7 +1734,7 @@ print_vector_info (struct gdbarch *gdbar
+ static void
+ vector_info (char *args, int from_tty)
+ {
+-  print_vector_info (current_gdbarch, gdb_stdout, deprecated_selected_frame, args);
++  print_vector_info (current_gdbarch, gdb_stdout, get_selected_frame (), args);
+ }
+ 
+ 
+@@ -1910,8 +1904,6 @@ print_float_info (struct gdbarch *gdbarc
+ {
+   if (!target_has_registers)
+     error ("The program has no registers now.");
+-  if (deprecated_selected_frame == NULL)
+-    error ("No selected frame.");
+ 
+   if (gdbarch_print_float_info_p (gdbarch))
+     gdbarch_print_float_info (gdbarch, file, frame, args);
+@@ -1937,7 +1929,7 @@ No floating-point info available for thi
+ static void
+ float_info (char *args, int from_tty)
+ {
+-  print_float_info (current_gdbarch, gdb_stdout, deprecated_selected_frame, args);
++  print_float_info (current_gdbarch, gdb_stdout, get_selected_frame (), args);
+ }
+ 
+ static void
+Index: gdb-6.3/gdb/inflow.c
+===================================================================
+--- gdb-6.3.orig/gdb/inflow.c	2004-08-11 05:00:57.000000000 -0400
++++ gdb-6.3/gdb/inflow.c	2004-11-09 22:58:37.488338883 -0500
+@@ -591,10 +591,7 @@ kill_command (char *arg, int from_tty)
+   if (target_has_stack)
+     {
+       printf_filtered ("In %s,\n", target_longname);
+-      if (deprecated_selected_frame == NULL)
+-	fputs_filtered ("No selected stack frame.\n", gdb_stdout);
+-      else
+-	print_stack_frame (get_selected_frame (), 1, SRC_AND_LOC);
++      print_stack_frame (get_selected_frame (), 1, SRC_AND_LOC);
+     }
+   bfd_cache_close_all ();
+ }
+Index: gdb-6.3/gdb/infrun.c
+===================================================================
+--- gdb-6.3.orig/gdb/infrun.c	2004-09-27 13:58:08.000000000 -0400
++++ gdb-6.3/gdb/infrun.c	2004-11-09 22:51:07.351240752 -0500
+@@ -3485,7 +3485,7 @@ save_inferior_status (int restore_stack_
+ 
+   inf_status->registers = regcache_dup (current_regcache);
+ 
+-  inf_status->selected_frame_id = get_frame_id (deprecated_selected_frame);
++  inf_status->selected_frame_id = get_frame_id (get_selected_frame ());
+   return inf_status;
+ }
+ 
+Index: gdb-6.3/gdb/mi/mi-main.c
+===================================================================
+--- gdb-6.3.orig/gdb/mi/mi-main.c	2004-09-12 11:00:42.000000000 -0400
++++ gdb-6.3/gdb/mi/mi-main.c	2004-11-09 22:53:29.998389013 -0500
+@@ -388,7 +388,7 @@ register_changed_p (int regnum)
+ {
+   char raw_buffer[MAX_REGISTER_SIZE];
+ 
+-  if (! frame_register_read (deprecated_selected_frame, regnum, raw_buffer))
++  if (! frame_register_read (get_selected_frame (), regnum, raw_buffer))
+     return -1;
+ 
+   if (memcmp (&old_regs[DEPRECATED_REGISTER_BYTE (regnum)], raw_buffer,
+@@ -509,7 +509,7 @@ get_register (int regnum, int format)
+   if (format == 'N')
+     format = 0;
+ 
+-  frame_register (deprecated_selected_frame, regnum, &optim, &lval, &addr,
++  frame_register (get_selected_frame (), regnum, &optim, &lval, &addr,
+ 		  &realnum, buffer);
+ 
+   if (optim)
+Index: gdb-6.3/gdb/mn10300-tdep.c
+===================================================================
+--- gdb-6.3.orig/gdb/mn10300-tdep.c	2004-08-02 22:02:22.000000000 -0400
++++ gdb-6.3/gdb/mn10300-tdep.c	2004-11-09 22:51:07.356239776 -0500
+@@ -1154,7 +1154,7 @@ mn10300_print_register (const char *name
+     printf_filtered ("%s: ", name);
+ 
+   /* Get the data */
+-  if (!frame_register_read (deprecated_selected_frame, regnum, raw_buffer))
++  if (!frame_register_read (get_selected_frame (), regnum, raw_buffer))
+     {
+       printf_filtered ("[invalid]");
+       return;
+Index: gdb-6.3/gdb/stack.c
+===================================================================
+--- gdb-6.3.orig/gdb/stack.c	2004-08-02 20:57:26.000000000 -0400
++++ gdb-6.3/gdb/stack.c	2004-11-09 22:51:07.361238800 -0500
+@@ -758,9 +758,7 @@ parse_frame_specification (char *frame_e
+   switch (numargs)
+     {
+     case 0:
+-      if (deprecated_selected_frame == NULL)
+-	error ("No selected frame.");
+-      return deprecated_selected_frame;
++      return get_selected_frame ();
+       /* NOTREACHED */
+     case 1:
+       {
+@@ -902,10 +900,10 @@ frame_info (char *addr_exp, int from_tty
+     }
+   calling_frame_info = get_prev_frame (fi);
+ 
+-  if (!addr_exp && frame_relative_level (deprecated_selected_frame) >= 0)
++  if (!addr_exp && frame_relative_level (get_selected_frame ()) >= 0)
+     {
+       printf_filtered ("Stack level %d, frame at ",
+-		       frame_relative_level (deprecated_selected_frame));
++		       frame_relative_level (get_selected_frame ()));
+       print_address_numeric (get_frame_base (fi), 1, gdb_stdout);
+       printf_filtered (":\n");
+     }
+@@ -1445,9 +1443,7 @@ print_frame_label_vars (struct frame_inf
+ void
+ locals_info (char *args, int from_tty)
+ {
+-  if (!deprecated_selected_frame)
+-    error ("No frame selected.");
+-  print_frame_local_vars (deprecated_selected_frame, 0, gdb_stdout);
++  print_frame_local_vars (get_selected_frame (), 0, gdb_stdout);
+ }
+ 
+ static void
+@@ -1470,7 +1466,7 @@ catch_info (char *ignore, int from_tty)
+       if (!deprecated_selected_frame)
+ 	error ("No frame selected.");
+ 
+-      print_frame_label_vars (deprecated_selected_frame, 0, gdb_stdout);
++      print_frame_label_vars (get_selected_frame (), 0, gdb_stdout);
+     }
+ }
+ 
+@@ -1537,9 +1533,7 @@ print_frame_arg_vars (struct frame_info 
+ void
+ args_info (char *ignore, int from_tty)
+ {
+-  if (!deprecated_selected_frame)
+-    error ("No frame selected.");
+-  print_frame_arg_vars (deprecated_selected_frame, gdb_stdout);
++  print_frame_arg_vars (get_selected_frame (), gdb_stdout);
+ }
+ 
+ 
+@@ -1724,7 +1718,7 @@ down_silently_base (char *count_exp)
+   if (target_has_stack == 0 || deprecated_selected_frame == 0)
+     error ("No stack.");
+ 
+-  frame = find_relative_frame (deprecated_selected_frame, &count1);
++  frame = find_relative_frame (get_selected_frame (), &count1);
+   if (count1 != 0 && count_exp == 0)
+     {
+ 
+@@ -1944,7 +1938,7 @@ func_command (char *arg, int from_tty)
+ 
+   if (!found)
+     printf_filtered ("'%s' not within current stack frame.\n", arg);
+-  else if (fp != deprecated_selected_frame)
++  else if (fp != get_selected_frame ())
+     select_and_print_frame (fp);
+ }
+ 
+@@ -1965,7 +1959,7 @@ get_frame_language (void)
+          instruction of another function.  So we rely on
+          get_frame_address_in_block(), it provides us with a PC which is
+          guaranteed to be inside the frame's code block.  */
+-      s = find_pc_symtab (get_frame_address_in_block (deprecated_selected_frame));
++      s = find_pc_symtab (get_frame_address_in_block (get_selected_frame ()));
+       if (s)
+ 	flang = s->language;
+       else
+Index: gdb-6.3/gdb/tui/tui-disasm.c
+===================================================================
+--- gdb-6.3.orig/gdb/tui/tui-disasm.c	2004-02-24 20:10:01.000000000 -0500
++++ gdb-6.3/gdb/tui/tui-disasm.c	2004-11-09 22:51:07.370237044 -0500
+@@ -382,7 +382,7 @@ tui_vertical_disassem_scroll (enum tui_s
+ 
+       content = (tui_win_content) TUI_DISASM_WIN->generic.content;
+       if (cursal.symtab == (struct symtab *) NULL)
+-	s = find_pc_symtab (get_frame_pc (deprecated_selected_frame));
++	s = find_pc_symtab (get_frame_pc (get_selected_frame ()));
+       else
+ 	s = cursal.symtab;
+ 
+Index: gdb-6.3/gdb/tui/tui-source.c
+===================================================================
+--- gdb-6.3.orig/gdb/tui/tui-source.c	2004-02-16 16:05:09.000000000 -0500
++++ gdb-6.3/gdb/tui/tui-source.c	2004-11-09 22:51:07.370237044 -0500
+@@ -326,7 +326,7 @@ tui_vertical_source_scroll (enum tui_scr
+       struct symtab_and_line cursal = get_current_source_symtab_and_line ();
+ 
+       if (cursal.symtab == (struct symtab *) NULL)
+-	s = find_pc_symtab (get_frame_pc (deprecated_selected_frame));
++	s = find_pc_symtab (get_frame_pc (get_selected_frame ()));
+       else
+ 	s = cursal.symtab;
+ 
+Index: gdb-6.3/gdb/tui/tui-winsource.c
+===================================================================
+--- gdb-6.3.orig/gdb/tui/tui-winsource.c	2004-02-16 16:05:09.000000000 -0500
++++ gdb-6.3/gdb/tui/tui-winsource.c	2004-11-09 22:51:07.371236848 -0500
+@@ -311,7 +311,7 @@ tui_horizontal_source_scroll (struct tui
+       struct symtab_and_line cursal = get_current_source_symtab_and_line ();
+ 
+       if (cursal.symtab == (struct symtab *) NULL)
+-	s = find_pc_symtab (get_frame_pc (deprecated_selected_frame));
++	s = find_pc_symtab (get_frame_pc (get_selected_frame ()));
+       else
+ 	s = cursal.symtab;
+ 
+Index: gdb-6.3/gdb/valops.c
+===================================================================
+--- gdb-6.3.orig/gdb/valops.c	2004-09-13 23:01:48.000000000 -0400
++++ gdb-6.3/gdb/valops.c	2004-11-09 22:51:07.374236263 -0500
+@@ -2663,15 +2663,10 @@ value_of_local (const char *name, int co
+   struct block *b;
+   struct value * ret;
+ 
+-  if (deprecated_selected_frame == 0)
+-    {
+-      if (complain)
+-	error ("no frame selected");
+-      else
+-	return 0;
+-    }
++  if (!complain && deprecated_selected_frame == 0)
++    return 0;
+ 
+-  func = get_frame_function (deprecated_selected_frame);
++  func = get_frame_function (get_selected_frame ());
+   if (!func)
+     {
+       if (complain)
+@@ -2700,7 +2695,7 @@ value_of_local (const char *name, int co
+ 	return NULL;
+     }
+ 
+-  ret = read_var_value (sym, deprecated_selected_frame);
++  ret = read_var_value (sym, get_selected_frame ());
+   if (ret == 0 && complain)
+     error ("`%s' argument unreadable", name);
+   return ret;
+Index: gdb-6.3/gdb/varobj.c
+===================================================================
+--- gdb-6.3.orig/gdb/varobj.c	2004-07-26 10:53:06.000000000 -0400
++++ gdb-6.3/gdb/varobj.c	2004-11-09 22:51:07.377235677 -0500
+@@ -488,7 +488,7 @@ varobj_create (char *objname,
+       if (fi != NULL)
+ 	{
+ 	  var->root->frame = get_frame_id (fi);
+-	  old_fi = deprecated_selected_frame;
++	  old_fi = get_selected_frame ();
+ 	  select_frame (fi);
+ 	}
+ 
+Index: gdb-6.3/gdb/testsuite/gdb.base/default.exp
+===================================================================
+--- gdb-6.3.orig/gdb/testsuite/gdb.base/default.exp	2003-03-20 09:45:50.000000000 -0500
++++ gdb-6.3/gdb/testsuite/gdb.base/default.exp	2004-11-09 22:51:07.379235287 -0500
+@@ -167,7 +167,7 @@ gdb_test "disable breakpoints" "" "disab
+ #test disable display
+ gdb_test "disable display" "" "disable display"
+ #test disassemble
+-gdb_test "disassemble" "No frame selected." "disassemble"
++gdb_test "disassemble" "No (frame selected|registers)." "disassemble"
+ #test display
+ gdb_test "display" "" "display"
+ #test do
+@@ -229,9 +229,9 @@ gdb_expect {
+ }
+ 
+ #test frame "f" abbreviation
+-gdb_test "f" "No stack." "frame \"f\" abbreviation"
++gdb_test "f" "No (stack|registers)." "frame \"f\" abbreviation"
+ #test frame
+-gdb_test "frame" "No stack." "frame"
++gdb_test "frame" "No (stack|registers)." "frame"
+ #test fg
+ gdb_test "fg" "The program is not being run." "fg"
+ # FIXME: fg kills the udi connection
+@@ -294,9 +294,9 @@ gdb_test "ignore" "Argument required .a 
+ #test info address
+ gdb_test "info address" "Argument required." "info address"
+ #test info all-registers
+-gdb_test "info all-registers" "The program has no registers now." "info all-registers"
++gdb_test "info all-registers" "(The program has no registers now|No registers)." "info all-registers"
+ #test info args
+-gdb_test "info args" "No frame selected." "info args"
++gdb_test "info args" "No (frame selected|registers)." "info args"
+ #test info bogus-gdb-command
+ gdb_test "info bogus-gdb-command" "Undefined info command: \"bogus-gdb-command\".  Try \"help info\".*" "info bogus-gdb-command"
+ #test info breakpoints
+@@ -320,11 +320,11 @@ gdb_test "info frame" "No stack.|No sele
+ #test info files
+ gdb_test "info files" "" "info files"
+ #test info float
+-gdb_test "info float" "The program has no registers now." "info float"
++gdb_test "info float" "(The program has no registers now|No registers)." "info float"
+ #test info functions
+ gdb_test "info functions" "All defined functions:" "info functions"
+ #test info locals
+-gdb_test "info locals" "No frame selected." "info locals"
++gdb_test "info locals" "(No frame selected|No registers)." "info locals"
+ #test info program
+ gdb_test "info program" "The program being debugged is not being run." "info program"
+ #test info registers
+@@ -352,7 +352,7 @@ gdb_test "info types" "All defined types
+ #test info variables
+ gdb_test "info variables" "All defined variables:" "info variables"
+ #test info vector
+-gdb_test "info vector" "The program has no registers now." "info vector"
++gdb_test "info vector" "(The program has no registers now|No registers)." "info vector"
+ #test info warranty
+ gdb_test "info warranty" "NO WARRANTY(\[^\r\n\]*\[\r\n\])+  *11.  *BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY(\[^\r\n\]*\[\r\n\])+FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN(\[^\r\n\]*\[\r\n\])+OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES(\[^\r\n\]*\[\r\n\])+PROVIDE THE PROGRAM \"AS IS\" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED(\[^\r\n\]*\[\r\n\])+OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF(\[^\r\n\]*\[\r\n\])+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS(\[^\r\n\]*\[\r\n\])+TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE(\[^\r\n\]*\[\r\n\])+PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,(\[^\r\n\]*\[\r\n\])+REPAIR OR CORRECTION.(\[^\r\n\]*\[\r\n\])+  *12.  *IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING(\[^\r\n\]*\[\r\n\])+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR(\[^\r\n\]*\[\r\n\])+REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,(\[^\r\n\]*\[\r\n\])+INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING(\[^\r\n\]*\[\r\n\])+OUT OF THE USE OR INABILITY TO USE THE PROGRAM .INCLUDING BUT NOT LIMITED(\[^\r\n\]*\[\r\n\])+TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY(\[^\r\n\]*\[\r\n\])+YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER(\[^\r\n\]*\[\r\n\])+PROGRAMS., EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE(\[^\r\n\]*\[\r\n\])+POSSIBILITY OF SUCH DAMAGES.*" "info warranty"
+ #test info watchpoints
+Trivial.  Still need to submit this.
+
+Index: gdb-6.3/gdb/tracepoint.c
+===================================================================
+--- gdb-6.3.orig/gdb/tracepoint.c	2004-04-05 13:26:43.000000000 -0400
++++ gdb-6.3/gdb/tracepoint.c	2004-04-05 13:26:45.000000000 -0400
+@@ -853,6 +853,8 @@ read_actions (struct tracepoint *t)
+       else
+ 	line = gdb_readline (0);
+ 
++      if (line == NULL || *line == EOF)
++	break;
+       linetype = validate_actionline (&line, t);
+       if (linetype == BADLINE)
+ 	continue;		/* already warned -- collect another line */
+Status: committed upstream after 6.3.
+
+Fix a crash triggered by Kylix libraries.
+
+2004-12-06  Daniel Jacobowitz  <dan@debian.org>
+
+	Suggested by Fergal Daly <fergal@esatclear.ie>:
+	* simple.c (simple_dummy_multiple_definition): New function.
+	(bfd_simple_get_relocated_section_contents): Use it.
+
+Index: src/bfd/simple.c
+===================================================================
+RCS file: /cvs/src/src/bfd/simple.c,v
+retrieving revision 1.19
+retrieving revision 1.20
+Index: gdb-6.3/bfd/simple.c
+===================================================================
+--- gdb-6.3.orig/bfd/simple.c	2004-09-24 03:07:19.000000000 -0400
++++ gdb-6.3/bfd/simple.c	2004-12-08 18:25:58.415216808 -0500
+@@ -78,6 +78,19 @@ simple_dummy_unattached_reloc (struct bf
+   return TRUE;
+ }
+ 
++static bfd_boolean
++simple_dummy_multiple_definition (struct bfd_link_info *link_info ATTRIBUTE_UNUSED,
++				  const char *name ATTRIBUTE_UNUSED,
++				  bfd *obfd ATTRIBUTE_UNUSED,
++				  asection *osec ATTRIBUTE_UNUSED,
++				  bfd_vma oval ATTRIBUTE_UNUSED,
++				  bfd *nbfd ATTRIBUTE_UNUSED,
++				  asection *nsec ATTRIBUTE_UNUSED,
++				  bfd_vma nval ATTRIBUTE_UNUSED)
++{
++  return TRUE;
++}
++
+ struct saved_output_info
+ {
+   bfd_vma offset;
+@@ -172,6 +185,7 @@ bfd_simple_get_relocated_section_content
+   callbacks.reloc_overflow = simple_dummy_reloc_overflow;
+   callbacks.reloc_dangerous = simple_dummy_reloc_dangerous;
+   callbacks.unattached_reloc = simple_dummy_unattached_reloc;
++  callbacks.multiple_definition = simple_dummy_multiple_definition;
+ 
+   memset (&link_order, 0, sizeof (link_order));
+   link_order.next = NULL;
+This patch needs to be submitted for the FSF.  Also, there may be testcases
+already in the GDB testsuite (currently disabled) that it would probably fix.
+
+Index: gdb-6.3/gdb/infcall.c
+===================================================================
+--- gdb-6.3.orig/gdb/infcall.c	2004-10-08 04:15:56.000000000 -0400
++++ gdb-6.3/gdb/infcall.c	2004-11-10 12:30:07.000000000 -0500
+@@ -36,6 +36,7 @@
+ #include "gdb_string.h"
+ #include "infcall.h"
+ #include "dummy-frame.h"
++#include "cp-abi.h"
+ 
+ /* NOTE: cagney/2003-04-16: What's the future of this code?
+ 
+@@ -297,8 +298,8 @@ call_function_by_hand (struct value *fun
+ {
+   CORE_ADDR sp;
+   CORE_ADDR dummy_addr;
+-  struct type *value_type;
+-  unsigned char struct_return;
++  struct type *value_type, *target_value_type;
++  unsigned char struct_return = 0, cp_struct_return = 0;
+   CORE_ADDR struct_addr = 0;
+   struct regcache *retbuf;
+   struct cleanup *retbuf_cleanup;
+@@ -312,6 +313,7 @@ call_function_by_hand (struct value *fun
+   struct regcache *caller_regcache;
+   struct cleanup *caller_regcache_cleanup;
+   struct frame_id dummy_id;
++  struct cleanup *args_cleanup;
+ 
+   if (!target_has_execution)
+     noprocess ();
+@@ -410,10 +412,31 @@ call_function_by_hand (struct value *fun
+     using_gcc = (b == NULL ? 2 : BLOCK_GCC_COMPILED (b));
+   }
+ 
+-  /* Are we returning a value using a structure return or a normal
+-     value return? */
++  /* Are we returning a value using a structure return (passing a
++     hidden argument pointing to storage) or a normal value return?
++     There are two cases: C++ ABI mandated structure return and
++     target ABI structure return.  The variable STRUCT_RETURN only
++     describes the latter.  The C++ version is handled by passing
++     the return location as the first parameter to the function,
++     even preceding "this".  This is different from the target
++     ABI version, which is target-specific; for instance, on ia64
++     the first argument is passed in out0 but the hidden structure
++     return pointer would normally be passed in r8.  */
+ 
+-  struct_return = using_struct_return (value_type, using_gcc);
++  if (current_language->la_language == language_cplus
++      && cp_pass_by_reference (value_type))
++    {
++      cp_struct_return = 1;
++
++      /* Tell the target specific argument pushing routine not to
++	 expect a value.  */
++      target_value_type = builtin_type_void;
++    }
++  else
++    {
++      struct_return = using_struct_return (value_type, using_gcc);
++      target_value_type = value_type;
++    }
+ 
+   /* Determine the location of the breakpoint (and possibly other
+      stuff) that the called function will return to.  The SPARC, for a
+@@ -432,7 +455,7 @@ call_function_by_hand (struct value *fun
+       if (INNER_THAN (1, 2))
+ 	{
+ 	  sp = push_dummy_code (current_gdbarch, sp, funaddr,
+-				using_gcc, args, nargs, value_type,
++				using_gcc, args, nargs, target_value_type,
+ 				&real_pc, &bp_addr);
+ 	  dummy_addr = sp;
+ 	}
+@@ -440,7 +463,7 @@ call_function_by_hand (struct value *fun
+ 	{
+ 	  dummy_addr = sp;
+ 	  sp = push_dummy_code (current_gdbarch, sp, funaddr,
+-				using_gcc, args, nargs, value_type,
++				using_gcc, args, nargs, target_value_type,
+ 				&real_pc, &bp_addr);
+ 	}
+       break;
+@@ -507,9 +530,15 @@ call_function_by_hand (struct value *fun
+ 	  param_type = TYPE_FIELD_TYPE (ftype, i);
+ 	else
+ 	  param_type = NULL;
+-	
++
+ 	args[i] = value_arg_coerce (args[i], param_type, prototyped);
+ 
++	/* FIXME: Is current_language the right language?  */
++	if (current_language->la_language == language_cplus
++	    && param_type != NULL
++	    && cp_pass_by_reference (param_type))
++	  args[i] = value_addr (args[i]);
++
+ 	/* elz: this code is to handle the case in which the function
+ 	   to be called has a pointer to function as parameter and the
+ 	   corresponding actual argument is the address of a function
+@@ -607,7 +636,7 @@ You must use a pointer to function type 
+      stack, if necessary.  Make certain that the value is correctly
+      aligned. */
+ 
+-  if (struct_return)
++  if (struct_return || cp_struct_return)
+     {
+       int len = TYPE_LENGTH (value_type);
+       if (INNER_THAN (1, 2))
+@@ -632,6 +661,22 @@ You must use a pointer to function type 
+ 	}
+     }
+ 
++  if (cp_struct_return)
++    {
++      struct value **new_args;
++
++      /* Add the new argument to the front of the argument list.  */
++      new_args = xmalloc (sizeof (struct value *) * (nargs + 1));
++      new_args[0] = value_from_pointer (lookup_pointer_type (value_type),
++					struct_addr);
++      memcpy (&new_args[1], &args[0], sizeof (struct value *) * nargs);
++      args = new_args;
++      nargs++;
++      args_cleanup = make_cleanup (xfree, args);
++    }
++  else
++    args_cleanup = make_cleanup (null_cleanup, NULL);
++
+   /* Create the dummy stack frame.  Pass in the call dummy address as,
+      presumably, the ABI code knows where, in the call dummy, the
+      return address should be pointed.  */
+@@ -649,6 +694,8 @@ You must use a pointer to function type 
+   else
+     error ("This target does not support function calls");
+ 
++  do_cleanups (args_cleanup);
++
+   /* Set up a frame ID for the dummy frame so we can pass it to
+      set_momentary_breakpoint.  We need to give the breakpoint a frame
+      ID so that the breakpoint code can correctly re-identify the
+@@ -839,11 +886,7 @@ the function call).", name);
+   /* Figure out the value returned by the function, return that.  */
+   {
+     struct value *retval;
+-    if (TYPE_CODE (value_type) == TYPE_CODE_VOID)
+-      /* If the function returns void, don't bother fetching the
+-	 return value.  */
+-      retval = allocate_value (value_type);
+-    else if (struct_return)
++    if (struct_return || cp_struct_return)
+       /* NOTE: cagney/2003-09-27: This assumes that PUSH_DUMMY_CALL
+ 	 has correctly stored STRUCT_ADDR in the target.  In the past
+ 	 that hasn't been the case, the old MIPS PUSH_ARGUMENTS
+@@ -853,6 +896,10 @@ the function call).", name);
+ 	 "struct return convention", check that PUSH_DUMMY_CALL isn't
+ 	 playing tricks.  */
+       retval = value_at (value_type, struct_addr, NULL);
++    else if (TYPE_CODE (value_type) == TYPE_CODE_VOID)
++      /* If the function returns void, don't bother fetching the
++	 return value.  */
++      retval = allocate_value (value_type);
+     else
+       {
+ 	/* This code only handles "register convention".  */
+Index: gdb-6.3/gdb/cp-abi.h
+===================================================================
+--- gdb-6.3.orig/gdb/cp-abi.h	2003-04-12 13:41:25.000000000 -0400
++++ gdb-6.3/gdb/cp-abi.h	2004-11-10 12:30:07.000000000 -0500
+@@ -1,7 +1,7 @@
+ /* Abstraction of various C++ ABI's we support, and the info we need
+    to get from them.
+    Contributed by Daniel Berlin <dberlin@redhat.com>
+-   Copyright 2001 Free Software Foundation, Inc.
++   Copyright 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
+ 
+    This file is part of GDB.
+ 
+@@ -145,6 +145,10 @@ extern struct type *value_rtti_type (str
+ extern int baseclass_offset (struct type *type, int index, char *valaddr,
+ 			     CORE_ADDR address);
+                   
++/* Return non-zero if an argument of type TYPE should be passed by reference
++   instead of value.  */
++extern int cp_pass_by_reference (struct type *type);
++
+ struct cp_abi_ops
+ {
+   const char *shortname;
+@@ -162,6 +166,7 @@ struct cp_abi_ops
+ 			     int *using_enc);
+   int (*baseclass_offset) (struct type *type, int index, char *valaddr,
+ 			   CORE_ADDR address);
++  int (*pass_by_reference) (struct type *type);
+ };
+ 
+ 
+Index: gdb-6.3/gdb/cp-abi.c
+===================================================================
+--- gdb-6.3.orig/gdb/cp-abi.c	2003-11-26 17:04:00.000000000 -0500
++++ gdb-6.3/gdb/cp-abi.c	2004-11-10 12:30:07.000000000 -0500
+@@ -1,5 +1,5 @@
+ /* Generic code for supporting multiple C++ ABI's
+-   Copyright 2001, 2002, 2003 Free Software Foundation, Inc.
++   Copyright 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
+ 
+    This file is part of GDB.
+ 
+@@ -94,6 +94,14 @@ value_rtti_type (struct value *v, int *f
+   return (*current_cp_abi.rtti_type) (v, full, top, using_enc);
+ }
+ 
++int
++cp_pass_by_reference (struct type *type)
++{
++  if ((current_cp_abi.pass_by_reference) == NULL)
++    return 0;
++  return (*current_cp_abi.pass_by_reference) (type);
++}
++
+ /* Set the current C++ ABI to SHORT_NAME.  */
+ 
+ static int
+Index: gdb-6.3/gdb/gnu-v3-abi.c
+===================================================================
+--- gdb-6.3.orig/gdb/gnu-v3-abi.c	2004-03-15 15:38:08.000000000 -0500
++++ gdb-6.3/gdb/gnu-v3-abi.c	2004-11-10 12:30:07.000000000 -0500
+@@ -1,7 +1,7 @@
+ /* Abstraction of GNU v3 abi.
+    Contributed by Jim Blandy <jimb@redhat.com>
+ 
+-   Copyright 2001, 2002, 2003 Free Software Foundation, Inc.
++   Copyright 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
+ 
+    This file is part of GDB.
+ 
+@@ -419,6 +419,84 @@ gnuv3_baseclass_offset (struct type *typ
+   return base_offset;
+ }
+ 
++/* Return nonzero if a type should be passed by reference.
++
++   The rule in the v3 ABI document comes from section 3.1.1.  If the
++   type has a non-trivial copy constructor or destructor, then the
++   caller must make a copy (by calling the copy constructor if there
++   is one or perform the copy itself otherwise), pass the address of
++   the copy, and then destroy the temporary (if necessary).
++
++   For return values with non-trivial copy constructors or
++   destructors, space will be allocated in the caller, and a pointer
++   will be passed as the first argument (preceding "this").
++
++   We don't have a bulletproof mechanism for determining whether a
++   constructor or destructor is trivial.  For GCC and DWARF2 debug
++   information, we can check the artificial flag.
++
++   We don't do anything with the constructors or destructors yet,
++   but we have to get the argument passing right anyway.  */
++static int
++gnuv3_pass_by_reference (struct type *type)
++{
++  int fieldnum, fieldelem, basenum;
++
++  CHECK_TYPEDEF (type);
++
++  /* We're only interested in things that can have methods.  */
++  if (TYPE_CODE (type) != TYPE_CODE_STRUCT
++      && TYPE_CODE (type) != TYPE_CODE_CLASS
++      && TYPE_CODE (type) != TYPE_CODE_UNION)
++    return 0;
++
++  for (fieldnum = 0; fieldnum < TYPE_NFN_FIELDS (type); fieldnum++)
++    for (fieldelem = 0; fieldelem < TYPE_FN_FIELDLIST_LENGTH (type, fieldnum);
++	 fieldelem++)
++      {
++	struct fn_field *fn = TYPE_FN_FIELDLIST1 (type, fieldnum);
++	char *name = TYPE_FN_FIELDLIST_NAME (type, fieldnum);
++	struct type *fieldtype = TYPE_FN_FIELD_TYPE (fn, fieldelem);
++
++	/* If this function is marked as artificial, it is compiler-generated,
++	   and we assume it is trivial.  */
++	if (TYPE_FN_FIELD_ARTIFICIAL (fn, fieldelem))
++	  continue;
++
++	/* If we've found a destructor, we must pass this by reference.  */
++	if (name[0] == '~')
++	  return 1;
++
++	/* If the mangled name of this method doesn't indicate that it
++	   is a constructor, we're not interested.
++
++	   FIXME drow/2004-05-27: We could do this using the name of
++	   the method and the name of the class instead of dealing
++	   with the mangled name.  We don't have a convenient function
++	   to strip off both leading scope qualifiers and trailing
++	   template arguments yet.  */
++	if (!is_constructor_name (TYPE_FN_FIELD_PHYSNAME (fn, fieldelem)))
++	  continue;
++
++	/* If this method takes two arguments, and the second argument is
++	   a reference to this class, then it is a copy constructor.  */
++	if (TYPE_NFIELDS (fieldtype) == 2
++	    && TYPE_CODE (TYPE_FIELD_TYPE (fieldtype, 1)) == TYPE_CODE_REF
++	    && check_typedef (TYPE_TARGET_TYPE (TYPE_FIELD_TYPE (fieldtype, 1))) == type)
++	  return 1;
++      }
++
++  /* Even if all the constructors and destructors were artificial, one
++     of them may have invoked a non-artificial constructor or
++     destructor in a base class.  If any base class needs to be passed
++     by reference, so does this class.  */
++  for (basenum = 0; basenum < TYPE_N_BASECLASSES (type); basenum++)
++    if (gnuv3_pass_by_reference (TYPE_BASECLASS (type, basenum)))
++      return 1;
++
++  return 0;
++}
++
+ static void
+ init_gnuv3_ops (void)
+ {
+@@ -434,6 +512,7 @@ init_gnuv3_ops (void)
+   gnu_v3_abi_ops.rtti_type = gnuv3_rtti_type;
+   gnu_v3_abi_ops.virtual_fn_field = gnuv3_virtual_fn_field;
+   gnu_v3_abi_ops.baseclass_offset = gnuv3_baseclass_offset;
++  gnu_v3_abi_ops.pass_by_reference = gnuv3_pass_by_reference;
+ }
+ 
+ extern initialize_file_ftype _initialize_gnu_v3_abi; /* -Wmissing-prototypes */
+Index: gdb-6.3/gdb/hpacc-abi.c
+===================================================================
+--- gdb-6.3.orig/gdb/hpacc-abi.c	2003-06-08 14:27:13.000000000 -0400
++++ gdb-6.3/gdb/hpacc-abi.c	2004-11-10 12:30:07.000000000 -0500
+@@ -3,7 +3,7 @@
+    Most of the real code is from HP, i've just fiddled it to fit in
+    the C++ ABI abstraction framework.
+ 
+-   Copyright 2001 Free Software Foundation, Inc.
++   Copyright 2001, 2002, 2003 Free Software Foundation, Inc.
+ 
+    This file is part of GDB.
+ 
+Index: gdb-6.3/gdb/Makefile.in
+===================================================================
+--- gdb-6.3.orig/gdb/Makefile.in	2004-11-10 12:30:06.000000000 -0500
++++ gdb-6.3/gdb/Makefile.in	2004-11-10 12:30:07.000000000 -0500
+@@ -2073,7 +2073,7 @@ ia64-tdep.o: ia64-tdep.c $(defs_h) $(inf
+ infcall.o: infcall.c $(defs_h) $(breakpoint_h) $(target_h) $(regcache_h) \
+ 	$(inferior_h) $(gdb_assert_h) $(block_h) $(gdbcore_h) $(language_h) \
+ 	$(objfiles_h) $(gdbcmd_h) $(command_h) $(gdb_string_h) $(infcall_h) \
+-	$(dummy_frame_h)
++	$(dummy_frame_h) $(cp_abi_h)
+ inf-child.o: inf-child.c $(defs_h) $(regcache_h) $(memattr_h) $(symtab_h) \
+ 	$(target_h) $(inferior_h) $(gdb_string_h)
+ infcmd.o: infcmd.c $(defs_h) $(gdb_string_h) $(symtab_h) $(gdbtypes_h) \
+Index: gdb-6.3/gdb/testsuite/gdb.cp/pass-by-ref.exp
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdb-6.3/gdb/testsuite/gdb.cp/pass-by-ref.exp	2004-11-11 09:48:00.498518899 -0500
+@@ -0,0 +1,38 @@
++# This testcase is part of GDB, the GNU debugger.
++
++# Copyright 2004 Free Software Foundation, Inc.
++
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 2 of the License, or
++# (at your option) any later version.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software
++# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
++
++# Check that GDB can call C++ functions whose parameters have
++# object type, but are passed by reference.
++
++set testfile "pass-by-ref"
++set srcfile ${testfile}.cc
++set binfile ${objdir}/${subdir}/${testfile}
++if { [gdb_compile "${srcdir}/${subdir}/${srcfile}" "${binfile}" executable {debug}] != "" } {
++    return -1
++}
++
++gdb_exit
++gdb_start
++gdb_reinitialize_dir $srcdir/$subdir
++gdb_load ${binfile}
++
++if ![runto_main] then {
++    return -1
++}
++
++gdb_test "print foo (global_obj)" " = 3" "call function"
+Index: gdb-6.3/gdb/testsuite/gdb.cp/pass-by-ref.cc
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ gdb-6.3/gdb/testsuite/gdb.cp/pass-by-ref.cc	2004-11-11 09:44:17.815014667 -0500
+@@ -0,0 +1,57 @@
++/* This testcase is part of GDB, the GNU debugger.
++
++   Copyright 2004 Free Software Foundation, Inc.
++
++   This program is free software; you can redistribute it and/or modify
++   it under the terms of the GNU General Public License as published by
++   the Free Software Foundation; either version 2 of the License, or
++   (at your option) any later version.
++
++   This program is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++   GNU General Public License for more details.
++ 
++   You should have received a copy of the GNU General Public License
++   along with this program; if not, write to the Free Software
++   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
++   USA.  */
++
++class Obj {
++public:
++  Obj ();
++  Obj (const Obj &);
++  ~Obj ();
++  int var[2];
++};
++
++int foo (Obj arg)
++{
++  return arg.var[0] + arg.var[1];
++}
++
++Obj::Obj ()
++{
++  var[0] = 1;
++  var[1] = 2;
++}
++
++Obj::Obj (const Obj &obj)
++{
++  var[0] = obj.var[0];
++  var[1] = obj.var[1];
++}
++
++Obj::~Obj ()
++{
++
++}
++
++Obj global_obj;
++
++int
++main ()
++{
++  int bar = foo (global_obj);
++  return bar;
++}
+Status: Proposed upstream after 6.3, not yet committed.
+
+2004-12-06  Daniel Jacobowitz  <dan@debian.org>
+
+	* linux-nat.c (child_follow_fork): Call target_terminal_ours before
+	printing output.  Use fprintf_unfiltered.  Only print output when
+	debugging.
+
+Index: gdb-6.3/gdb/linux-nat.c
+===================================================================
+--- gdb-6.3.orig/gdb/linux-nat.c	2004-12-08 18:22:20.386956067 -0500
++++ gdb-6.3/gdb/linux-nat.c	2004-12-08 18:28:49.995585970 -0500
+@@ -347,9 +347,13 @@ child_follow_fork (int follow_child)
+ 	 also, but they'll be reinserted below.  */
+       detach_breakpoints (child_pid);
+ 
+-      fprintf_filtered (gdb_stdout,
+-			"Detaching after fork from child process %d.\n",
+-			child_pid);
++      if (debug_linux_nat)
++	{
++	  target_terminal_ours ();
++	  fprintf_unfiltered (gdb_stdlog,
++			      "Detaching after fork from child process %d.\n",
++			      child_pid);
++	}
+ 
+       ptrace (PTRACE_DETACH, child_pid, 0, 0);
+ 
+@@ -418,9 +422,13 @@ child_follow_fork (int follow_child)
+       /* Before detaching from the parent, remove all breakpoints from it. */
+       remove_breakpoints ();
+ 
+-      fprintf_filtered (gdb_stdout,
+-			"Attaching after fork to child process %d.\n",
+-			child_pid);
++      if (debug_linux_nat)
++	{
++	  target_terminal_ours ();
++	  fprintf_unfiltered (gdb_stdlog,
++			      "Attaching after fork to child process %d.\n",
++			      child_pid);
++	}
+ 
+       /* If we're vforking, we may want to hold on to the parent until
+ 	 the child exits or execs.  At exec time we can remove the old
+Status: Unsuitable for upstream (at least, without a lot of arguing).
+
+GCC does not specify the state of every last register in the CIE.  Since
+GCC's focus is on correctness of runtime unwinding, any registers which
+have to be unwound will be specified; but unmodified registers will not
+be explicitly marked.  (How about modified, call-clobbered registers?
+I'm not sure if they are marked as unavailable.)
+
+GDB issues a noisy warning about this.  The warning is generally not useful,
+and we can get it extremely frequently (any time we load a new CIE).
+
+This patch disables the warning.  Alternately we could set the complaints
+threshold to zero, or implement a default frame init-register method for
+every architecture.  But someday the compiler will support using different
+calling conventions for internal functions, so that's not much of a stopgap. 
+ARM has a complex algorithm for handling this, involving scanning all CIEs -
+benefit not completely clear outside of the ARM context of flexible register
+sets.
+
+Index: gdb-6.3/gdb/dwarf2-frame.c
+===================================================================
+--- gdb-6.3.orig/gdb/dwarf2-frame.c	2004-11-15 11:54:57.000000000 -0500
++++ gdb-6.3/gdb/dwarf2-frame.c	2004-12-08 18:02:23.896409471 -0500
+@@ -705,9 +705,12 @@ dwarf2_frame_cache (struct frame_info *n
+ 	   table.  We need a way of iterating through all the valid
+ 	   DWARF2 register numbers.  */
+ 	if (fs->regs.reg[column].how == DWARF2_FRAME_REG_UNSPECIFIED)
+-	  complaint (&symfile_complaints,
+-		     "Incomplete CFI data; unspecified registers at 0x%s",
+-		     paddr (fs->pc));
++	  {
++	    if (0)
++	      complaint (&symfile_complaints,
++			 "Incomplete CFI data; unspecified registers at 0x%s",
++			 paddr (fs->pc));
++	  }
+ 	else
+ 	  cache->reg[regnum] = fs->regs.reg[column];
+       }
+Status: Checked in to HEAD after 6.3.
+
+2004-11-07  Daniel Jacobowitz  <dan@debian.org>
+
+	* dwarf2-frame.c (struct dwarf2_frame_ops): Add signal_frame_p.
+	(dwarf2_frame_set_signal_frame_p, dwarf2_frame_signal_frame_p)
+	(dwarf2_signal_frame_unwind): New.
+	(dwarf2_frame_sniffer): Use dwarf2_frame_signal_frame_p.
+	* dwarf2-frame.h (dwarf2_frame_set_signal_frame_p): New prototype.
+
+Index: src/gdb/dwarf2-frame.c
+===================================================================
+RCS file: /big/fsf/rsync/src-cvs/src/gdb/dwarf2-frame.c,v
+retrieving revision 1.41
+diff -u -p -r1.41 dwarf2-frame.c
+--- gdb-6.3/gdb/dwarf2-frame.c	4 Nov 2004 21:15:15 -0000	1.41
++++ gdb-6.3/gdb/dwarf2-frame.c	7 Nov 2004 17:41:58 -0000
+@@ -471,6 +471,10 @@ struct dwarf2_frame_ops
+ {
+   /* Pre-initialize the register state REG for register REGNUM.  */
+   void (*init_reg) (struct gdbarch *, int, struct dwarf2_frame_state_reg *);
++
++  /* Check whether the frame preceding NEXT_FRAME will be a signal
++     trampoline.  */
++  int (*signal_frame_p) (struct gdbarch *, struct frame_info *);
+ };
+ 
+ /* Default architecture-specific register state initialization
+@@ -547,6 +551,33 @@ dwarf2_frame_init_reg (struct gdbarch *g
+ 
+   ops->init_reg (gdbarch, regnum, reg);
+ }
++
++/* Set the architecture-specific signal trampoline recognition
++   function for GDBARCH to SIGNAL_FRAME_P.  */
++
++void
++dwarf2_frame_set_signal_frame_p (struct gdbarch *gdbarch,
++				 int (*signal_frame_p) (struct gdbarch *,
++							struct frame_info *))
++{
++  struct dwarf2_frame_ops *ops = gdbarch_data (gdbarch, dwarf2_frame_data);
++
++  ops->signal_frame_p = signal_frame_p;
++}
++
++/* Query the architecture-specific signal frame recognizer for
++   NEXT_FRAME.  */
++
++static int
++dwarf2_frame_signal_frame_p (struct gdbarch *gdbarch,
++			     struct frame_info *next_frame)
++{
++  struct dwarf2_frame_ops *ops = gdbarch_data (gdbarch, dwarf2_frame_data);
++
++  if (ops->signal_frame_p == NULL)
++    return 0;
++  return ops->signal_frame_p (gdbarch, next_frame);
++}
+ 
+ 
+ struct dwarf2_frame_cache
+@@ -841,6 +872,13 @@ static const struct frame_unwind dwarf2_
+   dwarf2_frame_prev_register
+ };
+ 
++static const struct frame_unwind dwarf2_signal_frame_unwind =
++{
++  SIGTRAMP_FRAME,
++  dwarf2_frame_this_id,
++  dwarf2_frame_prev_register
++};
++
+ const struct frame_unwind *
+ dwarf2_frame_sniffer (struct frame_info *next_frame)
+ {
+@@ -848,10 +886,18 @@ dwarf2_frame_sniffer (struct frame_info 
+      function.  frame_pc_unwind(), for a no-return next function, can
+      end up returning something past the end of this function's body.  */
+   CORE_ADDR block_addr = frame_unwind_address_in_block (next_frame);
+-  if (dwarf2_frame_find_fde (&block_addr))
+-    return &dwarf2_frame_unwind;
++  if (!dwarf2_frame_find_fde (&block_addr))
++    return NULL;
+ 
+-  return NULL;
++  /* On some targets, signal trampolines may have unwind information.
++     We need to recognize them so that we set the frame type
++     correctly.  */
++
++  if (dwarf2_frame_signal_frame_p (get_frame_arch (next_frame),
++				   next_frame))
++    return &dwarf2_signal_frame_unwind;
++
++  return &dwarf2_frame_unwind;
+ }
+ 
+ 
+Index: src/gdb/dwarf2-frame.h
+===================================================================
+RCS file: /big/fsf/rsync/src-cvs/src/gdb/dwarf2-frame.h,v
+retrieving revision 1.6
+diff -u -p -r1.6 dwarf2-frame.h
+--- gdb-6.3/gdb/dwarf2-frame.h	28 Feb 2004 16:59:32 -0000	1.6
++++ gdb-6.3/gdb/dwarf2-frame.h	7 Nov 2004 17:40:41 -0000
+@@ -79,6 +79,14 @@ extern void dwarf2_frame_set_init_reg (s
+ 				       void (*init_reg) (struct gdbarch *, int,
+ 					     struct dwarf2_frame_state_reg *));
+ 
++/* Set the architecture-specific signal trampoline recognition
++   function for GDBARCH to SIGNAL_FRAME_P.  */
++
++extern void
++  dwarf2_frame_set_signal_frame_p (struct gdbarch *gdbarch,
++				   int (*signal_frame_p) (struct gdbarch *,
++							  struct frame_info *));
++
+ /* Return the frame unwind methods for the function that contains PC,
+    or NULL if it can't be handled by DWARF CFI frame unwinder.  */
+ 
+Status: Checked in to HEAD after 6.3.
+
+2004-11-09  Daniel Jacobowitz  <dan@debian.org>
+
+	* dwarf2-frame.c (dwarf2_frame_state_alloc_regs): Correct allocated
+	size.
+
+Index: src/gdb/dwarf2-frame.c
+===================================================================
+RCS file: /cvs/src/src/gdb/dwarf2-frame.c,v
+retrieving revision 1.45
+diff -u -p -r1.45 dwarf2-frame.c
+--- gdb-6.3/gdb/dwarf2-frame.c	7 Nov 2004 21:16:11 -0000	1.45
++++ gdb-6.3/gdb/dwarf2-frame.c	9 Nov 2004 14:42:52 -0000
+@@ -162,7 +162,7 @@ dwarf2_frame_state_alloc_regs (struct dw
+ static struct dwarf2_frame_state_reg *
+ dwarf2_frame_state_copy_regs (struct dwarf2_frame_state_reg_info *rs)
+ {
+-  size_t size = rs->num_regs * sizeof (struct dwarf2_frame_state_reg_info);
++  size_t size = rs->num_regs * sizeof (struct dwarf2_frame_state_reg);
+   struct dwarf2_frame_state_reg *reg;
+ 
+   reg = (struct dwarf2_frame_state_reg *) xmalloc (size);
+Status: submitted for comments
+
+2004-11-12  Daniel Jacobowitz  <dan@debian.org>
+
+	* linux-nat.c (my_waitpid): New function.
+	(linux_test_for_tracefork): Make more robust and verbose.  Take
+	an ORIGINAL_PID argument and test for PTRACE_SETOPTIONS first.
+	(linux_supports_tracefork, linux_supports_tracevforkdone): Take a PID
+	argument.  Update calls to linux_test_for_tracefork.
+	(linux_enable_event_reporting, child_follow_fork)
+	(child_insert_fork_catchpoint, child_insert_vfork_catchpoint)
+	(child_insert_exec_catchpoint): Update calls to
+	linux_supports_tracefork and linux_supports_tracevforkdone.
+
+Index: gdb-6.3/gdb/linux-nat.c
+===================================================================
+--- gdb-6.3.orig/gdb/linux-nat.c	2004-10-08 16:29:47.000000000 -0400
++++ gdb-6.3/gdb/linux-nat.c	2004-11-13 16:41:51.368720845 -0500
+@@ -150,18 +150,47 @@ linux_tracefork_child (void)
+   exit (0);
+ }
+ 
+-/* Determine if PTRACE_O_TRACEFORK can be used to follow fork events.  We
++/* Wrapper function for waitpid which handles EINTR.  */
++
++static int
++my_waitpid (int pid, int *status, int flags)
++{
++  int ret;
++  do
++    {
++      ret = waitpid (pid, status, flags);
++    }
++  while (ret == -1 && errno == EINTR);
++
++  return ret;
++}
++
++/* Determine if PTRACE_O_TRACEFORK can be used to follow fork events.
++
++   First, we try to enable fork tracing on ORIGINAL_PID.  If this fails,
++   we know that the feature is not available.  This may change the tracing
++   options for ORIGINAL_PID, but we'll be setting them shortly anyway.
++
++   However, if it succeeds, we don't know for sure that the feature is
++   available; old versions of PTRACE_SETOPTIONS ignored unknown options.  We
+    create a child process, attach to it, use PTRACE_SETOPTIONS to enable
+-   fork tracing, and let it fork.  If the process exits, we assume that
+-   we can't use TRACEFORK; if we get the fork notification, and we can
+-   extract the new child's PID, then we assume that we can.  */
++   fork tracing, and let it fork.  If the process exits, we assume that we
++   can't use TRACEFORK; if we get the fork notification, and we can extract
++   the new child's PID, then we assume that we can.  */
+ 
+ static void
+-linux_test_for_tracefork (void)
++linux_test_for_tracefork (int original_pid)
+ {
+   int child_pid, ret, status;
+   long second_pid;
+ 
++  linux_supports_tracefork_flag = 0;
++  linux_supports_tracevforkdone_flag = 0;
++
++  ret = ptrace (PTRACE_SETOPTIONS, original_pid, 0, PTRACE_O_TRACEFORK);
++  if (ret != 0)
++    return;
++
+   child_pid = fork ();
+   if (child_pid == -1)
+     perror_with_name ("linux_test_for_tracefork: fork");
+@@ -169,7 +198,7 @@ linux_test_for_tracefork (void)
+   if (child_pid == 0)
+     linux_tracefork_child ();
+ 
+-  ret = waitpid (child_pid, &status, 0);
++  ret = my_waitpid (child_pid, &status, 0);
+   if (ret == -1)
+     perror_with_name ("linux_test_for_tracefork: waitpid");
+   else if (ret != child_pid)
+@@ -177,13 +206,23 @@ linux_test_for_tracefork (void)
+   if (! WIFSTOPPED (status))
+     error ("linux_test_for_tracefork: waitpid: unexpected status %d.", status);
+ 
+-  linux_supports_tracefork_flag = 0;
+-
+   ret = ptrace (PTRACE_SETOPTIONS, child_pid, 0, PTRACE_O_TRACEFORK);
+   if (ret != 0)
+     {
+-      ptrace (PTRACE_KILL, child_pid, 0, 0);
+-      waitpid (child_pid, &status, 0);
++      ret = ptrace (PTRACE_KILL, child_pid, 0, 0);
++      if (ret != 0)
++	{
++	  warning ("linux_test_for_tracefork: failed to kill child");
++	  return;
++	}
++
++      ret = my_waitpid (child_pid, &status, 0);
++      if (ret != child_pid)
++	warning ("linux_test_for_tracefork: failed to wait for killed child");
++      else if (!WIFSIGNALED (status))
++	warning ("linux_test_for_tracefork: unexpected wait status 0x%x from "
++		 "killed child", status);
++
+       return;
+     }
+ 
+@@ -192,8 +231,12 @@ linux_test_for_tracefork (void)
+ 		PTRACE_O_TRACEFORK | PTRACE_O_TRACEVFORKDONE);
+   linux_supports_tracevforkdone_flag = (ret == 0);
+ 
+-  ptrace (PTRACE_CONT, child_pid, 0, 0);
+-  ret = waitpid (child_pid, &status, 0);
++  ret = ptrace (PTRACE_CONT, child_pid, 0, 0);
++  if (ret != 0)
++    warning ("linux_test_for_tracefork: failed to resume child");
++
++  ret = my_waitpid (child_pid, &status, 0);
++
+   if (ret == child_pid && WIFSTOPPED (status)
+       && status >> 16 == PTRACE_EVENT_FORK)
+     {
+@@ -204,34 +247,38 @@ linux_test_for_tracefork (void)
+ 	  int second_status;
+ 
+ 	  linux_supports_tracefork_flag = 1;
+-	  waitpid (second_pid, &second_status, 0);
+-	  ptrace (PTRACE_DETACH, second_pid, 0, 0);
++	  my_waitpid (second_pid, &second_status, 0);
++	  ret = ptrace (PTRACE_KILL, second_pid, 0, 0);
++	  if (ret != 0)
++	    warning ("linux_test_for_tracefork: failed to kill second child");
+ 	}
+     }
++  else
++    warning ("linux_test_for_tracefork: unexpected result from waitpid "
++	     "(%d, status 0x%x)", ret, status);
+ 
+-  if (WIFSTOPPED (status))
+-    {
+-      ptrace (PTRACE_DETACH, child_pid, 0, 0);
+-      waitpid (child_pid, &status, 0);
+-    }
++  ret = ptrace (PTRACE_KILL, child_pid, 0, 0);
++  if (ret != 0)
++    warning ("linux_test_for_tracefork: failed to kill child");
++  my_waitpid (child_pid, &status, 0);
+ }
+ 
+ /* Return non-zero iff we have tracefork functionality available.
+    This function also sets linux_supports_tracefork_flag.  */
+ 
+ static int
+-linux_supports_tracefork (void)
++linux_supports_tracefork (int pid)
+ {
+   if (linux_supports_tracefork_flag == -1)
+-    linux_test_for_tracefork ();
++    linux_test_for_tracefork (pid);
+   return linux_supports_tracefork_flag;
+ }
+ 
+ static int
+-linux_supports_tracevforkdone (void)
++linux_supports_tracevforkdone (int pid)
+ {
+   if (linux_supports_tracefork_flag == -1)
+-    linux_test_for_tracefork ();
++    linux_test_for_tracefork (pid);
+   return linux_supports_tracevforkdone_flag;
+ }
+ 
+@@ -242,12 +289,12 @@ linux_enable_event_reporting (ptid_t pti
+   int pid = ptid_get_pid (ptid);
+   int options;
+ 
+-  if (! linux_supports_tracefork ())
++  if (! linux_supports_tracefork (pid))
+     return;
+ 
+   options = PTRACE_O_TRACEFORK | PTRACE_O_TRACEVFORK | PTRACE_O_TRACEEXEC
+     | PTRACE_O_TRACECLONE;
+-  if (linux_supports_tracevforkdone ())
++  if (linux_supports_tracevforkdone (pid))
+     options |= PTRACE_O_TRACEVFORKDONE;
+ 
+   /* Do not enable PTRACE_O_TRACEEXIT until GDB is more prepared to support
+@@ -308,7 +355,8 @@ child_follow_fork (int follow_child)
+ 
+       if (has_vforked)
+ 	{
+-	  if (linux_supports_tracevforkdone ())
++	  gdb_assert (linux_supports_tracefork_flag >= 0);
++	  if (linux_supports_tracevforkdone (0))
+ 	    {
+ 	      int status;
+ 
+@@ -476,7 +524,7 @@ linux_handle_extended_wait (int pid, int
+ int
+ child_insert_fork_catchpoint (int pid)
+ {
+-  if (! linux_supports_tracefork ())
++  if (! linux_supports_tracefork (pid))
+     error ("Your system does not support fork catchpoints.");
+ 
+   return 0;
+@@ -485,7 +533,7 @@ child_insert_fork_catchpoint (int pid)
+ int
+ child_insert_vfork_catchpoint (int pid)
+ {
+-  if (!linux_supports_tracefork ())
++  if (!linux_supports_tracefork (pid))
+     error ("Your system does not support vfork catchpoints.");
+ 
+   return 0;
+@@ -494,7 +542,7 @@ child_insert_vfork_catchpoint (int pid)
+ int
+ child_insert_exec_catchpoint (int pid)
+ {
+-  if (!linux_supports_tracefork ())
++  if (!linux_supports_tracefork (pid))
+     error ("Your system does not support exec catchpoints.");
+ 
+   return 0;
+Status: Commited to GDB after 6.3.
+
+Index: gdb-6.3/gdb/gdbserver/acinclude.m4
+===================================================================
+--- gdb-6.3.orig/gdb/gdbserver/acinclude.m4	2002-06-11 13:32:39.000000000 -0400
++++ gdb-6.3/gdb/gdbserver/acinclude.m4	2004-12-07 17:19:31.115089905 -0500
+@@ -13,6 +13,7 @@ AC_DEFUN([SRV_CHECK_THREAD_DB],
+    void ps_lsetregs() {}
+    void ps_lgetfpregs() {}
+    void ps_lsetfpregs() {}
++   void ps_get_thread_area() {}
+    void ps_getpid() {}],
+   [td_ta_new();],
+   [srv_cv_thread_db="-lthread_db"],
+@@ -32,10 +33,11 @@ AC_DEFUN([SRV_CHECK_THREAD_DB],
+    void ps_lsetregs() {}
+    void ps_lgetfpregs() {}
+    void ps_lsetfpregs() {}
++   void ps_get_thread_area() {}
+    void ps_getpid() {}],
+   [td_ta_new();],
+   [srv_cv_thread_db="$thread_db"],
+   [srv_cv_thread_db=no])
++  ]])
+  LIBS="$old_LIBS"
+- ]])
+ )])
+Index: gdb-6.3/gdb/gdbserver/configure
+===================================================================
+--- gdb-6.3.orig/gdb/gdbserver/configure	2004-10-16 12:18:54.000000000 -0400
++++ gdb-6.3/gdb/gdbserver/configure	2004-12-07 17:22:17.343129771 -0500
+@@ -526,7 +537,7 @@ fi
+ # Extract the first word of "gcc", so it can be a program name with args.
+ set dummy gcc; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:530: checking for $ac_word" >&5
++echo "configure:541: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -556,7 +567,7 @@ if test -z "$CC"; then
+   # Extract the first word of "cc", so it can be a program name with args.
+ set dummy cc; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:560: checking for $ac_word" >&5
++echo "configure:571: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -607,7 +618,7 @@ fi
+       # Extract the first word of "cl", so it can be a program name with args.
+ set dummy cl; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:611: checking for $ac_word" >&5
++echo "configure:622: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -639,7 +650,7 @@ fi
+ fi
+ 
+ echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works""... $ac_c" 1>&6
+-echo "configure:643: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works" >&5
++echo "configure:654: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works" >&5
+ 
+ ac_ext=c
+ # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
+@@ -650,12 +661,12 @@ cross_compiling=$ac_cv_prog_cc_cross
+ 
+ cat > conftest.$ac_ext << EOF
+ 
+-#line 654 "configure"
++#line 665 "configure"
+ #include "confdefs.h"
+ 
+ main(){return(0);}
+ EOF
+-if { (eval echo configure:659: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:670: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   ac_cv_prog_cc_works=yes
+   # If we can't run a trivial program, we are probably using a cross compiler.
+   if (./conftest; exit) 2>/dev/null; then
+@@ -681,12 +692,12 @@ if test $ac_cv_prog_cc_works = no; then
+   { echo "configure: error: installation or configuration problem: C compiler cannot create executables." 1>&2; exit 1; }
+ fi
+ echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler""... $ac_c" 1>&6
+-echo "configure:685: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler" >&5
++echo "configure:696: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler" >&5
+ echo "$ac_t""$ac_cv_prog_cc_cross" 1>&6
+ cross_compiling=$ac_cv_prog_cc_cross
+ 
+ echo $ac_n "checking whether we are using GNU C""... $ac_c" 1>&6
+-echo "configure:690: checking whether we are using GNU C" >&5
++echo "configure:701: checking whether we are using GNU C" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_gcc'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -695,7 +706,7 @@ else
+   yes;
+ #endif
+ EOF
+-if { ac_try='${CC-cc} -E conftest.c'; { (eval echo configure:699: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
++if { ac_try='${CC-cc} -E conftest.c'; { (eval echo configure:710: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+   ac_cv_prog_gcc=yes
+ else
+   ac_cv_prog_gcc=no
+@@ -714,7 +725,7 @@ ac_test_CFLAGS="${CFLAGS+set}"
+ ac_save_CFLAGS="$CFLAGS"
+ CFLAGS=
+ echo $ac_n "checking whether ${CC-cc} accepts -g""... $ac_c" 1>&6
+-echo "configure:718: checking whether ${CC-cc} accepts -g" >&5
++echo "configure:729: checking whether ${CC-cc} accepts -g" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_cc_g'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -793,7 +804,7 @@ else { echo "configure: error: can not r
+ fi
+ 
+ echo $ac_n "checking host system type""... $ac_c" 1>&6
+-echo "configure:797: checking host system type" >&5
++echo "configure:808: checking host system type" >&5
+ 
+ host_alias=$host
+ case "$host_alias" in
+@@ -814,7 +825,7 @@ host_os=`echo $host | sed 's/^\([^-]*\)-
+ echo "$ac_t""$host" 1>&6
+ 
+ echo $ac_n "checking target system type""... $ac_c" 1>&6
+-echo "configure:818: checking target system type" >&5
++echo "configure:829: checking target system type" >&5
+ 
+ target_alias=$target
+ case "$target_alias" in
+@@ -832,7 +843,7 @@ target_os=`echo $target | sed 's/^\([^-]
+ echo "$ac_t""$target" 1>&6
+ 
+ echo $ac_n "checking build system type""... $ac_c" 1>&6
+-echo "configure:836: checking build system type" >&5
++echo "configure:847: checking build system type" >&5
+ 
+ build_alias=$build
+ case "$build_alias" in
+@@ -867,7 +878,7 @@ test "$host_alias" != "$target_alias" &&
+ # SVR4 /usr/ucb/install, which tries to use the nonexistent group "staff"
+ # ./install, which can be erroneously created by make from ./install.sh.
+ echo $ac_n "checking for a BSD compatible install""... $ac_c" 1>&6
+-echo "configure:871: checking for a BSD compatible install" >&5
++echo "configure:882: checking for a BSD compatible install" >&5
+ if test -z "$INSTALL"; then
+ if eval "test \"`echo '$''{'ac_cv_path_install'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -921,7 +932,7 @@ test -z "$INSTALL_DATA" && INSTALL_DATA=
+ 
+ 
+ echo $ac_n "checking how to run the C preprocessor""... $ac_c" 1>&6
+-echo "configure:925: checking how to run the C preprocessor" >&5
++echo "configure:936: checking how to run the C preprocessor" >&5
+ # On Suns, sometimes $CPP names a directory.
+ if test -n "$CPP" && test -d "$CPP"; then
+   CPP=
+@@ -936,13 +947,13 @@ else
+   # On the NeXT, cc -E runs the code through the compiler's parser,
+   # not just through cpp.
+   cat > conftest.$ac_ext <<EOF
+-#line 940 "configure"
++#line 951 "configure"
+ #include "confdefs.h"
+ #include <assert.h>
+ Syntax Error
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:946: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:957: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   :
+@@ -953,13 +964,13 @@ else
+   rm -rf conftest*
+   CPP="${CC-cc} -E -traditional-cpp"
+   cat > conftest.$ac_ext <<EOF
+-#line 957 "configure"
++#line 968 "configure"
+ #include "confdefs.h"
+ #include <assert.h>
+ Syntax Error
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:963: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:974: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   :
+@@ -970,13 +981,13 @@ else
+   rm -rf conftest*
+   CPP="${CC-cc} -nologo -E"
+   cat > conftest.$ac_ext <<EOF
+-#line 974 "configure"
++#line 985 "configure"
+ #include "confdefs.h"
+ #include <assert.h>
+ Syntax Error
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:980: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:991: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   :
+@@ -1001,12 +1012,12 @@ fi
+ echo "$ac_t""$CPP" 1>&6
+ 
+ echo $ac_n "checking for ANSI C header files""... $ac_c" 1>&6
+-echo "configure:1005: checking for ANSI C header files" >&5
++echo "configure:1016: checking for ANSI C header files" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_stdc'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1010 "configure"
++#line 1021 "configure"
+ #include "confdefs.h"
+ #include <stdlib.h>
+ #include <stdarg.h>
+@@ -1014,7 +1025,7 @@ else
+ #include <float.h>
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:1018: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:1029: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -1031,7 +1042,7 @@ rm -f conftest*
+ if test $ac_cv_header_stdc = yes; then
+   # SunOS 4.x string.h does not declare mem*, contrary to ANSI.
+ cat > conftest.$ac_ext <<EOF
+-#line 1035 "configure"
++#line 1046 "configure"
+ #include "confdefs.h"
+ #include <string.h>
+ EOF
+@@ -1049,7 +1060,7 @@ fi
+ if test $ac_cv_header_stdc = yes; then
+   # ISC 2.0.2 stdlib.h does not declare free, contrary to ANSI.
+ cat > conftest.$ac_ext <<EOF
+-#line 1053 "configure"
++#line 1064 "configure"
+ #include "confdefs.h"
+ #include <stdlib.h>
+ EOF
+@@ -1070,7 +1081,7 @@ if test "$cross_compiling" = yes; then
+   :
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1074 "configure"
++#line 1085 "configure"
+ #include "confdefs.h"
+ #include <ctype.h>
+ #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+@@ -1081,7 +1092,7 @@ if (XOR (islower (i), ISLOWER (i)) || to
+ exit (0); }
+ 
+ EOF
+-if { (eval echo configure:1085: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:1096: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   :
+ else
+@@ -1109,17 +1120,17 @@ for ac_hdr in sgtty.h termio.h termios.h
+ do
+ ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
+ echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
+-echo "configure:1113: checking for $ac_hdr" >&5
++echo "configure:1124: checking for $ac_hdr" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1118 "configure"
++#line 1129 "configure"
+ #include "confdefs.h"
+ #include <$ac_hdr>
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:1123: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:1134: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -1147,12 +1158,12 @@ done
+ 
+ 
+ echo $ac_n "checking whether strerror must be declared""... $ac_c" 1>&6
+-echo "configure:1151: checking whether strerror must be declared" >&5
++echo "configure:1162: checking whether strerror must be declared" >&5
+ if eval "test \"`echo '$''{'bfd_cv_decl_needed_strerror'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1156 "configure"
++#line 1167 "configure"
+ #include "confdefs.h"
+ 
+ #include <stdio.h>
+@@ -1173,7 +1184,7 @@ int main() {
+ char *(*pfn) = (char *(*)) strerror
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1177: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1188: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   bfd_cv_decl_needed_strerror=no
+ else
+@@ -1205,19 +1216,19 @@ fi
+ 
+ if test "${srv_linux_regsets}" = "yes"; then
+   echo $ac_n "checking for PTRACE_GETREGS""... $ac_c" 1>&6
+-echo "configure:1209: checking for PTRACE_GETREGS" >&5
++echo "configure:1220: checking for PTRACE_GETREGS" >&5
+   if eval "test \"`echo '$''{'gdbsrv_cv_have_ptrace_getregs'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1214 "configure"
++#line 1225 "configure"
+ #include "confdefs.h"
+ #include <sys/ptrace.h>
+ int main() {
+ PTRACE_GETREGS;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1221: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1232: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   gdbsrv_cv_have_ptrace_getregs=yes
+ else
+@@ -1238,19 +1249,19 @@ EOF
+   fi
+ 
+   echo $ac_n "checking for PTRACE_GETFPXREGS""... $ac_c" 1>&6
+-echo "configure:1242: checking for PTRACE_GETFPXREGS" >&5
++echo "configure:1253: checking for PTRACE_GETFPXREGS" >&5
+   if eval "test \"`echo '$''{'gdbsrv_cv_have_ptrace_getfpxregs'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1247 "configure"
++#line 1258 "configure"
+ #include "confdefs.h"
+ #include <sys/ptrace.h>
+ int main() {
+ PTRACE_GETFPXREGS;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1254: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1265: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   gdbsrv_cv_have_ptrace_getfpxregs=yes
+ else
+@@ -1273,12 +1284,12 @@ fi
+ 
+ if test "$ac_cv_header_sys_procfs_h" = yes; then
+   echo $ac_n "checking for lwpid_t in sys/procfs.h""... $ac_c" 1>&6
+-echo "configure:1277: checking for lwpid_t in sys/procfs.h" >&5
++echo "configure:1288: checking for lwpid_t in sys/procfs.h" >&5
+  if eval "test \"`echo '$''{'bfd_cv_have_sys_procfs_type_lwpid_t'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1282 "configure"
++#line 1293 "configure"
+ #include "confdefs.h"
+ 
+ #define _SYSCALL32
+@@ -1287,7 +1298,7 @@ int main() {
+ lwpid_t avar
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1291: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1302: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   bfd_cv_have_sys_procfs_type_lwpid_t=yes
+ else
+@@ -1309,12 +1320,12 @@ EOF
+  echo "$ac_t""$bfd_cv_have_sys_procfs_type_lwpid_t" 1>&6
+ 
+   echo $ac_n "checking for psaddr_t in sys/procfs.h""... $ac_c" 1>&6
+-echo "configure:1313: checking for psaddr_t in sys/procfs.h" >&5
++echo "configure:1324: checking for psaddr_t in sys/procfs.h" >&5
+  if eval "test \"`echo '$''{'bfd_cv_have_sys_procfs_type_psaddr_t'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1318 "configure"
++#line 1329 "configure"
+ #include "confdefs.h"
+ 
+ #define _SYSCALL32
+@@ -1323,7 +1334,7 @@ int main() {
+ psaddr_t avar
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1327: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1338: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   bfd_cv_have_sys_procfs_type_psaddr_t=yes
+ else
+@@ -1345,12 +1356,12 @@ EOF
+  echo "$ac_t""$bfd_cv_have_sys_procfs_type_psaddr_t" 1>&6
+ 
+   echo $ac_n "checking for prgregset_t in sys/procfs.h""... $ac_c" 1>&6
+-echo "configure:1349: checking for prgregset_t in sys/procfs.h" >&5
++echo "configure:1360: checking for prgregset_t in sys/procfs.h" >&5
+  if eval "test \"`echo '$''{'bfd_cv_have_sys_procfs_type_prgregset_t'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1354 "configure"
++#line 1365 "configure"
+ #include "confdefs.h"
+ 
+ #define _SYSCALL32
+@@ -1359,7 +1370,7 @@ int main() {
+ prgregset_t avar
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1363: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1374: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   bfd_cv_have_sys_procfs_type_prgregset_t=yes
+ else
+@@ -1381,12 +1392,12 @@ EOF
+  echo "$ac_t""$bfd_cv_have_sys_procfs_type_prgregset_t" 1>&6
+ 
+   echo $ac_n "checking for prfpregset_t in sys/procfs.h""... $ac_c" 1>&6
+-echo "configure:1385: checking for prfpregset_t in sys/procfs.h" >&5
++echo "configure:1396: checking for prfpregset_t in sys/procfs.h" >&5
+  if eval "test \"`echo '$''{'bfd_cv_have_sys_procfs_type_prfpregset_t'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1390 "configure"
++#line 1401 "configure"
+ #include "confdefs.h"
+ 
+ #define _SYSCALL32
+@@ -1395,7 +1406,7 @@ int main() {
+ prfpregset_t avar
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1399: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1410: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   bfd_cv_have_sys_procfs_type_prfpregset_t=yes
+ else
+@@ -1421,7 +1432,7 @@ EOF
+         
+   if test $bfd_cv_have_sys_procfs_type_prfpregset_t = yes; then
+     echo $ac_n "checking whether prfpregset_t type is broken""... $ac_c" 1>&6
+-echo "configure:1425: checking whether prfpregset_t type is broken" >&5
++echo "configure:1436: checking whether prfpregset_t type is broken" >&5
+     if eval "test \"`echo '$''{'gdb_cv_prfpregset_t_broken'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1429,7 +1440,7 @@ else
+   gdb_cv_prfpregset_t_broken=yes
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1433 "configure"
++#line 1444 "configure"
+ #include "confdefs.h"
+ #include <sys/procfs.h>
+        int main ()
+@@ -1439,7 +1450,7 @@ else
+          return 0;
+        }
+ EOF
+-if { (eval echo configure:1443: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:1454: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   gdb_cv_prfpregset_t_broken=no
+ else
+@@ -1463,12 +1474,12 @@ EOF
+   fi
+ 
+   echo $ac_n "checking for elf_fpregset_t in sys/procfs.h""... $ac_c" 1>&6
+-echo "configure:1467: checking for elf_fpregset_t in sys/procfs.h" >&5
++echo "configure:1478: checking for elf_fpregset_t in sys/procfs.h" >&5
+  if eval "test \"`echo '$''{'bfd_cv_have_sys_procfs_type_elf_fpregset_t'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1472 "configure"
++#line 1483 "configure"
+ #include "confdefs.h"
+ 
+ #define _SYSCALL32
+@@ -1477,7 +1488,7 @@ int main() {
+ elf_fpregset_t avar
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1481: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1492: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   bfd_cv_have_sys_procfs_type_elf_fpregset_t=yes
+ else
+@@ -1506,14 +1517,14 @@ USE_THREAD_DB=
+ 
+ if test "$srv_linux_thread_db" = "yes"; then
+   echo $ac_n "checking for libthread_db""... $ac_c" 1>&6
+-echo "configure:1510: checking for libthread_db" >&5
++echo "configure:1521: checking for libthread_db" >&5
+ if eval "test \"`echo '$''{'srv_cv_thread_db'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   old_LIBS="$LIBS"
+   LIBS="$LIBS -lthread_db"
+   cat > conftest.$ac_ext <<EOF
+-#line 1517 "configure"
++#line 1528 "configure"
+ #include "confdefs.h"
+ void ps_pglobal_lookup() {}
+    void ps_pdread() {}
+@@ -1522,12 +1533,13 @@ void ps_pglobal_lookup() {}
+    void ps_lsetregs() {}
+    void ps_lgetfpregs() {}
+    void ps_lsetfpregs() {}
++   void ps_get_thread_area() {}
+    void ps_getpid() {}
+ int main() {
+ td_ta_new();
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1531: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:1543: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   srv_cv_thread_db="-lthread_db"
+ else
+@@ -1543,7 +1555,7 @@ else
+  fi
+  LIBS="$old_LIBS `eval echo "$thread_db"`"
+  cat > conftest.$ac_ext <<EOF
+-#line 1547 "configure"
++#line 1559 "configure"
+ #include "confdefs.h"
+ void ps_pglobal_lookup() {}
+    void ps_pdread() {}
+@@ -1552,12 +1564,13 @@ void ps_pglobal_lookup() {}
+    void ps_lsetregs() {}
+    void ps_lgetfpregs() {}
+    void ps_lsetfpregs() {}
++   void ps_get_thread_area() {}
+    void ps_getpid() {}
+ int main() {
+ td_ta_new();
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1561: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:1574: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   srv_cv_thread_db="$thread_db"
+ else
+@@ -1567,11 +1580,11 @@ else
+   srv_cv_thread_db=no
+ fi
+ rm -f conftest*
+- LIBS="$old_LIBS"
+- 
++  
+ fi
+ 
+ echo "$ac_t""$srv_cv_thread_db" 1>&6
++ LIBS="$old_LIBS"
+ 
+ fi
+ rm -f conftest*
+@@ -1585,14 +1598,14 @@ rm -f conftest*
+   old_LDFLAGS="$LDFLAGS"
+   LDFLAGS="$LDFLAGS -rdynamic"
+   cat > conftest.$ac_ext <<EOF
+-#line 1589 "configure"
++#line 1602 "configure"
+ #include "confdefs.h"
+ 
+ int main() {
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1596: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:1609: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   RDYNAMIC=-rdynamic
+ else
+Index: gdb-6.3/gdb/gdbserver/aclocal.m4
+===================================================================
+--- gdb-6.3.orig/gdb/gdbserver/aclocal.m4	2002-06-11 13:32:39.000000000 -0400
++++ gdb-6.3/gdb/gdbserver/aclocal.m4	2004-12-07 17:22:00.382495519 -0500
+@@ -1,4 +1,4 @@
+-dnl aclocal.m4 generated automatically by aclocal 1.4-p4
++dnl aclocal.m4 generated automatically by aclocal 1.4
+ 
+ dnl Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ dnl This file is free software; the Free Software Foundation
+@@ -25,6 +25,7 @@ AC_DEFUN([SRV_CHECK_THREAD_DB],
+    void ps_lsetregs() {}
+    void ps_lgetfpregs() {}
+    void ps_lsetfpregs() {}
++   void ps_get_thread_area() {}
+    void ps_getpid() {}],
+   [td_ta_new();],
+   [srv_cv_thread_db="-lthread_db"],
+@@ -44,11 +45,12 @@ AC_DEFUN([SRV_CHECK_THREAD_DB],
+    void ps_lsetregs() {}
+    void ps_lgetfpregs() {}
+    void ps_lsetfpregs() {}
++   void ps_get_thread_area() {}
+    void ps_getpid() {}],
+   [td_ta_new();],
+   [srv_cv_thread_db="$thread_db"],
+   [srv_cv_thread_db=no])
++  ]])
+  LIBS="$old_LIBS"
+- ]])
+ )])
+ 
+Status: committed upstream after 6.3.  Fixes some terminal mangling in
+gdbtui.
+
+2004-12-04  Daniel Jacobowitz  <dan@debian.org>
+
+	PR tui/1703
+	* linux-nat.c (linux_tracefork_child): Use _exit instead of exit.
+	Suggested by Joshua Neuheisel.
+
+Index: gdb-6.3/gdb/linux-nat.c
+===================================================================
+--- gdb-6.3.orig/gdb/linux-nat.c	2004-12-08 18:22:04.996973094 -0500
++++ gdb-6.3/gdb/linux-nat.c	2004-12-08 18:22:20.386956067 -0500
+@@ -147,7 +147,7 @@ linux_tracefork_child (void)
+   ptrace (PTRACE_TRACEME, 0, 0, 0);
+   kill (getpid (), SIGSTOP);
+   fork ();
+-  exit (0);
++  _exit (0);
+ }
+ 
+ /* Wrapper function for waitpid which handles EINTR.  */
+2004-11-04  Jim Blandy  <jimb@redhat.com>
+
+	* gdbtypes.c (make_qualified_type): Doc fix.  Add assertion to
+	prevent cross-objfile references.
+	(make_cv_type): Doc fix.  Don't create cross-objfile references,
+	even for stub types.
+	(replace_type): Add assertion to prevent cross-objfile references.
+	(check_typedef): Never resolve a stub type by copying over a type
+	from another file.
+
+Index: src/gdb/gdbtypes.c
+===================================================================
+RCS file: /big/fsf/rsync/src-cvs/src/gdb/gdbtypes.c,v
+retrieving revision 1.92
+retrieving revision 1.93
+diff -u -p -r1.92 -r1.93
+--- src/gdb/gdbtypes.c	8 Aug 2004 17:18:16 -0000	1.92
++++ src/gdb/gdbtypes.c	4 Nov 2004 17:50:16 -0000	1.93
+@@ -433,7 +433,9 @@ address_space_int_to_name (int space_fla
+ }
+ 
+ /* Create a new type with instance flags NEW_FLAGS, based on TYPE.
+-   If STORAGE is non-NULL, create the new type instance there.  */
++
++   If STORAGE is non-NULL, create the new type instance there.
++   STORAGE must be in the same obstack as TYPE.  */
+ 
+ static struct type *
+ make_qualified_type (struct type *type, int new_flags,
+@@ -453,6 +455,12 @@ make_qualified_type (struct type *type, 
+     ntype = alloc_type_instance (type);
+   else
+     {
++      /* If STORAGE was provided, it had better be in the same objfile as
++	 TYPE.  Otherwise, we can't link it into TYPE's cv chain: if one
++	 objfile is freed and the other kept, we'd have dangling
++	 pointers.  */
++      gdb_assert (TYPE_OBJFILE (type) == TYPE_OBJFILE (storage));
++
+       ntype = storage;
+       TYPE_MAIN_TYPE (ntype) = TYPE_MAIN_TYPE (type);
+       TYPE_CHAIN (ntype) = ntype;
+@@ -501,11 +509,12 @@ make_type_with_address_space (struct typ
+    CNST is a flag for setting the const attribute
+    VOLTL is a flag for setting the volatile attribute
+    TYPE is the base type whose variant we are creating.
+-   TYPEPTR, if nonzero, points
+-   to a pointer to memory where the reference type should be stored.
+-   If *TYPEPTR is zero, update it to point to the reference type we return.
+-   We allocate new memory if needed.  */
+ 
++   If TYPEPTR and *TYPEPTR are non-zero, then *TYPEPTR points to
++   storage to hold the new qualified type; *TYPEPTR and TYPE must be
++   in the same objfile.  Otherwise, allocate fresh memory for the new
++   type whereever TYPE lives.  If TYPEPTR is non-zero, set it to the
++   new type we construct.  */
+ struct type *
+ make_cv_type (int cnst, int voltl, struct type *type, struct type **typeptr)
+ {
+@@ -524,20 +533,19 @@ make_cv_type (int cnst, int voltl, struc
+ 
+   if (typeptr && *typeptr != NULL)
+     {
+-      /* Objfile is per-core-type.  This const-qualified type had best
+-	 belong to the same objfile as the type it is qualifying, unless
+-	 we are overwriting a stub type, in which case the safest thing
+-	 to do is to copy the core type into the new objfile.  */
+-
+-      gdb_assert (TYPE_OBJFILE (*typeptr) == TYPE_OBJFILE (type)
+-		  || TYPE_STUB (*typeptr));
+-      if (TYPE_OBJFILE (*typeptr) != TYPE_OBJFILE (type))
+-	{
+-	  TYPE_MAIN_TYPE (*typeptr)
+-	    = TYPE_ALLOC (*typeptr, sizeof (struct main_type));
+-	  *TYPE_MAIN_TYPE (*typeptr)
+-	    = *TYPE_MAIN_TYPE (type);
+-	}
++      /* TYPE and *TYPEPTR must be in the same objfile.  We can't have
++	 a C-V variant chain that threads across objfiles: if one
++	 objfile gets freed, then the other has a broken C-V chain.
++
++	 This code used to try to copy over the main type from TYPE to
++	 *TYPEPTR if they were in different objfiles, but that's
++	 wrong, too: TYPE may have a field list or member function
++	 lists, which refer to types of their own, etc. etc.  The
++	 whole shebang would need to be copied over recursively; you
++	 can't have inter-objfile pointers.  The only thing to do is
++	 to leave stub types as stub types, and look them up afresh by
++	 name each time you encounter them.  */
++      gdb_assert (TYPE_OBJFILE (*typeptr) == TYPE_OBJFILE (type));
+     }
+   
+   ntype = make_qualified_type (type, new_flags, typeptr ? *typeptr : NULL);
+@@ -562,6 +570,12 @@ replace_type (struct type *ntype, struct
+ {
+   struct type *chain;
+ 
++  /* These two types had better be in the same objfile.  Otherwise,
++     the assignment of one type's main type structure to the other
++     will produce a type with references to objects (names; field
++     lists; etc.) allocated on an objfile other than its own.  */
++  gdb_assert (TYPE_OBJFILE (ntype) == TYPE_OBJFILE (ntype));
++
+   *TYPE_MAIN_TYPE (ntype) = *TYPE_MAIN_TYPE (type);
+ 
+   /* The type length is not a part of the main type.  Update it for each
+@@ -1416,8 +1430,24 @@ check_typedef (struct type *type)
+ 	  return type;
+ 	}
+       newtype = lookup_transparent_type (name);
++
+       if (newtype)
+-	make_cv_type (is_const, is_volatile, newtype, &type);
++	{
++	  /* If the resolved type and the stub are in the same objfile,
++	     then replace the stub type with the real deal.  But if
++	     they're in separate objfiles, leave the stub alone; we'll
++	     just look up the transparent type every time we call
++	     check_typedef.  We can't create pointers between types
++	     allocated to different objfiles, since they may have
++	     different lifetimes.  Trying to copy NEWTYPE over to TYPE's
++	     objfile is pointless, too, since you'll have to move over any
++	     other types NEWTYPE refers to, which could be an unbounded
++	     amount of stuff.  */
++	  if (TYPE_OBJFILE (newtype) == TYPE_OBJFILE (type))
++	    make_cv_type (is_const, is_volatile, newtype, &type);
++	  else
++	    type = newtype;
++	}
+     }
+   /* Otherwise, rely on the stub flag being set for opaque/stubbed types */
+   else if (TYPE_STUB (type) && !currently_reading_symtab)
+Status: unsubmitted
+
+This patch was for Debian bug #239535.  It needs to be tested, and
+submitted.
+
+Index: gdb-6.3/gdb/valops.c
+===================================================================
+--- gdb-6.3.orig/gdb/valops.c	2004-11-09 22:51:07.000000000 -0500
++++ gdb-6.3/gdb/valops.c	2004-11-10 00:43:54.036837699 -0500
+@@ -2314,8 +2314,10 @@ check_field_in (struct type *type, const
+ 	return 1;
+     }
+ 
++  /* Check each baseclass.  Call check_typedef, which will follow typedefs
++     and do opaque/stub type resolution.  */
+   for (i = TYPE_N_BASECLASSES (type) - 1; i >= 0; i--)
+-    if (check_field_in (TYPE_BASECLASS (type, i), name))
++    if (check_field_in (check_typedef (TYPE_BASECLASS (type, i)), name))
+       return 1;
+ 
+   return 0;
+Index: gdb-6.3/gdb/dwarf2read.c
+===================================================================
+--- gdb-6.3.orig/gdb/dwarf2read.c	2004-10-15 20:41:00.000000000 -0400
++++ gdb-6.3/gdb/dwarf2read.c	2004-11-10 00:46:21.970935829 -0500
+@@ -2099,8 +2099,8 @@ guess_structure_name (struct partial_die
+ 				    strlen (actual_class_name),
+ 				    &cu->comp_unit_obstack);
+ 		  xfree (actual_class_name);
++		  break;
+ 		}
+-	      break;
+ 	    }
+ 
+ 	  child_pdi = child_pdi->die_sibling;
+Fix some missing uses of DESTDIR in the sim/ directories.  The Debian
+packages use DESTDIR to build.
+
+%patch
+Index: gdb-6.3/sim/Makefile.in
+===================================================================
+--- gdb-6.3.orig/sim/Makefile.in	2003-09-03 14:46:52.000000000 -0400
++++ gdb-6.3/sim/Makefile.in	2004-11-10 00:39:25.381315738 -0500
+@@ -93,6 +93,7 @@ FLAGS_TO_PASS = \
+ 	"CC=$(CC)" \
+ 	"CC_FOR_BUILD=$(CC_FOR_BUILD)" \
+ 	"CFLAGS=$(CFLAGS)" \
++	"DESTDIR=$(DESTDIR)" \
+ 	"RANLIB=$(RANLIB)" \
+ 	"MAKEINFO=$(MAKEINFO)" \
+ 	"INSTALL=$(INSTALL)" \
+Index: gdb-6.3/sim/common/Make-common.in
+===================================================================
+--- gdb-6.3.orig/sim/common/Make-common.in	2003-09-08 13:24:59.000000000 -0400
++++ gdb-6.3/sim/common/Make-common.in	2004-11-10 00:39:25.383315347 -0500
+@@ -581,14 +581,14 @@ install: install-common $(SIM_EXTRA_INST
+ 
+ install-common: installdirs
+ 	n=`echo run | sed '$(program_transform_name)'`; \
+-	$(INSTALL_PROGRAM) run$(EXEEXT) $(bindir)/$$n$(EXEEXT)
++	$(INSTALL_PROGRAM) run$(EXEEXT) $(DESTDIR)$(bindir)/$$n$(EXEEXT)
+ 	n=`echo libsim.a | sed s/libsim.a/lib$(target_alias)-sim.a/`; \
+-	$(INSTALL_DATA) libsim.a $(libdir)/$$n ; \
+-	( cd $(libdir) ; $(RANLIB) $$n )
++	$(INSTALL_DATA) libsim.a $(DESTDIR)$(libdir)/$$n ; \
++	( cd $(DESTDIR)$(libdir) ; $(RANLIB) $$n )
+ 
+ installdirs:
+-	$(SHELL) $(srcdir)/../../mkinstalldirs $(bindir)
+-	$(SHELL) $(srcdir)/../../mkinstalldirs $(libdir)
++	$(SHELL) $(srcdir)/../../mkinstalldirs $(DESTDIR)$(bindir)
++	$(SHELL) $(srcdir)/../../mkinstalldirs $(DESTDIR)$(libdir)
+ 
+ check:
+ 	cd ../testsuite && $(MAKE) check RUNTESTFLAGS="$(RUNTESTFLAGS)"
+Index: gdb-6.3/sim/erc32/Makefile.in
+===================================================================
+--- gdb-6.3.orig/sim/erc32/Makefile.in	2000-03-07 10:32:49.000000000 -0500
++++ gdb-6.3/sim/erc32/Makefile.in	2004-11-10 00:39:25.385314957 -0500
+@@ -53,7 +53,7 @@ end.h: end
+ # Copy the files into directories where they will be run.
+ install-sis: installdirs
+ 	n=`echo sis | sed '$(program_transform_name)'`; \
+-	$(INSTALL_PROGRAM) sis$(EXEEXT) $(bindir)/$$n$(EXEEXT)
++	$(INSTALL_PROGRAM) sis$(EXEEXT) $(DESTDIR)$(bindir)/$$n$(EXEEXT)
+ 
+ clean-sis:
+ 	rm -f sis end end.h
+Status: submitted for comments
+
+2004-11-13  Daniel Jacobowitz  <dan@debian.org>
+
+	* sparc-tdep.c (sparc_software_single_step): Handle stepping to NULL.
+
+Index: gdb-6.3/gdb/sparc-tdep.c
+===================================================================
+--- gdb-6.3.orig/gdb/sparc-tdep.c	2004-06-06 22:02:55.000000000 -0400
++++ gdb-6.3/gdb/sparc-tdep.c	2004-11-13 17:06:05.000000000 -0500
+@@ -1026,10 +1026,10 @@
+ 
+   if (insert_breakpoints_p)
+     {
+-      CORE_ADDR pc;
++      CORE_ADDR pc, orig_npc;
+ 
+       pc = sparc_address_from_register (tdep->pc_regnum);
+-      npc = sparc_address_from_register (tdep->npc_regnum);
++      orig_npc = npc = sparc_address_from_register (tdep->npc_regnum);
+ 
+       /* Analyze the instruction at PC.  */
+       nnpc = sparc_analyze_control_transfer (pc, &npc);
+@@ -1039,9 +1039,10 @@
+ 	target_insert_breakpoint (nnpc, nnpc_save);
+ 
+       /* Assert that we have set at least one breakpoint, and that
+-         they're not set at the same spot.  */
+-      gdb_assert (npc != 0 || nnpc != 0);
+-      gdb_assert (nnpc != npc);
++         they're not set at the same spot - unless we're going
++	 from here straight to NULL, i.e. a call or jump to 0.  */
++      gdb_assert (npc != 0 || nnpc != 0 || orig_npc == 0);
++      gdb_assert (nnpc != npc || orig_npc == 0);
+     }
+   else
+     {
+Status: submitted similar patch 2004-12-08
+
+This patch cleans up the initialization of thread_db.  It works for static
+binaries now.  The vsyscall patches hide this problem, since new static
+binaries will load the vsyscall DSO and then trigger thread_db; but
+this is still a good cleanup.
+
+Index: gdb-6.3/gdb/thread-db.c
+===================================================================
+--- gdb-6.3.orig/gdb/thread-db.c	2004-10-08 16:29:56.000000000 -0400
++++ gdb-6.3/gdb/thread-db.c	2004-11-10 00:19:30.626530413 -0500
+@@ -34,6 +34,7 @@
+ #include "target.h"
+ #include "regcache.h"
+ #include "solib-svr4.h"
++#include "observer.h"
+ 
+ #ifdef HAVE_GNU_LIBC_VERSION_H
+ #include <gnu/libc-version.h>
+@@ -627,59 +628,49 @@ check_thread_signals (void)
+ #endif
+ }
+ 
++/* Check whether thread_db is usable.  This function is called when
++   an inferior is created (or otherwise acquired, e.g. attached to)
++   and when new shared libraries are loaded into a running process.  */
++
+ static void
+-thread_db_new_objfile (struct objfile *objfile)
++check_for_thread_db (void)
+ {
+   td_err_e err;
++  static int already_loaded;
+ 
+   /* First time through, report that libthread_db was successfuly
+      loaded.  Can't print this in in thread_db_load as, at that stage,
+-     the interpreter and it's console haven't started.  The real
+-     problem here is that libthread_db is loaded too early - it should
+-     only be loaded when there is a program to debug.  */
+-  {
+-    static int dejavu;
+-    if (!dejavu)
+-      {
+-	Dl_info info;
+-	const char *library = NULL;
+-	/* Try dladdr.  */
+-	if (dladdr ((*td_ta_new_p), &info) != 0)
+-	  library = info.dli_fname;
+-	/* Try dlinfo?  */
+-	if (library == NULL)
+-	  /* Paranoid - don't let a NULL path slip through.  */
+-	  library = LIBTHREAD_DB_SO;
+-	printf_unfiltered ("Using host libthread_db library \"%s\".\n",
+-			   library);
+-	dejavu = 1;
+-      }
+-  }
++     the interpreter and it's console haven't started.  */
+ 
+-  /* Don't attempt to use thread_db on targets which can not run
+-     (core files).  */
+-  if (objfile == NULL || !target_has_execution)
++  if (!already_loaded)
+     {
+-      /* All symbols have been discarded.  If the thread_db target is
+-         active, deactivate it now.  */
+-      if (using_thread_db)
+-	{
+-	  gdb_assert (proc_handle.pid == 0);
+-	  unpush_target (&thread_db_ops);
+-	  using_thread_db = 0;
+-	}
++      Dl_info info;
++      const char *library = NULL;
++      if (dladdr ((*td_ta_new_p), &info) != 0)
++	library = info.dli_fname;
++
++      /* Try dlinfo?  */
+ 
+-      goto quit;
++      if (library == NULL)
++	/* Paranoid - don't let a NULL path slip through.  */
++	library = LIBTHREAD_DB_SO;
++
++      printf_unfiltered ("Using host libthread_db library \"%s\".\n",
++			 library);
++      already_loaded = 1;
+     }
+ 
+   if (using_thread_db)
+     /* Nothing to do.  The thread library was already detected and the
+        target vector was already activated.  */
+-    goto quit;
++    return;
++
++  /* Don't attempt to use thread_db on targets which can not run
++     (executables not running yet, core files) for now.  */
++  if (!target_has_execution)
++    return;
+ 
+-  /* Initialize the structure that identifies the child process.  Note
+-     that at this point there is no guarantee that we actually have a
+-     child process.  */
++  /* Initialize the structure that identifies the child process.  */
+   proc_handle.pid = GET_PID (inferior_ptid);
+ 
+   /* Now attempt to open a connection to the thread library.  */
+@@ -706,12 +697,24 @@ thread_db_new_objfile (struct objfile *o
+ 	       thread_db_err_str (err));
+       break;
+     }
++}
++
++static void
++thread_db_new_objfile (struct objfile *objfile)
++{
++  if (objfile != NULL)
++    check_for_thread_db ();
+ 
+-quit:
+   if (target_new_objfile_chain)
+     target_new_objfile_chain (objfile);
+ }
+ 
++static void
++check_for_thread_db_observer (struct target_ops *target, int from_tty)
++{
++  check_for_thread_db ();
++}
++
+ /* Attach to a new thread.  This function is called when we receive a
+    TD_CREATE event or when we iterate over all threads and find one
+    that wasn't already in our list.  */
+@@ -1366,5 +1369,8 @@ _initialize_thread_db (void)
+       /* Add ourselves to objfile event chain.  */
+       target_new_objfile_chain = deprecated_target_new_objfile_hook;
+       deprecated_target_new_objfile_hook = thread_db_new_objfile;
++
++      /* Register ourselves for the new inferior observer.  */
++      observer_attach_inferior_created (check_for_thread_db_observer);
+     }
+ }
+Index: gdb-6.3/gdb/Makefile.in
+===================================================================
+--- gdb-6.3.orig/gdb/Makefile.in	2004-11-09 23:04:57.000000000 -0500
++++ gdb-6.3/gdb/Makefile.in	2004-11-10 00:19:26.440347022 -0500
+@@ -2626,7 +2626,8 @@ thread.o: thread.c $(defs_h) $(symtab_h)
+ 	$(gdbcmd_h) $(regcache_h) $(gdb_h) $(gdb_string_h) $(ui_out_h)
+ thread-db.o: thread-db.c $(defs_h) $(gdb_assert_h) $(gdb_proc_service_h) \
+ 	$(gdb_thread_db_h) $(bfd_h) $(gdbthread_h) $(inferior_h) \
+-	$(symfile_h) $(objfiles_h) $(target_h) $(regcache_h) $(solib_svr4_h)
++	$(symfile_h) $(objfiles_h) $(target_h) $(regcache_h) $(solib_svr4_h) \
++	$(observer_h)
+ top.o: top.c $(defs_h) $(gdbcmd_h) $(call_cmds_h) $(cli_cmds_h) \
+ 	$(cli_script_h) $(cli_setshow_h) $(cli_decode_h) $(symtab_h) \
+ 	$(inferior_h) $(target_h) $(breakpoint_h) $(gdbtypes_h) \
+Update staticthreads.exp to handle debugging info in libpthread.a.
+
+Index: gdb-6.3/gdb/testsuite/gdb.threads/staticthreads.exp
+===================================================================
+--- gdb-6.3.orig/gdb/testsuite/gdb.threads/staticthreads.exp	2004-11-10 10:35:15.000000000 -0500
++++ gdb-6.3/gdb/testsuite/gdb.threads/staticthreads.exp	2004-11-10 11:22:48.671121466 -0500
+@@ -53,6 +53,10 @@ gdb_test_multiple "continue" "$test" {
+     -re " sem_post .*$gdb_prompt " {
+ 	pass "$test"
+     }
++    -re " (.*_)sem_post .*$gdb_prompt " {
++	# Glibc uses aliases for internal symbols; match __new_sem_post.
++	pass "$test"
++    }
+     -re "Program received signal .*$gdb_prompt " {
+ 	kfail gdb/1328 "$test"
+     }
+@@ -64,8 +68,16 @@ gdb_test_multiple "continue" "$test" {
+ 
+ rerun_to_main
+ gdb_test "handle SIG32 nostop noprint pass"
+-set test "Handle SIG32 helps"
+-gdb_test "continue" " sem_post .*" "handle SIG32 helps"
++set test "handle SIG32 helps"
++gdb_test_multiple "continue" "$test" {
++    -re " sem_post .*$gdb_prompt $" {
++	pass "$test"
++    }
++    -re " (.*_)sem_post .*$gdb_prompt $" {
++	# Glibc uses aliases for internal symbols; match __new_sem_post.
++	pass "$test"
++    }
++}
+ 
+ 
+ # See if info threads produces anything approaching a thread list.
+Support loading two libthread_db DSOs.  In this case, the LinuxThreads
+and NPTL ones.
+
+Index: gdb-6.3/gdb/thread-db.c
+===================================================================
+--- gdb-6.3.orig/gdb/thread-db.c	2004-11-10 10:46:24.000000000 -0500
++++ gdb-6.3/gdb/thread-db.c	2004-11-10 11:22:34.858812426 -0500
+@@ -79,53 +79,63 @@ static td_thragent_t *thread_agent;
+ 
+ /* Pointers to the libthread_db functions.  */
+ 
+-static td_err_e (*td_init_p) (void);
++struct thread_db_pointers
++{
++  const char *filename;
++
++  td_err_e (*td_init_p) (void);
+ 
+-static td_err_e (*td_ta_new_p) (struct ps_prochandle * ps,
+-				td_thragent_t **ta);
+-static td_err_e (*td_ta_map_id2thr_p) (const td_thragent_t *ta, thread_t pt,
+-				       td_thrhandle_t *__th);
+-static td_err_e (*td_ta_map_lwp2thr_p) (const td_thragent_t *ta,
+-					lwpid_t lwpid, td_thrhandle_t *th);
+-static td_err_e (*td_ta_thr_iter_p) (const td_thragent_t *ta,
+-				     td_thr_iter_f *callback, void *cbdata_p,
+-				     td_thr_state_e state, int ti_pri,
+-				     sigset_t *ti_sigmask_p,
+-				     unsigned int ti_user_flags);
+-static td_err_e (*td_ta_event_addr_p) (const td_thragent_t *ta,
+-				       td_event_e event, td_notify_t *ptr);
+-static td_err_e (*td_ta_set_event_p) (const td_thragent_t *ta,
+-				      td_thr_events_t *event);
+-static td_err_e (*td_ta_event_getmsg_p) (const td_thragent_t *ta,
+-					 td_event_msg_t *msg);
+-
+-static td_err_e (*td_thr_validate_p) (const td_thrhandle_t *th);
+-static td_err_e (*td_thr_get_info_p) (const td_thrhandle_t *th,
+-				      td_thrinfo_t *infop);
+-static td_err_e (*td_thr_getfpregs_p) (const td_thrhandle_t *th,
+-				       gdb_prfpregset_t *regset);
+-static td_err_e (*td_thr_getgregs_p) (const td_thrhandle_t *th,
+-				      prgregset_t gregs);
+-static td_err_e (*td_thr_setfpregs_p) (const td_thrhandle_t *th,
+-				       const gdb_prfpregset_t *fpregs);
+-static td_err_e (*td_thr_setgregs_p) (const td_thrhandle_t *th,
+-				      prgregset_t gregs);
+-static td_err_e (*td_thr_event_enable_p) (const td_thrhandle_t *th,
+-					  int event);
+-
+-static td_err_e (*td_thr_tls_get_addr_p) (const td_thrhandle_t *th,
+-					  void *map_address,
+-					  size_t offset, void **address);
++  td_err_e (*td_ta_new_p) (struct ps_prochandle * ps,
++			   td_thragent_t **ta);
++  td_err_e (*td_ta_map_id2thr_p) (const td_thragent_t *ta, thread_t pt,
++				  td_thrhandle_t *__th);
++  td_err_e (*td_ta_map_lwp2thr_p) (const td_thragent_t *ta,
++				   lwpid_t lwpid, td_thrhandle_t *th);
++
++  td_err_e (*td_ta_thr_iter_p) (const td_thragent_t *ta,
++				td_thr_iter_f *callback, void *cbdata_p,
++				td_thr_state_e state, int ti_pri,
++				sigset_t *ti_sigmask_p,
++				unsigned int ti_user_flags);
++  td_err_e (*td_ta_event_addr_p) (const td_thragent_t *ta,
++				  td_event_e event, td_notify_t *ptr);
++  td_err_e (*td_ta_set_event_p) (const td_thragent_t *ta,
++				 td_thr_events_t *event);
++  td_err_e (*td_ta_event_getmsg_p) (const td_thragent_t *ta,
++				    td_event_msg_t *msg);
++
++  td_err_e (*td_thr_validate_p) (const td_thrhandle_t *th);
++  td_err_e (*td_thr_get_info_p) (const td_thrhandle_t *th,
++				 td_thrinfo_t *infop);
++  td_err_e (*td_thr_getfpregs_p) (const td_thrhandle_t *th,
++				  gdb_prfpregset_t *regset);
++  td_err_e (*td_thr_getgregs_p) (const td_thrhandle_t *th,
++				 prgregset_t gregs);
++  td_err_e (*td_thr_setfpregs_p) (const td_thrhandle_t *th,
++				  const gdb_prfpregset_t *fpregs);
++  td_err_e (*td_thr_setgregs_p) (const td_thrhandle_t *th,
++				 prgregset_t gregs);
++  td_err_e (*td_thr_event_enable_p) (const td_thrhandle_t *th,
++				     int event);
++
++  td_err_e (*td_thr_tls_get_addr_p) (const td_thrhandle_t *th,
++				     void *map_address,
++				     size_t offset, void **address);
++
++  struct thread_db_pointers *next;
++};
+ 
+ /* Location of the thread creation event breakpoint.  The code at this
+    location in the child process will be called by the pthread library
+    whenever a new thread is created.  By setting a special breakpoint
+    at this location, GDB can detect when a new thread is created.  We
+    obtain this location via the td_ta_event_addr call.  */
+-static CORE_ADDR td_create_bp_addr;
++CORE_ADDR td_create_bp_addr;
+ 
+ /* Location of the thread death event breakpoint.  */
+-static CORE_ADDR td_death_bp_addr;
++CORE_ADDR td_death_bp_addr;
++
++static struct thread_db_pointers *current_pointers, *all_pointers;
+ 
+ /* Prototypes for local functions.  */
+ static void thread_db_find_new_threads (void);
+@@ -262,7 +272,7 @@ thread_get_info_callback (const td_thrha
+   struct thread_info *thread_info;
+   ptid_t thread_ptid;
+ 
+-  err = td_thr_get_info_p (thp, &ti);
++  err = current_pointers->td_thr_get_info_p (thp, &ti);
+   if (err != TD_OK)
+     error ("thread_get_info_callback: cannot get thread info: %s",
+ 	   thread_db_err_str (err));
+@@ -316,8 +326,9 @@ thread_db_map_id2thr (struct thread_info
+   if (thread_info->private->th_valid)
+     return;
+ 
+-  err = td_ta_map_id2thr_p (thread_agent, GET_THREAD (thread_info->ptid),
+-			    &thread_info->private->th);
++  err = current_pointers->td_ta_map_id2thr_p (thread_agent,
++					      GET_THREAD (thread_info->ptid),
++					      &thread_info->private->th);
+   if (err != TD_OK)
+     {
+       if (fatal)
+@@ -340,8 +351,8 @@ thread_db_get_info (struct thread_info *
+   if (!thread_info->private->th_valid)
+     thread_db_map_id2thr (thread_info, 1);
+ 
+-  err =
+-    td_thr_get_info_p (&thread_info->private->th, &thread_info->private->ti);
++  err = current_pointers->td_thr_get_info_p (&thread_info->private->th,
++					     &thread_info->private->ti);
+   if (err != TD_OK)
+     error ("thread_db_get_info: cannot get thread info: %s",
+ 	   thread_db_err_str (err));
+@@ -365,7 +376,8 @@ thread_from_lwp (ptid_t ptid)
+ 
+   gdb_assert (is_lwp (ptid));
+ 
+-  err = td_ta_map_lwp2thr_p (thread_agent, GET_LWP (ptid), &th);
++  err = current_pointers->td_ta_map_lwp2thr_p (thread_agent, GET_LWP (ptid),
++					       &th);
+   if (err != TD_OK)
+     error ("Cannot find user-level thread for LWP %ld: %s",
+ 	   GET_LWP (ptid), thread_db_err_str (err));
+@@ -420,85 +432,102 @@ verbose_dlsym (void *handle, const char 
+   return sym;
+ }
+ 
+-static int
+-thread_db_load (void)
++static struct thread_db_pointers *
++thread_db_load (const char *name)
+ {
++  struct thread_db_pointers *ptrs;
++  Dl_info info;
+   void *handle;
+   td_err_e err;
+ 
+-  handle = dlopen (LIBTHREAD_DB_SO, RTLD_NOW);
++  ptrs = xcalloc (1, sizeof (struct thread_db_pointers));
++
++  handle = dlopen (name, RTLD_NOW);
+   if (handle == NULL)
+     {
+-      fprintf_filtered (gdb_stderr, "\n\ndlopen failed on '%s' - %s\n",
+-			LIBTHREAD_DB_SO, dlerror ());
+-      fprintf_filtered (gdb_stderr,
+-			"GDB will not be able to debug pthreads.\n\n");
++      if (all_pointers == NULL)
++	{
++	  fprintf_filtered (gdb_stderr, "\n\ndlopen failed on '%s' - %s\n",
++			    name, dlerror ());
++	  fprintf_filtered (gdb_stderr,
++			    "GDB will not be able to debug pthreads.\n\n");
++	}
+       return 0;
+     }
+ 
+   /* Initialize pointers to the dynamic library functions we will use.
+      Essential functions first.  */
+ 
+-  td_init_p = verbose_dlsym (handle, "td_init");
+-  if (td_init_p == NULL)
++  ptrs->td_init_p = verbose_dlsym (handle, "td_init");
++  if (ptrs->td_init_p == NULL)
+     return 0;
+ 
+-  td_ta_new_p = verbose_dlsym (handle, "td_ta_new");
+-  if (td_ta_new_p == NULL)
++  ptrs->td_ta_new_p = verbose_dlsym (handle, "td_ta_new");
++  if (ptrs->td_ta_new_p == NULL)
+     return 0;
+ 
+-  td_ta_map_id2thr_p = verbose_dlsym (handle, "td_ta_map_id2thr");
+-  if (td_ta_map_id2thr_p == NULL)
++  ptrs->td_ta_map_id2thr_p = verbose_dlsym (handle, "td_ta_map_id2thr");
++  if (ptrs->td_ta_map_id2thr_p == NULL)
+     return 0;
+ 
+-  td_ta_map_lwp2thr_p = verbose_dlsym (handle, "td_ta_map_lwp2thr");
+-  if (td_ta_map_lwp2thr_p == NULL)
++  ptrs->td_ta_map_lwp2thr_p = verbose_dlsym (handle, "td_ta_map_lwp2thr");
++  if (ptrs->td_ta_map_lwp2thr_p == NULL)
+     return 0;
+ 
+-  td_ta_thr_iter_p = verbose_dlsym (handle, "td_ta_thr_iter");
+-  if (td_ta_thr_iter_p == NULL)
++  ptrs->td_ta_thr_iter_p = verbose_dlsym (handle, "td_ta_thr_iter");
++  if (ptrs->td_ta_thr_iter_p == NULL)
+     return 0;
+ 
+-  td_thr_validate_p = verbose_dlsym (handle, "td_thr_validate");
+-  if (td_thr_validate_p == NULL)
++  ptrs->td_thr_validate_p = verbose_dlsym (handle, "td_thr_validate");
++  if (ptrs->td_thr_validate_p == NULL)
+     return 0;
+ 
+-  td_thr_get_info_p = verbose_dlsym (handle, "td_thr_get_info");
+-  if (td_thr_get_info_p == NULL)
++  ptrs->td_thr_get_info_p = verbose_dlsym (handle, "td_thr_get_info");
++  if (ptrs->td_thr_get_info_p == NULL)
+     return 0;
+ 
+-  td_thr_getfpregs_p = verbose_dlsym (handle, "td_thr_getfpregs");
+-  if (td_thr_getfpregs_p == NULL)
++  ptrs->td_thr_getfpregs_p = verbose_dlsym (handle, "td_thr_getfpregs");
++  if (ptrs->td_thr_getfpregs_p == NULL)
+     return 0;
+ 
+-  td_thr_getgregs_p = verbose_dlsym (handle, "td_thr_getgregs");
+-  if (td_thr_getgregs_p == NULL)
++  ptrs->td_thr_getgregs_p = verbose_dlsym (handle, "td_thr_getgregs");
++  if (ptrs->td_thr_getgregs_p == NULL)
+     return 0;
+ 
+-  td_thr_setfpregs_p = verbose_dlsym (handle, "td_thr_setfpregs");
+-  if (td_thr_setfpregs_p == NULL)
++  ptrs->td_thr_setfpregs_p = verbose_dlsym (handle, "td_thr_setfpregs");
++  if (ptrs->td_thr_setfpregs_p == NULL)
+     return 0;
+ 
+-  td_thr_setgregs_p = verbose_dlsym (handle, "td_thr_setgregs");
+-  if (td_thr_setgregs_p == NULL)
++  ptrs->td_thr_setgregs_p = verbose_dlsym (handle, "td_thr_setgregs");
++  if (ptrs->td_thr_setgregs_p == NULL)
+     return 0;
+ 
+   /* Initialize the library.  */
+-  err = td_init_p ();
++  err = ptrs->td_init_p ();
+   if (err != TD_OK)
+     {
+       warning ("Cannot initialize libthread_db: %s", thread_db_err_str (err));
++      xfree (ptrs);
+       return 0;
+     }
+ 
+   /* These are not essential.  */
+-  td_ta_event_addr_p = dlsym (handle, "td_ta_event_addr");
+-  td_ta_set_event_p = dlsym (handle, "td_ta_set_event");
+-  td_ta_event_getmsg_p = dlsym (handle, "td_ta_event_getmsg");
+-  td_thr_event_enable_p = dlsym (handle, "td_thr_event_enable");
+-  td_thr_tls_get_addr_p = dlsym (handle, "td_thr_tls_get_addr");
++  ptrs->td_ta_event_addr_p = dlsym (handle, "td_ta_event_addr");
++  ptrs->td_ta_set_event_p = dlsym (handle, "td_ta_set_event");
++  ptrs->td_ta_event_getmsg_p = dlsym (handle, "td_ta_event_getmsg");
++  ptrs->td_thr_event_enable_p = dlsym (handle, "td_thr_event_enable");
++  ptrs->td_thr_tls_get_addr_p = dlsym (handle, "td_thr_tls_get_addr");
++
++  if (dladdr (ptrs->td_ta_new_p, &info) != 0)
++    ptrs->filename = info.dli_fname;
++
++  /* Try dlinfo?  */
++
++  if (ptrs->filename == NULL)
++    /* Paranoid - don't let a NULL path slip through.  */
++    ptrs->filename = name;
+ 
+-  return 1;
++  return ptrs;
+ }
+ 
+ static td_err_e
+@@ -508,7 +537,7 @@ enable_thread_event (td_thragent_t *thre
+   td_err_e err;
+ 
+   /* Get the breakpoint address for thread EVENT.  */
+-  err = td_ta_event_addr_p (thread_agent, event, &notify);
++  err = current_pointers->td_ta_event_addr_p (thread_agent, event, &notify);
+   if (err != TD_OK)
+     return err;
+ 
+@@ -534,8 +563,10 @@ enable_thread_event_reporting (void)
+ 
+   /* We cannot use the thread event reporting facility if these
+      functions aren't available.  */
+-  if (td_ta_event_addr_p == NULL || td_ta_set_event_p == NULL
+-      || td_ta_event_getmsg_p == NULL || td_thr_event_enable_p == NULL)
++  if (current_pointers->td_ta_event_addr_p == NULL
++      || current_pointers->td_ta_set_event_p == NULL
++      || current_pointers->td_ta_event_getmsg_p == NULL
++      || current_pointers->td_thr_event_enable_p == NULL)
+     return;
+ 
+   /* Set the process wide mask saying which events we're interested in.  */
+@@ -552,7 +583,7 @@ enable_thread_event_reporting (void)
+ #endif
+     td_event_addset (&events, TD_DEATH);
+ 
+-  err = td_ta_set_event_p (thread_agent, &events);
++  err = current_pointers->td_ta_set_event_p (thread_agent, &events);
+   if (err != TD_OK)
+     {
+       warning ("Unable to set global thread event mask: %s",
+@@ -592,7 +623,7 @@ disable_thread_event_reporting (void)
+   /* Set the process wide mask saying we aren't interested in any
+      events anymore.  */
+   td_event_emptyset (&events);
+-  td_ta_set_event_p (thread_agent, &events);
++  current_pointers->td_ta_set_event_p (thread_agent, &events);
+ 
+   /* Delete thread event breakpoints, if any.  */
+   remove_thread_event_breakpoints ();
+@@ -635,7 +666,6 @@ check_thread_signals (void)
+ static void
+ check_for_thread_db (void)
+ {
+-  td_err_e err;
+   static int already_loaded;
+ 
+   /* First time through, report that libthread_db was successfuly
+@@ -644,19 +674,8 @@ check_for_thread_db (void)
+ 
+   if (!already_loaded)
+     {
+-      Dl_info info;
+-      const char *library = NULL;
+-      if (dladdr ((*td_ta_new_p), &info) != 0)
+-	library = info.dli_fname;
+-
+-      /* Try dlinfo?  */
+-
+-      if (library == NULL)
+-	/* Paranoid - don't let a NULL path slip through.  */
+-	library = LIBTHREAD_DB_SO;
+-
+       printf_unfiltered ("Using host libthread_db library \"%s\".\n",
+-			 library);
++			 all_pointers->filename);
+       already_loaded = 1;
+     }
+ 
+@@ -674,28 +693,34 @@ check_for_thread_db (void)
+   proc_handle.pid = GET_PID (inferior_ptid);
+ 
+   /* Now attempt to open a connection to the thread library.  */
+-  err = td_ta_new_p (&proc_handle, &thread_agent);
+-  switch (err)
++  for (current_pointers = all_pointers;
++       current_pointers != NULL;
++       current_pointers = current_pointers->next)
+     {
+-    case TD_NOLIBTHREAD:
+-      /* No thread library was detected.  */
+-      break;
+-
+-    case TD_OK:
+-      printf_unfiltered ("[Thread debugging using libthread_db enabled]\n");
++      td_err_e err;
++      err = current_pointers->td_ta_new_p (&proc_handle, &thread_agent);
++      switch (err)
++	{
++	case TD_NOLIBTHREAD:
++	  /* No thread library was detected.  */
++	  break;
+ 
+-      /* The thread library was detected.  Activate the thread_db target.  */
+-      push_target (&thread_db_ops);
+-      using_thread_db = 1;
++	case TD_OK:
++	  printf_unfiltered ("[Thread debugging using libthread_db enabled]\n");
+ 
+-      enable_thread_event_reporting ();
+-      thread_db_find_new_threads ();
+-      break;
++	  /* The thread library was detected.  Activate the thread_db target.  */
++	  push_target (&thread_db_ops);
++	  using_thread_db = 1;
++
++	  enable_thread_event_reporting ();
++	  thread_db_find_new_threads ();
++	  return;
+ 
+-    default:
+-      warning ("Cannot initialize thread debugging library: %s",
+-	       thread_db_err_str (err));
+-      break;
++	default:
++	  warning ("Cannot initialize thread debugging library: %s",
++		   thread_db_err_str (err));
++	  break;
++	}
+     }
+ }
+ 
+@@ -766,7 +791,7 @@ attach_thread (ptid_t ptid, const td_thr
+ #endif
+ 
+   /* Enable thread event reporting for this thread.  */
+-  err = td_thr_event_enable_p (th_p, 1);
++  err = current_pointers->td_thr_event_enable_p (th_p, 1);
+   if (err != TD_OK)
+     error ("Cannot enable thread event reporting for %s: %s",
+ 	   target_pid_to_str (ptid), thread_db_err_str (err));
+@@ -892,7 +917,7 @@ check_event (ptid_t ptid)
+ 
+   do
+     {
+-      err = td_ta_event_getmsg_p (thread_agent, &msg);
++      err = current_pointers->td_ta_event_getmsg_p (thread_agent, &msg);
+       if (err != TD_OK)
+ 	{
+ 	  if (err == TD_NOMSG)
+@@ -902,7 +927,7 @@ check_event (ptid_t ptid)
+ 		 thread_db_err_str (err));
+ 	}
+ 
+-      err = td_thr_get_info_p (msg.th_p, &ti);
++      err = current_pointers->td_thr_get_info_p (msg.th_p, &ti);
+       if (err != TD_OK)
+ 	error ("Cannot get thread info: %s", thread_db_err_str (err));
+ 
+@@ -1015,12 +1040,14 @@ thread_db_fetch_registers (int regno)
+   thread_info = find_thread_pid (inferior_ptid);
+   thread_db_map_id2thr (thread_info, 1);
+ 
+-  err = td_thr_getgregs_p (&thread_info->private->th, gregset);
++  err = current_pointers->td_thr_getgregs_p (&thread_info->private->th,
++					     gregset);
+   if (err != TD_OK)
+     error ("Cannot fetch general-purpose registers for thread %ld: %s",
+ 	   (long) GET_THREAD (inferior_ptid), thread_db_err_str (err));
+ 
+-  err = td_thr_getfpregs_p (&thread_info->private->th, &fpregset);
++  err = current_pointers->td_thr_getfpregs_p (&thread_info->private->th,
++					      &fpregset);
+   if (err != TD_OK)
+     error ("Cannot get floating-point registers for thread %ld: %s",
+ 	   (long) GET_THREAD (inferior_ptid), thread_db_err_str (err));
+@@ -1062,11 +1089,13 @@ thread_db_store_registers (int regno)
+   fill_gregset ((gdb_gregset_t *) gregset, -1);
+   fill_fpregset (&fpregset, -1);
+ 
+-  err = td_thr_setgregs_p (&thread_info->private->th, gregset);
++  err = current_pointers->td_thr_setgregs_p (&thread_info->private->th,
++					     gregset);
+   if (err != TD_OK)
+     error ("Cannot store general-purpose registers for thread %ld: %s",
+ 	   (long) GET_THREAD (inferior_ptid), thread_db_err_str (err));
+-  err = td_thr_setfpregs_p (&thread_info->private->th, &fpregset);
++  err = current_pointers->td_thr_setfpregs_p (&thread_info->private->th,
++					      &fpregset);
+   if (err != TD_OK)
+     error ("Cannot store floating-point registers  for thread %ld: %s",
+ 	   (long) GET_THREAD (inferior_ptid), thread_db_err_str (err));
+@@ -1136,15 +1165,14 @@ thread_db_thread_alive (ptid_t ptid)
+       if (!thread_info->private->th_valid)
+ 	return 0;
+ 
+-      err = td_thr_validate_p (&thread_info->private->th);
++      err = current_pointers->td_thr_validate_p (&thread_info->private->th);
+       if (err != TD_OK)
+ 	return 0;
+ 
+       if (!thread_info->private->ti_valid)
+ 	{
+-	  err =
+-	    td_thr_get_info_p (&thread_info->private->th,
+-			       &thread_info->private->ti);
++	  err = current_pointers->td_thr_get_info_p
++	    (&thread_info->private->th, &thread_info->private->ti);
+ 	  if (err != TD_OK)
+ 	    return 0;
+ 	  thread_info->private->ti_valid = 1;
+@@ -1170,7 +1198,7 @@ find_new_threads_callback (const td_thrh
+   td_err_e err;
+   ptid_t ptid;
+ 
+-  err = td_thr_get_info_p (th_p, &ti);
++  err = current_pointers->td_thr_get_info_p (th_p, &ti);
+   if (err != TD_OK)
+     error ("find_new_threads_callback: cannot get thread info: %s",
+ 	   thread_db_err_str (err));
+@@ -1192,9 +1220,10 @@ thread_db_find_new_threads (void)
+   td_err_e err;
+ 
+   /* Iterate over all user-space threads to discover new threads.  */
+-  err = td_ta_thr_iter_p (thread_agent, find_new_threads_callback, NULL,
+-			  TD_THR_ANY_STATE, TD_THR_LOWEST_PRIORITY,
+-			  TD_SIGNO_MASK, TD_THR_ANY_USER_FLAGS);
++  err = current_pointers->td_ta_thr_iter_p
++    (thread_agent, find_new_threads_callback, NULL,
++     TD_THR_ANY_STATE, TD_THR_LOWEST_PRIORITY,
++     TD_SIGNO_MASK, TD_THR_ANY_USER_FLAGS);
+   if (err != TD_OK)
+     error ("Cannot find new threads: %s", thread_db_err_str (err));
+ }
+@@ -1257,7 +1286,7 @@ thread_db_get_thread_local_address (ptid
+       struct thread_info *thread_info;
+ 
+       /* glibc doesn't provide the needed interface.  */
+-      if (!td_thr_tls_get_addr_p)
++      if (!current_pointers->td_thr_tls_get_addr_p)
+ 	error ("Cannot find thread-local variables in this thread library.");
+ 
+       /* Get the address of the link map for this objfile.  */
+@@ -1279,8 +1308,8 @@ thread_db_get_thread_local_address (ptid
+       thread_db_map_id2thr (thread_info, 1);
+ 
+       /* Finally, get the address of the variable.  */
+-      err = td_thr_tls_get_addr_p (&thread_info->private->th, (void *) lm,
+-				   offset, &address);
++      err = current_pointers->td_thr_tls_get_addr_p
++	(&thread_info->private->th, (void *) lm, offset, &address);
+ 
+ #ifdef THREAD_DB_HAS_TD_NOTALLOC
+       /* The memory hasn't been allocated, yet.  */
+@@ -1360,17 +1389,49 @@ init_thread_db_ops (void)
+ void
+ _initialize_thread_db (void)
+ {
++  struct thread_db_pointers *ptrs;
++  const char *p;
++
+   /* Only initialize the module if we can load libthread_db.  */
+-  if (thread_db_load ())
+-    {
+-      init_thread_db_ops ();
+-      add_target (&thread_db_ops);
++  ptrs = thread_db_load (LIBTHREAD_DB_SO);
++  if (ptrs == NULL)
++    return;
++
++  all_pointers = ptrs;
+ 
+-      /* Add ourselves to objfile event chain.  */
+-      target_new_objfile_chain = deprecated_target_new_objfile_hook;
+-      deprecated_target_new_objfile_hook = thread_db_new_objfile;
++  /* Some GNU/Linux systems have more than one binary-compatible copy
++     of libthread_db.  If we can find a second one, load that too.
++     The inferior may force the use of a different threading package
++     than we expect.  Our guess for the location is somewhat hokey:
++     strip out anything between /lib (or /lib64) and LIBTHREAD_DB_SO.
++     If we loaded the NPTL libthread_db by default, this may find us
++     the LinuxThreads copy.  */
++  p = strrchr (ptrs->filename, '/');
++  while (p != NULL && p > ptrs->filename)
++    {
++      const char *component;
+ 
+-      /* Register ourselves for the new inferior observer.  */
+-      observer_attach_inferior_created (check_for_thread_db_observer);
++      component = memrchr (ptrs->filename, '/', p - ptrs->filename);
++      if (component != NULL && strncmp (component, "/lib", 4) == 0)
++	{
++	  char *new_name = xmalloc (p - ptrs->filename + 2
++				    + strlen (LIBTHREAD_DB_SO));
++	  memcpy (new_name, ptrs->filename, p - ptrs->filename + 1);
++	  strcpy (new_name + (p - ptrs->filename) + 1, LIBTHREAD_DB_SO);
++	  ptrs->next = thread_db_load (new_name);
++	  xfree (new_name);
++	  break;
++	}
++      p = component;
+     }
++
++  init_thread_db_ops ();
++  add_target (&thread_db_ops);
++
++  /* Add ourselves to objfile event chain.  */
++  target_new_objfile_chain = deprecated_target_new_objfile_hook;
++  deprecated_target_new_objfile_hook = thread_db_new_objfile;
++
++  /* Register ourselves for the new inferior observer.  */
++  observer_attach_inferior_created (check_for_thread_db_observer);
+ }
+Index: gdb-6.3/gdb/linux-nat.c
+===================================================================
+--- gdb-6.3.orig/gdb/linux-nat.c	2004-11-14 00:36:41.000000000 -0500
++++ gdb-6.3/gdb/linux-nat.c	2004-11-15 11:51:43.954161476 -0500
+@@ -69,7 +69,7 @@
+ #define PTRACE_EVENT_VFORK	2
+ #define PTRACE_EVENT_CLONE	3
+ #define PTRACE_EVENT_EXEC	4
+-#define PTRACE_EVENT_VFORKDONE	5
++#define PTRACE_EVENT_VFORK_DONE	5
+ #define PTRACE_EVENT_EXIT	6
+ 
+ #endif /* PTRACE_EVENT_FORK */
+@@ -362,7 +362,7 @@ child_follow_fork (int follow_child)
+ 
+ 	      ptrace (PTRACE_CONT, parent_pid, 0, 0);
+ 	      waitpid (parent_pid, &status, __WALL);
+-	      if ((status >> 16) != PTRACE_EVENT_VFORKDONE)
++	      if ((status >> 16) != PTRACE_EVENT_VFORK_DONE)
+ 		warning ("Unexpected waitpid result %06x when waiting for "
+ 			 "vfork-done", status);
+ 	    }
+@@ -434,7 +434,7 @@ child_follow_fork (int follow_child)
+ 	 generally not encounter vfork (vfork is defined to fork
+ 	 in libpthread.so).
+ 
+-	 The holding part is very easy if we have VFORKDONE events;
++	 The holding part is very easy if we have VFORK_DONE events;
+ 	 but keeping track of both processes is beyond GDB at the
+ 	 moment.  So we don't expose the parent to the rest of GDB.
+ 	 Instead we quietly hold onto it until such time as we can
+2004-10-24  Daniel Jacobowitz  <dan@debian.org>
+
+	* opncls.c (bfd_close): Return TRUE for BFD_IN_MEMORY.
+
+Index: src/bfd/opncls.c
+===================================================================
+RCS file: /big/fsf/rsync/src-cvs/src/bfd/opncls.c,v
+retrieving revision 1.25
+diff -u -p -r1.25 opncls.c
+--- src/bfd/opncls.c	10 Oct 2004 13:58:05 -0000	1.25
++++ src/bfd/opncls.c	24 Oct 2004 17:52:53 -0000
+@@ -598,7 +598,7 @@ bfd_close (bfd *abfd)
+   if (!(abfd->flags & BFD_IN_MEMORY))
+     ret = abfd->iovec->bclose (abfd);
+   else
+-    ret = 0;
++    ret = TRUE;
+ 
+   /* If the file was open for writing and is now executable,
+      make it so.  */
+Status: Checked in to HEAD after 6.3.
+
+2004-11-07  Andrew Cagney  <cagney@redhat.com>
+	    Daniel Jacobowitz  <dan@debian.org>
+	    Roland McGrath  <roland@redhat.com>
+
+	* Makefile.in (symfile-mem.o): Update dependencies.
+	* i386-linux-tdep.c (i386_linux_dwarf_signal_frame_p): New.
+	(i386_linux_init_abi): Call dwarf2_frame_set_signal_frame_p.
+	* inf-ptrace.c (inf_ptrace_attach): Call
+	observer_notify_inferior_created.
+	* inftarg.c (child_attach): Likewise.
+	* symfile-mem.c: Include "observer.h", "auxv.h", and "elf/common.h".
+	(symbol_file_add_from_memory): Take NAME argument.  Use it for
+	the new BFD's filename.
+	(add_symbol_file_from_memory_command): Update call to
+	symbol_file_add_from_memory.
+	(struct symbol_file_add_from_memory_args, add_vsyscall_page)
+	(symbol_file_add_from_memory_wrapper): New.
+	(_initialize_symfile_mem): Register add_vsyscall_page as an
+	inferior_created observer.
+
+Index: gdb-6.3/gdb/i386-linux-tdep.c
+===================================================================
+--- gdb-6.3.orig/gdb/i386-linux-tdep.c	2004-08-06 16:58:28.000000000 -0400
++++ gdb-6.3/gdb/i386-linux-tdep.c	2004-11-10 00:55:06.669398770 -0500
+@@ -27,6 +27,7 @@
+ #include "inferior.h"
+ #include "osabi.h"
+ #include "reggroups.h"
++#include "dwarf2-frame.h"
+ 
+ #include "gdb_string.h"
+ 
+@@ -244,6 +245,27 @@ i386_linux_sigtramp_p (struct frame_info
+ 	  || strcmp ("__restore_rt", name) == 0);
+ }
+ 
++/* Return one if the unwound PC from NEXT_FRAME is in a signal trampoline
++   which may have DWARF-2 CFI.  */
++
++static int
++i386_linux_dwarf_signal_frame_p (struct gdbarch *gdbarch,
++				 struct frame_info *next_frame)
++{
++  CORE_ADDR pc = frame_pc_unwind (next_frame);
++  char *name;
++
++  find_pc_partial_function (pc, &name, NULL, NULL);
++
++  /* If a vsyscall DSO is in use, the signal trampolines may have these
++     names.  */
++  if (name && (strcmp (name, "__kernel_sigreturn") == 0
++	       || strcmp (name, "__kernel_rt_sigreturn") == 0))
++    return 1;
++
++  return 0;
++}
++
+ /* Offset to struct sigcontext in ucontext, from <asm/ucontext.h>.  */
+ #define I386_LINUX_UCONTEXT_SIGCONTEXT_OFFSET 20
+ 
+@@ -414,6 +436,8 @@ i386_linux_init_abi (struct gdbarch_info
+ 
+   /* GNU/Linux uses the dynamic linker included in the GNU C Library.  */
+   set_gdbarch_skip_solib_resolver (gdbarch, glibc_skip_solib_resolver);
++
++  dwarf2_frame_set_signal_frame_p (gdbarch, i386_linux_dwarf_signal_frame_p);
+ }
+ 
+ /* Provide a prototype to silence -Wmissing-prototypes.  */
+Index: gdb-6.3/gdb/inf-ptrace.c
+===================================================================
+--- gdb-6.3.orig/gdb/inf-ptrace.c	2004-10-15 09:29:33.000000000 -0400
++++ gdb-6.3/gdb/inf-ptrace.c	2004-11-10 00:53:43.697615843 -0500
+@@ -220,6 +220,10 @@ inf_ptrace_attach (char *args, int from_
+ 
+   inferior_ptid = pid_to_ptid (pid);
+   push_target (ptrace_ops_hack);
++
++  /* Do this first, before anything has had a chance to query the
++     inferior's symbol table or similar.  */
++  observer_notify_inferior_created (&current_target, from_tty);
+ }
+ 
+ static void
+Index: gdb-6.3/gdb/inftarg.c
+===================================================================
+--- gdb-6.3.orig/gdb/inftarg.c	2004-10-08 16:29:47.000000000 -0400
++++ gdb-6.3/gdb/inftarg.c	2004-11-10 00:53:43.711613107 -0500
+@@ -211,6 +211,10 @@ child_attach (char *args, int from_tty)
+   
+   inferior_ptid = pid_to_ptid (pid);
+   push_target (&deprecated_child_ops);
++
++  /* Do this first, before anything has had a chance to query the
++     inferior's symbol table or similar.  */
++  observer_notify_inferior_created (&current_target, from_tty);
+ }
+ 
+ #if !defined(CHILD_POST_ATTACH)
+Index: gdb-6.3/gdb/symfile-mem.c
+===================================================================
+--- gdb-6.3.orig/gdb/symfile-mem.c	2004-07-17 10:24:07.000000000 -0400
++++ gdb-6.3/gdb/symfile-mem.c	2004-11-10 00:53:43.722610958 -0500
+@@ -52,13 +52,19 @@
+ #include "target.h"
+ #include "value.h"
+ #include "symfile.h"
++#include "observer.h"
++#include "auxv.h"
++#include "elf/common.h"
+ 
+ 
+ /* Read inferior memory at ADDR to find the header of a loaded object file
+    and read its in-core symbols out of inferior memory.  TEMPL is a bfd
+-   representing the target's format.  */
++   representing the target's format.  NAME is the name to use for this
++   symbol file in messages; it can be NULL or a malloc-allocated string
++   which will be attached to the BFD.  */
+ static struct objfile *
+-symbol_file_add_from_memory (struct bfd *templ, CORE_ADDR addr, int from_tty)
++symbol_file_add_from_memory (struct bfd *templ, CORE_ADDR addr, char *name,
++			     int from_tty)
+ {
+   struct objfile *objf;
+   struct bfd *nbfd;
+@@ -75,7 +81,10 @@ symbol_file_add_from_memory (struct bfd 
+   if (nbfd == NULL)
+     error ("Failed to read a valid object file image from memory.");
+ 
+-  nbfd->filename = xstrdup ("shared object read from target memory");
++  if (name == NULL)
++    nbfd->filename = xstrdup ("shared object read from target memory");
++  else
++    nbfd->filename = name;
+ 
+   if (!bfd_check_format (nbfd, bfd_object))
+     {
+@@ -129,7 +138,73 @@ add_symbol_file_from_memory_command (cha
+     error ("\
+ Must use symbol-file or exec-file before add-symbol-file-from-memory.");
+ 
+-  symbol_file_add_from_memory (templ, addr, from_tty);
++  symbol_file_add_from_memory (templ, addr, NULL, from_tty);
++}
++
++/* Arguments for symbol_file_add_from_memory_wrapper.  */
++
++struct symbol_file_add_from_memory_args
++{
++  struct bfd *bfd;
++  CORE_ADDR sysinfo_ehdr;
++  char *name;
++  int from_tty;
++};
++
++/* Wrapper function for symbol_file_add_from_memory, for
++   catch_exceptions.  */
++
++static int
++symbol_file_add_from_memory_wrapper (struct ui_out *uiout, void *data)
++{
++  struct symbol_file_add_from_memory_args *args = data;
++
++  symbol_file_add_from_memory (args->bfd, args->sysinfo_ehdr, args->name,
++			       args->from_tty);
++  return 0;
++}
++
++/* Try to add the symbols for the vsyscall page, if there is one.  This function
++   is called via the inferior_created observer.  */
++
++static void
++add_vsyscall_page (struct target_ops *target, int from_tty)
++{
++  CORE_ADDR sysinfo_ehdr;
++
++  if (target_auxv_search (target, AT_SYSINFO_EHDR, &sysinfo_ehdr) > 0
++      && sysinfo_ehdr != (CORE_ADDR) 0)
++    {
++      struct bfd *bfd;
++      struct symbol_file_add_from_memory_args args;
++
++      if (core_bfd != NULL)
++	bfd = core_bfd;
++      else if (exec_bfd != NULL)
++	bfd = exec_bfd;
++      else
++       /* FIXME: cagney/2004-05-06: Should not require an existing
++	  BFD when trying to create a run-time BFD of the VSYSCALL
++	  page in the inferior.  Unfortunately that's the current
++	  interface so for the moment bail.  Introducing a
++	  ``bfd_runtime'' (a BFD created using the loaded image) file
++	  format should fix this.  */
++	{
++	  warning ("could not load vsyscall page because no executable was specified");
++	  warning ("try using the \"file\" command first");
++	  return;
++	}
++      args.bfd = bfd;
++      args.sysinfo_ehdr = sysinfo_ehdr;
++      xasprintf (&args.name, "system-supplied DSO at 0x%s",
++		 paddr_nz (sysinfo_ehdr));
++      /* Pass zero for FROM_TTY, because the action of loading the
++	 vsyscall DSO was not triggered by the user, even if the user
++	 typed "run" at the TTY.  */
++      args.from_tty = 0;
++      catch_exceptions (uiout, symbol_file_add_from_memory_wrapper,
++			&args, NULL, RETURN_MASK_ALL);
++    }
+ }
+ 
+ 
+@@ -143,4 +218,7 @@ Load the symbols out of memory from a dy
+ Give an expression for the address of the file's shared object file header.",
+            &cmdlist);
+ 
++  /* Want to know of each new inferior so that its vsyscall info can
++     be extracted.  */
++  observer_attach_inferior_created (add_vsyscall_page);
+ }
+Index: gdb-6.3/gdb/Makefile.in
+===================================================================
+--- gdb-6.3.orig/gdb/Makefile.in	2004-11-10 00:29:00.000000000 -0500
++++ gdb-6.3/gdb/Makefile.in	2004-11-10 00:54:47.728100986 -0500
+@@ -2020,7 +2020,7 @@ i386-linux-nat.o: i386-linux-nat.c $(def
+ i386-linux-tdep.o: i386-linux-tdep.c $(defs_h) $(gdbcore_h) $(frame_h) \
+ 	$(value_h) $(regcache_h) $(inferior_h) $(osabi_h) $(reggroups_h) \
+ 	$(gdb_string_h) $(i386_tdep_h) $(i386_linux_tdep_h) $(glibc_tdep_h) \
+-	$(solib_svr4_h)
++	$(solib_svr4_h) $(dwarf2_frame_h)
+ i386ly-tdep.o: i386ly-tdep.c $(defs_h) $(gdbcore_h) $(inferior_h) \
+ 	$(regcache_h) $(target_h) $(osabi_h) $(i386_tdep_h)
+ i386-nat.o: i386-nat.c $(defs_h) $(breakpoint_h) $(command_h) $(gdbcmd_h)
+@@ -2606,7 +2606,8 @@ symfile.o: symfile.c $(defs_h) $(bfdlink
+ 	$(hashtab_h) $(readline_h) $(gdb_assert_h) $(block_h) \
+ 	$(gdb_string_h) $(gdb_stat_h)
+ symfile-mem.o: symfile-mem.c $(defs_h) $(symtab_h) $(gdbcore_h) \
+-	$(objfiles_h) $(gdbcmd_h) $(target_h) $(value_h) $(symfile_h)
++	$(objfiles_h) $(gdbcmd_h) $(target_h) $(value_h) $(symfile_h) \
++	$(observer_h) $(auxv_h) $(elf_common_h)
+ symmisc.o: symmisc.c $(defs_h) $(symtab_h) $(gdbtypes_h) $(bfd_h) \
+ 	$(symfile_h) $(objfiles_h) $(breakpoint_h) $(command_h) \
+ 	$(gdb_obstack_h) $(language_h) $(bcache_h) $(block_h) $(gdb_regex_h) \

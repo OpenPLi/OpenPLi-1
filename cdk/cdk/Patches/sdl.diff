@@ -1,0 +1,509 @@
+--- orig/SDL-1.2.9/include/SDL_keysym.h	2004-01-04 17:49:07.000000000 +0100
++++ SDL-1.2.9/include/SDL_keysym.h	2008-06-27 19:47:32.000000000 +0200
+@@ -313,4 +313,46 @@
+ #define KMOD_ALT	(KMOD_LALT|KMOD_RALT)
+ #define KMOD_META	(KMOD_LMETA|KMOD_RMETA)
+ 
++/*
++	Keymapping for Tuxbox remote controls
++*/
++typedef enum {
++	TUXBOX_RC_1		= 0,
++	TUXBOX_RC_2		,
++	TUXBOX_RC_3		,
++	TUXBOX_RC_4		,
++	TUXBOX_RC_5		,
++	TUXBOX_RC_6		,
++	TUXBOX_RC_7		,
++	TUXBOX_RC_8		,
++	TUXBOX_RC_9		,
++	TUXBOX_RC_0		,
++	TUXBOX_RC_STANDBY	,
++	TUXBOX_RC_HOME		,
++	TUXBOX_RC_MENU		,
++	TUXBOX_RC_RED		,
++	TUXBOX_RC_GREEN	,
++	TUXBOX_RC_YELLOW	,
++	TUXBOX_RC_BLUE		,
++	TUXBOX_RC_OK		,
++	TUXBOX_RC_VOLPLUS	,
++	TUXBOX_RC_VOLMINUS	,
++	TUXBOX_RC_MUTE		,
++	TUXBOX_RC_HELP		,
++	TUXBOX_RC_UP		,
++	TUXBOX_RC_DOWN		,
++	TUXBOX_RC_RIGHT	,
++	TUXBOX_RC_LEFT		,
++	TUXBOX_RC_NONE
++} SDL_tuxbox_remote_button;
++/* Set up for C function definitions, even when using C++ */
++#ifdef __cplusplus
++extern "C" {
++#endif
++extern DECLSPEC void SDLCALL SetTuxboxKeyMapping(SDL_tuxbox_remote_button button, SDLKey key, SDLMod mod);
++extern DECLSPEC void SDLCALL SetTuxboxMouseMapping(int UseKeysForMouse);
++#ifdef __cplusplus
++}
++#endif
++
+ #endif /* _SDL_keysym_h */
+--- orig/SDL-1.2.9/src/video/fbcon/SDL_fbevents.c	2005-01-04 20:04:14.000000000 +0100
++++ SDL-1.2.9/src/video/fbcon/SDL_fbevents.c	2008-06-28 14:22:32.000000000 +0200
+@@ -69,6 +69,139 @@
+ static Uint16 keymap_temp[128]; /* only used at startup */
+ static SDL_keysym *TranslateKey(int scancode, SDL_keysym *keysym);
+ 
++static long keytimer;
++static int oldkey;
++static int keycounter;
++static int mousehandled;
++static SDLKey oldkeysym;
++#define	RC1_1		0x0001
++#define	RC1_2		0x0002
++#define	RC1_3		0x0003
++#define	RC1_4		0x0004
++#define	RC1_5		0x0005
++#define	RC1_6		0x0006
++#define	RC1_7		0x0007
++#define	RC1_8		0x0008
++#define	RC1_9		0x0009
++#define	RC1_0		0x0000
++#define	RC1_STANDBY	0x0010
++#define	RC1_HOME		0x001F
++#define	RC1_DBOX		0x0018
++#define	RC1_RED		0x0013
++#define	RC1_GREEN		0x0011
++#define	RC1_YELLOW	0x0012
++#define	RC1_BLUE		0x0014
++#define	RC1_OK		0x000E
++#define	RC1_VOLPLUS	0x0015
++#define	RC1_VOLMINUS	0x0016
++#define	RC1_MUTE		0x000F
++#define	RC1_HELP		0x0017
++#define	RC1_UP		0x000C
++#define	RC1_DOWN		0x000D
++#define	RC1_RIGHT		0x000A
++#define	RC1_LEFT		0x000B
++
++#define	RC2_1		0x5c01
++#define	RC2_2		0x5c02
++#define	RC2_3		0x5c03
++#define	RC2_4		0x5c04
++#define	RC2_5		0x5c05
++#define	RC2_6		0x5c06
++#define	RC2_7		0x5c07
++#define	RC2_8		0x5c08
++#define	RC2_9		0x5c09
++#define	RC2_0		0x5c00
++#define	RC2_STANDBY	0x5c0c
++#define	RC2_HOME		0x5c20
++#define	RC2_DBOX		0x5c27
++#define	RC2_RED		0x5c2d
++#define	RC2_GREEN		0x5c55
++#define	RC2_YELLOW	0x5c52
++#define	RC2_BLUE		0x5c3b
++#define	RC2_OK		0x5c30
++#define	RC2_VOLPLUS	0x5c16
++#define	RC2_VOLMINUS	0x5c17
++#define	RC2_MUTE		0x5c28
++#define	RC2_HELP		0x5c82
++#define	RC2_UP		0x5c0e
++#define	RC2_DOWN		0x5c0f
++#define	RC2_RIGHT		0x5c2e
++#define	RC2_LEFT		0x5c2f
++#define RC2_UPUP	0x5c54
++#define RC2_DOWNDOWN 0x5c53
++
++/* 
++	This is the default keymap (as used for doom)
++*/ 
++SDLKey tuxbox_keymap[] = 
++{
++	SDLK_1		,//RC_1
++	SDLK_2		,//RC_2
++	SDLK_3		,//RC_3
++	SDLK_4		,//RC_4
++	SDLK_5		,//RC_5
++	SDLK_6		,//RC_6
++	SDLK_7		,//RC_7
++	SDLK_8		,//RC_8
++	SDLK_9		,//RC_9
++	SDLK_0		,//RC_0
++	SDLK_UNKNOWN	,//RC_STANDBY
++	SDLK_ESCAPE	,//RC_HOME
++	SDLK_y		,//RC_MENU
++	SDLK_LCTRL	,//RC_RED
++	SDLK_SPACE	,//RC_GREEN
++	SDLK_COMMA	,//RC_YELLOW
++	SDLK_PERIOD	,//RC_BLUE
++	SDLK_RETURN	,//RC_OK
++	SDLK_EQUALS	,//RC_VOLPLUS
++	SDLK_MINUS	,//RC_VOLMINUS
++	SDLK_TAB	,//RC_MUTE
++	SDLK_UNKNOWN	,//RC_HELP
++	SDLK_UP		,//RC_UP
++	SDLK_DOWN	,//RC_DOWN
++	SDLK_RIGHT	,//RC_RIGHT
++	SDLK_LEFT	 //RC_LEFT
++};
++SDLMod tuxbox_modmap[] = 
++{
++	KMOD_NONE,//RC_1
++	KMOD_NONE,//RC_2
++	KMOD_NONE,//RC_3
++	KMOD_NONE,//RC_4
++	KMOD_NONE,//RC_5
++	KMOD_NONE,//RC_6
++	KMOD_NONE,//RC_7
++	KMOD_NONE,//RC_8
++	KMOD_NONE,//RC_9
++	KMOD_NONE,//RC_0
++	KMOD_NONE,//RC_STANDBY
++	KMOD_NONE,//RC_HOME
++	KMOD_NONE,//RC_MENU
++	KMOD_NONE,//RC_RED
++	KMOD_NONE,//RC_GREEN
++	KMOD_NONE,//RC_YELLOW
++	KMOD_NONE,//RC_BLUE
++	KMOD_NONE,//RC_OK
++	KMOD_NONE,//RC_VOLPLUS
++	KMOD_NONE,//RC_VOLMINUS
++	KMOD_NONE,//RC_MUTE
++	KMOD_NONE,//RC_HELP
++	KMOD_NONE,//RC_UP
++	KMOD_NONE,//RC_DOWN
++	KMOD_NONE,//RC_RIGHT
++	KMOD_NONE //RC_LEFT
++};
++void SetTuxboxKeyMapping(SDL_tuxbox_remote_button button, SDLKey key, SDLMod mod)
++{
++	tuxbox_keymap[button] = key;
++	tuxbox_modmap[button] = mod;
++}
++int tuxbox_UseKeysForMouse = 0;
++void SetTuxboxMouseMapping(int UseKeysForMouse)
++{
++	tuxbox_UseKeysForMouse = UseKeysForMouse;
++}
++
+ /* Ugh, we have to duplicate the kernel's keysym mapping code...
+    Oh, it's not so bad. :-)
+ 
+@@ -171,7 +304,7 @@
+ 				saved_vt = vtstate.v_active;
+ 			}
+ 			if ( ioctl(keyboard_fd, VT_ACTIVATE, current_vt) == 0 ) {
+-				ioctl(keyboard_fd, VT_WAITACTIVE, current_vt);
++				//ioctl(keyboard_fd, VT_WAITACTIVE, current_vt); //waits endless at dreambox
+ 			}
+ 		}
+ 
+@@ -240,11 +373,22 @@
+ 			close(keyboard_fd);
+ 		}
+ 	}
++	if (rc_fd >= 0)
++		close(rc_fd);
++	rc_fd = -1;
+ 	keyboard_fd = -1;
+ }
+ 
+ int FB_OpenKeyboard(_THIS)
+ {
++	struct timezone tz;
++	struct timeval tv;
++	rc_fd = open("/dev/dbox/rc0", O_RDONLY); //TODO DREAMBOX PATH!
++	gettimeofday(&tv, &tz);
++	keytimer = (tv.tv_sec * 1000) + (int)(tv.tv_usec / 1000) + 3600000;
++	oldkey = -1;oldkeysym = 27;
++	keycounter = 0;
++	mousehandled=0;
+ 	/* Open only if not already opened */
+  	if ( keyboard_fd < 0 ) {
+ 		static const char * const tty0[] = { "/dev/tty0", "/dev/vc/0", NULL };
+@@ -883,14 +1027,173 @@
+ 	SDL_mutexV(hw_lock);
+ }
+ 
+-static void handle_keyboard(_THIS)
++static void handle_keyboard(_THIS, int what)
+ {
+ 	unsigned char keybuf[BUFSIZ];
+ 	int i, nread;
+ 	int pressed;
+ 	int scancode;
+ 	SDL_keysym keysym;
++	unsigned short read_code = 0;
++	struct timezone tz;
++	struct timeval tv;
+
++	printf("what: %d old_key:%x keytimer: %ld mousehandled:%d\n", what, oldkey, keytimer,mousehandled);
++	if (what == 1)
++	{
++		read(rc_fd, &read_code, 2);
++		printf("read_code: %x\n", read_code);
++		if ((read_code & 0xff00) != 0x5c00) // we have a new remote control with cyclic codes
++		{
++			
++			read_code %= 0x40;
++			
++		}
++		keysym.sym = 27;
++		if (tuxbox_UseKeysForMouse)
++		{
++			int button=0,dx=0,dy=0;
++			switch (read_code)
++			{
++				case RC1_UP:
++				case RC2_UP: dy = -(5+keycounter); break;
++				case RC1_DOWN:
++				case RC2_DOWN: dy = (5+keycounter); break;
++				case RC1_LEFT:
++				case RC2_LEFT: dx = -(5+keycounter); break;
++				case RC1_RIGHT:
++				case RC2_RIGHT: dx = (5+keycounter); break;
++				case RC1_OK:
++				case RC2_OK: button = 0x04; break;
++			}
++			if ((button || dx || dy ) && oldkey != RC1_OK && oldkey != RC2_OK)
++			{
++				FB_vgamousecallback(button, 1, dx, dy);
++				oldkey=read_code;
++				mousehandled = 1;
++				if (keycounter < 50)
++					keycounter+= 2; 
++				return;
++
++			}
++			if (oldkey == RC1_OK || oldkey == RC2_OK)
++			{
++				FB_vgamousecallback(0, 1, 0, 0);
++				oldkey = -1;
++				return;
++			}
++		}
++		if (read_code == oldkey)
++		{
++			gettimeofday(&tv, &tz);
++			keytimer = (tv.tv_sec * 1000) + (int)(tv.tv_usec / 1000);
++			printf("tv_sec: %ld\ntv_usec: %ld\n", tv.tv_sec, tv.tv_usec);
++			return;
++		}
++		keycounter = 0;
++	} 
++	if (what == 2)
++	{
++		read_code = oldkey;
++		oldkey = -1;
++	}
++	if (what == 1 || what == 2)
++	{
++		SDL_tuxbox_remote_button mapping = TUXBOX_RC_NONE;
++		switch(read_code)
++		{
++			case RC1_HOME:
++			case RC2_HOME: mapping = TUXBOX_RC_HOME; break;
++			case RC1_OK:
++			case RC2_OK: mapping = TUXBOX_RC_OK; break;
++			case RC1_UP:
++			case RC2_UP: mapping = TUXBOX_RC_UP; break;
++			case RC1_DOWN:
++			case RC2_DOWN: mapping = TUXBOX_RC_DOWN; break;
++			case RC1_LEFT:
++			case RC2_LEFT: mapping = TUXBOX_RC_LEFT; break;
++			case RC1_RIGHT:
++			case RC2_RIGHT: mapping = TUXBOX_RC_RIGHT; break;
++			case RC1_RED:
++			case RC2_RED: mapping = TUXBOX_RC_RED; break;
++			case RC1_YELLOW:
++			case RC2_YELLOW: mapping = TUXBOX_RC_YELLOW; break;
++			case RC1_GREEN:
++			case RC2_GREEN: mapping = TUXBOX_RC_GREEN; break;
++			case RC1_BLUE:
++			case RC2_BLUE: mapping = TUXBOX_RC_BLUE; break;
++			case RC1_1:
++			case RC2_1: mapping = TUXBOX_RC_1; break;
++			case RC1_2:
++			case RC2_2: mapping = TUXBOX_RC_2; break;
++			case RC1_3:
++			case RC2_3: mapping = TUXBOX_RC_3; break;
++			case RC1_4:
++			case RC2_4: mapping = TUXBOX_RC_4; break;
++			case RC1_5:
++			case RC2_5: mapping = TUXBOX_RC_5; break;
++			case RC1_6:
++			case RC2_6: mapping = TUXBOX_RC_6; break;
++			case RC1_7:
++			case RC2_7: mapping = TUXBOX_RC_7; break;
++			case RC1_8:
++			case RC2_8: mapping = TUXBOX_RC_8; break;
++			case RC1_9:
++			case RC2_9: mapping = TUXBOX_RC_9; break;
++			case RC1_0:
++			case RC2_0: mapping = TUXBOX_RC_0; break;
++			case RC1_MUTE:
++			case RC2_MUTE: mapping = TUXBOX_RC_MUTE; break;
++			case RC1_VOLPLUS:
++			case RC2_VOLPLUS: mapping = TUXBOX_RC_VOLPLUS; break;
++			case RC1_VOLMINUS:
++			case RC2_VOLMINUS: mapping = TUXBOX_RC_VOLMINUS; break;
++			case RC1_DBOX:
++			case RC2_DBOX: mapping = TUXBOX_RC_MENU; break;
++			default:
++				keysym.mod = KMOD_NONE;
++				read_code = oldkey;
++				oldkey = -1;
++				what = 2;
++				break;
++
++		}
++		if (mapping != TUXBOX_RC_NONE)
++		{
++			keysym.sym = tuxbox_keymap[mapping];
++			SDL_SetModState (tuxbox_modmap[mapping]);
++		}
++		keysym.scancode = K(KT_ASCII,13);
++	        keysym.unicode = 0;
++	}
++	if (what == 1)
++	{
++		if (oldkey != read_code)
++		{
++			SDLKey k = keysym.sym; keysym.sym = oldkeysym;
++			pressed = SDL_RELEASED;
++			posted += SDL_PrivateKeyboard(pressed, &keysym);
++			keysym.sym = k;
++		}
++		pressed = SDL_PRESSED;
++		posted += SDL_PrivateKeyboard(pressed, &keysym);
++		mousehandled = 0;
++		oldkeysym = keysym.sym;
++		gettimeofday(&tv, &tz);
++		keytimer = (tv.tv_sec * 1000) + (int)(tv.tv_usec / 1000);
++		printf("tv_sec: %ld\ntv_usec: %ld\n", tv.tv_sec, tv.tv_usec);
++		oldkey = read_code;
++	}
++	if (what == 2 && !mousehandled && read_code != 0xffff) 
++	{
++		keysym.sym = oldkeysym;
++		pressed = SDL_RELEASED;
++		posted += SDL_PrivateKeyboard(pressed, &keysym);
++		oldkey = -1;
++		oldkeysym = 27;
++	}
++	if (what == 0)
++	{
+ 	nread = read(keyboard_fd, keybuf, BUFSIZ);
+ 	for ( i=0; i<nread; ++i ) {
+ 		scancode = keybuf[i] & 0x7F;
+@@ -926,6 +1226,7 @@
+ 			break;
+ 		}
+ 	}
++	}
+ }
+ 
+ void FB_PumpEvents(_THIS)
+@@ -933,8 +1234,19 @@
+ 	fd_set fdset;
+ 	int max_fd;
+ 	static struct timeval zero;
++	struct timezone tz;
++	struct timeval tv;
++	long currenttime;
+ 
+ 	do {
++		gettimeofday(&tv, &tz);
++                currenttime = (tv.tv_sec * 1000) + (int)(tv.tv_usec / 1000);
++		if (currenttime - keytimer > 220)
++		{
++			keytimer += 3600000;
++			if (!mousehandled)
++				handle_keyboard(this, 2);
++		}
+ 		posted = 0;
+ 
+ 		FD_ZERO(&fdset);
+@@ -945,6 +1257,12 @@
+ 				max_fd = keyboard_fd;
+ 			}
+ 		}
++		if ( rc_fd >= 0 ) {
++                        FD_SET(rc_fd, &fdset);
++                        if ( max_fd < rc_fd ) {
++                                max_fd = rc_fd;
++                        }
++                }
+ 		if ( mouse_fd >= 0 ) {
+ 			FD_SET(mouse_fd, &fdset);
+ 			if ( max_fd < mouse_fd ) {
+@@ -954,9 +1272,14 @@
+ 		if ( select(max_fd+1, &fdset, NULL, NULL, &zero) > 0 ) {
+ 			if ( keyboard_fd >= 0 ) {
+ 				if ( FD_ISSET(keyboard_fd, &fdset) ) {
+-					handle_keyboard(this);
++					handle_keyboard(this, 0);
+ 				}
+ 			}
++			if ( rc_fd >= 0 ) {
++                                if ( FD_ISSET(rc_fd, &fdset) ) {
++                                        handle_keyboard(this, 1);
++                                }
++                        }
+ 			if ( mouse_fd >= 0 ) {
+ 				if ( FD_ISSET(mouse_fd, &fdset) ) {
+ 					handle_mouse(this);
+--- orig/SDL-1.2.9/src/video/fbcon/SDL_fbvideo.c	2005-02-12 19:03:54.000000000 +0100
++++ SDL-1.2.9/src/video/fbcon/SDL_fbvideo.c	2008-06-27 19:47:32.000000000 +0200
+@@ -97,6 +97,7 @@
+ #ifdef USE_VESA_TIMINGS	/* Only tested on Matrox Millenium I */
+ 	{  640,  400, 39771,  48, 16, 39,  8,  96, 2, 2, 0 },	/* 70 Hz */
+ 	{  640,  480, 39683,  48, 16, 33, 10,  96, 2, 0, 0 },	/* 60 Hz */
++	{  720,  576, 26101, 144, 16, 28,  6, 112, 4, 0, 0 },   /* BLA */
+ 	{  768,  576, 26101, 144, 16, 28,  6, 112, 4, 0, 0 },	/* 60 Hz */
+ 	{  800,  600, 24038, 144, 24, 28,  8, 112, 6, 0, 0 },	/* 60 Hz */
+ 	{  960,  720, 17686, 144, 24, 28,  8, 112, 4, 0, 0 },	/* 60 Hz */
+@@ -115,6 +116,7 @@
+ 	{  512,  384, 49603,  48, 16, 16,  1,  64, 3, 0, 0 },	/* 78 Hz */
+ 	{  640,  400, 31746,  96, 32, 41,  1,  64, 3, 2, 0 },	/* 85 Hz */
+ 	{  640,  480, 31746, 120, 16, 16,  1,  64, 3, 0, 0 },	/* 75 Hz */
++	{  720,  576, 26101, 144, 16, 18,  6, 112, 4, 0, 0 },
+ 	{  768,  576, 26101, 144, 16, 28,  6, 112, 4, 0, 0 },	/* 60 Hz */
+ 	{  800,  600, 20000,  64, 56, 23, 37, 120, 6, 3, 0 },	/* 72 Hz */
+ 	{  960,  720, 17686, 144, 24, 28,  8, 112, 4, 0, 0 },	/* 60 Hz */
+@@ -161,7 +163,7 @@
+ 
+ 	SDL_fbdev = getenv("SDL_FBDEV");
+ 	if ( SDL_fbdev == NULL ) {
+-		SDL_fbdev = "/dev/fb0";
++		SDL_fbdev = "/dev/fb/0";
+ 	}
+ 	console = open(SDL_fbdev, O_RDWR, 0);
+ 	if ( console >= 0 ) {
+@@ -336,7 +338,7 @@
+ 	/* Initialize the library */
+ 	SDL_fbdev = getenv("SDL_FBDEV");
+ 	if ( SDL_fbdev == NULL ) {
+-		SDL_fbdev = "/dev/fb0";
++		SDL_fbdev = "/dev/fb/0";
+ 	}
+ 	console_fd = open(SDL_fbdev, O_RDWR, 0);
+ 	if ( console_fd < 0 ) {
+--- orig/SDL-1.2.9/src/video/fbcon/SDL_fbvideo.h	2004-01-04 17:49:25.000000000 +0100
++++ SDL-1.2.9/src/video/fbcon/SDL_fbvideo.h	2008-06-27 19:47:32.000000000 +0200
+@@ -61,6 +61,7 @@
+ 	int current_vt;
+ 	int saved_vt;
+ 	int keyboard_fd;
++	int rc_fd;
+ 	int saved_kbd_mode;
+ 	struct termios saved_kbd_termios;
+ 
+@@ -92,6 +93,7 @@
+ #define current_vt		(this->hidden->current_vt)
+ #define saved_vt		(this->hidden->saved_vt)
+ #define keyboard_fd		(this->hidden->keyboard_fd)
++#define rc_fd             	(this->hidden->rc_fd)
+ #define saved_kbd_mode		(this->hidden->saved_kbd_mode)
+ #define saved_kbd_termios	(this->hidden->saved_kbd_termios)
+ #define mouse_fd		(this->hidden->mouse_fd)

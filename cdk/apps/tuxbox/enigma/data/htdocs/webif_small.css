@@ -1,0 +1,133 @@
+.white { color:#000000; font-size: 8pt; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.epgzeit { color:#000000; font-size:12pt; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.epgdur { color:#000000; font-size:10pt; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.epgname { color:#000000; font-size:12pt; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.epgdesc { color:#000000; font-size:10pt; font-family: Verdana, Arial, Helvetica, sans-serif; }
+.epg { color:#000000; font-size:10pt; font-family: Verdana, Arial, Helvetica, sans-serif; }
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8px;
+}
+
+#mainbody {
+	background-image: url(bg.png);
+	background-color: #ffffff;
+	font-size: 8px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+h2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8px;
+	font-weight: bold;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8px;
+}
+
+th {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8px;
+	font-weight: bold;
+}
+
+input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+a {
+	color: #263971;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #A91111;
+}
+
+#contentcell {
+	background-color: #ffffff;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	font-size: 8px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+#leftnavi {
+	background-color: #c1cbdf;
+	border-right: 1px solid #98A4B6;
+}
+
+
+#topnavi {
+	background-color: #c1cbdf;
+	border-bottom: 1px solid #98A4B6;
+	border-top: 1px solid #98A4B6;
+	border-left: 0px solid #98A4B6;
+	border-right: 0px solid #98A4B6;
+}
+
+#channavi {
+	background-color: #c1cbdf;
+	border-bottom: 0px solid #98A4B6;
+	border-top: 1px solid #98A4B6;
+	border-left: 0px solid #98A4B6;
+	border-right: 0px solid #98A4B6;
+}
+
+#topnavi input,
+#leftnavi input {
+	color: #000000;
+}
+
+#mepg .channel { 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 6px;
+	font-weight: bold; 
+}
+
+#mepg .description {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 6px;
+}	
+
+#mepg TR {
+	background-color: #E0E6EB;
+	border-bottom: 1px solid #000000;
+}
+
+#mepg TABLE {
+	border: 0px solid #000000;
+}
+
+#mepg TH,
+#mepg TD {
+	border-bottom: 1px solid #98A4B6;
+	border-top: 1px solid #BBC8D4;
+	border-left: 0px solid #000000;
+	border-right: 1px solid #ffffff;
+	padding-top:1px;
+	padding-bottom:1px;
+	padding-left:1px;
+	padding-right:1px;
+	vertical-align: top;
+	text-align: left;
+	background-image: url(mepg_grad.png);
+	background-repeat: repeat-x;
+}

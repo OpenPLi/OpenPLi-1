@@ -1,0 +1,693 @@
+diff -Naur busybox-1.01/editors/vi.c busybox-1.01-patched/editors/vi.c
+--- busybox-1.01/editors/vi.c	2005-08-17 03:29:16.000000000 +0200
++++ busybox-1.01-patched/editors/vi.c	2005-10-04 09:21:38.000000000 +0200
+@@ -19,7 +19,7 @@
+  */
+ 
+ static const char vi_Version[] =
+-	"$Id: vi.c,v 1.38 2004/08/19 19:15:06 andersen Exp $";
++	"$Id: vi.c,v 1.35 2004/03/31 11:12:51 andersen Exp $";
+ 
+ /*
+  * To compile for standalone use:
+@@ -344,7 +344,6 @@
+ #endif							/* CONFIG_FEATURE_VI_CRASHME */
+ 
+ 	status_buffer = STATUS_BUFFER;
+-	*status_buffer = '\0';	// clear status buffer
+ 
+ #ifdef CONFIG_FEATURE_VI_READONLY
+ 	vi_readonly = readonly = FALSE;
+@@ -463,6 +462,7 @@
+ 	last_forward_char = last_input_char = '\0';
+ 	crow = 0;
+ 	ccol = 0;
++	edit_status();
+ 
+ #ifdef CONFIG_FEATURE_VI_USE_SIGNALS
+ 	catch_sig(0);
+@@ -506,7 +506,6 @@
+ 	adding2q = 0;
+ #endif							/* CONFIG_FEATURE_VI_DOT_CMD */
+ 	redraw(FALSE);			// dont force every col re-draw
+-	edit_status();
+ 	show_status_line();
+ 
+ 	//------This is the main Vi cmd handling loop -----------------------
+@@ -872,7 +871,6 @@
+ 		} else {
+ 			// user wants file status info
+ 			edit_status();
+-			show_status_line();
+ 		}
+ 	} else if (strncasecmp((char *) cmd, "features", i) == 0) {	// what features are available
+ 		// print out values of all features
+@@ -1335,30 +1333,22 @@
+ {
+ 	if (dot > text && dot[-1] != '\n')
+ 		dot--;
+-	edit_status();			// show current file status
+-	show_status_line();
+ }
+ 
+ static void dot_right(void)
+ {
+ 	if (dot < end - 1 && *dot != '\n')
+ 		dot++;
+-	edit_status();			// show current file status
+-	show_status_line();
+ }
+ 
+ static void dot_begin(void)
+ {
+ 	dot = begin_line(dot);	// return pointer to first char cur line
+-	edit_status();			// show current file status
+-	show_status_line();
+ }
+ 
+ static void dot_end(void)
+ {
+ 	dot = end_line(dot);	// return pointer to last char cur line
+-	edit_status();			// show current file status
+-	show_status_line();
+ }
+ 
+ static Byte *move_to_col(Byte * p, int l)
+@@ -1383,15 +1373,11 @@
+ static void dot_next(void)
+ {
+ 	dot = next_line(dot);
+-	edit_status();			// show current file status
+-	show_status_line();
+ }
+ 
+ static void dot_prev(void)
+ {
+ 	dot = prev_line(dot);
+-	edit_status();			// show current file status
+-	show_status_line();
+ }
+ 
+ static void dot_scroll(int cnt, int dir)
+@@ -1416,8 +1402,6 @@
+ 	if (dot > q)
+ 		dot = begin_line(q);	// is dot is below bottom line?
+ 	dot_skip_over_ws();
+-	edit_status();			// show current file status
+-	show_status_line();
+ }
+ 
+ static void dot_skip_over_ws(void)
+@@ -1608,11 +1592,11 @@
+ 		cmd_mode = 0;
+ 		cmdcnt = 0;
+ 		end_cmd_q();	// stop adding to q
+-		*status_buffer = '\0';  // clear the status buffer
++		strcpy((char *) status_buffer, " ");	// clear the status buffer
+ 		if ((p[-1] != '\n') && (dot>text)) {
+ 			p--;
+ 		}
+-	} else if (c == erase_char || c == 8 || c == 127) { // Is this a BS
++	} else if (c == erase_char) {	// Is this a BS
+ 		//     123456789
+ 		if ((p[-1] != '\n') && (dot>text)) {
+ 			p--;
+@@ -2356,7 +2340,7 @@
+ }
+ 
+ //----- IO Routines --------------------------------------------
+-static Byte get_one_char(void)
++static Byte get_one_char()
+ {
+ 	static Byte c;
+ 
+@@ -2616,25 +2600,25 @@
+ }
+ 
+ //----- Erase from cursor to end of line -----------------------
+-static void clear_to_eol(void)
++static void clear_to_eol()
+ {
+ 	write1(Ceol);   // Erase from cursor to end of line
+ }
+ 
+ //----- Erase from cursor to end of screen -----------------------
+-static void clear_to_eos(void)
++static void clear_to_eos()
+ {
+ 	write1(Ceos);   // Erase from cursor to end of screen
+ }
+ 
+ //----- Start standout mode ------------------------------------
+-static void standout_start(void) // send "start reverse video" sequence
++static void standout_start() // send "start reverse video" sequence
+ {
+ 	write1(SOs);     // Start reverse video mode
+ }
+ 
+ //----- End standout mode --------------------------------------
+-static void standout_end(void) // send "end reverse video" sequence
++static void standout_end() // send "end reverse video" sequence
+ {
+ 	write1(SOn);     // End reverse video mode
+ }
+@@ -2664,7 +2648,7 @@
+ 
+ //----- Screen[] Routines --------------------------------------
+ //----- Erase the Screen[] memory ------------------------------
+-static void screen_erase(void)
++static void screen_erase()
+ {
+ 	memset(screen, ' ', screensize);	// clear new screen
+ }
+@@ -2675,7 +2659,7 @@
+ 	static int last_cksum;
+ 	int l, cnt, cksum;
+ 
+-	//edit_status();
++	edit_status();
+ 	cnt = strlen((char *) status_buffer);
+ 	for (cksum= l= 0; l < cnt; l++) { cksum += (int)(status_buffer[l]); }
+ 	// don't write the status line unless it changes
+@@ -2697,10 +2681,10 @@
+ 
+ 	va_start(args, format);
+ 	strcpy((char *) status_buffer, SOs);	// Terminal standout mode on
+-	vsprintf((char *) status_buffer + strlen((char *) status_buffer), format, args);
++	vsprintf((char *) status_buffer + strlen((char *) status_buffer), format,
++			 args);
+ 	strcat((char *) status_buffer, SOn);	// Terminal standout mode off
+ 	va_end(args);
+-	show_status_line();
+ 
+ 	return;
+ }
+@@ -2713,7 +2697,6 @@
+ 	va_start(args, format);
+ 	vsprintf((char *) status_buffer, format, args);
+ 	va_end(args);
+-	show_status_line();
+ 	return;
+ }
+ 
+@@ -2740,19 +2723,17 @@
+ 		cur = tot = 0;
+ 		percent = 100;
+ 	}
+-
+-	sprintf((char *) status_buffer,
+-			"\"%s\""
++	psb("\"%s\""
+ #ifdef CONFIG_FEATURE_VI_READONLY
+-			"%s"
++		"%s"
+ #endif							/* CONFIG_FEATURE_VI_READONLY */
+-			"%s line %d of %d --%d%%--",
+-			(cfn != 0 ? (char *) cfn : "No file"),
++		"%s line %d of %d --%d%%--",
++		(cfn != 0 ? (char *) cfn : "No file"),
+ #ifdef CONFIG_FEATURE_VI_READONLY
+-			((vi_readonly || readonly) ? " [Read only]" : ""),
++		((vi_readonly || readonly) ? " [Read only]" : ""),
+ #endif							/* CONFIG_FEATURE_VI_READONLY */
+-			(file_modified ? " [modified]" : ""),
+-			cur, tot, percent);
++		(file_modified ? " [modified]" : ""),
++		cur, tot, percent);
+ }
+ 
+ //----- Force refresh of all Lines -----------------------------
+@@ -2898,8 +2879,6 @@
+ #endif							/* CONFIG_FEATURE_VI_OPTIMIZE_CURSOR */
+ 			}
+ 
+-			edit_status();			// show current file status
+-			show_status_line();
+ 			// write line out to terminal
+ 			{
+ 				int nic = ce-cs+1;
+@@ -3079,18 +3058,15 @@
+ 		break;
+ 	case 7:			// ctrl-G  show current status
+ 		edit_status();
+-		show_status_line();
+ 		break;
+ 	case 'h':			// h- move left
+ 	case VI_K_LEFT:	// cursor key Left
+-	case 8:		// ctrl-H- move left    (This may be ERASE char)
+-	case 127:	// DEL- move left   (This may be ERASE char)
++	case 8:			// ctrl-H- move left    (This may be ERASE char)
++	case 127:			// DEL- move left   (This may be ERASE char)
+ 		if (cmdcnt-- > 1) {
+ 			do_cmd(c);
+ 		}				// repeat cnt
+ 		dot_left();
+-		edit_status();			// show current file status
+-		show_status_line();
+ 		break;
+ 	case 10:			// Newline ^J
+ 	case 'j':			// j- goto next line, same col
+@@ -3249,7 +3225,7 @@
+ 		//
+ 		// dont separate these two commands. 'f' depends on ';'
+ 		//
+-		//**** fall thru to ... ';'
++		//**** fall thru to ... 'i'
+ 	case ';':			// ;- look at rest of line for last forward char
+ 		if (cmdcnt-- > 1) {
+ 			do_cmd(';');
+@@ -3407,7 +3383,6 @@
+ 			}
+ 		} else if (strncasecmp((char *) p, "file", cnt) == 0 ) {
+ 			edit_status();			// show current file status
+-			show_status_line();
+ 		} else if (sscanf((char *) p, "%d", &j) > 0) {
+ 			dot = find_line(j);		// go to line # j
+ 			dot_skip_over_ws();
+@@ -3517,7 +3492,6 @@
+ 		dot_end();		// move to NL
+ 		if (dot < end - 1) {	// make sure not last char in text[]
+ 			*dot++ = ' ';	// replace NL with space
+-			file_modified = TRUE;
+ 			while (isblnk(*dot)) {	// delete leading WS
+ 				dot_delete();
+ 			}
+diff -Naur busybox-1.01/init/init.c busybox-1.01-patched/init/init.c
+--- busybox-1.01/init/init.c	2004-10-08 10:21:54.000000000 +0200
++++ busybox-1.01-patched/init/init.c	2005-02-03 21:14:50.000000000 +0100
+@@ -375,7 +375,7 @@
+ 	while ((fd = open(console, O_RDONLY | O_NONBLOCK)) < 0 && tried < 2) {
+ 		/* Can't open selected console -- try
+ 			logical system console and VT_MASTER */
+-		safe_strncpy(console, (tried == 0 ? _PATH_CONSOLE : CURRENT_VC),
++		safe_strncpy(console, (tried == 0 ? _PATH_CONSOLE : "/dev/tty0"),
+ 							sizeof(console));
+ 		tried++;
+ 	}
+@@ -632,15 +632,12 @@
+ 
+ 	pid = run(a);
+ 	while (1) {
+-		wpid = waitpid(pid,&status,0);
++		wpid = wait(&status);
++		if (wpid > 0 && wpid != pid) {
++			continue;
++		}
+ 		if (wpid == pid)
+ 			break;
+-		if (wpid == -1 && errno == ECHILD) {
+-			/* we missed its termination */
+-			break;
+-		}
+-		/* FIXME other errors should maybe trigger an error, but allow
+-		 * the program to continue */
+ 	}
+ 	return wpid;
+ }
+diff -Naur busybox-1.01/libbb/messages.c busybox-1.01-patched/libbb/messages.c
+--- busybox-1.01/libbb/messages.c	2004-03-15 09:28:42.000000000 +0100
++++ busybox-1.01-patched/libbb/messages.c	2005-02-03 21:14:50.000000000 +0100
+@@ -59,27 +59,47 @@
+ #endif
+ 
+ #ifdef L_passwd_file
+-#define PASSWD_FILE        "/etc/passwd"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define PASSWD_FILE        "/var/etc/passwd"
++#else
++ #define PASSWD_FILE        "/etc/passwd"
++#endif
+ const char * const bb_path_passwd_file = PASSWD_FILE;
+ #endif
+ 
+ #ifdef L_shadow_file
+-#define SHADOW_FILE        "/etc/shadow"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define SHADOW_FILE        "/var/etc/shadow"
++#else
++ #define SHADOW_FILE        "/etc/shadow"
++#endif
+ const char * const bb_path_shadow_file = SHADOW_FILE;
+ #endif
+ 
+ #ifdef L_group_file
+-#define GROUP_FILE         "/etc/group"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define GROUP_FILE         "/var/etc/group"
++#else
++ #define GROUP_FILE         "/etc/group"
++#endif
+ const char * const bb_path_group_file = GROUP_FILE;
+ #endif
+ 
+ #ifdef L_gshadow_file
+-#define GSHADOW_FILE       "/etc/gshadow"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define GSHADOW_FILE       "/var/etc/gshadow"
++#else
++ #define GSHADOW_FILE       "/etc/gshadow"
++#endif
+ const char * const bb_path_gshadow_file = GSHADOW_FILE;
+ #endif
+ 
+ #ifdef L_nologin_file
+-#define NOLOGIN_FILE       "/etc/nologin"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define NOLOGIN_FILE       "/var/etc/nologin"
++#else
++ #define NOLOGIN_FILE       "/etc/nologin"
++#endif
+ const char * const bb_path_nologin_file = NOLOGIN_FILE;
+ #endif
+ 
+diff -Naur busybox-1.01/libbb/procps.c busybox-1.01-patched/libbb/procps.c
+--- busybox-1.01/libbb/procps.c	2004-08-27 00:18:58.000000000 +0200
++++ busybox-1.01-patched/libbb/procps.c	2005-02-05 20:19:11.000000000 +0100
+@@ -22,7 +22,7 @@
+ #endif
+ 	)
+ {
+-	static DIR *dir;
++	static DIR *dir, *taskdir;
+ 	struct dirent *entry;
+ 	static procps_status_t ret_status;
+ 	char *name;
+@@ -32,6 +32,7 @@
+ 	FILE *fp;
+ 	procps_status_t curstatus;
+ 	int pid;
++	static int parentpid;
+ 	long tasknice;
+ 	struct stat sb;
+ 
+@@ -40,111 +41,150 @@
+ 		if(!dir)
+ 			bb_error_msg_and_die("Can't open /proc");
+ 	}
+-	for(;;) {
+-		if((entry = readdir(dir)) == NULL) {
+-			closedir(dir);
+-			dir = 0;
+-			return 0;
+-		}
+-		name = entry->d_name;
+-		if (!(*name >= '0' && *name <= '9'))
+-			continue;
+ 
+-		memset(&curstatus, 0, sizeof(procps_status_t));
+-		pid = atoi(name);
+-		curstatus.pid = pid;
++	if (taskdir) {
++		for(;;) {
++			if((entry = readdir(taskdir)) == NULL) {
++				closedir(taskdir);
++				taskdir = 0;
++				break;
++			}
++			name = entry->d_name;
++			if (!(*name >= '0' && *name <= '9'))
++				continue;
+ 
+-		sprintf(status, "/proc/%d", pid);
+-		if(stat(status, &sb))
+-			continue;
+-		my_getpwuid(curstatus.user, sb.st_uid, sizeof(curstatus.user));
++			memset(&curstatus, 0, sizeof(procps_status_t));
++			pid = atoi(name);
++			curstatus.pid = pid;
+ 
+-		sprintf(status, "/proc/%d/stat", pid);
+-		if((fp = fopen(status, "r")) == NULL)
+-			continue;
+-#ifdef CONFIG_SELINUX
+-		if(use_selinux)
+-		{
+-			if(fstat_secure(fileno(fp), &sb, sid))
++			sprintf(status, "/proc/%d/task/%d", parentpid, pid);
++			if(stat(status, &sb))
+ 				continue;
+-		}
+-		else
++			my_getpwuid(curstatus.user, sb.st_uid, sizeof(curstatus.user));
++
++			sprintf(status, "/proc/%d/task/%d/stat", parentpid, pid);
++			if((fp = fopen(status, "r")) == NULL)
++				continue;
++#ifdef CONFIG_SELINUX
++			if(use_selinux)
++			{
++				if(fstat_secure(fileno(fp), &sb, sid))
++					continue;
++			}
++			else
+ #endif
+-		name = fgets(buf, sizeof(buf), fp);
+-		fclose(fp);
+-		if(name == NULL)
+-			continue;
+-		name = strrchr(buf, ')'); /* split into "PID (cmd" and "<rest>" */
+-		if(name == 0 || name[1] != ' ')
+-			continue;
+-		*name = 0;
+-		sscanf(buf, "%*s (%15c", curstatus.short_cmd);
+-		n = sscanf(name+2,
+-		"%c %d "
+-		"%*s %*s %*s %*s "     /* pgrp, session, tty, tpgid */
+-		"%*s %*s %*s %*s %*s " /* flags, min_flt, cmin_flt, maj_flt, cmaj_flt */
++			name = fgets(buf, sizeof(buf), fp);
++			fclose(fp);
++			if(name == NULL)
++				continue;
++			name = strrchr(buf, ')'); /* split into "PID (cmd" and "<rest>" */
++			if(name == 0 || name[1] != ' ')
++				continue;
++			*name = 0;
++			sscanf(buf, "%*s (%15c", curstatus.short_cmd);
++			n = sscanf(name+2,
++			"%c %d "
++			"%*s %*s %*s %*s "     /* pgrp, session, tty, tpgid */
++			"%*s %*s %*s %*s %*s " /* flags, min_flt, cmin_flt, maj_flt, cmaj_flt */
+ #ifdef FEATURE_CPU_USAGE_PERCENTAGE
+-		"%lu %lu "
++			"%lu %lu "
+ #else
+-		"%*s %*s "
++			"%*s %*s "
+ #endif
+-		"%*s %*s %*s "         /* cutime, cstime, priority */
+-		"%ld "
+-		"%*s %*s %*s "         /* timeout, it_real_value, start_time */
+-		"%*s "                 /* vsize */
+-		"%ld",
+-		curstatus.state, &curstatus.ppid,
++			"%*s %*s %*s "         /* cutime, cstime, priority */
++			"%ld "
++			"%*s %*s %*s "         /* timeout, it_real_value, start_time */
++			"%*s "                 /* vsize */
++			"%ld",
++			curstatus.state, &curstatus.ppid,
+ #ifdef FEATURE_CPU_USAGE_PERCENTAGE
+-		&curstatus.utime, &curstatus.stime,
++			&curstatus.utime, &curstatus.stime,
+ #endif
+-		&tasknice,
+-		&curstatus.rss);
++			&tasknice,
++			&curstatus.rss);
++			if ( pid != parentpid )
++				curstatus.ppid = parentpid;
+ #ifdef FEATURE_CPU_USAGE_PERCENTAGE
+-		if(n != 6)
++			if(n != 6)
+ #else
+-		if(n != 4)
++			if(n != 4)
+ #endif
+-			continue;
++				continue;
+ 
+-		if (curstatus.rss == 0 && curstatus.state[0] != 'Z')
+-			curstatus.state[1] = 'W';
+-		else
+-			curstatus.state[1] = ' ';
+-		if (tasknice < 0)
+-			curstatus.state[2] = '<';
+-		else if (tasknice > 0)
+-			curstatus.state[2] = 'N';
+-		else
+-			curstatus.state[2] = ' ';
++			if (curstatus.rss == 0 && curstatus.state[0] != 'Z')
++				curstatus.state[1] = 'W';
++			else
++				curstatus.state[1] = ' ';
++			if (tasknice < 0)
++				curstatus.state[2] = '<';
++			else if (tasknice > 0)
++				curstatus.state[2] = 'N';
++			else
++				curstatus.state[2] = ' ';
+ 
+ #ifdef PAGE_SHIFT
+-		curstatus.rss <<= (PAGE_SHIFT - 10);     /* 2**10 = 1kb */
++			curstatus.rss <<= (PAGE_SHIFT - 10);     /* 2**10 = 1kb */
+ #else
+-		curstatus.rss *= (getpagesize() >> 10);     /* 2**10 = 1kb */
++			curstatus.rss *= (getpagesize() >> 10);     /* 2**10 = 1kb */
+ #endif
+ 
+-		if(save_user_arg0) {
+-			sprintf(status, "/proc/%d/cmdline", pid);
+-			if((fp = fopen(status, "r")) == NULL)
+-				continue;
+-			if((n=fread(buf, 1, sizeof(buf)-1, fp)) > 0) {
+-				if(buf[n-1]=='\n')
+-					buf[--n] = 0;
+-				name = buf;
+-				while(n) {
+-					if(((unsigned char)*name) < ' ')
+-						*name = ' ';
+-					name++;
+-					n--;
++			if(save_user_arg0) {
++				sprintf(status, "/proc/%d/task/%d/cmdline", parentpid, pid);
++				if((fp = fopen(status, "r")) == NULL)
++					continue;
++				if((n=fread(buf, 1, sizeof(buf)-1, fp)) > 0) {
++					if(buf[n-1]=='\n')
++						buf[--n] = 0;
++					name = buf;
++					while(n) {
++						if(((unsigned char)*name) < ' ')
++							*name = ' ';
++						name++;
++						n--;
++					}
++					*name = 0;
++					if(buf[0])
++						curstatus.cmd = strdup(buf);
++					/* if NULL it work true also */
+ 				}
+-				*name = 0;
+-				if(buf[0])
+-					curstatus.cmd = strdup(buf);
+-				/* if NULL it work true also */
++				fclose(fp);
+ 			}
+-			fclose(fp);
++			return memcpy(&ret_status, &curstatus, sizeof(procps_status_t));
++		}
++	}
++
++	for(;;) {
++		if((entry = readdir(dir)) == NULL) {
++			closedir(dir);
++			dir = 0;
++			return 0;
++		}
++		name = entry->d_name;
++		if (!(*name >= '0' && *name <= '9'))
++			continue;
++
++		memset(&curstatus, 0, sizeof(procps_status_t));
++		pid = atoi(name);
++		curstatus.pid = pid;
++
++		sprintf(status, "/proc/%d", pid);
++		if(stat(status, &sb))
++			continue;
++		my_getpwuid(curstatus.user, sb.st_uid, sizeof(curstatus.user));
++
++		if (!taskdir) {
++			sprintf(status, "/proc/%d/task", pid);
++			taskdir = opendir(status);
++			if(!taskdir)
++					// ignore processes without taskdir
++				continue;
++			parentpid = pid;
++			return procps_scan(save_user_arg0
++#ifdef CONFIG_SELINUX
++						,use_selinux, sid
++#endif
++				);
+ 		}
+-		return memcpy(&ret_status, &curstatus, sizeof(procps_status_t));
+ 	}
+ }
+ 
+diff -Naur busybox-1.01/miscutils/hdparm.c busybox-1.01-patched/miscutils/hdparm.c
+--- busybox-1.01/miscutils/hdparm.c	2004-07-21 00:53:59.000000000 +0200
++++ busybox-1.01-patched/miscutils/hdparm.c	2005-02-03 21:14:50.000000000 +0100
+@@ -1254,6 +1254,7 @@
+ static unsigned long set_sleepnow   = 0, get_sleepnow   = 0;
+ static unsigned long get_powermode  = 0;
+ static unsigned long set_apmmode = 0, get_apmmode= 0, apmmode = 0;
++static unsigned long set_acoustic = 0, get_acoustic = 0, acoustic = 0;
+ #endif
+ #ifdef CONFIG_FEATURE_HDPARM_GET_IDENTITY
+ static int get_IDentity = 0;
+@@ -2123,6 +2124,20 @@
+ 		}
+ 		bb_ioctl(fd, HDIO_DRIVE_CMD, &args,"HDIO_DRIVE_CMD");
+ 	}
++	if (set_acoustic)
++	{
++		no_scsi();
++		acoustic=check_if_min_and_set_val(acoustic,0);
++		acoustic=check_if_maj_and_set_val(acoustic,254);
++		if_printf(get_acoustic," setting AAM level to 0x%02lX (%ld)\n", acoustic, acoustic);
++		bb_ioctl(fd, HDIO_SET_ACOUSTIC, (int*)acoustic,"HDIO_SET_ACOUSTIC");
++	}
++	if (get_acoustic)
++	{
++		no_scsi();
++		bb_ioctl(fd, HDIO_GET_ACOUSTIC, (unsigned long*)&parm,"HDIO_GET_ACOUSTIC");
++		printf(" acoustic     = %2ld (128=quiet ... 254=fast)\n", parm);
++	}
+ 	if (set_wcache)
+ 	{
+ #ifdef DO_FLUSHCACHE
+@@ -2831,6 +2846,13 @@
+ 							p = *argv++, --argc;
+ 						p=GET_NUMBER(p,&set_readahead,&Xreadahead);
+ 						break;
++					case 'M':
++						get_acoustic = noisy; 
++						noisy = 1;
++						if (!*p && argc && isalnum(**argv))
++							p = *argv++, --argc;
++						p=GET_NUMBER(p,&set_acoustic,&acoustic);
++						break;
+ 					case 'B':
+ 						get_apmmode = noisy;
+ 						noisy = 1;
+diff -Naur busybox-1.01/modutils/lsmod.c busybox-1.01-patched/modutils/lsmod.c
+--- busybox-1.01/modutils/lsmod.c	2004-03-15 09:28:47.000000000 +0100
++++ busybox-1.01-patched/modutils/lsmod.c	2005-02-03 21:14:50.000000000 +0100
+@@ -38,6 +38,9 @@
+ #include <sys/file.h>
+ #include "busybox.h"
+ 
++#ifdef CONFIG_FEATURE_2_6_MODULES
++#undef CONFIG_FEATURE_QUERY_MODULE_INTERFACE
++#endif
+ 
+ #ifndef CONFIG_FEATURE_CHECK_TAINTED_MODULE
+ static inline void check_tainted(void) { printf("\n"); }
+diff -Naur busybox-1.01/sysdeps/linux/Config.in busybox-1.01-patched/sysdeps/linux/Config.in
+--- busybox-1.01/sysdeps/linux/Config.in	2004-05-25 13:30:22.000000000 +0200
++++ busybox-1.01-patched/sysdeps/linux/Config.in	2005-02-03 21:14:50.000000000 +0100
+@@ -203,6 +203,14 @@
+ 	  if you want to add some simple compiler switches (like -march=i686),
+ 	  or check for warnings using -Werror, just those options here.
+ 
++config CONFIG_AUTH_IN_VAR_ETC
++	bool "Search auth files in /var/etc"
++	default n
++	help
++	  passwd, shadow, group, gshadow and nologin will be searched in
++	  /var/etc instead of /etc. This is usefull, if /etc is not
++	  writeable (flash).
++
+ endmenu
+ 
+ menu 'Installation Options'

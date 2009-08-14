@@ -1,0 +1,7 @@
+LIBRARY		DBOXIISource.ax
+DESCRIPTION	'BS:DBOXIISource'
+EXPORTS
+                DllGetClassObject PRIVATE
+				DllCanUnloadNow PRIVATE
+				DllRegisterServer PRIVATE
+                DllUnregisterServer PRIVATE

@@ -1,0 +1,23 @@
+<script>
+function writeMenu(xy)
+{
+	NewWindow('cgi-bin/showWriteMenu?mtd=' + xy, 'flashMenu', '500', '200', 'no');
+}
+function saveMenu(xy)
+{
+	NewWindow('cgi-bin/showReadMenu?mtd=' + xy, 'saveMenu', '500', '200', 'no');
+}
+</script>
+<table border="1" cellspacing="0" cellpadding="5">
+	<thead align="left">
+		<th>#H1#</th>
+		<th>action</th>
+		<th>action</th>
+		<th>#H2#</th>
+		<th>#H3#</th>
+		<th>#H4#</th>
+	</thead>
+	<tbody>
+		#TBODY#
+	</tbody
+</table>

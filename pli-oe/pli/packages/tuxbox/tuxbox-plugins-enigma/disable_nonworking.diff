@@ -1,0 +1,23 @@
+--- ~/enigma/Makefile.am
++++ ~/enigma/Makefile.am
+@@ -1 +1 @@
+-SUBDIRS = bitrate demo dreamdata ngrabstart ngrabstop dslconnect dsldisconnect rss script weather dbswitch getset dreamflash movieplayer scummvm mv plimgr imdb dreamnetcast setupnetwork webstream2db inadyn dbepg remotetimer lancontrol
++SUBDIRS = bitrate demo dreamdata ngrabstart ngrabstop dslconnect dsldisconnect rss script weather dbswitch getset movieplayer scummvm mv plimgr imdb dreamnetcast setupnetwork webstream2db inadyn dbepg remotetimer lancontrol
+--- ~/Makefile.am
++++ ~/Makefile.am
+@@ -1,14 +1,8 @@
+ AUTOMAKE_OPTIONS = gnu
+ 
+ SUBDIRS = \
+-	include tuxmail tuxtxt tuxcom tuxcal fx2 vncviewer enigma
++	enigma
+ 
+-if BOXTYPE_DREAMBOX
+-SUBDIRS += pip mosaic
+-else
+-SUBDIRS += pluginx
+-endif
+-
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = \
+ 	tuxbox-plugins.pc

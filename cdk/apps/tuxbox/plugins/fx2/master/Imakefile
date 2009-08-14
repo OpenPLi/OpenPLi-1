@@ -1,0 +1,17 @@
+all:: master.so
+
+#PREF=powerpc-linux-
+CC=$(PREF)gcc
+STRIP=$(PREF)strip
+CDEBUGFLAGS=-g -O2 -Wall -pedantic -DUSEX
+INCLUDES=-I. -I../lib -I../../include
+OBJS=board.o
+
+SingleProgramTarget(master,main.o $(OBJS),,-L../lib -lfx2 -lX11)
+
+master.so: somain.o $(OBJS)
+	$(CC) -o master.so -shared -Wl,-soname,master.so somain.o $(OBJS)
+	$(STRIP) master.so
+
+clean::
+	rm -f master.so

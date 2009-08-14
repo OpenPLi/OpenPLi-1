@@ -1,0 +1,65 @@
+<script>
+function motor(cmd, parm)
+{
+	if (cmd == "goeast")
+	{
+		<!--alert("Turning east...");-->
+		document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=68&params=00";
+	}
+	else
+	if (cmd == "stepeast")
+	{
+		<!--alert("Stepping east...");-->
+		document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=68&params=FF";
+	}
+	else
+	if (cmd == "gowest")
+	{
+		<!--alert("Turning west...");-->
+		document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=69&params=00";
+	}
+	else
+	if (cmd == "stepwest")
+	{
+		<!--alert("Stepping west...");-->
+		document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=69&params=FF";
+	}
+	else
+	if (cmd == "stop")
+	{
+		<!--alert("Stopping...");-->
+		document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=60";
+		document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=60";
+	}
+	else
+	if (cmd == "gotostoredpos")
+	{
+		if (parm == "0")
+			alert("Invalid motor position");
+		else
+			document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=6B&params=" + parm;
+	}
+	else
+	if (cmd == "storetopos")
+	{
+		if (parm == "0")
+			alert("Invalid motor position");
+		else
+			document.location = "cgi-bin/sendDiSEqCCmd?addr=31&cmd=6A&params=" + parm;
+	}
+}
+</script>
+<h2>Diseqc 1.2 Motor Positions</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+	#MOTORPOSITIONS#
+</table>
+<h2>Diseqc 1.2 Motor Controls</h2>
+<table border="0" cellpadding="0" cellspacing="10">
+<tr>
+<td><a href="javascript:motor('goeast', '0')"><img src="player_rew.gif" border="0"></a></td>
+<td><a href="javascript:motor('stepeast', '0')"><img src="1leftarrow.gif" border="0"></a></td>
+<td><a href="javascript:motor('stop', '0')"><img src="player_stop.gif" border="0"></a></td>
+<td><a href="javascript:motor('stepwest', '0')"><img src="1rightarrow.gif" border="0"></a></td>
+<td><a href="javascript:motor('gowest', '0')"><img src="player_fwd.gif" border="0"></a></td>
+</tr>
+</table>

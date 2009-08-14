@@ -1,0 +1,13 @@
+diff -Naur org/sigc++/signal.cc libsigc++-1.2.1/sigc++/signal.cc
+--- org/sigc++/signal.cc        2002-10-18 18:52:35.000000000 +0200
++++ libsigc++-1.2.1/sigc++/signal.cc    2002-11-18 04:36:28.000000000 +0100
+@@ -117,7 +117,8 @@
+ 
+       if(i->defered_)
+       {
+-        begin_->parent_ = 0;
++        if (begin_)
++          begin_->parent_ = 0;
+         i->unreference();
+       }
+

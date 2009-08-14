@@ -1,0 +1,110 @@
+#!/bin/bash
+
+cd .. && CURRENT_PATH=`pwd`;
+cd cdk
+rm Makefile.in
+./autogen.sh;
+# boxtype dm500 dm56x0 or dm7000
+TYPE=$1
+FULLTYPE=$1
+
+if test -z "$TYPE"; then
+	TYPE=dm7000
+	FULLTYPE=dm7000
+fi
+
+MAXVAR_ENABLED=no
+
+if [ "$TYPE" = "dm500-maxvar" ] ; then
+	TYPE="dm500"
+	MAXVAR_ENABLED=yes
+elif [ "$TYPE" = "dm500-chinese-maxvar" ] ; then
+	TYPE="dm500-chinese"
+	MAXVAR_ENABLED=yes
+fi
+
+CHINESE_ENABLED=no
+
+if [ "$TYPE" = "dm7000-chinese" ] ; then
+	TYPE="dm7000"
+	CHINESE_ENABLED=yes
+elif [ "$TYPE" = "dm56x0-chinese" ] ; then
+	TYPE="dm56x0"
+	CHINESE_ENABLED=yes
+elif [ "$TYPE" = "dm500-chinese" ] ; then
+	TYPE="dm500"
+	CHINESE_ENABLED=yes
+fi
+
+
+if [ "$TYPE" = "dm7000" ] ; then
+	VERSION=1.10
+	BASE=0110
+elif [ "$TYPE" = "dm56x0" ] ; then
+	VERSION=1.08
+	BASE=0108
+elif [ "$TYPE" = "dm500" ] ; then
+	VERSION=1.09
+	BASE=0109
+fi
+
+LIBTOOLIZEVERSION=2
+
+if [ "`libtoolize --version | egrep -c '1.4|1.5'`" = "1" ] ; then
+        LIBTOOLIZEVERSION=1
+fi
+
+./configure \
+	--with-boxtype=$TYPE \
+	--with-webif=expert \
+	--prefix=$CURRENT_PATH/root \
+	--with-cvsdir=$CURRENT_PATH \
+	--with-cpu=405 \
+	--enable-maintainer-mode \
+	--with-targetruleset=flash \
+	--with-epg=private \
+	--with-mhw-epg=yes \
+	--with-dish-epg=yes \
+	--with-flashtool=standard \
+	--with-reiserfs=no \
+	--with-ext-flashtool=yes \
+	--with-enigma-debug=yes \
+	--with-chinese=$CHINESE_ENABLED \
+	--with-maxvar=$MAXVAR_ENABLED \
+	--with-libtoolize-version=$LIBTOOLIZEVERSION
+
+
+IMAGENAME=OpenPLi
+
+# generate build-image script
+
+printf "#!/bin/bash" > build-image
+echo "" >> build-image
+echo "#" >> build-image
+echo "# standard build for the image is default setup from cdk plus"  >> build-image
+echo "# our changes and additions." >> build-image
+echo "#" >> build-image
+echo "" >> build-image
+echo "export dreamversion=\"$VERSION\"" >> build-image
+echo "export baseversion=\"$BASE\"" >> build-image
+echo "export myversion=\"\`date +%Y%m%d\`\"" >> build-image
+echo "export imgversion=\"\$myversion-\`svnversion .\`\"" >> build-image
+echo "export name=\"$IMAGENAME\"" >> build-image
+
+echo "export imagename=\$name-$FULLTYPE-\$imgversion" >> build-image
+
+if [ "$TYPE" = "dm500" ] ; then
+	echo "export imagename_oldframebuffer=pli-\$name-$FULLTYPE-old-framebuffer-\$imgversion" >> build-image
+fi
+
+echo "" >> build-image
+echo "scriptdir=\${0%/*}" >> build-image
+echo "flashdir=\$scriptdir/../root/cdkflash" >> build-image
+echo "" >> build-image
+echo "# Make sure all libs are build for this environment" >> build-image
+echo "make dreamboximage_root" >> build-image
+echo "" >> build-image
+echo "make rebuild-flash" >> build-image
+echo "make flash-compress" >> build-image
+echo "" >> build-image
+chmod +x build-image

@@ -1,0 +1,171 @@
+diff -Naur busybox-1.2.0-orig/Config.in busybox-1.2.0/Config.in
+--- busybox-1.2.0-orig/Config.in	2006-07-01 00:42:13.000000000 +0200
++++ busybox-1.2.0/Config.in	2006-07-03 17:45:53.000000000 +0200
+@@ -220,6 +220,14 @@
+ 	  executable.  If you haven't got /proc, set this to wherever you
+ 	  want to run BusyBox from.
+ 
++config CONFIG_AUTH_IN_VAR_ETC
++       bool "Search auth files in /var/etc"
++       default n
++       help
++         passwd, shadow, group, gshadow, and nologin will be searched in
++         /var/etc instead of /etc. This is usefull, if /etc is not
++         writeable (flash). 
++
+ endmenu
+ 
+ menu 'Build Options'
+diff -Naur busybox-1.2.0-orig/include/applets.h busybox-1.2.0/include/applets.h
+--- busybox-1.2.0-orig/include/applets.h	2006-07-01 00:42:10.000000000 +0200
++++ busybox-1.2.0/include/applets.h	2006-07-03 17:47:47.000000000 +0200
+@@ -292,7 +292,7 @@
+ USE_VI(APPLET(vi, _BB_DIR_BIN, _BB_SUID_NEVER))
+ USE_VLOCK(APPLET(vlock, _BB_DIR_USR_BIN, _BB_SUID_ALWAYS))
+ USE_WATCH(APPLET(watch, _BB_DIR_BIN, _BB_SUID_NEVER))
+-USE_WATCHDOG(APPLET(watchdog, _BB_DIR_SBIN, _BB_SUID_NEVER))
++USE_BB_WATCHDOG(APPLET(watchdog, _BB_DIR_SBIN, _BB_SUID_NEVER))
+ USE_WC(APPLET(wc, _BB_DIR_USR_BIN, _BB_SUID_NEVER))
+ USE_WGET(APPLET(wget, _BB_DIR_USR_BIN, _BB_SUID_NEVER))
+ USE_WHICH(APPLET(which, _BB_DIR_USR_BIN, _BB_SUID_NEVER))
+diff -Naur busybox-1.2.0-orig/init/init.c busybox-1.2.0/init/init.c
+--- busybox-1.2.0-orig/init/init.c	2006-07-01 00:42:12.000000000 +0200
++++ busybox-1.2.0/init/init.c	2006-07-03 17:53:37.000000000 +0200
+@@ -338,7 +338,7 @@
+ 	while ((fd = open(console, O_RDONLY | O_NONBLOCK)) < 0 && tried < 2) {
+ 		/* Can't open selected console -- try
+ 			logical system console and VT_MASTER */
+-		safe_strncpy(console, (tried == 0 ? CONSOLE_DEV : CURRENT_VC),
++		safe_strncpy(console, (tried == 0 ? CONSOLE_DEV : "/dev/ttyS0"),
+ 							sizeof(console));
+ 		tried++;
+ 	}
+@@ -606,15 +606,12 @@
+ 
+ 	runpid = (NULL == a)? pid : run(a);
+ 	while (1) {
+-		wpid = waitpid(runpid,&status,0);
++		wpid =wait(&status);
++		if (wpid > 0 && wpid != runpid) {
++			continue;
++		}
+ 		if (wpid == runpid)
+ 			break;
+-		if (wpid == -1 && errno == ECHILD) {
+-			/* we missed its termination */
+-			break;
+-		}
+-		/* FIXME other errors should maybe trigger an error, but allow
+-		 * the program to continue */
+ 	}
+ 	return wpid;
+ }
+diff -Naur busybox-1.2.0-orig/libbb/messages.c busybox-1.2.0/libbb/messages.c
+--- busybox-1.2.0-orig/libbb/messages.c	2006-07-01 00:42:08.000000000 +0200
++++ busybox-1.2.0/libbb/messages.c	2006-07-03 17:45:53.000000000 +0200
+@@ -57,27 +57,47 @@
+ #endif
+ 
+ #ifdef L_passwd_file
+-#define PASSWD_FILE        "/etc/passwd"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define PASSWD_FILE        "/var/etc/passwd"
++#else
++ #define PASSWD_FILE        "/etc/passwd"
++#endif
+ const char * const bb_path_passwd_file = PASSWD_FILE;
+ #endif
+ 
+ #ifdef L_shadow_file
+-#define SHADOW_FILE        "/etc/shadow"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define SHADOW_FILE        "/var/etc/shadow"
++#else
++ #define SHADOW_FILE        "/etc/shadow"
++#endif
+ const char * const bb_path_shadow_file = SHADOW_FILE;
+ #endif
+ 
+ #ifdef L_group_file
+-#define GROUP_FILE         "/etc/group"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define GROUP_FILE         "/var/etc/group"
++#else
++ #define GROUP_FILE         "/etc/group"
++#endif
+ const char * const bb_path_group_file = GROUP_FILE;
+ #endif
+ 
+ #ifdef L_gshadow_file
+-#define GSHADOW_FILE       "/etc/gshadow"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define GSHADOW_FILE       "/var/etc/gshadow"
++#else
++ #define GSHADOW_FILE       "/etc/gshadow"
++#endif
+ const char * const bb_path_gshadow_file = GSHADOW_FILE;
+ #endif
+ 
+ #ifdef L_nologin_file
+-#define NOLOGIN_FILE       "/etc/nologin"
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++ #define NOLOGIN_FILE       "/var/etc/nologin"
++#else
++ #define NOLOGIN_FILE       "/etc/nologin"
++#endif
+ const char * const bb_path_nologin_file = NOLOGIN_FILE;
+ #endif
+ 
+diff -Naur busybox-1.2.0-orig/miscutils/Config.in busybox-1.2.0/miscutils/Config.in
+--- busybox-1.2.0-orig/miscutils/Config.in	2006-07-01 00:42:09.000000000 +0200
++++ busybox-1.2.0/miscutils/Config.in	2006-07-03 17:45:53.000000000 +0200
+@@ -325,7 +325,7 @@
+ 	  When the command finishes, time writes a message to standard output
+ 	  giving timing statistics about this program run.
+ 
+-config CONFIG_WATCHDOG
++config CONFIG_BB_WATCHDOG
+ 	bool "watchdog"
+ 	default n
+ 	help
+diff -Naur busybox-1.2.0-orig/miscutils/Makefile.in busybox-1.2.0/miscutils/Makefile.in
+--- busybox-1.2.0-orig/miscutils/Makefile.in	2006-07-01 00:42:09.000000000 +0200
++++ busybox-1.2.0/miscutils/Makefile.in	2006-07-03 17:45:53.000000000 +0200
+@@ -29,7 +29,7 @@
+ MISCUTILS-$(CONFIG_SETSID)      += setsid.o
+ MISCUTILS-$(CONFIG_STRINGS)     += strings.o
+ MISCUTILS-$(CONFIG_TIME)        += time.o
+-MISCUTILS-$(CONFIG_WATCHDOG)    += watchdog.o
++MISCUTILS-$(CONFIG_BB_WATCHDOG) += watchdog.o
+ 
+ ifneq ($(strip $(MISCUTILS-y)),)
+ libraries-y+=$(MISCUTILS_DIR)$(MISCUTILS_AR)
+diff -Naur busybox-1.2.0-orig/networking/ifupdown.c busybox-1.2.0/networking/ifupdown.c
+--- busybox-1.2.0-orig/networking/ifupdown.c	2006-07-01 00:42:02.000000000 +0200
++++ busybox-1.2.0/networking/ifupdown.c	2006-07-03 17:45:53.000000000 +0200
+@@ -916,7 +916,7 @@
+ 
+ static int execute_all(struct interface_defn_t *ifd, const char *opt)
+ {
+-	int i;
++	int i, fd;
+ 	char *buf;
+ 	for (i = 0; i < ifd->n_options; i++) {
+ 		if (strcmp(ifd->option[i].name, opt) == 0) {
+@@ -926,9 +926,13 @@
+ 		}
+ 	}
+ 
+-	buf = bb_xasprintf("run-parts /etc/network/if-%s.d", opt);
+-	if (doit(buf) != 1) {
+-		return 0;
++	buf = bb_xasprintf("/etc/network/if-%s.d", opt);
++	if ((fd = open(buf, O_RDONLY)) >= 0) {
++		close(fd);
++		buf = bb_xasprintf("run-parts /etc/network/if-%s.d", opt);
++		if (doit(buf) != 1) {
++			return 0;
++		}
+ 	}
+ 	return 1;
+ }

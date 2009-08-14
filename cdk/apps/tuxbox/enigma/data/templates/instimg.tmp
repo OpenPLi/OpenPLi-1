@@ -1,0 +1,39 @@
+#!/bin/sh
+echo "image installation is starting..." $1 $2 $3 > /tmp/instimg.log
+i=0;
+while pidof enigma > /dev/null ; do
+	if [ $i -gt 14 ] ; then
+		echo "enigma is not terminating itself... so, killing it" >> /tmp/instimg.log
+		killall -9 enigma
+	else
+		pids=`pidof enigma`
+		echo "waiting for enigma to terminate:" $pids "..." >> /tmp/instimg.log
+	fi
+	sleep 1
+	let i=i+1	
+done
+echo "enigma has shut down... continuing with image installation..." >> /tmp/instimg.log
+rm -rf /tmp/image
+mkdir /tmp/image
+# install cramfs
+mount -t cramfs $2 /tmp/image -o loop
+cp -a /tmp/image/. $1
+umount /tmp/image
+rm $2
+rm $1/root/platform/kernel/os
+echo "cramfs installed." >> /tmp/instimg.log
+# install squashfs
+mount -t squashfs $3 /tmp/image -o loop
+cp -a /tmp/image/. $1
+umount /tmp/image
+rm $3
+echo "squashfs installed." >> /tmp/instimg.log
+# prepare var
+rm -rf /tmp/image
+rm -rf $1/var
+mv $1/var_init $1/var
+touch $1/var/.init
+echo "var constructed." >> /tmp/instimg.log
+rm /var/etc/.dont_restart_enigma
+echo "restarting enigma... done." >> /tmp/instimg.log
+exit

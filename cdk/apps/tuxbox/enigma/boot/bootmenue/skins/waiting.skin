@@ -1,0 +1,15 @@
+#startmenu-skin-file
+
+#creator mechatron, digi_casi
+
+#first-line=x,y,font-size,r,g,b
+first-line=120,185,30,0,0,0
+
+#menu-size=left,top,x-size, y-size
+menu-size=120,195,320,180
+
+#select-color=r,g,b
+select-color=144,147,250
+
+#string-color=r,g,b
+string-color=0,0,0

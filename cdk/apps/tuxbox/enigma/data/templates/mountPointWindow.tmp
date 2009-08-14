@@ -1,0 +1,110 @@
+<html>
+<head>
+	<title>#TITLE#</title>
+</head>
+<body onUnload="parent.window.opener.location.reload(true)">
+<form name="mountpoint" action="#ACTION#">
+	<input name="action" type="hidden" value="#CMD#">
+	<input name="id" type="hidden" value="#ID#">
+	<table border=0 cellspacing=5 cellpadding=0>
+	<tr>
+		<td>
+			<table border=0 cellspacing=5 cellpadding=0>
+			<tr>
+				<td>Description: </td>
+				<td><input name="description" type="text" size="50" maxlength="50" value="#DESCRIPTION#"></td>
+			</tr>
+			<tr>
+				<td>Filesystem Type: </td>
+				<td><input name="fstype" type="text" size="1" maxlength="1" value="#FSTYPE#">&nbsp;&nbsp;(0 = NFS, 1 = CIFS, 2 = SMBFS)</td>
+			</tr>
+			<tr>
+				<td>Auto Mount: </td>
+				<td><input type="checkbox" name="automount" value="on" #AUTO#></td>
+			</tr>
+			<tr>
+				<td>Client Directory: </td>
+				<td><input name="localdir" type="text" size="50" maxlength="50" value="#LDIR#"></td>
+			</tr>
+			<tr>
+				<td>Server Directory: </td>
+				<td><input name="mountdir" type="text" size="50" maxlength="50" value="#MDIR#"></td>
+			</tr>
+			<tr>
+				<td>Remote Host Name/IP: </td>
+				<td><input name="remotehost" type="text" size="50" maxlength="50" value="#MHOST#"></td>
+			</tr>
+			<tr>
+				<td>User Name: </td>
+				<td><input name="username" type="text" size="50" maxlength="50" value="#USER#"></td>
+			</tr>
+			<tr>
+				<td>Password: </td>
+				<td><input name="password" type="text" size="50" maxlength="50" value="#PW#"></td>
+			</tr>
+			<tr>
+				<td>Options: </td>
+				<td><input name="options" type="text" size="50" maxlength="50" value="#OPTIONS#"></td>
+			</tr>
+			</table>
+		</td>
+		<td>
+			<table border=0 cellspacing=5 cellpadding=0>
+			<tr>
+				<td>sync: </td>
+				<td><input type="checkbox" name="sync" value="on" #SYNC#></td>
+			</tr>
+			<tr>
+				<td>atime: </td>
+				<td><input type="checkbox" name="atime" value="on" #ATIME#></td>
+			</tr>
+			<tr>
+				<td>execm: </td>
+				<td><input type="checkbox" name="execm" value="on" #EXECM#></td>
+			</tr>
+			<tr>
+				<td>noexec: </td>
+				<td><input type="checkbox" name="noexec" value="on" #NOEXEC#></td>
+			</tr>
+			<tr>
+				<td>ro: </td>
+				<td><input type="checkbox" name="ro" value="on" #RO#></td>
+			</tr>
+			<tr>
+				<td>rw: </td>
+				<td><input type="checkbox" name="rw" value="on" #RW#></td>
+			</tr>
+			<tr>
+				<td>users: </td>
+				<td><input type="checkbox" name="users" value="on" #USERS#></td>
+			</tr>
+			<tr>
+				<td>nolock: </td>
+				<td><input type="checkbox" name="nolock" value="on" #NOLOCK#></td>
+			</tr>
+			<tr>
+				<td>intr: </td>
+				<td><input type="checkbox" name="intr" value="on" #INTR#></td>
+			</tr>
+			<tr>
+				<td>soft: </td>
+				<td><input type="checkbox" name="soft" value="on" #SOFT#></td>
+			</tr>
+			<tr>
+				<td>tcp: </td>
+				<td><input type="checkbox" name="tcp" value="on" #TCP#></td>
+			</tr>
+			<tr>
+				<td>linux ext.: </td>
+				<td><input type="checkbox" name="linuxextensions" value="on" #LINUXEXTENSIONS#></td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=4><input type="submit" style="width:100px; height:22px; color:#000000;" value="Save"></td>
+	</tr>
+	</table>
+</form>
+</body>
+</html>

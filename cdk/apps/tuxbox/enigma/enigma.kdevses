@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE KDevPrjSession>
+<KDevPrjSession>
+ <LastCompileConfig>(Default)</LastCompileConfig>
+ <Mainframe MaximizeMode="1" />
+ <DocsAndViews NumberOfDocuments="20" >
+  <Doc0 CursorPosLine="25" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/gdi/glcddc.h" >
+   <View0 Top="26" Width="400" Attach="1" Height="300" Left="3" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc0>
+  <Doc1 CursorPosLine="54" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/gdi/lcd.h" >
+   <View0 Top="50" Width="854" Attach="1" Height="491" Left="27" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc1>
+  <Doc2 CursorPosLine="11" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/gui/ebutton.h" >
+   <View0 Top="74" Width="854" Attach="1" Height="491" Left="51" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc2>
+  <Doc3 CursorPosLine="446" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/gui/ewidget.h" >
+   <View0 Top="98" Width="1144" Attach="1" Height="238" Left="75" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc3>
+  <Doc4 CursorPosLine="24" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/gui/listbox.h" >
+   <View0 Top="122" Width="1144" Attach="1" Height="238" Left="99" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc4>
+  <Doc5 CursorPosLine="60" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/picviewer/pictureviewer.h" >
+   <View0 Top="146" Width="1144" Attach="1" Height="238" Left="123" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc5>
+  <Doc6 CursorPosLine="18" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/lib/dvb/dvbwidgets.cpp" >
+   <View0 Top="170" Width="1144" Attach="1" Height="238" Left="147" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc6>
+  <Doc7 CursorPosLine="54" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/lib/gdi/glcddc.cpp" >
+   <View0 Top="194" Width="1144" Attach="1" Height="238" Left="171" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc7>
+  <Doc8 CursorPosLine="29" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/lib/gdi/grc.cpp" >
+   <View0 Top="218" Width="1144" Attach="1" Height="238" Left="195" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc8>
+  <Doc9 CursorPosLine="62" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/enigma.h" >
+   <View0 Top="26" Width="1144" Attach="1" Height="238" Left="219" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc9>
+  <Doc10 CursorPosLine="102" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/enigma_lcd.h" >
+   <View0 Top="50" Width="1144" Attach="1" Height="238" Left="243" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc10>
+  <Doc11 CursorPosLine="653" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/enigma_main.h" >
+   <View0 Top="74" Width="1144" Attach="1" Height="238" Left="267" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc11>
+  <Doc12 CursorPosLine="42" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/enigma_mainmenu.h" >
+   <View0 Top="98" Width="1144" Attach="1" Height="238" Left="291" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc12>
+  <Doc13 CursorPosLine="155" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/scan.h" >
+   <View0 Top="122" Width="1144" Attach="1" Height="238" Left="315" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc13>
+  <Doc14 CursorPosLine="41" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/setup_lcd.h" >
+   <View0 Top="146" Width="1144" Attach="1" Height="238" Left="339" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc14>
+  <Doc15 CursorPosLine="23" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/system_settings.h" >
+   <View0 Top="170" Width="1144" Attach="1" Height="238" Left="363" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc15>
+  <Doc16 CursorPosLine="163" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/dvb/dvbservice.h" >
+   <View0 Top="194" Width="1144" Attach="1" Height="238" Left="387" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc16>
+  <Doc17 CursorPosLine="159" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/include/lib/dvb/edvb.h" >
+   <View0 Top="218" Width="1144" Attach="1" Height="238" Left="411" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc17>
+  <Doc18 CursorPosLine="57" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/enigma_ci.h" >
+   <View0 Top="26" Width="1144" Attach="1" Height="238" Left="435" Focus="0" Type="KWriteView" MinMaxMode="0" />
+  </Doc18>
+  <Doc19 CursorPosLine="11" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/ghost/hdb/tuxbox-cvs-dm7000/apps/tuxbox/enigma/src/enigma_setup.h" >
+   <View0 Top="24" Width="1150" Attach="1" Height="267" Left="456" Focus="1" Type="KWriteView" MinMaxMode="2" />
+  </Doc19>
+ </DocsAndViews>
+ <pluginList>
+  <kdevbookmarks>
+   <bookmarks/>
+  </kdevbookmarks>
+  <kdevsubversion>
+   <subversion recurseresolve="1" recurserelocate="1" recursemerge="1" recursecommit="1" base="" recursepropget="1" recurseswitch="1" recurseupdate="1" recursepropset="1" recursediff="1" recurserevert="1" forcemove="1" recursecheckout="1" forceremove="1" recurseadd="1" recurseproplist="1" forcemerge="1" />
+  </kdevsubversion>
+  <kdevvalgrind>
+   <executable path="" params="" />
+   <valgrind path="valgrind" params=" --leak-check=yes" />
+   <calltree path="" params="" />
+   <kcachegrind path="" />
+  </kdevvalgrind>
+  <kdevdebugger>
+   <breakpointList/>
+  </kdevdebugger>
+ </pluginList>
+</KDevPrjSession>

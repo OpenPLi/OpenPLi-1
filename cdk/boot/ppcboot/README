@@ -1,0 +1,1117 @@
+#
+# (C) Copyright 2000
+# Wolfgang Denk, DENX Software Engineering, wd@denx.de.
+#
+# See file CREDITS for list of people who contributed to this
+# project.
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307 USA
+#
+
+Summary:
+========
+
+This directory contains the source code for PPCBoot, a monitor for
+Embedded PowerPC boards, which can be installed in a boot ROM and
+used to test the hardware or download and run application code.
+
+The development of PPCBoot is closely related to Linux: some parts of
+the source code originate in the Linux source tree, we still have
+some header files in common, and special provision has been made to
+support booting of Linux images.
+
+Some attention has been paid to make this software easily
+configurable and extendable. For instance, all monitor commands are
+implemented with the same call interface, so that it's very easy to
+add new commands. Also, instead of permanently adding rarely used
+code (for instance hardware test utilities) to the monitor, you can
+load and run it dynamically.
+
+
+Where we come from:
+===================
+
+- start from 8xxrom sources
+- clean up code
+- make it easier to add custom boards
+- eventually make it possible to add other [PowerPC] CPUs
+- extend functions, especially:
+  * Provide extended interface to Linux boot loader
+  * S-Record download
+  * network boot
+  * PCMCIA / ATA disk boot
+
+
+Directory Hierarchy:
+====================
+
+- common	Misc architecture independend functions
+- doc		Documentation (don't expect too much)
+- examples	Example code for standalone applications, etc.
+- include	Header Files
+- disk		Harddisk interface code
+- net		Networking code
+- ppc		Files generic to PowerPC architecture
+- tools		Tools to build S-Record or PPCBoot images, etc.
+
+- mpc8xx	Files specific to Motorola MPC8xx  CPUs
+- mpc8240	Files specific to Motorola MPC8240 CPU
+- mpc8260	Files specific to Motorola MPC8260 CPU
+- ppc4xx	Files specific to IBM      4xx     CPUs
+
+- adciop	Files specific to ADCIOP   boards
+- cogent	Files specific to Cogent   boards
+		(need further configuration)
+- cpci405	Files specific to CPCI405  boards
+- etx094	Files specific to ETX_094  boards
+- fads		Files specific to FADS     boards
+- genietv	Files specific to GENIETV  boards
+- hymod		Files specific to HYMOD    boards
+- ivms8		Files specific to IVMS8    boards
+- mbx8xx	Files specific to MBX      boards
+- spd8xx	Files specific to SPD8xxTS boards
+- sandpoint	Files specific to Sandpoint boards
+- tqm8xx	Files specific to TQM8xxL  boards
+
+
+Software Configuration:
+=======================
+
+Configuration is usually done using C preprocessor defines; the
+rationale behind that is to avoid dead code whenever possible.
+
+There are two classes of configuration variables:
+
+* Configuration _OPTIONS_:
+  These are selectable by the user and have names beginning with
+  "CONFIG_".
+
+* Configuration _SETTINGS_:
+  These depend on the hardware etc. and should not be meddled with if
+  you don't know what you're doing; they have names beginning with
+  "CFG_".
+
+Later we will add a configuration tool - probably similar to or even
+identical to what's used for the Linux kernel. Right now, we have to
+do the configuration by hand, which means creating some symbolic
+links and editing some configuration files. We use the TQM8xxL boards
+as an example here.
+
+
+Selection of Processor Architecture and Board Type:
+---------------------------------------------------
+
+For all supported boards there are ready-to-use default
+configurations available; just type "make <board_name>_config".
+
+Example: For a TQM823L module type:
+
+	cd ppcboot
+	make TQM823L_config
+
+For the Cogent platform, you need to specify the cpu type as well;
+e.g. "make cogent_mpc8xx_config". And also configure the cogent
+directory according to the instructions in cogent/README.
+
+
+Configuration Options:
+----------------------
+
+Configuration depends on the combination of board and CPU type; all
+such information is kept in a configuration file
+"include/config_<board_name>.h".
+
+Example: For a TQM823L module, all configuration settings are in
+"include/config_TQM823L.h".
+
+
+The following options need to be configured:
+
+- CPU Type:	Define exactly one of
+		CONFIG_MPC823, CONFIG_MPC850, CONFIG_MPC855, CONFIG_MPC860
+	or	CONFIG_IOP480
+	or	CONFIG_PPC405GP
+	or	CONFIG_MPC8260
+
+- Board Type:	Define exactly one of
+		CONFIG_TQM823L, CONFIG_TQM850L, CONFIG_TQM855L,
+		CONFIG_TQM860L, CONFIG_ETX094,	CONFIG_ADCIOP,
+		CONFIG_CPCI405, CONFIG_COGENT,	CONFIG_FADS,
+		CONFIG_SPD823TS,CONFIG_FPS850L, CONFIG_MBX,
+		CONFIG_SM850
+--- FIXME --- not tested yet:
+		CONFIG_TQM860,	CONFIG_ADS,
+		CONFIG_RPXLITE, CONFIG_RPXCLASSIC, CONFIG_BSEIP,
+		CONFIG_HYMOD
+
+- CPU Module Type: (if CONFIG_COGENT is defined)
+		Define exactly one of
+		CONFIG_CMA286_60_OLD
+--- FIXME --- not tested yet:
+		CONFIG_CMA286_60, CONFIG_CMA286_21, CONFIG_CMA286_60P,
+		CONFIG_CMA287_23, CONFIG_CMA287_50
+
+- Motherboard Type: (if CONFIG_COGENT is defined)
+		Define exactly one of
+		CONFIG_CMA101, CONFIG_CMA102
+
+- Motherboard I/O Modules: (if CONFIG_COGENT is defined)
+		Define one or more of
+		CONFIG_CMA302
+
+- Motherboard Options: (if CONFIG_CMA101 or CONFIG_CMA102 are defined)
+		Define one or more of
+		CONFIG_LCD_HEARTBEAT	- update a character position on
+					  the lcd display every second with
+					  a "rotator" |\-/|\-/
+
+- 8xx CPU Options: (if using an 8xx cpu)
+		Define one or more of
+		CONFIG_8xx_GCLK_FREQ	- if get_gclk_freq() can not work e.g.
+					  no 32KHz reference PIT/RTC clock
+
+- Console Interface:
+		Define exactly one of
+		CONFIG_8xx_CONS_SMC1, CONFIG_8xx_CONS_SMC2 or
+		CONFIG_8xx_CONS_NONE
+
+                Note: if CONFIG_8xx_CONS_NONE is defined, the serial
+                port routines must be defined elsewhere
+		(i.e. serial_init(), serial_getc(), ...)
+
+- Console Baudrate:
+		CONFIG_BAUDRATE - in bps
+		Select one of 9600, 19200, 38400, 57600, 115200
+		(or 230400 if CONFIG_COGENT is defined)
+
+- Boot Delay:	CONFIG_BOOTDELAY - in seconds
+		Delay before automatically booting the default image;
+		set to 0 to disable autoboot.
+
+- Autoboot Command:
+		CONFIG_BOOTCOMMAND
+		Only needed when CONFIG_BOOTDELAY is enabled;
+		define a command string thatis automatically executed
+		when no character is read on the console interface
+		withing "Boot Delay" after reset.
+
+- Serial Download Echo Mode:
+		CONFIG_LOADS_ECHO
+		If defined to 1, all characters received during a
+		serial download (using the "loads" command) are
+		echoed back. This might be needed by some terminal
+		emulations (like "cu"), but may as well just take
+		time on others. This setting #define's the initial
+		value of the "loads_echo" environment variable.
+
+- Binary File Download (Kermit mode):
+		CONFIG_LOADB
+		If defined, the "loadb" command will be added which
+		allows to download binary files over the serial line
+		using Kermit protocol.
+
+- Kgdb Serial Baudrate:	(if CFG_CMD_KGDB is defined)
+		CONFIG_KGDB_BAUDRATE
+		Select one of 9600, 19200, 38400, 57600, 115200
+		(or 230400 if CONFIG_COGENT is defined)
+
+- Monitor Functions:
+		CONFIG_COMMANDS
+                Most monitor functions can be selected (or
+                de-selected) by adjusting the definition of
+                CONFIG_COMMANDS; to select individual functions,
+                #define CONFIG_COMMANDS by "OR"ing any of the
+                following values:
+
+		#define enables commands:
+		-------------------------
+		CFG_CMD_BDI	bdinfo
+		CFG_CMD_LOADS	loads
+		CFG_CMD_LOADB	loadb
+		CFG_CMD_IMI	iminfo
+		CFG_CMD_CACHE	icache, dcache
+		CFG_CMD_FLASH	flinfo, erase, protect
+		CFG_CMD_MEMORY	md, mm, nm, mw, cp, cmp, crc, base,
+				loop, mtest
+		CFG_CMD_NET	bootp, tftpboot, rarpboot
+		CFG_CMD_ENV	saveenv
+		CFG_CMD_KGDB	kgdb
+		-------------------------
+		CFG_CMD_ALL	all
+
+                CFG_CMD_DFL	Default configuration; at the moment
+                                this is defined as
+				(CFG_CMD_ALL & ~(CFG_CMD_KGDB))
+				= everything except KGDB
+
+		If you don't define CONFIG_COMMANDS it defaults to
+CFG_CMD_DFL .
+
+		EXAMPLE: If you want all functions except of network
+		support you can write:
+
+		#define	CONFIG_COMMANDS (CFG_CMD_ALL & ~CFG_CMD_NET)
+
+- Watchdog:
+		CONFIG_WATCHDOG
+                If this variable is defined, it enables watchdog
+                support. There must support in the platform specific
+                code for a watchdog. For the 8xx and 8260 CPUs, the
+                SIU Watchdog feature is enabled in the SYPCR
+                register.
+
+
+
+Configuration Settings:
+-----------------------
+
+- CFG_LONGHELP: Defined when you want long help messages included;
+		undefine this when you're short of memory.
+
+- CFG_PROMPT:	This is what PPCBoot prints on the console to
+		prompt for user input.
+
+- CFG_CBSIZE:	Buffer size for input from the Console
+
+- CFG_PBSIZE:	Buffer size for Console output
+
+- CFG_MAXARGS:	max. Number of arguments accepted for monitor commands
+
+- CFG_BARGSIZE: Buffer size for Boot Arguments which are passed to
+		the application (usually a Linux kernel) when it is
+		bootet
+
+- CFG_MEMTEST_START, CFG_MEMTEST_END:
+		Begin and End addresses of the area used by the
+		simple memory test.
+
+- CFG_TFTP_LOADADDR:
+		Default load address for network file downloads
+
+- CFG_LOADS_BAUD_CHANGE:
+		Enable temporary baudrate change while serial download
+
+- CFG_SDRAM_BASE:
+		Physical start address of SDRAM. _Must_ be 0 here.
+
+- CFG_MBIO_BASE:
+		Physical start address of Motherboard I/O (if using a
+		Cogent motherboard)
+
+- CFG_FLASH_BASE:
+		Physical start address of Flash memory.
+
+- CFG_MONITOR_BASE:
+                Physical start address of boot monitor code (set by
+                make config files to be same as the text base address
+                (TEXT_BASE) used when linking) - same as
+                CFG_FLASH_BASE when booting from flash.
+
+- CFG_MONITOR_LEN:
+		Size of memory reserved for monitor code
+
+- CFG_MALLOC_LEN:
+		Size of DRAM reserved for malloc() use.
+
+- CFG_BOOTMAPSZ:
+                Maximum size of memory mapped by the startup code of
+                the Linux kernel; all data that must be processed by
+                the Linux kernel (bd_info, boot arguments, eventually
+                initrd image) must be put below this limit.
+
+- CFG_MAX_FLASH_BANKS:
+		Max number of Flash memory banks
+
+- CFG_MAX_FLASH_SECT:
+		Max number of sectors on a Flash chip
+
+- CFG_FLASH_ERASE_TOUT:
+		Timeout for Flash erase operations (in ms)
+
+- CFG_FLASH_WRITE_TOUT:
+		Timeout for Flash write operations (in ms)
+
+- CFG_FLASH_ENV_OFFSET
+		Offset of envrionment data (aka NVRAM area) to the
+		beginning of flash memory; for instance, to with
+		bottom boot type flash chips the second sector will
+		be used; in our example configuration, the offset for
+		this sector is 0x8000.
+
+                BE CAREFUL! Any changes to the flash layout, and some
+                changes to the source code will make it necessary to
+                adapt <board>/ppcboot.lds* accordingly!
+
+                If you are not booting from flash, or want to have
+                the environment separate from the monitor code for
+                some reason, then don't define this, define
+                CFG_FLASH_ENV_ADDR below. You will need to reflect
+                this in your ppcboot.lds linker script.
+
+- CFG_FLASH_ENV_SIZE:
+		Size of the flash sector(s) used for the environment.
+		If you have very large flash sectors, keep this small
+		(4K?) and define CFG_FLASH_ENV_BUF below.
+
+- CFG_FLASH_ENV_ADDR:
+                Address of the non-volatile environment (usually
+                within flash). This setting over-rides
+                CFG_FLASH_ENV_OFFSET and is usually used if booting
+                from EPROM or some other non-modifiable media, and
+                hence the non-volatile area where the environment is
+                stored must be separate from the area where the
+                monitor boot code is stored.
+
+                Before the monitor is relocated into RAM, the
+                environment located at this address will be
+                referenced directly (if it is valid, as indicated by
+                a signature at the start of the environment - if it
+                isn't valid, the default environment will *silently*
+                be used). This is because until the monitor is
+                relocated, the "in-memory" environment will actually
+                be in ROM (in the BSS area) and therefore not valid.
+
+                In other words, the environment should be considered
+                to be "read-only" until the monitor is relocated.
+
+                Note: once the monitor has been relocated, then it
+                will complain if the default environment is used - it
+                had to be silent before that because the serial
+                console might not have been usable.
+
+                Note2: you must edit your ppcboot.lds file to reflect
+                this configuration. The label "env_offset" will not
+                be defined which should provide a good warning signal
+                if you forget.
+
+- CFG_FLASH_ENV_BUF:
+                If this is defined, then it's value is the number of
+                bytes in the flash sector where the environment is
+                stored, and this much space will be reserved between
+                the board info structure and the top of the stack
+                (see board_init_f()).
+
+                This space will be used as an intermediate buffer for
+                writing the environment into flash. This allows the
+                environment size (CFG_FLASH_ENV_SIZE) to be smaller
+                than the size of a flash sector. Useful if you have
+                huge sectors, as with the Cogent CMA302 Flash I/O
+                module, which has 512KB sectors.
+
+                This is only really useful if you aren't booting from
+                flash (if you are, then the environment will
+                automatically be in the flash) i.e.
+                CFG_FLASH_ENV_ADDR is defined above.
+
+
+Many of the remaining options are named exactly as the corresponding
+Linux kernel configuration options. The intention is to make it
+easier to build a config tool - later.
+
+Low Level (hardware related) configuration options:
+
+- CFG_CACHELINE_SIZE:
+		Cache Line Size of the CPU.
+
+- CFG_IMMR:	Physical address of the Internal Memory Mapped
+		Register; DO NOT CHANGE! (11-4)
+		[MPC8xx systems only]
+
+- CFG_SIUMCR:	SIU Module Configuration (11-6)
+
+- CFG_SYPCR:	System Protection Control (11-9)
+
+- CFG_TBSCR:	Time Base Status and Control (11-26)
+
+- CFG_PISCR:	Periodic Interrupt Status and Control (11-31)
+
+- CFG_PLPRCR:	PLL, Low-Power, and Reset Control Register (15-30)
+
+- CFG_SCCR:	System Clock and reset Control Register (15-27)
+
+- CFG_OR_TIMING_SDRAM:
+		SDRAM timing
+
+- CFG_MAMR_PTA:
+		periodic timer for refresh
+
+- CFG_DER:	Debug Event Register (37-47)
+
+- FLASH_BASE0_PRELIM, FLASH_BASE1_PRELIM, CFG_REMAP_OR_AM,
+  CFG_PRELIM_OR_AM, CFG_OR_TIMING_FLASH, CFG_OR0_REMAP,
+  CFG_OR0_PRELIM, CFG_BR0_PRELIM, CFG_OR1_REMAP, CFG_OR1_PRELIM,
+  CFG_BR1_PRELIM:
+		Memory Controller Definitions: BR0/1 and OR0/1 (FLASH)
+
+- SDRAM_BASE2_PRELIM, SDRAM_BASE3_PRELIM, SDRAM_MAX_SIZE,
+  CFG_OR_TIMING_SDRAM, CFG_OR2_PRELIM, CFG_BR2_PRELIM,
+  CFG_OR3_PRELIM, CFG_BR3_PRELIM:
+		Memory Controller Definitions: BR2/3 and OR2/3 (SDRAM)
+
+- CFG_MAMR_PTA, CFG_MPTPR_2BK_4K, CFG_MPTPR_1BK_4K, CFG_MPTPR_2BK_8K,
+  CFG_MPTPR_1BK_8K, CFG_MAMR_8COL, CFG_MAMR_9COL:
+		Machine Mode Register and Memory Periodic Timer
+		Prescaler definitions (SDRAM timing)
+
+
+Building the Software:
+======================
+
+Building PPCBoot has been tested in native PPC environments (on a
+PowerBook G# running LinuxPPC 2000) and in cross environments
+(running RedHat 6.0 and 6.2 Linux on x86, and Solaris 2.6 on a
+SPARC).
+
+PPCBoot is intended to be  simple  to  build.  After  installing  the
+sources	 you must configure PPCBoot for one specific board type. This
+is done by typing:
+
+	make NAME_config
+
+where "NAME_config" is the name of one of the existing
+configurations; the following names are suported:
+
+	TQM823L_config
+	TQM850L_config
+	TQM860L_config
+	ETX094_config
+	CPCI405_config
+	ADCIOP_config
+	FADS850SAR_config
+	SPD823TS_config
+	cogent_mpc8xx_config
+	MBX_config
+
+
+If the system board that you have is not listed, then you will need
+to port PPCBoot to your hardware platform. To do this, follow these
+steps:
+
+1.  Add a new configuration option for your board to the toplevel
+    "Makefile", using the existing entries as examples.
+2.  Create a new directory to hold your board specific code. Add any
+    files you need.
+3.  If you're porting PPCBoot to a new CPU, then also create a new
+    directory to hold your CPU specific code. Add any files you need.
+4.  Run "make config_name" with your new name.
+5.  Type "make", and you should get a working "ppcboot.srec" file
+    to be installed on your target system.
+    [Of course, this last step is much harder than it sounds.]
+
+
+
+Monitor Commands - Overview:
+============================
+
+go	- start application at address 'addr'
+bootm	- boot application image from memory
+bootp	- boot image via network using BootP/TFTP protocol
+tftpboot- boot image via network using TFTP protocol
+	       and env variables ipaddr and serverip
+rarpboot- boot image via network using RARP/TFTP protocol
+loads	- load S-Record file over serial line
+md	- memory display
+mm	- memory modify (auto-incrementing)
+nm	- memory modify (constant address)
+mw	- memory write (fill)
+cp	- memory copy
+crc32	- checksum calculation
+base	- print or set address offset
+printenv- print environment variables
+setenv	- set environment variables
+saveenv - save environment variables to persistent storage
+bdinfo	- print Board Info structure
+flinfo	- print FLASH memory information
+iminfo	- print header information for application image
+erase	- erase FLASH memory
+protect - enable or disable FLASH write protection
+loop	- infinite loop on address range
+mtest	- simple RAM test
+icache	- enable or disable instruction cache
+dcache	- enable or disable data cache
+reset	- Perform RESET of the CPU
+version - print monitor version
+help	- print online help
+?	- alias for 'help'
+
+
+Monitor Commands - Detailed Description:
+========================================
+
+TODO.
+
+For now: just type "help <command>".
+
+
+Environment Variables:
+======================
+
+PPCBoot supports user configuration using Environment Variables which
+can be made persistent by saving to Flash memory.
+
+Environment Variables are set using "setenv", printed using
+"printenv", and saved to Flash using "saveenv". Using "setenv"
+without a value can be used to delete a variable from the
+environment. As long as you don't save the environment you are
+working with an in-memory copy. In case the Flash area containing the
+environment is erased by accident, a default environment is provided.
+
+Some configuration options can be set using Environment Variables:
+
+bootdelay	- see CONFIG_BOOTDELAY
+bootcmd		- see CONFIG_BOOTCOMMAND
+baudrate	- see CONFIG_BAUDRATE
+bootargs	- Boot arguments when booting an RTOS image
+loads_echo	- see CONFIG_LOADS_ECHO
+ipaddr		- IP address; needed for tftpboot command
+serverip	- TFTP server IP address; needed for tftpboot command
+autostart	- if set to "yes", an image loaded using the "bootp",
+		  "rarpboot" or "tftpboot" commands will be
+		  automatically started (by internally calling
+		  "bootm")
+
+initrd_high	- restrict positioning of initrd images:
+                  If this variable is not set, initrd images will be
+                  copied to the highest possible address in RAM; this
+                  is usually what you want since it allows for
+                  maximum initrd size. If for some reason you want to
+                  make sure that the initrd image is loaded below the
+                  CFG_BOOTMAPSZ limit, you can set this environment
+                  variable to a value of "no" or "off" or "0".
+                  Alternatively, you can set it to a maximum upper
+                  address to use (PPCBoot will still check that it
+                  does not overwrite the PCBoot stack and data).
+
+                  For instance, when you have a system with 16 MB
+                  RAM, and want to resever 4 MB from use by Linux,
+                  you can do this by adding "mem=12M" to the value of
+                  the "bootargs" variable. However, now you must make
+                  sure, that the initrd image is placed in t he first
+                  12 MB as well - this can be done with
+
+		  setenv initrd_high 00c00000
+                  
+
+There are two special Environment Variables:
+
+serial#		- contains hardware identification information such
+		  as type string and/or serial number
+ethaddr		- Ethernet address
+
+These variables can be set only once (usually during manufacturing of
+the board). PPCBoot refuses to delete or overwrite these variables
+once they have been set once.
+
+Please note that changes to  configuration  parameters	usually	 take
+only effect after the next boot (yes, that's just like Windoze :-).
+
+
+
+Image Formats:
+==============
+
+The "boot" commands of this monitor operate on "image" files which
+can be basicly anything, preceeded by a special header; see the
+definitions in include/image.h for details; basicly, the header
+defines the following image properties:
+
+* Target Operating System (Provisions for OpenBSD, NetBSD, FreeBSD,
+  4.4BSD, Linux, SVR4, Esix, Solaris, Irix, SCO, Dell, NCR, VxWorks,
+  LynxOS, pSOS, QNX; Currently supported: Linux).
+* Target CPU Architecture (Provisions for Alpha, ARM, Intel x86,
+  IA64, MIPS, MIPS, PowerPC, IBM S390, SuperH, Sparc, Sparc 64 Bit;
+  Currently supported: PowerPC).
+* Compression Type (Provisions for uncompressed, gzip, bzip2;
+  Currently supported: uncompressed, gzip).
+* Load Address
+* Entry Point
+* Image Name
+* Image Timestamp
+
+The header is marked by a special Magic Number, and both the header
+and the data portions of the image are secured against corruption by
+CRC32 checksums.
+
+
+Linux Support:
+==============
+
+Although PPCBoot should support any OS or standalone application
+easily, Linux has always been in the focus during the design of
+PPCBoot.
+
+PPCBoot includes many features that so far have been part of some
+special "boot loader" code within the Linux kernel. Also, any
+"initrd" images to be used are no longer part of one big Linux image;
+instead, kernel and "initrd" are separate images. This implementation
+serves serveral purposes:
+
+- the same features can be used for other OS or standalone
+  applications (for instance: using compressed images to reduce the
+  Flash memory footprint)
+
+- it becomes much easier to port new Linux kernel versions because
+  lots of low-level, hardware dependend stuff are done by PPCBoot
+
+- the same Linux kernel image can now be used with different "initrd"
+  images; of course this also means that different kernel images can
+  be run with the same "initrd". This makes testing easier (you don't
+  have to build a new "zImage.initrd" Linux image when you just
+  change a file in your "initrd"). Also, a field-upgrade of the
+  software is easier now.
+
+
+Linux HOWTO:
+============
+
+Porting Linux to PPCBoot based systems:
+---------------------------------------
+
+PPCBoot cannot save you from doing all the necessary modifications to
+configure the Linux device drivers for use with your target hardware
+(no, we don't intend to provide a full virtual machine interface to
+Linux :-).
+
+But now you can ignore ALL boot loader code (in arch/ppc/mbxboot).
+
+Just make sure your machine specific header file (for instance
+include/asm-ppc/tqm8xx.h) includes the same definition of the Board
+Information structure as we define in include/ppcboot.h, and make
+sure that your definition of IMAP_ADDR uses the same value as your
+PPCBoot configuration in CFG_IMMR.
+
+
+Configuring the Linux kernel:
+-----------------------------
+
+No specific requirements for PPCBoot. Make sure you have some root
+device (initial ramdisk, NFS) for your target system.
+
+
+Building a Linux Image:
+-----------------------
+
+No specific requirements for PPCBoot. There is no need to add a
+"ramdisk.image.gz" file when building the kernel, even when you
+intend to run it with initial ramdisk.
+
+Example:
+
+	make TQM850L_config
+	make oldconfig
+	make dep
+	make zImage
+
+However, we don't use the 'zImage' (= 'arch/ppc/mbxboot/zvmlinux') we
+build this way. The 'zImage' includes the old boot loader code which
+we don't ned any more. Instead, we use the raw (compressed) Linux
+kernel image in 'arch/ppc/coffboot/vmlinux.gz'.
+
+There is a special tool (in 'tools/mkimage') to encapsulate this
+image with header information, CRC32 checksum etc. for use with
+PPCBoot:
+
+In the first form (with "-l" option) mkimage  lists  the  information
+contained  in  the header of an existing PPCBoot image; this includes
+checksum verification:
+
+	tools/mkimage -l image
+	  -l ==> list image header information
+
+The second form (with "-d" option) is used to build a PPCBoot image
+from a "data file" which is used as image payload:
+
+	tools/mkimage -A arch -O os -T type -C comp -a addr -e ep \
+		      -n name -d data_file image
+	  -A ==> set architecture to 'arch'
+	  -O ==> set operating system to 'os'
+	  -T ==> set image type to 'type'
+	  -C ==> set compression type 'comp'
+	  -a ==> set load address to 'addr' (hex)
+	  -e ==> set entry point to 'ep' (hex)
+	  -n ==> set image name to 'name'
+	  -d ==> use image data from 'datafile'
+
+Right now, all Linux kernels use the same load address  (0x00000000),
+but the entry point address depends on the kernel version:
+
+- 2.2.x kernels have the entry point at 0x0000000C,
+- 2.3.x and 2.4.x kernels have the entry point at 0x00000000.
+
+So a typical call to build a PPCBoot image would read:
+
+	-> tools/mkimage -n '2.2.13 for initrd on TQM850L' \
+	> -A ppc -O linux -T kernel -C gzip -a 00000000 -e 0000000C \
+	> -d /opt/mpc8xx/src/linux-2.2.13/arch/ppc/coffboot/vmlinux.gz \
+	> examples/image-2.2.13-initrd
+	Image Name:   2.2.13 for initrd on TQM850L
+	Created:      Wed Jul 19 02:34:59 2000
+	Image Type:   PowerPC Linux Kernel Image (gzip compressed)
+	Data Size:    335725 Bytes = 327.86 kB = 0.32 MB
+	Load Address: 0x00000000
+	Entry Point:  0x0000000c
+
+To verify the contents of the image (or check for corruption):
+
+	-> tools/mkimage -l examples/image-2.2.13-initrd
+	Image Name:   2.2.13 for initrd on TQM850L
+	Created:      Wed Jul 19 02:34:59 2000
+	Image Type:   PowerPC Linux Kernel Image (gzip compressed)
+	Data Size:    335725 Bytes = 327.86 kB = 0.32 MB
+	Load Address: 0x00000000
+	Entry Point:  0x0000000c
+
+NOTE: for embedded systems where boot time is critical you can trade
+speed for memory and install an UNCOMPRESSED image instead: this
+needs more space in Flash, but boots much faster since it does not
+need to be uncompressed:
+
+	-> gunzip /opt/mpc8xx/src/linux-2.2.13/arch/ppc/coffboot/vmlinux.gz
+	-> tools/mkimage -n '2.2.13 for initrd on TQM850L' \
+	> -A ppc -O linux -T kernel -C none -a 00000000 -e 0000000C \
+	> -d /opt/mpc8xx/src/linux-2.2.13/arch/ppc/coffboot/vmlinux \
+	> examples/image-2.2.13-initrd-uncompressed
+	Image Name:   2.2.13 for initrd on TQM850L
+	Created:      Wed Jul 19 02:34:59 2000
+	Image Type:   PowerPC Linux Kernel Image (uncompressed)
+	Data Size:    792160 Bytes = 773.59 kB = 0.76 MB
+	Load Address: 0x00000000
+	Entry Point:  0x0000000c
+
+
+Similar you can build PPCBoot images from a 'ramdisk.image.gz' file
+when your kernel is intended to use an initial ramdisk:
+
+	-> tools/mkimage -n 'Simple Ramdisk Image' \
+	> -A ppc -O linux -T ramdisk -C gzip \
+	> -d /LinuxPPC/images/SIMPLE-ramdisk.image.gz examples/simple-initrd
+	Image Name:   Simple Ramdisk Image
+	Created:      Wed Jan 12 14:01:50 2000
+	Image Type:   PowerPC Linux RAMDisk Image (gzip compressed)
+	Data Size:    566530 Bytes = 553.25 kB = 0.54 MB
+	Load Address: 0x00000000
+	Entry Point:  0x00000000
+
+
+Installing a Linux Image:
+-------------------------
+
+To downloading a PPCBoot image over the serial (console) interface,
+you must convert the image to S-Record format:
+
+	objcopy -I binary -O srec examples/image examples/image.srec
+
+The 'objcopy' does not understand the information in the PPCBoot
+image header, so the resulting S-Record file will be relative to
+address 0x00000000. To load it to a given address, you need to
+specify the target address as 'offset' parameter with the 'loads'
+command.
+
+Example: install the image to address 0x40100000 (which on the
+TQM8xxL is in the first Flash bank):
+
+	=> erase 40100000 401FFFFF
+
+	.......... done
+	Erased 8 sectors
+
+	=> loads 40100000
+	## Ready for S-Record download ...
+	~>examples/image.srec
+	1 2 3 4 5 6 7 8 9 10 11 12 13 ...
+	...
+	15989 15990 15991 15992
+	[file transfer complete]
+	[connected]
+	## Start Addr = 0x00000000
+
+
+You can check the success of the download using the 'iminfo' command;
+this includes a checksum verification so you  can  be  sure  no	 data
+corruption happened:
+
+	=> imi 40100000
+
+	## Checking Image at 40100000 ...
+	   Image Name:	 2.2.13 for initrd on TQM850L
+	   Image Type:	 PowerPC Linux Kernel Image (gzip compressed)
+	   Data Size:	 335725 Bytes = 327 kB = 0 MB
+	   Load Address: 00000000
+	   Entry Point:	 0000000c
+	   Verifying Checksum ... OK
+
+
+
+Boot Linux:
+-----------
+
+The "bootm" command is used to boot an application that is stored in
+memory (RAM or Flash). In case of a Linux kernel image, the contents
+of the "bootargs" environment variable is passed to the kernel as
+parameters. You can check and modify this vriable using the
+"printenv" and "setenv" commands:
+
+
+	=> printenv bootargs
+	bootargs=root=/dev/ram
+
+	=> setenv bootargs root=/dev/nfs rw nfsroot=10.0.0.2:/LinuxPPC nfsaddrs=10.0.0.99:10.0.0.2
+
+	=> printenv bootargs
+	bootargs=root=/dev/nfs rw nfsroot=10.0.0.2:/LinuxPPC nfsaddrs=10.0.0.99:10.0.0.2
+
+	=> bootm 40020000
+	## Booting Linux kernel at 40020000 ...
+	   Image Name:	 2.2.13 for NFS on TQM850L
+	   Image Type:	 PowerPC Linux Kernel Image (gzip compressed)
+	   Data Size:	 381681 Bytes = 372 kB = 0 MB
+	   Load Address: 00000000
+	   Entry Point:	 0000000c
+	   Verifying Checksum ... OK
+	   Uncompressing Kernel Image ... OK
+	Linux version 2.2.13 (wd@denx.local.net) (gcc version 2.95.2 19991024 (release)) #1 Wed Jul 19 02:35:17 MEST 2000
+	Boot arguments: root=/dev/nfs rw nfsroot=10.0.0.2:/LinuxPPC nfsaddrs=10.0.0.99:10.0.0.2
+	time_init: decrementer frequency = 187500000/60
+	Calibrating delay loop... 49.77 BogoMIPS
+	Memory: 15208k available (700k kernel code, 444k data, 32k init) [c0000000,c1000000]
+	...
+
+If you want to boot a Linux kernel with initial ram disk, you pass
+the memory addreses of both the kernel and the initrd image (PPBCOOT
+format!) to the "bootm" command:
+
+	=> imi 40100000 40200000
+
+	## Checking Image at 40100000 ...
+	   Image Name:	 2.2.13 for initrd on TQM850L
+	   Image Type:	 PowerPC Linux Kernel Image (gzip compressed)
+	   Data Size:	 335725 Bytes = 327 kB = 0 MB
+	   Load Address: 00000000
+	   Entry Point:	 0000000c
+	   Verifying Checksum ... OK
+
+	## Checking Image at 40200000 ...
+	   Image Name:	 Simple Ramdisk Image
+	   Image Type:	 PowerPC Linux RAMDisk Image (gzip compressed)
+	   Data Size:	 566530 Bytes = 553 kB = 0 MB
+	   Load Address: 00000000
+	   Entry Point:	 00000000
+	   Verifying Checksum ... OK
+
+	=> bootm 40100000 40200000
+	## Booting Linux kernel at 40100000 ...
+	   Image Name:	 2.2.13 for initrd on TQM850L
+	   Image Type:	 PowerPC Linux Kernel Image (gzip compressed)
+	   Data Size:	 335725 Bytes = 327 kB = 0 MB
+	   Load Address: 00000000
+	   Entry Point:	 0000000c
+	   Verifying Checksum ... OK
+	   Uncompressing Kernel Image ... OK
+	## Loading RAMDisk Image at 40200000 ...
+	   Image Name:	 Simple Ramdisk Image
+	   Image Type:	 PowerPC Linux RAMDisk Image (gzip compressed)
+	   Data Size:	 566530 Bytes = 553 kB = 0 MB
+	   Load Address: 00000000
+	   Entry Point:	 00000000
+	   Verifying Checksum ... OK
+	   Loading Ramdisk ... OK
+	Linux version 2.2.13 (wd@denx.local.net) (gcc version 2.95.2 19991024 (release)) #1 Wed Jul 19 02:32:08 MEST 2000
+	Boot arguments: root=/dev/ram
+	time_init: decrementer frequency = 187500000/60
+	Calibrating delay loop... 49.77 BogoMIPS
+	...
+	RAMDISK: Compressed image found at block 0
+	VFS: Mounted root (ext2 filesystem).
+
+	bash#
+
+
+Standalone HOWTO:
+=================
+
+One of the features of PPCBoot is that you can dynamically load and
+run "standalone" applications, which can use some resources of
+PPCBoot like console I/O functions or interrupt services.
+
+Two simple examples are included with the sources:
+
+"Hello World" Demo:
+-------------------
+
+'examples/hello_world.c' contains a small "Hello World" Demo
+application; it is automatically compiled when you build PPCBoot.
+It's configured to run at address 0x00040004, so you can play with it
+like that:
+
+	=> loads
+	## Ready for S-Record download ...
+	~>examples/hello_world.srec
+	1 2 3 4 5 6 7 8 9 10 11 ...
+	[file transfer complete]
+	[connected]
+	## Start Addr = 0x00040004
+
+	=> go 40004 Hello World! This is a test.
+	## Starting application at 0x00040004 ...
+	Hello World
+	argc = 7
+	argv[0] = "40004"
+	argv[1] = "Hello"
+	argv[2] = "World!"
+	argv[3] = "This"
+	argv[4] = "is"
+	argv[5] = "a"
+	argv[6] = "test."
+	argv[7] = "<NULL>"
+	Hit any key to exit ...
+
+	## Application terminated, rc = 0x0
+
+Another example, which demonstrates how to register a CPM interrupt
+handler with the PPCBoot code, can be found in 'examples/timer.c'.
+Here, a CPM timer is set up to generate an interrupt every second.
+The interrupt service routine is trivial, just printing a '.'
+character, but this is just a demo program. The application can be
+controlled by the following keys:
+
+	? - print current values og the CPM Timer registers
+	b - enable interrupts and start timer
+	e - stop timer and disable interrupts
+	q - quit application
+
+	=> loads
+	## Ready for S-Record download ...
+	~>examples/timer.srec
+	1 2 3 4 5 6 7 8 9 10 11 ...
+	[file transfer complete]
+	[connected]
+	## Start Addr = 0x00040004
+
+	=> go 40004
+	## Starting application at 0x00040004 ...
+	TIMERS=0xfff00980
+	Using timer 1
+	  tgcr @ 0xfff00980, tmr @ 0xfff00990, trr @ 0xfff00994, tcr @ 0xfff00998, tcn @ 0xfff0099c, ter @ 0xfff009b0
+
+Hit 'b':
+	[q, b, e, ?] Set interval 1000000 us
+	Enabling timer
+Hit '?':
+	[q, b, e, ?] ........
+	tgcr=0x1, tmr=0xff1c, trr=0x3d09, tcr=0x0, tcn=0xef6, ter=0x0
+Hit '?':
+	[q, b, e, ?] .
+	tgcr=0x1, tmr=0xff1c, trr=0x3d09, tcr=0x0, tcn=0x2ad4, ter=0x0
+Hit '?':
+	[q, b, e, ?] .
+	tgcr=0x1, tmr=0xff1c, trr=0x3d09, tcr=0x0, tcn=0x1efc, ter=0x0
+Hit '?':
+	[q, b, e, ?] .
+	tgcr=0x1, tmr=0xff1c, trr=0x3d09, tcr=0x0, tcn=0x169d, ter=0x0
+Hit 'e':
+	[q, b, e, ?] ...Stopping timer
+Hit 'q':
+	[q, b, e, ?] ## Application terminated, rc = 0x0
+
+
+
+
+Implementation Internals:
+=========================
+
+The following is not intended to be a complete description of every
+implementation detail. However, it should help to understand the
+inner workings of PPCBoot and make it easier to port it to custom
+hardware.
+
+
+Memory Management:
+------------------
+
+PPCBoot runs in system state and uses physical addresses, i.e. the
+MMU is not used either for address mapping nor for memory protection.
+
+The available memory is mapped to fixed addresses usuing the memory
+controller. In this process, a contiguous block is formed for each
+memory type (Flash, SDRAM, SRAM), even when it consists out of
+several physical memory banks.
+
+PPCBoot is installed in the first 128 kB of the first Flash bank (on
+TQM8xxL modules this is the range 0x40000000 ... 0x4001FFFF). After
+booting and sizing and initializing DRAM, the code relocates itself
+to the upper end of DRAM. Immediately below the PPCBoot code some
+memory is reserved for use by malloc() [see CFG_MALLOC_LEN
+configuration setting]. Below that, a structure with global Board
+Info data is placed, followed by the stack (growing downward).
+
+Additionally, some exception handler code is copied to the low 8 kB
+of DRAM (0x00000000 ... 0x00001FFF).
+
+So a typical memory configuration with 16 MB of DRAM could look like
+this:
+
+	0x0000 0000	Exception Vector code
+	      :
+	0x0000 1FFF
+	0x0000 2000	Free for Application Use
+	      :
+	      :
+
+	      :
+	      :
+	0x00FB FF20	Monitor Stack (Growing downward)
+	0x00FB FFAC	Board Info Data
+	0x00FC 0000	Malloc Arena
+	      :
+	0x00FD FFFF
+	0x00FE 0000	RAM Copy of Monitor Code
+	0x00FF FFFF	[End of RAM]
+
+
+System Initialization:
+----------------------
+
+In the reset configuration, PPCBoot starts at address 0x00000100.
+Because of the reset configuration for CS0# this is a mirror of the
+onboard Flash memory. To be able to re-map memory PPCBoot then jumps
+to it's link address. To be able to implement the initialization code
+in C, a (small!) initial stack is set up in the internal Dual Ported
+RAM of the MPC8xx. After that, PPCBoot initialises the CPU core, the
+caches and the SIU.
+
+Next, all (potentially) available memory banks are mapped using a
+prelimonary mapping, which puts them on 512 MB boundaries (multiples
+of 0x20000000: SDRAM on 0x00000000 and 0x20000000, Flash on
+0x40000000 and 0x60000000, SRAM on 0x80000000). Then UPM A is
+programmed for SDRAM access. Using the temporary configuration, a
+simple memory test is run that determines the size of the SDRAM
+banks.
+
+When there is more than one SDRAM bank, and the banks are of
+different size, the larger is mapped first. For equal size, the first
+bank (CS2#) is mapped first. The first mapping is always for address
+0x00000000, with any additional banks following immediately to create
+contiguous memory starting from 0.
+
+Then, the monitor installs itself at the upper end of the SDRAM area
+and allocates memory for use by malloc() and for the global Board
+Info data; also, the exception vector code is copied to the low RAM
+pages, and the final stack is set up.
+
+Only after this relocation you have a "normal" C environment; until
+that you are restricted in several ways, mostly because you are
+running from ROM, and because the code will have to be relocated to a
+new address in RAM.

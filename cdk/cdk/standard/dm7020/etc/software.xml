@@ -1,0 +1,16 @@
+<directory name="Standard Software Menu"> 
+<!-- DM7020 
+--> 
+<update url="http://servername/dm7020/software.tar.gz" target="/"/> 
+<comment name="This is standard an empty Menu."/> 
+<comment name="Download the latest Software Menu."/> 
+<separator/> 
+<execute name="Download latest menu" condition="[ ! -f /var/etc/ppanelautodownload ]" target="ppanelupdate.sh http://servername/dm7020/software.tar.gz /; rm -f /tmp/ppanelrefresh" confirmation="Are you sure to download the latest menu?" quit="restart"/> 
+<execute name="Enable automatic menu downloads" condition="[ ! -f /var/etc/ppanelautodownload ]" target="touch /var/etc/ppanelautodownload; echo Automatic downloads enabled" quit="restart"/> 
+<execute name="Disable automatic menu downloads" condition="[ -f /var/etc/ppanelautodownload ]" target="rm -f /var/etc/ppanelautodownload; echo Automatic downloads disabled" quit="restart"/> 
+<separator/> 
+<tarball name="Manual install" version="any version" url="/tmp" target="/"/>
+<separator/>
+<comment name="For manual install, store"/>
+<comment name="your .tar.gz file in /tmp"/>
+</directory>

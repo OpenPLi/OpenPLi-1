@@ -1,0 +1,13 @@
+To build an image
+
+R is the directory where this README and make_cdk_image is found
+Now run the make_cdk_image script passing the 
+cdk root tree (e.g. $R), the destination directory (e.g. $R/dest) and
+the box type (e.g dm7000 dm500 dm...). The destination directory
+will be created if it does not exist.
+
+	$R/make_cdk_image $R $R/dest dm7000
+
+
+
+	

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+[ -d LOG ] || mkdir LOG
+
+set -x
+
+for i in TQM823L TQM850L TQM855L TQM860L FPS850L SM850 \
+	 ETX094 SPD823TS IVMS8 \
+	 FADS823 FADS850SAR FADS860T MBX \
+	 CPCI405 ADCIOP \
+	 cogent_mpc8xx \
+	 GENIETV \
+	 cogent_mpc8260 hymod \
+	 Sandpoint8240
+do
+	make distclean >/dev/null
+	make ${i}_config
+	make all 2>&1 >LOG/$i.MAKELOG | tee LOG/$i.ERR
+	powerpc-linux-size ppcboot | tee -a LOG/$i.MAKELOG
+done

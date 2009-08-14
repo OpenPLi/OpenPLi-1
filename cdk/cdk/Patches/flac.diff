@@ -1,0 +1,70 @@
+--- flac-1.1.2/flac.pc 1970-01-01 01:00:00.000000000 +0100
++++ flac-1.1.2/flac.pc 2003-09-10 17:51:26.000000000 +0200
+@@ -0,0 +1,11 @@
++prefix=
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
++Name: flac
++Description: FLAC Audio Decoder
++Requires:
++Version: 1.1.2
++Libs: -L${libdir} -lFLAC
++Cflags: -I${includedir}
+--- flac-1.1.2/configure.in.org	2006-09-01 22:36:03.000000000 +0200
++++ flac-1.1.2/configure.in	2006-09-01 22:42:07.000000000 +0200
+@@ -157,12 +157,12 @@
+ AC_DEFINE(FLAC__HAS_OGG)
+ fi
+ 
+-AM_PATH_XMMS(0.9.5.1, , AC_MSG_WARN([*** XMMS >= 0.9.5.1 not installed - xmms support will not be built]))
+-AM_CONDITIONAL(FLaC__HAS_XMMS, test x$XMMS_INPUT_PLUGIN_DIR != x)
++dnl AM_PATH_XMMS(0.9.5.1, , AC_MSG_WARN([*** XMMS >= 0.9.5.1 not installed - xmms support will not be built]))
++dnl AM_CONDITIONAL(FLaC__HAS_XMMS, test x$XMMS_INPUT_PLUGIN_DIR != x)
+ 
+ dnl check for i18n(internationalization); these are from libiconv/gettext
+-AM_ICONV
+-AM_LANGINFO_CODESET
++dnl AM_ICONV
++dnl AM_LANGINFO_CODESET
+ 
+ AC_CHECK_PROGS(DOXYGEN, doxygen)
+ AM_CONDITIONAL(FLaC__HAS_DOXYGEN, test -n "$DOXYGEN")
+--- flac-1.1.2/src/libFLAC/Makefile.am.orig	2005-02-03 05:58:13.000000000 +0100
++++ flac-1.1.2/src/libFLAC/Makefile.am	2006-09-01 23:01:32.000000000 +0200
+@@ -64,7 +64,7 @@
+ libFLAC_la_LIBADD = ppc/gas/libFLAC-asm.la
+ endif
+ endif
+-LOCAL_EXTRA_LDFLAGS = "-Wl,-read_only_relocs,warning"
++LOCAL_EXTRA_LDFLAGS = # "-Wl,-read_only_relocs,warning"
+ endif
+ endif
+ 
+--- flac-1.1.2/src/Makefile.am.orig	2006-09-01 23:03:27.000000000 +0200
++++ flac-1.1.2/src/Makefile.am	2006-09-01 23:03:52.000000000 +0200
+@@ -15,9 +15,9 @@
+ #  restrictive of those mentioned above.  See the file COPYING.Xiph in this
+ #  distribution.
+ 
+-if FLaC__HAS_XMMS
+-XMMS_DIRS = plugin_xmms
+-endif
++#if FLaC__HAS_XMMS
++#XMMS_DIRS = plugin_xmms
++#endif
+ 
+ if FLaC__HAS_OGG
+ OGGFLAC_DIRS = libOggFLAC libOggFLAC++
+@@ -25,7 +25,9 @@
+ endif
+ 
+ SUBDIRS = \
+-	libFLAC \
++	libFLAC
++
++SUBDIRS_NOT = \
+ 	libFLAC++ \
+ 	$(OGGFLAC_DIRS) \
+ 	share \

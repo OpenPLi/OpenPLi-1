@@ -1,0 +1,246 @@
+#!/bin/sh
+echo "==== Starting rcS"
+
+/bin/mount -n -t proc proc /proc
+/bin/mount -n -t devpts devpts /dev/pts
+#export TZ=CET-1CEST,M3.5.0/2,M10.5.0/3
+/etc/init.d/init1
+
+init=0
+flasherase=0
+dreamflash=0
+
+mount -t ramfs none /tmp
+chmod 1777 /tmp
+
+
+if [ ! -e /root/platform/kernel/bild ] ; then
+	mount -t jffs2 /dev/mtdblock/1 /var
+	mount -t cramfs /dev/mtdblock/6 /root
+	/bin/showlogo /root/root/platform/kernel/bild
+	umount /root
+else
+	/bin/showlogo /root/platform/kernel/bild
+fi
+
+/bin/boot || flasherase=1
+
+PLI_VERSION=PLIVERSION
+[ -e /var/.pli_init-$PLI_VERSION ] || init=1
+[ -e /go ] && dreamflash=1
+
+if [ $init -ne 1 -a $flasherase -ne 1 ] ; then
+	mount -t jffs2 /dev/mtdblock/1 /var_flash
+	if [ -e /var_flash/etc/lcd/pli.ani ] ; then
+		/bin/aniplay /var_flash/etc/lcd/pli.ani --timeout 60 & 
+	elif [ -e /var_init/etc/lcd/pli.ani ] ; then
+		/bin/aniplay /var_init/etc/lcd/pli.ani --timeout 60 & 
+	elif [ -e /var/etc/lcd/pli.ani ] ; then
+		/bin/aniplay /var/etc/lcd/pli.ani --timeout 60 & 
+	fi
+fi
+
+export LD_LIBRARY_PATH=/tmp:/var/lib:/lib:$LD_LIBRARY_PATH
+export PATH=/var/bin:/bin:/sbin
+
+if [ $dreamflash -eq 0 ] ; then
+	if [ $init -eq 1 -o $flasherase -eq 1 ] ; then
+		# first make a backup to tempdir but only when init equals 1
+		if [ $init -eq 1 ] ; then
+			/bin/backupflash.sh
+			sync
+		fi
+		umount /var
+		/bin/eraseall /dev/mtd/1
+		mount -t jffs2 /dev/mtdblock/1 /var
+		mount -t jffs2 /dev/mtdblock/1 /var_flash
+	fi
+fi
+
+# we are now trying to get up eth0 so we can do mountings!
+/bin/setupnetwork > /tmp/iplog.log 2>&1
+/sbin/ifconfig lo 127.0.0.1 netmask 255.0.0.0 up
+
+[ -e /var/etc/rc.config ] && . /var/etc/rc.config || . /var_init/etc/rc.config
+
+if [ -n "$SLEEP" ] ; then
+    echo sleeping for $SLEEP seconds
+    sleep $SLEEP
+fi
+
+if [ ! -e /var/etc/.dont_mount_hdd ] ; then
+	/bin/mount_hdd_cf.sh
+fi
+
+/bin/mount_usb.sh
+
+echo === HDD and USB mounted === 
+
+if [ $flasherase -eq 1 -a $dreamflash -eq 0 ] ; then
+	# user wanted a flash erase
+	# if PLi dir of this version exist delete it
+	# call script which takes care of moving old var dir
+	/bin/movevar.sh unmove
+fi
+
+# check if there is a rcS.first If available execute this one first
+if [ -e /var/etc/rcS.first ] ; then
+    [ -f /media/hdd/dreamstart.sh ] && mv /media/hdd/dreamstart.sh /media/hdd/dreamstart.sh.old
+    . /var/etc/rcS.first
+    [ -x /media/hdd/dreamstart.sh ] && exec /media/hdd/dreamstart.sh
+fi
+
+eval `grep ^version /.version`
+VERSION=`echo $version | cut -c 1-12`
+
+
+if [ ! -d /var/etc ] ; then
+    mkdir /var/etc
+    cp /var_init/etc/rc.config /var/etc
+fi
+
+[ -e /var/tmp/init -a ! -e /var/.init ] && touch /var/.init
+[ -e /var/.init ] || init=1
+
+if [ $init -eq 1 ] ; then 
+    cp -a /var_init/* /var
+    touch /var/.init
+    touch /var/.pli_init-$PLI_VERSION
+    sync
+fi
+
+#check if a dir /media/hdd/pli/removeatboot is present, if so delete it now
+# Rename old var path
+for i in "/media/hdd" "/media/usb" "/media/cf" "/media/var"; do
+	[ -d $i/pli/removeatboot ] && rm -rf $i/pli/removeatboot
+	[ -d $i/pli/$version/var ] && mv $i/pli/$version $i/pli/$VERSION
+done
+
+# For multiboot we refuse to move var somewhere else
+if [ $dreamflash -eq 0 ] ; then
+    # Check where /var has to be mounted
+	if [ -e /media/usb/pli/$VERSION/var ] ; then
+        echo "Mounting /var on USB"
+        umount /var
+        /bin/mount -o bind /media/usb/pli/$VERSION/var /var
+    elif [ -e /media/cf/pli/$VERSION/var ] ; then
+        echo "Mounting /var on CF"
+        umount /var
+        /bin/mount -o bind /media/cf/pli/$VERSION/var /var
+    elif [ -e /media/hdd/pli/$VERSION/var ] ; then
+        echo "Mounting /var on HDD"
+        umount /var
+        /bin/mount -o bind /media/hdd/pli/$VERSION/var /var
+    elif [ -e /media/var/pli/$VERSION/var ] ; then
+        echo "Mounting /var on Network"
+        umount /var
+        /bin/mount -o bind /media/var/pli/$VERSION/var /var
+    else
+        echo "starting in flash"
+    fi 
+    # reload kernel modules, some can be installed in /var 
+    /bin/reload_kernelmods.sh >/dev/null 2>&1
+fi
+
+[ -d "/tmp/var_backup" ] && /bin/restoreflash.sh
+
+# Reread config file
+[ -e /var/etc/rc.config ] && . /var/etc/rc.config || . /var_init/etc/rc.config
+
+#create empty keyfile for keyfile updater
+[ ! -f "/var/keys/irdeto" ]      && touch /var/keys/irdeto
+[ ! -f "/var/keys/SoftCam.Key" ] && touch /var/keys/SoftCam.Key
+
+[ ! -d "/var/tuxbox/scce" ] && ln -s /var/scce /var/tuxbox/scce
+
+# create a symlink to /dev/ca1 as used by newcamd emu
+ln -sf ca0 /dev/ca1
+
+ln -sf sound/dsp /dev/dsp
+ln -sf fb/0 /dev/fb0
+ln -s /dev/input/mice /dev/psaux 
+ln -s /dev/input/mice /dev/mouse 
+
+/bin/hostname -F /var/etc/hostname
+
+/sbin/inetd &
+
+( sleep 30; /media/hdd/root/startup.sh ) &
+
+[ -e /var/etc/init ] && . /var/etc/init
+
+swapon -a &
+
+# If wifi plugin enabled start it!
+if [ -e /var/tuxbox/config/wifiplugin.cfg ] ; then
+    . /var/tuxbox/config/wifiplugin.cfg
+    if [ "$wifi_on" = 1 ] ; then 
+        echo "Going to start WIFI"
+        /var/wifi/wifistart.sh
+    fi
+fi
+
+# If Inadyn is installed and enabled start it
+if [ "$INADYN" = enabled ] ; then
+    echo "Going to start Inadyn"
+    /var/bin/inadyn --input_file /var/etc/inadyn.config
+fi 
+
+# If firewall needs to be started do it now
+if [ "$FIREWALL" = enabled -a -x "/var/bin/firewall.sh" ] ; then
+    /var/bin/firewall.sh start &
+fi
+
+# If NFS server is installed and enabled start it
+if [ "$NFSSERVER" = enabled ] ; then
+    echo "Going to start NFS server"
+    # /media/hdd/opt/nfs/nfs.sh start
+    /bin/nfs.sh start
+fi
+
+# If Apache server is installed and enabled start it
+if [ "$APACHE" = enabled ] ; then
+    echo "Going to start Apache"
+    /media/hdd/opt/httpd/bin/apachectl start
+fi 
+
+# If Cron is enabled start it
+if [ "$CRON" = enabled ] ; then 
+    crond &
+fi
+
+if [ "$SYSLOG_LOG" = enabled ] ; then
+	if [ -n "$SYSLOG_HOST" ] ; then
+		syslogd -R $SYSLOG_HOST
+	else
+		syslogd
+	fi
+	klogd
+fi
+
+if [ "$GSUB" = enabled ] ; then 
+    /var/bin/gSUB &
+fi
+
+if [ ! -e /var/etc/.no_corefiles ] ; then
+    # enable corefiles (for debugging)
+    echo "/media/hdd/%e-sig-%s.core" > /proc/sys/kernel/core_pattern
+    ulimit -c unlimited
+fi
+
+if [ -x /var/bin/pli_ecmhelper ] ; then
+	/var/bin/pli_ecmhelper
+else
+	/bin/pli_ecmhelper
+fi
+
+if [ -x /var/bin/dropbear.sh ] ; then
+	/var/bin/dropbear.sh
+fi
+
+# always try to kill aniplay
+killall -9 aniplay
+
+exec /bin/start_enigma
+
+exit 0

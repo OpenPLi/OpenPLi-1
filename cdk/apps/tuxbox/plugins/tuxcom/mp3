@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# demoscript, starts mp3-files from TuxCom (only works in enigma)
+
+# parameter 1: path to file
+# parameter 2: filename
+
+# replace spaces in URL
+URL=`echo "$1$2" | sed 's/ /%20/g'`
+
+# start mp3 playback 
+wget -q -O - "http://localhost/cgi-bin/zapTo?path=4096:0:0:0:0:0:0:0:0:0:$URL"

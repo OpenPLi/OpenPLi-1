@@ -1,0 +1,50 @@
+HOWTO build a PLi image with OpenEmbedded
+
+First of all, you need:
+- A Linux station with enough resources, indicative: P4, 1 GB RAM
+- At least 5 GB of free disk space in you working partition
+- A connection with the internet
+
+install the following packages:
+
+g++
+help2man
+diffstat
+texi2html
+makeinfo (or texinfo)
+gawk
+git (or git-core on ubuntu)
+subversion
+cvs
+rsh
+
+Create a new directory and cd into there. Checkout the initial files:
+
+svn co https://openpli.svn.sourceforge.net/svnroot/openpli/trunk/pli-oe .
+
+First time users should include an additional option "--username <name>" (without the quotes).
+
+Create the necessary config files:
+
+make initialize
+
+now edit "build/conf/local.conf", change what you find after MACHINE into what
+boxtype you're building for, either dm7020, dm600pvr or dm500plus
+
+Make the initial image. This will download and initialise the git repository,
+and build the image. You might be asked to accept some defaults, it is safe to press "enter".
+After you issue this command the complete build will take a lot of hours:
+
+make image
+
+Once this is ready you will find the image in "tmp/deploy/images".
+
+Once you have your initial image you can follow the next steps to build subsequent images.
+Every time you want to build a new image these steps should be followed.
+
+svn update
+make openembedded-update
+cd build
+source env.source
+bitbake dreambox-image
+

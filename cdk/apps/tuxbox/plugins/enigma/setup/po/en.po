@@ -1,0 +1,1145 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plisetup\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-29 01:12+0200\n"
+"PO-Revision-Date: 2005-12-26 13:27+0100\n"
+"Last-Translator: \n"
+"Language-Team: en <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../camx.cpp:50
+msgid "Camx settings plugin v"
+msgstr ""
+
+#: ../camx.cpp:65 ../wifi.cpp:192
+msgid "Save changes"
+msgstr ""
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr ""
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr ""
+
+#: ../camx.cpp:94 ../setup_main.cpp:86 ../setup_main.cpp:130 ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr ""
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr ""
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr ""
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr ""
+
+#: ../emuconfig.cpp:90
+msgid "Select softcam for this service"
+msgstr ""
+
+#: ../emuconfig.cpp:101
+msgid "Select softcam for this provider"
+msgstr ""
+
+#: ../emuconfig.cpp:106
+msgid "Default SoftCam"
+msgstr ""
+
+#: ../emuconfig.cpp:113
+msgid "Select default softcam"
+msgstr ""
+
+#: ../emuconfig.cpp:118
+msgid "Cardserver"
+msgstr ""
+
+#: ../emuconfig.cpp:125
+msgid "Select cardserver"
+msgstr ""
+
+#: ../emuconfig.cpp:132 ../emuconfig.cpp:471
+msgid "-- None --"
+msgstr ""
+
+#: ../emuconfig.cpp:172 ../setup_debug.cpp:122 ../setup_epg.cpp:39
+#: ../setup_firewall.cpp:83 ../setup_gbox.cpp:247 ../setup_language.cpp:71
+#: ../setup_osd.cpp:141 ../setup_rdg.cpp:79 ../setup_services.cpp:150
+#: ../setup_system.cpp:230 ../setup_tpl.cpp:75 ../wifi.cpp:191
+msgid "Save"
+msgstr ""
+
+#: ../emuconfig.cpp:173
+msgid "Save settings"
+msgstr ""
+
+#: ../emuconfig.cpp:180
+msgid "List stickies"
+msgstr ""
+
+#: ../emuconfig.cpp:181
+msgid "List current stickies"
+msgstr ""
+
+#: ../emuconfig.cpp:190
+msgid "Cardinfo"
+msgstr ""
+
+#: ../emuconfig.cpp:191
+msgid "Get cardinfo from current active cardserver"
+msgstr ""
+
+#: ../emuconfig.cpp:200
+msgid "Save and restart cam"
+msgstr ""
+
+#: ../emuconfig.cpp:201
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr ""
+
+#: ../emuconfig.cpp:210
+msgid "Restart cardserver"
+msgstr ""
+
+#: ../emuconfig.cpp:211
+msgid "Press OK to restart all selected services"
+msgstr ""
+
+#: ../emuconfig.cpp:346
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+
+#: ../emuconfig.cpp:346
+msgid "Softcam config info"
+msgstr ""
+
+#: ../emuconfig.cpp:421
+msgid "Restarting cardserver"
+msgstr ""
+
+#: ../emuconfig.cpp:421
+msgid "Cardserver info"
+msgstr ""
+
+#: ../emuconfig.cpp:459 ../emuconfig.cpp:567
+msgid "Channel"
+msgstr ""
+
+#: ../emuconfig.cpp:460 ../emuconfig.cpp:572
+msgid "Provider"
+msgstr ""
+
+#: ../emuconfig.cpp:472 ../emuconfig.cpp:473
+msgid "-- Default --"
+msgstr ""
+
+#: ../emuconfig.cpp:525
+msgid "getting cardinfo"
+msgstr ""
+
+#: ../emuconfig.cpp:541
+msgid "Current Stickies"
+msgstr ""
+
+#: ../emuconfig.cpp:543
+msgid "Sticky Settings 1"
+msgstr ""
+
+#: ../ExecuteOutput.cpp:52 ../setup_runapp.cpp:65
+msgid "Close"
+msgstr ""
+
+#: ../ExecuteOutput.cpp:61
+msgid "<< Scroll left"
+msgstr ""
+
+#: ../ExecuteOutput.cpp:70
+msgid "Scroll right >>"
+msgstr ""
+
+#: ../ExecuteOutput.cpp:82 ../ppanel.cpp:206
+msgid "Please wait"
+msgstr ""
+
+#: ../ExecuteOutput.cpp:105
+msgid "Could not execute script"
+msgstr ""
+
+#: ../gpanel.cpp:191 ../gpanel.cpp:217 ../gpanel.cpp:228 ../ppanel.cpp:998
+msgid "Error!"
+msgstr ""
+
+#: ../ppanel.cpp:127
+msgid "Script output"
+msgstr ""
+
+#: ../ppanel.cpp:199
+msgid "Downloading"
+msgstr ""
+
+#: ../ppanel.cpp:241
+#, c-format
+msgid "Installing %s"
+msgstr ""
+
+#: ../ppanel.cpp:276
+msgid "Install failed."
+msgstr ""
+
+#: ../ppanel.cpp:306
+msgid "Continue"
+msgstr ""
+
+#: ../ppanel.cpp:449
+#, c-format
+msgid ""
+"Are you sure to show ppanel\n"
+"%s?"
+msgstr ""
+
+#: ../ppanel.cpp:492
+#, c-format
+msgid ""
+"Are you sure to download\n"
+"%s?"
+msgstr ""
+
+#: ../ppanel.cpp:500 ../ppanel.cpp:723 ../ppanel.cpp:935
+#, c-format
+msgid "Downloading %s"
+msgstr ""
+
+#: ../ppanel.cpp:505
+msgid "Download complete."
+msgstr ""
+
+#: ../ppanel.cpp:509
+msgid ""
+"Download failed.\n"
+"Please check available space and your communication settings."
+msgstr ""
+
+#: ../ppanel.cpp:511
+msgid "Download failed."
+msgstr ""
+
+#: ../ppanel.cpp:566 ../ppanel.cpp:612
+#, c-format
+msgid ""
+"Are you sure to execute\n"
+"%s?"
+msgstr ""
+
+#: ../ppanel.cpp:677
+#, c-format
+msgid ""
+"Are you sure to install\n"
+"%s?"
+msgstr ""
+
+#: ../ppanel.cpp:749 ../ppanel.cpp:758
+msgid "Manual Install"
+msgstr ""
+
+#: ../ppanel.cpp:756
+msgid "Select package to install"
+msgstr ""
+
+#: ../ppanel.cpp:844 ../ppanel.cpp:850
+msgid "Remove Software"
+msgstr ""
+
+#: ../ppanel.cpp:848
+msgid "Select package to remove"
+msgstr ""
+
+#: ../ppanel.cpp:870
+#, c-format
+msgid ""
+"Are you sure to remove\n"
+"%s?"
+msgstr ""
+
+#: ../ppanel.cpp:878
+#, c-format
+msgid "Removing %s"
+msgstr ""
+
+#: ../ppanel.cpp:914
+#, c-format
+msgid ""
+"Are you sure to play\n"
+"%s?"
+msgstr ""
+
+#: ../ppanel.cpp:1148
+msgid "Please select an item"
+msgstr ""
+
+#: ../ppanel.cpp:1169
+msgid "latest"
+msgstr ""
+
+#: ../ppanel.cpp:1213
+msgid ""
+"A new menu is available. The new menu will be visible if you return to the "
+"setup panel.You can continue your work here after pressing OK."
+msgstr ""
+
+#: ../ppanel.cpp:1215
+msgid "Automatic menu update"
+msgstr ""
+
+#: ../ppanel.cpp:1374 ../ppanel.cpp:1472
+#, c-format
+msgid ""
+"%s\n"
+"%d bytes downloaded\n"
+"Press exit to cancel download"
+msgstr ""
+
+#: ../setup_debug.cpp:57 ../setup_debug.cpp:60
+msgid "Log EmuDaemon to file"
+msgstr ""
+
+#: ../setup_debug.cpp:64 ../setup_debug.cpp:67
+msgid "Log Enigma to file"
+msgstr ""
+
+#: ../setup_debug.cpp:71 ../setup_debug.cpp:74
+msgid "Start syslog daemon at boot"
+msgstr ""
+
+#: ../setup_debug.cpp:80
+msgid "Remote host:"
+msgstr ""
+
+#: ../setup_debug.cpp:87
+msgid "Host of remote syslog daemon (local leave empty)"
+msgstr ""
+
+#: ../setup_debug.cpp:94
+msgid "Logfile path:"
+msgstr ""
+
+#: ../setup_debug.cpp:101
+msgid "Choose the logpath to use"
+msgstr ""
+
+#: ../setup_debug.cpp:127 ../setup_epg.cpp:44 ../setup_gbox.cpp:252
+#: ../setup_language.cpp:74 ../setup_osd.cpp:146 ../setup_rdg.cpp:84
+#: ../setup_services.cpp:155 ../setup_system.cpp:235 ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:42 ../setup_main.cpp:79
+msgid "PLi image setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:52 ../setup_dreamboxtools.cpp:53
+#: ../setup_main.cpp:77
+msgid "Extra tools"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:57 ../setup_osd.cpp:59
+msgid "Extra OSD settings"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:57
+msgid "open Extra OSD settings"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:59 ../setup_system.cpp:73
+msgid "Extra system settings"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:59
+msgid "open Extra system settings"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:64 ../setup_services.cpp:52
+msgid "Services to run"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:64
+msgid "open Services setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:68 ../setup_epg.cpp:8
+msgid "EPG settings"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:68
+msgid "open EPG settings"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:71
+msgid "Language setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:71
+msgid "open language setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:78
+msgid "Wifi Setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:78
+msgid "open Wifi setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:101
+msgid "USB stick setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:101
+msgid "open USB stick setup"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:113
+msgid "Move /var to harddisk"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:113
+msgid "Move /var to harddisk to save memory"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:119
+msgid "Move /var to usbstick"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:119
+msgid "Move /var to usb stick to save memory"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:124
+msgid "Move /var to compact flash"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:124
+msgid "Move /var to compact flash card to save memory"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:134
+msgid "Remove /var from harddisk"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:134
+msgid "Remove /var from harddisk for whatever reason ;-)"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:140
+msgid "Remove /var from usbstick"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:140
+msgid "Remove /var from usb stick for whatever reason ;-)"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:145
+msgid "Remove /var from compact flash"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:145
+msgid "Remove /var from compact flash for whatever reason ;-)"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:153
+msgid "Debug settings"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:232
+msgid ""
+"/var will be moved to HDD\n"
+"\n"
+"After moving your dreambox will reboot automatically!!!!\n"
+"Are you sure you want to do this?\n"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:235 ../setup_dreamboxtools.cpp:263
+#: ../setup_dreamboxtools.cpp:291 ../setup_dreamboxtools.cpp:319
+#: ../setup_dreamboxtools.cpp:348 ../setup_dreamboxtools.cpp:377
+msgid "Are you sure?"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:259
+msgid ""
+"/var will be removed from HDD\n"
+"When removed the files are really gone!!\n"
+"\n"
+"After removing your dreambox will reboot automatically!!!!\n"
+"Are you sure you want to do this?\n"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:287
+msgid ""
+"/var will be removed from USB\n"
+"When removed the files are really gone!!\n"
+"\n"
+"After removing your dreambox will reboot automatically!!!!\n"
+"Are you sure you want to do this?\n"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:315
+msgid ""
+"/var will be removed from compact flash\n"
+"When removed the files are really gone!!\n"
+"\n"
+"After removing your dreambox will reboot automatically!!!!\n"
+"Are you sure you want to do this?\n"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:345
+msgid ""
+"/var will be moved to USB\n"
+"\n"
+"After moving your dreambox will reboot automatically!!!!\n"
+"Are you sure you want to do this?\n"
+msgstr ""
+
+#: ../setup_dreamboxtools.cpp:374
+msgid ""
+"/var will be moved to compact flash\n"
+"\n"
+"After moving your dreambox will reboot automatically!!!!\n"
+"Are you sure you want to do this?\n"
+msgstr ""
+
+#: ../setup_epg.cpp:22
+msgid "EPG data store"
+msgstr ""
+
+#: ../setup_epg.cpp:26
+msgid "Select where EPG data must be stored"
+msgstr ""
+
+#: ../setup_epg.cpp:28
+msgid "Memory"
+msgstr ""
+
+#: ../setup_epg.cpp:30
+msgid "SQLite database"
+msgstr ""
+
+#: ../setup_epg.cpp:49
+msgid "Rescan EPG"
+msgstr ""
+
+#: ../setup_epg.cpp:54
+msgid "Rescan EPG data on current transponder"
+msgstr ""
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr ""
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr ""
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr ""
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr ""
+
+#: ../setup_gbox.cpp:159 ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr ""
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr ""
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr ""
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr ""
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr ""
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr ""
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr ""
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr ""
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr ""
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr ""
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr ""
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr ""
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr ""
+
+#: ../setup_gbox.cpp:260 ../setup_rdg.cpp:92 ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr ""
+
+#: ../setup_gbox.cpp:263 ../setup_rdg.cpp:95 ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr ""
+
+#: ../setup_gbox.cpp:270 ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr ""
+
+#: ../setup_gbox.cpp:273 ../setup_rdg.cpp:105 ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr ""
+
+#: ../setup_language.cpp:62
+msgid "Language Setup"
+msgstr ""
+
+#: ../setup_language.cpp:80 ../setup_language.cpp:92 ../setup_language.cpp:104
+#: ../setup_language.cpp:116
+msgid "Language"
+msgstr ""
+
+#: ../setup_language.cpp:88
+msgid "Select the first language"
+msgstr ""
+
+#: ../setup_language.cpp:100
+msgid "Select the second language"
+msgstr ""
+
+#: ../setup_language.cpp:112
+msgid "Select the third language"
+msgstr ""
+
+#: ../setup_language.cpp:124
+msgid "Select the fourth language"
+msgstr ""
+
+#: ../setup_main.cpp:70
+msgid "SoftCam setup"
+msgstr ""
+
+#: ../setup_main.cpp:70
+msgid "Open SoftCam setup"
+msgstr ""
+
+#: ../setup_main.cpp:73
+msgid "Show installed PPanels"
+msgstr ""
+
+#: ../setup_main.cpp:73
+msgid "Show all installed PPanels of this system"
+msgstr ""
+
+#: ../setup_main.cpp:75
+msgid "Software Management"
+msgstr ""
+
+#: ../setup_main.cpp:75
+msgid "Install and remove software"
+msgstr ""
+
+#: ../setup_main.cpp:79
+msgid "Specific PLi image settings"
+msgstr ""
+
+#: ../setup_main.cpp:83
+msgid "PLi news"
+msgstr ""
+
+#: ../setup_main.cpp:84
+msgid "Info and news about PLi"
+msgstr ""
+
+#: ../setup_main.cpp:223
+#, c-format
+msgid "/var used %d%%"
+msgstr ""
+
+#: ../setup_osd.cpp:64
+msgid "OSD on zap"
+msgstr ""
+
+#: ../setup_osd.cpp:67
+msgid "Show OSD after a zap"
+msgstr ""
+
+#: ../setup_osd.cpp:71
+msgid "Extra OSD"
+msgstr ""
+
+#: ../setup_osd.cpp:74
+msgid "Show extra info in OSD on OK"
+msgstr ""
+
+#: ../setup_osd.cpp:78
+msgid "Extra OSD on Zap"
+msgstr ""
+
+#: ../setup_osd.cpp:81
+msgid "Show extra info in OSD when zapping"
+msgstr ""
+
+#: ../setup_osd.cpp:85
+msgid "Autohide OSD on OK"
+msgstr ""
+
+#: ../setup_osd.cpp:88
+msgid "Autohide OSD when pressing OK button"
+msgstr ""
+
+#: ../setup_osd.cpp:92
+msgid "Autohide radio/mp3 OSD"
+msgstr ""
+
+#: ../setup_osd.cpp:95
+msgid "Autohide the OSD display in radio/mp3 mode"
+msgstr ""
+
+#: ../setup_osd.cpp:99
+msgid "SNR in dB"
+msgstr ""
+
+#: ../setup_osd.cpp:102
+msgid "Show SNR values in dB instead of %"
+msgstr ""
+
+#: ../setup_osd.cpp:106
+msgid "Use Mini-Zap"
+msgstr ""
+
+#: ../setup_osd.cpp:109
+msgid "Show smaller OSD when zapping (if supported by the skin)"
+msgstr ""
+
+#: ../setup_osd.cpp:113
+msgid "Expert OSD"
+msgstr ""
+
+#: ../setup_osd.cpp:116
+msgid "Show other extra info in OSD on OK"
+msgstr ""
+
+#: ../setup_osd.cpp:120
+msgid "Expert OSD on Zap"
+msgstr ""
+
+#: ../setup_osd.cpp:123
+msgid "Show other extra info in OSD when zapping"
+msgstr ""
+
+#: ../setup_osd.cpp:127
+msgid "Seconds in OSD clock"
+msgstr ""
+
+#: ../setup_osd.cpp:130
+msgid "Show seconds in OSD clock"
+msgstr ""
+
+#: ../setup_osd.cpp:134
+msgid "No picture in radio/mp3"
+msgstr ""
+
+#: ../setup_osd.cpp:137
+msgid "No background picture in radio/mp3 mode"
+msgstr ""
+
+#: ../setup_osd.cpp:151 ../setup_system.cpp:240
+msgid "Cancel"
+msgstr ""
+
+#: ../setup_osd.cpp:156 ../setup_system.cpp:245
+msgid "Discard changes and return"
+msgstr ""
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr ""
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr ""
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr ""
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr ""
+
+#: ../setup_services.cpp:62
+msgid "Start Firewall"
+msgstr ""
+
+#: ../setup_services.cpp:65
+msgid "start/do not start firewall"
+msgstr ""
+
+#: ../setup_services.cpp:72
+msgid "Configure FW"
+msgstr ""
+
+#: ../setup_services.cpp:75
+msgid "Configure the firewall"
+msgstr ""
+
+#: ../setup_services.cpp:90
+msgid "Start crond"
+msgstr ""
+
+#: ../setup_services.cpp:93
+msgid "start/do not start crond the time daemon"
+msgstr ""
+
+#: ../setup_services.cpp:105
+msgid "Start NFS server"
+msgstr ""
+
+#: ../setup_services.cpp:108
+msgid ""
+"start/do not start NFS server (must be installed through software "
+"installer!!)"
+msgstr ""
+
+#: ../setup_services.cpp:120
+msgid "Start Apache server"
+msgstr ""
+
+#: ../setup_services.cpp:123
+msgid ""
+"start/do not start Apache server (must be installed through software "
+"installer!!)"
+msgstr ""
+
+#: ../setup_services.cpp:134
+msgid "Start gSUB"
+msgstr ""
+
+#: ../setup_services.cpp:137
+msgid "start/do not start gSUB"
+msgstr ""
+
+#: ../setup_system.cpp:79
+msgid "USB/HDD mount wait"
+msgstr ""
+
+#: ../setup_system.cpp:87
+msgid "Number of seconds to wait before mounting HDD and USB"
+msgstr ""
+
+#: ../setup_system.cpp:100
+msgid "After these number of minutes the harddisk will spin down"
+msgstr ""
+
+#: ../setup_system.cpp:111
+msgid "Sets the acoustics of the drive, 128=quiet/slow 254=fast/loud"
+msgstr ""
+
+#: ../setup_system.cpp:120
+msgid "Swap file"
+msgstr ""
+
+#: ../setup_system.cpp:125
+msgid "Make use of swap file: No, USB or HDD"
+msgstr ""
+
+#: ../setup_system.cpp:144
+msgid "Swap size"
+msgstr ""
+
+#: ../setup_system.cpp:149
+msgid "Give size of swap file in MB"
+msgstr ""
+
+#: ../setup_system.cpp:175
+msgid "Advanced settings, do not change or use with care:"
+msgstr ""
+
+#: ../setup_system.cpp:187
+msgid "Set the forward wind offset value"
+msgstr ""
+
+#: ../setup_system.cpp:198
+msgid "Set the forward wind gain value"
+msgstr ""
+
+#: ../setup_system.cpp:211
+msgid "Set the rewind offset value"
+msgstr ""
+
+#: ../setup_system.cpp:222
+msgid "Set the rewind gain value"
+msgstr ""
+
+#: ../setup_usb.cpp:52
+msgid "Format USB device"
+msgstr ""
+
+#: ../setup_usb.cpp:56
+msgid "Mount USB stick"
+msgstr ""
+
+#: ../setup_usb.cpp:57
+msgid "UN-Mount USB stick"
+msgstr ""
+
+#: ../setup_usb.cpp:68
+msgid "Are you SURE that you want to format this USB disk?\n"
+msgstr ""
+
+#: ../setup_usb.cpp:69 ../setup_usb.cpp:81 ../setup_usb.cpp:88
+#: ../setup_usb.cpp:95 ../setup_usb.cpp:116 ../setup_usb.cpp:124
+msgid "formatting USB disk..."
+msgstr ""
+
+#: ../setup_usb.cpp:81
+msgid "sorry, Cannot format a mounted USB device."
+msgstr ""
+
+#: ../setup_usb.cpp:88
+msgid ""
+"please wait while initializing USB disk.\n"
+"This might take some minutes.\n"
+msgstr ""
+
+#: ../setup_usb.cpp:94
+msgid "sorry, couldn't find sfdisk utility to partition USB disk."
+msgstr ""
+
+#: ../setup_usb.cpp:116
+msgid "creating filesystem failed."
+msgstr ""
+
+#: ../setup_usb.cpp:124
+msgid "successfully formatted your USB disk!"
+msgstr ""
+
+#: ../setup_usb.cpp:139
+msgid "USB Stick is already mounted"
+msgstr ""
+
+#: ../setup_usb.cpp:144
+msgid "USB Stick successfuly mounted"
+msgstr ""
+
+#: ../setup_usb.cpp:147
+msgid "USB Stick NOT MOUNTED, unknown error"
+msgstr ""
+
+#: ../setup_usb.cpp:159
+msgid "USB Stick is NOT MOUNTED"
+msgstr ""
+
+#: ../setup_usb.cpp:165
+msgid "USB Stick IS STILL MOUNTED, unknown error"
+msgstr ""
+
+#: ../setup_usb.cpp:168
+msgid "USB Stick successfuly un-mounted"
+msgstr ""
+
+#: ../wifi.cpp:89 ../wifi.cpp:373 ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr ""
+
+#: ../wifi.cpp:89
+msgid " - network settings"
+msgstr ""
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr ""
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr ""
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr ""
+
+#: ../wifi.cpp:112
+msgid "Enter your IP address"
+msgstr ""
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr ""
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr ""
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr ""
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr ""
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr ""
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr ""
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr ""
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr ""
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr ""
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr ""
+
+#: ../wifi.cpp:202
+msgid "Exit this plugin, don't forget to save!"
+msgstr ""
+
+#: ../wifi.cpp:211 ../wifi.cpp:463
+msgid "Next"
+msgstr ""
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr ""
+
+#: ../wifi.cpp:222
+msgid "About the Wifi plugin"
+msgstr ""
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+
+#: ../wifi.cpp:373
+msgid " - security settings"
+msgstr ""
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr ""
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr ""
+
+#: ../wifi.cpp:397
+msgid "Mode"
+msgstr ""
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr ""
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr ""
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr ""
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr ""
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr ""
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr ""
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr ""
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr ""
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr ""
+
+#: ../wifi.cpp:453 ../wifi.cpp:601
+msgid "Prev"
+msgstr ""
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr ""
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr ""
+
+#: ../wifi.cpp:571
+msgid " - logging"
+msgstr ""
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr ""

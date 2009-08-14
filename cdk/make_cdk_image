@@ -1,0 +1,67 @@
+#!/bin/bash
+
+if [ x$3 == x ] ; then
+    echo "Usage: $0 CDK_ROOT DESTDIR BOXTYPE"
+    echo
+    echo "   CDK_ROOT is the directory containing the apps, root and"
+    echo "            cdk directory (e.g. the svn extract directory)"
+    echo "   DESTDIR is the directory where the builog and images"
+    echo "           will be found"
+    echo "   BOXTYPE is the box for which the image is build"
+    echo "           e.g. dm7000 dm7000-chinese"
+    echo "                dm500 dm500-chinese dm500-maxvar dm500-chinese-maxvar"
+    echo "                dm56x0 dm56x0-chinese"
+    echo
+    exit 1
+fi
+
+CDK_ROOT=$1
+DESTDIR=$2
+BOXTYPE=$3
+
+if [ ! -d $DESTDIR ] ; then
+    if [ -f $DESTDIR ] ; then
+        echo "$DESTDIR is a plain file. Please check out and restart"
+        exit 2
+    fi
+   echo "$DESTDIR does not exist. Creating it"
+   mkdir $DESTDIR
+fi
+
+exit
+
+
+IMAGES_DIR=$CDK_ROOT/root/cdkflash/images
+
+echo "=========== Reverting PO files"
+# Revert po-files to prevent conflicts there
+svn revert $CDK_ROOT/apps/tuxbox/enigma/po/*.po
+svn revert $CDK_ROOT/apps/tuxbox/plugins/enigma/setup/po/*.po
+
+echo "=========== Initial Cleanup"
+rm -f $IMAGES_DIR/*
+make -C $CDK_ROOT/apps/tuxbox/plugins clean
+# delete the Makefile to force new Makefiles are being generated
+rm -f $CDK_ROOT/apps/tuxbox/plugins/Makefile
+make -C $CDK_ROOT/apps/tuxbox/enigma clean
+# delete the Makefile to force new Makefiles are being generated
+rm -f $CDK_ROOT/apps/tuxbox/enigma/Makefile
+# delete the old .part files otherwise when configuration is changed unwanted stuff can still come in the image
+rm -f $CDK_ROOT/root/cdkflash/.part*
+# remove all skins & pictures to prevent that old removed skins appear in the image
+rm -Rf $CDK_ROOT/root/cdkroot/share/tuxbox/enigma/pictures/*
+rm -Rf $CDK_ROOT/root/cdkroot/share/tuxbox/enigma/skins/*
+
+echo "=========== Get latest svn changes"
+cd $CDK_ROOT
+svn up
+# Allways run prepare since this generate things for the image which can change
+cd $CDK_ROOT/cdk
+echo "=========== Prepare $BOXTYPE"
+./prepare $BOXTYPE
+rm -f .enigma .plugins
+echo "=========== Build image (see $DESTDIR/buildlog.txt)"
+env SHELL=/bin/bash ./build-image > $DESTDIR/buildlog.txt 2>&1
+echo "=========== Stage results to $DESTDIR"
+cp $IMAGES_DIR/*.img $DESTDIR
+cp $IMAGES_DIR/*.zip $DESTDIR

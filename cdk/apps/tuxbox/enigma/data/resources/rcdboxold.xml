@@ -1,0 +1,238 @@
+<rcdefaults>
+	<author>
+		<name>Felix Domke</name>
+		<email>tmbinc@gmx.net</email>
+	</author>
+	
+	<device identifier="DBoxOld" >
+		<keys>
+			<key name="power" code="5c0c" />
+			<key name="home" code="5c20" picture="key.30" />
+			<key name="d-box" code="5c27" picture="key.29" />
+			<key name="0" code="5c00" picture="key.0" />
+			<key name="1" code="5c01" picture="key.1" />
+			<key name="2" code="5c02" picture="key.2" />
+			<key name="3" code="5c03" picture="key.3" />
+			<key name="4" code="5c04" picture="key.4" />
+			<key name="5" code="5c05" picture="key.5" />
+			<key name="6" code="5c06" picture="key.6" />
+			<key name="7" code="5c07" picture="key.7" />
+			<key name="8" code="5c08" picture="key.8" />
+			<key name="9" code="5c09" picture="key.9" />
+			<key name="blue" code="5c3b" picture="key.20" />
+			<key name="yellow" code="5c52" picture="key.19" />
+			<key name="green" code="5c55" picture="key.18" />
+			<key name="red" code="5c2d" picture="key.17" />
+			<key name="pageup" code="5c54" />
+			<key name="pagedown" code="5c53" />
+			<key name="up" code="5c0e" />
+			<key name="down" code="5c0f" />
+			<key name="left" code="5c2f" />
+			<key name="right" code="5c2e" />
+			<key name="ok" code="5c30" />
+			<key name="+" code="5c16" picture="key.26" />
+			<key name="-" code="5c17" picture="key.27" />
+			<key name="mute" code="5c28" picture="key.31" />
+			<key name="?" code="5c82" picture="key.28" />
+		</keys>
+
+		<actionmap name="mainmenu">
+			<action name="close" key="d-box" flags="mr" />
+			<action name="prev" key="left" flags="mr" />
+			<action name="next" key="right" flags="mr" />
+		</actionmap>
+
+		<actionmap name="cursor">
+			<action name="up" key="up" flags="mr" />
+			<action name="down" key="down" flags="mr" />
+			<action name="left" key="left" flags="mr" />
+			<action name="right" key="right" flags="mr" />
+			<action name="ok" key="ok" flags="m" />
+			<action name="cancel" key="home" flags="mr" />
+		</actionmap>
+
+		<actionmap name="textedit">
+			<action name="insertchar" key="+" flags="mr" />
+			<action name="deletechar" key="-" flags="mr" />
+			<action name="capslock" key="yellow" flags="mr" />
+			<action name="swapnum" key="blue" flags="mr" />
+		</actionmap>
+
+		<actionmap name="focus">
+			<action name="up" key="up" flags="mr" />
+			<action name="down" key="down" flags="mr" />
+			<action name="left" key="left" flags="mr" />
+			<action name="right" key="right" flags="mr" />
+		</actionmap>
+
+		<actionmap name="list">
+			<action name="pagedown" key="right" flags="mr" />
+			<action name="pageup" key="pageup" flags="mr" />
+			<action name="pageup" key="left" flags="mr" />
+			<action name="pagedown" key="pagedown" flags="mr" />
+		</actionmap>
+
+		<actionmap name="enigmaMain">
+			<action name="showMainMenu" key="d-box" flags="m" />
+			<action name="standby_press" key="power" flags="m" />
+			<action name="standby_repeat" key="power" flags="r" />
+			<action name="standby_release" key="power" flags="b" />
+			<action name="showSubservices" key="green" flags="m" />
+			<action name="showAudio" key="yellow" flags="m" />
+			<action name="showEPGList" key="red" flags="m" />
+			<action name="volumeUp" key="+" flags="mr" />
+			<action name="volumeDown" key="-" flags="mr" />
+			<action name="toggleMute" key="mute" flags="mr" />
+			<action name="startSkipR" key="red" flags="m" />
+			<action name="repeatSkipR" key="red" flags="r" />
+			<action name="stopSkipR" key="red" flags="b" />
+			<action name="play" key="green" flags="m" />
+			<action name="pause" key="yellow" flags="m" />
+			<action name="stop" key="home" flags="m" />
+			<action name="startSkipF" key="blue" flags="m" />
+			<action name="repeatSkipF" key="blue" flags="r" />
+			<action name="stopSkipF" key="blue" flags="b" />
+			<action name="nextSubService" key="right" flags="mr" />
+			<action name="prevSubService" key="left" flags="mr" />
+		</actionmap>
+
+		<actionmap name="enigmaMain" style="default">
+			<action name="nextService" key="right" flags="mr" />
+			<action name="prevService" key="left" flags="mr" />
+			<action name="showInfobar" key="ok" flags="m" />
+			<action name="hideInfobar" key="ok" flags="m" />
+			<action name="serviceListDown" key="down" flags="m" />
+			<action name="serviceListUp" key="up" flags="m" />
+			<action name="showEPG" key="?" flags="m" />
+		</actionmap>
+
+		<actionmap name="enigmaMain" style="classic">  <!-- neutrino -->
+			<action name="hideInfobar" key="home" flags="m" />
+			<action name="nextService" key="up" flags="mr" />
+			<action name="prevService" key="down" flags="mr" />
+			<action name="showInfobar" key="?" flags="m" />
+			<action name="showInfobarEPG" key="?" flags="m" />
+			<action name="showServiceSelector" key="ok" flags="m" />
+		</actionmap>
+
+		<actionmap name="enigmaGlobal">
+			<action name="volumeUp" key="+" flags="mr" />
+			<action name="volumeDown" key="-" flags="mr" />
+			<action name="toggleMute" key="mute" flags="m" />
+		</actionmap>
+
+		<actionmap name="serviceSelector">
+			<action name="nextBouquet" key="+" flags="mr" />
+			<action name="prevBouquet" key="-" flags="mr" />
+			<action name="pathUp" key="d-box" flags="m" />
+		</actionmap>
+
+		<actionmap name="serviceSelector" style="sselect_default">
+			<action name="toggleStyle" key="mute" flags="m" />
+			<action name="showEPGSelector" key="?" flags="m" />
+			<action name="showMenu" key="d-box" flags="m" />
+			<action name="showAll" key="red" flags="m" />
+			<action name="showSatellites" key="green" flags="m" />
+			<action name="showProvider" key="yellow" flags="m" />
+			<action name="showBouquets" key="blue" flags="m" />
+		</actionmap>
+
+		<actionmap name="serviceSelector" style="sselect_edit">
+			<action name="delete" key="red" flags="m" />
+			<action name="mark" key="green" flags="m" />
+			<action name="rename" key="yellow" flags="m" />
+			<action name="marker" key="blue" flags="m" />
+		</actionmap>
+
+		<actionmap name="numbers">
+			<action name="0" key="0" flags="mr" />
+			<action name="1" key="1" flags="mr" />
+			<action name="2" key="2" flags="mr" />
+			<action name="3" key="3" flags="mr" />
+			<action name="4" key="4" flags="mr" />
+			<action name="5" key="5" flags="mr" />
+			<action name="6" key="6" flags="mr" />
+			<action name="7" key="7" flags="mr" />
+			<action name="8" key="8" flags="mr" />
+			<action name="9" key="9" flags="mr" />
+		</actionmap>
+
+		<actionmap name="multiEpg">
+			<action name="1" key="1" flags="m" />
+			<action name="2" key="2" flags="m" />
+			<action name="3" key="3" flags="m" />
+			<action name="4" key="4" flags="m" />
+			<action name="5" key="5" flags="m" />
+			<action name="6" key="6" flags="m" />
+			<action name="ok" key="ok" flags="m" />
+			<action name="exit" key="home" flags="m" />
+		</actionmap>
+
+				<!-- globale shortcuts. sollten auf jeder FB zu finden sein. -->
+				<!-- generell ohne repeat. -->
+		<actionmap name="shortcut">
+			<action name="0" key="0" flags="m" />
+			<action name="1" key="1" flags="m" />
+			<action name="2" key="2" flags="m" />
+			<action name="3" key="3" flags="m" />
+			<action name="4" key="4" flags="m" />
+			<action name="5" key="5" flags="m" />
+			<action name="6" key="6" flags="m" />
+			<action name="7" key="7" flags="m" />
+			<action name="8" key="8" flags="m" />
+			<action name="9" key="9" flags="m" />
+			<action name="red" key="red" flags="m" />
+			<action name="green" key="green" flags="m" />
+			<action name="yellow" key="yellow" flags="m" />
+			<action name="blue" key="blue" flags="m" />
+			<action name="menu" key="d-box" flags="m" />
+			<action name="escape" key="home" flags="mr" />
+		</actionmap>
+
+		<actionmap name="rotorMenu" >
+			<action name="driveEastStep" key="right" flags="m" />
+			<action name="driveEast" key="right" flags="r" />
+			<action name="driveEastStop" key="right" flags="b" />
+			<action name="driveWestStep" key="left" flags="m" />
+			<action name="driveWest" key="left" flags="r" />
+			<action name="driveWestStop" key="left" flags="b" />
+		</actionmap>
+
+		<actionmap name="enigmaStandby">
+			<action name="wakeUp" key="power" flags="m" />
+		</actionmap>
+
+		<actionmap name="epgSelector">
+			<action name="addDVRTimerEvent" key="green" flags="m" />
+			<action name="addNGRABTimerEvent" key="yellow" flags="m" />
+			<action name="addSwitchTimerEvent" key="blue" flags="m" />
+			<action name="removeTimerEvent" key="red" flags="m" />
+			<action name="showExtendedInfo" key="?" flags="m" />
+		</actionmap>
+
+		<actionmap name="enigmaVCR">
+			<action name="volumeUp" key="+" flags="mr" />
+			<action name="volumeDown" key="-" flags="mr" />
+		</actionmap>
+
+		<actionmap name="enigmaEventView">
+			<action name="close" key="?" flags="m" />
+		</actionmap>
+
+		<actionmap name="PluginOffsetActions">
+			<action name="store" key="ok" flags="m" />
+			<action name="leftTop" key="red" flags="m" />
+			<action name="rightBottom" key="green" flags="m" />
+		</actionmap>
+
+		<actionmap name="TransponderEditWindow">
+			<action name="addNetwork" key="green" flags="m" />
+			<action name="removeNetwork" key="red" flags="m" />
+		</actionmap>
+
+		<actionmap name="EPGStyleSelector">
+			<action name="infoPressed" key="?" flags="m" />
+		</actionmap>
+
+	</device>
+</rcdefaults>

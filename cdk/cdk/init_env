@@ -1,0 +1,3 @@
+cd .. && CURRENT_PATH=`pwd`;
+cd cdk
+export PATH=$PATH:$CURRENT_PATH/root/cdk/bin

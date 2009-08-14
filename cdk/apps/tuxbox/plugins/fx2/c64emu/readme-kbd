@@ -1,0 +1,97 @@
+#
+# es sind keine leerzeichen oder tabs erlaubt !!!
+# linke seite taste der Fernbedienung
+# rechte seite zu erzeugender Tastaturcode
+#
+# Symbole fuer Links
+UP:
+DOWN:
+LEFT:
+RIGHT:
+OK:
+0:
+1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+SPEAKER:
+PLUS:
+MINUS:
+HELP:
+SETUP:
+RED:
+GREEN:
+BLUE:
+YELLOW:
+#
+Die Tasten HOME und STDBY koennen aus Sicherheitsgruenden nicht frei
+belegt werden.
+HOME  = Ende des Emulators
+STDBY = NMI
+#
+# wird ein Symbol auf der linken Seite mehrmals genannt, so
+# wird bei jedem Tastendruck die naechste zeile ausgefuehrt.
+#
+# auf der rechten Seite steht dann der Buchstabe bzw.
+# eine ganze buchstabenfolge.
+OK:LOAD"$",8<RET>
+# so wie <RET>
+# gibt es folgende sonderzeichen
+<F1>
+<F2>
+<F3>
+<F4>
+<F5>
+<F6>
+<RET>
+<DEL>
+<SHL>
+<SHR>
+<HOM>
+<R/S>
+<C=>
+<CTL>
+<CUP>			: cursor
+<CDOWN>			: cursor
+<CLEFT>			: cursor
+<CRIGHT>		: cursor
+<UP>			: joystick
+<DOWN>			: joystick
+<LEFT>			: joystick
+<RIGHT>			: joystick
+<FIRE>			: joystick
+<FIRE2>			: joystick
+<UP/LEFT>		: joystick
+<UP/RIGHT>		: joystick
+<DOWN/LEFT>		: joystick
+<DOWN/RIGHT>	: joystick
+#
+<PRINT>			: save screen into /var/tmp/screen.xpm	(dauert lange !)
+#
+# special, zum einschalten eines autorepeaters
+autorep:zahl
+# die zahl gibt die dauer des halten wieder, bei mir ist 5 optimal
+# wenn die zahl zu gross ist, laeuft der joystick länger als man will
+# in die jeweilige richtung
+# zu kleine zahlen ueberbruecken nicht die Zeit, in der die Fern-
+# bedienung repeated.
+#
+# kurzes beispiel fuer Yathzee
+#
+# immer wenn OK gedrueckt wird, benutzt er die naechste zeile
+# das letzte genannte zeichen wird dann immer wiederholt
+#
+OK:LOAD"YATHYEE",8,1<RET>
+OK:RUN<RET>
+OK:<FIRE>
+LEFT:<LEFT>
+RIGHT:<RIGHT>
+UP:<UP>
+DOWN:<DOWN>
+HELP:<PRINT>
+autorep:5

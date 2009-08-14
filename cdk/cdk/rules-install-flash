@@ -1,0 +1,38 @@
+# install rules for cdk
+# ruleset: flash
+#
+# look at rules-install
+#
+
+#
+# core
+#
+glibc;make:install:install_root=TARGET;install:-m644:libc_pic.a:math/libm_pic.a:resolv/libresolv_pic.a:dlfcn/libdl_pic.a:TARGET/lib;install:-d:TARGET/lib/libc_pic;install:-m644:elf/soinit.os:TARGET/lib/libc_pic/soinit.o;install:-m644:elf/sofini.os:TARGET/lib/libc_pic/sofini.o;install:-m644:libc.map:TARGET/lib/libc_pic.map;install:-m644:libm.map:TARGET/lib/libm_pic.map;install:-m644:libdl.map:TARGET/lib/libdl_pic.map
+gcc;make:install;install:-m644:TARGETNAME/libstdc++-v3/src/libstdc++-symbol.ver:TARGET/lib/libstdc++_pic.map;archive:TARGET/lib/libstdc++_pic.a:TARGETNAME/libstdc++-v3/src/.libs/*.o:TARGETNAME/libstdc++-v3/libsupc++/*.o;install:-m644:TARGETNAME/nof/libstdc++-v3/src/libstdc++-symbol.ver:TARGET/lib/nof/libstdc++_pic.map;archive:TARGET/lib/nof/libstdc++_pic.a:TARGETNAME/nof/libstdc++-v3/src/.libs/*.o:TARGETNAME/nof/libstdc++-v3/libsupc++/*.o
+
+#
+# contrib libs
+#
+libcrypto;install:libcrypto.so.0.9.7:TARGET/lib;link:libcrypto.so.0.9.7:TARGET/lib/libcrypto.so.0;link:libcrypto.so.0:TARGET/lib/libcrypto.so;install:libssl.so.0.9.7:TARGET/lib;link:libssl.so.0.9.7:TARGET/lib/libssl.so.0;link:libssl.so.0:TARGET/lib/libssl.so;install:libcrypto.a:TARGET/lib/libcrypto_pic.a;install:libssl.a:TARGET/lib/libssl_pic.a;install:-d:TARGET/include/openssl;make:install_cdk:INSTALL_PREFIX=TARGET:INSTALLTOP=
+#libfreetype;make:install:libdir=TARGET/lib:includedir=TARGET/include:bindir=TARGET/bin:prefix=TARGET;archive:TARGET/lib/libfreetype_pic.a:objs/*.o
+libncurses;make:install.libs:install.includes:DESTDIR=TARGET;archive:TARGET/lib/libncurses_pic.a:obj_s/*.o
+libpng;make:install:prefix=TARGET;archive:TARGET/lib/libpng12_pic.a:*.pic.o
+libcurl;make:install:DESTDIR=TARGET;archive:TARGET/lib/libcurl_pic.a:lib/*.lo
+libz;make:install:prefix=TARGET;archive:TARGET/lib/libz_pic.a:*.o
+libsigc;rewrite-pkgconfig:sigc++-1.2.pc;make:install:DESTDIR=TARGET;archive:TARGET/lib/libsigc-1.2_pic.a:sigc++/*.o
+
+#
+# fun
+#
+libmad;rewrite-pkgconfig:mad.pc;make:install:DESTDIR=TARGET;install:-m644:mad.pc:TARGET/lib/pkgconfig;archive:TARGET/lib/libmad_pic.a:.libs/*.o
+libid3tag;rewrite-pkgconfig:id3tag.pc;make:install:DESTDIR=TARGET;install:-m644:id3tag.pc:TARGET/lib/pkgconfig;archive:TARGET/lib/libid3tag_pic.a:.libs/*.o
+
+#
+# contrib tools
+#
+e2fsprogs;make:install;install:-m644:lib/libblkid.a:TARGET/lib/libblkid_pic.a;install:-m644:lib/libcom_err.a:TARGET/lib/libcom_err_pic.a;install:-m644:lib/libe2p.a:TARGET/lib/libe2p_pic.a;install:-m644:lib/libext2fs.a:TARGET/lib/libext2fs_pic.a;install:-m644:lib/libuuid.a:TARGET/lib/libuuid_pic.a
+
+#
+# include
+#
+>>>;rules-install

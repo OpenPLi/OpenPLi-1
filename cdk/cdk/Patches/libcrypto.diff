@@ -1,0 +1,69 @@
+diff -Naur openssl-0.9.7a/Configure openssl-0.9.7a.patched/Configure
+--- openssl-0.9.7a/Configure	2003-02-18 13:15:09.000000000 +0100
++++ openssl-0.9.7a.patched/Configure	2003-02-21 21:24:26.000000000 +0100
+@@ -557,6 +557,9 @@
+ ##### OS/2 EMX
+ "OS2-EMX", "gcc::::::::",
+ 
++##### Tuxbox
++"tuxbox",    "powerpc-tuxbox-linux-gnu-gcc:-DB_ENDIAN -DTERMIO -O3 -fomit-frame-pointer -Wall -mcpu=405 -mmultiple -mstring -meabi -msoft-float::-D_REENTRANT::-ldl:BN_LLONG RC4_CHAR RC4_CHUNK DES_RISC1 DES_UNROLL::::::::::dlfcn:linux-shared:-fPIC::.so.\$(SHLIB_MAJOR).\$(SHLIB_MINOR)",
++
+ ##### VxWorks for various targets
+ "vxworks-ppc405","ccppc:-g -msoft-float -mlongcall -DCPU=PPC405 -I\$(WIND_BASE)/target/h:::VXWORKS:-r:::::",
+ "vxworks-ppc750","ccppc:-ansi -nostdinc -DPPC750 -D_REENTRANT -fvolatile -fno-builtin -fno-for-scope -fsigned-char -Wall -msoft-float -mlongcall -DCPU=PPC604 -I\$(WIND_BASE)/target/h \$(DEBUG_FLAG):::VXWORKS:-r:::::",
+diff -Naur openssl-0.9.7a/Makefile.org openssl-0.9.7a.patched/Makefile.org
+--- openssl-0.9.7a/Makefile.org	2003-02-14 14:11:44.000000000 +0100
++++ openssl-0.9.7a.patched/Makefile.org	2003-02-21 21:24:40.000000000 +0100
+@@ -283,10 +283,9 @@
+ 	fi; \
+ 	( set -x; ${CC} ${SHARED_LDFLAGS} \
+ 		-shared -o lib$$i.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
+-		-Wl,-soname=lib$$i.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
++		-Wl,-soname=lib$$i.so.${SHLIB_MAJOR} \
+ 		-Wl,-Bsymbolic \
+-		-Wl,--whole-archive lib$$i.a \
+-		-Wl,--no-whole-archive $$libs ${EX_LIBS} -lc ) || exit 1; \
++		-Wl,--whole-archive lib$$i.a -Wl,--no-whole-archive ) || exit 1; \
+ 	libs="-l$$i $$libs"; \
+ 	done
+ 
+@@ -459,6 +458,20 @@
+ 		done; \
+ 	fi
+ 
++install_cdk:
++	@for i in $(EXHEADER) ;\
++	do \
++	(cp $$i $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i; \
++	chmod 644 $(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl/$$i ); \
++	done;
++	@for i in $(SHLIBDIRS) ;\
++	do \
++	if [ -d "$$i" ]; then \
++		(cd $$i; echo "installing $$i..."; \
++		$(MAKE) INSTALL_PREFIX='${INSTALL_PREFIX}' INSTALLTOP='${INSTALLTOP}' install ); \
++	fi; \
++	done	
++
+ # This assumes that GNU utilities are *not* used
+ # HP-UX includes the full pathname of libs we depend on, so we would get
+ # ./libcrypto (with ./ as path information) compiled into libssl, hence
+diff -Naur openssl-0.9.7a/crypto/md2/md2test.c openssl-0.9.7a.patched/crypto/md2/md2test.c
+--- openssl-0.9.7a/crypto/md2/md2test.c	2003-02-19 12:22:18.000000000 +0100
++++ openssl-0.9.7a.patched/crypto/md2/md2test.c	2003-02-21 21:24:26.000000000 +0100
+@@ -59,7 +59,6 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <openssl/md2.h>
+ 
+ #include "../e_os.h"
+ 
+@@ -70,6 +69,7 @@
+     return(0);
+ }
+ #else
++#include <openssl/md2.h>
+ #include <openssl/evp.h>
+ 
+ #ifdef CHARSET_EBCDIC

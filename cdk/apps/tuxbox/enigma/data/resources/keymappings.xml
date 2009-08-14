@@ -1,0 +1,114 @@
+<keymappings>
+	<keymapping code="default" >
+		<codes lower="" upper="" />
+		<codes lower=" " upper=" " />
+		<codes lower="abc" upper="ABC" />
+		<codes lower="def" upper="DEF" />
+		<codes lower="ghi" upper="GHI" />
+		<codes lower="jkl" upper="JKL" />
+		<codes lower="mno" upper="MNO" />
+		<codes lower="pqrs" upper="PQRS" />
+		<codes lower="tuv" upper="TUV" />
+		<codes lower="wxyz" upper="WXYZ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+	<keymapping code="de_DE" >
+		<codes lower="" upper="" />
+		<codes lower=" " upper=" " />
+		<codes lower="aäbc" upper="AÄBC" />
+		<codes lower="def" upper="DEF" />
+		<codes lower="ghi" upper="GHI" />
+		<codes lower="jkl" upper="JKL" />
+		<codes lower="mnoö" upper="MNOÖ" />
+		<codes lower="pqrsß" upper="PQRSß" />
+		<codes lower="tuüv" upper="TUÜV" />
+		<codes lower="wxyz" upper="WXYZ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+	<keymapping code="es_ES" >
+		<codes lower="" upper="" />
+		<codes lower=" " upper=" " />
+		<codes lower="abcáà" upper="ABCÁÀ" />
+		<codes lower="deéèf" upper="DEFÉÈ" />
+		<codes lower="ghiíì" upper="GHIÍÌ" />
+		<codes lower="jkl" upper="JKL" />
+		<codes lower="mnñoóò" upper="MNÑOÓÒ" />
+		<codes lower="pqrs" upper="PQRS" />
+		<codes lower="tuvúù" upper="TUVÚÙ" />
+		<codes lower="wxyz" upper="WXYZ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+	<keymapping code="ru_RU" >
+		<codes lower="+-.,:?!';_" upper="+-.,:?!';_" />
+		<codes lower=" #@&amp;/()&lt;=&gt;%" upper=" #@&amp;/()&lt;=&gt;%" />
+		<codes lower="abcÐÑÒÓ" upper="ABC°±²³" />
+		<codes lower="defÔÕÖ×" upper="DEF´µ¶·" />
+		<codes lower="ghiØÙÚÛ" upper="GHI¸¹º»" />
+		<codes lower="jklÜÝÞß" upper="JKL¼½¾¿" />
+		<codes lower="mnoàáâã" upper="MNOÀÁÂÃ" />
+		<codes lower="pqrsäåæç" upper="PQRSÄÅÆÇ" />
+		<codes lower="tuvèéêë" upper="TUVÈÉÊË" />
+		<codes lower="wxyzíîï" upper="WXYZÍÎÏ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+	<keymapping code="da_DK" >
+		<codes lower="" upper="" />
+		<codes lower=" " upper=" " />
+		<codes lower="abcå" upper="ABCÅ" />
+		<codes lower="defæ" upper="DEFÆ" />
+		<codes lower="ghi" upper="GHI" />
+		<codes lower="jkl" upper="JKL" />
+		<codes lower="mnoø" upper="MNOØ" />
+		<codes lower="pqrs" upper="PQRS" />
+		<codes lower="tuv" upper="TUV" />
+		<codes lower="wxyz" upper="WXYZ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+	<keymapping code="no_NO" >
+		<codes lower="" upper="" />
+		<codes lower=" " upper=" " />
+		<codes lower="abcå" upper="ABCÅ" />
+		<codes lower="defæ" upper="DEFÆ" />
+		<codes lower="ghi" upper="GHI" />
+		<codes lower="jkl" upper="JKL" />
+		<codes lower="mnoø" upper="MNOØ" />
+		<codes lower="pqrs" upper="PQRS" />
+		<codes lower="tuv" upper="TUV" />
+		<codes lower="wxyz" upper="WXYZ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+	<keymapping code="sv_SE" >
+		<codes lower="" upper="" />
+		<codes lower=" " upper=" " />
+		<codes lower="aäbc" upper="AÄBC" />
+		<codes lower="def" upper="DEF" />
+		<codes lower="ghi" upper="GHI" />
+		<codes lower="jkl" upper="JKL" />
+		<codes lower="mnoö" upper="MNOÖ" />
+		<codes lower="pqrs" upper="PQRS" />
+		<codes lower="tuüv" upper="TUÜV" />
+		<codes lower="wxyz" upper="WXYZ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+	<keymapping code="fi_FI" >
+		<codes lower="" upper="" />
+		<codes lower=" " upper=" " />
+		<codes lower="aäåbc" upper="AÄÅBC" />
+		<codes lower="def" upper="DEF" />
+		<codes lower="ghi" upper="GHI" />
+		<codes lower="jkl" upper="JKL" />
+		<codes lower="mnoö" upper="MNOÖ" />
+		<codes lower="pqrs" upper="PQRS" />
+		<codes lower="tuv" upper="TUV" />
+		<codes lower="wxyz" upper="WXYZ" />
+		<codes lower="/,.&amp;!?" upper="/,.&lt;=&gt;+" />
+		<codes lower="-_:()@#°" upper="-_:()@#°" />
+	</keymapping>
+</keymappings>

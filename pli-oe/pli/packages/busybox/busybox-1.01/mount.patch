@@ -1,0 +1,46 @@
+diff -ur busybox-1.01/util-linux/mount.c busybox-1.01.new/util-linux/mount.c
+--- busybox-1.01/util-linux/mount.c	2005-08-17 03:29:17.000000000 +0200
++++ busybox-1.01.new/util-linux/mount.c	2006-10-14 14:25:55.000000000 +0200
+@@ -52,6 +52,11 @@
+ #include <stdio.h>
+ #include <mntent.h>
+ #include <ctype.h>
++#include <netdb.h>
++#include <sys/socket.h>
++#include <netinet/in.h>
++#include <arpa/inet.h>
++
+ #include "busybox.h"
+ 
+ #ifdef CONFIG_NFSMOUNT
+@@ -475,6 +480,30 @@
+ 				}
+ 			}
+ #endif
++			if (device[0] == '/' && device[1] == '/') {
++				/* CIFS or SMBFS mount. Do hostname resolving ourselves */
++				struct hostent *s_addr;
++				char *sl = strchr(device+2, '/');
++				char *unc = strstr(string_flags, "unc=//");
++				char *slunc;
++				char *smbdev = xmalloc(PATH_MAX);
++				char *newopts = xmalloc(PATH_MAX);
++
++				strncpy(smbdev, device+2, sl-(device+2));
++				s_addr = gethostbyname(smbdev);
++				
++				snprintf(smbdev, PATH_MAX, "//%s%s", inet_ntoa(*( struct in_addr*)( s_addr->h_addr)), sl);
++				free(device);
++				device = smbdev;
++				
++				if (unc) {
++					slunc = strchr(unc+6, '/');
++					string_flags[unc - string_flags] = '\0';
++					snprintf(newopts, PATH_MAX, "%sunc=//%s%s", string_flags, inet_ntoa(*( struct in_addr*)( s_addr->h_addr)), slunc);
++					free(string_flags);
++					string_flags = newopts;
++				}
++			}
+ 			if (!mount_one
+ 				(device, directory, filesystemType, flags, string_flags,
+ 				 useMtab, fakeIt, extra_opts, TRUE, all)) {

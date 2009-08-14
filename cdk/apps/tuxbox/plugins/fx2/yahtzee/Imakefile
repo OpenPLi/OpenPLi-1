@@ -1,0 +1,19 @@
+all:: yahtzee.so
+
+# PREF=powerpc-linux-
+CC=$(PREF)gcc
+STRIP=$(PREF)strip
+CDEBUGFLAGS=-g -O2 -Wall -pedantic -DUSEX
+INCLUDES=-I. -I../lib -I../../include -I../..
+OBJS=yahtzee.o
+
+SingleProgramTarget(yahtzee,main.o $(OBJS),,-L../lib -lfx2 -lX11)
+
+yahtzee.o: pics.h
+
+yahtzee.so: somain.o $(OBJS)
+	$(CC) -o yahtzee.so -shared -Wl,-soname,yahtzee.so somain.o $(OBJS)
+	$(STRIP) yahtzee.so
+
+clean::
+	rm -f yahtzee.so

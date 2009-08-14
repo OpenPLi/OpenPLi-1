@@ -1,0 +1,18 @@
+<script language="javascript" type="text/javascript" src="mountMgr.js"></script>
+<table width=620 border=1 cellpadding=0 cellspacing=0 rules=all>
+	<thead>
+		<th>Stat</td>
+		<th>Action</td>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+		<th align="left">Type</th>
+		<th align="left">Mount</th>
+		<th align="left">Server</th>
+		<th align="left">Device</th>
+		<th>Auto</th>
+	</thead>
+	#BODY#
+</table>
+<br>
+#ADDMOUNTPOINTBUTTON#
+

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN"
+ "http://www.wapforum.org/DTD/wml_1.1.xml">
+<wml>
+	<card id="c1" title="#SERVICE#">
+		<p>
+			#NOWST#	
+		</p>
+		<p>
+			<a href="/wap?mode=epg,page=0">EPG</a><br/>
+			<a href="/wap?mode=zap">ZAP</a><br/>
+			<a href="#ctl">CONTROL</a>
+		</p>
+	</card>
+	<card id="ctl" title="Control">
+	<p>
+		<a href="/wap?mode=admin,command=shutdown">Shutdown</a><br/>
+		<a href="/wap?mode=admin,command=restart">Restart</a><br/>
+		<a href="/wap?mode=admin,command=reboot">Reboot</a><br/>
+		<a href="/wap?mode=admin,command=standby">Standby</a><br/>
+		<a href="/wap?mode=admin,command=wakeup">Wakeup</a><br/>
+		<a href="/wap?mode=timer">Timer</a><br/>
+	</p>
+	</card>
+</wml>

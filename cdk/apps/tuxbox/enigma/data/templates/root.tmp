@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script language="javascript" type="text/javascript" src="window.js"></script>
+		<script language="javascript" type="text/javascript" src="index.js"></script>
+		<script language="javascript" type="text/javascript" src="zap.js"></script>
+		<script language="javascript" type="text/javascript">#ZAPDATA#</script>
+	</head>
+	<body style="padding: 10px" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" id="contentcell">
+	<form name="channelselector">
+		<table border=0 cellpadding=0 cellspacing=0>
+			<tr>
+				<td style="display:none;">
+					<select style="width: 0px; font-weight: bold; background-color: #F4F4F4" onChange=bouquetChange() name="bouquet" size=0></select>
+				</td>
+				<td>
+					<select style="width: 630px; font-weight: bold; background-color: #F4F4F4" onChange=channelChange() name="channel" size=#SELSIZE#></select>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<table border=0 cellpadding=0 cellspacing=0>
+		<tr>
+			<td style="width: 210px">&nbsp;</td>
+			<td style="width: 410px" align=center>
+				<a href="javascript:zapChannelBackward()"><img src="up.gif" border="0"></a>
+				&nbsp;&nbsp;
+				<a href="javascript:zapChannelForward()"><img src="down.gif" border="0"></a>
+			</td>
+		</tr>
+	</table>
+	<iframe name="vlccmd" src="" width="100%" height="0" frameborder="0" framemargin="0" framewidth="0"></iframe>
+	<script language="javascript" type="text/javascript">init();</script>
+	</body>
+</html>
+

@@ -1,0 +1,389 @@
+<config>
+	<locations>
+		<location>
+			<name>Athens</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/063/c00177?type=plain</url>
+		</location> 
+			<location>
+			<name>Amsterdam</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/037/c00143?type=plain</url>
+		</location>
+		<location>
+			<name>Berlin</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/016/c00059?type=plain</url>
+		</location>
+		<location>
+			<name>Cologne</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/016/c00056?type=plain</url>
+		</location>
+		<location>
+			<name>Brussels</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/053/c00191?type=plain</url>
+			</location>
+		<location>
+			<name>Budapest</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/017/c00060?type=plain</url>
+		</location>
+		<location>
+			<name>Dublin</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/067/c00188?type=plain</url>
+		</location>
+		<location>
+			<name>Copenhagen</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/173/c00190?type=plain</url>
+		</location>
+		<location>
+			<name>Lissabon</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/003/c00002?type=plain</url>
+		</location>
+		<location>
+			<name>London</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/010/c00032?type=plain</url>
+		</location>
+		<location>
+			<name>Moscow</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/107/c00206?type=plain</url>
+		</location>
+		<location>
+			<name>Munchen</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/016/c00058?type=plain</url>
+		</location> 
+		<location>
+			<name>Oslo</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/008/c00021?type=plain</url>
+		</location>
+		<location>
+			<name>Paris</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/062/c00194?type=plain</url>
+		</location>
+		<location>
+			<name>S/C de Tenerife</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/186/c00304?type=plain</url>
+		</location> 
+		<location>
+			<name>Stockholm</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/096/c00187?type=plain</url>
+		</location>
+		<location>
+			<name>Vienna</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/006/c00017?type=plain</url>
+		</location>
+		<location>
+			<name>Zurich</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/087/c00312?type=plain</url>
+		</location>		
+		<location>
+			<name>Bangkok</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/089/c00233?type=plain</url>
+		</location>
+		<location>
+			<name>Buenos Aires</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/050/c00294?type=plain</url>
+		</location>
+		<location>
+			<name>Eilat</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/013/c00046?type=plain</url>
+		</location>
+		<location>
+			<name>Istanbul</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/014/c00047?type=plain</url>
+		</location>
+		<location>
+			<name>Jerusalem</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/013/c00043?type=plain</url>
+		</location>
+		<location>
+			<name>Johannesburg</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/035/c00139?type=plain</url>
+		</location>
+		<location>
+			<name>Los Angeles</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/093/c00269?type=plain</url>
+		</location>
+		<location>
+			<name>Miami</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/093/c00267?type=plain</url>
+		</location> 
+		<location>
+			<name>New York</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/093/c00278?type=plain</url>
+		</location>
+		<location>
+			<name>Beijing</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/001/c00147?type=plain</url>
+		</location>
+		<location>
+			<name>Rio de Janeiro</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/136/c01080?type=plain</url>
+		</location>
+		<location>
+			<name>Tokio</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/068/c000183?type=plain</url>
+		</location>
+		<location>
+			<name>Toronto</name>
+			<url>http://weather.nearperfect.com/weather/world.rss/056/c00264?type=plain</url>
+		</location>		
+		
+	</locations>
+	<mapping>
+		<origdescription>Sand</origdescription>
+		<description>Sand</description>
+		<icon>19.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Dust</origdescription>
+		<description>Dust</description>
+		<icon>19.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Thunderstorms</origdescription>
+		<description>Thunderstorms</description>
+		<icon>38.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Thundery Showers</origdescription>
+		<description>Thunderstorms</description>
+		<icon>4.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Thundershowers</origdescription>
+		<description>Thunderstorms</description>
+		<icon>4.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Storm</origdescription>
+		<description>Storm</description>
+		<icon>23.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Lightning</origdescription>
+		<description>Thunderstorms</description>
+		<icon>38.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Hail</origdescription>
+		<description>Hail</description>
+		<icon>10.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Blowing Snow</origdescription>
+		<description>Blowing Snow</description>
+		<icon>43.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Blizzard</origdescription>
+		<description>Sneeuwstorm</description>
+		<icon>43.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Snowdrift</origdescription>
+		<description>Blowing Snow</description>
+		<icon>43.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Snowstorm</origdescription>
+		<description>Blowing Snow</description>
+		<icon>43.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Snow Showers</origdescription>
+		<description>Blowing Snow</description>
+		<icon>16.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Flurries</origdescription>
+		<description>Flurries</description>
+		<icon>16.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Snow</origdescription>
+		<description>Flurries</description>
+		<icon>16.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Light Snow</origdescription>
+		<description>Light Snow</description>
+		<icon>13.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Sleet</origdescription>
+		<description>Sleet</description>
+		<icon>5.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Showers</origdescription>
+		<description>Showers</description>
+		<icon>11.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Heavy Showers</origdescription>
+		<description>Heavy Showers</description>
+		<icon>12.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Rainshower</origdescription>
+		<description>Showers</description>
+		<icon>11.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Shower</origdescription>
+		<description>Showers</description>
+		<icon>11.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Occasional Showers</origdescription>
+		<description>Occasional Showers</description>
+		<icon>39.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Scattered Showers</origdescription>
+		<description>Scattered Showers</description>
+		<icon>39.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Frequent Showers</origdescription>
+		<description>Frequent Showers</description>
+		<icon>39.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Isolated Showers</origdescription>
+		<description>Isolated Showers</description>
+		<icon>39.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Mostly Dry</origdescription>
+		<description>Mostly Dry</description>
+		<icon>39.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Light Showers</origdescription>
+		<description>Light Showers</description>
+		<icon>11.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Freezing Rain</origdescription>
+		<description>Freezing Rain</description>
+		<icon>10.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Rain</origdescription>
+		<description>Rain</description>
+		<icon>11.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Drizzle</origdescription>
+		<description>Drizzle</description>
+		<icon>11.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Light Rain</origdescription>
+		<description>Light Rain</description>
+		<icon>11.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Fog</origdescription>
+		<description>Fog</description>
+		<icon>20.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Mist</origdescription>
+		<description>Mist</description>
+		<icon>20.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Haze</origdescription>
+		<description>Haze</description>
+		<icon>21.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Overcast</origdescription>
+		<description>Overcast</description>
+		<icon>26.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Sunny Interval</origdescription>
+		<description>Sunny Interval</description>
+		<icon>28.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Sunny Intervals</origdescription>
+		<description>Sunny Intervals</description>
+		<icon>28.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>No Rain</origdescription>
+		<description>No Rain</description>
+		<icon>28.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Clearing</origdescription>
+		<description>Clearing</description>
+		<icon>28.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Sunny Period</origdescription>
+		<description>Sunny Period</description>
+		<icon>30.png</icon>
+	</mapping>		
+	<mapping>
+		<origdescription>Partly Cloudy</origdescription>
+		<description>Partly Cloudy</description>
+		<icon>30.png</icon>
+	</mapping>	
+		<mapping>
+		<origdescription>Isolated Clouds</origdescription>
+		<description>Isolated Clouds</description>
+		<icon>30.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Partly Bright</origdescription>
+		<description>Partly Bright</description>
+		<icon>30.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Mild</origdescription>
+		<description>Mild</description>
+		<icon>30.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Cloudy</origdescription>
+		<description>Cloudy</description>
+		<icon>26.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Mostly Cloudy</origdescription>
+		<description>Mostly Cloudy</description>
+		<icon>26.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Bright</origdescription>
+		<description>Bright</description>
+		<icon>32.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Sunny</origdescription>
+		<description>Sunny</description>
+		<icon>32.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Dry</origdescription>
+		<description>Dry</description>
+		<icon>32.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Fine</origdescription>
+		<description>Fine</description>
+		<icon>32.png</icon>
+	</mapping>
+	<mapping>
+		<origdescription>Fair</origdescription>
+		<description>Fair</description>
+		<icon>32.png</icon>
+	</mapping>	
+	<mapping>
+		<origdescription>Clear</origdescription>
+		<description>Clear</description>
+		<icon>32.png</icon>
+	</mapping>			
+</config>

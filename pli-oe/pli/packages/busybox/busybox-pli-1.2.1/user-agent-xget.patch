@@ -1,0 +1,11 @@
+--- busybox-1.01/networking/wget.c.orig
++++ busybox-1.01/networking/wget.c
+@@ -330,7 +330,7 @@
+ 				fprintf(sfp, "GET /%s HTTP/1.1\r\n", target.path);
+ 			}
+ 
+-			fprintf(sfp, "Host: %s\r\nUser-Agent: Wget\r\n", target.host);
++			fprintf(sfp, "Host: %s\r\nUser-Agent: Xget\r\n", target.host);
+ 
+ #ifdef CONFIG_FEATURE_WGET_AUTHENTICATION
+ 			if (target.user) {

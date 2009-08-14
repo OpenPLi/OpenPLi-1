@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<boxstatus>
+	<current_time>#TIME#</current_time>
+	<standby>#STANDBY#</standby>
+	<recording>#RECORDING#</recording>
+	<mode>#MODE#</mode>
+	<ip>#IP#</ip>
+</boxstatus>
+

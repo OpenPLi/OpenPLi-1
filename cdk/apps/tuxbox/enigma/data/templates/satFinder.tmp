@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<title>Satfinder</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function init()
+			{
+				document.location.reload();
+				setTimeout("init()", 500);
+			}
+		</script>
+	</head>
+	<body>
+		<script>
+			setTimeout("init()", 500)
+		</script>
+		<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<td>SNR:</td>
+			<td align="center">#SNR#</td>
+			<td>
+				<input name="lock" type="checkbox" value="on" disabled #LOCK#>&nbsp;LOCK
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" height="20" align="middle">
+				<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					#SNRBAR#
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>AGC:</td>
+			<td align="center">#AGC#</td>
+			<td>
+				<input name="sync" type="checkbox" value="on" disabled #SYNC#>&nbsp;SYNC
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" height="20" align="middle">
+				<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					#AGCBAR#
+				</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>BER:</td>
+			<td align="center">#BER#</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3" height="20" align="middle">
+				<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					#BERBAR#
+				</tr>
+				</table>
+			</td>		
+		</tr>	
+		</table>
+	</body>
+</html>

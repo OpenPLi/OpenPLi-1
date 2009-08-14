@@ -1,0 +1,109 @@
+--- mrouted-3.9-beta3.orig/Makefile
++++ mrouted-3.9-beta3/Makefile
+@@ -24,15 +24,15 @@
+ #
+ # Uncomment the following three lines if you want to use RSRR (Routing
+ # Support for Resource Reservations), currently used by RSVP.
+-#RSRRDEF=	-DRSRR
+-#RSRRC=		rsrr.c
+-#RSRRO=		rsrr.o
++RSRRDEF=	-DRSRR
++RSRRC=		rsrr.c
++RSRRO=		rsrr.o
+ #
+ LDFLAGS=
+-CFLAGS=		-O ${MCAST_INCLUDE} ${SNMPDEF} ${RSRRDEF}	## SunOS, OSF1, FreeBSD, IRIX
++#CFLAGS=		-O ${MCAST_INCLUDE} ${SNMPDEF} ${RSRRDEF}	## SunOS, OSF1, FreeBSD, IRIX
+ #CFLAGS=		-O ${MCAST_INCLUDE} ${SNMPDEF} ${RSRRDEF} -DSYSV -DSUNOS5	## Solaris 2.x
+ #LIB2=-lsocket -lnsl	## Solaris 2.x
+-#CFLAGS=		-O ${MCAST_INCLUDE} ${SNMPDEF} ${RSRRDEF} -D__BSD_SOURCE -DRAW_INPUT_IS_RAW -DRAW_OUTPUT_IS_RAW -DIOCTL_OK_ON_RAW_SOCKET	## Linux
++CFLAGS=		-O ${MCAST_INCLUDE} ${SNMPDEF} ${RSRRDEF} -D__BSD_SOURCE -DRAW_INPUT_IS_RAW -DRAW_OUTPUT_IS_RAW -DIOCTL_OK_ON_RAW_SOCKET	## Linux
+ LIBS=		${SNMPLIBDIR} ${SNMPLIBS} ${LIB2}
+ LINTFLAGS=	${MCAST_INCLUDE}
+ IGMP_SRCS=	igmp.c inet.c kern.c
+@@ -79,7 +79,7 @@
+ 	${CC} ${LDFLAGS} -o $@ ${CFLAGS} ${MSTAT_OBJS} -Lsnmplib -lsnmp
+ 
+ clean: FRC ${SNMPCLEAN}
+-	rm -f ${OBJS} core mrouted map-mbone mrinfo mstat tags TAGS
++	rm -f ${OBJS} vers.o core mrouted map-mbone mrinfo mstat tags TAGS
+ 
+ snmpclean:	FRC
+ 	-(cd snmpd; make clean)
+--- mrouted-3.9-beta3.orig/defs.h
++++ mrouted-3.9-beta3/defs.h
+@@ -45,7 +45,7 @@
+ #undef rtentry
+ #endif
+ #endif
+-#include <netinet/ip_mroute.h>
++#include "netinet/ip_mroute.h"
+ #ifdef RSRR
+ #include <sys/un.h>
+ #endif /* RSRR */
+@@ -180,7 +180,7 @@
+ #if !(defined(BSD) && (BSD >= 199103))
+ extern int		errno;
+ extern int		sys_nerr;
+-extern char *		sys_errlist[];
++/*extern char *		sys_errlist[];*/
+ #endif
+ 
+ #ifdef OLD_KERNEL
+--- mrouted-3.9-beta3.orig/main.c
++++ mrouted-3.9-beta3/main.c
+@@ -32,6 +32,8 @@
+ #include "snmp.h"
+ #endif
+ 
++#include <time.h>
++
+ #ifndef lint
+ static char rcsid[] = "@(#) $Id: \
+ main.c,v 3.8.4.29 1998/03/01 01:49:00 fenner Exp $";
+--- mrouted-3.9-beta3.orig/mrouted.conf
++++ mrouted-3.9-beta3/mrouted.conf
+@@ -30,7 +30,7 @@
+ #
+ #
+ # Template tunnel for mcast_install
+-tunnel 128.4.0.77 128.4.0.8 metric 1 threshold 64 rate_limit 500  # <-- REPLACE
++#tunnel 128.4.0.77 128.4.0.8 metric 1 threshold 64 rate_limit 500  # <-- REPLACE
+ #	boundary LOCAL
+ #
+ # You might want to specify a boundary on your tunnel to the outside world,
+--- mrouted-3.9-beta3.orig/pathnames.h
++++ mrouted-3.9-beta3/pathnames.h
+@@ -12,14 +12,14 @@
+ 
+ #define _PATH_MROUTED_CONF	"/etc/mrouted.conf"
+ 
+-#if (defined(BSD) && (BSD >= 199103))
++/*#if (defined(BSD) && (BSD >= 199103))*/
+ #define _PATH_MROUTED_PID	"/var/run/mrouted.pid"
+ #define _PATH_MROUTED_GENID	"/var/run/mrouted.genid"
+ #define _PATH_MROUTED_DUMP	"/var/tmp/mrouted.dump"
+ #define _PATH_MROUTED_CACHE	"/var/tmp/mrouted.cache"
+-#else
++/*#else
+ #define _PATH_MROUTED_PID	"/etc/mrouted.pid"
+ #define _PATH_MROUTED_GENID	"/etc/mrouted.genid"
+ #define _PATH_MROUTED_DUMP	"/usr/tmp/mrouted.dump"
+ #define _PATH_MROUTED_CACHE	"/usr/tmp/mrouted.cache"
+-#endif
++#endif*/
+--- mrouted-3.9-beta3.orig/netinet/ip_mroute.h
++++ mrouted-3.9-beta3/netinet/ip_mroute.h
+@@ -0,0 +1,8 @@
++#ifndef __NETINET_IP_MROUTE_H
++#define __NETINET_IP_MROUTE_H
++
++//#define _LINUX_IN_H
++
++#include <linux/mroute.h>
++
++#endif
+--- mrouted-3.9-beta3.orig/vers.c
++++ mrouted-3.9-beta3/vers.c
+@@ -0,0 +1 @@
++char todaysversion[]="3.9-beta3";

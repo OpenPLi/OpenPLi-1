@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title>Add Image</title>
+	</head>
+	<body>
+		The following images area available on<br>
+		#MPOINT#<br>
+		for installation:
+		<form name="imageselection" action="/cgi-bin/installimage">
+			<select name="image" size="1">
+				#IMAGES#
+			</select>
+			<br><br>
+			<input style="color: #000000; width: 100px" type="submit" size="100px" value="Install">
+		</form>
+	</body>
+</html>

@@ -1,0 +1,237 @@
+------
++++
+Title:
+Main Menu
++++
+Index:
+0
++++
+Entries:
+1 About
+2 Timer
+3 Data
+!5 Remember Channels
+	4
+	3
+	2
+6 Plugins
+* Setup
+7 Manual Update
+8 Internet Update
+9 General Setup
++++
+Actions:
+1:
+	OSD direct SHOW about
+	RC Wait Command
+	OSD direct HIDE about
+2:
+	CONTROL Menu Mode 1
+3:
+	CONTROL Menu Mode 2
+5:
+	CONTROL Var Set NUMBERLASTCHANNELS 4
+	CONTROL Var Set NUMBERLASTCHANNELS 3
+	CONTROL Var Set NUMBERLASTCHANNELS 2	
+6:
+	CONTROL Menu Mode 3
+7:
+	UPDATE Update Manual
+8:
+	UPDATE Update Internet
+9:
+	CONTROL Menu Mode 4
+------
++++
+Title:
+Timer
++++
+Index:
+1
++++
+Init:
+	OSD direct COMMAND menu set_size 200
+	TIMER Timers Dump
++++
+Actions:
+30:
+	TIMER Set RemoveFromMenu
+	TIMER Save
+------
++++
+Title:
+PID
++++
+Index:
+2
++++
+Entries:
+1 Channel PIDs
+2 CA PIDs
+3 Video Data
+4 Card Data
++++
+Actions:
+1:
+	CONTROL Menu Mode 30
+2:
+	CONTROL Menu Mode 32
+3:
+	CONTROL Menu Mode 31
+4:
+	CONTROL Menu Mode 33
+------
++++
+Title:
+Channel-PIDs
++++
+Index:
+30
++++
+Init:
+	CONTROL Add PIDs SID PMT VPID APIDs PCR TS ONID TXT
+------
++++
+Title:
+Card Data
++++
+Index:
+33
++++
+Init:
+	CONTROL Add PIDs CAID EMM
+------
++++
+Title:
+CA PIDs
++++
+Index:
+32
++++
+Init:
+	CONTROL Add PIDs CAIDs+ECMs
+------
++++
+Title:
+Video Data
++++
+Index:
+31
++++
+Init:
+	CONTROL Add VidData HSIZE VSIZE ARATIO ATYPE
+------
++++
+Title:
+Plugins
++++
+Index:
+3
++++
+Init:
+	#FB direct SETFADE 0 24 81 84 255 255 255
+	PLUGINS Plugins Load
+	PLUGINS Plugins Dump
+	CONTROL Var Set PLUGINMENU true
+------
++++
+Title:
+General Setup
++++
+Index:
+4
++++
+Entries:
+!1 16:9 Format
+	Letterbox
+	Panscan
+	Centercut
+x2 RC Repeat
+!3 Scart
+	FBAS
+	RGB
+x4 Support Old RC
+x5 Switch on VCR
+* Scan-Options
+6 Update-Channel-Scan
+7 Full Channel-Scan
+8 Normal Channel-Scan
+9 Bruteforce Scan
+* Setup-Stuff
+10 Box-Setup
+11 Save Settings
++++
+Values:
+1:
+	%SETTINGS_LETTERBOX
+	%SETTINGS_PANSCAN
+	%SETTINGS_CENTERCUT
+2:
+	%SETTINGS_RCREPEAT
+3:
+	%HARDWARE_FBAS
+	%HARDWARE_RGB
+4:
+	%SETTINGS_SUPPORTOLDRC
+5:
+	%SETTINGS_SWITCHVCR
++++
+Actions:
+1:
+	SETTINGS Set Letterbox 
+	SETTINGS Set Panscan
+	SETTINGS Set Centercut
+2:
+	SETTINGS Set RCRepeat
+3:
+	HARDWARE Set FBAS
+	HARDWARE Set RGB
+4:
+	SETTINGS Set SupportOldRC
+5:
+	SETTINGS Set SwitchVCR
+6:
+	SCAN Scan Update
+	#CHANNELS Save DVB
+7:
+	SCAN Scan Full
+	#CHANNELS Save DVB
+8:
+	SCAN Scan Normal
+	CHANNELS Save DVB
+	CHANNELS Save TS
+9:
+	SCAN Scan Bruteforce
+	CHANNELS Save DVB
+	CHANNELS Save TS
+10:
+	CONTROL Menu Mode 5
+11:
+	SETTINGS Settings Save
+------
++++
+Title:
+Box-Setup
++++
+Index:
+5
++++
+Entries:
+1 Autostart On
+2 Autostart Off
+3 Set Box-IP
+4 Set Gateway-IP
+5 Set DNS-IP
++++
+Actions:
+1:
+	CONTROL Set Autostart On
+2:
+	CONTROL Set Autostart Off
+3:
+	CONTROL Set IP BoxIP
+4:
+	CONTROL Set IP GatewayIP
+5:
+	CONTROL Set IP DNSIP
+------

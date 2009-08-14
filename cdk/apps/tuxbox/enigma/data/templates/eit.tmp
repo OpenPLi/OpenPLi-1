@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>Current/Next Electronic Program Guide (EPG)</title>
+		<link rel="stylesheet" type="text/css" href="/webif.css">
+	</head>
+	<body>
+		<table id="epg" width="100%" border="0" cellspacing="0" cellpadding="5">
+			<thead>
+				<tr>
+					<th colspan="3">#SERVICENAME#</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr valign="middle">
+					<td><span class="time">#NOWT#</span></td>
+					<td>#NOWD#</td>
+					<td class="genre00"> 
+						<span class="event">#NOWST#</span>
+						<br>
+						<span class="description">#NOWLT#</span>
+					</td>
+				</tr>
+				<tr valign="middle">
+					<td><span class="time">#NEXTT#</span></td>
+					<td>#NEXTD#</td>
+					<td class="genre00"> 
+						<span class="event">#NEXTST#</span>
+						<br>
+						<span class="description">#NEXTLT#</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

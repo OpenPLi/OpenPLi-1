@@ -1,0 +1,1119 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plisetup\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-07-09 19:24+0200\n"
+"PO-Revision-Date: 2007-11-13 21:12+0100\n"
+"Last-Translator: dAF2000 <daf2000@ditadres.nl>\n"
+"Language-Team: nl <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../camx.cpp:50
+msgid "Camx settings plugin v"
+msgstr ""
+
+#: ../camx.cpp:65
+#: ../wifi.cpp:192
+msgid "Save changes"
+msgstr "Instellingen opslaan"
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr "Sluiten"
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr "Verlaat plugin (vergeet niet op te slaan)"
+
+#: ../camx.cpp:94
+#: ../setup_main.cpp:89
+#: ../setup_main.cpp:142
+#: ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr "Informatie"
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr "Over deze plugin"
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr "Kan geen kaartinfo vinden"
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr "Softcam instellingen"
+
+#: ../emuconfig.cpp:103
+msgid "Select softcam for this channel"
+msgstr "Selecteer softcam voor dit kanaal"
+
+#: ../emuconfig.cpp:114
+msgid "Select softcam for this provider"
+msgstr "Selecteer softcam voor deze provider"
+
+#: ../emuconfig.cpp:119
+msgid "Default SoftCam"
+msgstr "Standaard softcam"
+
+#: ../emuconfig.cpp:126
+msgid "Select default softcam"
+msgstr "Selecteer standaard softcam"
+
+#: ../emuconfig.cpp:131
+msgid "Cardserver"
+msgstr "Kaartserver"
+
+#: ../emuconfig.cpp:138
+msgid "Select cardserver"
+msgstr "Selecteer kaartserver"
+
+#: ../emuconfig.cpp:143
+msgid "Auto reconnect cahandler"
+msgstr "Herstel verb. cahandler"
+
+#: ../emuconfig.cpp:146
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "Probeer opnieuw een externe cahandler te verbinden als de connectie verbroken was"
+
+#: ../emuconfig.cpp:151
+msgid "Can handle two services"
+msgstr "Kan twee services aan"
+
+#: ../emuconfig.cpp:154
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "Cam of common interface kan twee services tegelijkertijd decoderen"
+
+#: ../emuconfig.cpp:162
+#: ../emuconfig.cpp:530
+msgid "-- None --"
+msgstr "-- Geen --"
+
+#: ../emuconfig.cpp:205
+#: ../setup_firewall.cpp:83
+#: ../setup_gbox.cpp:247
+#: ../setup_rdg.cpp:79
+#: ../setup_tpl.cpp:75
+#: ../wifi.cpp:191
+msgid "Save"
+msgstr "Opslaan"
+
+#: ../emuconfig.cpp:206
+msgid "Save settings"
+msgstr "Instellingen opslaan"
+
+#: ../emuconfig.cpp:213
+msgid "List stickies"
+msgstr "Sticky lijst"
+
+#: ../emuconfig.cpp:214
+msgid "List current stickies"
+msgstr "Lijst met ingestelde stickies"
+
+#: ../emuconfig.cpp:223
+msgid "Cardinfo"
+msgstr "Kaartinfo"
+
+#: ../emuconfig.cpp:224
+msgid "Get cardinfo from current active cardserver"
+msgstr "Bekijk kaartinfo van huidige kaartserver"
+
+#: ../emuconfig.cpp:233
+msgid "Save and restart cam"
+msgstr "Opslaan, cam herstarten"
+
+#: ../emuconfig.cpp:234
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "Wijzigingen opslaan en de Softcam opnieuw starten"
+
+#: ../emuconfig.cpp:243
+msgid "Restart cardserver"
+msgstr "Kaartserver herstarten"
+
+#: ../emuconfig.cpp:244
+msgid "Press OK to restart the cardserver"
+msgstr "Druk op OK om de kaartserver opnieuw te starten"
+
+#: ../emuconfig.cpp:379
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+"Instellingen opslaan\n"
+"Softcam wordt gestart"
+
+#: ../emuconfig.cpp:379
+msgid "Softcam config info"
+msgstr "Softcam instellingen info"
+
+#: ../emuconfig.cpp:480
+msgid "Restarting cardserver"
+msgstr "Kaartserver wordt gestart"
+
+#: ../emuconfig.cpp:480
+msgid "Cardserver info"
+msgstr "Kaartserverinfo"
+
+#: ../emuconfig.cpp:518
+#: ../emuconfig.cpp:634
+msgid "Channel"
+msgstr "Kanaal"
+
+#: ../emuconfig.cpp:519
+#: ../emuconfig.cpp:639
+msgid "Provider"
+msgstr "Provider"
+
+#: ../emuconfig.cpp:531
+#: ../emuconfig.cpp:532
+msgid "-- Default --"
+msgstr "-- Standaard --"
+
+#: ../emuconfig.cpp:588
+msgid "getting cardinfo"
+msgstr "kaartinfo ophalen"
+
+#: ../emuconfig.cpp:604
+msgid "Current Stickies"
+msgstr "Huidige stickies"
+
+#: ../emuconfig.cpp:606
+msgid "Sticky Settings 1"
+msgstr "Sticky-instellingen 1"
+
+#: ../gpanel.cpp:191
+#: ../gpanel.cpp:217
+#: ../gpanel.cpp:228
+#: ../ppanel.cpp:1146
+msgid "Error!"
+msgstr "Fout!"
+
+#: ../ppanel.cpp:129
+msgid "Script output"
+msgstr "Scriptuitvoer"
+
+#: ../ppanel.cpp:202
+msgid "Downloading"
+msgstr "Downloaden"
+
+#: ../ppanel.cpp:218
+msgid "Please wait"
+msgstr "Moment..."
+
+#: ../ppanel.cpp:248
+msgid ""
+"Download failed.\n"
+"Please check available space and your communication settings."
+msgstr ""
+"Download mislukt\n"
+"Controleer beschikbare ruimte en netwerkinstellingen"
+
+#: ../ppanel.cpp:272
+#, c-format
+msgid "Installing %s"
+msgstr "Installeren van %s"
+
+#: ../ppanel.cpp:314
+msgid "Install failed."
+msgstr "Installatie mislukt"
+
+#: ../ppanel.cpp:344
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: ../ppanel.cpp:463
+msgid "Press OK"
+msgstr "Druk OK"
+
+#: ../ppanel.cpp:490
+#, c-format
+msgid ""
+"Are you sure to open\n"
+"%s?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt openen?"
+
+#: ../ppanel.cpp:550
+#, c-format
+msgid ""
+"Are you sure to download\n"
+"%s?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt downloaden?"
+
+#: ../ppanel.cpp:564
+#: ../ppanel.cpp:794
+#: ../ppanel.cpp:1019
+#, c-format
+msgid "Downloading %s"
+msgstr "Downloaden van %s"
+
+#: ../ppanel.cpp:620
+#: ../ppanel.cpp:671
+#, c-format
+msgid ""
+"Are you sure to execute\n"
+"%s?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt uitvoeren?"
+
+#: ../ppanel.cpp:737
+#, c-format
+msgid ""
+"Are you sure to install\n"
+"%s?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt installeren?"
+
+#: ../ppanel.cpp:817
+msgid "The package cannot be installed because it's already installed. Please remove the previous version first."
+msgstr "De software kan niet worden geinstalleerd omdat 't al geinstalleerd is. Verwijder eerst de vorige versie."
+
+#: ../ppanel.cpp:818
+msgid "Installing not possible"
+msgstr "Installeren niet mogelijk"
+
+#: ../ppanel.cpp:833
+#: ../ppanel.cpp:842
+msgid "Manual Install"
+msgstr "Handmatige installatie"
+
+#: ../ppanel.cpp:840
+msgid "Select package to install"
+msgstr "Selecteer het te installeren pakket"
+
+#: ../ppanel.cpp:928
+#: ../ppanel.cpp:934
+msgid "Remove Software"
+msgstr "Software verwijderen"
+
+#: ../ppanel.cpp:932
+msgid "Select package to remove"
+msgstr "Selecteer het te verwijderen pakket"
+
+#: ../ppanel.cpp:954
+#, c-format
+msgid ""
+"Are you sure to remove\n"
+"%s?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt verwijderen?"
+
+#: ../ppanel.cpp:962
+#, c-format
+msgid "Removing %s"
+msgstr "Verwijdert %s"
+
+#: ../ppanel.cpp:998
+#, c-format
+msgid ""
+"Are you sure to play\n"
+"%s?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt afspelen?"
+
+#: ../ppanel.cpp:1090
+#, c-format
+msgid ""
+"Are you sure to write\n"
+"%s?"
+msgstr ""
+"Weet u zeker dat u\n"
+"%s wilt beschrijven?"
+
+#: ../ppanel.cpp:1333
+msgid "Please select an item"
+msgstr "Selecteer een item"
+
+#: ../ppanel.cpp:1356
+msgid "latest"
+msgstr "laatste"
+
+#: ../ppanel.cpp:1402
+msgid "A new menu is available. The new menu will be visible if you return to the setup panel.You can continue your work here after pressing OK."
+msgstr "Er is een nieuw menu beschikbaar. U kunt dit menu zien als u terug gaat naar het setup panel. U kunt hier verder werken nadat u op OK drukt."
+
+#: ../ppanel.cpp:1404
+msgid "Automatic menu update"
+msgstr "Automatische menu update"
+
+#: ../ppanel.cpp:1563
+#: ../ppanel.cpp:1661
+#, c-format
+msgid ""
+"%s\n"
+"%d bytes downloaded\n"
+"Press exit to cancel download"
+msgstr ""
+"%s\n"
+"%d bytes gedownload\n"
+"Druk op exit om af te breken"
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr "Firewall instellingen"
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr "IP-adres dat toegang krijgt"
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr "Hostnaam die toegang krijgt"
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr "Opslaan & firewall herstarten"
+
+#: ../setup_gbox.cpp:159
+#: ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr ""
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr "Werkwijze"
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr "Selecteer werkwijze"
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr "Update wijze:"
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr "Selecteer sleutelupdatewijze"
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr "ECM weerg.:"
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr "ECM meldingen weergeven op console?"
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr "Sleutel locatie:"
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr "Selecteer sleuteldirectory"
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr "EMM weerg.:"
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr "EMM-meldingen weergeven op console?"
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr ""
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr "Selecteer AU-wijze"
+
+#: ../setup_gbox.cpp:252
+#: ../setup_rdg.cpp:84
+#: ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr "Opslaan en stoppen"
+
+#: ../setup_gbox.cpp:260
+#: ../setup_rdg.cpp:92
+#: ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr "Afbreken"
+
+#: ../setup_gbox.cpp:263
+#: ../setup_rdg.cpp:95
+#: ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr "Wijzigingen negeren en afbreken"
+
+#: ../setup_gbox.cpp:270
+#: ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr "standaardwaarden"
+
+#: ../setup_gbox.cpp:273
+#: ../setup_rdg.cpp:105
+#: ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr ""
+
+#: ../setup_main.cpp:73
+msgid "SoftCam setup"
+msgstr "SoftCam instellingen"
+
+#: ../setup_main.cpp:73
+msgid "Open SoftCam setup"
+msgstr "Open SoftCam instellingen"
+
+#: ../setup_main.cpp:75
+msgid "Show installed PPanels"
+msgstr "Geïnstalleerde PPanels"
+
+#: ../setup_main.cpp:75
+msgid "Show all installed PPanels"
+msgstr "Laat geïnstalleerde PPanels zien"
+
+#: ../setup_main.cpp:77
+msgid "Software Management"
+msgstr "Softwarebeheer"
+
+#: ../setup_main.cpp:77
+msgid "Install and remove software"
+msgstr "Software installeren en verwijderen"
+
+#: ../setup_main.cpp:79
+msgid "Backup/restore"
+msgstr "Backup/herstellen"
+
+#: ../setup_main.cpp:79
+msgid "Backup and restore your Dreambox"
+msgstr "Backup en herstel uw Dreambox"
+
+#: ../setup_main.cpp:81
+msgid "Dreambox settings"
+msgstr "Dreambox instellingen"
+
+#: ../setup_main.cpp:82
+msgid "Change several settings of the Dreambox"
+msgstr "Stel allerlei instellingen van de Dreambox in"
+
+#: ../setup_main.cpp:86
+msgid "PLi news"
+msgstr "PLi nieuws"
+
+#: ../setup_main.cpp:87
+msgid "Info and news about PLi"
+msgstr "Informatie en nieuws over PLi"
+
+#: ../setup_main.cpp:209
+#, c-format
+msgid "/var used %d%%"
+msgstr "/var vol %d%%"
+
+#: ../setup_main.cpp:218
+#, c-format
+msgid "recordings %d%%"
+msgstr "opnames %d%%"
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr "Radegast instellingen"
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr "standaardwaarden"
+
+#: ../setup_runapp.cpp:65
+msgid "Close"
+msgstr "Sluiten"
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr "kan script niet uitvoeren."
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr "Een fout trad op tijdens uitvoeren"
+
+#: ../wifi.cpp:89
+#: ../wifi.cpp:373
+#: ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr ""
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr ""
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr ""
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr ""
+
+#: ../wifi.cpp:112
+msgid "Enter your IP address"
+msgstr ""
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr ""
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr ""
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr ""
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr ""
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr ""
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr ""
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr ""
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr ""
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr ""
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr "Afsluiten"
+
+#: ../wifi.cpp:202
+msgid "Exit this plugin, don't forget to save!"
+msgstr ""
+
+#: ../wifi.cpp:211
+#: ../wifi.cpp:463
+msgid "Next"
+msgstr ""
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr "Veiligheidsinstellingen"
+
+#: ../wifi.cpp:222
+msgid "About the Wifi plugin"
+msgstr ""
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr ""
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr ""
+
+#: ../wifi.cpp:397
+msgid "Mode"
+msgstr ""
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr ""
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr ""
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr ""
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr ""
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr ""
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr ""
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr ""
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr ""
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr ""
+
+#: ../wifi.cpp:453
+#: ../wifi.cpp:601
+msgid "Prev"
+msgstr ""
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr ""
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr ""
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr ""
+
+#~ msgid "setup"
+#~ msgstr "instellingen"
+#~ msgid " - network settings"
+#~ msgstr " - netwerkinstellingen"
+#~ msgid " - security settings"
+#~ msgstr " - veiligheidsinstellingen"
+#~ msgid "/hdd used %d%%"
+#~ msgstr "/hdd vol %d%%"
+#~ msgid "Cancel"
+#~ msgstr "Afbreken"
+#~ msgid "Discard changes and return"
+#~ msgstr "Instellingen niet opslaan en afbreken"
+#~ msgid "<< Scroll left"
+#~ msgstr "<< Naar links"
+#~ msgid "Scroll right >>"
+#~ msgstr "Naar rechts >>"
+#~ msgid "Could not execute script"
+#~ msgstr "Kan script niet uitvoeren"
+#~ msgid "Log EmuDaemon to file"
+#~ msgstr "Log plimgr naar logbestand"
+#~ msgid "Log Enigma to file"
+#~ msgstr "Log Enigma naar logbestand"
+#~ msgid "Start syslog daemon at boot"
+#~ msgstr "Start syslog bij opstarten"
+#~ msgid "Remote host:"
+#~ msgstr "Remote host:"
+#~ msgid "Host of remote syslog daemon (local leave empty)"
+#~ msgstr "Host van de remote syslog daemon (leeg laten voor lokaal)"
+#~ msgid "Logfile path:"
+#~ msgstr "Logbestandpad:"
+#~ msgid "Choose the logpath to use"
+#~ msgstr "Kies het te gebruiken pad"
+#~ msgid "PLi image setup"
+#~ msgstr "PLi image instellingen"
+#~ msgid "Extra tools"
+#~ msgstr "Extra gereedschappen"
+#~ msgid "Extra OSD settings"
+#~ msgstr "Extra OSD instellingen"
+#~ msgid "open Extra OSD settings"
+#~ msgstr "Open extra OSD instellingen"
+#~ msgid "Extra system settings"
+#~ msgstr "Extra systeeminstellingen"
+#~ msgid "open Extra system settings"
+#~ msgstr "Open extra systeeminstellingen"
+#~ msgid "Services to run"
+#~ msgstr "Te starten diensten"
+#~ msgid "open Services setup"
+#~ msgstr "Open dienstinstellingen"
+#~ msgid "EPG settings"
+#~ msgstr "EPG instellingen"
+#~ msgid "open EPG settings"
+#~ msgstr "Open EPG instellingen"
+#~ msgid "Language setup"
+#~ msgstr "Voorkeurstalen"
+#~ msgid "open language setup"
+#~ msgstr "Open voorkeurstalen"
+#~ msgid "USB stick setup"
+#~ msgstr "USB-stick instellingen"
+#~ msgid "open USB stick setup"
+#~ msgstr "Open USB-stick instellingen"
+#~ msgid "Move /var to harddisk"
+#~ msgstr "Verplaats /var naar harde schijf"
+#~ msgid "Move /var to harddisk to save memory"
+#~ msgstr "Verplaats /var naar harde schijf om geheugen te besparen"
+#~ msgid "Move /var to usbstick"
+#~ msgstr "Verplaats /var naar USB-stick"
+#~ msgid "Move /var to usb stick to save memory"
+#~ msgstr "Verplaats /var naar USB-stick om geheugen te besparen"
+#~ msgid "Move /var to compact flash"
+#~ msgstr "Verplaats /var naar compact flash"
+#~ msgid "Move /var to compact flash card to save memory"
+#~ msgstr "Verplaats /var naar compact flash kaart om geheugen te besparen"
+#~ msgid "Remove /var from harddisk"
+#~ msgstr "Verwijder /var van harde schijf"
+#~ msgid "Remove /var from harddisk for whatever reason ;-)"
+#~ msgstr "Verwijder /var van harde schijf"
+#~ msgid "Remove /var from usbstick"
+#~ msgstr "Verwijder /var van USB-stick"
+#~ msgid "Remove /var from usb stick for whatever reason ;-)"
+#~ msgstr "Verwijder /var van USB-stick"
+#~ msgid "Remove /var from compact flash"
+#~ msgstr "Verwijder /var van compact flash"
+#~ msgid "Remove /var from compact flash for whatever reason ;-)"
+#~ msgstr "Verwijder /var van compact flash"
+#~ msgid ""
+#~ "/var will be moved to HDD\n"
+#~ "\n"
+#~ "After moving your dreambox will reboot automatically!!!!\n"
+#~ "Are you sure you want to do this?\n"
+#~ msgstr ""
+#~ "/var wordt verplaatst naar uw harde schijf\n"
+#~ "\n"
+#~ "Na het verplaatsen wordt uw dreambox opnieuw gestart!\n"
+#~ "Wilt u verder gaan?\n"
+#~ msgid "Are you sure?"
+#~ msgstr "Weet u het zeker?"
+#~ msgid ""
+#~ "/var will be removed from HDD\n"
+#~ "When removed the files are really gone!!\n"
+#~ "\n"
+#~ "After removing your dreambox will reboot automatically!!!!\n"
+#~ "Are you sure you want to do this?\n"
+#~ msgstr ""
+#~ "/var wordt verwijderd van uw harddisk\n"
+#~ "Al uw bestanden zijn dan verdwenen!\n"
+#~ "\n"
+#~ "Na het verwijderen wordt uw dreambox opnieuw gestart\n"
+#~ "Wilt u verder gaan?\n"
+#~ msgid ""
+#~ "/var will be removed from USB\n"
+#~ "When removed the files are really gone!!\n"
+#~ "\n"
+#~ "After removing your dreambox will reboot automatically!!!!\n"
+#~ "Are you sure you want to do this?\n"
+#~ msgstr ""
+#~ "/var wordt verwijderd van uw USB-stick\n"
+#~ "Al uw bestanden zijn dan verdwenen!\n"
+#~ "\n"
+#~ "Na het verwijderen wordt uw dreambox opnieuw gestart\n"
+#~ "Wilt u verder gaan?\n"
+#~ msgid ""
+#~ "/var will be removed from compact flash\n"
+#~ "When removed the files are really gone!!\n"
+#~ "\n"
+#~ "After removing your dreambox will reboot automatically!!!!\n"
+#~ "Are you sure you want to do this?\n"
+#~ msgstr ""
+#~ "/var wordt verwijderd van uw compact flash kaart\n"
+#~ "Al uw bestanden zijn dan verdwenen!\n"
+#~ "\n"
+#~ "Na het verwijderen wordt uw dreambox opnieuw gestart\n"
+#~ "Wilt u verder gaan?\n"
+#~ msgid ""
+#~ "/var will be moved to USB\n"
+#~ "\n"
+#~ "After moving your dreambox will reboot automatically!!!!\n"
+#~ "Are you sure you want to do this?\n"
+#~ msgstr ""
+#~ "/var wordt verplaatst naar uw USB-stick\n"
+#~ "\n"
+#~ "Na het verplaatsen wordt uw dreambox opnieuw gestart!\n"
+#~ "Wilt u verder gaan?\n"
+#~ msgid ""
+#~ "/var will be moved to compact flash\n"
+#~ "\n"
+#~ "After moving your dreambox will reboot automatically!!!!\n"
+#~ "Are you sure you want to do this?\n"
+#~ msgstr ""
+#~ "/var wordt verplaatst naar uw compact flash kaart\n"
+#~ "\n"
+#~ "Na het verplaatsen wordt uw dreambox opnieuw gestart!\n"
+#~ "Wilt u verder gaan?\n"
+#~ msgid "EPG data store"
+#~ msgstr "EPG dataopslag"
+#~ msgid "Select if you want the default Enigma EPG or SQLite database EPG"
+#~ msgstr "Selecteer of u Enigma EPG of SQLite database EPG wilt"
+#~ msgid "Enigma EPG"
+#~ msgstr "Enigma EPG"
+#~ msgid "SQLite database"
+#~ msgstr "SQLite database"
+#~ msgid "Select EPG store location"
+#~ msgstr "Selecteer EPG opslaglocatie"
+#~ msgid "Harddisk"
+#~ msgstr "Harddisk"
+#~ msgid "USB stick"
+#~ msgstr "USB-stick"
+#~ msgid "CF card"
+#~ msgstr "CF card"
+#~ msgid "Custom location"
+#~ msgstr "Eigen locatie"
+#~ msgid "Directory"
+#~ msgstr "Map"
+#~ msgid "Enter custom EPG store location"
+#~ msgstr "Vul eigen EPG opslaglocatie in"
+#~ msgid "MultiEPG Channels:"
+#~ msgstr "MultiEPG kanalen:"
+#~ msgid "Number of channels per MultiEPG page to show"
+#~ msgstr "Aantal kanalen in het MultiEPG scherm"
+#~ msgid "MultiEPG entry fontsize:"
+#~ msgstr "MultiEPG fontgrootte:"
+#~ msgid "Increase/decrease entry fontsize with this number of points"
+#~ msgstr "Vergroot/verklein fontgrootte met dit aantal punten"
+#~ msgid "Show EPG in webif Channel lists"
+#~ msgstr "Laat EPG in de webinterface kanalenlijst zien"
+#~ msgid "Show EPG in webif/webx-tv channel lists"
+#~ msgstr "Laat EPG in de webinterface/webx-tv kanalenlijst zien"
+#~ msgid "Rescan EPG"
+#~ msgstr "Scan EPG"
+#~ msgid "Rescan EPG data on current transponder"
+#~ msgstr "Scan EPG data op huidige transponder"
+#~ msgid "Enigma EPG location"
+#~ msgstr "Enigma EPG locatie"
+#~ msgid "Enigma EPG directory"
+#~ msgstr "Enigma EPG map"
+#~ msgid "SQLite EPG location"
+#~ msgstr "SQLite EPG locatie"
+#~ msgid "SQLite EPG directory"
+#~ msgstr "SQLite EPG map"
+#~ msgid "This directory is suitable for storage"
+#~ msgstr "Deze map is bruikbaar voor opslag"
+#~ msgid "This directory has not enough space"
+#~ msgstr "Deze map heeft niet genoeg ruimte"
+#~ msgid "This directory does not exist"
+#~ msgstr "Deze map bestaat niet"
+#~ msgid "Language"
+#~ msgstr "Taal"
+#~ msgid "Select the first language"
+#~ msgstr "Selecteer de eerste taal"
+#~ msgid "Select the second language"
+#~ msgstr "Selecteer de tweede taal"
+#~ msgid "Select the third language"
+#~ msgstr "Selecteer de derde taal"
+#~ msgid "Select the fourth language"
+#~ msgstr "Selecteer de vierde taal"
+#~ msgid "Specific PLi image settings"
+#~ msgstr "Specifieke PLi image instellingen"
+#~ msgid "OSD on zap"
+#~ msgstr "OSD tijdens zap"
+#~ msgid "Show OSD after a zap"
+#~ msgstr "OSD infobalk weergeven tijdens zappen"
+#~ msgid "Extra OSD"
+#~ msgstr "Extra OSD"
+#~ msgid "Show extra info in OSD on OK"
+#~ msgstr "Meer informatie in OSD infobalk na OK"
+#~ msgid "Extra OSD on Zap"
+#~ msgstr "Extra OSD tijdens zap"
+#~ msgid "Show extra info in OSD when zapping"
+#~ msgstr "Meer informatie in OSD infobalk tijdens zappen"
+#~ msgid "Autohide OSD on OK"
+#~ msgstr "OSD verbergen na OK"
+#~ msgid "Autohide OSD when pressing OK button"
+#~ msgstr "OSD automatisch verbergen na OK"
+#~ msgid "Autohide radio/mp3 OSD"
+#~ msgstr "OSD verberg. in radio/mp3"
+#~ msgid "Autohide the OSD display in radio/mp3 mode"
+#~ msgstr "OSD automatisch verbergen in de radio- en mp3-mode"
+#~ msgid "SNR in dB"
+#~ msgstr "SNR in dB"
+#~ msgid "Show SNR values in dB instead of %"
+#~ msgstr "Laat SNR waarden in dB zien ipv procent"
+#~ msgid "Show plicons"
+#~ msgstr "Laat plicons zien"
+#~ msgid "Show plicons in EPG and skin"
+#~ msgstr "Laat plicons in EPG en skin zien"
+#~ msgid "Use Mini-Zap"
+#~ msgstr "Gebruik Mini-Zap"
+#~ msgid "Show smaller OSD when zapping (if supported by the skin)"
+#~ msgstr "Laat kleinere OSD zien tijdens zappen (indien skin het support)"
+#~ msgid "Expert OSD"
+#~ msgstr "Expert OSD"
+#~ msgid "Show other extra info in OSD on OK"
+#~ msgstr "Meer informatie in OSD infobalk na OK"
+#~ msgid "Expert OSD on Zap"
+#~ msgstr "Expert OSD tijdens zap"
+#~ msgid "Show other extra info in OSD when zapping"
+#~ msgstr "Meer informatie in OSD infobalk tijdens zappen"
+#~ msgid "Seconds in OSD clock"
+#~ msgstr "Seconden in OSD klok"
+#~ msgid "Show seconds in OSD clock"
+#~ msgstr "Laat seconden zien in OSD klok"
+#~ msgid "No picture in radio/mp3"
+#~ msgstr "Geen plaatje in radio/mp3"
+#~ msgid "No background picture in radio/mp3 mode"
+#~ msgstr "Geen achtergrondplaatje in radio/mp3"
+#~ msgid "Use 12 hour clock"
+#~ msgstr "Gebruik 12-uurs klok"
+#~ msgid "Show all time information using a 12-hour clock (am/pm)"
+#~ msgstr "Laat alle tijdinformatie in 12-uurs kloknotatie zien (am/pm)"
+#~ msgid "Start firewall"
+#~ msgstr "Firewall starten"
+#~ msgid "start/do not start firewall"
+#~ msgstr "firewall wel of niet starten"
+#~ msgid "Configure FW"
+#~ msgstr "FW instellen"
+#~ msgid "Configure the firewall"
+#~ msgstr "De firewall instellen"
+#~ msgid "Start crond"
+#~ msgstr "crond starten"
+#~ msgid "start/do not start crond the time daemon"
+#~ msgstr "crond wel of niet starten"
+#~ msgid "Start Inadyn"
+#~ msgstr "Inadyn starten"
+#~ msgid "start/do not start Inadyn"
+#~ msgstr "Inadyn wel of niet starten"
+#~ msgid "Start NFS server"
+#~ msgstr "NFS-server starten"
+#~ msgid ""
+#~ "start/do not start NFS server (must be installed through software "
+#~ "installer!!)"
+#~ msgstr "NFS-server wel of niet starten"
+#~ msgid "Start Apache server"
+#~ msgstr "Apache starten"
+#~ msgid ""
+#~ "start/do not start Apache server (must be installed through software "
+#~ "installer!!)"
+#~ msgstr ""
+#~ "Apache-webserver wel of niet starten (moet eerst geÃ¯nstalleerd zijn)"
+#~ msgid "Start gSUB"
+#~ msgstr "Start gSUB"
+#~ msgid "start/do not start gSUB"
+#~ msgstr "gSUB wel of niet starten"
+#~ msgid "USB/HDD mount wait"
+#~ msgstr "USB/HDD mount tijd:"
+#~ msgid "Number of seconds to wait before mounting HDD and USB"
+#~ msgstr "Aantal seconden wachten alvorens harddisk en USB te mounten"
+#~ msgid "Harddisk sleep time"
+#~ msgstr "Harddisk slaaptijd"
+#~ msgid ""
+#~ "Number of minutes after the harddisk will spin down. 0 to 330 minutes. 0 "
+#~ "is no spin down"
+#~ msgstr ""
+#~ "Na dit aantal minuten gaat uw harde schijf uit. 0 tot 330 minuten. 0 is "
+#~ "niet uitschakelen"
+#~ msgid "Harddisk acoustics"
+#~ msgstr "Harddisk geluidsnivo"
+#~ msgid "Sets the acoustics of the drive, 128=quiet/slow 254=fast/loud"
+#~ msgstr ""
+#~ "Geluidsinstellingen van de harde schijf: 128=stil/langzaam 254=snel/"
+#~ "luidruchtig"
+#~ msgid "Swap file"
+#~ msgstr "Swapbestand"
+#~ msgid ""
+#~ "Make use of swap file: No, USB, HDD or CF card. Reboot of your Dreambox "
+#~ "is required afterwards!"
+#~ msgstr ""
+#~ "Gebruik swapbestand: Geen, USB, harde schijf of CF-kaart. Reboot van "
+#~ "Dreambox is nodig daarna!"
+#~ msgid "Swap size"
+#~ msgstr "Swapfile grootte"
+#~ msgid "Give size of swap file in MB"
+#~ msgstr "Grootte van het swapbestand in MB"
+#~ msgid "Timer start offset"
+#~ msgstr "Timer extra begintijd"
+#~ msgid "Time in minutes a timer event starts earlier (0-60)"
+#~ msgstr "Aantal minuten een timer eerder moet beginnen (0-60)"
+#~ msgid "Timer stop offset"
+#~ msgstr "Timer extra eindtijd"
+#~ msgid "Time in minutes a timer event finishes later (0-60)"
+#~ msgstr "Aantal minuten een timer later moet stoppen (0-60)"
+#~ msgid "Skip forward time"
+#~ msgstr "Doorspoeltijd"
+#~ msgid "Commercial skip forward time in seconds"
+#~ msgstr "Reclamedoorspoeltijd in seconden"
+#~ msgid "Skip backward time"
+#~ msgstr "Terugspoeltijd"
+#~ msgid "Commercial skip backward time in seconds"
+#~ msgstr "Reclameterugspoeltijd in seconden"
+#~ msgid "Advanced settings, do not change or use with care:"
+#~ msgstr "Geavanceerde instellingen, niet of met beleid wijzigen:"
+#~ msgid "Set the forward wind offset value"
+#~ msgstr "Vooruitspoel startwaarde"
+#~ msgid "Set the forward wind gain value"
+#~ msgstr "Vooruitspoel toename"
+#~ msgid "Set the rewind offset value"
+#~ msgstr "Terugspoel startwaarde"
+#~ msgid "Set the rewind gain value"
+#~ msgstr "Terugspoel toename"
+#~ msgid "Format USB device"
+#~ msgstr "USB formatteren"
+#~ msgid "Mount USB stick"
+#~ msgstr "USB mounten"
+#~ msgid "UN-Mount USB stick"
+#~ msgstr "USB un-mounten"
+#~ msgid "Are you SURE that you want to format this USB disk?\n"
+#~ msgstr "Weet u zeker dat u deze USB-stick wilt formatteren?\n"
+#~ msgid "formatting USB disk..."
+#~ msgstr "USB-stick formatteren..."
+#~ msgid "sorry, Cannot format a mounted USB device."
+#~ msgstr "Een gemount USB-apparaat kan niet geformatteerd worden"
+#~ msgid ""
+#~ "please wait while initializing USB disk.\n"
+#~ "This might take some minutes.\n"
+#~ msgstr ""
+#~ "Een paar minuten geduld,\n"
+#~ "de USB-stick wordt geïnitialiseerd.\n"
+#~ msgid "sorry, couldn't find sfdisk utility to partition USB disk."
+#~ msgstr "hulpprogramma sfdisk om USB-stick in te delen is niet gevonden"
+#~ msgid "creating filesystem failed."
+#~ msgstr "aanmaken van bestandssysteem mislukt"
+#~ msgid "successfully formatted your USB disk!"
+#~ msgstr "Uw USB-stick is succesvol geformatteerd!"
+#~ msgid "USB Stick is already mounted"
+#~ msgstr "USB-stick is al gemount"
+#~ msgid "USB Stick successfuly mounted"
+#~ msgstr "USB-stick is succesvol gemount"
+#~ msgid "USB Stick NOT MOUNTED, unknown error"
+#~ msgstr "USB-stick kon niet ge-unmount worden, onbekende fout"
+#~ msgid "USB Stick is NOT MOUNTED"
+#~ msgstr "USB-stick is niet gemount"
+#~ msgid "USB Stick IS STILL MOUNTED, unknown error"
+#~ msgstr "USB-stick is nog steeds gemount, onbekende fout"
+#~ msgid "USB Stick successfuly un-mounted"
+#~ msgstr "USB-stick succesvol ge-unmount"
+#~ msgid ""
+#~ "Are you sure to show ppanel\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Weet u zeker dat u ppanel\n"
+#~ "%s wilt openen?"
+#~ msgid "Select where EPG data must be stored"
+#~ msgstr "Selecteer waar de EPG data opgeslagen moet worden"
+#~ msgid "Memory"
+#~ msgstr "Geheugen"
+#~ msgid "Show all installed PPanels of this system"
+#~ msgstr "Laat geïnstalleerde PPanels zien"
+#~ msgid "Language Setup"
+#~ msgstr "Voorkeurstalen"
+#~ msgid "Download complete."
+#~ msgstr "Download gelukt"
+#~ msgid "Download failed."
+#~ msgstr "Download mislukt"
+#~ msgid "Gamez"
+#~ msgstr "Spelletjes"
+#~ msgid "Show a list of all installed games"
+#~ msgstr "Laat geïnstalleerde spellen zien"
+#~ msgid "32-bit OSD colours"
+#~ msgstr "32-bit OSD kleuren"
+#~ msgid "Use 32-bit colours for OSD. Needs a restart of enigma!"
+#~ msgstr ""
+#~ "Gebruik 32-bit kleuren voor OSD. Heeft een herstart van Enigma nodig!"
+

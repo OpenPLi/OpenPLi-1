@@ -1,0 +1,97 @@
+diff -Naur aMule-2.1.2.orig/amule.install aMule-2.1.2.patched/amule.install
+--- aMule-2.1.2.orig/amule.install	1970-01-01 01:00:00.000000000 +0100
++++ aMule-2.1.2.patched/amule.install	2006-05-30 20:12:48.128150631 +0100
+@@ -0,0 +1,42 @@
++#!/bin/sh
++cd /hdd && gzip -dc /hdd/aMule.tar.gz|tar -x
++sleep 30 && wget http://corpo.free.fr/server.met -O /hdd/aMule/.aMule/server.met.orig &
++sleep 30 && wget http://download.overnet2000.de/nodes.dat -O /hdd/aMule/.aMule/nodes.dat.orig &
++mv /hdd/aMule/amulestart /var/bin/amulestart
++chmod 755 /var/bin/amulestart
++cd aMule && HOME=/hdd/aMule ./amuled
++mv .aMule/amule.conf .aMule/amule.conf.orig
++sed -e "{s/MaxUpload=0/MaxUpload=20/}{s/SlotAllocation=2/SlotAllocation=4/}{s/FromServer=1/FromServer=0/}{s/FromClient=1/FromClient=0/}{s/AcceptExternalConnections=0/AcceptExternalConnections=1/}{s/ECPassword=/ECPassword=e641d6ac68e70fcc0f5adb089dd3f1bd/}" < .aMule/amule.conf.orig > .aMule/amule.conf
++HOME=/hdd/aMule /hdd/aMule/amuleweb -w -h=localhost -P=dreambox --admin-pass=dreambox
++rm /hdd/aMule/.aMule/nodes.dat /hdd/aMule/.aMule/server.met
++cp /hdd/aMule/.aMule/cryptkey.dat /hdd/aMule/.aMule/cryptkey.dat.orig
++if [ ! -e /var/etc/enigma_enter_standby.sh ]; then
++	echo "#!/bin/sh" >> /var/etc/enigma_enter_standby.sh
++fi
++echo "#Start aMule" >> /var/etc/enigma_enter_standby.sh
++echo "/var/bin/amulestart &" >> /var/etc/enigma_enter_standby.sh
++chmod 755 /var/etc/enigma_enter_standby.sh
++if [ ! -e /var/etc/enigma_leave_standby.sh ]; then
++	echo "#!/bin/sh" >> /var/etc/enigma_leave_standby.sh;
++fi
++echo "#Stop aMule" >> /var/etc/enigma_leave_standby.sh
++echo "killall amuleweb amuled" >> /var/etc/enigma_leave_standby.sh
++chmod 755 /var/etc/enigma_leave_standby.sh
++if [ ! -e /var/etc/init ]; then
++	echo "#!/bin/sh" >> /var/etc/init;
++fi
++echo "#Is there swapspace?" >> /var/etc/init
++echo "if [ -e /media/hdd/swapfile ]; then SWAPSPACE=/media/hdd/swapfile; fi" >> /var/etc/init
++echo "if [ -e /media/usb/swapfile ]; then SWAPSPACE=/media/usb/swapfile; fi" >> /var/etc/init
++echo "if [ -e /media/cf/swapfile ]; then SWAPSPACE=/media/cf/swapfile; fi" >> /var/etc/init
++echo "if [ -e /dev/ide/host0/bus0/target0/lun0/part2 ]; then SWAPSPACE=/dev/ide/host0/bus0/target0/lun0/part2; fi" >> /var/etc/init
++echo "if [ -e /dev/ide/host0/bus0/target1/lun0/part2 ]; then SWAPSPACE=/dev/ide/host0/bus0/target1/lun0/part2; fi" >> /var/etc/init
++echo "#Turn swapspace on - if it exists" >> /var/etc/init
++echo "if [ -n \"\$SWAPSPACE\" ]; then swapon \$SWAPSPACE; fi" >> /var/etc/init
++chmod 755 /var/etc/init
++if [ ! -e /var/etc/uinit ]; then
++	echo "#!/bin/sh" >> /var/etc/uinit;
++fi
++echo "#Stop aMule" >> /var/etc/uinit
++echo "killall amuleweb amuled" >> /var/etc/uinit
++chmod 755 /var/etc/uinit
+diff -Naur aMule-2.1.2.orig/amulestart aMule-2.1.2.patched/amulestart
+--- aMule-2.1.2.orig/amulestart	1970-01-01 01:00:00.000000000 +0100
++++ aMule-2.1.2.patched/amulestart	2006-05-30 07:27:52.946902568 +0100
+@@ -0,0 +1,26 @@
++#!/bin/sh
++t=`pidof amuled`
++if [ -z "$t" ]; then
++	#Where's aMules HOME?
++	if [ -d /media/usb/aMule ] ; then export HOME="/media/usb/aMule" ; fi
++	if [ -d /media/cf/aMule ] ; then export HOME="/media/cf/aMule" ; fi
++	if [ -d /media/hdd/aMule ] ; then export HOME="/media/hdd/aMule" ; fi
++	echo "HOME is $HOME"
++	#Stop webserver
++	killall amuleweb
++	#Search and remove possible zero-sized files
++	for i in key_index.dat known.met load_index.dat nodes.dat server.met src_index.dat; do
++		[ -s $HOME/.aMule/$i ] || rm $HOME/.aMule/$i
++	done
++	#Restore nodes.dat/servers.dat
++	[ ! -e $HOME/.aMule/nodes.dat ] && cp $HOME/.aMule/nodes.dat.orig $HOME/.aMule/nodes.dat
++	[ ! -e $HOME/.aMule/server.met ] && cp $HOME/.aMule/server.met.orig $HOME/.aMule/server.met
++	cp $HOME/.aMule/cryptkey.dat.orig $HOME/.aMule/cryptkey.dat
++	#Start amule-daemon
++	$HOME/amuled -f
++	#Wait for caching partials, then start webserver
++	sleep 20
++	$HOME/amuleweb -q &
++else
++	echo "amuled already running"
++fi
+diff -Naur aMule-2.1.2.orig/configure aMule-2.1.2.patched/configure
+--- aMule-2.1.2.orig/configure	2006-05-28 18:59:20.000000000 +0100
++++ aMule-2.1.2.patched/configure	2006-05-28 19:03:03.916911510 +0100
+@@ -14514,7 +14514,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   if test "$cross_compiling" = yes; then
+-  ac_cv_func_malloc_0_nonnull=no
++  ac_cv_func_malloc_0_nonnull=yes
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -15253,7 +15253,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   if test "$cross_compiling" = yes; then
+-  ac_cv_func_realloc_0_nonnull=no
++  ac_cv_func_realloc_0_nonnull=yes
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */

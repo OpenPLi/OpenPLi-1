@@ -1,0 +1,331 @@
+diff -Naur kaffe-1.0.6.orig/configure kaffe-1.0.6/configure
+--- kaffe-1.0.6.orig/configure	Mon Jul 24 21:47:29 2000
++++ kaffe-1.0.6/configure	Sat Jan  5 13:56:57 2002
+@@ -2881,237 +2881,33 @@
+ }
+ 
+ 
+-echo $ac_n "checking size of short""... $ac_c" 1>&6
+-echo "configure:2886: checking size of short" >&5
+-if eval "test \"`echo '$''{'ac_cv_sizeof_short'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  if test "$cross_compiling" = yes; then
+-  ac_cv_sizeof_short=0
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 2894 "configure"
+-#include "confdefs.h"
+-#include <stdio.h>
+-main()
+-{
+-  FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
+-  fprintf(f, "%d\n", sizeof(short));
+-  exit(0);
+-}
+-EOF
+-if { (eval echo configure:2905: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+-then
+-  ac_cv_sizeof_short=`cat conftestval`
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -fr conftest*
+-  ac_cv_sizeof_short=0
+-fi
+-rm -fr conftest*
+-fi
+-
+-fi
+-echo "$ac_t""$ac_cv_sizeof_short" 1>&6
+ cat >> confdefs.h <<EOF
+-#define SIZEOF_SHORT $ac_cv_sizeof_short
++#define SIZEOF_SHORT 2
+ EOF
+ 
+ 
+-echo $ac_n "checking size of int""... $ac_c" 1>&6
+-echo "configure:2925: checking size of int" >&5
+-if eval "test \"`echo '$''{'ac_cv_sizeof_int'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  if test "$cross_compiling" = yes; then
+-  ac_cv_sizeof_int=0
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 2933 "configure"
+-#include "confdefs.h"
+-#include <stdio.h>
+-main()
+-{
+-  FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
+-  fprintf(f, "%d\n", sizeof(int));
+-  exit(0);
+-}
+-EOF
+-if { (eval echo configure:2944: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+-then
+-  ac_cv_sizeof_int=`cat conftestval`
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -fr conftest*
+-  ac_cv_sizeof_int=0
+-fi
+-rm -fr conftest*
+-fi
+-
+-fi
+-echo "$ac_t""$ac_cv_sizeof_int" 1>&6
+ cat >> confdefs.h <<EOF
+-#define SIZEOF_INT $ac_cv_sizeof_int
++#define SIZEOF_INT 4
+ EOF
+ 
+ 
+-echo $ac_n "checking size of long""... $ac_c" 1>&6
+-echo "configure:2964: checking size of long" >&5
+-if eval "test \"`echo '$''{'ac_cv_sizeof_long'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  if test "$cross_compiling" = yes; then
+-  ac_cv_sizeof_long=0
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 2972 "configure"
+-#include "confdefs.h"
+-#include <stdio.h>
+-main()
+-{
+-  FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
+-  fprintf(f, "%d\n", sizeof(long));
+-  exit(0);
+-}
+-EOF
+-if { (eval echo configure:2983: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+-then
+-  ac_cv_sizeof_long=`cat conftestval`
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -fr conftest*
+-  ac_cv_sizeof_long=0
+-fi
+-rm -fr conftest*
+-fi
+-
+-fi
+-echo "$ac_t""$ac_cv_sizeof_long" 1>&6
+ cat >> confdefs.h <<EOF
+-#define SIZEOF_LONG $ac_cv_sizeof_long
++#define SIZEOF_LONG 4
+ EOF
+ 
+ 
+-echo $ac_n "checking size of long long""... $ac_c" 1>&6
+-echo "configure:3003: checking size of long long" >&5
+-if eval "test \"`echo '$''{'ac_cv_sizeof_long_long'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  if test "$cross_compiling" = yes; then
+-  ac_cv_sizeof_long_long=0
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 3011 "configure"
+-#include "confdefs.h"
+-#include <stdio.h>
+-main()
+-{
+-  FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
+-  fprintf(f, "%d\n", sizeof(long long));
+-  exit(0);
+-}
+-EOF
+-if { (eval echo configure:3022: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+-then
+-  ac_cv_sizeof_long_long=`cat conftestval`
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -fr conftest*
+-  ac_cv_sizeof_long_long=0
+-fi
+-rm -fr conftest*
+-fi
+-
+-fi
+-echo "$ac_t""$ac_cv_sizeof_long_long" 1>&6
+ cat >> confdefs.h <<EOF
+-#define SIZEOF_LONG_LONG $ac_cv_sizeof_long_long
++#define SIZEOF_LONG_LONG 8
+ EOF
+ 
+ 
+-echo $ac_n "checking size of __int64""... $ac_c" 1>&6
+-echo "configure:3042: checking size of __int64" >&5
+-if eval "test \"`echo '$''{'ac_cv_sizeof___int64'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  if test "$cross_compiling" = yes; then
+-  ac_cv_sizeof___int64=0
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 3050 "configure"
+-#include "confdefs.h"
+-#include <stdio.h>
+-main()
+-{
+-  FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
+-  fprintf(f, "%d\n", sizeof(__int64));
+-  exit(0);
+-}
+-EOF
+-if { (eval echo configure:3061: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+-then
+-  ac_cv_sizeof___int64=`cat conftestval`
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -fr conftest*
+-  ac_cv_sizeof___int64=0
+-fi
+-rm -fr conftest*
+-fi
+-
+-fi
+-echo "$ac_t""$ac_cv_sizeof___int64" 1>&6
+ cat >> confdefs.h <<EOF
+-#define SIZEOF___INT64 $ac_cv_sizeof___int64
++#define SIZEOF___INT64 0
+ EOF
+ 
+ 
+-echo $ac_n "checking size of void*""... $ac_c" 1>&6
+-echo "configure:3081: checking size of void*" >&5
+-if eval "test \"`echo '$''{'ac_cv_sizeof_voidp'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  if test "$cross_compiling" = yes; then
+-  ac_cv_sizeof_voidp=0
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 3089 "configure"
+-#include "confdefs.h"
+-#include <stdio.h>
+-main()
+-{
+-  FILE *f=fopen("conftestval", "w");
+-  if (!f) exit(1);
+-  fprintf(f, "%d\n", sizeof(void*));
+-  exit(0);
+-}
+-EOF
+-if { (eval echo configure:3100: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+-then
+-  ac_cv_sizeof_voidp=`cat conftestval`
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -fr conftest*
+-  ac_cv_sizeof_voidp=0
+-fi
+-rm -fr conftest*
+-fi
+-
+-fi
+-echo "$ac_t""$ac_cv_sizeof_voidp" 1>&6
+ cat >> confdefs.h <<EOF
+-#define SIZEOF_VOIDP $ac_cv_sizeof_voidp
++#define SIZEOF_VOIDP 4
+ EOF
+ 
+ 
+@@ -6415,68 +6211,11 @@
+ 
+ fi
+ 
+-echo $ac_n "checking whether char is unsigned""... $ac_c" 1>&6
+-echo "configure:6420: checking whether char is unsigned" >&5
+-if eval "test \"`echo '$''{'ac_cv_c_char_unsigned'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  if test "$GCC" = yes; then
+-  # GCC predefines this symbol on systems where it applies.
+-cat > conftest.$ac_ext <<EOF
+-#line 6427 "configure"
+-#include "confdefs.h"
+-#ifdef __CHAR_UNSIGNED__
+-  yes
+-#endif
+-
+-EOF
+-if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+-  egrep "yes" >/dev/null 2>&1; then
+-  rm -rf conftest*
+-  ac_cv_c_char_unsigned=yes
+-else
+-  rm -rf conftest*
+-  ac_cv_c_char_unsigned=no
+-fi
+-rm -f conftest*
+-
+-else
+-if test "$cross_compiling" = yes; then
+-    { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 6449 "configure"
+-#include "confdefs.h"
+-/* volatile prevents gcc2 from optimizing the test away on sparcs.  */
+-#if !defined(__STDC__) || __STDC__ != 1
+-#define volatile
+-#endif
+-main() {
+-  volatile char c = 255; exit(c < 0);
+-}
+-EOF
+-if { (eval echo configure:6459: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+-then
+-  ac_cv_c_char_unsigned=yes
+-else
+-  echo "configure: failed program was:" >&5
+-  cat conftest.$ac_ext >&5
+-  rm -fr conftest*
+-  ac_cv_c_char_unsigned=no
+-fi
+-rm -fr conftest*
+-fi
+-
+-fi
+-fi
+-
+-echo "$ac_t""$ac_cv_c_char_unsigned" 1>&6
+-if test $ac_cv_c_char_unsigned = yes && test "$GCC" != yes; then
+-  cat >> confdefs.h <<\EOF
++ac_cv_c_char_unsigned=yes
++cat >> confdefs.h <<\EOF
+ #define __CHAR_UNSIGNED__ 1
+ EOF
+ 
+-fi
+ 
+ echo $ac_n "checking for inline""... $ac_c" 1>&6
+ echo "configure:6483: checking for inline" >&5
+diff -Naur kaffe-1.0.6.orig/libraries/clib/native/System.c kaffe-1.0.6/libraries/clib/native/System.c
+--- kaffe-1.0.6.orig/libraries/clib/native/System.c	Thu Jun 22 16:17:11 2000
++++ kaffe-1.0.6/libraries/clib/native/System.c	Sat Jan  5 14:23:30 2002
+@@ -20,9 +20,7 @@
+ #if defined(HAVE_PWD_H)
+ #include <pwd.h>
+ #endif
+-#if defined(HAVE_TIME_H)
+ #include <time.h>
+-#endif
+ #include <ctype.h>
+ #include "../../../kaffe/kaffevm/classMethod.h"
+ #include "../../../kaffe/kaffevm/gtypes.h"

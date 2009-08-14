@@ -1,0 +1,71 @@
+<html>
+<head>
+<script type="text/javascript">
+function update()
+{
+	if (parent.headerUpdateEPGData)
+		parent.headerUpdateEPGData(serviceName, nowT, nowD, nowSt, nextT, nextD, nextSt);
+	if (parent.headerUpdateStatusBar)
+		parent.headerUpdateStatusBar(vpid, apid, ip, lock, upTime, agc, snr, ber, agcrel, snrrel, berrel, satSyncStatus,satLockStatus);
+	if (parent.headerUpdateVolumeBar)
+		parent.headerUpdateVolumeBar(volume, mute);
+	if (parent.headerUpdateChannelStatusBar)
+		parent.headerUpdateChannelStatusBar(dolby, crypt, format);
+	if (parent.headerUpdateRecording)
+		parent.headerUpdateRecording(recording, recordChan);
+	if (parent.updateVideoBar)
+		parent.updateVideoBar(videoPosition, videoTime, diskGB, diskH);
+}
+</script>
+</head>
+<body onLoad="update()">
+<script>
+	<!-- variables set by box -->
+	var updateCycleTime = #UPDATECYCLE#;
+	<!-- power state -->
+	var standby = #STANDBY#;
+	<!-- service & epg data -->
+	var serviceName = "#SERVICENAME#";
+	var nowT = "#NOWT#";
+	var nowD = "#NOWD#";
+	var nowSt = "#NOWST#";
+	var nextT = "#NEXTT#";
+	var nextD = "#NEXTD#";
+	var nextSt = "#NEXTST#";
+	<!-- status bar -->
+	var diskGB = "#DISKGB#";
+	var diskH = "#DISKH#";
+	var apid = "#APID#";
+	var vpid = "#VPID#";
+	var ip = "#IP#";
+	var lock = "#LOCK#";
+	var upTime = "#UPTIME#";
+	<!-- volume bar -->
+	var volume = #VOLUME#;
+	var mute = #MUTE#;
+	<!-- channel stats -->
+	var dolby = #DOLBY#;
+	var crypt = #CRYPT#;
+	var format = #FORMAT#;
+	<!-- recording -->
+	var recording = #RECORDING#;
+	var recordChan = "#RECCHANNEL#";
+	<!-- vlc streaming -->
+	var vlcparms = "#VLCPARMS#";
+	var serviceReference = "#SERVICEREFERENCE#";
+	var videoTime = "#VIDEOTIME#";
+	var videoPosition = #VIDEOPOSITION#;
+	<!-- stream info -->
+	var agc = "#AGC#";
+	var snr = "#SNR#";
+	var ber = "#BER#";
+	var snrrel = "#SNRBAR#";
+	var agcrel = "#AGCBAR#";
+	var berrel = "#BERBAR#";
+	var satSyncStatus = "#SATSYNC#";
+	var satLockStatus = "#SATLOCK#";
+	<!-- streaming client status -->
+	var streamingClientStatus = #STREAMINGCLIENTSTATUS#;
+</script>
+</body>
+</html>

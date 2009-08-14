@@ -1,0 +1,61 @@
+Introductions written by ghost
+------------------------------
+
+To build a complete Image for any dreambox do following:
+
+1.) create a lokal directory for your new dreambox cdk and change into 
+this new directory
+
+2.) check out tuxbox-cvs branch "dreambox":
+export CVS_RSH=ssh
+cvs -d anoncvs@cvs.tuxbox.org:/cvs/tuxbox -z3 co -P -rdreambox .
+
+3.) change into "cdk" directory
+
+4.) "chmod ugo+x prepare"
+
+5.) "./prepare <dm7000, dm500, dm56x0> ( dm7000 is default )
+
+6.) "make checkout" ( this updates many parts of the CVS to HEAD branch )
+
+7.) "make dreamboximage_root"
+
+8.) "make rebuild-flash"
+
+9.) "make flash-compress"
+
+you now find the new image in "../root/cdkflash" named "complete.img"
+
+in root/cdkflash/ you can delete .part_? files to remove parts from the 
+image.. or you can add other parts to image with make flash-?... to see 
+what parts exist you can look into Makefile.am
+
+in dm56x0 and dm500 image many space is left for add other things.. for 
+dm7000 you must remove parts before you add other parts..
+max size of cramfs (kernel+bild) is 1152K ( 1179648 bytes )
+max size of squashfs is 4992K (511180cool
+complete this is 6144K (6291456)
+
+to remove sambaserver you only must remove .part_sambaserver in 
+root/cdkflash.. to remove reiserfsck remove .part_reiserfsck
+
+when you will add "other plugins, programs, files" to your Image you can 
+copy your parts to root/cdkflash/dreamfiles/? (bin/sbin) .. then do make 
+rebuild-flash and make flash-compress but take not that 
+root/cdkflash/dreamfiles will be deleted when new version of 
+dreamdrivers.. or dreamfiles are available..
+
+the other way to add own files to your image is to put your files after 
+flashing the image into the box to /var .. at this place you have 1.7MB.. 
+for most things this is enough..
+
+to remove partially languages edit Makefile.am in part "flash-enigma":
+when you like to remove russian language from you image then change the 
+followinmg for loop :
+@for i in ar sr ur ; do rm -R $(flashprefix)/root/share/locale/$$i; done
+into
+@for i in ar sr ur it ; do rm -R $(flashprefix)/root/share/locale/$$i; 
+done
+
+the cdk downloads automatically all dreambox specific parts from 
+sources.dreamboxupdate.com ( drivers.. closed source tools.. )

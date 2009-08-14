@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>SubChannel Selection</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function subChannelChange()
+			{
+				var i = document.subchannelselector.path.selectedIndex;
+				var path = document.subchannelselector.path.options[i].value;
+				document.location = "/cgi-bin/zapTo?path=" + path;
+				window.setTimeout("window.close()", 1000);
+			}
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4">
+		Please select subchannel:
+		<br>
+		<form name="subchannelselector">
+			<select name="path" size="1">
+				#SUBCHANS#
+			</select>
+			<br><br>
+			#SELECTBUTTON#
+		</form>
+	</body>
+</html>

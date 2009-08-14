@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plisetup\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-09 21:37+0100\n"
+"PO-Revision-Date: 2008-03-10 18:53+0100\n"
+"Last-Translator: ims <martin@volyne.cz>\n"
+"Language-Team: en <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../backup.cpp:27
+msgid "Backup and restore"
+msgstr "Záloha/Obnovení"
+
+#: ../backup.cpp:31
+msgid "Backup Dreambox"
+msgstr "Záloha dreamboxu"
+
+#: ../backup.cpp:32
+msgid "Make a backup of your Dreambox"
+msgstr "vytvořit a uložit zálohu nastavení dreamboxu"
+
+#: ../backup.cpp:33
+msgid "Restore Dreambox"
+msgstr "Obnova dreamboxu"
+
+#: ../backup.cpp:34
+msgid "Restore a backup to your Dreambox"
+msgstr "obnovit nastavení dreamboxu ze zálohy"
+
+#: ../backup.cpp:61 ../backup.cpp:81
+msgid "Backup"
+msgstr "Záloha"
+
+#: ../backup.cpp:67
+msgid "Backup device:"
+msgstr "Zálohovat na:"
+
+#: ../backup.cpp:75
+msgid "Select a backup device or mount"
+msgstr "zvolte zařízení nebo připojení pro uložení zálohy"
+
+#: ../backup.cpp:82
+msgid "Make a backup now"
+msgstr "vytvořit zálohu dreamboxu nyní "
+
+#: ../backup.cpp:91
+msgid "Making backup, please wait"
+msgstr "Zálohuji, prosím čekejte"
+
+#: ../backup.cpp:121 ../backup.cpp:173
+msgid "Restore"
+msgstr "Obnovit"
+
+#: ../backup.cpp:127
+msgid "Restore device:"
+msgstr "Obnova ze zařízení:"
+
+#: ../backup.cpp:135
+msgid "Select the restore device or mount"
+msgstr "zvolte zařízení nebo připojení pro načtení zálohy "
+
+#: ../backup.cpp:145
+msgid "What to restore:"
+msgstr "Obnovit:"
+
+#: ../backup.cpp:150
+msgid "Select what you want to restore"
+msgstr "zvolte, co vše má být v dreamboxu obnoveno"
+
+#: ../backup.cpp:166
+msgid "Reload Enigma"
+msgstr ""
+
+#: ../backup.cpp:167
+msgid "Reload Enigma settings now"
+msgstr "znovunačtení nastavení enigmy"
+
+#: ../backup.cpp:174
+msgid "Restore Dreambox now"
+msgstr "provést obnovu z uložené zálohy"
+
+#: ../backup.cpp:185
+msgid "Restoring, please wait"
+msgstr "Obnovuji. Prosím, čekejte"
+
+#: ../backup.cpp:195
+msgid "Reloading Enigma settings, please wait"
+msgstr "načítám nastavení enigmy, prosím, čekejte"
+
+#: ../camx.cpp:50
+msgid "Camx settings plugin v"
+msgstr ""
+
+#: ../camx.cpp:65 ../wifi.cpp:192
+msgid "Save changes"
+msgstr "Uložit změny"
+
+#: ../camx.cpp:74
+msgid "Quit"
+msgstr "Konec"
+
+#: ../camx.cpp:75
+msgid "Exit plugin (don't forget to save)"
+msgstr "Ukončit plugin (nezapomeňte uložit)"
+
+#: ../camx.cpp:94 ../setup_main.cpp:86 ../setup_main.cpp:139 ../wifi.cpp:221
+#: ../wifi.cpp:271
+msgid "About"
+msgstr "O aplikaci"
+
+#: ../camx.cpp:95
+msgid "About this plugin"
+msgstr "O pluginu"
+
+#: ../camx.cpp:110
+msgid "Could not find cardinfo"
+msgstr "nebylo možné nalézt informace o kartě"
+
+#: ../emuconfig.cpp:63
+msgid "SoftCam Setup"
+msgstr "SoftCam nastavení"
+
+#: ../emuconfig.cpp:103
+msgid "Select softcam for this channel"
+msgstr "zvolte softcam pro tento program"
+
+#: ../emuconfig.cpp:114
+msgid "Select softcam for this provider"
+msgstr "zvolte softcam pro tohoto providera"
+
+#: ../emuconfig.cpp:119
+msgid "Default SoftCam"
+msgstr "Defaultní SoftCam"
+
+#: ../emuconfig.cpp:126
+msgid "Select default softcam"
+msgstr "zvolte defaultní softcam"
+
+#: ../emuconfig.cpp:131
+msgid "Cardserver"
+msgstr ""
+
+#: ../emuconfig.cpp:138
+msgid "Select cardserver"
+msgstr "zvolte cardserver"
+
+#: ../emuconfig.cpp:143
+msgid "Auto reconnect cahandler"
+msgstr ""
+
+#: ../emuconfig.cpp:146
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "jestliže cahandler ztratil spojení, pokusit se znovu spojit "
+
+#: ../emuconfig.cpp:151
+msgid "Can handle two services"
+msgstr "Obsluhovat dvě služby"
+
+#: ../emuconfig.cpp:154
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "cam nebo CI mohou obsluhovat dva programy najednou"
+
+#: ../emuconfig.cpp:162 ../emuconfig.cpp:526
+msgid "-- None --"
+msgstr "-- Žádný --"
+
+#: ../emuconfig.cpp:205 ../setup_firewall.cpp:83 ../setup_gbox.cpp:247
+#: ../setup_rdg.cpp:79 ../setup_tpl.cpp:75 ../wifi.cpp:191
+msgid "Save"
+msgstr "Uložit"
+
+#: ../emuconfig.cpp:206
+msgid "Save settings"
+msgstr "uložit nastavení"
+
+#: ../emuconfig.cpp:213
+msgid "List stickies"
+msgstr "Seznam stickies"
+
+#: ../emuconfig.cpp:214
+msgid "List current stickies"
+msgstr "seznam přiřazených Softcam ke kanálům/providerům"
+
+#: ../emuconfig.cpp:223
+msgid "Cardinfo"
+msgstr ""
+
+#: ../emuconfig.cpp:224
+msgid "Get cardinfo from current active cardserver"
+msgstr "získat informace o kartě od aktivního cardserveru"
+
+#: ../emuconfig.cpp:233
+msgid "Save and restart cam"
+msgstr "Uložit a restartovat cam"
+
+#: ../emuconfig.cpp:234
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "uložit změny, restartovat softcam a zpět do enigmy"
+
+#: ../emuconfig.cpp:243
+msgid "Restart cardserver"
+msgstr "Restart cardserveru"
+
+#: ../emuconfig.cpp:244
+msgid "Press OK to restart the cardserver"
+msgstr " stiskněte OK pro zrestartování cardserveru"
+
+#: ../emuconfig.cpp:379
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+"Ukládám nastaveni\n"
+"a spouštím softcam"
+
+#: ../emuconfig.cpp:379
+msgid "Softcam config info"
+msgstr ""
+
+#: ../emuconfig.cpp:476
+msgid "Restarting cardserver"
+msgstr "Restartuji cardserver"
+
+#: ../emuconfig.cpp:476
+msgid "Cardserver info"
+msgstr ""
+
+#: ../emuconfig.cpp:514 ../emuconfig.cpp:630
+msgid "Channel"
+msgstr "Kanál"
+
+#: ../emuconfig.cpp:515 ../emuconfig.cpp:635
+msgid "Provider"
+msgstr ""
+
+#: ../emuconfig.cpp:527 ../emuconfig.cpp:528
+msgid "-- Default --"
+msgstr "-- Defaultní --"
+
+#: ../emuconfig.cpp:584
+msgid "getting cardinfo"
+msgstr "Informace o kartě"
+
+#: ../emuconfig.cpp:600
+msgid "Current Stickies"
+msgstr "Stávající přiřazení (stickies):"
+
+#: ../emuconfig.cpp:602
+msgid "Sticky Settings 1"
+msgstr "Nastavení přiřazení 1"
+
+#: ../gpanel.cpp:191 ../gpanel.cpp:217 ../gpanel.cpp:228
+msgid "Error!"
+msgstr "Chyba!"
+
+#: ../setup_firewall.cpp:28
+msgid "Configure firewall"
+msgstr "konfigurovat firewall"
+
+#: ../setup_firewall.cpp:60
+msgid "Enter IP address to allow access"
+msgstr "Zadejte IP adresu pro připojení"
+
+#: ../setup_firewall.cpp:69
+msgid "Enter hostname to allow access"
+msgstr "Zadejte hostname pro připojení"
+
+#: ../setup_firewall.cpp:86
+msgid "save changes and restart firewall"
+msgstr "uložit změny a restartovat firewall"
+
+#: ../setup_gbox.cpp:159 ../setup_tpl.cpp:70
+msgid "GBOX-Setup"
+msgstr ""
+
+#: ../setup_gbox.cpp:166
+msgid "Work Mode"
+msgstr "Pracovní mód"
+
+#: ../setup_gbox.cpp:170
+msgid "Select working mode"
+msgstr "zvolit pracovní mód"
+
+#: ../setup_gbox.cpp:181
+msgid "Up. Mode:"
+msgstr "Upd. mód:"
+
+#: ../setup_gbox.cpp:185
+msgid "Select Key Update mode"
+msgstr "zvolte Key Update mód"
+
+#: ../setup_gbox.cpp:194
+msgid "Disp ECM:"
+msgstr "Zobr ECM:"
+
+#: ../setup_gbox.cpp:198
+msgid "Display ECM messages on console?"
+msgstr "zobrazovat ECM zprávy na konzoli?"
+
+#: ../setup_gbox.cpp:208
+msgid "K. Folder:"
+msgstr "K. složka"
+
+#: ../setup_gbox.cpp:212
+msgid "Select folder for Keys"
+msgstr "zvolit složku pro klíče"
+
+#: ../setup_gbox.cpp:221
+msgid "Disp EMM:"
+msgstr "Zobr EMM:"
+
+#: ../setup_gbox.cpp:225
+msgid "Display EMM messages on console"
+msgstr "zobrazovat EMM zprávy na konzoli"
+
+#: ../setup_gbox.cpp:235
+msgid "AU:"
+msgstr ""
+
+#: ../setup_gbox.cpp:239
+msgid "Select AU mode"
+msgstr "zvolit AU mód"
+
+#: ../setup_gbox.cpp:252 ../setup_rdg.cpp:84 ../setup_tpl.cpp:80
+msgid "Save changes and return"
+msgstr "uložit změny a návrat"
+
+#: ../setup_gbox.cpp:260 ../setup_rdg.cpp:92 ../setup_tpl.cpp:88
+msgid "Abort"
+msgstr "Zrušit"
+
+#: ../setup_gbox.cpp:263 ../setup_rdg.cpp:95 ../setup_tpl.cpp:91
+msgid "Ignore changes and return"
+msgstr "Ignorovat změny a návrat"
+
+#: ../setup_gbox.cpp:270 ../setup_tpl.cpp:98
+msgid "Defaults"
+msgstr "Výchozí"
+
+#: ../setup_gbox.cpp:273 ../setup_rdg.cpp:105 ../setup_tpl.cpp:101
+msgid "Load good defaults for local CS"
+msgstr ""
+
+#: ../setup_main.cpp:72
+msgid "SoftCam setup"
+msgstr "SoftCam nastavení"
+
+#: ../setup_main.cpp:72
+msgid "Open SoftCam setup"
+msgstr "otevřít nastavení pro SoftCam"
+
+#: ../setup_main.cpp:74
+msgid "Software Management"
+msgstr "Software Management"
+
+#: ../setup_main.cpp:74
+msgid "Install and remove software"
+msgstr "instalace a odinstalace software"
+
+#: ../setup_main.cpp:76
+msgid "Backup/restore"
+msgstr "Záloha/Obnovení"
+
+#: ../setup_main.cpp:76
+msgid "Backup and restore your Dreambox"
+msgstr "záloha a obnova nastavení dreamboxu"
+
+#: ../setup_main.cpp:78
+msgid "Dreambox settings"
+msgstr "Nastavení Dreamboxu"
+
+#: ../setup_main.cpp:79
+msgid "Change several settings of the Dreambox"
+msgstr "změny některých nastavení Dreamboxu"
+
+#: ../setup_main.cpp:83
+msgid "PLi news"
+msgstr "Novinky PLi"
+
+#: ../setup_main.cpp:84
+msgid "Info and news about PLi"
+msgstr "informace a novinky PLi"
+
+#: ../setup_main.cpp:175
+#, c-format
+msgid "/var used %d%%"
+msgstr "/var použito %d%%"
+
+#: ../setup_main.cpp:184
+#, c-format
+msgid "recordings %d%%"
+msgstr "Nahráno %d%%"
+
+#: ../setup_rdg.cpp:74
+msgid "Radegast setup"
+msgstr ""
+
+#: ../setup_rdg.cpp:102
+msgid "defaults"
+msgstr "defaultní"
+
+#: ../setup_runapp.cpp:65
+msgid "Close"
+msgstr "Zavřít"
+
+#: ../setup_runapp.cpp:114
+msgid "cannot execute script."
+msgstr "skript nemůže být vykonán."
+
+#: ../setup_runapp.cpp:151
+msgid "An error occured during exucution"
+msgstr "při provádění došlo k chybě"
+
+#: ../wifi.cpp:89 ../wifi.cpp:373 ../wifi.cpp:571
+msgid "Wifi plugin v"
+msgstr ""
+
+#: ../wifi.cpp:96
+msgid "Enable Wifi"
+msgstr "Povolit Wifi"
+
+#: ../wifi.cpp:97
+msgid "Enable or disable Wifi"
+msgstr "Povolit nebo zakázat Wifi"
+
+#: ../wifi.cpp:105
+msgid "IP"
+msgstr ""
+
+#: ../wifi.cpp:112
+msgid "Enter your IP address"
+msgstr "zadejte Vaši IP adresu"
+
+#: ../wifi.cpp:121
+msgid "Netmask"
+msgstr "Maska"
+
+#: ../wifi.cpp:128
+msgid "Enter your netmask"
+msgstr "Zadejte masku"
+
+#: ../wifi.cpp:137
+msgid "Gateway"
+msgstr "Brána"
+
+#: ../wifi.cpp:144
+msgid "Enter your gateway IP address"
+msgstr "Zadejte IP brány"
+
+#: ../wifi.cpp:153
+msgid "DNS"
+msgstr ""
+
+#: ../wifi.cpp:160
+msgid "Enter your Dynamic Name Server IP address"
+msgstr "Zadejte  IP adresu Vašeho DNS"
+
+#: ../wifi.cpp:169
+msgid "Link: 0"
+msgstr ""
+
+#: ../wifi.cpp:175
+msgid "Level: 0"
+msgstr ""
+
+#: ../wifi.cpp:181
+msgid "Noise: 0"
+msgstr ""
+
+#: ../wifi.cpp:201
+msgid "Exit"
+msgstr "Ukončit"
+
+#: ../wifi.cpp:202
+msgid "Exit this plugin, don't forget to save!"
+msgstr "ukončit tento plugin, nezapomeňte uložit!"
+
+#: ../wifi.cpp:211 ../wifi.cpp:463
+msgid "Next"
+msgstr "Další"
+
+#: ../wifi.cpp:212
+msgid "Set security settings"
+msgstr "Nastavit zabezpečení"
+
+#: ../wifi.cpp:222
+msgid "About the Wifi plugin"
+msgstr "O Wifi pluginu"
+
+#: ../wifi.cpp:264
+msgid ""
+"Plugin by dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+msgstr ""
+"Plugin od dAF2000\n"
+"http://talk.to/dAF\n"
+"\n"
+"Wifi drivers released under GPL\n"
+"by AbsoluteValue Systems, Inc.\n"
+"\n"
+"Thanks to Rongogo, djmastera2000,\n"
+"PLi image team, Gemini image testers\n"
+"and others"
+
+#: ../wifi.cpp:380
+msgid "SSID"
+msgstr ""
+
+#: ../wifi.cpp:388
+msgid "Enter SSID"
+msgstr "Zadejte SSID"
+
+#: ../wifi.cpp:397
+msgid "Mode"
+msgstr "Mód"
+
+#: ../wifi.cpp:404
+msgid "Choose between open system, shared key or ad hoc connection"
+msgstr "volba mezi otevřeným systémem, sdíleným klíčem a ad hoc připojením"
+
+#: ../wifi.cpp:406
+msgid "open system"
+msgstr "otevřít systém"
+
+#: ../wifi.cpp:407
+msgid "shared key"
+msgstr "sdílený klíč"
+
+#: ../wifi.cpp:408
+msgid "ad hoc"
+msgstr ""
+
+#: ../wifi.cpp:419
+msgid "Enable wep key"
+msgstr "Povolit wep klíč"
+
+#: ../wifi.cpp:420
+msgid "Enable or disable wep key"
+msgstr "povolit nebo zakázat wep klíč"
+
+#: ../wifi.cpp:429
+msgid "Wep key"
+msgstr "Wep klíč"
+
+#: ../wifi.cpp:438
+msgid "Enter wep key, 10 or 26 hexadecimal digits"
+msgstr "zadejte wep klíč, 10 nebo 26 hexa číslic"
+
+#: ../wifi.cpp:439
+msgid "Enter 0..9, a..f, ok to save (help is available)"
+msgstr "zadejte 0...9, a..f, ok pro uložení (nápověda je dostupná)"
+
+#: ../wifi.cpp:453 ../wifi.cpp:601
+msgid "Prev"
+msgstr ""
+
+#: ../wifi.cpp:454
+msgid "Return to network settings"
+msgstr "Návrat do nastavení sítě"
+
+#: ../wifi.cpp:464
+msgid "Show logging screen"
+msgstr "Zobrazit obrazovku připojení"
+
+#: ../wifi.cpp:590
+msgid "No wifi logging found"
+msgstr "žádné bezdrátové připojení nenalezeno"
+
+#~ msgid "Script output"
+#~ msgstr "Výstup scriptu"
+
+#~ msgid "Downloading"
+#~ msgstr "Stahuji"
+
+#~ msgid ""
+#~ "Download failed.\n"
+#~ "Please check available space and your communication settings."
+#~ msgstr ""
+#~ "Stahování selhalo.\n"
+#~ "Zkontrolujte volné místo a nastavení pro komunikaci."
+
+#~ msgid "Installing %s"
+#~ msgstr "Instaluji %s"
+
+#~ msgid "Install failed."
+#~ msgstr "Instalace selhala."
+
+#~ msgid "Continue"
+#~ msgstr "Pokračovat"
+
+#~ msgid "Press OK"
+#~ msgstr "Stiskněte OK"
+
+#~ msgid ""
+#~ "Are you sure to open\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Opravdu chcete otevřít\n"
+#~ "%s? "
+
+#~ msgid ""
+#~ "Are you sure to download\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Opravdu chcete stáhnout\n"
+#~ "%s?"
+
+#~ msgid "Downloading %s"
+#~ msgstr "Stahuji %s"
+
+#~ msgid ""
+#~ "Are you sure to execute\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Chcete opravdu vykonat\n"
+#~ "%s?"
+
+#~ msgid ""
+#~ "Are you sure to install\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Opravdu chcete nainstalovat\n"
+#~ "%s?"
+
+#~ msgid ""
+#~ "The package cannot be installed because it's already installed. Please "
+#~ "remove the previous version first."
+#~ msgstr ""
+#~ "Tento balíček nelze instalovat, jelikož je již nainstalován. Odstraňte "
+#~ "nejdříve předchozí verzi."
+
+#~ msgid "Installing not possible"
+#~ msgstr "Instalace není možná"
+
+#~ msgid "Manual Install"
+#~ msgstr "Ruční instalace"
+
+#~ msgid "Select package to install"
+#~ msgstr "zvolte balíček pro instalaci"
+
+#~ msgid "Remove Software"
+#~ msgstr "Odstranit Software"
+
+#~ msgid ""
+#~ "Are you sure to remove\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Skutečně chcete odstranit\n"
+#~ "%s?"
+
+#~ msgid "Removing %s"
+#~ msgstr "Odstranit %s"
+
+#~ msgid ""
+#~ "Are you sure to play\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Opravdu chcete přehrát\n"
+#~ "%s?"
+
+#~ msgid ""
+#~ "Are you sure to write\n"
+#~ "%s?"
+#~ msgstr ""
+#~ "Opravdu chcete zapsat\n"
+#~ "%s?"
+
+#~ msgid "Please select an item"
+#~ msgstr "prosím, vyberte položku"
+
+#~ msgid "latest"
+#~ msgstr "poslední"
+
+#~ msgid ""
+#~ "A new menu is available. The new menu will be visible if you return to "
+#~ "the setup panel.You can continue your work here after pressing OK."
+#~ msgstr ""
+#~ "Je dostupné nové menu. Nové menu bude vidět po návratu do panelu "
+#~ "nastavení. Pokračujte stiskem OK."
+
+#~ msgid "Automatic menu update"
+#~ msgstr "Automatické update menu"
+
+#~ msgid ""
+#~ "%s\n"
+#~ "%d bytes downloaded\n"
+#~ "Press exit to cancel download"
+#~ msgstr ""
+#~ "%s\n"
+#~ "%d bytů staženo\n"
+#~ "Stiskněte exit pro zrušení stahování"
+
+#~ msgid "Show installed PPanels"
+#~ msgstr "Nainstalované PPanely"
+
+#~ msgid "Show all installed PPanels"
+#~ msgstr "zobrazit všechny nainstalované PPanely"
+
+#~ msgid "setup"
+#~ msgstr "nastavení"
+
+#~ msgid " - network settings"
+#~ msgstr " - nastavení sítě"
+
+#~ msgid " - security settings"
+#~ msgstr " - nastavení zabezpečení"

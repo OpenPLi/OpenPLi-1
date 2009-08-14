@@ -1,0 +1,27 @@
+diff -rup procps-3.2.7-orig/proc/escape.c procps-3.2.7/proc/escape.c
+--- procps-3.2.7-orig/proc/escape.c	2005-01-05 21:50:26.000000000 +0100
++++ procps-3.2.7/proc/escape.c	2007-11-19 09:11:55.000000000 +0100
+@@ -15,6 +15,9 @@
+ #include "escape.h"
+ #include "readproc.h"
+ 
++#undef __GNU_LIBRARY__
++#define __GNU_LIBRARY__ 5
++
+ #if (__GNU_LIBRARY__ >= 6)
+ # include <wchar.h>
+ # include <wctype.h>
+Files procps-3.2.7-orig/proc/escape.o and procps-3.2.7/proc/escape.o differ
+Files procps-3.2.7-orig/proc/libproc-3.2.7.so and procps-3.2.7/proc/libproc-3.2.7.so differ
+diff -rup procps-3.2.7-orig/ps/global.c procps-3.2.7/ps/global.c
+--- procps-3.2.7-orig/ps/global.c	2005-10-30 01:43:34.000000000 +0200
++++ procps-3.2.7/ps/global.c	2007-11-19 09:14:25.000000000 +0100
+@@ -28,7 +28,7 @@
+ #include "../proc/version.h"
+ #include "../proc/sysinfo.h"
+ 
+-
++#undef __GNU_LIBRARY__
+ #ifndef __GNU_LIBRARY__
+ #define __GNU_LIBRARY__ -1
+ #endif

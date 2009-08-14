@@ -1,0 +1,531 @@
+======================================================================
+Open Issues:
+======================================================================
+
+* Enabling too many BOOTP Vendor Extensions easily overflows the 64
+  byte limit imposed by the BOOTP header definition. While this is
+  not a problem on our side, some DHCP servers will complain. Should
+  we break up long BOOTP requests into several shorter ones?
+
+* Boot with RAMDisk:
+
+  No need to copy ramdisk image when it's already in RAM ??? Or do we
+  have to move it out of the way if it's too low in memory?
+
+  No need to copy ramdisk image when it's in Flash/ROM ...
+
+* Timer:
+
+  don't use 'lr RX, const; mtdec RX" -> use:
+          mfdec R3
+  foo:    add.  R3,277000,R3 # 277,777 is base 10
+	  ble   foo
+	  mtdec R3
+  instead
+
+* loads:
+
+  Printing error messages does not work because "cu" is eating all
+  output.
+
+* iminfo:
+
+  Print timestamp information, too.
+
+* NEW:
+
+  Set system clock.
+
+* saveenv:
+
+  Can we create a ld script which automagically takes care about
+  flash boot sector location, so that it makes code "flow" around the
+  gap if there is one, instead of hard-coding the map - which will
+  break if sizes change?
+
+* BUG:
+
+  Fix Exception handling for "Software Emulation Exception" etc.
+
+======================================================================
+To do:
+======================================================================
+
+* Video extensions support (to pass framebuffer information to
+  applications and linux kernel)
+
+* "last user address" is set even if bootp is used without parameters
+  (and it uses default address).
+
+======================================================================
+Modifications since 0.6.4:
+======================================================================
+
+* Modify "initrd_high" feature to allow for specifying a memory limit
+
+* Fixes for (F)ADS configuration
+
+======================================================================
+Modifications for 0.6.4:
+======================================================================
+
+* Added support for console on SCCx
+
+* Added configuration for ADS860 board
+
+* Add support for MPC860TFADS with ethernet on FEC (but default is
+  still on SCC1)
+
+* Add PHY type checking.
+
+* Fix typos in mpc8260.h
+
+* Check mask revision in mpc8260/cpu.c
+
+* Add support for OR/BR[45] in mpc8260/cpu_init.c
+
+* Map ELIC and SHARC regions for IVMS8
+
+* Fix timeout handling in TFTP code
+
+* Fix Bug in Boot File Size calculation
+
+* Fix MPC8xxFADS configuration (don't clobber unused port lines;
+  thanks to Dave Ellis).
+
+======================================================================
+Modifications for 0.6.3:
+======================================================================
+
+* Added support for MBX860T (thanks to Rob Taylor)
+
+* Added support for Sandpoint8240 (thanks to Rob Taylor); this is
+  Work In Progress (TM); current status: boots to command line input.
+  EPIC code non-functional (interrupts disabled), No net, No IDE.
+
+* Add support for Status LED
+
+* Optionally panic() to reboot instead of hanging
+
+* Misc bug fixes
+
+* All frequencies in HZ now (internally)
+
+* Add support for BOOTP Domain Name Server Option
+
+======================================================================
+Modifications for 0.6.2:
+======================================================================
+
+* Add support for MPC8260 CPU
+  WARNING: This is work in progress! It is NOT ready for use yet,
+  but of course you're welcome to help debugging the code!
+
+* Add configuration for CMA282/CMA111 (Cogent) and HYMOD (CSIRO) boards
+
+* Add support for RAMDisk in high memory (above CFG_BOOTMAPSZ)
+
+* Cleanup of timer handlers
+
+* Fix I2C driver (error in BRG divider calculation)
+
+* Added DPRAM handling functions into mpc8xx/commproc.c, to retrieve
+  DPRAM memory addresses in runtime
+
+* Patched the mpc8xx/video.c to fix the field/synch pin on the FADS
+  and GENIETV
+
+* Video extensions support (to pass framebuffer informations to
+  applications or linux kernel via the bd_t structure).
+
+* malloc() temporary sector buffer in do_saveenv instead of using
+  fixed location in memory
+
+* Added CONFIG_BOOTP_MASK to make use of BOOTP extensions
+  configurable
+
+* Added CONFIG_I2C for I2C driver configuration
+
+* Moving documentation to "doc" directory
+
+* Minimized list code into 'common/lists.c'
+
+======================================================================
+Modifications for 0.6.1:
+======================================================================
+
+* Cleanup of PCMCIA / IDE code (thanks to Stefan Röse)
+
+* Added configuration for IVMS8 boards (Speech Design)
+
+* Added configuration for SM850 "Service Module" which has a MPC850
+  with Ethernet on SCC3
+  WARNING: you CANNOT use SMC1 when Ethernet is on SCC3 - parameter
+  RAM conflicts!
+
+* Allow to use '\' to escape control characters (';' and '$') while
+  parsing input - needed to be able to enter a `bootcmd' which
+  contains more than one command and/or references to variables,
+  which are resolved not before when running the command.
+
+* MBX8xx support (thanks to Marius Gröger)
+
+* Fix violation of BOOTP message format.
+
+* Allow for configurations which don't define some environment
+  variables.
+
+* Unified handling of (default) load address.
+
+* Changed compiler options to reduce code size.
+
+======================================================================
+Modifications for 0.6.0:
+======================================================================
+
+* Shifted all CFG_CMD_* definitions to a new include file
+  "include/cmd_confdefs.h", which must be included in the
+  include/config_xxx.h file after any definition of CONFIG_COMMANDS
+  (because it defines CONFIG_COMMAND if it isn't defined already),
+  but before testing the value of CONFIG_COMMANDS in any #ifs.
+
+* Fixed Cogent support.
+
+* To allow for platform specific make options, we added two new make
+  variables: PLATFORM_RELFLAGS and PLATFORM_CPPFLAGS. They are
+  initially set empty, and are included in the definitions of
+  RELFLAGS and CPPFLAGS in the top level config.mk file. After making
+  this change, it no longer made sense to have things like #ifdef
+  CONFIG_8xx or CONFIG_4xx etc in the top level config.mk file - so I
+  moved each of the platform dependent flags into the various
+  subdirectory config.mk files.
+
+* Modified Makefiles (hard wired lib names; avoi unnecessary sub
+  directory builds)
+
+* Replaced CFG_FLASH_BASE by CFG_MONITOR_BASE when dealing with the
+  location of the monitor code for systems that boot from EPROM, but
+  have FLASH somewhere else.
+
+* Added CFG_FLASH_ENV_ADDR for systems where monitor and environment
+  are in different memory regions.
+
+* Added CFG_FLASH_ENV_BUF for systems with very large flash sectors,
+  where you cannot reserve a whole sector for the environment (well,
+  you could store the Linux kernel as environemnt variable then :-)
+
+* Added watchdog support (this will need sppropiate  changes  in  the
+  Linux kernel, too!)
+
+* Added command to boot from a partition on an IDE device
+
+* Improved IDE support
+
+* Added support for MacOS / LinuxPPC compatible partitions on IDE
+  devices
+
+* Added support for MBX8xx boards (unfinished, work in progress!
+  - thanks to Marius Gröger)
+
+* Added list handling into 'common/list.c'
+
+* Added devices support into 'common/devices.c' (now used to install
+  console devices and redirect stdin, stdout and stderr)
+
+* Detected keypress while showing the help
+
+* Minimized the console structures
+
+* Use a dynamic way to redirect the console input, output and error
+  using environment variables (stdin, stdout, stderr). The list of
+  available console devices is printed using the 'coninfo' command.
+  Supported console drivers are "serial" (buildin) & "video". Who
+  want to add the LCD console driver? Read the README.CONSOLE for
+  more infos.
+
+* Some commands default to the "last used address" so that for
+  instance a "bootp" could be followed by a plain "iminfo" or "bootm"
+  (without arguments) using the memory address used by the previous
+  (here bootp) command.
+
+* Rewrite the commandline parser (added a 'repeatable' field to the
+  command structure)
+
+* The command separator ';' now can be used in interactive commands,
+  too
+
+* Changed console support to use a global variable that points to the
+  bd_t structure instead of old bi_mon_fnc_ptr. All console functions
+  called before relocation will be replaced with the serial functions
+  on linking.
+
+* Now printenv prints environment size, too
+
+* Added BOOTP environment variables (when received)
+
+* Added bash-like MACRO support using the syntax "$(envname)". Then
+  you can boot the linux kernel by using this simple command:
+
+	bootp; setenv bootargs root=/dev/nfs nfsroot=$(serverip): \
+	$(rootpath) ip=$(ipaddr):$(serverip):$(gatewayip):$(subnetmask): \
+	$(hostname):eth0:off; bootm
+
+* Extended BOOTP features. Now we have more network parameters from
+  the server in net/net.c: subnet mask, gateways ip, NIS domain,
+  hostname, bootfile size & root path. More can be added by looking
+  at the RFC1048.
+
+* Added tab emulation on video_putc.
+
+* Fixed FADS823 pcmcia support. Changed PCMCIA driver to support 3.3V
+  pcmcia cards on the 5V keyed socket.
+
+* Added a custom board configuration (GENIETV).
+
+* Added AD7177 video encoder support.
+
+* Added NTSC support to video controller (untested).
+
+* Added putc, getc, puts and tstc functions.
+
+* Hacked a bug into /tools/easylogo.c
+
+* Some changes to CPCI405 code (by Stefan Roese): added
+  CONFIG_NVRAM_ENV so that environment variables are no longer in
+  flash, but in NVRAM (this needs some more defines like base address
+  and size of the NVRAM); also, the environment is CRC checked
+
+* Some fixes to ATA support, added LinuxPPC partition awareness
+
+* Tested (and fixed) FPS850L configuration
+
+* Added ethernet support for FADS860T (thanks to Christian Vejlbo)
+
+======================================================================
+Modifications for 0.5.3:
+======================================================================
+
+* Replaced `serial_io' and `intr_util' structs in bd_info by generic
+  structure `mon_fnc' containing `monitor functions'; added putstr(),
+  malloc() and free().
+
+* Added "bootd" command (run "bootcmd"): now you can type just "boot"
+  to run an arbitrary default (boot) command.
+
+* Added ';' as command separator for the default boot command: now
+  "bootcmd" can contain a sequence of several commands which are
+  executed in sequence. Please note that there is absolutely no flow
+  control, conditional execution, or the like: PPCBoot will always
+  run all commands strictly one after the other [assuming the command
+  returns to PPCBoot, which cannot be expected for instance when you
+  start an OS kernel...]
+
+* Fixed bugs in interrupt handler (thanks to Murray): enable only CPM
+  interrupts; disable any bogus interrupts.
+
+* Added support for ATA disks (directly connected to PCMCIA port)
+  WARNING: work in progress, tested only on SPD823TS systems
+
+* Added configuration for FADS board with support for video and
+  wireless keyboard (thanks to Paolo Scaffardi).
+  WARNING: work in progress, not complete yet.
+
+======================================================================
+Modifications for 0.5.2:
+======================================================================
+
+* Added MPC855 support
+
+* Tested with MPC8xx at 80 MHz CPU clock / 40 MHz bus clock
+
+* Don't block booting of other OS than Linux using "bootm"
+
+* Added Cogent port (by Murray Jensen <Murray.Jensen@cmst.csiro.au>)
+
+* Added KGDB support (by Murray Jensen)
+  Warning: the KGDB code is *big*. If you include it you'll probably
+  need to throw out lots of other features or increas the size of
+  your firmware memory.
+
+* Extended flash addressing to use sector numbers
+
+======================================================================
+Modifications for 0.5.1:
+======================================================================
+
+* Bugfix: we can't write to global data as long as we are running
+  from flash; we'll use some memory above the initial stack now.
+
+* Copy configuration parameters (ethaddr, ipaddr) to board info
+  struct when they are set or changed using "setenv" thus avoiding
+  that you have to reboot the board for the change to take effect
+  (hey, we aren't Widoze after all)
+
+* Made many commands configurable to save memory on production
+  systems or to disable features (like network support) on hardware
+  which cannot support it, or to make PPCBoot fit in a give ROM size.
+
+* Added support for SPD823TS board.
+
+* Added CPM reset during CPU startup.
+
+* Update IMMR structure for MPC823; fix SCCR_DFLCDxxx definitions and
+  add MAMR_AMB_* definitions to mpc8xx.h
+
+* Allow default configuration of CPM interrupt level and GCLK
+  frequency
+
+* Allow default configuration of environment variables "ethaddr",
+  "ipaddr" and "serverip"
+
+* Fix udelay() for different EXTCLK / OSCLK combinations
+
+* Added memory compare command
+
+* Changes of the ethernet address and/or IP address in the
+  environment are copied to the board info structure for later use by
+  the network code and/or any other program
+
+* Added multi-file images to allow to boot a combined kernel+initrd
+  file using BOOTP; see include/image.h for details.
+
+* Added network support for IBM 40x (by Stefan Roese)
+
+* Added binary download over serial line using kermit protocol
+  (optional)
+
+* Eliminated asc_to_hex() - replaced by simple_strtoul()
+
+* Bug fixes:
+  - There was a silly bug in common/cmd_net.c which crippled the
+    "rarpboot" and "tftpboot" commands ==> fixed
+  - Changed mpc8xx/cpu_init.c again to allow for boot ROMS to be 8,
+    16 or 32 bit wide (lost this fix by accident)
+  - Allow to set the MF bits using the CFG_PLPRCR definition
+  - Fix BR0 reset handling for older CPU mask revisions: Clear every-
+    thing except Port Size bits, then add just the "Bank Valid" bit
+
+======================================================================
+Modifications for 0.5.0:
+======================================================================
+
+* Added code for IBM PPC401/403/405GP (contributed by Stefan Roese)
+
+======================================================================
+Modifications for 0.4.4:
+======================================================================
+
+* Added Network support; allows:
+
+  - Network Interface configuration using environment variables or
+    RARP or BOOTP
+  - image download and booting over Ethernet using TFTP
+  - automatic booting over ethernet when "autostart=yes" and
+    downloaded image is bootable
+
+* Some code cleanup to make easier adaptable to different hardware
+
+* Bug fixes, especially:
+
+  - avoid clobbering the PLL divider in interrupts.c (thanks to Till
+    Straumann)
+  - make Ethernet code work on SCC1 or SCC2
+
+======================================================================
+Modifications for 0.4.4-pre2:
+======================================================================
+
+* Added Serial Download Echo Mode to allow switching off echo while
+  serial download; configurable with "loads_echo" environment
+  variable.
+
+* Added CFG_LOADS_BAUD_CHANGE option to allow temporary baudrate
+  change while serial download.
+
+======================================================================
+Modifications for 0.4.4-pre1:
+======================================================================
+
+* Cleanup: included needed header files instead of relying on the
+  compiler to be a (cross-) compiler configured for a Linux system.
+
+* Added test-version of networking code (file download using BOOTP /
+  TFTP); tested on TQM823L, TQM850L and TQM860L. No error / timeout
+  handling yet.
+
+* Bugfix: The command table was not completely relocated, so when you
+  erased the flash sectors containing PPCBoot (for instance to
+  overwrite it with a new version) you couldn't execute any commands
+  any more.
+
+======================================================================
+Modifications for 0.4.3:
+======================================================================
+
+* Add check that monitor still fits in area defined by CFG_MONITOR_LEN
+
+  Done - Tue Aug 15 2000 - wd@denx.de
+
+* Changed configuration: don't use symlinks any more, don't need to
+  edit files for supported standard configurations (Thanks to Dan A.
+  Dickey for many suggestions).
+
+* Cleanup: separate CPU dependend parts to make porting to other
+  CPU's easier (Thanks to Stefan Roese for his input).
+
+* Removed manual clock configuration, added automatic detection of
+  bus clock
+
+* Fix several bugs in flash functions when configured for more flash
+  banks that actually present, or when flash chips have more sectors
+  than configured
+
+* Added configuration and board specific code for ETX_094 board (Siemens)
+
+======================================================================
+Modifications for 0.4.2:
+======================================================================
+
+* saveenv:
+  Implement writing environment variables to Flash. Needs special
+  layout of monitor image to reserve one of the small Flash "boot"
+  sectors. Make sure we fall back to useful defaults in case somebody
+  erases the Flash contents.
+
+  Done - Thu Aug  3 2000 - wd@denx.de
+
+* INIT:
+  get ethernet address from environment
+
+  Done - Thu Aug  3 2000 - wd@denx.de
+
+* NEW:
+  Implement equivalent to TQ "sethwi" command
+  => Use "setenv serial#" and "setenv ethaddr" and "saveenv"
+
+  Done - Fri Aug  4 2000 - wd@denx.de
+
+* command:
+  Make "long help" texts configurable by a #ifdef to reduce monitor
+  size
+  => See CFG_LONGHELP option
+
+  Done - Sun Jul 30 2000 - wd@denx.de
+
+* bootm:
+  Make checksum verification of images optional (depending on
+  "verify" environment variable?) to allow for fast boot is speed is
+  more important than safety.
+  Done - Fri Aug  4 2000 - wd@denx.de
+
+* protect:
+  Bug in sector limit check:
+  	=> protect off 40000000 40008000
+	Un-Protected 35 sectors
+
+  Done - Fri Aug  4 2000 - wd@denx.de
+
+* mkimage:
+  BUG: mkimage -d does not truncate an existing image
+
+  Done - Fri Aug  4 2000 - wd@denx.de

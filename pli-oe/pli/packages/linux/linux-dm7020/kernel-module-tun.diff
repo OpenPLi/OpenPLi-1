@@ -1,0 +1,11 @@
+--- linux-2.6.9/arch/ppc/configs/dm7020_defconfig.orig	2007-05-11 18:12:27.000000000 +0200
++++ linux-2.6.9/arch/ppc/configs/dm7020_defconfig	2007-05-11 18:12:39.000000000 +0200
+@@ -465,7 +465,7 @@
+ # CONFIG_DUMMY is not set
+ # CONFIG_BONDING is not set
+ # CONFIG_EQUALIZER is not set
+-CONFIG_TUN=y
++CONFIG_TUN=m
+ 
+ #
+ # Ethernet (10 or 100Mbit)

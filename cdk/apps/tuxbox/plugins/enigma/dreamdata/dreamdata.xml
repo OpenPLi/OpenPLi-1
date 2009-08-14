@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<list>
+	<dvb_ip dvb0_0="10.0.0.1" dvb0_1="11.0.0.1" dvb0_2="" dvb0_3="" dvb0_4="" />
+	<dvb_mtu dvb0_0="1500" dvb0_1="1500" dvb0_2="" dvb0_3="" dvb0_4="" />
+
+	<service>
+		<name>Casablanca</name>
+		<SID>7255</SID>
+		<TSID>1111</TSID>
+		<pid pid_0="768" pid_1="" pid_2="" pid_3="" pid_4="" />
+		<mroutedconf conf0="phyint eth0 rate_limit 0 igmpv1" conf1="phyint dvb0_0 altnet 10.225.0.0/16 rate_limit 0 igmpv1" conf2="" conf3="" conf4="" />
+	</service>
+
+	<service>
+		<name>Filiago</name>
+		<SID>7406</SID>
+		<TSID>1107</TSID>
+		<pid pid_0="1400" pid_1="1405" pid_2="" pid_3="" pid_4="" />
+		<mroutedconf conf0="phyint dvb0_0 altnet 192.168.250.39/32 rate_limit 0 igmpv1" conf1="phyint dvb0_1 altnet 192.168.250.0/24 rate_limit 0 igmpv1" conf2="" conf3="" conf4="" />
+	</service>
+
+	<service>
+		<name>EasyNet</name>
+		<SID>7405</SID>
+		<TSID>1107</TSID>
+		<pid pid_0="1400" pid_1="1405" pid_2="" pid_3="" pid_4="" />
+		<mroutedconf conf0="phyint dvb0_0 altnet 192.168.250.39/32 rate_limit 0 igmpv1" conf1="phyint dvb0_1 altnet 192.168.250.0/24 rate_limit 0 igmpv1" conf2="" conf3="" conf4="" />
+	</service>
+
+	<service>
+		<name>AliceSat</name>
+		<SID>7452</SID>
+		<TSID>1273</TSID>
+		<pid pid_0="1451" pid_1="" pid_2="" pid_3="" pid_4="" />
+		<mroutedconf conf0="phyint eth0 rate_limit 0 igmpv1" conf1="phyint dvb0_0 rate_limit 0 igmpv1" conf2="" conf3="" conf4="" />
+	</service>
+	
+	<service>
+		<name>IP-Radio</name>
+		<SID>7556</SID>
+		<TSID>1053</TSID>
+		<pid pid_0="252" pid_1="" pid_2="" pid_3="" pid_4="" />
+		<mroutedconf conf0="phyint eth0 rate_limit 0 igmpv1" conf1="phyint dvb0_0 rate_limit 0 igmpv1" conf2="" conf3="" conf4="" />
+	</service>
+</list>
+
+

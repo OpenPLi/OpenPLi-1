@@ -1,0 +1,13 @@
+		<script language="javascript" type="text/javascript" src="timer.js"></script>
+		<table id="timer" width="100%" border="1" rules="all">
+		<tr>
+			<td colspan="8"><b>Recurring Timer Events</b></td>
+		</tr>
+		#TIMER_REPEATED#
+		<tr>
+			<td colspan="8"><b>One-time Timer Events</b></td>
+		</tr>
+		#TIMER_REGULAR#
+		</table>
+		<br>
+		#BUTTONADD##BUTTONCLEANUP##BUTTONCLEAR#

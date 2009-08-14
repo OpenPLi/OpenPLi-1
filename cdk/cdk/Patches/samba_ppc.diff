@@ -1,0 +1,118 @@
+diff -Naur samba-1.9.18p8/source/includes.h samba-1.9.18p8_patched/source/includes.h
+--- samba-1.9.18p8/source/includes.h	1998-06-13 03:44:19.000000000 +0200
++++ samba-1.9.18p8/source/includes.h	2005-01-30 21:24:20.000000000 +0100
+@@ -1160,13 +1160,13 @@
+ #include <sys/ipc.h>
+ #include <sys/sem.h>
+ #include <sys/shm.h>
+-#ifdef NO_SEMUN
++// #ifdef NO_SEMUN
+ union semun {
+ 	int val;
+ 	struct semid_ds *buf;
+ 	unsigned short *array;
+ };
+-#endif
++// #endif
+ #if defined(HPUX) && defined(HPUX10)
+ #ifdef SEMMSL
+ #undef SEMMSL
+diff -Naur samba-1.9.18p8/source/Makefile samba-1.9.18p8_patched/source/Makefile
+--- samba-1.9.18p8/source/Makefile	1998-06-01 08:29:04.000000000 +0200
++++ samba-1.9.18p8/source/Makefile	2005-01-30 21:24:05.000000000 +0100
+@@ -27,12 +27,12 @@
+ 
+ # Add any optimisation or debugging flags here
+ # add -DSYSLOG for syslog support
+-FLAGS1 = -O
++FLAGS1 = -Os
+ LIBS1 = 
+ 
+ # You will need to use a ANSI C compiler. This means under SunOS 4 you can't 
+ # use cc, instead you will have to use gcc. 
+-# CC = gcc
++CC = powerpc-tuxbox-linux-gnu-gcc
+ 
+ # This may help with some versions of make
+ SHELL = /bin/sh
+@@ -45,20 +45,20 @@
+ # set these to where to find various files
+ # These can be overridden by command line switches (see smbd(8))
+ # or in smb.conf (see smb.conf(5))
+-SMBLOGFILE = $(VARDIR)/log.smb
+-NMBLOGFILE = $(VARDIR)/log.nmb
+-CONFIGFILE = $(LIBDIR)/smb.conf
+-LMHOSTSFILE = $(LIBDIR)/lmhosts
+-DRIVERFILE = $(LIBDIR)/printers.def
+-SMB_PASSWD = $(BINDIR)/smbpasswd
+-SMB_PASSWD_FILE = $(BASEDIR)/private/smbpasswd
++SMBLOGFILE = /tmp/log.smb
++NMBLOGFILE = /tmp/log.nmb
++CONFIGFILE = /etc/smb.conf
++LMHOSTSFILE = /lib/lmhosts
++DRIVERFILE = /lib/printers.def
++SMB_PASSWD = /bin/smbpasswd
++SMB_PASSWD_FILE = /etc/smbpasswd
+ WEB_ROOT = $(BASEDIR)
+ 
+ # the directory where lock files go
+-LOCKDIR = $(VARDIR)/locks
++LOCKDIR = /tmp/locks
+ 
+ # The directory where code page definition files go
+-CODEPAGEDIR = $(LIBDIR)/codepages
++CODEPAGEDIR = /lib/codepages
+ # The current codepage definition list.
+ CODEPAGELIST= 437 737 850 852 861 932 866 949 950 936
+ 
+@@ -237,13 +237,13 @@
+ 
+ # Use this for Linux with glibc2 (libc6)
+ # contributed by Eloy Paris <peloy@ven.ra.rockwell.com>
+-# FLAGSM = -DLINUX -DNETGROUP -DSHADOW_PWD -DALLOW_CHANGE_PASSWORD -DFAST_SHARE_MODES -DNO_ASMSIGNALH -DGLIBC2
+-# LIBSM = -lnsl -lcrypt
++FLAGSM = -DLINUX -DNETGROUP -DSHADOW_PWD -DALLOW_CHANGE_PASSWORD -DFAST_SHARE_MODES -DNO_ASMSIGNALH -DGLIBC2
++LIBSM = -lnsl -lcrypt
+ 
+ # Use this for Linux with glibc2 (libc6) - RedHat Linux v5.0 with PAM
+ # contributed by John H Terpstra <jht@aquasoft.com.au>
+-# FLAGSM = -DLINUX -DNETGROUP -DALLOW_CHANGE_PASSWORD -DFAST_SHARE_MODES -DNO_ASMSIGNALH -DGLIBC2
+-# LIBSM = -lnsl -lcrypt
++#FLAGSM = -DLINUX -DNETGROUP -DALLOW_CHANGE_PASSWORD -DFAST_SHARE_MODES -DNO_ASMSIGNALH -DGLIBC2
++#LIBSM = -lnsl -lcrypt
+ 
+ # This is for SUNOS5.4 and later (also known as Solaris 2.4 and later)
+ # contributed by Andrew.Tridgell@anu.edu.au
+@@ -755,7 +755,7 @@
+ 
+ smbd: $(SMBDOBJ) $(ARCFOUR_OBJ)
+ 	@echo Linking smbd
+-	@$(CC) $(CFLAGS) -o smbd $(SMBDOBJ) $(ARCFOUR_OBJ) $(LIBS) $(AFS_LIBS)
++	$(CC) $(CFLAGS) -o smbd $(SMBDOBJ) $(ARCFOUR_OBJ) $(LIBS) $(AFS_LIBS)
+ 
+ smbrun: smbrun.o 
+ 	@echo Linking smbrun
+@@ -767,7 +767,7 @@
+ 
+ nmbd: $(NMBDOBJ)
+ 	@echo Linking nmbd
+-	@$(CC) $(CFLAGS) -o nmbd $(NMBDOBJ) $(LIBS)
++	$(CC) $(CFLAGS) -o nmbd $(NMBDOBJ) $(LIBS)
+ 
+ smbclient: $(CLIENT_OBJ) $(ARCFOUR_OBJ)
+ 	@echo Linking smbclient
+diff -Naur samba-1.9.18p8/source/smbmnt.c samba-1.9.18p8_patched/source/smbmnt.c
+--- samba-1.9.18p8/source/smbmnt.c	1998-01-26 21:05:46.000000000 +0100
++++ samba-1.9.18p8/source/smbmnt.c	2005-01-31 01:41:18.000000000 +0100
+@@ -33,6 +33,11 @@
+ 
+ #include <asm/unistd.h>
+ 
++#ifdef MOUNTED
++#undef MOUNTED
++#define MOUNTED "/var/etc/mtab"
++#endif
++
+ static char *progname;
+ 
+ 

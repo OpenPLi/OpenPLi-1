@@ -1,0 +1,270 @@
+#!/bin/sh
+
+/bin/mount -n -t proc proc /proc
+/bin/mount -n -t devpts devpts /dev/pts
+export INSMOD="/sbin/insmod"
+export RMMOD="/sbin/rmmod"
+export MODDIR="/lib/modules/"$(uname -r)
+#export TZ=CET-1CEST,M3.5.0/2,M10.5.0/3
+/etc/init.d/init1
+
+#set environment variables ( mID )
+. /proc/bus/dbox.sh
+
+# check if no DM500
+if [ $mID -ne 07 ] ; then
+	init=0
+	/bin/boot || init=1
+	if [ $init -eq 1 ] ; then
+		/bin/eraseall /dev/mtd/1
+	fi
+fi
+
+# do not mount jffs2 when not booting from flash
+if [ ! -e /root/platform/kernel/bild ] ; then
+	mount -t jffs2 /dev/mtdblock/1 /var
+fi
+
+# if dm 7000
+if [ $mID -eq 05 ] ; then
+	if [ ! -e /root/platform/kernel/bild ] ; then
+		mount -t cramfs /dev/mtdblock/6 /root -o loop
+		/bin/showlogo /root/root/platform/kernel/bild
+		umount /root
+	else
+		/bin/showlogo /root/platform/kernel/bild
+	fi
+	
+fi
+
+/bin/mount -t ramfs none /tmp
+
+init=0
+
+# check if /var/.init exist .. then no flash erase is needed .. this is new !
+if [ ! -e /var/.init ]; then
+# new /var/.init not found.. check if old /var/tmp/init exist.. 
+# then not flash erase ist needed
+    if [ -e /var/tmp/init ]; then
+# ok old /var/tmp/init exist.. no create the new flash_erase detection file..
+	touch /var/.init
+# delete /var/tmp folder now.. 	
+	rm -rf /var/tmp
+# create link to /tmp <- this is mounted to RAM 
+	ln -sf /tmp /var/tmp
+    else
+# flash erase is needed ...     
+	init=1
+    fi
+fi
+
+if [ $init -eq 1 ] ; then 
+	cp -a /var_init/* /var
+	touch /var/.init
+	sync
+	umount /var
+	/bin/mount -t jffs2 /dev/mtdblock/1 /var
+fi
+
+ln -sf sound/dsp /dev/dsp
+ln -sf fb/0 /dev/fb0
+ln -s /dev/input/mice /dev/psaux 
+ln -s /dev/input/mice /dev/mouse 
+
+if [ ! -e /var/etc/hostname ] ; then
+	cp /var_init/etc/hostname /var/etc/hostname
+fi
+
+if [ ! -e /var/tuxbox/config/encoding.conf ] ; then
+	cp /var_init/tuxbox/config/enigma/enigma.conf /var/tuxbox/config/enigma
+fi
+
+/bin/hostname -F /var/etc/hostname
+
+/sbin/ifconfig lo 127.0.0.1 netmask 255.0.0.0 up
+
+/sbin/inetd &
+
+if [ -r /var/etc/dropbear/dropbear_dss_host_key -a -r /var/etc/dropbear/dropbear_rsa_host_key ]; then
+	/sbin/dropbear
+fi
+
+#change into folder in RAM ( ramfs )
+cd /tmp
+
+export LD_LIBRARY_PATH=/tmp:/var/lib:/lib:$LD_LIBRARY_PATH
+export PATH=/tmp:/var/bin:$PATH
+
+if [ $mID -eq 07 ] ; then
+	if [ ! -d /var/tuxbox/config/enigma/terrestrial ]; then
+		mkdir /var/tuxbox/config/enigma/terrestrial
+	fi
+	if [ ! -d /var/tuxbox/config/enigma/cable ]; then
+		mkdir /var/tuxbox/config/enigma/cable
+	fi
+fi
+
+#check if DM7000
+if [ $mID -eq 05 ] ; then
+	if [ ! -e /var/etc/.no_corefiles ] ; then
+		# enable corefiles (for debugging)
+		echo "/media/hdd/%e-sig-%s.core" > /proc/sys/kernel/core_pattern
+		ulimit -c unlimited
+	fi
+	
+	if [ ! -e /var/etc/.dont_mount_hdd ] ; then
+		if [ -e /proc/ide/hdb ] && [ ! -e /dev/cdroms/cdrom0 ] ; then
+			mount /dev/ide/host0/bus0/target0/lun0/part1 /var/mnt/cf -osync
+			HD=1
+		else
+			HD=0
+		fi
+		mount /dev/ide/host0/bus0/target${HD}/lun0/part1 /hdd
+		# sleep after 10min
+		hdparm -S 120 /dev/ide/host0/bus0/target${HD}/lun0/disc
+		# accustic management
+		hdparm -M 128 /dev/ide/host0/bus0/target${HD}/lun0/disc
+		if [ $init -eq 1 ] ; then 
+			rm /hdd/epg.*
+		fi
+	fi
+
+	if [ ! -e /var/etc/.dont_mount_usb ] ; then	
+		mount -n -t usbfs usbfs /proc/bus/usb
+		mount /dev/scsi/host0/bus0/target0/lun0/part1 /mnt/usb
+		mount /dev/scsi/host0/bus0/target0/lun0/disc /mnt/usb
+	fi
+fi
+
+if [ -e /var/etc/install.tar ] ; then
+	/bin/tar xvf /var/etc/install.tar -C /tmp
+	/tmp/install
+	rm /var/etc/install.tar
+fi
+
+#Scan and mount swap partitions
+if [ -e /var/etc/.swap ]; then
+	find /dev -type b | grep disc | \
+	while read DISC ; do 
+		/sbin/sfdisk -d $DISC | grep 82 | \
+		while read SWAPPARTITION restofline ; do
+			/sbin/swapon $SWAPPARTITION
+		done
+	done
+	echo 0 > /proc/sys/vm/swappiness
+fi
+# Start automounter 
+if [ -e /var/etc/init.d/start_automount ] ; then
+	/var/etc/init.d/start_automount
+else
+	if [ -e /etc/init.d/start_automount ] ; then
+		/etc/init.d/start_automount
+	fi
+fi
+
+if [ -e /var/etc/init ] ; then
+	. /var/etc/init
+fi
+
+if [ -e /bin/neutrino ] ; then
+	if [ ! -d /var/etc/network ]; then
+		mkdir /var/etc/network
+	fi
+	ifup -a
+	if [ -e /var/etc/neutrino-variables ] ; then
+		echo "reading config from /var/etc/neutrino-variables"
+		eval sh /var/etc/neutrino-variables && . /var/etc/neutrino-variables
+	fi
+	sectionsd $SECTIONSD_OPTS
+	timerd
+	dccamd
+	zapit $ZAPIT_OPTS
+	controld
+	nhttpd
+	until neutrino -f -u ; do
+		echo "Neutrino exited with nonzero exit status, restarting..."
+		pidof sectionsd >/dev/null || sectionsd $SECTIONSD_OPTS
+		pidof timerd    >/dev/null || timerd
+		pidof dccamd    >/dev/null || dccamd
+		pidof zapit     >/dev/null || zapit $ZAPIT_OPTS
+		pidof controld  >/dev/null || controld
+		pidof nhttpd    >/dev/null || nhttpd
+	done
+	
+	[ -e /tmp/tuxmaild.pid ] && kill $( cat /tmp/tuxmaild.pid )
+	[ -e /tmp/tuxcald.pid ] && kill $( cat /tmp/tuxcald.pid )
+	[ -e /var/run/automount.pid ] && kill -TERM $( cat /var/run/automount.pid )
+	pzapit -kill
+	
+	i=9
+	while expr $i != 0 > /dev/null
+	do
+		if pidof controld > /dev/null; then echo "Waiting for controld (max. $i seconds)"
+		elif pidof timerd > /dev/null; then echo "Waiting for timerd (max. $i seconds)"
+		elif pidof zapit > /dev/null; then echo "Waiting for zapit (max. $i seconds)"
+		elif pidof tuxmaild > /dev/null; then echo "Waiting for tuxmaild (max. $i seconds)"
+		elif pidof tuxcald > /dev/null; then echo "Waiting for tuxcald (max. $i seconds)"
+		else break;
+		fi
+		i=`expr $i - 1`
+		sleep 1
+	done
+	
+	if [ -e /tmp/.nohalt ] ; then
+		killall -q sectionsd
+		killall -q timerd
+		killall -9 dccamd
+		killall -q zapit
+		killall -q controld
+		killall -q nhttpd
+		echo "Neutrino and its daemons terminated (hopefully)"
+		exit
+	fi
+	
+	if [ -e /tmp/.reboot ] ; then
+		reboot
+	else
+		halt
+	fi
+	exit 0
+fi
+rm /var/etc/.dont_restart_enigma
+touch /tmp/.enigma
+while [ -e /tmp/.enigma ]
+do
+	if [ ! -e /var/etc/.dont_restart_enigma ] ; then
+		if [ ! -e /var/etc/.dont_start_dccamd ] ; then
+			dccamd
+		fi
+		/bin/enigma
+		ret=$?
+		echo "enigma returned with "$ret
+		case $ret in
+		0)
+			echo "Shutdown"
+			rm /tmp/.enigma
+			/sbin/halt
+			;;
+		3)	    
+			echo "Reboot Flash"
+			killall -9 dccamd
+			rm /tmp/.enigma
+			umount /var
+			umount /media/hdd
+			/bin/flashtool
+			;;
+		4)
+			echo "Reboot"
+			rm /tmp/.enigma
+			/sbin/reboot
+			;;
+		*)  echo "Restart"
+			;;
+		esac
+		killall -9 dccamd
+	else
+		sleep 1
+	fi
+done
+
+exit 0

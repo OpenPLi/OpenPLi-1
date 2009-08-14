@@ -1,0 +1,23 @@
+#!/bin/sh
+
+$INSMOD $MODDIR/extra/head.ko
+
+#set environment variables (mID)
+. /proc/bus/dbox.sh
+
+$INSMOD $MODDIR/kernel/fs/cifs/cifs.ko
+
+if [ $mID -eq 05 ] ; then
+	$INSMOD $MODDIR/kernel/fs/reiserfs/reiserfs.ko
+	$INSMOD $MODDIR/kernel/fs/isofs/isofs.ko
+	$INSMOD $MODDIR/kernel/drivers/scsi/sg.ko
+	$INSMOD $MODDIR/kernel/drivers/usb/input/usbhid.ko
+fi
+
+#create compatibility links for hardware with only one demux
+if [ ! -e /dev/dvb/card0/demux1 ] ; then
+	ln -sf /dev/dvb/card0/demux0 /dev/dvb/card0/demux1
+	ln -sf /dev/dvb/card0/dvr0 /dev/dvb/card0/dvr1
+fi
+
+exit 0

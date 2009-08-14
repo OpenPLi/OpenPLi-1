@@ -1,0 +1,172 @@
+Only in thttpd-2.23beta1: Makefile
+diff -aur thttpd-2.23beta1.orig/Makefile.in thttpd-2.23beta1/Makefile.in
+--- thttpd-2.23beta1.orig/Makefile.in	Wed Apr  3 04:49:35 2002
++++ thttpd-2.23beta1/Makefile.in	Mon Sep  2 10:12:53 2002
+@@ -30,16 +30,16 @@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+ # Pathname of directory to install the binary.
+-BINDIR = @sbindir@
++BINDIR = @bindir@
+ # Pathname of directory to install the man page.
+ MANDIR = @mandir@
+ # Pathname of directory to install the CGI programs.
+-WEBDIR = $(prefix)/www
++WEBDIR = $(prefix)/share/tuxbox/neutrino/httpd
+ 
+ # CONFIGURE: The group that the web directory belongs to.  This is so that
+ # the makeweb program can be installed set-group-id to that group, and make
+ # subdirectories.  If you're not going to use makeweb, ignore this.
+-WEBGROUP =	www
++WEBGROUP =	root
+ 
+ # CONFIGURE: Directory for CGI executables.
+ CGIBINDIR =	$(WEBDIR)/cgi-bin
+@@ -72,7 +72,7 @@
+ 
+ CLEANFILES =	$(ALL) $(OBJ) $(GENSRC) $(GENHDR)
+ 
+-SUBDIRS =	cgi-src extras
++SUBDIRS =	extras
+ 
+ all:		this subdirs
+ this:		$(ALL)
+@@ -110,11 +110,11 @@
+ 
+ installthis:
+ 	-mkdir -p $(DESTDIR)$(BINDIR)
+-	$(INSTALL) -m 555 -o bin -g bin thttpd $(DESTDIR)$(BINDIR)
++	$(INSTALL) -m 555 thttpd $(DESTDIR)$(BINDIR)
+ 
+ install-man:
+ 	-mkdir -p $(DESTDIR)$(MANDIR)/man8
+-	$(INSTALL) -m 444 -o bin -g bin thttpd.8 $(DESTDIR)$(MANDIR)/man8
++	$(INSTALL) -m 444 thttpd.8 $(DESTDIR)$(MANDIR)/man8
+ 
+ installsubdirs:
+ 	for i in $(SUBDIRS) ; do ( \
+Only in thttpd-2.23beta1/cgi-src: Makefile
+Only in thttpd-2.23beta1/cgi-src: phf
+Only in thttpd-2.23beta1/cgi-src: phf.o
+Only in thttpd-2.23beta1/cgi-src: redirect
+Only in thttpd-2.23beta1/cgi-src: redirect.o
+Only in thttpd-2.23beta1/cgi-src: ssi
+Only in thttpd-2.23beta1/cgi-src: ssi.o
+Only in thttpd-2.23beta1: config.cache
+diff -aur thttpd-2.23beta1.orig/config.h thttpd-2.23beta1/config.h
+--- thttpd-2.23beta1.orig/config.h	Tue Mar 19 00:07:29 2002
++++ thttpd-2.23beta1/config.h	Mon Sep  2 10:15:40 2002
+@@ -69,6 +69,8 @@
+ #define CGI_PATTERN "/*/cgi-bin/*"
+ #endif
+ 
++#define CGI_PATTERN "/cgi-bin/*"
++
+ /* CONFIGURE: How many seconds to allow CGI programs to run before killing
+ ** them.  This is in case someone writes a CGI program that goes into an
+ ** infinite loop, or does a massive database lookup that would take hours,
+@@ -157,6 +159,8 @@
+ ** In any case, if thttpd is started with the -h flag, that name always
+ ** gets used.
+ */
++#define SERVER_NAME "dbox2"
++
+ #ifdef notdef
+ #define SERVER_NAME "your.hostname.here"
+ #define SERVER_NAME_LIST \
+@@ -227,7 +231,7 @@
+ ** initializing.  If this user (or the one specified by the -u flag) does
+ ** not exist, the program will refuse to run.
+ */
+-#define DEFAULT_USER "nobody"
++#define DEFAULT_USER "root"
+ 
+ /* CONFIGURE: When started as root, the program can automatically chdir()
+ ** to the home directory of the user specified by -u or DEFAULT_USER.
+@@ -266,7 +270,7 @@
+ 
+ /* CONFIGURE: $PATH to use for CGI programs.
+ */
+-#define CGI_PATH "/usr/local/bin:/usr/ucb:/bin:/usr/bin"
++#define CGI_PATH "/bin:/var"
+ 
+ /* CONFIGURE: If defined, $LD_LIBRARY_PATH to use for CGI programs.
+ */
+Only in thttpd-2.23beta1: config.log
+Only in thttpd-2.23beta1: config.status
+Only in thttpd-2.23beta1/extras: Makefile
+diff -aur thttpd-2.23beta1.orig/extras/Makefile.in thttpd-2.23beta1/extras/Makefile.in
+--- thttpd-2.23beta1.orig/extras/Makefile.in	Mon Nov 12 22:52:55 2001
++++ thttpd-2.23beta1/extras/Makefile.in	Mon Sep  2 10:17:31 2002
+@@ -68,8 +68,8 @@
+ install:	all
+ 	rm -f $(BINDIR)/makeweb $(BINDIR)/htpasswd $(BINDIR)/syslogtocern
+ 	cp makeweb $(BINDIR)/makeweb
+-	chgrp $(WEBGROUP) $(BINDIR)/makeweb
+-	chmod 2755 $(BINDIR)/makeweb
++#	chgrp $(WEBGROUP) $(BINDIR)/makeweb
++#	chmod 2755 $(BINDIR)/makeweb
+ 	cp htpasswd $(BINDIR)/htpasswd
+ 	cp syslogtocern $(BINDIR)/syslogtocern
+ 	rm -f $(MANDIR)/man1/makeweb.1
+Only in thttpd-2.23beta1/extras: htpasswd
+Only in thttpd-2.23beta1/extras: htpasswd.o
+Only in thttpd-2.23beta1/extras: makeweb
+Only in thttpd-2.23beta1/extras: makeweb.o
+Only in thttpd-2.23beta1: fdwatch.o
+diff -aur thttpd-2.23beta1.orig/libhttpd.c thttpd-2.23beta1/libhttpd.c
+--- thttpd-2.23beta1.orig/libhttpd.c	Mon May 27 03:22:26 2002
++++ thttpd-2.23beta1/libhttpd.c	Mon Sep  2 10:20:33 2002
+@@ -3764,6 +3764,7 @@
+     ** trying to either serve or run a non-CGI file as CGI.   Either case
+     ** is prohibited.
+     */
++/*
+     if ( hc->sb.st_mode & S_IXOTH )
+ 	{
+ 	syslog(
+@@ -3775,6 +3776,7 @@
+ 	    hc->encodedurl );
+ 	return -1;
+ 	}
++*/
+     if ( hc->pathinfo[0] != '\0' )
+ 	{
+ 	syslog(
+Only in thttpd-2.23beta1: libhttpd.o
+Only in thttpd-2.23beta1: match.o
+Only in thttpd-2.23beta1: mime_encodings.h
+Only in thttpd-2.23beta1: mime_types.h
+Only in thttpd-2.23beta1: mmc.o
+Only in thttpd-2.23beta1: tdate_parse.o
+Only in thttpd-2.23beta1: thttpd
+diff -aur thttpd-2.23beta1.orig/thttpd.c thttpd-2.23beta1/thttpd.c
+--- thttpd-2.23beta1.orig/thttpd.c	Sat May 25 21:43:13 2002
++++ thttpd-2.23beta1/thttpd.c	Mon Sep  2 10:26:13 2002
+@@ -649,6 +649,7 @@
+ parse_args( int argc, char** argv )
+     {
+     int argn;
++	int conf_read = 0;
+ 
+     debug = 0;
+     port = DEFAULT_PORT;
+@@ -698,6 +699,7 @@
+ 	    {
+ 	    ++argn;
+ 	    read_config( argv[argn] );
++		conf_read = 1;
+ 	    }
+ 	else if ( strcmp( argv[argn], "-p" ) == 0 && argn + 1 < argc )
+ 	    {
+@@ -784,6 +786,8 @@
+ 	}
+     if ( argn != argc )
+ 	usage();
++	if(!conf_read)
++		read_config("/etc/thttpd.conf");
+     }
+ 
+ 
+Only in thttpd-2.23beta1: thttpd.o
+Only in thttpd-2.23beta1: timers.o

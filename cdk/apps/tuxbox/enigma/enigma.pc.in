@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: enigma
+Description: Enigma
+Version: @VERSION@
+Libs: 
+Cflags: -I${includedir}/enigma

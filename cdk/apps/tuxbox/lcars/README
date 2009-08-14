@@ -1,0 +1,14 @@
+To compile LCARS with the old API, you need a driver-dir with the old
+drivers in path <driversdir> and use the configure-command:
+
+./configure  --build=i686-pc-linux-gnu --host=powerpc-tuxbox-linux-gnu --prefix=<prefix> --with-driver=<driversdir> --with-dvbincludes=<driversdir>/include --with-target=cdk --enable-maintainer-mode
+
+If you want the old vbi as well, you have to add -DOLD_API in
+src/Makefile.am to the INCLUDES-line.
+
+If you want to compile a version, that runs on dreamboxes, user the -DDREAMBOX flag
+in src/Makefile.am.
+
+Have fun.
+TheDOC
+

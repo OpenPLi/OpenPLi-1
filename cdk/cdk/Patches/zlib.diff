@@ -1,0 +1,11 @@
+--- zlib-1.2.1/Makefile.in.orig	2003-11-09 03:29:23.000000000 +0100
++++ zlib-1.2.1/Makefile.in	2004-09-13 22:13:18.000000000 +0200
+@@ -54,7 +54,7 @@
+ 
+ TEST_OBJS = example.o minigzip.o
+ 
+-all: example$(EXE) minigzip$(EXE)
++all:
+ 
+ check: test
+ test: all

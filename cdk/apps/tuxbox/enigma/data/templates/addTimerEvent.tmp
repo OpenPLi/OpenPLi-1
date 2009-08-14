@@ -1,0 +1,163 @@
+<html>
+	<head>
+		<title>Add Timer Event</title>
+		<link rel="stylesheet" type="text/css" href="/webif.css">
+		<script language="javascript" type="text/javascript" src="window.js"></script>
+		<script language="javascript" type="text/javascript" src="timer.js"></script>
+		<script language="javascript" type="text/javascript" src="zap.js"></script>
+		<script language="javascript" type="text/javascript">#ZAPDATA#</script>
+		<script>
+		function switchChannel(x, y, z)
+		{
+			var i = 5;
+			<!-- this is a dummy that actually does nothing -->
+		}
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4;" onLoad="init()" onUnload="parent.window.opener.location.reload(true)">
+		<form name="channelselector">
+			<table border=0 cellpadding=0 cellspacing=10>
+				<tr>
+					<td>Type:</td>
+					<td>
+						<select name="type" size="1">
+							<option value="regular">One-Time Event</option>
+							<option value="repeating">Recurring Event</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Action:</td>
+					<td>
+						<select name="action" size="1">
+							<option value="dvr">DVR</option>
+							<option value="ngrab">NGRAB</option>
+							<option value="zap">ZAP</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						Note: For recurring events start/end day/month are not required.
+					</td>
+				</tr>
+				<tr>
+					<td>Start:</td>
+					<td>
+						<select name="sday" size="1">
+							#SDAYOPTS#
+						</select>
+						.
+						<select name="smonth" size="1">
+							#SMONTHOPTS#
+						</select>
+						.
+						<select name="syear" size="1">
+							#SYEAROPTS#
+						</select>
+						&nbsp;-&nbsp;
+						<select name="shour" size="1">
+							#SHOUROPTS#
+						</select>
+						:
+						<select name="smin" size="1">
+							#SMINOPTS#
+						</select>
+						#SHOWAMPWSTART#
+						<input type="radio" name="sampm" value="1" #SAMCHECKED#> AM
+						<input type="radio" name="sampm" value="0" #SPMCHECKED#> PM
+						#SHOWAMPWSTOP#
+					</td>
+				</tr>
+				<tr>
+					<td>End:</td>
+					<td>
+						<select name="eday" size="1">
+							#EDAYOPTS#
+						</select>
+						.
+						<select name="emonth" size="1">
+							#EMONTHOPTS#
+						</select>
+						.
+						<select name="eyear" size="1">
+							#EYEAROPTS#
+						</select>
+						&nbsp;-&nbsp;
+						<select name="ehour" size="1">
+							#EHOUROPTS#
+						</select>
+						:
+						<select name="emin" size="1">
+							#EMINOPTS#
+						</select>
+						#SHOWAMPWSTART#
+						<input type="radio" name="eampm" value="1" #EAMCHECKED#> AM
+						<input type="radio" name="eampm" value="0" #EPMCHECKED#> PM
+						#SHOWAMPWSTOP#
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						Note: For one-time events the "days" field doesn't have to be specified.
+					</td>
+				</tr>
+				<tr>
+					<td>Days:</td>
+					<td>
+						<input type="checkbox" name="mo" value="on">&nbsp;Mo&nbsp;&nbsp;
+						<input type="checkbox" name="tu" value="on">&nbsp;Tu&nbsp;&nbsp;
+						<input type="checkbox" name="we" value="on">&nbsp;We&nbsp;&nbsp;
+						<input type="checkbox" name="th" value="on">&nbsp;Th&nbsp;&nbsp;
+						<input type="checkbox" name="fr" value="on">&nbsp;Fr&nbsp;&nbsp;
+						<input type="checkbox" name="sa" value="on">&nbsp;Sa&nbsp;&nbsp;
+						<input type="checkbox" name="su" value="on">&nbsp;Su&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>After event do:</td>
+					<td>
+						<select name="after_event" size="1">
+							#AFTEROPTS#
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Bouquet:</td>
+					<td>
+						<select style="width: 210px; font-weight: bold;" onChange=bouquetChange() name="bouquet" size=1></select>
+					</td>
+				</tr>
+				<tr>
+					<td>Service:</td>
+					<td>
+						<select style="width: 410px; font-weight: bold;" onChange=channelChange() name="channel" size=1></select>
+					</td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td>
+						<input name="descr" type="text" size="100" maxlength="100" style="color: #000000;">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						<input type="button" name="add" onClick="javascript:addTimerEvent()" value="Add" style="width: 100px; height: 22px; color: #000000;">
+					</td>
+				</tr>
+
+			</table>
+		</form>
+		<iframe name="vlccmd" src="" height="0" frameborder="0" framemargin="0" framewidth="0"></iframe>
+		<iframe name="data" src="" height="0" frameborder="0" framemargin="0" framewidth="0"></iframe>
+	</body>
+</html>

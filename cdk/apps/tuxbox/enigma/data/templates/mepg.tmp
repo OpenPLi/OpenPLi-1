@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>EPG-Overview</title>
+		<link rel="stylesheet" type="text/css" href="/webif.css">
+		<script language="javascript" type="text/javascript" src="window.js"></script>
+		<script language="javascript" type="text/javascript" src="epg.js"></script>
+	</head>
+	<body onLoad="maximizeWindow()" bgcolor="#f4f4f4">
+		<table id="mepg" width=#TABLEWIDTH# border="1" rules="all" cellspacing="0" cellpadding="0">
+			<thead>
+				#TIMESCALE#
+			</thead>
+			<tbody>
+				#BODY#
+			</tbody>
+		</table>
+	</body>
+</html>

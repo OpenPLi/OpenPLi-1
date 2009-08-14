@@ -1,0 +1,93 @@
+diff -Naur dsniff-2.4.orig/Makefile.in dsniff-2.4/Makefile.in
+--- dsniff-2.4.orig/Makefile.in	Thu Mar 15 09:34:42 2001
++++ dsniff-2.4/Makefile.in	Tue Aug 13 08:46:21 2002
+@@ -68,7 +68,7 @@
+ 
+ LIBOBJS	= dummy.o @LIBOBJS@
+ 
+-PROGS	= arpspoof dnsspoof dsniff filesnarf macof mailsnarf msgsnarf \
++PROGS	= arpspoof dsniff filesnarf macof mailsnarf \
+ 	  sshmitm sshow tcpkill tcpnice @TCPHIJACK@ urlsnarf webmitm @WEBSPY@ 
+ 
+ CONFIGS	= dsniff.magic dsniff.services dnsspoof.hosts
+@@ -94,7 +94,7 @@
+ 	$(RANLIB) $@
+ 
+ dsniff: $(HDRS) $(SRCS) $(OBJS)
+-	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS) $(NIDSLIB) $(PCAPLIB) $(LNETLIB) $(DBLIB) $(SSLLIB)
++	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LIBS) $(NIDSLIB) $(PCAPLIB) $(LNETLIB) $(DBLIB) $(SSLLIB) -ldl
+ 
+ arpspoof: arpspoof.o arp.o
+ 	$(CC) $(LDFLAGS) -o $@ arpspoof.o arp.o $(LIBS) $(PCAPLIB) $(LNETLIB)
+@@ -115,7 +115,7 @@
+ 	$(CC) $(LDFLAGS) -o $@ msgsnarf.o buf.o pcaputil.o $(LIBS) $(NIDSLIB) $(PCAPLIB) $(LNETLIB)
+ 
+ sshmitm: sshmitm.o buf.o hex.o record.o ssh.o sshcrypto.o
+-	$(CC) $(LDFLAGS) -o $@ sshmitm.o buf.o hex.o record.o ssh.o sshcrypto.o $(LIBS) $(LNETLIB) $(DBLIB) $(SSLLIB)
++	$(CC) $(LDFLAGS) -o $@ sshmitm.o buf.o hex.o record.o ssh.o sshcrypto.o $(LIBS) $(LNETLIB) $(DBLIB) $(SSLLIB) -ldl
+ 
+ sshow: sshow.o pcaputil.o
+ 	$(CC) $(LDFLAGS) -o $@ sshow.o pcaputil.o $(LIBS) $(NIDSLIB) $(PCAPLIB) $(LNETLIB)
+@@ -133,7 +133,7 @@
+ 	$(CC) $(LDFLAGS) -o $@ urlsnarf.o base64.o buf.o pcaputil.o $(LIBS) $(NIDSLIB) $(PCAPLIB) $(LNETLIB)
+ 
+ webmitm: webmitm.o base64.o buf.o decode_http.o record.o
+-	$(CC) $(LDFLAGS) -o $@ webmitm.o base64.o buf.o decode_http.o record.o $(LIBS) $(LNETLIB) $(DBLIB) $(SSLLIB)
++	$(CC) $(LDFLAGS) -o $@ webmitm.o base64.o buf.o decode_http.o record.o $(LIBS) $(LNETLIB) $(DBLIB) $(SSLLIB) -ldl
+ 
+ webspy: webspy.o base64.o buf.o remote.o
+ 	$(CC) $(LDFLAGS) -o $@ webspy.o base64.o buf.o remote.o $(LIBS) $(NIDSLIB) $(PCAPLIB) $(LNETLIB) $(X11LIB)
+diff -Naur dsniff-2.4.orig/configure dsniff-2.4/configure
+--- dsniff-2.4.orig/configure	Mon Mar 19 07:52:37 2001
++++ dsniff-2.4/configure	Tue Aug 13 08:45:49 2002
+@@ -2169,38 +2169,6 @@
+ 
+ fi
+ 
+-echo $ac_n "checking for in_addr_t""... $ac_c" 1>&6
+-echo "configure:2174: checking for in_addr_t" >&5
+-if eval "test \"`echo '$''{'ac_cv_type_in_addr_t'+set}'`\" = set"; then
+-  echo $ac_n "(cached) $ac_c" 1>&6
+-else
+-  cat > conftest.$ac_ext <<EOF
+-#line 2179 "configure"
+-#include "confdefs.h"
+-#include <sys/types.h>
+-#if STDC_HEADERS
+-#include <stdlib.h>
+-#include <stddef.h>
+-#endif
+-EOF
+-if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+-  egrep "(^|[^a-zA-Z_0-9])in_addr_t[^a-zA-Z_0-9]" >/dev/null 2>&1; then
+-  rm -rf conftest*
+-  ac_cv_type_in_addr_t=yes
+-else
+-  rm -rf conftest*
+-  ac_cv_type_in_addr_t=no
+-fi
+-rm -f conftest*
+-
+-fi
+-echo "$ac_t""$ac_cv_type_in_addr_t" 1>&6
+-if test $ac_cv_type_in_addr_t = no; then
+-  cat >> confdefs.h <<\EOF
+-#define in_addr_t u_int32_t
+-EOF
+-
+-fi
+ 
+ CFLAGS="$CFLAGS -D_BSD_SOURCE"
+ 
+diff -Naur dsniff-2.4.orig/sshow.c dsniff-2.4/sshow.c
+--- dsniff-2.4.orig/sshow.c	Mon Mar 19 07:52:15 2001
++++ dsniff-2.4/sshow.c	Tue Aug 13 08:45:49 2002
+@@ -33,6 +33,8 @@
+ #include <nids.h>
+ #include <pcap.h>
+ 
++#include <time.h>
++
+ #include "pcaputil.h"
+ 
+ #if !defined(NIDS_MAJOR) || (NIDS_MAJOR == 1 && NIDS_MINOR < 15)

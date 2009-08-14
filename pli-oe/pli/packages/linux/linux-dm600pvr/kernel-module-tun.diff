@@ -1,0 +1,11 @@
+--- linux-2.6.12/arch/ppc/configs/dm600pvr_defconfig.orig	2007-05-11 18:15:57.000000000 +0200
++++ linux-2.6.12/arch/ppc/configs/dm600pvr_defconfig	2007-05-11 18:16:08.000000000 +0200
+@@ -492,7 +492,7 @@
+ # CONFIG_DUMMY is not set
+ # CONFIG_BONDING is not set
+ # CONFIG_EQUALIZER is not set
+-CONFIG_TUN=y
++CONFIG_TUN=m
+ 
+ #
+ # Ethernet (10 or 100Mbit)

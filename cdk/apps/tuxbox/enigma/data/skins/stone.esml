@@ -1,0 +1,668 @@
+<eskin>
+	<author>
+		<name>Christoph Ketzler</name>
+		<email>chk@xplore-it.de</email>
+		<title>_Screwed Stone - Pli Version</title>
+		<update>Rebuild for PLi image by Rick Hunter</update>
+	</author>
+
+	<fonts>
+		<font file="bluehigh.ttf" name="Blue.Regular" /> <!-- Found at dafont.com freeware -->
+		<font file="bluebold.ttf" name="Blue.Bold" /> <!-- Found at dafont.com freeware -->
+		<font file="pakenham.ttf" name="lcd" /> <!-- Found at dafont.com freeware -->
+		<font file="bignumber.ttf" name="lcd1" /> <!-- Found at dafont.com freeware -->
+	</fonts>
+
+	<fontalias>
+<!-- ?= ,  -->
+<!-- 1=  -->
+<!-- 2= Omschrijvingveld in popup menu's -->
+<!-- 3= -->
+<!-- 4= Header messagebox -->
+<!-- 5= Tekst in messagebox (plugin) -->
+<!-- 6= -->
+<!-- 7= -->
+<!-- 8= EPG Omschrijving -->
+<!-- 9= -->
+
+<!-- 1 -->	<map name="eServiceSelector.Entry.Description" font="Blue.Regular" size="26" />
+<!-- 2 -->	<map name="eStatusBar" font="Blue.Regular" size="26" />
+<!-- 3 -->	<map name="eChannelInfo" font="Blue.Regular" size="28" />
+<!-- 4 -->	<map name="eWindow.TitleBar" font="Blue.Bold" size="28" />
+<!-- 5 -->	<map name="eWindow.Childs" font="Blue.Regular" size="25" />
+
+<!-- 6 -->	<map name="eListBox.EntryText.normal" font="Blue.Regular" size="28" />
+<!-- 7 -->	<map name="eServiceSelector.singleColumn.Entry.Name" font="Blue.Regular" size="28" />
+		<!--map name="eBouquetSelector.Entry.Name" font="Blue.Regular" size="30" /-->
+
+<!-- 8 -->	<map name="eEPGSelector.Entry.Description" font="Blue.Regular" size="22" /> <!-- 28 -->
+<!-- 9 -->	<map name="eEPGSelector.Entry.DateTime" font="Blue.Bold" size="22" />
+
+<!-- 10 -->	<map name="eventview.description" font="Blue.Regular" size="30" />
+<!-- 11 -->	<map name="eventview.date" font="Blue.Regular" size="28" />
+<!-- 12 -->	<map name="eventview.time" font="Blue.Regular" size="28" />
+<!-- 13 -->	<map name="eventview.channel" font="Blue.Regular" size="28" />
+
+		<map name="lcd.menu.title" font="lcd" size="24" />
+		<map name="lcd.menu.element" font="lcd" size="26" />
+
+		<map name="lcd.main.service_name" font="lcd" size="30" />
+		<map name="lcd.main.clock" font="lcd" size="28" />
+		
+		<map name="lcd.standby.clock" font="lcd1" size="32" />
+		
+	</fontalias>
+
+	<colors>
+		<color name="green" color="#03ff03" />
+		<color name="yellow" color="#fecc03" />
+		<color name="red" color="#ff0303" />
+		<color name="blue" color="#0303ff" />
+		<color name="dunkel" color="#50253a4d" end="#ffffff" size="16" />
+		<color name="backgr" color="#28446d" />
+		<color name="backgrdu" color="#1d2753" />
+		<color name="trans" color="#ffffffff" />
+		<color name="content" color="#33294a6b" />
+		<color name="dark" color="#00101258" />
+		<color name="white" color="#00ffffff" />
+		<color name="pal4" color="#00295193" />
+		<color name="pal5" color="#00003f80" />
+		<color name="pal6" color="#002a5185" />
+		<color name="selected" color="#225b7395" />
+		<color name="pal8" color="#0028437b" />
+		<color name="pal9" color="#00294272" />
+		<color name="pal10" color="#00284284" />
+		<color name="pal11" color="#0029416b" />
+		<color name="pal12" color="#00224473" />
+		<color name="button" color="#0030549c" />
+		<color name="pal14" color="#00213a6d" />
+		<color name="pal15" color="#0023458c" />
+		<color name="pal16" color="#33315273" />
+		<color name="pal17" color="#003158a5" />
+		<color name="pal18" color="#0032538d" />
+		<color name="pal19" color="#00294a7b" />
+		<color name="pal20" color="#00315594" />
+		<color name="pal21" color="#00213762" />
+		<color name="pal22" color="#0059739d" />
+		<color name="pal23" color="#33395a79" />
+		<color name="pal24" color="#007385ac" />
+		<color name="pal25" color="#00071842" />
+		<color name="pal26" color="#002658a4" />
+		<color name="progressBar" color="#114f8fca" />
+		<color name="pal28" color="#004476c8" />
+		<color name="pal29" color="#eeffffff" />
+		<color name="pal30" color="#0020416c" />
+		<color name="pal31" color="#0023518c" />
+		<color name="pal32" color="#00294984" />
+		<color name="pal33" color="#000b1728" />
+		<color name="pal34" color="#44ffffff" />
+		<color name="pal35" color="#226c849c" />
+		<color name="pal36" color="#3343627f" />
+		<color name="pal37" color="#22617a94" />
+		<color name="pal38" color="#334b6985" />
+		<color name="pal39" color="#ddffffff" />
+		<color name="pal40" color="#00304b7c" />
+		<color name="pal41" color="#00c7cedf" />
+		<color name="pal42" color="#00f7f7f7" />
+		<color name="pal43" color="#003c609d" />
+		<color name="black" color="#00000000" />
+		<color name="pal45" color="#11b3bdcf" />
+		<color name="pal46" color="#00f0f2f5" />
+		<color name="pal47" color="#11d4d9e0" />
+		<color name="pal48" color="#227b91a6" />
+		<color name="pal49" color="#00345cac" />
+		<color name="pal50" color="#2295a2b5" />
+		<color name="pal51" color="#2211223b" />
+		<color name="pal52" color="#00eed847" />
+		<color name="pal53" color="#ccffffff" />
+		<color name="pal54" color="#005877ab" />
+		<color name="pal55" color="#11c6ccd6" />
+		<color name="pal56" color="#221e3853" />
+		<color name="pal57" color="#007890b7" />
+		<color name="pal58" color="#00225599" />
+		<color name="pal59" color="#221a2940" />
+		<color name="pal60" color="#00013784" />
+		<color name="pal61" color="#33214364" />
+		<color name="pal62" color="#2218314a" />
+		<color name="pal63" color="#2257738d" />
+		<color name="pal64" color="#003c598d" />
+		<color name="pal65" color="#22003f80" />
+		<color name="pal66" color="#332a5075" />
+		<color name="pal67" color="#22889db2" />
+		<color name="pal68" color="#008595b7" />
+		<color name="pal69" color="#0095a4c2" />
+		<color name="pal70" color="#00869dbc" />
+		<color name="pal71" color="#00c5d5e2" />
+		<color name="pal72" color="#11aebcc8" />
+		<color name="pal73" color="#004a669d" />
+		<color name="pal74" color="#002a4a75" />
+		<color name="pal75" color="#00214364" />
+		<color name="pal76" color="#0018315c" />
+		<color name="pal77" color="#11bac5d0" />
+		<color name="pal78" color="#11d9dde6" />
+		<color name="pal79" color="#00e9edf0" />
+		<color name="pal80" color="#dd003f80" />
+		<color name="pal81" color="#00024398" />
+		<color name="pal82" color="#0095a2b5" />
+		<color name="pal83" color="#000256b1" />
+		<color name="pal84" color="#cca5b3c8" />
+		<color name="pal85" color="#00667aa9" />
+		<color name="pal86" color="#006886b4" />
+		<color name="pal87" color="#228595ad" />
+		<color name="pal88" color="#bbffffff" />
+		<color name="pal89" color="#00012160" />
+		<color name="pal90" color="#229eaebd" />
+		<color name="pal91" color="#0022adfe" />
+		<color name="pal92" color="#0001286e" />
+		<color name="pal93" color="#000d93ee" />
+		<color name="pal94" color="#33003f80" />
+		<color name="pal95" color="#000887e6" />
+		<color name="pal96" color="#aaffffff" />
+		<color name="pal97" color="#00879ec7" />
+		<color name="pal98" color="#00183152" />
+		<color name="pal99" color="#009aadcc" />
+		<color name="pal100" color="#99ffffff" />
+		<color name="pal101" color="#11cfd7df" />
+		<color name="pal102" color="#00e3e7ec" />
+		<color name="pal103" color="#004d6ba6" />
+		<color name="pal104" color="#002fb8ff" />
+		<color name="pal105" color="#00294a8c" />
+		<color name="pal106" color="#003f6393" />
+		<color name="pal107" color="#00087ddc" />
+		<color name="pal108" color="#008a8bad" />
+		<color name="pal109" color="#0016a0f6" />
+		<color name="pal110" color="#00375384" />
+		<color name="whiteHalf" color="#66ffffff" />
+		<color name="pal112" color="#000374db" />
+		<color name="pal113" color="#00040912" />
+		<color name="pal114" color="#cc003f80" />
+		<color name="pal115" color="#88ffffff" />
+		<color name="pal116" color="#55ffffff" />
+		<color name="pal117" color="#bb003f80" />
+		<color name="pal118" color="#002c2e6c" />
+		<color name="pal119" color="#aa003f80" />
+		<color name="pal120" color="#99003f80" />
+		<color name="pal121" color="#66003f80" />
+		<color name="pal122" color="#55003f80" />
+		<color name="pal123" color="#003fc2ff" />
+		<color name="pal124" color="#001d1f61" />
+		<color name="pal125" color="#119eaebd" />
+		<color name="pal126" color="#0001123d" />
+		<color name="pal127" color="#003355aa" />
+		<color name="pal128" color="#006884aa" />
+		<color name="pal129" color="#001a356b" />
+		<color name="pal130" color="#33425a7d" />
+		<color name="pal131" color="#000262c1" />
+		<color name="pal132" color="#99aebcc8" />
+		<color name="pal133" color="#00030e2d" />
+		<color name="pal134" color="#00b0ffff" />
+		<color name="pal135" color="#77ffffff" />
+		<color name="pal136" color="#003f65a6" />
+		<color name="pal137" color="#00bcc4d9" />
+		<color name="pal138" color="#11e3e7ec" />
+		<color name="pal139" color="#004f74a9" />
+		<color name="pal140" color="#000066cc" />
+		<color name="pal141" color="#11a5b3c8" />
+		<color name="pal142" color="#0050d1ff" />
+		<color name="pal143" color="#002f4a88" />
+		<color name="pal144" color="#88003f80" />
+		<color name="pal145" color="#77003f80" />
+		<color name="pal146" color="#44003f80" />
+		<color name="pal147" color="#001171ce" />
+		<color name="pal148" color="#00f4fefe" />
+		<color name="pal149" color="#22869dbc" />
+		<color name="pal150" color="#00004aa5" />
+		<color name="pal151" color="#007992bc" />
+		<color name="pal152" color="#001e3853" />
+		<color name="pal153" color="#002a5075" />
+		<color name="pal154" color="#0015bb2c" />
+		<color name="pal155" color="#00ccffff" />
+		<color name="pal156" color="#00c6ccd6" />
+		<color name="pal157" color="#0069e0fe" />
+		<color name="pal158" color="#00bc1617" />
+		<color name="pal159" color="#00b3bdcf" />
+		<color name="pal160" color="#006e799b" />
+		<color name="pal161" color="#33526b90" />
+		<color name="pal162" color="#00051b4e" />
+		<color name="pal163" color="#00a5bad5" />
+		<color name="pal164" color="#008595ad" />
+		<color name="pal165" color="#00a5b3c8" />
+		<color name="pal166" color="#004b6492" />
+		<color name="pal167" color="#00dffdfe" />
+		<color name="pal168" color="#00ffda0e" />
+		<color name="pal169" color="#0028395a" />
+		<color name="pal170" color="#00030b22" />
+		<color name="pal171" color="#002f4262" />
+		<color name="pal172" color="#005b7395" />
+		<color name="pal173" color="#001a2940" />
+		<color name="pal174" color="#0099ffff" />
+		<color name="pal175" color="#0018314a" />
+		<color name="pal176" color="#00484a7f" />
+		<color name="pal177" color="#33cfd7df" />
+		<color name="pal178" color="#00b6c0d6" />
+		<color name="pal179" color="#0077e8fe" />
+		<color name="pal180" color="#00526b90" />
+		<color name="pal181" color="#00a2a3be" />
+		<color name="pal182" color="#0085f0fe" />
+		<color name="pal183" color="#007b91a6" />
+		<color name="pal184" color="#00d9dde6" />
+		<color name="pal185" color="#8812294e" />
+		<color name="pal186" color="#22728ca7" />
+		<color name="pal187" color="#00adb3c6" />
+		<color name="pal188" color="#009eaebd" />
+		<color name="pal189" color="#0022457e" />
+		<color name="pal190" color="#00cfd7df" />
+		<color name="pal191" color="#007c9cbd" />
+		<color name="pal192" color="#008485a9" />
+		<color name="pal193" color="#00194066" />
+		<color name="pal194" color="#ee12294e" />
+		<color name="pal195" color="#005cd5fe" />
+		<color name="pal196" color="#11003f80" />
+		<color name="pal197" color="#22738c99" />
+		<color name="pal198" color="#66bac5d0" />
+		<color name="pal199" color="#00bac5d0" />
+		<color name="wit" color="#10ffffff" />
+		<color name="lichtblauw" color="#104f94d9" />
+		<color name="donkerblauw1" color="#104c6a89" />
+		<color name="donkerblauw2" color="#1065688b" />
+		<color name="oranje" color="#10c89c55" />
+		<color name="groen" color="#1044da4b" />
+		<color name="geel" color="#10bedb1d" />
+		<color name="rood" color="#10c00000" />
+		<color name="blauw" color="#10513aff" />
+		<color name="grijs" color="#10aaaaaa" />
+		<color name="trans" color="#ff000000" />
+		<color name="progress" color="#1053556d" />
+		<color name="status" color="#1073ace6" />
+		<color name="tekst" color="#1040425a" />
+		<color name="lijn" color="#104a7bac" />
+
+	</colors>
+
+	<colorscheme>
+		<map name="eStatusBar.background" color="content" />
+		<map name="eStatusBar.foreground" color="white" />
+
+		<map name="global.normal.background" color="content" />
+		<map name="global.normal.foreground" color="white" />
+
+		<map name="button.normal.background" color="content" />
+
+		<map name="global.selected.background" color="selected" />
+		<map name="global.selected.foreground" color="white" />
+
+		<map name="global.disabled.background" color="content" />
+		<map name="global.disabled.foreground" color="selected" />
+
+		<map name="eWindow.titleBar" color="dark" />
+		<map name="eWindow.titleBarFont" color="white" />
+
+		<map name="eProgress.border" color="dark" />
+		<map name="eProgress.left" color="progressBar" />
+		<map name="eProgress.right" color="content" />
+		<map name="eSlider.activated.left" color="progressBar" />
+		<map name="eSlider.activated.right" color="selected" />
+
+		<map name="eServiceSelector.highlight.background" color="selected" />   <!-- used for all Selectors ... EPG, Service, Bouquet-->
+		<map name="eServiceSelector.highlight.foreground" color="white" />
+	</colorscheme>
+
+	<values>
+    <value name="eComboBox.smallButton.decoWidth" value="25" />
+		<value name="eWindow.titleFontSize" value="24" />
+		<!-- <value name="eWindow.borderLeft" value="" />
+		<value name="eWindow.borderRight" value="4" />
+		<value name="eWindow.borderBottom" value="16" />
+		<value name="eWindow.borderTop" value="50" /> -->
+		<value name="eWindow.titleOffsetLeft" value="18" />
+		<value name="eWindow.titleOffsetTop" value="0" />
+		<value name="eWindow.titleHeight" value="0" />
+		<value name="fontsize" value="21" />
+	</values>
+
+	<images basepath="pli_shared" target="fb">
+ 		<img name="no_pig" src="my_pig_image.png" />
+	</images>	
+
+	<images basepath="chk_stone" target="fb">	
+		<img name="mainmenu.background" src="mainmenu/ihad_background-fs8.png" />
+		<img name="info-bg" src="ihad_info-bg.png" />
+		<img name="eComboBox.arrow" src="combo_arrow.png" />
+		<img name="eCheckbox.checked" src="checked.png" />
+		<img name="eCheckbox.unchecked" src="unchecked.png" />
+		<img name="button_red" src="red-button.png" />
+		<img name="button_green" src="green-button.png" />
+		<img name="button_yellow" src="audio_on.png" />
+		<img name="button_yellow_off" src="audio_off.png" />
+		<img name="q_button_on" src="yellow-button.png" />
+		<img name="vt_on" src="vt_on.png" />
+		<img name="vt_off" src="vt_off.png" />
+		
+		<img name="snr_num_on" src="snr_num-bg.png" />
+		<img name="snr_pro_on" src="snr_pro-bg.png" />
+		
+		
+		<img name="blue_button_on" src="blue-button.png" />
+		<img name="button_gray" src="no-button.png" />
+		<img name="rec_symbol" src="rec_symbol-fs8.png" />
+		<img name="osd_crypt_on" src="crypt_on.png" />
+		<img name="osd_format_on" src="format_on.png" />
+		<img name="osd_dolby_on" src="dolby_on.png" />
+		<img name="osd_dolby_off" src="dolby_off.png" />
+		<img name="sselect_folder" src="folder.png" />
+		<img name="dvrtable" src="dvr-fs8.png" />
+		<img name="osd_crypt_off" src="crypt_off.png" />
+		<img name="osd_format_off" src="format_off.png" />
+		<img name="lcd_enigma_logo" src="logo.png" nomerge="yes" />
+		<img name="lcd_menu" src="lcdmenu.png" nomerge="yes" />
+		<img name="lcd_scart" src="../video.png" nomerge="yes" />
+		<img name="speaker" src="../lcd-speaker.png" nomerge="yes" />
+		<img name="lcd-clock" src="../lcd-clock.png" nomerge="yes" />
+		
+		<img name="eListBox.arrow.updown" src="lbarrow.png" />
+		<img name="eListBox.arrow.left" src="lbarrow_left.png" />
+		<img name="eListBox.arrow.right" src="lbarrow_right.png" />
+		<img name="eListBox.arrow.up" src="lbarrow_up.png" />
+		<img name="eListBox.arrow.down" src="lbarrow_down.png" />
+
+		<img name="eWindow.top" src="t.png" />
+		<img name="eWindow.topLeft" src="tl.png" />
+		<img name="eWindow.topRight" src="tr.png" />
+		<img name="eWindow.left" src="l.png" />
+		<img name="eWindow.right" src="r.png" />
+		<img name="eWindow.bottomLeft" src="bl.png" />
+		<img name="eWindow.bottom" src="b.png" />
+		<img name="eWindow.bottomRight" src="br.png" />
+		<img name="3DBorder.unselected.corner.light.swap" src="3D_border_unselected_corner_light_swap.png" />
+		<img name="3DBorder.unselected.corner.dark.swap" src="3D_border_unselected_corner_dark_swap.png" />
+		<img name="3DBorder.unselected.corner.lightDark.swap" src="3D_border_unselected_corner_lightDark_swap.png" />
+		<img name="3DBorder.unselected.corner.darkLight.swap" src="3D_border_unselected_corner_darkLight_swap.png" />
+		<img name="3DBorder.unselected.corner.light" src="3D_border_unselected_corner_light.png" />
+		<img name="3DBorder.unselected.corner.dark" src="3D_border_unselected_corner_dark.png" />
+		<img name="3DBorder.unselected.corner.lightDark" src="3D_border_unselected_corner_lightDark.png" />
+		<img name="3DBorder.unselected.corner.darkLight" src="3D_border_unselected_corner_darkLight.png" />
+		<img name="3DBorder.unselected.hor.dark" src="3D_border_unselected_hor_dark.png" />
+		<img name="3DBorder.unselected.hor.light" src="3D_border_unselected_hor_light.png" />
+		<img name="3DBorder.unselected.ver.dark" src="3D_border_unselected_ver_dark.png" />		
+		<img name="3DBorder.unselected.ver.light" src="3D_border_unselected_ver_light.png" />
+	</images>
+
+	<imagealias>
+		<map name="eStatusBar.top" img="3DBorder.unselected.hor.light" />
+		<map name="eStatusBar.left" img="3DBorder.unselected.ver.light" />
+		<map name="eStatusBar.topLeft" img="3DBorder.unselected.corner.light" />
+		<map name="eStatusBar.bottom" img="3DBorder.unselected.hor.dark" />
+		<map name="eStatusBar.right" img="3DBorder.unselected.ver.dark" />
+		<map name="eStatusBar.bottomRight" img="3DBorder.unselected.corner.dark" />		
+		<map name="eStatusBar.topRight" img="3DBorder.unselected.corner.darkLight" />
+		<map name="eStatusBar.bottomLeft" img="3DBorder.unselected.corner.lightDark" />		
+
+		<map name="eComboBox.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eComboBox.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eComboBox.topLeft" img="3DBorder.unselected.corner.light.swap" />
+		<map name="eComboBox.bottom" img="3DBorder.unselected.hor.light" />
+		<map name="eComboBox.right" img="3DBorder.unselected.ver.light" />
+		<map name="eComboBox.bottomRight" img="3DBorder.unselected.corner.dark.swap" />
+		<map name="eComboBox.topRight" img="3DBorder.unselected.corner.darkLight.swap" />
+		<map name="eComboBox.bottomLeft" img="3DBorder.unselected.corner.lightDark.swap" />
+
+		<map name="eComboBox.listbox.bottom" img="3DBorder.unselected.hor.dark" />
+		<map name="eComboBox.listbox.right" img="3DBorder.unselected.ver.dark" />
+		<map name="eComboBox.listbox.bottomLeft" img="3DBorder.unselected.corner.dark.swap" />
+		<map name="eComboBox.listbox.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eComboBox.listbox.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eComboBox.listbox.topRight" img="3DBorder.unselected.corner.dark.swap" />
+		<map name="eComboBox.listbox.bottomRight" img="3DBorder.unselected.corner.dark.swap" />
+		<map name="eComboBox.listbox.topLeft" img="3DBorder.unselected.corner.dark.swap" />
+
+		<map name="eButton.top" img="3DBorder.unselected.hor.light" />
+		<map name="eButton.left" img="3DBorder.unselected.ver.light" />
+		<map name="eButton.topLeft" img="3DBorder.unselected.corner.light" />
+		<map name="eButton.bottom" img="3DBorder.unselected.hor.dark" />
+		<map name="eButton.right" img="3DBorder.unselected.ver.dark" />
+		<map name="eButton.bottomRight" img="3DBorder.unselected.corner.dark" />
+		<map name="eButton.topRight" img="3DBorder.unselected.corner.darkLight" />
+		<map name="eButton.bottomLeft" img="3DBorder.unselected.corner.lightDark" />
+
+		<map name="eNumber.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eNumber.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eNumber.bottom" img="3DBorder.unselected.hor.light" />
+		<map name="eNumber.right" img="3DBorder.unselected.ver.light" />
+		<map name="eNumber.topLeft" img="3DBorder.unselected.corner.light.swap" />
+		<map name="eNumber.bottomRight" img="3DBorder.unselected.corner.dark.swap" />
+		<map name="eNumber.topRight" img="3DBorder.unselected.corner.darkLight.swap" />
+		<map name="eNumber.bottomLeft" img="3DBorder.unselected.corner.lightDark.swap" />
+
+		<map name="eListBox.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eListBox.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eListBox.topLeft" img="3DBorder.unselected.corner.light.swap" />
+		<map name="eListBox.bottom" img="3DBorder.unselected.hor.light" />
+		<map name="eListBox.right" img="3DBorder.unselected.ver.light" />
+		<map name="eListBox.bottomRight" img="3DBorder.unselected.corner.dark.swap" />
+		<map name="eListBox.topRight" img="3DBorder.unselected.corner.darkLight.swap" />
+		<map name="eListBox.bottomLeft" img="3DBorder.unselected.corner.darkLight.swap" />
+	</imagealias>
+
+	
+	<object name="eZapMainMenu">
+		<eWidget position="0:306" size="720:270" backgroundColor="-2" >
+			<eLabel pixmap="mainmenu.background" position="0:0" size="e:e" name="background" backgroundColor="-1" />
+			<eLabel position="22:54" size="70:70" name="l3" alphatest="on" />
+			<eLabel position="114:34" size="70:70" name="l2" alphatest="on" />
+			<eLabel position="208:22" size="70:70" name="l1" alphatest="on" />
+			<eLabel position="312:5" size="100:100" name="m" alphatest="on" />
+			<eLabel position="443:22" size="70:70" name="r1" alphatest="on" />
+			<eLabel position="537:34" size="70:70" name="r2" alphatest="on" />
+			<eLabel position="629:54" size="70:70" name="r3" alphatest="on" />
+			<eLabel position="200:200" size="320:48" align="center" alphatest="on" font="eWindow.TitleBar" foregroundColor="white" name="description" />
+		</eWidget>
+	</object>
+	
+	<object name="enigma_lcd_main">
+		<eZapLCDMain position="0:0" size="120:64">
+			<eLabel position="0:0" size="120:56" font="lcd.main.service_name" wrap="on" align="center" name="service_name" />
+			<eLabel position="74:42" size="46:23" font="lcd.main.clock" name="clock" align="right" />
+			<eLabel position="0:53" size="9:13" pixmap="speaker" />
+			<eLabel position="0:46" size="7:7" pixmap="lcd-clock" />
+			<eProgress position="9:56" size="64:8" name="volume_bar" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+			<eProgress position="9:46" size="64:9" name="progress_bar" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+		</eZapLCDMain>
+	</object> 
+	
+	<object name="enigma_lcd_standby">
+		<eZapLCDStandby position="0:0" size="120:64">
+			<eLabel position="10:0" size="e:e" font="lcd.standby.clock" name="clock" />	
+		</eZapLCDStandby>
+	</object>	
+
+	<object name="enigma_lcd_scart">
+		<eZapLCDScart position="0:0" size="120:64">
+			<eProgress position="7:2" size="65:6" name="volume_bar" foregroundColor="0" leftColor="0" rightColor="255" border="1" />
+			<eLabel position="0:0" size="120:17" pixmap="lcd_enigma_logo" />
+		  <eLabel position="4:20" size="112:38" pixmap="lcd_scart" />	
+		</eZapLCDScart>
+	</object>
+	
+	<object name="ezap_main">
+		<!--eZapMain position="0:375" size="720:183"--> <!--  4:3   -->
+		<eZapMain position="0:345" size="720:183"> <!-- 16:9   -->
+		
+			<eLabel position="0:0" size="720:183" pixmap="info-bg" name="info-bg" />
+
+<!-- Yellow row -->	<eLabel position="69:35" size="83:22" font="Blue.Regular;30" name="ch_number"  backgroundColor="dark" foregroundColor="white" />
+
+			<eLabel position="69:65" size="410:26" font="Blue.Regular;32" name="ch_name" backgroundColor="dark" foregroundColor="white" vcenter="on" />
+<!-- Clock -->		<eLabel position="583:7" size="100:26" font="Blue.Bold;32" name="time" align="left"  backgroundColor="dark" foregroundColor="white" />
+
+			<eProgress position="304:93" size="121:8" name="progress_bar" foregroundColor="whiteHalf" border="0" />
+			
+<!-- DD sign -->	<eLabel position="637:46" size="25:15" pixmap="osd_dolby_on" name="osd_dolby_on"/>
+			<eLabel position="637:46" size="25:15" pixmap="osd_dolby_off" name="osd_dolby_off"/>
+			
+<!-- 4/3 16/9 -->	<eLabel position="606:46" size="28:15" pixmap="osd_format_on" name="osd_format_on"/>
+			<eLabel position="606:46" size="28:15" pixmap="osd_format_off" name="osd_format_off"/>
+			
+<!--TXT sign -->	<eLabel position="579:46" size="25:15" pixmap="vt_on" name="osd_txt_on" />
+			<eLabel position="579:46" size="25:15" pixmap="vt_off" name="osd_txt_off" />
+			
+<!-- Encryption sign --><eLabel position="565:46" size="12:15" pixmap="osd_crypt_on" name="osd_crypt_on" />
+			<eLabel position="565:46" size="12:15" pixmap="osd_crypt_off" name="osd_crypt_off"/>
+			
+<!-- More audio? -->	<eLabel position="551:46" size="12:15" pixmap="button_yellow_off" name="osd_audio_off" />
+			<eLabel position="551:46" size="12:15" pixmap="button_yellow" name="osd_audio_on" />
+
+			<!-- eLabel position="496:77" size="200:22" align="center" font="Blue.Regular;19" name="crypt_info" /--> 
+<!-- crypts section -->	
+<!-- Betacrypt --> 	<eLabel position="510:77" size="12:15" align="center" text="B" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="beta_uca" />
+			<eLabel position="510:77" size="12:15" align="center" text="B" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="beta_ecm" />
+			<eLabel position="510:77" size="12:15" align="center" text="B" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="beta_no" /> 
+<!-- Irdeto --> 	<eLabel position="525:77" size="12:15" align="center" text="I" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="irdeto_uca" />
+			<eLabel position="525:77" size="12:15" align="center" text="I" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="irdeto_ecm" />
+			<eLabel position="525:77" size="12:15" align="center" text="I" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="irdeto_no" /> 
+<!-- Seca -->		<eLabel position="540:77" size="12:15" align="center" text="S" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="seca_uca" />			
+			<eLabel position="540:77" size="12:15" align="center" text="S" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="seca_ecm" /> 
+			<eLabel position="540:77" size="12:15" align="center" text="S" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="seca_no" /> 
+<!-- Viaccess -->	<eLabel position="555:77" size="12:15" align="center" text="V" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="via_uca" />			
+			<eLabel position="555:77" size="12:15" align="center" text="V" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="via_ecm" />
+			<eLabel position="555:77" size="12:15" align="center" text="V" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="via_no" /> 
+<!-- Nagra -->		<eLabel position="570:77" size="12:15" align="center" text="N" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="nagra_uca" /> 
+			<eLabel position="570:77" size="12:15" align="center" text="N" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="nagra_ecm" /> 
+			<eLabel position="570:77" size="12:15" align="center" text="N" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="nagra_no" />	
+<!-- Cryptoworks -->	<eLabel position="585:77" size="20:15" align="center" text="CW" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="cw_uca" />
+			<eLabel position="585:77" size="20:15" align="center" text="CW" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="cw_ecm" /> 
+			<eLabel position="585:77" size="20:15" align="center" text="CW" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="cw_no" />
+<!-- NDS -->		<eLabel position="608:77" size="20:15" align="center" text="ND" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="nds_uca" />
+			<eLabel position="608:77" size="20:15" align="center" text="ND" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="nds_ecm" /> 
+			<eLabel position="608:77" size="20:15" align="center" text="ND" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="nds_no" />
+<!-- Conax -->		<eLabel position="631:77" size="20:15" align="center" text="CO" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="conax_uca" />
+			<eLabel position="631:77" size="20:15" align="center" text="CO" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="conax_ecm" /> 
+			<eLabel position="631:77" size="20:15" align="center" text="CO" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="conax_no" />
+<!-- Dreamcrypt/Dream--><eLabel position="654:77" size="12:15" align="center" text="D" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="dreamcr_uca" />
+			<eLabel position="654:77" size="12:15" align="center" text="D" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="dreamcr_ecm" /> 
+			<eLabel position="654:77" size="12:15" align="center" text="D" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="dreamcr_no" />
+<!-- PowerVu -->	<!--eLabel position="669:77" size="12:15" align="center" text="P" font="Blue.Regular;16" backgroundColor="green" foregroundColor="dunkel" name="powervu_uca" /-->
+			<!--eLabel position="669:77" size="12:15" align="center" text="P" font="Blue.Regular;16" backgroundColor="yellow" foregroundColor="dunkel" name="powervu_ecm" /--> 
+			<!--eLabel position="669:77" size="12:15" align="center" text="P" font="Blue.Regular;16" backgroundColor="whiteHalf" foregroundColor="dunkel" name="powervu_no" /-->
+
+<!-- end crypts section -->
+
+			<!-- eLabel position="515:70" font="Blue.Bold;17" size="159:30" align="center" backgroundColor="content" foregroundColor="white" name="ecm_info" wrap="on" /-->
+			
+			<eLabel position="167:33" size="288:25" pixmap="snr_num_on" name="png_num_snr" />
+			<eLabel position="402:33" size="140:25" pixmap="snr_pro_on" name="png_pro_snr" />
+			
+			<eLabel position="192:33" size="40:18" font="Blue.Bold;24" foregroundColor="white" name="snr_text" />
+			<eLabel position="230:33" size="40:18" font="Blue.Bold;24" foregroundColor="white" name="snr_num" />
+			
+			<eLabel position="275:33" size="40:18" font="Blue.Bold;24" foregroundColor="white" name="agc_text" />
+			<eLabel position="315:33" size="40:18" font="Blue.Bold;24" foregroundColor="white" name="agc_num" />
+			
+			<eLabel position="360:33" size="40:18" font="Blue.Bold;24" foregroundColor="white" name="ber_text" />
+			<eLabel position="397:33" size="40:18" font="Blue.Bold;24" foregroundColor="white" name="ber_num" />
+			
+			<eProgress position="425:33" size="108:6" name="snr_progress" foregroundColor="mittel+4" border="0" />
+			<eProgress position="425:41" size="100:6" name="agc_progress" foregroundColor="mittel+4" border="0" />
+			<eProgress position="425:49" size="93:6" name="ber_progress" foregroundColor="mittel+4" border="0" />
+			
+			<eLabel name="description" />
+		
+			<eLabel position="234:164" size="27:12" pixmap="button_red" name="button_red_enabled" alphatest="on" />
+			<eLabel position="324:164" size="27:12" pixmap="button_green" name="button_green_enabled" alphatest="on" />
+			<eLabel position="433:164" size="27:12" pixmap="q_button_on" name="q_button" alphatest="on" />
+			
+			<eLabel position="540:164" size="27:12" pixmap="blue_button_on" name="blue_button" alphatest="on" />
+			
+			
+			<eLabel position="234:164" size="27:12" pixmap="button_gray" name="button_red_disabled" alphatest="on" />
+			<eLabel position="324:164" size="27:12" pixmap="button_gray" name="button_green_disabled" alphatest="on" />
+
+<!-- Bottom  -->
+		
+			<eLabel text="CI:" position="105:163" font="Blue.Bold;17" size="120:15" align="left" foregroundColor="white" />
+			<eLabel text="CI" position="125:163" font="Blue.Bold;17" size="120:15" align="left" foregroundColor="white" name="softcam" alphatest="on" />
+				
+			<eLabel text="EPG" position="260:163" font="Blue.Bold;17" size="78:15" foregroundColor="white" />
+			
+			<eLabel text="subservices" position="353:163" font="Blue.Bold;17" size="80:15" foregroundColor="white" />
+			
+			<eLabel text="Plugins" position="462:163" font="Blue.Bold;17" size="78:15" foregroundColor="white" name="button_yellow_desc" />
+			<eLabel text="PPanel" position="569:163" font="Blue.Bold;17" size="80:15" foregroundColor="white" name="button_blue_desc" />
+			
+<!-- Recording Logo -->	<eLabel name="recStatus" position="457:70" size="18:18" pixmap="rec_symbol" alphatest="on" />
+			<!--eLabel name="recStatus" position="577:77" size="48:18" pixmap="osd_rec" alphatest="on" /-->
+
+			<eLabel name="dvrInfoBar" position="180:100" size="475:62" pixmap="dvrtable" alphatest="on" >
+				<eLabel name="TimeLeft" position="316:0" size="150:57" backgroundColor="content" foregroundColor="white" wrap="on" />
+			</eLabel>
+
+			<eWidget name="dvbInfoBar" position="120:102" size="650:57">
+				<!--Zeilen  -->
+				<eLabel position="0:0" size="55:30" font="Nimbus;22" name="e_now_time" backgroundColor="content" foregroundColor="white" />
+				<eLabel position="0:30" size="55:30" font="Nimbus;22" name="e_next_time" backgroundColor="content" foregroundColor="white" />
+
+				<eLabel position="63:0" size="385:30" font="Blue.Regular;29" name="e_now_title" backgroundColor="content" foregroundColor="white" />
+				<eLabel position="63:30" size="385:30" font="Blue.Regular;29" name="e_next_title" backgroundColor="content" foregroundColor="white" />
+
+				<eLabel position="450:0" size="70:26" font="Blue.Regular;26" name="e_now_duration" align="right" backgroundColor="content" foregroundColor="white" />
+				<eLabel position="450:30" size="70:26" font="Blue.Regular;26" name="e_next_duration" align="right" backgroundColor="content" foregroundColor="white" />
+			</eWidget>
+
+			<eWidget name="fileInfoBar" position="180:100" size="433:57">
+				<eLabel position="0:0" size="e:e" font="Blue.Regular;29" name="fileinfos" backgroundColor="content" foregroundColor="white" wrap="on" />
+			</eWidget>
+  
+		</eZapMain>
+	</object>
+
+  <object name="eServiceSelector_singleColumn">
+		<eServiceSelector position="c-280:60" size="560:480" text="Services">
+			<eListbox name="services" position="0:0" size="e:360" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_multiColumn">
+		<eServiceSelector cposition="c-280:60" csize="560:480" text="Services">
+			<eListbox name="services" columns="3" position="0:0" size="e:360" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_combiColumn">
+		<eServiceSelector cposition="c-280:60" csize="560:480" text="Services">
+			<eListbox name="bouquets" position="0:0" size="155:360" loadDeco="" />
+			<eListbox name="services" columns="2" position="160:0" size="e:360" loadDeco="" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_singleColumn_buttons">
+		<eServiceSelector cposition="c-280:60" csize="560:480" text="Services">
+			<eButton name="key_red" position="0:0" size="140:40" backgroundColor="std_dred" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_green" position="140:0" size="140:40" backgroundColor="std_dgreen" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_yellow" position="280:0" size="140:40" backgroundColor="std_dyellow" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_blue" position="420:0" size="140:40" backgroundColor="std_dblue" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eListbox name="services" position="5:50" size="e-5:360" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_multiColumn_buttons">
+		<eServiceSelector cposition="c-280:60" csize="560:480" text="Services">
+			<eButton name="key_red" position="0:0" size="140:40" backgroundColor="std_dred" loadDeco="" font="epg.title" align="center" vcenter="on" />
+			<eButton name="key_green" position="140:0" size="140:40" backgroundColor="std_dgreen" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_yellow" position="280:0" size="140:40" backgroundColor="std_dyellow" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_blue" position="420:0" size="140:40" backgroundColor="std_dblue" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eListbox name="services" columns="3" position="0:40" size="e:360" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+	<object name="eServiceSelector_combiColumn_buttons">
+		<eServiceSelector cposition="c-280:60" csize="560:480" text="Services">
+			<eButton name="key_red" position="0:0" size="140:40" backgroundColor="std_dred" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_green" position="140:0" size="140:40" backgroundColor="std_dgreen" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_yellow" position="280:0" size="140:40" backgroundColor="std_dyellow" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eButton name="key_blue" position="420:0" size="140:40" backgroundColor="std_dblue" loadDeco="" font="epg.title" align="center" vcenter="on"/>
+			<eListbox name="bouquets" position="0:45" size="155:360" loadDeco="" />
+			<eListbox name="services" columns="2" position="160:45" size="e:360" loadDeco="" />
+			<eChannelInfo name="channelinfo" position="0:e-80" size="e:80" loadDeco="" />
+		</eServiceSelector>
+	</object>
+
+</eskin>

@@ -1,0 +1,42 @@
+/elitedvb/network/
+                  ip
+                  netmask
+                  dns
+                  gateway
+                  dosetup
+         audio/
+               volume
+               mute
+               useAC3
+         video/
+               pin8
+               colorformat
+         DVB/
+             useBAT
+             config/
+#                    satellite/
+#                              number
+#                              0/
+#                              1/
+#                              ../
+#                                 supportCrossReferences -> crossreferenzen erzeugen (ansonsten orbitalPosition ignorieren)
+#                                 orbitalPosition -> finden aus der NIT für sat cross references
+#                                 DiSEqC_SAT -> 0 / 1
+#                                 DiSEqC_OPT -> 0 / 1
+#                                 DiSEqC_UNC -> 0..15 -> uncommitted switches
+#                                 DiSEqC_MINI -> diseqc mini
+#                    LNB/
+#                        number
+         system/
+                bootCount
+/ezap/ui/
+         lastChannel
+         skin
+      rc/
+         repeatRate
+         repeatDelay
+      osd/
+          useBigOSD
+      lcd/
+	  brightness
+          contrast

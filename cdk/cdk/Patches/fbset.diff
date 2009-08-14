@@ -1,0 +1,12 @@
+diff -Naur fbset-2.1.orig/fbset.c fbset-2.1/fbset.c
+--- fbset-2.1.orig/fbset.c	Wed Jun 23 16:11:46 1999
++++ fbset-2.1/fbset.c	Wed Mar 27 19:12:49 2002
+@@ -41,7 +41,7 @@
+      *  Default Frame Buffer Special Device Node
+      */
+ 
+-#define DEFAULT_FRAMEBUFFER	"/dev/fb0"
++#define DEFAULT_FRAMEBUFFER	"/dev/fb/0"
+ 
+ 
+     /*

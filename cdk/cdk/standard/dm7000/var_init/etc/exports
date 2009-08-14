@@ -1,0 +1,1 @@
+/media/hdd *(rw,sync,no_root_squash)

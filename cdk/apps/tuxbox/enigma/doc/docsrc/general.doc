@@ -1,0 +1,86 @@
+/**
+
+\page general General stuff
+
+<h1>What makes enigma different from other systems?</h1>
+
+Enigma is mainly a big API. It gives you the possibility to write GUI-based (and character-based) 
+event-driven (or normal) applications with special function for \ref DVB and other set-top-box 
+specific things.
+
+<h2>What means "GUI-based"?</h2>
+To provide a nice user interface, one has to draw some stuff to the screen. The straight-forward way
+is to make a small library of framebuffer drawing functions (like drawLine, fillRect etc.) and use them
+to paint some boxen and texts on the screen.
+
+However, you'll soon run into big problems. What if another window has to be opened in front
+of an exisiting one? What if you want to
+support, say, another color depth or even another device (maybe not even with a framebuffer?)
+
+To get beyond some limitations and to make things actually EASIER enigma provides you a nice widget system
+together with a device independant graphic library (with some special gimmicks, but more about this later).
+A widget is a window. At least thats what a windows-programmer tells you. Everything you can see is a widget.
+A label. An editbox. A listbox. A button. A static pixmap. An animated pixmap. A window holding multiple
+other widgets, like a dialog. You create widgets and apply properties to them. You can change their position,
+you can show and hide them. If a widget doesn't offer you all you need, you can simply extend the widget
+using inherited classes. If you don't, you don't have to care at all about how the drawing is done. All you
+say is "create a label here, set this text, this font and SHOW IT". If it need to, it gets automatically
+redrawed, for example if the window moves. 
+
+Widgets offer more. They can receive keys. One widget has the "focus", and receives global events. The
+widget can then process these events. If the user presses a key while he is on an "exit" button, the button
+gets activated and sends by itself a signal. What the hell is a signal? Go here, to \ref signalslots.
+
+<h2>What means "event-based"?</h2>
+If you are and old-fashioned programmer, you might be a bit scared about giving the control to someone else.
+You liked to have a mainloop like this one:
+
+\code
+void menu()
+{
+  while (1)
+  {
+    clearscr();
+    printf("[1] this and that\n");
+    printf("[2] save\n");
+    printf("[3] load\n");
+    printf("-------------\n");
+    printf("[q] QUIT\n");
+    switch (getch())
+    {
+    case '1':
+      ThisAndThat();
+      break;
+    case '2':
+      Save();
+      break;
+    case '3':
+      Load();
+      break;
+    case 'q':
+      return;
+    }
+  }
+}\endcode
+
+But what about multitasking? You want to process incoming DVB data, don't you? And you don't want to poll for
+new data, don't you? Well, you could have used multiple threads. One with a mainloop like the one above (maybe
+using these powerful GUI functions), and another one which collects DVB data and manage them.
+
+But this leads to a few problems. Mainly these tasks need to syncronize. If one task wants to access a variable
+of another one, you'll have to install a lock for it. Otherwise it will crash, sooner or later. On the other hand
+you (normally) only have \e asynchronous calls. Asynchronous means that one process doesn't wait until a request
+is completed. The communication between two threads is made using a messagepipe. You can post a message and 
+receive masseges. Off course you can wait until some message is processed. Anyway.
+
+This isn't the way it's working in enigma. Enigma is event-based, but you already read that. Event-based means
+that you don't not EVER wait about something. Your functions are getting called when they have to. You can
+"bind" (more about this "binding" later) some action to some code. For example, the user presses a key on his
+remote control. An event is set up, which is delivered into the focused widget. This widgets now creates an
+event saying that a click has occured. This event leads to a call in the main application, which handles this
+click, maybe by closing the dialog. The "entry" point for an action from outside is the mainloop. The mainloop
+technically uses the \c poll system call. 
+
+These two technologies (widgets and events) form a powerful tool for build user interfaces. 
+
+*/

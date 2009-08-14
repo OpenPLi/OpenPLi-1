@@ -1,0 +1,14 @@
+<tr>
+	<td rowspan="2" align="center">#MOUNTED#</td>
+	<td rowspan="2" width="75">#ACTIONBUTTON#</td>
+	<td rowspan="2" width="30" align="center"><a href="javascript:changeMountPoint('#CHANGEID#')"><img src="edit.gif" border="0" height="20"></a></td>
+	<td rowspan="2" width="30" align="center"><a href="javascript:deleteMountPoint('#DELETEID#')"><img src="trash.gif" border="0" height="20"></a></td>
+	<td>#FSTYPE#</td>
+	<td>#LDIR#</td>
+	<td>#IP#</td>
+	<td>#MDIR#</td>
+	<td align="center">#AUTO#</td>
+</tr>
+<tr>
+	<td colspan="4"><b>#DESCRIPTION#</b></td>
+</tr>

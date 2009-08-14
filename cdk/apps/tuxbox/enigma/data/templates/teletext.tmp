@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script language="javascript" type="text/javascript">
+		function setpage(page,subpage)
+		{
+			self.location.href="/teletext?x=1"+(page >= 100 && page < 900 ? "&page="+page : "")
+						+(subpage >= 0 && subpage < 128 ? "&subpage="+subpage : "");
+		}
+		
+		</script>
+<style type="text/css">
+#COLORTABLE#
+</style>
+	</head>
+	<body style="background-color: #D9E0E7"  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+#TELETEXT#
+<form name="textpage">
+<table border=0 width=480>
+<tr>
+<td align=left valign=center>
+	<input name="go" type="button" style="width: 20px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="go" onclick="setpage(self.document.forms.textpage.page.value,-1)">
+	<input type="text" style="width: 40px;height: 22px;" name="page" value="#CURPAGE#" size=5>
+	<input name="prev" type="button" style="width: 20px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="<" onclick="setpage(self.document.forms.textpage.page.value-1,-1)">
+	<input name="next" type="button" style="width: 20px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value=">" onclick="setpage(1+1*self.document.forms.textpage.page.value,-1)">
+</td>
+<td align=right valign=center>
+#SUBPAGES#
+</td>
+</tr>
+<tr>
+<td align=center colspan=2 valign=center>
+	<input name="100" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="100" onclick="setpage(100,-1)">
+	<input name="200" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="200" onclick="setpage(200,-1)">
+	<input name="300" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="300" onclick="setpage(300,-1)">
+	<input name="400" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="400" onclick="setpage(400,-1)">
+	<input name="500" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="500" onclick="setpage(500,-1)">
+	<input name="600" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="600" onclick="setpage(600,-1)">
+	<input name="700" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="700" onclick="setpage(700,-1)">
+	<input name="800" type="button" style="width: 40px;height: 22px;background-image: url(/red.png); background-repeat: repeat-x; " value="800" onclick="setpage(800,-1)">
+</td>
+</tr>
+</table>
+	</form>
+	</body>
+</html>

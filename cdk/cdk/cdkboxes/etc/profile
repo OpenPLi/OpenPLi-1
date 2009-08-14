@@ -1,0 +1,14 @@
+# /etc/profile
+
+export LD_LIBRARY_PATH=/tmp:/var/lib:/lib:$LD_LIBRARY_PATH
+export PATH="/var/bin:/bin:/sbin"
+
+# get environment from info module
+. /proc/bus/dbox.sh                                                             
+
+# timezone, only applicable for middle europe
+# export TZ=CET-1CEST,M3.5.0/2,M10.5.0/3
+
+if [ -e /var/etc/profile ] ; then
+	. /var/etc/profile
+fi

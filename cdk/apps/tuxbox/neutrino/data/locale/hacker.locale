@@ -1,0 +1,503 @@
+menu.back |34[|<
+
+options.off 0|=|=
+options.on 0|\|
+options.serial 53|2¡4|
+options.fb |=|24/\/\38|_||=|=3|2
+options.null |\||_|||_
+
+mainmenu.head /\/\4¡|\| /\/\3|\||_|3
+mainmenu.tvmode '|'\/-/\/\*|]3
+mainmenu.radiomode |24|]¡0-/\/\0|]3
+mainmenu.scartmode 5[4|2+-/\/\0|]3
+mainmenu.games @4/\/\3$
+mainmenu.sleeptimer $133p7!/\/\3|2
+mainmenu.shutdown 5|-|µ7|)*\/\//\/
+mainmenu.settings $3'|''|'¡/\/6$
+mainmenu.service $3|2\/![3
+mainmenu.streaming $+|234/\/\¡|\|6 (|23[*|2|)3)
+mainmenu.streaming_start 5'|'4|2+
+mainmenu.streaming_stop $'|'*p
+
+servicemenu.head $3|2\/¡[3
+servicemenu.update Software µP|]4+3
+servicemenu.scants $3|2\/![35[4|\|
+servicemenu.ucodecheck [|-|3[|< µ[0|]35
+
+cablesetup.provider [4|3|3 P|2*\/¡|)3|2
+
+satsetup.disqeqc |]¡53q[
+satsetup.satellite $4+3|_|_!73
+satsetup.extended |)!$3q[-53+¡/\/6$
+satsetup.nodiseqc |\|* |)!$3q[
+satsetup.minidiseqc /\/\¡|\|!-|)¡53Q[
+satsetup.diseqc10 |]!$3q[ 1.0
+satsetup.diseqc11 |)¡$3Q[ 1.1
+satsetup.smatvremote $/\/\47\/ |23/\/\073 '|'|_||\|¡|\|@
+satsetup.diseqcrepeat |]¡53Q[-|23P3475
+
+mainsettings.head 53'|''|'!|\|6$
+mainsettings.savesettingsnow $4\/3 53'|'+!/\/@$ /\/0\/\/
+mainsettings.language 14|\|&|_|4@3
+mainsettings.audio 4|_||]¡*
+mainsettings.video \/!|]3*
+mainsettings.network /\/37\/\/*|2|<
+mainsettings.streaming 5+|234/\/\¡|\|653|2\/3|2
+mainsettings.colors [*|*|25
+mainsettings.lcd |[-|)¡5p14Y
+mainsettings.keybinding |<3Y $37|_|P
+mainsettings.misc /\/\!5[ $37+!/\/@5
+mainsettings.scan $[4/\/ $3+'|'¡/\/&5
+
+miscsettings.head /\/\¡$[ 53+7¡/\/6$
+miscsettings.shutdown_real 3|\|4|313 $+4|\||]8y
+miscsettings.boxtype |)8*>< '|'Yp3
+miscsettings.startneutrinodirect $74|27 |\|3|_|'|'|2!|\|* |]!|23[+|y
+miscsettings.general @3/\/3|24|_
+miscsettings.fb_destination 3><P3|27! |3**'|'-[0|\|$013
+
+languagesetup.head |_4|\|6|_|4@3 537µP
+languagesetup.select |4|\|6|_|4@3
+
+audiomenu.head Audio $3+7¡|\|&$
+audiomenu.analogout 4/\/4|_*6 0|_|+Pµ7
+audiomenu.monoright /\/\*/\/* |2!6|-|7
+audiomenu.monoleft /\/\*|\|* 13|=7
+audiomenu.stereo 573|230
+audiomenu.dolbydigital |]01|3y |]!&¡'|'4|_
+
+videomenu.head \/¡|]30 $3'|''|'¡/\/@5
+videomenu.screensetup $[|233|\| $3'|'µP
+videomenu.videosignal \/!|]300µ'|'p|_|7
+videomenu.videosignal_rgb |2@|3
+videomenu.videosignal_svideo $-\/¡|]3*
+videomenu.videosignal_composite [*/\/\P*5¡+3
+videomenu.videoformat |=0|2/\/\4+
+videomenu.videoformat_43 04:03
+videomenu.videoformat_169 16:09
+videomenu.videoformat_autodetect 4µ+0|]3+3[7
+videomenu.vcrswitch 5\/\/¡7[|-| 5[4|2+ 4µ70/\/\47![41|_Y
+
+networkmenu.head |\|3+\/\/*|2|< 53'|'7¡|\|@$
+networkmenu.test '|'3$'|' /\/3+\/\/*|2|< /\/0\/\/
+networkmenu.show $|-|*\/\/ 4[+!\/3 /\/3+\/\/*|2|< $3'|'+¡/\/&$
+networkmenu.setupnow 537µp /\/3+\/\/0|2|< |\|0\/\/
+networkmenu.setuponstartup 53'|'µP /\/3'|'\/\/0|2|< */\/ $'|'4|27µp
+networkmenu.ipaddress !p-4|)|]|23$5
+networkmenu.netmask |\|3'|'/\/\45|<
+networkmenu.broadcast 8|204|)[4$7
+networkmenu.gateway |]3|=4µ|_'|' 64+3\/\/4y
+networkmenu.nameserver /\/4/\/\353|2\/3|2
+
+streamingmenu.head 5'|'|234/\/\¡/\/&53|2\/3|2 53'|'7!|\|&5
+streamingmenu.usestreamserver |_|53 57|234/\/\!|\|@53|2\/3|2
+streamingmenu.streamingserver $'|'|234/\/\¡|\|6$3|2\/3|2
+streamingmenu.streamingserverport p*|2'|'
+streamingmenu.stopplayback stop P|_4Y|34[|<
+streamingmenu.stopsectionsd stop 53[+!0/\/5|) 
+
+
+ping.ok !5 |234[|-|48|_3 (P!/\/&)
+ping.unreachable ¡$ |_|/\/|234[|-|48|3
+ping.protocol ¡5 |_||\||234[|-|48|_3 (|-|0$+ 0|2 p|2*+*[01 3|2|2*|2)
+ping.socket !5 |_||\||234[|-|4|313 ($0[|<37 3|2|20|2)
+
+ipsetup.hint_1 µ53 0..9, *|2 |_|53 µP/|)*\/\//\/,
+ipsetup.hint_2 *|< 54\/3$, |-|*/\/\3 480|2'|'5
+
+colormenu.head [0|0|2 53+7!|\|@$
+colormenu.statusbar ¡|\||=084|2
+colormenu.themeselect 53|3[7 +|-|3/\/\3
+colormenu.menucolors /\/\3/\/µ[01*|2
+colormenu.background 84[|<@|2*µ|\||)
+colormenu.background_head 84[|<@|20µ/\/|)
+colormenu.textcolor +3><7[*|_0|2
+colormenu.textcolor_head +3><'|'[0|_0|2
+colormenu.fade |=4|)3 /\/\3|\||_|5
+
+colorthememenu.head 7|-|3/\/\3 $3|_3[7*|2
+colorthememenu.neutrino_theme /\/3µ+|2¡/\/* '|'|-|3/\/\3
+colorthememenu.classic_theme [|455![ 7|-|3/\/\3
+
+colormenusetup.head /\/\3/\/µ [01*|25
+colormenusetup.menuhead /\/\3|\|µ |-|34|]3|2
+colormenusetup.menucontent \/\/¡/\/|)*\/\/-[*/\/'|'3|\|7
+colormenusetup.menucontent_inactive \/\/¡|\||)*\/\/-[*/\/73|\|'|' ¡/\/4[+!\/3
+colormenusetup.menucontent_selected \/\/!/\/|]*\/\/-[*/\/+3|\|'|' 53|3['|'3|)
+
+colorstatusbar.head !/\/|=0|34|2
+colorstatusbar.text !|\||=*84|2
+
+repeatblocker.hint_1 $|-|0|2'|'35+ '|'!/\/\3 (!|\| /\/\$) '|'* |23[*6|\|!z3 2 |<3y$7|20|<35
+repeatblocker.hint_2 3|\|73|2 0 70 $\/\/!+[|-| 0|= +|-|3 8|_*[|<3|2 (|23|) !$ $p4[3)
+
+keybindingmenu.RC |<3y |23P347-8|_0[|<3|2
+keybindingmenu.repeatblock |23P347 |)3|4Y
+keybindingmenu.repeatblockgeneric @3|\|3|2¡[ |]314y
+keybindingmenu.head Keybinding 53+µP
+keybindingmenu.modechange /\/\*|)3[|-|4/\/63
+keybindingmenu.channellist [|-|4/\//\/3|_|!$'|'
+keybindingmenu.quickzap qµ¡[|<z4p
+keybindingmenu.tvradiomode +\//|24|]!0-/\/\*|]3
+keybindingmenu.tvradiomode_head 7\//|24|)!*-/\/\0|]3
+keybindingmenu.pageup page µp
+keybindingmenu.pageup_head |<3y537µP P4&3 |_|P
+keybindingmenu.pagedown p463 |)0\/\/|\|
+keybindingmenu.pagedown_head |<3y537µP P4@3 |)0\/\/|\|
+keybindingmenu.cancel close [|-|4|\||\|3|_|_¡$+
+keybindingmenu.cancel_head [|-|4|\||\|31|¡5'|' [|_0$3
+keybindingmenu.channelup [|-|4|\|/\/3|_ |_|P
+keybindingmenu.channelup_head |<3Y53+µp [|-|4|\||\|3| µP
+keybindingmenu.channeldown [|-|4/\//\/3|_ |)0\/\/|\|
+keybindingmenu.channeldown_head |<3y537|_|P [|-|4/\//\/3|_ |]0\/\/|\|
+keybindingmenu.bouquetup |\|3><7 8*|_|Qµ3'|'
+keybindingmenu.bouquetup_head |<3y$3+|_|P |\|3><7 8*|_|qµ37
+keybindingmenu.bouquetdown 8*|_|Q|_|3'|' |34[|<
+keybindingmenu.bouquetdown_head |<3Y$37|_|p 80|_|Qµ37 84[|<
+keybindingmenu.bouquethandling |3*|_|Qµ3+-[*|\|+|2*|
+keybindingmenu.bouquetchannels_on_ok [µ|2|23/\/+ |3*µqµ37
+keybindingmenu.bouquetlist_on_ok |30µq|_|3'|'-|_!5+
+keybindingmenu.allchannels_on_ok 4|_|_-53|2\/![35
+keybindingmenu.subchannelup $|_|8[|-|4|\||\|31 µp
+keybindingmenu.subchannelup_head |<3y $|_||3[|-|4|\|/\/3|_ |_|p
+keybindingmenu.subchanneldown $|_||3[|-|4/\/|\|3| |)0\/\/|\|
+keybindingmenu.subchanneldown_head |<3y 5|_||3[|-|4|\|/\/31 |)0\/\//\/
+
+colorchooser.red |23|]
+colorchooser.green 6|233|\|
+colorchooser.blue 8|_µ3
+colorchooser.alpha 4|p|-|4
+
+lcdmenu.head 1[|] $377!|\|&$
+lcdmenu.inverse !|\|\/3|2'|'
+lcdmenu.power p*\/\/3|2
+lcdmenu.lcdcontroler [0/\/'|'|24$+ / 8|2!&|-|'|'|\|35$
+
+lcdcontroler.head |_[|) 5'|'37'|'¡/\/&$
+lcdcontroler.contrast [0/\/+|24$'|'
+lcdcontroler.brightness |\|*|2/\/\4|_ |3|2!&|-|7|\|355
+lcdcontroler.brightnessstandby 574/\/|)8Y |3|2¡6|-|'|'/\/355
+
+keychoosermenu.setnew 537|_|P |\|3\/\/ |<3Y
+keychoosermenu.setnone /\/* |<3y
+keychoosermenu.currentkey [|_||2|23|\|+ |<3y
+
+keychooser.head Setup /\/3\/\/ |<3Y
+keychooser.text1 p13453 P|23$$ '|'|-|3 |\|3\/\/ |<3y
+keychooser.text2 \/\/4!'|' 4 |=3\/\/ 53[0|\||]$ |=*|2 4|30|2+
+
+screensetup.upperleft |20'|' = 53'|'|_|p µPp3|2 |_3|=7
+screensetup.lowerright &|2ü|\| = 53+µP |*\/\/3|2 |2¡@|-|'|'
+
+channellist.head 41| 53|2\/¡[35
+channellist.nonefound /\/0 [|-|4/\/|\|315 \/\/3|23 |=0µ/\/|]!\|\|p13453 3><3[|_|73 4 $[4|\|\/\/(|]80><-|<3Y -> $3|2\/![3)
+channellist.since $!|\|[3 %02|):%02|]
+
+infoviewer.epgnotload 3p@ /\/0+ |_*4|]3|)....
+infoviewer.epgwait \/\/4¡7!/\/& |=*|2 3p&...
+infoviewer.streaminfo |=347µ|235
+infoviewer.eventlist 3\/3|\|+-|!$'|'
+infoviewer.languages 4|_||]!*
+infoviewer.notavailable [|-|4/\//\/3|_ |\|*'|' 4\/4¡|_4813
+infoviewer.cantdecode [|-|4/\/|\|3|_ [4|\|''|' 83 |]3[0|]3|]
+infoviewer.selecttime +¡/\/\353|3['|'!*/\/
+infoviewer.nocurrent /\/0 ¡|\||=* |=*|2 [|_||2|23|\|'|' P|20@|24/\/\ 4\/4¡|_4|3|3
+infoviewer.noepg 3P@ |\|*7 4\/4¡14|3|3
+infoviewer.subservice 5|_|8$3|2\/¡[35
+infoviewer.waittime \/\/4!7¡/\/@ |=*|2 '|'!/\/\3...
+
+epgviewer.notfound |\|0 3P6 |=*µ/\/|]
+epgviewer.nodetailed /\/0 |)3'|'4¡13|) ¡|\||=*|2/\/\4+!0/\/5 4\/4!148|3
+epgviewer.More_Screenings /\/\*|23 $[|233|\|¡/\/@$ *|\| 7|-|!$ [|-|4/\/|\|3|_
+epglist.head 3\/3/\/7-|!57 - %s
+epglist.noevents 3P& !$ |\|0+ 4\/4¡148|3...
+
+streaminfo.head 57|234/\/\-!/\/|=0|2/\/\4'|'¡0/\/
+streaminfo.resolution |23$*1|_|'|'¡0/\/
+streaminfo.bitrate |3¡7|2473
+streaminfo.aratio 4$P3['|' |24|)!*
+streaminfo.aratio_unknown 4$P3[+ |24|]!*: µ|\||</\/*\/\//\/
+streaminfo.framerate |=|24/\/\3|24+3
+streaminfo.framerate_unknown |=|24/\/\3|2473: µ|\||</\/*\/\//\/
+streaminfo.audiotype 4µ|)!*+yP3
+streaminfo.audiotype_unknown 4|_||)¡*+yP3: |_|/\/|<|\|0\/\//\/
+streaminfo.not_crypted /\/*'|' [|2Yp+3|)
+streaminfo.ecm_invalid !/\/\/41¡|) [4-5Y5+3/\/\
+streaminfo.not_available |\|0'|' 4\/4¡148|3
+
+streamfeatures.head |=34'|'µ|23$
+streamfeatures.info $7|234/\/\-¡/\/|=0|2/\/\4'|'¡0/\/
+
+apidselector.head $313['|' |4|\|@|_|463
+
+nvodselector.head 53|3[7 5+4|2'|'!|\|&-+!/\/\3
+nvodselector.subservice $3|_3[7 5µ8$3|2\/¡[3
+nvodselector.directormode |)¡|23[+-/\/\0|]3
+
+ucodecheck.head |_|[*|]3 [|-|3[|<
+ucodecheck.avia500 4\/¡4 500
+ucodecheck.avia600 4\/¡4 600
+ucodecheck.ucode |_|[0|)3
+ucodecheck.cam-alpha [4/\/\-4|_P|-|4
+
+
+
+date.Mon  /\/\*|\|
+date.Tue  '|'µ3
+date.Wed  \/\/3|)
+date.Thu  +|-|µ
+date.Fri  |=|2!
+date.Sat  $4+
+date.Sun  5|_||\|
+
+date.Jan  j4|\|
+date.Feb  |=3|3
+date.Mar  /\/\4|2
+date.Apr  4P|2
+date.May  /\/\4y
+date.Jun  j|_|/\/
+date.Jul  j|_|1
+date.Aug  4µ6
+date.Sep  53p
+date.Oct  0[+
+date.Nov  |\|*\/
+date.Dec  |]3[
+
+nvod.starting (5+4|2'|'¡/\/@ ¡/\/ %d /\/\¡/\/)
+nvod.proz (%d%% 0\/3|2)
+
+scants.head 5[4|\| '|'|24/\/$P*|\||)3|2
+scants.startnow 574|2'|' 5[4|\|
+scants.actsatellite 54+31|_!73:
+scants.astra 457|24
+scants.hotbird |-|*78¡|2|)
+scants.kopernikus |<0P3|2/\/¡|<µ5
+scants.sirius $¡|2¡µ5
+scants.thor '|'|-|0|2
+scants.digituerk |)¡&!'|'|_|3|2|<
+scants.tuerksat 7|_|3|2|<$47
+scants.transponders 7|24/\/$P*/\/|]3|2$:
+scants.services $3|2\/¡[35:
+scants.bouquet |30µq|_|3'|'
+scants.bouquet_leave 134\/3 [|_||2|23/\/7
+scants.bouquet_create [|234+3 /\/3\/\/
+scants.bouquet_erase 3|2453 4|_|
+scants.finished '|'|24|\|5P*/\/|)3|2$[4|\| |=!/\/!5|-|3|) $|_|[[35$|=µ|1Y!
+
+flashupdate.head 50|='|'\/\/4|23 |_|p|)4'|'3
+flashupdate.action 4[+¡*/\/:
+flashupdate.globalprogress @|*|341 P|206|2355:
+flashupdate.getinfofile @3'|'+!/\/& \/3|25¡*/\/!|\||=0
+flashupdate.getinfofileerror [4|\|''|' &3+ \/3|25¡*|\|!/\/|=0
+flashupdate.getupdatefile 63'|'+!|\|6 |_|P|]473
+flashupdate.getupdatefileerror [4/\/'+ @37 |_|p|)4+3
+flashupdate.cantopenfile [4/\/'7 0P3|\| |=!|_3
+flashupdate.fileis0bytes 7|-|3 |=!|_35¡Z3 ¡5 0 |3Y+35
+flashupdate.eraseingflash 3|245!/\/6 |=|_45|-|
+flashupdate.programmingflash P|2*@|24/\/\/\/\¡/\/& |=|_45|-|
+flashupdate.cantopenmtd [4/\/'7 0P3/\/ /\/\'|'|)-|)3\/¡[3
+flashupdate.ready |234|]Y
+flashupdate.reboot |23|30*7¡|\|6 80><....
+flashupdate.updatemode µP|]4+3/\/\0|]3
+flashupdate.updatemode_manual /\/\4|\||_|4| (|=+P)
+flashupdate.updatemode_internet !/\/'|'3|2/\/3'|'
+flashupdate.currentversion_sep [µ|2|23/\/'|' \/3|25¡*|\|
+flashupdate.currentversiondate |)4+3
+flashupdate.currentversiontime '|'!/\/\3
+flashupdate.currentversionbaseversion 84$3¡/\/\463
+flashupdate.currentversionsnapshot !/\/\4@3'|'yP3
+flashupdate.checkupdate $34|2[|-| |=0|2 |\|3\/\/ \/3|2$!0|\|
+flashupdate.versioncheck [|-|3[|<!/\/6 \/3|25¡*/\/
+flashupdate.nonewversion |\|0 |\|3\/\/ \/3|25¡*/\/ 4\/4¡|_4|313
+flashupdate.md5check [|-|3[|<!/\/& ¡/\/\4@3
+flashupdate.md5sumerror ¡/\/\4@3 |-|45 3|2|20|25
+flashupdate.proxyserver_sep p|20><y53|2\/3|2
+flashupdate.proxyserver |-|*5'|'|\|4/\/\3
+flashupdate.proxyserver_hint1 3/\/+3|2 p|2*><y$3|2\/3|2 /\/4/\/\3 0|2 !p, |_|$3 |-|*5+:p0|27
+flashupdate.proxyserver_hint2 4 3/\/\p'|'y 3|\|7|2Y /\/\34|\|5 |\|0 P|2*><Y
+flashupdate.proxyusername |_|$3|2|\|4/\/\3
+flashupdate.proxyusername_hint1 3|\|+3|2 '|'|-|3 P|2*><Y$3|2\/3|2 |_|$3|2|\|4/\/\3
+flashupdate.proxyusername_hint2 4 3/\/\P'|'Y 3|\|7|2y /\/\34|\|$ /\/* p|20><y-4|_|'|'|-|
+flashupdate.proxypassword p455\/\/0|2|)
+flashupdate.proxypassword_hint1 3|\|'|'3|2 '|'|-|3 p|2*><y$3|2\/3|2 P45$\/\/0|2|)
+flashupdate.proxypassword_hint2 
+flashupdate.msgbox |=0µ|\||] '|'|-|3 |=0|_|0\/\/¡/\/& |\|3\/\/ !/\/\4@3:\/\/|)473: %s, %s\|\|8453!/\/\463: %s\/\/¡/\/\4@3'|'Yp3: %s\|\|\|\||]* µ \/\/4|\|7 70 |]0\/\/|\|1*4|] 4|\||] !/\/5'|'4|_|_ +|-|¡5 \/3|25¡0|\| |\|0\/\/?
+flashupdate.msgbox_manual |=*|_|/\/|) 7|-|3 |=0110\/\/¡/\/6 |\|3\/\/ ¡/\/\4@3:\/\/|)4'|'3: %s, %s\/\/|34$3!/\/\4&3: %s\|\|!/\/\4@3+Yp3: %s\/\/\/\/|]* |_| \/\/4/\/'|' 70 !/\/$'|'4|1 '|'|-|¡$ \/3|2$¡*/\/ /\/0\/\/?
+flashupdate.expertfunctions 3><p3|2+-|=|_||\|[+¡*|\|5
+flashupdate.readflash |234|] \/\/|-|0|3 !/\/\4&3
+flashupdate.writeflash \/\/|2!'|'3 \/\/|-|*|3 ¡/\/\4&3
+flashupdate.readflashmtd |234|] */\/3 p4|27¡7¡*|\|
+flashupdate.writeflashmtd \/\/|2!+3 0/\/3 p4|27!7!*|\|
+flashupdate.savesuccess 7|-|3 !/\/\463 \/\/4$ $µ[[35$|=µ1|_Y $4\/3|) \/\/|_|/\/|]3|2 %$.
+flashupdate.mtdselector p4|2'|'!+¡*/\/-$3|3[+0|2
+flashupdate.titlereadflash |234|)!/\/@ |=14$|-|
+flashupdate.actionreadflash |234|)¡|\|6
+flashupdate.fileselector |=¡|_3-$3|_3[+*|2
+flashupdate.titlewriteflash \/\/|2!'|'¡/\/@ |=|_4$|-|
+flashupdate.actionwriteflash \/\/|2¡+¡/\/@
+flashupdate.flashreadyreboot +|-|3 ¡/\/\4@3 \/\/45 $|_|[[3$5|=µ1|_Y |=145|-|3|).\/\/'|'|-|3 |]|30>< \/\/¡||_ |33 |23|300+3|) |\|0\/\/.
+flashupdate.reallyflashmtd |]0 µ |234|_|y \/\/4|\|+ +0 |=145|-|?\/\/\|\|¡|= 4 3|2|2*|2 0[[|_||2$ 0|2 '|'|-|3 !/\/\4&3 !5 |\|0'|'\|\|\/4|¡|], +|-|3 |3*>< \/\/!|1 /\/0+ 80*'|' 4|='|'3|2 |=|4$|-|!/\/6.\|\|\|\|!/\/\4@3|\|4/\/\3: %5\/\/74|263+: %5
+
+bouqueteditor.name 80µQ|_|37-3|]¡7*|2
+bouqueteditor.delete |)3|_3+3
+bouqueteditor.add 4|)|]
+bouqueteditor.move /\/\*\/3
+bouqueteditor.rename |23|\|4/\/\3
+bouqueteditor.hide |-|!|)3
+bouqueteditor.lock |_*[|<
+bouqueteditor.newbouquetname /\/3\/\/ |\|4/\/\3 *|= 8*µq|_|3+5
+bouqueteditor.bouquetname |\|4/\/\3 *|= |30|_|Qµ3'|'5
+bouqueteditor.savechanges? |)* |_| \/\/4|\|7 70 54\/3 7|-|3 [|-|4|\|63$?
+bouqueteditor.savingchanges $4\/¡/\/6 [|-|4/\/635. p134$3 \/\/4¡7 ...
+bouqueteditor.discardingchanges |)¡5[4|2|)!/\/6 [|-|4|\|@35. P134$3 \/\/4!'|' ..
+bouqueteditor.switch 4|]|)/|23/\/\0\/3
+bouqueteditor.switchmode 7\//|24|]¡*
+bouqueteditor.return |234|]y
+
+messagebox.yes Y3$
+messagebox.no |\|*
+messagebox.cancel [4/\/[3|_
+messagebox.back |34[|<
+messagebox.error 3|2|20|2
+messagebox.discard |]¡$[4|2|) [|-|4/\/635?
+messagebox.info !/\/|=*|2/\/\47¡0/\/
+
+settings.noconffile /\/0 |\|3µ7|2¡/\/*-537+¡/\/&$ |=*|_||\||].\/\/|_|$3¡|\|6 |)3|=4|_||7$.
+settings.missingoptionsconffile '|'|-|3 /\/3|_|+|2¡/\/*-$37+!/\/6$ |-|4\/3 833|\| µP|)4'|'3|).\/\/|\|3\/\/ 0p'|'¡*/\/5 \/\/!1|_ 83 537 '|'* |]3|=4µ|7.
+
+cam.wrong 4++3/\/7¡0|\|, J0*|2 [4|2|) \/\/|]03$ |\|0'|' /\/\4+[|-| [4/\/\4|P|-|4.|3¡/\/!!\|\|\|\||]* µ \/\/|-|!5|-| +* &3+ '|'|-|!5 \/\/4|2|\|¡|\|& 4@4¡/\/?
+ucodes.failure 4'|'73|\|+!*/\/, µ[*|)35 [0µ||) /\/07 |33 |=0|_||\||)!\|\|\/\/p|3453 µp|_*4|] +|-|3/\/\ \/!4 |=7p (0|2 |]|3*><-|3*0+/\/\4/\/4@3|2),\/\/+|-|3|\| |23$+4|2'|' j0*|2 |]|3*><!
+
+stringinput.caps [4p5 / /\/* [4p5
+
+streamingserver.noconnect /\/* [*/\//\/3['|'¡0/\/ '|'0 57|234/\/\!|\|6$3|2\/3|2.\/\/|23[0|2|]!|\|6 [4/\/[3|_3|).
+
+GENRE.MOVIE.0 5P¡3||=¡|/\/\ / |]|24/\/\4
+GENRE.MOVIE.1 |)3'|'3['|'¡\/3/7|-||2!1|_3|2
+GENRE.MOVIE.2 4|)\/3|\|'|'|_||23/\/\/3$+3|2/\//\/\/4|2
+GENRE.MOVIE.3 $[¡3|\|[3 |=¡[7!0|\|/|=4|\|+4$Y/|-|*|2|20|2
+GENRE.MOVIE.4 [*/\/\3|)Y
+GENRE.MOVIE.5 $04P//\/\3|*|)|24/\/\4/|=0||<|0|2![
+GENRE.MOVIE.6 |20/\/\4|\|[3
+GENRE.MOVIE.7 53|2!*|_|$/[|4$5![4|/|231¡&¡*|_|$/|-|¡5+*|2![4|_ /\/\0\/¡3/|)|24/\/\4
+GENRE.MOVIE.8 4|)µ1'|' /\/\*\/!3/|)|24/\/\4
+
+GENRE.NEWS.0 /\/4[|-||2![|-|73|\|
+GENRE.NEWS.1 /\/3\/\/$/\/\/347|-|3|2 |23P*|2+
+GENRE.NEWS.2 |\|3\/\/$ /\/\4@4Z¡/\/3
+GENRE.NEWS.3 |)0[µ/\/\3|\|+4|2y
+GENRE.NEWS.4 |]¡5[µ55!0/\//¡/\/73|2\/!3\/\//|]38473
+
+GENRE.SHOW.0 5|-|0\/\/ / &4/\/\35|-|0\/\/
+GENRE.SHOW.1 64/\/\3 5|-|*\/\//Qµ¡z/[*/\/'|'357
+GENRE.SHOW.2 \/4|2!3+Y 5|-|*\/\/
+GENRE.SHOW.3 '|'41|< $|-|0\/\/
+
+GENRE.SPORTS.0 $p*|2+
+GENRE.SPORTS.1 5p3[!41 3\/3|\|+5 (*|y/\/\P![ 64/\/\35,\/\/*|2||] [µP 3'|'[.)
+GENRE.SPORTS.2 5P0|27$ /\/\4@4Z!|\|35
+GENRE.SPORTS.3 |=0*+|34||/50[[3|2
+GENRE.SPORTS.4 '|'3|\|/\/¡5/$qµ45|-|
+GENRE.SPORTS.5 734/\/\ 5p0|27$ (3><[|_µ|]¡/\/6 |=00'|'84|1)
+GENRE.SPORTS.6 4+|-|13'|'¡[$
+GENRE.SPORTS.7 /\/\0'|'*|2 $P0|2+
+GENRE.SPORTS.8 \/\/4'|'3|2 $P0|27
+GENRE.SPORTS.9 \/\/¡/\/'|'3|2 5p*|27$
+GENRE.SPORTS.10 3Q|_|35'|'|2!4/\/
+GENRE.SPORTS.11 /\/\4|2'|'¡4|_ 5P*|27$
+
+GENRE.CHILDRENs_PROGRAMMES.0 |<¡|\||)3|2 / J|_|@3|\||)p|206|24/\/\/\/\
+GENRE.CHILDRENs_PROGRAMMES.1 p|23-$[|-|001 [|-|!1|)|23|\|'$ P|2*&|24/\/\/\/\3$
+GENRE.CHILDRENs_PROGRAMMES.2 3|\|73|2+4!|\|/\/\3/\/+ P|2*@|24/\/\/\/\35 |=0|2 6 7* 14
+GENRE.CHILDRENs_PROGRAMMES.3 3/\/'|'3|2'|'4¡/\//\/\3|\|'|' P|20&|24/\/\/\/\3$ |=*|2 10 '|'* 16
+GENRE.CHILDRENs_PROGRAMMES.4 ¡|\||=0|2/\/\4'|'!*|\|4|/3|]|_|[4'|'¡*/\/41/$[|-|0*| P|20&|24/\/\/\/\3$
+GENRE.CHILDRENs_PROGRAMMES.5 [4|2'|'00|\|$/PµPp3'|'$
+
+GENRE.MUSIC_DANCE.0 /\/\µ$¡|< / 84||37 / +4|\|z
+GENRE.MUSIC_DANCE.1 |2*[|</p0p
+GENRE.MUSIC_DANCE.2 53|2!0µ5 /\/\µ5¡[/[|4$$¡[4|_ /\/\µ$¡[
+GENRE.MUSIC_DANCE.3 |=*|_|</+|24|]!'|'!*/\/4|_ /\/\µ5¡[
+GENRE.MUSIC_DANCE.4 J4Zz
+GENRE.MUSIC_DANCE.5 /\/\|_|$¡[41/*P3|24
+GENRE.MUSIC_DANCE.6 84|_137
+
+GENRE.ARTS.0 |<µ|\|5+ / |<|_||'|'µ|2
+GENRE.ARTS.1 p3|2|=*|2/\/\¡|\|& 4|275
+GENRE.ARTS.2 |=¡|\|3 4|2'|'$
+GENRE.ARTS.3 |231¡@!*/\/
+GENRE.ARTS.4 p0p|_||4|2 [µ17µ|23/+|24|)!7¡*/\/4|_ 4|2+5
+GENRE.ARTS.5 1!+3|24+µ|23
+GENRE.ARTS.6 |=!|_/\/\/[¡/\/3/\/\4
+GENRE.ARTS.7 3><p3|2!/\/\3/\/+4| |=¡|/\/\/\/¡|]3*
+GENRE.ARTS.8 8|204|][4$7!|\|6/p|23$$
+GENRE.ARTS.9 /\/3\/\/ /\/\3|]¡4
+GENRE.ARTS.10 4|2+$/[µ|_'|'|_||23 /\/\4&4Z¡/\/35
+GENRE.ARTS.11 |=4$|-|!*/\/
+
+GENRE.SOZIAL_POLITICAL.0 5*z¡4| & P*|_!7¡|<3|23¡@/\/¡$53 / \/\/!|275[|-|4|='|'
+GENRE.SOZIAL_POLITICAL.1 /\/\4@4z¡|\|3$/|23P*|2'|'$/|]0[|_|/\/\3|\|74|2Y
+GENRE.SOZIAL_POLITICAL.2 3[*/\/*/\/\¡[$/$*[!4|_ 4|)\/!50|2Y
+GENRE.SOZIAL_POLITICAL.3 |23/\/\4|2|<4|313 p3*P|3
+
+GENRE.DOCUS_MAGAZINES.0 |]*|<|_| / /\/\4&4z¡|\|
+GENRE.DOCUS_MAGAZINES.1 /\/4+|_||23/4/\/¡/\/\415/3/\/\/¡|20/\//\/\3|\|7
+GENRE.DOCUS_MAGAZINES.2 +3[|-||\|0|_0&y//\/4+µ|241 5[!3|\|[3$
+GENRE.DOCUS_MAGAZINES.3 /\/\3|)![!/\/3/p|-|y$¡*|*6Y/P5Y[|-|0|_*6Y
+GENRE.DOCUS_MAGAZINES.4 |=0|23¡@/\/ [0|_||\|+|2¡3$/3><p3|)¡7!0|\|$
+GENRE.DOCUS_MAGAZINES.5 $*[¡4|_/$P!|2¡'|'µ4|_ $[!3|\|[3$
+GENRE.DOCUS_MAGAZINES.6 |=|_||2'|'|-|3|2 3|)µ[47!*|\|
+GENRE.DOCUS_MAGAZINES.7 14|\|@µ4@35
+
+GENRE.TRAVEL_HOBBIES.0 |23¡53 & |=|23!Z3¡7
+GENRE.TRAVEL_HOBBIES.1 70|_||2¡$/\/\/7|24\/3|_
+GENRE.TRAVEL_HOBBIES.2 |-|4/\/|)![|24|='|'
+GENRE.TRAVEL_HOBBIES.3 /\/\*'|'0|2¡/\/6
+GENRE.TRAVEL_HOBBIES.4 |=¡7/\/3$$ & |-|34|_7|-|
+GENRE.TRAVEL_HOBBIES.5 [**|<!|\|&
+GENRE.TRAVEL_HOBBIES.6 4|)\/3|27¡53/\/\3/\/+/5|-|*pP!|\|&
+GENRE.TRAVEL_HOBBIES.7 &4|2|)3/\/¡|\|&
+
+GENRE.UNKNOWN |_||\|83|<4|\|/\/7
+
+parentallock.parentallock j**'|'|-| p|2*73['|'¡*/\/
+
+parentallock.prompt P|2*/\/\P'|' |=*|2 p!|\|
+parentallock.never |\|3\/3|2
+parentallock.onstart 0/\/ 5'|'4|2'|'
+parentallock.changetolocked *|\| |0[|<3|] 8*µq|_|3'|'5
+parentallock.onsignal 0/\/ 8|2*4|)[45+3|) |_*[|<
+parentallock.lockedsender |*[|<3|) 53/\/|]3|2...
+parentallock.lockedprogram 1*[|<3|) p|206|24/\/\ (|=|20/\/\ %d y34|25 |_|p)
+parentallock.head 3/\/+3|2 P4|23/\/'|'4| 10[|< P¡/\/ [0|]3
+
+parentallock.lockage 10[|< p|20&|24/\/\
+parentallock.lockage12 |=|2*/\/\ 12 Y34|25 µP
+parentallock.lockage16 |=|20/\/\ 16 Y34|25 |_|P
+parentallock.lockage18 |=|20/\/\ 18 Y34|2$ |_|P
+
+parentallock.changepin [|-|4/\/&3 P¡/\/ [0|]3
+parentallock.changepin_hint1 3/\/'|'3|2 J**|2 |\|3\/\/ j00+|-| p|2073['|'!0|\| p¡/\/ [0|]3 |-|3|23!
+
+pinprotection.wrongcode p!/\/-[0|]3 \/\/4$ \/\/|20/\/@! +|2Y 4@4¡|\|.
+pinprotection.head 3/\/+3|2 p!/\/ [0|)3
+
+favorites.bouquetname /\/\Y |=4\/*|2!735
+favorites.nobouquets |=4\/0|2¡73$ |2 4\/4!148|3 \/\/¡7|-| 4[7¡\/4'|'3|] |30µq|_|3+$ 0/\/1Y.
+favorites.addchannel "'|'|-|3 [µ|2|23|\|7 [|-|4|\||\|3| \/\/!1| |33 4|]|]3|] \|\|+* +|-|3 |3*µQµ3+ ""/\/\Y |=4\/0|2¡+35"". \/\/ +|-|!5 \/\/!|_1 '|'4|<3 4 |=3\/\/ $3[*/\/|)5..."
+favorites.menueadd 4|)|) [|-|4|\||\|31 70 |=4\/*|2¡'|'3$
+favorites.bqcreated "|3*|_|Qµ37 ""/\/\Y |=4\/0|2!735"" |-|4$ 833/\/ [|23473|)...\/\/"
+favorites.chadded +|-|3 [µ|2|23/\/7 [|-|4/\/|\|3| |-|4$ 833|\| 4|)|]3|) '|'0 J*0|2 |=4\/*|2¡+3$...\|\|
+favorites.chalreadyinbq +|-|3 [|_||2|23/\/'|' [|-|4|\||\|31 !$ 41|234|]Y !/\/ j00|2 |=4\/0|2!'|'35...\|\|
+favorites.finalhint \nµ$3 7|-|3 |30µQµ373|)!7*|2 70 /\/\*|]!|=Y J*0|2 |=4\/0|2!'|'3$.\|\|
+
+sleeptimerbox.title $|33p+!/\/\3|2
+sleeptimerbox.hint1 $|-|µ'|'|]0\/\/|\| 7¡/\/\3 ¡/\/ /\/\!|\|. (000=0|=|=)
+sleeptimerbox.hint2 +|-|3 |)|3*><2 \/\/!||_ $|-|µ7|)*\/\/|\| 4|='|'3|2 +|-|!5 7!/\/\3.
+sleeptimerbox.announce 5|33P+!/\/\3|2 !/\/ 1 /\/\¡/\/
+
+timerbar.channelswitch 5[|-|3|]µ13
+timerbar.recordevent |23[0|2|)
+timer.eventtimed.title $[|-|3|]|_||_3 3\/3|\|'|'
+timer.eventtimed.msg +|-|3 3\/3|\|'|' !5 5[|-|3|)µ|_3|).\|\|'|'|-|3 |]|30><2 \/\/!|| p0\/\/3|2 0|\| 4|\||] \|\|$\/\/¡7[|-| '|'* +|-|!$ [|-|4/\/|\|3|_ 4+ 7|-|3 @!\/3/\/ '|'¡/\/\3.
+timer.eventrecord.title 5[|-|3|)µ|3 |23[0|2|]
+timer.eventrecord.msg   ... +0 83 |)*|\|3, 0|2 |\|07 7* 83 |)*|\|3

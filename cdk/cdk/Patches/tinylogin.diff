@@ -1,0 +1,98 @@
+diff -Naur tinylogin-1.2/Config.h tinylogin-1.2new/Config.h
+--- tinylogin-1.2/Config.h	2002-06-23 04:47:53.000000000 +0200
++++ tinylogin-1.2new/Config.h	2002-10-14 03:11:12.000000000 +0200
+@@ -11,8 +11,8 @@
+ #define CONFIG_LOGIN
+ #define CONFIG_PASSWD
+ #define CONFIG_SU
+-#define CONFIG_SULOGIN
+-#define CONFIG_VLOCK
++//#define CONFIG_SULOGIN
++//#define CONFIG_VLOCK
+ //
+ //
+ //
+@@ -25,13 +25,13 @@
+ #define CONFIG_FEATURE_SHADOWPASSWDS
+ //
+ // Enable checking of /etc/securetty by login
+-#define CONFIG_FEATURE_SECURETTY
++//#define CONFIG_FEATURE_SECURETTY
+ //
+ // Enable using sha passwords
+-#define CONFIG_FEATURE_SHA1_PASSWORDS
++//#define CONFIG_FEATURE_SHA1_PASSWORDS
+ //
+ // Enable use of a wheel group
+-#define CONFIG_WHEEL_GROUP
++//#define CONFIG_WHEEL_GROUP
+ //
+ // This compiles out everything but the most 
+ // trivial --help usage information (i.e. reduces binary size)
+@@ -41,7 +41,7 @@
+ // to create links (or symlinks) at runtime for all the 
+ // commands that are compiled into the binary.  This needs 
+ // the /proc filesystem to work properly...
+-#define CONFIG_FEATURE_INSTALLER
++//#define CONFIG_FEATURE_INSTALLER
+ //
+ //
+ //---------------------------------------------------
+diff -Naur tinylogin-1.2/include/applets.h tinylogin-1.2new/include/applets.h
+--- tinylogin-1.2/include/applets.h	2002-06-23 04:15:02.000000000 +0200
++++ tinylogin-1.2new/include/applets.h	2002-10-14 03:11:04.000000000 +0200
+@@ -62,7 +62,7 @@
+ 	APPLET(login, login_main, _BB_DIR_BIN, _BB_SUID_NEVER)
+ #endif
+ #ifdef CONFIG_PASSWD
+-	APPLET(passwd, passwd_main, _BB_DIR_USR_BIN, _BB_SUID_ALWAYS)
++	APPLET(passwd, passwd_main, _BB_DIR_BIN, _BB_SUID_ALWAYS)
+ #endif
+ #ifdef CONFIG_SU
+ 	APPLET(su, su_main, _BB_DIR_BIN, _BB_SUID_ALWAYS)
+@@ -72,7 +72,7 @@
+ #endif
+ 	APPLET_NOUSAGE("tinylogin", tinylogin_main, _BB_DIR_BIN, _BB_SUID_MAYBE)
+ #ifdef CONFIG_VLOCK
+-	APPLET(vlock, vlock_main, _BB_DIR_USR_BIN, _BB_SUID_ALWAYS)
++	APPLET(vlock, vlock_main, _BB_DIR_BIN, _BB_SUID_ALWAYS)
+ #endif
+ #if !defined(PROTOTYPES) && !defined(MAKE_USAGE)
+ 	{ 0,NULL,0 }
+diff -Naur tinylogin-1.2/install.sh tinylogin-1.2new/install.sh
+--- tinylogin-1.2/install.sh	2002-06-23 05:04:08.000000000 +0200
++++ tinylogin-1.2new/install.sh	2002-10-14 03:11:04.000000000 +0200
+@@ -1,13 +1,5 @@
+ #!/bin/sh
+ 
+-if [ `id -u` -ne 0 ]; then
+-    echo " ";
+-    echo "Aborting install -- You must be root, otherwise I can't.";
+-    echo "make tinylogin be setuid root, which will cause it to fail.";
+-    echo " ";
+-    exit 1;
+-fi;
+-
+ prefix=$1
+ if [ "$prefix" = "" ]; then
+     echo "No installation directory, aborting."
+@@ -52,6 +44,6 @@
+ 	ln $linkopts $bb_path $prefix$i || exit 1
+ done
+ rm -f $prefix/bin/tinylogin || exit 1
+-install -m 4755 --owner=root --group=root ./tinylogin $prefix/bin/tinylogin || exit 1
++install -m 4755 ./tinylogin $prefix/bin/tinylogin || exit 1
+ 
+ exit 0
+diff -Naur tinylogin-1.2/Makefile tinylogin-1.2new/Makefile
+--- tinylogin-1.2/Makefile	2002-06-23 05:04:50.000000000 +0200
++++ tinylogin-1.2new/Makefile	2002-10-14 03:11:04.000000000 +0200
+@@ -68,6 +68,8 @@
+ # Do not enable this for production builds...
+ DOEFENCE  = false
+ 
++CFLAGS=
++
+ # GNU libc and uClibc want libcrypt.  libc5 wants this disabled...
+ LIBRARIES = -lcrypt
+ 

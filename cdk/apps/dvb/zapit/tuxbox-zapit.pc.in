@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: tuxbox-zapit
+Description: zapit
+Version: @VERSION@
+Libs: -L${libdir} -lzapitclient
+Cflags: -I${includedir}/tuxbox

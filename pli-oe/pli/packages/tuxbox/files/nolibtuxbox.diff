@@ -1,0 +1,9 @@
+--- libs/libtuxtxt/tuxbox-tuxtxt.pc.in.orig	2008-12-13 19:40:25.000000000 +0100
++++ libs/libtuxtxt/tuxbox-tuxtxt.pc.in	2008-12-13 19:40:35.000000000 +0100
+@@ -6,5 +6,5 @@
+ Name: tuxbox-tuxtxt
+ Description: tuxtxt
+ Version: @VERSION@
+-Libs: -L${libdir} -ltuxtxt @LIBTUXBOX_LIBS@ @FREETYPE_LIBS@
++Libs: -L${libdir} -ltuxtxt @FREETYPE_LIBS@
+ Cflags: -I${includedir} -I@DRIVER@/include

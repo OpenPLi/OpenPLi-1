@@ -1,0 +1,11 @@
+--- /user.c.orig	2008-05-26 19:10:40.000000000 +0200
++++ /user.c	2008-05-26 19:10:40.000000000 +0200
+@@ -27,7 +27,7 @@
+ 
+ #ifdef IPKG_LIB
+ static char *question = NULL;
+-static int question_len = 255;
++static int question_len = 4096;
+ #endif	
+ char *get_user_response(const char *format, ...)
+ {

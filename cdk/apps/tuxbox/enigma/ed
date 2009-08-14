@@ -1,0 +1,12 @@
+#!/bin/sh
+
+for x in $*; do
+	line=`echo $x|cut -d: -f2`
+	name=`echo $x|cut -d: -f1`
+	if [ "$line" != "$name" ] ; then
+		files="$files +$line ";
+	fi
+	files="$files `find -name $name`";
+done
+
+joe $files

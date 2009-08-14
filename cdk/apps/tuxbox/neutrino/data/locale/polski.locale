@@ -1,0 +1,483 @@
+menu.back spowrotem
+
+options.off wylanczyc
+options.on wlanczyc
+
+mainmenu.head menu glówne
+mainmenu.tvmode telewizja
+mainmenu.radiomode radio
+mainmenu.scartmode wtyczka EURO
+mainmenu.games zagrac gre
+mainmenu.sleeptimer czas spac
+mainmenu.shutdown wylanczyc
+mainmenu.settings ustawienia
+mainmenu.service serwis
+mainmenu.streaming nagrywac
+mainmenu.streaming_start rozpocznij
+mainmenu.streaming_stop zatrzymaj
+
+servicemenu.head serwis
+servicemenu.update aktualizacja trybu
+servicemenu.scants servicescan
+servicemenu.ucodecheck sprawdz ucod-y
+
+cablesetup.provider dystrybutor Kabla
+
+satsetup.disqeqc DiSEqC
+satsetup.satellite satelita
+satsetup.extended DiSEqC-ustawienia
+satsetup.nodiseqc bez DiSEqC
+satsetup.minidiseqc mini-DiSEqC
+satsetup.diseqc10 DiSEqC 1.0
+satsetup.diseqc11 DiSEqC 1.1
+satsetup.smatvremote SMATV zdalnie sterowane
+satsetup.diseqcrepeat DiSEqC-powtórzenia
+
+mainsettings.head glówne ustawienia
+mainsettings.savesettingsnow zapamietaj ustawienia
+mainsettings.language jezyk
+mainsettings.audio dzwiek
+mainsettings.video obraz
+mainsettings.network siec
+mainsettings.colors kolory / wyglad
+mainsettings.keybinding ustawienie klawiszy
+mainsettings.misc rózne ustawienia
+mainsettings.scan ustawienia dla szukania kanalów
+
+miscsettings.head rózne ustawienia
+miscsettings.shutdown_real umozliwic standby
+miscsettings.boxtype typ tunera
+miscsettings.startneutrinodirect zastartuj neutrino odrazu
+miscsettings.general glówne ustawienia
+
+languagesetup.head ustawienie jezyka
+languagesetup.select jezyk
+
+audiomenu.head dstawienie dzwieku
+audiomenu.analogout Analog Output
+audiomenu.monoright mono prawy
+audiomenu.monoleft mono lewy
+audiomenu.stereo stereo
+audiomenu.dolbydigital Dolby Digital
+
+videomenu.head ustawienie Obrazu
+videomenu.screensetup Ustawienie widocznej czesci obrazu
+videomenu.videosignal typ sygnalu obrazu
+videomenu.videosignal_rgb czerw./zielo./niebie.
+videomenu.videosignal_svideo S-Video
+videomenu.videosignal_composite Composite
+videomenu.videoformat format obrazu
+videomenu.videoformat_43 4:3
+videomenu.videoformat_169 16:9
+videomenu.videoformat_autodetect automatycznie
+videomenu.vcrswitch przelancz na EURO automatycznie
+
+networkmenu.head ustawienia sieciowe
+networkmenu.test zprawdz teraz siec
+networkmenu.show aktualne ustawienie sieci
+networkmenu.setupnow ustawienia teraz przekazac
+networkmenu.setuponstartup przy starcie przekazac
+networkmenu.ipaddress KOD-IP
+networkmenu.netmask maska sieci
+networkmenu.broadcast Broadcast
+networkmenu.gateway standardowy Gateway
+networkmenu.nameserver Nameserver
+networkmenu.usestreamserver uzywaj streamserver
+networkmenu.streamingserver Streamingserver
+networkmenu.streamingserverport Port
+
+ping.ok siec jest (ping)
+ping.unreachable sieci brak
+ping.protocol is unreachable (host or protocol error)
+ping.socket is unreachable (socket error)
+
+ipsetup.hint_1 klawisze "0"-"9", czerwony jest " ", zielony jest "."
+ipsetup.hint_2 albo gora/dol, OK zapisuje, Home wychodzi
+
+colormenu.head ustawienia kolorów
+colormenu.statusbar listwa statusowa
+colormenu.themeselect wybor wygladu
+colormenu.menucolors kolory menu
+colormenu.background kolor tla
+colormenu.background_head kolor tla
+colormenu.textcolor kolor tekstu
+colormenu.textcolor_head kolor tekstu
+colormenu.fade Fade menus
+
+colorthememenu.head wybor wygladu
+colorthememenu.neutrino_theme wyglad Neutrino
+colorthememenu.classic_theme wyglad klasyczny
+
+colormenusetup.head kolory Menu
+colormenusetup.menuhead Listwa tytulowa
+colormenusetup.menucontent zawartosc okien
+colormenusetup.menucontent_inactive zawartosc okien wylanczona
+colormenusetup.menucontent_selected Zawartosc okien selekcja
+
+colorstatusbar.head kolory listwy statusowej
+colorstatusbar.text listwa statusowa
+
+repeatblocker.hint_1 czas (w ms) miedzy 2 naciskami klawisza
+repeatblocker.hint_2 0 wylacza blokade (czerwony jest " ")
+
+keybindingmenu.RC pilot
+keybindingmenu.repeatblock blokada powtarzania klawiszy
+keybindingmenu.repeatblock powtórna przerwa
+keybindingmenu.repeatblockgeneric pierwsza przerwa
+keybindingmenu.head ustawienia klawiszy
+keybindingmenu.modechange zmiana modusu
+keybindingmenu.channellist lista kanalow
+keybindingmenu.quickzap szybkie przelaczanie
+keybindingmenu.tvradiomode telewizja/radio
+keybindingmenu.tvradiomode_head telewizja/radio
+keybindingmenu.pageup strona dalej
+keybindingmenu.pageup_head strona dalej
+keybindingmenu.pagedown strona spowrotem
+keybindingmenu.pagedown_head strona spowrotem
+keybindingmenu.cancel liste kanalow zamknac
+keybindingmenu.cancel_head liste kanalow zamknac
+keybindingmenu.channelup kanal do góry
+keybindingmenu.channelup_head klawisz kanal do góry
+keybindingmenu.channeldown kanal na dol
+keybindingmenu.channeldown_head klawisz kanal na dól
+keybindingmenu.bouquetup nastepny bukiet
+keybindingmenu.bouquetup_head klawisz nastepny bukiet
+keybindingmenu.bouquetdown poprzedni bukiet
+keybindingmenu.bouquetdown_head klawisz poprzedni bukiet
+keybindingmenu.bouquethandling kontrola bukietów
+keybindingmenu.bouquetchannels_on_ok terazniejszy bukiet
+keybindingmenu.bouquetlist_on_ok lista bukietów
+keybindingmenu.allchannels_on_ok wszystkie programy
+keybindingmenu.subchannelup podprogram do góry
+keybindingmenu.subchannelup_head klawisz podprogram do góry
+keybindingmenu.subchanneldown podprogram na dól
+keybindingmenu.subchanneldown_head klawisz podprogram na dól
+colorchooser.red czerwony
+colorchooser.green zielony
+colorchooser.blue niebieski
+colorchooser.alpha nasycenie
+
+keychoosermenu.setnew wybrac nowy klawisz
+keychoosermenu.setnone zaden klawisz
+keychoosermenu.currentkey terazniejszy klawisz
+
+keychooser.head wybrac nowy klawisz
+keychooser.text1 prosze nacisnac klawisz
+keychooser.text2 prosze czekac, przerywam
+
+screensetup.upperleft czerw = lewy, górny róg
+screensetup.lowerright ziel = prawy, dolny róg
+
+channellist.head wszystkie kanaly
+channellist.nonefound niema rzadnego kanalu!\nprosze uruchomic szukanie kanalów\n(dbox-klawisz -> service)
+channellist.since since %02d:%02d
+
+infoviewer.epgnotload EPG jeszcze nie zaladowane...
+infoviewer.epgwait czekam na EPG...
+infoviewer.streaminfo Features
+infoviewer.eventlist lista programów
+infoviewer.languages wybor dzwieku
+infoviewer.notavailable kanal (tymczasowo) niedostepny
+infoviewer.cantdecode dekodowanie kanalu nie jest mozliwe
+infoviewer.selecttime wybór czasu
+infoviewer.nocurrent brak informacji o audycji
+infoviewer.noepg brak EPG
+infoviewer.subservice podserwisy
+infoviewer.waittime czekam na czas...
+
+epgviewer.notfound informacje EPG nie znalezione
+epgviewer.nodetailed informacje nie sa dostepne
+epgviewer.More_Screenings More Screenings on this Channel
+epglist.head Vorschau - %s
+epglist.noevents EPG niedostepne...
+
+streaminfo.head informacje
+streaminfo.resolution rozdzielczosc
+streaminfo.bitrate przekaz cyfrowy
+streaminfo.aratio rozklad
+streaminfo.aratio_unknown rozklad: nieznany
+streaminfo.framerate przekaz obrazu
+streaminfo.framerate_unknown przekaz: nieznany
+streaminfo.audiotype typ dzwieku
+streaminfo.audiotype_unknown typ dzwieku: nieznany
+streaminfo.not_crypted not crypted
+streaminfo.ecm_invalid invalid CA-system
+streaminfo.not_available nie dostepny
+
+streamfeatures.head Features
+streamfeatures.info Stream-Information
+
+apidselector.head wybór jezyka
+
+nvodselector.head Select starting-time
+nvodselector.subservice Select subservice
+nvodselector.directormode Direct-Mode
+
+ucodecheck.head sprawdzenie UCode-ów
+ucodecheck.avia500 Avia 500
+ucodecheck.avia600 Avia 600
+ucodecheck.ucode UCode
+ucodecheck.cam-alpha Cam-Alpha
+
+date.Mon Pon
+date.Tue Wto
+date.Wed Sro
+date.Thu Czw
+date.Fri Pio
+date.Sat Sob
+date.Sun Nie
+
+date.Jan Sty
+date.Feb Lut
+date.Mar Mar
+date.Apr Kwi
+date.May Maj
+date.Jun Cze
+date.Jul Lip
+date.Aug Sie
+date.Sep Wrz
+date.Oct Paz
+date.Nov Lis
+date.Dec Gru
+
+nvod.starting (starting in %d min)
+nvod.proz (%d%% over)
+
+scants.head Scan transponder
+scants.startnow rozpocznij scan
+scants.actsatellite satelita:
+scants.astra astra
+scants.hotbird hotbird
+scants.kopernikus kopernikus
+scants.sirius sirius
+scants.thor thor
+scants.digituerk digituerk
+scants.tuerksat tuerksat
+scants.transponders Transponders:
+scants.services Services:
+scants.bouquet bukiet
+scants.bouquet_leave opusc terazniejszy
+scants.bouquet_create zrób nowy
+scants.bouquet_erase zmaz wszystkie
+scants.finished Transponderscan zakonczony pomyslnie!
+
+flashupdate.head Wznowienie trybu
+flashupdate.action Action:
+flashupdate.globalprogress Razem:
+flashupdate.getinfofile laduje informacje o wersji
+flashupdate.getinfofileerror brak informacji o wersji
+flashupdate.getupdatefile laduje update
+flashupdate.getupdatefileerror nie potrafie wznowic
+flashupdate.cantopenfile nie potrafie otworzyc pliku
+flashupdate.fileis0bytes wielkosc pliku=0 byt-ów
+flashupdate.eraseingflash wymazuje flash
+flashupdate.programmingflash programuje flash
+flashupdate.cantopenmtd niemoge otworzyc mtd-device
+flashupdate.ready gotowy
+flashupdate.reboot start ponowny....
+flashupdate.updatemode modus update-u
+flashupdate.updatemode_manual manualnie (ftp)
+flashupdate.updatemode_internet internet
+flashupdate.currentversion terazniejsza wersja
+flashupdate.checkupdate szukam nowej wersji
+flashupdate.versioncheck sprawdzam wersje
+flashupdate.majorversiondiffer1 poprzednia wersja rózni sie
+flashupdate.majorversiondiffer2 zainstaluj flashimage ponownie
+flashupdate.providerversiondiffer1 the provider id differs
+flashupdate.providerversiondiffer2 zainstaluj nowy flashimage
+flashupdate.nonewversion1 niema nowej wersji
+flashupdate.nonewversion2
+flashupdate.md5sumerror image ma blendy
+flashupdate.updatemode modus update-u
+flashupdate.updatemode_manual manualnie (ftp)
+flashupdate.updatemode_internet internet
+flashupdate.currentversion_sep terazniejsza wersja
+flashupdate.currentversiondate data
+flashupdate.currentversiontime czas
+flashupdate.currentversionbaseversion Baseimage
+flashupdate.currentversionsnapshot ImageType
+flashupdate.checkupdate szukam nowej wersji
+flashupdate.versioncheck sprawdzam wersje
+flashupdate.nonewversion brak nowej wersji
+flashupdate.md5check sprawdzam image
+flashupdate.md5sumerror image ma blendy
+flashupdate.proxyserver_sep Proxyserver
+flashupdate.proxyserver Hostname
+flashupdate.proxyserver_hint1 enter proxyserver name or ip, use host:port
+flashupdate.proxyserver_hint2 a empty entry means no proxy
+flashupdate.proxyusername Username
+flashupdate.proxyusername_hint1 enter the proxyserver username
+flashupdate.proxyusername_hint2 a empty entry means no proxy-auth
+flashupdate.proxypassword haslo
+flashupdate.proxypassword_hint1 enter the proxyserver password
+flashupdate.proxypassword_hint2
+flashupdate.msgbox znalaslem taki image:\nDzien: %s, %s\nBaseImage: %s\nImageType: %s\n\nchcesz teraz ladowac i instalowac?
+flashupdate.msgbox_manual Znalazlem taki nowy image:\nDzien: %s, %s\nBaseImage: %s\nImageType: %s\n\nchcesz teraz instalowac?
+flashupdate.expertfunctions funkcje zaawansowane
+flashupdate.readflash Read hole image
+flashupdate.writeflash Write hole image
+flashupdate.readflashmtd Read one partition
+flashupdate.writeflashmtd Write one partition
+flashupdate.savesuccess image zostal pomyslnie zapisany \npod %s.
+flashupdate.mtdselector Partition-Selector
+flashupdate.titlereadflash Reading Flash
+flashupdate.actionreadflash reading
+flashupdate.fileselector File-Selector
+flashupdate.titlewriteflash Writing Flash
+flashupdate.actionwriteflash writing
+flashupdate.flashreadyreboot flash jest teraz gotowy.\n D-Box startóje.
+flashupdate.reallyflashmtd chzesch naprawde teraz przeprowadzic flash?\n\njesli bendol bledy lub image nie bedzie \nwazny, D-Box nie bedzie startowac po flashowaniu.\n\nImagename: %s\nTarget: %s
+
+bouqueteditor.name editor bukietow
+bouqueteditor.delete zmazac
+bouqueteditor.add dodac
+bouqueteditor.move Przesunac
+bouqueteditor.rename zmienic nazwe
+bouqueteditor.hide zchowac
+bouqueteditor.lock zamknac
+bouqueteditor.newbouquetname nowa nazwa bukietu
+bouqueteditor.bouquetname nazwa bukietu
+bouqueteditor.savechanges? czy chcesz zapamietac zmiany?
+bouqueteditor.savingchanges zapamietuje zmiany. prosze czekac...
+bouqueteditor.discardingchanges pozucam zmiany. prosze czekac...
+bouqueteditor.switch program dodaj/wyzuc
+bouqueteditor.switchmode TV/Radio
+bouqueteditor.return gotowe
+
+messagebox.yes tak
+messagebox.no nie
+messagebox.cancel przerwac
+messagebox.back zpowrotem
+messagebox.error Bland
+messagebox.discard pozucic zmiany?
+messagebox.info informacja
+
+settings.noconffile Nie znalazlem neutrino-ustawienia.\nUzywam fabrycznych.
+settings.missingoptionsconffile Neutrino-ustawienia zostaly wznowione.\nNowe opcje ustawiam na fabryczne.
+
+cam.wrong UWAGA, TWOJA KARTA\nNIE ZGODNA z CAMALPHA.BIN!!\n\nCzy chcecz byc informowany o tym w przyszlosci?
+ucodes.failure UWAGA, µCodes nie zostaly znalezione!\n\nprosze wgrac przez FTP (lub DBox-BootManager),\nnastepnie restartuj!
+
+stringinput.caps caps / no caps
+
+GENRE.MOVIE.0 fabularny/dramat
+GENRE.MOVIE.1 kryminalny/thriller
+GENRE.MOVIE.2 przygodowy/western/wojenny
+GENRE.MOVIE.3 science fiction/fantazja/horror
+GENRE.MOVIE.4 komedja
+GENRE.MOVIE.5 soap/melodramat/folklorystyczny
+GENRE.MOVIE.6 romans
+GENRE.MOVIE.7 powazny/clasyczny/religijny/historyczny/dramat
+GENRE.MOVIE.8 dla doroslych/dramat
+
+GENRE.NEWS.0 wiadomosci vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+GENRE.NEWS.1 nowosci/pogoda
+GENRE.NEWS.2 magazyn
+GENRE.NEWS.3 dokumentacja
+GENRE.NEWS.4 diskusja/interview/debaty
+
+GENRE.SHOW.0 Show / Gameshow
+GENRE.SHOW.1 game show/quiz/contest
+GENRE.SHOW.2 variety show
+GENRE.SHOW.3 talk show
+
+GENRE.SPORTS.0 Sport
+GENRE.SPORTS.1 Special events (Olympiada,World Cup etc.)
+GENRE.SPORTS.2 Magazyn sportowy
+GENRE.SPORTS.3 Pilka nozna / halowa
+GENRE.SPORTS.4 Tennis / Squash
+GENRE.SPORTS.5 Gry zbiorowe (oprucz pilki noznej)
+GENRE.SPORTS.6 Atletyka
+GENRE.SPORTS.7 Sporty motorowe
+GENRE.SPORTS.8 Sporty wodne
+GENRE.SPORTS.9 Sporty zimowe
+GENRE.SPORTS.10 equestrian
+GENRE.SPORTS.11 martial sports
+
+GENRE.CHILDRENs_PROGRAMMES.0 dzieciecy/ mlodziezowy
+GENRE.CHILDRENs_PROGRAMMES.1 program dla dzieci przedszkolnych
+GENRE.CHILDRENs_PROGRAMMES.2 rozrywka dla wieku 6 do 14
+GENRE.CHILDRENs_PROGRAMMES.3 rozrywka dla wieku 10 do 16
+GENRE.CHILDRENs_PROGRAMMES.4 informacyjny/wychowawczy/szkolny program
+GENRE.CHILDRENs_PROGRAMMES.5 cartoons/kukielki
+
+GENRE.MUSIC_DANCE.0 muzyka / balet / taniec
+GENRE.MUSIC_DANCE.1 rock/pop
+GENRE.MUSIC_DANCE.2 muzyka powazna/muzyka klasyczna
+GENRE.MUSIC_DANCE.3 folklor/tradycjonalna muzyka
+GENRE.MUSIC_DANCE.4 jazz
+GENRE.MUSIC_DANCE.5 musical/opera
+GENRE.MUSIC_DANCE.6 balet
+
+GENRE.ARTS.0 sztuka / kultura
+GENRE.ARTS.1 performing arts
+GENRE.ARTS.2 fine arts
+GENRE.ARTS.3 religja
+GENRE.ARTS.4 popularna kultura/traditionalna sztuka
+GENRE.ARTS.5 literatura
+GENRE.ARTS.6 film/kino
+GENRE.ARTS.7 experymentalny film/video
+GENRE.ARTS.8 broadcasting/prassa
+GENRE.ARTS.9 nowe media
+GENRE.ARTS.10 sztuka/magazyn kultury
+GENRE.ARTS.11 moda
+
+GENRE.SOZIAL_POLITICAL.0 wydazenia socjalne i polityczne/gospodarka
+GENRE.SOZIAL_POLITICAL.1 magazyny/reportarze/documentacje
+GENRE.SOZIAL_POLITICAL.2 economics/social advisory
+GENRE.SOZIAL_POLITICAL.3 remarkable people
+
+GENRE.DOCUS_MAGAZINES.0 dokumentacja/magazyn
+GENRE.DOCUS_MAGAZINES.1 natura/zwierzeta/srodowisko
+GENRE.DOCUS_MAGAZINES.2 technologja/nauka o naturze
+GENRE.DOCUS_MAGAZINES.3 medycyna/physiologja/psychologja
+GENRE.DOCUS_MAGAZINES.4 foreign countries/expedycje
+GENRE.DOCUS_MAGAZINES.5 social/spiritual sciences
+GENRE.DOCUS_MAGAZINES.6 dalsza nauka
+GENRE.DOCUS_MAGAZINES.7 jezyki
+
+GENRE.TRAVEL_HOBBIES.0 podróze & wolny czas
+GENRE.TRAVEL_HOBBIES.1 tourystyka/podróze
+GENRE.TRAVEL_HOBBIES.2 handicraft
+GENRE.TRAVEL_HOBBIES.3 motoring
+GENRE.TRAVEL_HOBBIES.4 fitness & zdrowie
+GENRE.TRAVEL_HOBBIES.5 gotowanie
+GENRE.TRAVEL_HOBBIES.6 advertisement/zakupy
+GENRE.TRAVEL_HOBBIES.7 gardening
+
+GENRE.UNKNOWN nieznany
+
+parentallock.parentallock ochrona nieletnich
+parentallock.prompt podaj kod
+parentallock.never nigdy
+parentallock.onstart przy starcie
+parentallock.changetolocked na wyznaczonych bukietach
+parentallock.onsignal on broadcasted lock
+parentallock.lockedsender zamkniete kanaly...
+parentallock.lockedprogram nie dozwolony program (do lat %d)
+parentallock.head podaj kod na ochrone nieletnich
+
+parentallock.lockage zamknij program
+parentallock.lockage12 od 12 lat w zwyz
+parentallock.lockage16 od 16 lat w zwyz
+parentallock.lockage18 od 18 lat w zwyz
+
+parentallock.changepin zmien kod
+parentallock.changepin_hint1 podaj nowy kod do ochrony nieletnich!
+
+pinprotection.wrongcode kod nie prawidlowy! powtóz.
+pinprotection.head podaj kod
+
+favorites.bouquetname moie ulubione
+favorites.addchannel terazniejszy kanal zostanie dodany \ndo bukietu "moje ulubione". \nto zajmie kilka sekund...
+favorites.menueadd dodaj kanal do faworytów
+favorites.bqcreated bokiet "moje ulubione" zostal stworzony...\n
+favorites.chadded terazniejszy kanal zostal dodany do twoich ulubionych...\n
+favorites.chalreadyinbq terazniejszy kanal nalezy juz do twoich ulubionych...\n
+favorites.finalhint \nuzywaj edytora bukietów do modyfikacji twoich ulubionych.\n
+
+sleeptimerbox.title Wylancz na czas
+sleeptimerbox.hint1 Czas do wylanczenia w min.
+sleeptimerbox.hint2 D-Box2 wylanczy sie po tym czasie.
+
+timerbar.channelswitch Timed switch

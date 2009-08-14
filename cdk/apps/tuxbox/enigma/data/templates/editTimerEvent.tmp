@@ -1,0 +1,147 @@
+<html>
+	<head>
+		<title>Edit Timer Event</title>
+		<link rel="stylesheet" type="text/css" href="#CSS#">
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4;" onUnload="parent.window.opener.location.reload(true)">
+		<form action="/changeTimerEvent">
+			<input type="hidden" name="ref" value="#SERVICEREF#">
+			<input type="hidden" name="old_type" value="#OLD_TYPE#">
+			<input type="hidden" name="old_stime" value="#OLD_STIME#">
+			<input type="hidden" name="force" value="no">
+			<table width=100% border=0 cellpadding=0 cellspacing=10>
+				<tr>
+					<td>Type:</td>
+					<td>
+						<select name="type" size="1">
+							<option value="regular" #REGULAR#>One-Time Event</option>
+							<option value="repeating" #REPEATING#>Recurring Event</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Action:</td>
+					<td>
+						<select name="action" size="1">
+							<option value="dvr" #DVR#>DVR</option>
+							<option value="ngrab" #NGRAB#>NGRAB</option>
+							<option value="zap" #ZAP#>ZAP</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						Note: For recurring events start/end day/month are don't care.
+					</td>
+				</tr>
+				<tr>
+					<td>Start:</td>
+					<td>
+						<select name="sday" size="1">
+							#SDAYOPTS#
+						</select>
+						.
+						<select name="smonth" size="1">
+							#SMONTHOPTS#
+						</select>
+						.
+						<select name="syear" size="1">
+							#SYEAROPTS#
+						</select>
+						&nbsp;-&nbsp;
+						<select name="shour" size="1">
+							#SHOUROPTS#
+						</select>
+						:
+						<select name="smin" size="1">
+							#SMINOPTS#
+						</select>
+						#SHOWAMPWSTART#
+						<input type="radio" name="sampm" value="1" #SAMCHECKED#> AM
+						<input type="radio" name="sampm" value="0" #SPMCHECKED#> PM
+						#SHOWAMPWSTOP#
+					</td>
+				</tr>
+				<tr>
+					<td>End:</td>
+					<td>
+						<select name="eday" size="1">
+							#EDAYOPTS#
+						</select>
+						.
+						<select name="emonth" size="1">
+							#EMONTHOPTS#
+						</select>
+						.
+						<select name="eyear" size="1">
+							#EYEAROPTS#
+						</select>
+						&nbsp;-&nbsp;
+						<select name="ehour" size="1">
+							#EHOUROPTS#
+						</select>
+						:
+						<select name="emin" size="1">
+							#EMINOPTS#
+						</select>
+						#SHOWAMPWSTART#
+						<input type="radio" name="eampm" value="1" #EAMCHECKED#> AM
+						<input type="radio" name="eampm" value="0" #EPMCHECKED#> PM
+						#SHOWAMPWSTOP#
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						Note: For one-time events the "days" field doesn't have to be specified.
+					</td>
+				</tr>
+				<tr>
+					<td>Days:</td>
+					<td>
+						<input type="checkbox" name="mo" value="on" #MO#>&nbsp;Mo&nbsp;&nbsp;
+						<input type="checkbox" name="tu" value="on" #TU#>&nbsp;Tu&nbsp;&nbsp;
+						<input type="checkbox" name="we" value="on" #WE#>&nbsp;We&nbsp;&nbsp;
+						<input type="checkbox" name="th" value="on" #TH#>&nbsp;Th&nbsp;&nbsp;
+						<input type="checkbox" name="fr" value="on" #FR#>&nbsp;Fr&nbsp;&nbsp;
+						<input type="checkbox" name="sa" value="on" #SA#>&nbsp;Sa&nbsp;&nbsp;
+						<input type="checkbox" name="su" value="on" #SU#>&nbsp;Su&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>After event do:</td>
+					<td>
+						<select name="after_event" size="1">
+							#AFTEROPTS#
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Channel:</td>
+					<td>
+						<input name="channel" type="text" size="100" maxlength="100" value="#CHANNEL#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td>
+						<input name="descr" type="text" size="100" maxlength="100" value="#DESCRIPTION#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						<input type="submit" value="Change" size="100px" style="color:#000000">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

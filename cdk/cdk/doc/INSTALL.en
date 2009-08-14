@@ -1,0 +1,81 @@
+#
+# $Id: INSTALL.en,v 1.5.2.3 2004/06/02 16:54:52 obi Exp $
+#
+# Author:
+# --------
+# (C) 2002 by Andreas Oberritter <obi@tuxbox.org>
+#
+# License:
+# --------
+# This document my neither by sold nor be spread on
+# any non-free media.
+# 
+# Content:
+# --------
+# This document describes the steps needed to set up a cross compile
+# environment (CDK) for linux on embedded PowerPC using a GNU system.
+#
+
+Prerequistes:
+--------------
+ - cvs
+ - autoconf >= 2.50
+ - automake >= 1.4p5
+ - libtool >= 1.4
+ - gettext >= 0.10.38
+ - make >= 3.79
+ - makeinfo (texinfo)
+ - tar
+ - bunzip2
+ - gunzip
+ - patch
+ - infocmp (ncurses-bin)
+ - gcc 2.95 or >= 3.0
+ - g++ 2.95 or >= 3.0
+ - yacc
+ - flex (flex-old if you are using debian sarge or newer)
+ - bison
+ - pkg-config
+
+1. Getting the sources:
+-----------------------
+
+ - It is recommended to add a new user to your system. The user will
+   be called "tuxbox" within this document.
+
+ - Login as "tuxbox".
+
+ - Enter the following commands:
+
+   mkdir $HOME/tuxbox-cvs
+   cd $HOME/tuxbox-cvs
+   cvs -d:pserver:anonymous@cvs.berlios.de:/cvsroot/tuxbox login
+
+ - CVS will ask for a password. Press <enter> to send an empty password.
+   Then enter the following command:
+
+   cvs -d:pserver:anonymous@cvs.berlios.de:/cvsroot/tuxbox -z3 co .
+
+2. Generating the Makefiles:
+----------------------------
+
+ - Enter the following commands:
+
+   cd cdk
+   ./autogen.sh
+   ./configure --prefix=$HOME/dbox2 --with-cvsdir=$HOME/tuxbox-cvs --enable-maintainer-mode
+
+3. Getting 3rd party sources (optional, not recommended):
+---------------------------------------------------------
+
+ - Enter the following command:
+
+   make download
+
+4. Building the CDK:
+--------------------
+
+ - Enter the following command (see Makefile.am for other make targets):
+
+   make all extra
+

@@ -1,0 +1,474 @@
+menu.back zurück
+
+options.off aus
+options.on ein
+
+mainmenu.head ANA MENÜ
+mainmenu.tvmode TELEVIZYON
+mainmenu.radiomode RADIO
+mainmenu.scartmode SCART
+mainmenu.games OYUNLAR
+mainmenu.sleeptimer SleepTimer
+mainmenu.shutdown KAPAT
+mainmenu.settings AYARLAR
+mainmenu.service Service
+mainmenu.streaming Streaming (recorde)
+mainmenu.streaming_start start
+mainmenu.streaming_stop stop
+
+servicemenu.head Service
+servicemenu.update Software Update
+servicemenu.scants Servicescan
+servicemenu.ucodecheck Check ucodes
+
+cablesetup.provider cable provider
+
+satsetup.disqeqc DiSEqC
+satsetup.satellite Satellite
+satsetup.extended DiSEqC-setings
+satsetup.nodiseqc no DiSEqC
+satsetup.minidiseqc Mini-DiSEqC
+satsetup.diseqc10 DiSEqC 1.0
+satsetup.diseqc11 DiSEqC 1.1
+satsetup.smatvremote SMATV Remote Tuning
+satsetup.diseqcrepeat DiSEqC-repeats
+
+mainsettings.head AYARLAR
+mainsettings.savesettingsnow save settings now
+mainsettings.language MENÜ DIL
+mainsettings.audio SES
+mainsettings.video VIDEO
+mainsettings.network AG BAGLANTISI
+mainsettings.colors RENK / RENK SECIMI
+mainsettings.keybinding TUS AYARLARI
+mainsettings.misc SECENEKLER
+mainsettings.scan Scan settings
+
+miscsettings.head SECENEKLER
+miscsettings.shutdown_real Enable Standby
+miscsettings.boxtype DBox ÜRETICI
+miscsettings.startneutrinodirect start neutrino directly
+miscsettings.general General
+
+languagesetup.head DIL AYARI
+languagesetup.select MENÜ DIL
+
+audiomenu.head SES AYARI
+audiomenu.analogout Analog Output
+audiomenu.monoright mono right
+audiomenu.monoleft mono left
+audiomenu.stereo STEREO
+audiomenu.dolbydigital DOLBY DIGITAL
+
+videomenu.head VIDEO AYARI
+videomenu.screensetup GÖRÜNTÜ AYARI
+videomenu.videosignal VIDEO SIGNALI
+videomenu.videosignal_rgb RGB
+videomenu.videosignal_svideo S-VIDEO
+videomenu.videosignal_composite COMPOSITE
+videomenu.videoformat EKRAN FORMATI
+videomenu.videoformat_43 4:3
+videomenu.videoformat_169 16:9
+videomenu.videoformat_autodetect autodetect
+videomenu.vcrswitch Switch Scart automatically
+
+networkmenu.head AG AYARLARI
+networkmenu.test test network now
+networkmenu.show show active network settings
+networkmenu.setupnow AG AYARINI SIMDI KAYID ED
+networkmenu.setuponstartup TEKRAR ACIMININDA KAYIDLAMA
+networkmenu.ipaddress IP-ADRESI
+networkmenu.netmask NETMASK
+networkmenu.broadcast BROADCAST
+networkmenu.gateway STANDARD GATEway
+networkmenu.nameserver NAMESERVER
+networkmenu.usestreamserver use streamserver
+networkmenu.streamingserver Streamingserver
+networkmenu.streamingserverport Port
+
+ping.ok is reachable (ping)
+ping.unreachable is unreachable
+ping.protocol is unreachable (host or protocol error)
+ping.socket is unreachable (socket error)
+
+ipsetup.hint_1 KULLANIN "0"-"9", KIRMIZI ist " ", YESIL "."
+ipsetup.hint_2 YADA Up/Down, OK KAYID EDER, HOME CIKIS
+
+colormenu.head RENK AYARI
+colormenu.statusbar ILETKENLIK MENÜSÜ
+colormenu.themeselect RENK SECIMINI SECINIZ
+colormenu.menucolors MENÜ RENKLERI
+colormenu.background ALT RENK
+colormenu.background_head ALT RENK
+colormenu.textcolor  YAZI RENGI
+colormenu.textcolor_head Textfarbe
+colormenu.fade Fade menus
+
+colorthememenu.head RENK SECIMINI SECINIZ
+colorthememenu.neutrino_theme NEUTRINO RENK SECIMI
+colorthememenu.classic_theme KLASIK RENK SECIMI
+
+colormenusetup.head MENÜ RENKLERI
+colormenusetup.menuhead BASLIK
+colormenusetup.menucontent PENCERE ICI
+colormenusetup.menucontent_inactive PENCERE ICI SECILMEMIS
+colormenusetup.menucontent_selected PENCERE ICI SECILMIS
+
+colorstatusbar.head ILETKENLIK MENÜ RENGI
+colorstatusbar.text ILETKENLIK MENÜSÜ
+
+repeatblocker.hint_1 IKI TUS BASMA ARASI EN AZ ZAMAN (ms)
+repeatblocker.hint_2 0 ENGELI KALDIRIYOR (KIRMIZI " ")
+
+keybindingmenu.RC KUMANDA
+keybindingmenu.repeatblock TUS TEKRARLAMA ENGELI
+keybindingmenu.repeatblock REPEAT DELAY
+keybindingmenu.repeatblockgeneric GENERIC DELAY
+keybindingmenu.head TUS AYARLARI
+keybindingmenu.modechange DEMEC DEGISME
+keybindingmenu.channellist KANAL LISTESI
+keybindingmenu.quickzap HIZLI CEVIRME
+keybindingmenu.tvradiomode TELEVIZYON/RADIO DEMECI
+keybindingmenu.tvradiomode_head Fernseh-/Radio-Modus
+keybindingmenu.pageup SAYFA YUKARI
+keybindingmenu.pageup_head SAYFA ASAGI
+keybindingmenu.pagedown SAYFA ASAGI CEVIR
+keybindingmenu.pagedown_head SAYFA ASAGI CEVIR
+keybindingmenu.cancel KANAL LISTESINI KAPAT
+keybindingmenu.cancel_head KANAL LISTESINI KAPAT
+keybindingmenu.channelup KANAL YUKARI
+keybindingmenu.channelup_head KANAL YUKARI TUSU
+keybindingmenu.channeldown KANAL ASAGI
+keybindingmenu.channeldown_head KANAL ASAGI TUSU
+keybindingmenu.bouquetup next bouquet
+keybindingmenu.bouquetup_head keysetup next bouquet
+keybindingmenu.bouquetdown bouquet back
+keybindingmenu.bouquetdown_head keysetup bouquet back
+keybindingmenu.bouquethandling Bouquet-control
+keybindingmenu.bouquetchannels_on_ok current bouquet
+keybindingmenu.bouquetlist_on_ok bouquet-list
+keybindingmenu.allchannels_on_ok all-services
+keybindingmenu.subchannelup subchannel up
+keybindingmenu.subchannelup_head keysubchannel up
+keybindingmenu.subchanneldown subchannel down
+keybindingmenu.subchanneldown_head key subchannel down
+
+colorchooser.red KIRMIZI
+colorchooser.green YESIL
+colorchooser.blue MAVI
+colorchooser.alpha ALFA
+
+keychoosermenu.setnew YENI TUS AYARLA
+keychoosermenu.setnone TUSSUZ
+keychoosermenu.currentkey SIMDIKI TUS
+
+keychooser.head YENI TUS AYARLA
+keychooser.text1 TUSA BASINIZ
+keychooser.text2 CIKMAK ICIN BEKLEYINIZ
+screensetup.upperleft rot = EKRAN KENARI ÜST, SOL
+screensetup.lowerright grün = EKRAN KENARI ALT, SAG
+
+channellist.head BÜTÜN KANLLAR
+channellist.nonefound No channels were found!\nPlease execute a scan\n(dbox-key -> service)
+channellist.since since %02d:%02d
+
+infoviewer.epgnotload EPG DAHA BULUNMADI...
+infoviewer.epgwait EPG BEKLENIYOR...
+infoviewer.streaminfo Features
+infoviewer.eventlist PROGRAM
+infoviewer.languages SES SECENEGI
+infoviewer.notavailable KANAL SIMDILIK BULUNAMIYOR
+infoviewer.cantdecode KANAL CÖZILEMIYOR
+infoviewer.selecttime BASLANGIC VAKTI
+infoviewer.nocurrent SIMDIKI PROGRAMA BILGI YOK
+infoviewer.noepg EPG BULUNAMIYOR
+infoviewer.subservice EKRAN YÖNETIMI
+infoviewer.waittime Waiting for time...
+
+epgviewer.notfound EPG BILGISI BULUNAMADI
+epgviewer.nodetailed AYRINTILI BILGI YOK
+epgviewer.More_Screenings More Screenings on this Channel
+epglist.head GELECEK PROGRAMDAN PARCALAR - %s
+epglist.noevents EPG YOK...
+
+streaminfo.head BILGI
+streaminfo.resolution EKRAN CÖZÜMÜ
+streaminfo.bitrate BITRATE
+streaminfo.aratio ORAN
+streaminfo.aratio_unknown ORAN: unbekannt
+streaminfo.framerate EKRAN ORANI
+streaminfo.framerate_unknown EKRAN ORANI: unbekannt
+streaminfo.audiotype SES AYARI
+streaminfo.audiotype_unknown SES AYARI: unbekannt
+streaminfo.not_crypted not crypted
+streaminfo.ecm_invalid invalid CA-system
+streaminfo.not_available not available
+
+streamfeatures.head Features
+streamfeatures.info Stream-Information
+
+apidselector.head DIL SECENEGI
+
+nvodselector.head BASLANGIC VAKITI SECINIZ
+nvodselector.subservice EKRAN YÖNETIMI - PERSPEKTIFLER
+nvodselector.directormode Direct-Mode
+
+ucodecheck.head UCODE YOKLAMASI
+ucodecheck.avia500 AVIA 500
+ucodecheck.avia600 AVIA 600
+ucodecheck.ucode UCODE
+ucodecheck.cam-alpha CAM-ALFA
+
+date.Mon  PZT
+date.Tue  SL
+date.Wed  CRS
+date.Thu  PRS
+date.Fri  CU
+date.Sat  CMT
+date.Sun  PZ
+
+date.Jan  OCAK
+date.Feb  SUB
+date.Mar  MART
+date.Apr  NIS
+date.May  MAY
+date.Jun  HZR
+date.Jul  TEM
+date.Aug  AGUS
+date.Sep  EYL
+date.Oct  EKIM
+date.Nov  KAS
+date.Dec  ARALIK
+
+nvod.starting (BASLAMA %d DAK)
+nvod.proz (%d%% GECTI)
+
+scants.head TRANSPONDER ARAMA
+scants.startnow start scan
+scants.actsatellite SATELLITE:
+scants.astra astra
+scants.hotbird hotbird
+scants.kopernikus kopernikus
+scants.sirius sirius
+scants.thor thor
+scants.digituerk digituerk
+scants.tuerksat tuerksat
+scants.transponders TRANSPONDER:
+scants.services SERVIS:
+scants.bouquet Bouquet
+scants.bouquet_leave leave current
+scants.bouquet_create create new
+scants.bouquet_erase erase all
+scants.finished Transponderscan finished successfully!
+
+flashupdate.head Software Update
+flashupdate.action Action:
+flashupdate.globalprogress Global Progress:
+flashupdate.getinfofile getting versioninfo
+flashupdate.getinfofileerror can't get versioninfo
+flashupdate.getupdatefile getting update
+flashupdate.getupdatefileerror can't get update
+flashupdate.cantopenfile can't open file
+flashupdate.fileis0bytes the filesize is 0 Bytes
+flashupdate.eraseingflash erasing flash
+flashupdate.programmingflash programming flash
+flashupdate.cantopenmtd can't open mtd-device
+flashupdate.ready ready
+flashupdate.reboot rebooting box....
+flashupdate.updatemode Updatemode
+flashupdate.updatemode_manual manual (ftp)
+flashupdate.updatemode_internet internet
+flashupdate.currentversion_sep Current version
+flashupdate.currentversiondate Date
+flashupdate.currentversiontime Time
+flashupdate.currentversionbaseversion Baseimage
+flashupdate.currentversionsnapshot ImageType
+flashupdate.checkupdate search for new version
+flashupdate.versioncheck checking version
+flashupdate.nonewversion no new version available
+flashupdate.md5check checking image
+flashupdate.md5sumerror image has errors
+flashupdate.proxyserver_sep Proxyserver
+flashupdate.proxyserver Hostname
+flashupdate.proxyserver_hint1 enter proxyserver name or ip, use host:port
+flashupdate.proxyserver_hint2 a empty entry means no proxy
+flashupdate.proxyusername Username
+flashupdate.proxyusername_hint1 enter the proxyserver username
+flashupdate.proxyusername_hint2 a empty entry means no proxy-auth
+flashupdate.proxypassword Password
+flashupdate.proxypassword_hint1 enter the proxyserver password
+flashupdate.proxypassword_hint2
+flashupdate.msgbox Found the following new image:\nDate: %s, %s\nBaseImage: %s\nImageType: %s\n\nDo you want to download and install this version now?
+flashupdate.msgbox_manual Found the following new image:\nDate: %s, %s\nBaseImage: %s\nImageType: %s\n\nDo you want to install this version now?
+flashupdate.expertfunctions Expert-functions
+flashupdate.readflash Read hole image
+flashupdate.writeflash Write hole image
+flashupdate.readflashmtd Read one partition
+flashupdate.writeflashmtd Write one partition
+flashupdate.savesuccess The image was successfully saved \nunder %s.
+flashupdate.mtdselector Partition-Selector
+flashupdate.titlereadflash Reading Flash
+flashupdate.actionreadflash reading
+flashupdate.fileselector File-Selector
+flashupdate.titlewriteflash Writing Flash
+flashupdate.actionwriteflash writing
+flashupdate.flashreadyreboot The image was successfully flashed.\nThe DBox will be rebooted now.
+flashupdate.reallyflashmtd Do you really want to flash?\n\nIf a error occurs or the image is not\nvalid, the box will not boot after flashing.\n\nImagename: %s\nTarget: %s
+
+
+bouqueteditor.name Bouquet-Editor
+bouqueteditor.delete Delete
+bouqueteditor.add Add
+bouqueteditor.move Move
+bouqueteditor.rename Rename
+bouqueteditor.hide Hide
+bouqueteditor.lock Lock
+bouqueteditor.newbouquetname New name of bouquets
+bouqueteditor.bouquetname Name of bouquets
+bouqueteditor.savechanges? Do you want to save the changes?
+bouqueteditor.savingchanges Saving changes. Please wait ...
+bouqueteditor.discardingchanges Discarding changes. Please wait ..
+bouqueteditor.switch channel add/remove
+bouqueteditor.switchmode TV/Radio
+bouqueteditor.return ready
+
+messagebox.yes Yes
+messagebox.no No
+messagebox.cancel Cancel
+messagebox.back Back
+messagebox.error Error
+messagebox.discard Discard changes?
+messagebox.info Information
+
+settings.noconffile No neutrino-settings found.\nUseing defaults.
+settings.missingoptionsconffile The neutrino-settings have been updated.\nNew Options will be set to default.
+
+cam.wrong ATTENTION, YOUR CARD \nDOES NOT MATCH CAMALPHA.BIN!!\n\nDo you whish to get this warning again?
+ucodes.failure ATTENTION, µCodes could NOT be found!\n\nPlease upload them via FTP (or DBox-BootManager),\nthen restart your DBox!
+
+stringinput.caps caps / no caps
+
+GENRE.MOVIE.0 Spielfilm / Drama
+GENRE.MOVIE.1 detective/thriller
+GENRE.MOVIE.2 adventure/western/war
+GENRE.MOVIE.3 science fiction/fantasy/horror
+GENRE.MOVIE.4 comedy
+GENRE.MOVIE.5 soap/melodrama/folkloric
+GENRE.MOVIE.6 romance
+GENRE.MOVIE.7 serious/classical/religious/historical movie/drama
+GENRE.MOVIE.8 adult movie/drama
+
+GENRE.NEWS.0 Nachrichten
+GENRE.NEWS.1 news/weather report
+GENRE.NEWS.2 news magazine
+GENRE.NEWS.3 documentary
+GENRE.NEWS.4 discussion/interview/debate
+
+GENRE.SHOW.0 Show / Gameshow
+GENRE.SHOW.1 game show/quiz/contest
+GENRE.SHOW.2 variety show
+GENRE.SHOW.3 talk show
+
+GENRE.SPORTS.0 Sport
+GENRE.SPORTS.1 special events (Olympic Games,World Cup etc.)
+GENRE.SPORTS.2 sports magazines
+GENRE.SPORTS.3 football/soccer
+GENRE.SPORTS.4 tennis/squash
+GENRE.SPORTS.5 team sports (excluding football)
+GENRE.SPORTS.6 athletics
+GENRE.SPORTS.7 motor sport
+GENRE.SPORTS.8 water sport
+GENRE.SPORTS.9 winter sports
+GENRE.SPORTS.10 equestrian
+GENRE.SPORTS.11 martial sports
+
+GENRE.CHILDRENs_PROGRAMMES.0 Kinder / Jugendprogramm
+GENRE.CHILDRENs_PROGRAMMES.1 pre-school children's programmes
+GENRE.CHILDRENs_PROGRAMMES.2 entertainment programmes for 6 to14
+GENRE.CHILDRENs_PROGRAMMES.3 entertainment programmes for 10 to 16
+GENRE.CHILDRENs_PROGRAMMES.4 informational/educational/school programmes
+GENRE.CHILDRENs_PROGRAMMES.5 cartoons/puppets
+
+GENRE.MUSIC_DANCE.0 Musik / Ballet / Tanz
+GENRE.MUSIC_DANCE.1 rock/pop
+GENRE.MUSIC_DANCE.2 serious music/classical music
+GENRE.MUSIC_DANCE.3 folk/traditional music
+GENRE.MUSIC_DANCE.4 jazz
+GENRE.MUSIC_DANCE.5 musical/opera
+GENRE.MUSIC_DANCE.6 ballet
+
+GENRE.ARTS.0 Kunst / Kultur
+GENRE.ARTS.1 performing arts
+GENRE.ARTS.2 fine arts
+GENRE.ARTS.3 religion
+GENRE.ARTS.4 popular culture/traditional arts
+GENRE.ARTS.5 literature
+GENRE.ARTS.6 film/cinema
+GENRE.ARTS.7 experimental film/video
+GENRE.ARTS.8 broadcasting/press
+GENRE.ARTS.9 new media
+GENRE.ARTS.10 arts/culture magazines
+GENRE.ARTS.11 fashion
+
+GENRE.SOZIAL_POLITICAL.0 Sozial & Politikereignisse / Wirtschaft
+GENRE.SOZIAL_POLITICAL.1 magazines/reports/documentary
+GENRE.SOZIAL_POLITICAL.2 economics/social advisory
+GENRE.SOZIAL_POLITICAL.3 remarkable people
+
+GENRE.DOCUS_MAGAZINES.0 Doku / Magazin
+GENRE.DOCUS_MAGAZINES.1 nature/animals/environment
+GENRE.DOCUS_MAGAZINES.2 technology/natural sciences
+GENRE.DOCUS_MAGAZINES.3 medicine/physiology/psychology
+GENRE.DOCUS_MAGAZINES.4 foreign countries/expeditions
+GENRE.DOCUS_MAGAZINES.5 social/spiritual sciences
+GENRE.DOCUS_MAGAZINES.6 further education
+GENRE.DOCUS_MAGAZINES.7 languages
+
+GENRE.TRAVEL_HOBBIES.0 Reise & Freizeit
+GENRE.TRAVEL_HOBBIES.1 tourism/travel
+GENRE.TRAVEL_HOBBIES.2 handicraft
+GENRE.TRAVEL_HOBBIES.3 motoring
+GENRE.TRAVEL_HOBBIES.4 fitness & health
+GENRE.TRAVEL_HOBBIES.5 cooking
+GENRE.TRAVEL_HOBBIES.6 advertisement/shopping
+GENRE.TRAVEL_HOBBIES.7 gardening
+
+GENRE.UNKNOWN Unbekannt
+
+parentallock.parentallock Youth protection
+
+parentallock.prompt prompt for PIN
+parentallock.never never
+parentallock.onstart on start
+parentallock.changetolocked on locked bouquets
+parentallock.onsignal on broadcasted lock
+parentallock.lockedsender Locked sender...
+parentallock.lockedprogram Locked program (from %d years up)
+parentallock.head Enter Parental Lock PIN code
+
+parentallock.lockage lock program
+parentallock.lockage12 from 12 years up
+parentallock.lockage16 from 16 years up
+parentallock.lockage18 from 18 years up
+
+parentallock.changepin change PIN code
+parentallock.changepin_hint1 Enter your new youth protection pin code here!
+
+pinprotection.wrongcode PIN-Code was wrong! Try again.
+pinprotection.head Enter PIN code
+
+favorites.bouquetname My Favorites
+favorites.addchannel The current channel will be added \nto the bouquet "My Favorites". \n This will take a few seconds...
+favorites.menueadd add channel to favorites
+favorites.bqcreated Bouquet "My Favorites" has been created...\n
+favorites.chadded The current channel has been added to your favorites...\n
+favorites.chalreadyinbq The current channel is already in your favorites...\n
+favorites.finalhint \nUse the bouqueteditor to modify your favorites.\n
+
+sleeptimerbox.title Sleeptimer
+sleeptimerbox.hint1 Shutdown time in min.
+sleeptimerbox.hint2 The dbox2 will shutdown after this time.
+
+timerbar.channelswitch Timed switch
+
+

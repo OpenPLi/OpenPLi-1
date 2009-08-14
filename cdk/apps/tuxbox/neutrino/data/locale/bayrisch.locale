@@ -1,0 +1,528 @@
+menu.back Zruck
+
+options.off ausmacha
+options.on omacha
+options.serial seriell
+options.fb framebuffa
+options.null null
+
+mainmenu.head Hauptmenü
+mainmenu.tvmode Fernseh schaugn
+mainmenu.radiomode Radio hern
+mainmenu.scartmode Scart hernemma
+mainmenu.games Spuin
+mainmenu.sleeptimer EischlofTimer
+mainmenu.shutdown Ausmacha
+mainmenu.settings Eistellunga
+mainmenu.service Service
+mainmenu.streaming Streaming (aufnemma)
+mainmenu.streaming_start ofanga
+mainmenu.streaming_stop aufhearn
+
+servicemenu.head Service
+servicemenu.update Software-aktualisiern
+servicemenu.scants Senda suacha
+servicemenu.ucodecheck UCodes obcheckn
+
+cablesetup.provider Kabiobieta
+
+satsetup.disqeqc DiSEqC
+satsetup.satellite Satellit
+satsetup.extended DiSEqC-Eistellunga
+satsetup.nodiseqc Koa DiSEqC
+satsetup.minidiseqc Mini-DiSEqC
+satsetup.diseqc10 DiSEqC 1.0
+satsetup.diseqc11 DiSEqC 1.1
+satsetup.smatvremote SMATV Remote Tuning
+satsetup.diseqcrepeat DiSEqC-Wiederholunga
+
+mainsettings.head Eistellunga
+mainsettings.savesettingsnow Eistellunga jetz speichan
+mainsettings.language Sproch
+mainsettings.audio Audio
+mainsettings.video Video
+mainsettings.network Netzwerk
+mainsettings.streaming Streamingserva
+mainsettings.colors Forbn / Themes
+mainsettings.lcd LC-Disbläi
+mainsettings.keybinding Tasdn-Eistellunga
+mainsettings.misc No a boar Eistellunga
+mainsettings.scan Eistellunga Senda-suacha
+
+miscsettings.head Diverse Eistellunga
+miscsettings.shutdown_real bissi ausmacha
+miscsettings.boxtype DBox Hersteller
+miscsettings.startneutrinodirect Neutrino glei startn
+miscsettings.general Allgemein
+miscsettings.fb_destination EXPERT! Boot-Konsole
+
+languagesetup.head Sprocheistellunga
+languagesetup.select Sproch
+
+audiomenu.head Audio-Eistellunga
+audiomenu.analogout Analog-Ausgang
+audiomenu.monoright mono rechts
+audiomenu.monoleft mono links
+audiomenu.stereo stereo
+audiomenu.dolbydigital Dolby Digital
+
+videomenu.head Video-Eistellunga
+videomenu.screensetup Bildbereich eistein
+videomenu.videosignal Video Signalart
+videomenu.videosignal_rgb RGB
+videomenu.videosignal_svideo S-Video
+videomenu.videosignal_composite Composite
+videomenu.videoformat Bildschirmformat
+videomenu.videoformat_43 4:3
+videomenu.videoformat_169 16:9
+videomenu.videoformat_autodetect automatisch
+videomenu.vcrswitch Scart-Eigang automatisch
+
+networkmenu.head Netzwerk Eistellunga
+networkmenu.test Netzwerk ausprobiern
+networkmenu.show aktive Netzwerkeistellunga zoign
+networkmenu.setupnow Netzwerkeistellunga jetz macha
+networkmenu.setuponstartup Beim Startn Netzwerk setzn
+networkmenu.ipaddress IP-Adressn
+networkmenu.netmask Netzmaskn
+networkmenu.broadcast Broadcast
+networkmenu.gateway Standard Gateway
+networkmenu.nameserver Nameserva
+
+streamingmenu.head Streamingserva Eistellunga
+streamingmenu.usestreamserver Streamingserva hernemma
+streamingmenu.streamingserver Streamingserva
+streamingmenu.streamingserverport Port
+streamingmenu.stopplayback Fuim ohoitn
+streamingmenu.stopsectionsd Sectionsd ohoitn
+
+ping.ok kumt wos (ping)
+ping.unreachable kumt nix (unreachable)
+ping.protocol kumt nix (Host or protocol error)
+ping.socket kumt nix (Socket error)
+
+ipsetup.hint_1 Nemmas 0...9 oda auffi oda obe
+ipsetup.hint_2 Mit OK speichan, mit HOME obbrecha
+
+colormenu.head Farb-Eistellunga
+colormenu.statusbar Statusboikn
+colormenu.themeselect Theme auswähn
+colormenu.menucolors Menüfarbn
+colormenu.background Hintergrundfarb
+colormenu.background_head Hintergrundfarbe
+colormenu.textcolor Textfarb
+colormenu.textcolor_head Textfarb
+colormenu.fade Menüs faden
+
+colorthememenu.head Theme auswähn
+colorthememenu.neutrino_theme Neutrino Theme
+colorthememenu.classic_theme Klassik
+
+colormenusetup.head Menüfarbn
+colormenusetup.menuhead Titelleistn
+colormenusetup.menucontent Fenstainhoit
+colormenusetup.menucontent_inactive Fenstainhoit deaktiviert
+colormenusetup.menucontent_selected Fenstainhoit ausgwähit
+
+colorstatusbar.head Statusboikn-Farbn
+colorstatusbar.text Statusboikn
+
+repeatblocker.hint_1 Mindestzeit (ms) zwischn zwoa Dasdndrucka
+repeatblocker.hint_2 0 schoitt an Blocka aus (Rot is " ")
+
+keybindingmenu.RC Fernbedienung
+keybindingmenu.repeatblock Dasdn-Wiederhoiblocka
+keybindingmenu.repeatblock Wiederholungsverzögerung
+keybindingmenu.repeatblockgeneric Onfangsverzögerung
+keybindingmenu.head Dasdn-Eistellunga
+keybindingmenu.modechange Modus wexln
+keybindingmenu.channellist Sendalistn
+keybindingmenu.quickzap Schneiumschoitung
+keybindingmenu.tvradiomode Fernseh-/Radio-Modus
+keybindingmenu.tvradiomode_head Fernseh-/Radio-Modus
+keybindingmenu.pageup seitn aufiblatln
+keybindingmenu.pageup_head Seitn aufiblatln
+keybindingmenu.pagedown Seitn obiblatln
+keybindingmenu.pagedown_head Seitn obiblatln
+keybindingmenu.cancel Sendalistn zuamacha
+keybindingmenu.cancel_head Sendalistn zuamacha
+keybindingmenu.channelup Senda aufi
+keybindingmenu.channelup_head Senda aufi Dasdn
+keybindingmenu.channeldown Senda obe
+keybindingmenu.channeldown_head Senda obe Dasdn
+keybindingmenu.bouquetup Bouquet weida
+keybindingmenu.bouquetup_head Bouquet weida Dasdn
+keybindingmenu.bouquetdown Bouquet zruck
+keybindingmenu.bouquetdown_head Bouquet zruck Dasdn
+keybindingmenu.bouquethandling OK-Dasdn für
+keybindingmenu.bouquetchannels_on_ok Bouquet-Senda
+keybindingmenu.bouquetlist_on_ok Bouquetlistn
+keybindingmenu.allchannels_on_ok Sendalistn
+keybindingmenu.subchannelup Untersenda weida
+keybindingmenu.subchannelup_head Untersenda weida
+keybindingmenu.subchanneldown Untersenda zruck
+keybindingmenu.subchanneldown_head Untersenda zruck
+
+colorchooser.red rot
+colorchooser.green grea
+colorchooser.blue blau
+colorchooser.alpha alpha
+
+lcdmenu.head LCD Eistellunga
+lcdmenu.inverse Invertieren
+lcdmenu.power Pauwa
+lcdmenu.lcdcontroler Kontrast / Helligkeid
+
+lcdcontroler.head LCD Eistellunga
+lcdcontroler.contrast Kontrast
+lcdcontroler.brightness normale Helligkeid 
+lcdcontroler.brightnessstandby Standby Helligkeid
+
+keychoosermenu.setnew Neie Dasdn eistein
+keychoosermenu.setnone Koa Dasdn
+keychoosermenu.currentkey Jetzdige Dasdn
+
+keychooser.head Neie Dasdn eistein
+keychooser.text1 Dasdn drucka
+keychooser.text2 Wanst ne wuist, wartn
+
+screensetup.upperleft rot = Buidlrand om, links
+screensetup.lowerright grün = Buidlrand untn, rechts
+
+channellist.head Olle Senda
+channellist.nonefound Es san koane Senda gfundn worn!\nMachas bittschön a Sendersuach\n(dbox-Taste -> Service)
+channellist.since seid %02d:%02d
+
+infoviewer.epgnotload Informationen no ned glon...
+infoviewer.epgwait Wart no aufs EPG...
+infoviewer.streaminfo Spuizeig
+infoviewer.eventlist Programm
+infoviewer.languages Tonwahl
+infoviewer.notavailable Senda grod ned do
+infoviewer.cantdecode Senda kon ned aufgsperrt wern
+infoviewer.selecttime Ofangszeitn
+infoviewer.nocurrent Koa Information zum Programm
+infoviewer.noepg Koa EPG do
+infoviewer.subservice Bildregie
+infoviewer.waittime Wart no aufd Uhrzeit...
+
+epgviewer.notfound Koa EPG gfundn
+epgviewer.nodetailed Koane bessan Informationen gfundn
+epgviewer.More_Screenings Des kumt no auf dem Senda...
+epglist.head Vorschau - %s
+epglist.noevents Koa EPG do.
+
+streaminfo.head Informationen
+streaminfo.resolution Auflösung
+streaminfo.bitrate Bitrate
+streaminfo.aratio Verhältnis
+streaminfo.aratio_unknown Verhältnis: ken i ned
+streaminfo.framerate Bildrate
+streaminfo.framerate_unknown Bildrate: ken i ned
+streaminfo.audiotype Audiotyp
+streaminfo.audiotype_unknown Audiotyp: ken i ned
+streaminfo.not_crypted ned verschlüsselt
+streaminfo.ecm_invalid ungültiges CA-System
+streaminfo.not_available kumt nix
+
+streamfeatures.head Features
+streamfeatures.info Stream-Information
+
+apidselector.head Sproch auswaehn
+
+nvodselector.head Anfangszeid auswaehn
+nvodselector.subservice Perspektiven
+nvodselector.directormode Bildregie-Modus
+
+ucodecheck.head UCodes obcheckn
+ucodecheck.avia500 Avia 500
+ucodecheck.avia600 Avia 600
+ucodecheck.ucode UCode
+ucodecheck.cam-alpha Cam-Alpha
+
+date.Mon  Mo
+date.Tue  Di
+date.Wed  Mi
+date.Thu  Do
+date.Fri  Fr
+date.Sat  Sa
+date.Sun  So
+
+date.Jan  Jan
+date.Feb  Feb
+date.Mar  Mär
+date.Apr  Apr
+date.May  Mai
+date.Jun  Jun
+date.Jul  Jul
+date.Aug  Aug
+date.Sep  Sep
+date.Oct  Okt
+date.Nov  Nov
+date.Dec  Dez
+
+nvod.starting (Fangt in %d min o)
+nvod.proz (%d%% vorbei)
+
+scants.head Senda suacha
+scants.startnow Ofanga mim Senda suacha
+scants.actsatellite Satellit:
+scants.astra Astra
+scants.hotbird Hotbird
+scants.kopernikus Kopernikus
+scants.sirius Sirius
+scants.thor Thor
+scants.digituerk Digituerk
+scants.tuerksat Tuerksat
+scants.transponders Transponder:
+scants.services Services:
+scants.bouquet Bouquets
+scants.bouquet_leave ned olanga
+scants.bouquet_create nei macha
+scants.bouquet_erase wegmacha
+scants.finished Senda sand gfundn worn!
+
+flashupdate.head Aktualisiern
+flashupdate.action Jetzad:
+flashupdate.globalprogress Ois:
+flashupdate.getinfofile hoi grod de Versionsinfo
+flashupdate.getinfofileerror find nix
+flashupdate.getupdatefile Update werd glon
+flashupdate.getupdatefileerror kon des Update ned lon
+flashupdate.cantopenfile kon de Datei ned aufmacha
+flashupdate.fileis0bytes de Datei hod 0 Byte
+flashupdate.eraseingflash lösch des Flash
+flashupdate.programmingflash programmier des Flash
+flashupdate.cantopenmtd kon des MTD-Device ned aufmacha
+flashupdate.ready hobs
+flashupdate.reboot Kloana Moment, mir startn numoi de Box
+flashupdate.updatemode Updatemodus
+flashupdate.updatemode_manual manuell (ftp)
+flashupdate.updatemode_internet internet
+flashupdate.currentversion_sep De Version host
+flashupdate.currentversiondate Datum
+flashupdate.currentversiontime Uhrzeit
+flashupdate.currentversionbaseversion Basisimage
+flashupdate.currentversionsnapshot ImageTyp
+flashupdate.checkupdate nach ner neien Versio suacha
+flashupdate.versioncheck Version obcheckn
+flashupdate.nonewversion koa neie Version do
+flashupdate.md5check Image obchecken
+flashupdate.md5sumerror Des Image is hi
+flashupdate.proxyserver_sep Proxyserva
+flashupdate.proxyserver Proxyname
+flashupdate.proxyserver_hint1 Gems an Proxynama oderd IP ei (Host:Port)
+flashupdate.proxyserver_hint2 Wans nix eigem, hams a koan Proxy
+flashupdate.proxyusername Benutzernama
+flashupdate.proxyusername_hint1 Gems ihrn Proxy-Benutzernama ei
+flashupdate.proxyusername_hint2 Wans nix eigem wer koa Authentifizierung gmacht
+flashupdate.proxypassword Passwort
+flashupdate.proxypassword_hint1 Gems as Proxy-Passwort ei
+flashupdate.proxypassword_hint2
+flashupdate.msgbox Des Image hob i gfundn:\nDatum: %s, %s\nBasisImage: %s\nImageTyp: %s\n\nWoins des Image runterlon \nund installiern?
+flashupdate.msgbox_manual A neas Image hob i gfundn:\nDatum: %s, %s\nBasisImage: %s\nImageTyp: %s\n\nWoins des instaliern?
+flashupdate.expertfunctions Experten-Funktionen
+flashupdate.readflash ganzes Flashimage aussalesn
+flashupdate.writeflash ganzes Flashimage eispuin
+flashupdate.readflashmtd einzelne Partition aussalesn
+flashupdate.writeflashmtd einzelne Partition eispuin
+flashupdate.savesuccess Des Image is unter\nDateinamen %s gspeichat worn.
+flashupdate.mtdselector Partition auswähn
+flashupdate.titlereadflash Flash auslesn
+flashupdate.actionreadflash flash lesn
+flashupdate.fileselector Datei auswähn
+flashupdate.titlewriteflash Flash schreim
+flashupdate.actionwriteflash schreib in flash
+flashupdate.flashreadyreboot Des Imag is gflasht worn.\nJetz start ma de Box nei.
+flashupdate.reallyflashmtd Woins echt flashen?\n\nWann was schiaflaft oder des Image hi is\wer de Box nimma startn.\n\nImagenama: %s\nZiel: %s
+
+bouqueteditor.name Bouquets verwoitn
+bouqueteditor.delete Wegmacha
+bouqueteditor.add Dazuamacha
+bouqueteditor.move Vaschiam
+bouqueteditor.rename Umnenna
+bouqueteditor.hide Vastecka
+bouqueteditor.lock Sperrn
+bouqueteditor.newbouquetname Da neie Nama vom Bouquet
+bouqueteditor.bouquetname Nama vom Bouquet
+bouqueteditor.savechanges? Soin de Änderunga gspeichat wern?
+bouqueteditor.savingchanges D Änderunga wern gspeichat. An Moment ...
+bouqueteditor.discardingchanges D Änderunga wern verworfa. Kloana Moment ...
+bouqueteditor.switch Senda dazuadoa/wegmacha
+bouqueteditor.switchmode TV/Radio
+bouqueteditor.return Jetz hammas
+
+messagebox.yes Scho
+messagebox.no Ned
+messagebox.cancel Abbrecha
+messagebox.back Zruck
+messagebox.error Bläd glaffa
+messagebox.discard Woins de Änderunga verwerfa?
+messagebox.info Information
+
+settings.noconffile De Eistellunga von Neutrino san ned\ngfundn worn. Mia nemma de Standardwerte.
+settings.missingoptionsconffile Es gibt neie Eistellunga.\nDe stenga jetz erstmoi auf Standard.
+
+cam.wrong Obacht, Eana CAM_ALPHA.BIN passt\nned zu Eanara Smart-Card!!!\n\nWoins de Warnung numoi seagn?
+ucodes.failure Obacht, de µCodes san ned gfundn worn!\n\nLoans de doch bittschen mit FTP \nauffi, und startns de Box numoi!
+
+stringinput.caps Groß-/Koabuchstobm
+
+streamingserver.noconnect Kao Verbindung zum Streamingserva.\nDe Aufnahme werd obbrocha.
+
+GENRE.MOVIE.0 Spielfilm / Drama
+GENRE.MOVIE.1 Kriminalfilm/Thriller
+GENRE.MOVIE.2 Abenteuerfilm/Western/Kriegsfilm
+GENRE.MOVIE.3 Science-Fiction/Fantasy/Horror
+GENRE.MOVIE.4 Comedy
+GENRE.MOVIE.5 Soap/Melodram/Folklore
+GENRE.MOVIE.6 Romantik
+GENRE.MOVIE.7 serious/classical/religious/historical movie/drama
+GENRE.MOVIE.8 adult movie/Drama
+
+GENRE.NEWS.0 Nachrichten
+GENRE.NEWS.1 Nachrichten/Wetter
+GENRE.NEWS.2 Nachrichtenmagazin
+GENRE.NEWS.3 Dokumantation
+GENRE.NEWS.4 Diskussion/Interview/Debatte
+
+GENRE.SHOW.0 Show / Gameshow
+GENRE.SHOW.1 Gameshow/Quiz
+GENRE.SHOW.2 varietee
+GENRE.SHOW.3 Talkshow
+
+GENRE.SPORTS.0 Sport
+GENRE.SPORTS.1 Großereignisse (Olympische Spiele, Weltmeisterschaften usw.)
+GENRE.SPORTS.2 Sportsmagazine
+GENRE.SPORTS.3 Fußball
+GENRE.SPORTS.4 Tennis
+GENRE.SPORTS.5 Mannschaftssport
+GENRE.SPORTS.6 Leichtathletik
+GENRE.SPORTS.7 Motorsport
+GENRE.SPORTS.8 Wassersport
+GENRE.SPORTS.9 Wintersport
+GENRE.SPORTS.10 equestrian
+GENRE.SPORTS.11 martial sports
+
+GENRE.CHILDRENs_PROGRAMMES.0 Kinder / Jugendprogramm
+GENRE.CHILDRENs_PROGRAMMES.1 Programm für Vorschulkinder
+GENRE.CHILDRENs_PROGRAMMES.2 Unterhaltungsprogramm für 6 bis 14-Jährige
+GENRE.CHILDRENs_PROGRAMMES.3 Unterhaltungsprogramm für 10 bis 16-Jährige
+GENRE.CHILDRENs_PROGRAMMES.4 Informations- und Bildungsprogramm
+GENRE.CHILDRENs_PROGRAMMES.5 Trickfilm
+
+GENRE.MUSIC_DANCE.0 Musik/Ballet/Tanz
+GENRE.MUSIC_DANCE.1 Rock/Pop
+GENRE.MUSIC_DANCE.2 serious music/Klassik
+GENRE.MUSIC_DANCE.3 Volksmusik
+GENRE.MUSIC_DANCE.4 Jazz
+GENRE.MUSIC_DANCE.5 Musical/Oper
+GENRE.MUSIC_DANCE.6 Ballet
+
+GENRE.ARTS.0 Kunst / Kultur
+GENRE.ARTS.1 Darstellende Künste
+GENRE.ARTS.2 fine arts
+GENRE.ARTS.3 Religion
+GENRE.ARTS.4 Volkskunst
+GENRE.ARTS.5 Literatur
+GENRE.ARTS.6 Film/Kino
+GENRE.ARTS.7 experimental film/video
+GENRE.ARTS.8 Rundfunk/Presse
+GENRE.ARTS.9 Neue Medien
+GENRE.ARTS.10 Kunst-/Kultur-Magazin
+GENRE.ARTS.11 Mode
+
+GENRE.SOZIAL_POLITICAL.0 Sozial & Politikereignisse / Wirtschaft
+GENRE.SOZIAL_POLITICAL.1 Magazin/Report/Dokumentation
+GENRE.SOZIAL_POLITICAL.2 Wirtschaft und Soziales
+GENRE.SOZIAL_POLITICAL.3 Besondere Menschen
+
+GENRE.DOCUS_MAGAZINES.0 Doku/Magazin
+GENRE.DOCUS_MAGAZINES.1 Natur/Tiere/Umwelt
+GENRE.DOCUS_MAGAZINES.2 Naturwissenschaft und Technik
+GENRE.DOCUS_MAGAZINES.3 Medizin/Physiologie/Psychologie
+GENRE.DOCUS_MAGAZINES.4 Ausland/Expeditions
+GENRE.DOCUS_MAGAZINES.5 Sozial- und Geisteswissenschaften
+GENRE.DOCUS_MAGAZINES.6 Weiterbildung
+GENRE.DOCUS_MAGAZINES.7 Sprachen
+
+GENRE.TRAVEL_HOBBIES.0 Reise & Freizeit
+GENRE.TRAVEL_HOBBIES.1 Reisen und Tourismus
+GENRE.TRAVEL_HOBBIES.2 handicraft
+GENRE.TRAVEL_HOBBIES.3 Motor
+GENRE.TRAVEL_HOBBIES.4 Fitness und Gesundheit
+GENRE.TRAVEL_HOBBIES.5 Kochen
+GENRE.TRAVEL_HOBBIES.6 Einkauf
+GENRE.TRAVEL_HOBBIES.7 Garten
+
+GENRE.UNKNOWN Kenninet
+
+parentallock.parentallock Jugendschutz
+
+parentallock.prompt PIN eigem
+parentallock.never Nia
+parentallock.onstart Beim Startn
+parentallock.changetolocked Bei vorgsperrde Bouquets
+parentallock.onsignal Wann a Vorsperre gsendet werd
+parentallock.lockedsender Gsperrda Senda
+parentallock.lockedprogram Gperde Sendung(FSK ab %d)
+parentallock.head Jugendschutz PIN
+
+parentallock.lockage Sendunga
+parentallock.lockage12 ab 12 Jahr sperrn
+parentallock.lockage16 ab 16 Jahr sperrn
+parentallock.lockage18 ab 18 Jahr sperrn
+
+parentallock.changepin PIN-Code eistain
+parentallock.changepin_hint1 Gems jetz Eanan PIN-Code ei!
+
+pinprotection.wrongcode Gems den Code nomoi ei!
+pinprotection.head PIN-Abfrage
+
+favorites.bouquetname De Meina
+favorites.nobouquets Favoriten genga nur wann Bouquets aktiviert san
+favorites.addchannel Der Senda werd zum \n"De Meina" dazuado. \nDes Speichan dauert a bissl...
+favorites.menueadd Kanal Favoriten dazuadoa
+favorites.bqcreated Bouquet "De Meina" is oglegt worn...\n
+favorites.chadded Der Senda is zu Eanare Favoriten dazuado worn...\n
+favorites.chalreadyinbq Der Senda ist scho in Eanare Favoriten...\n
+favorites.finalhint \nWans Eana vahaut ham\nder Bouquetverwaltung korrigiert werden.\n
+
+sleeptimerbox.title Eischloftimer
+sleeptimerbox.hint1 Einschlofzeit in Min. (000=aus)
+sleeptimerbox.hint2 De Box schoit si noch der Zeid aus.
+sleeptimerbox.announce Eischloftimer in min
+
+zaptotimer.announce In na Minutn is schluss
+recordtimer.announce In na Minutn werd aufgnomma
+
+timerbar.channelswitch Umschoitn
+timerbar.recordevent Aufnemma
+timer.eventtimed.title Sendung vormerka
+timer.eventtimed.msg De Sendung is vorgmerkt
+timer.eventrecord.title Aufnemma vormerka
+timer.eventrecord.msg   De Sendung is zum Aufnemma vorgmerkt
+timerlist.name Timerlistn
+timerlist.delete wegmacha
+timerlist.empty Grod hammer koane Timer
+timerlist.deleting Timer werd glöscht
+timerlist.type.shutdown Ausmacha
+timerlist.type.nextprogramm Nächsta Senda
+timerlist.type.zapto Umschoitn
+timerlist.type.standby Bissl Ausmacha
+timerlist.type.record Aufnemma
+timerlist.type.remind Erinnern
+timerlist.type.sleeptimer Eischloftimer
+timerlist.type.unknown Kenninet
+timerlist.repeat.once oimalig
+timerlist.repeat.daily jeden tog
+timerlist.repeat.weekly jede woch
+timerlist.repeat.biweekly olle zwoa Wocha
+timerlist.repeat.fourweekly alle vier Wocha
+timerlist.repeat.monthly jeden Monat
+timerlist.repeat.byeventdescription wia da timer
+timerlist.repeat.unknown Kenn i ned
+timerlist.program.unknown Kenn den Senda ned
+timerlist.standby.on Ausm Standy aufwacha
+timerlist.standby.off In Standy geh
+

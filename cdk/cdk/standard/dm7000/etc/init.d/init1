@@ -1,0 +1,46 @@
+#!/bin/sh
+
+export INSMOD="/sbin/insmod"
+export MODDIR="/lib/modules/"$(uname -r)
+
+if [ -f /lib/modules/$(uname -r)/.reload_modules ] ; then
+	$RMMOD $MODDIR/extra/head.ko
+fi
+
+$INSMOD $MODDIR/extra/head.ko
+/bin/pli_clfb
+
+#set environment variables (mID)
+. /proc/bus/dbox.sh
+
+if [ $mID -eq 05 ] ; then
+	if [ -f /lib/modules/$(uname -r)/.reload_modules ] ; then
+		$RMMOD /var$MODDIR/kernel/fs/reiserfs/reiserfs.ko
+		$RMMOD /var$MODDIR/kernel/fs/smbfs/smbfs.ko
+		$RMMOD $MODDIR/kernel/fs/cifs/cifs.ko
+		$RMMOD $MODDIR/kernel/drivers/scsi/sg.ko
+		$RMMOD $MODDIR/kernel/drivers/usb/input/hid.ko
+	fi
+	$INSMOD /var$MODDIR/kernel/fs/reiserfs/reiserfs.ko
+	$INSMOD /var$MODDIR/kernel/fs/smbfs/smbfs.ko
+	$INSMOD $MODDIR/kernel/fs/cifs/cifs.ko
+	$INSMOD $MODDIR/kernel/drivers/scsi/sg.ko
+	$INSMOD $MODDIR/kernel/drivers/usb/input/hid.ko
+
+	if [ -e /var$MODDIR/kernel/drivers/usb/serial/usbserial.ko ] ; then
+		$INSMOD /var$MODDIR/kernel/drivers/usb/serial/usbserial.ko
+		$INSMOD /var$MODDIR/kernel/drivers/usb/serial/ftdi_sio.ko
+		$INSMOD /var$MODDIR/kernel/drivers/usb/serial/belkin_sa.ko
+		$INSMOD /var$MODDIR/kernel/drivers/usb/serial/pl2303.ko
+		# create an ttyUSB0 device
+		mknod /dev/ttyUSB0 c 188 0
+	fi
+fi
+
+#create compatibility links for hardware with only one demux
+if [ ! -e /dev/dvb/card0/demux1 ] ; then
+	ln -sf /dev/dvb/card0/demux0 /dev/dvb/card0/demux1
+	ln -sf /dev/dvb/card0/dvr0 /dev/dvb/card0/dvr1
+fi
+
+exit 0

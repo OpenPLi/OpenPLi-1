@@ -1,0 +1,56 @@
+#!/bin/sh
+
+#
+#  Interface script to start and stop emus 
+#  Mainly provided for Pli Emud
+#
+#  Usage:  emusrv emu_name action emu_name action. ...
+#
+#  command line args are pairs of emu name 
+#  an unlimited ammount of pairs can be given
+#
+#  emusrv newcand stop camxng start
+#
+#  1.0  Mirakels - initial version 
+#  1.01 PLi - add info screens to user when starting an emu
+#  1.02 PLi - camd.socket is not longer removed when starting an emu or server
+#             since this destroys a running emu when starting a server
+#             disabled info screen because plugin is now popping a screen		
+#  1.03 Mirakels - remove ecm.info file after stopping an emu
+#  1.04 dAF2000 - remove absolute path in starting emu, $PATH is already okay.
+#
+
+VERSION=1.04
+
+EMUSCRIPTDIR=/var/etc/plimgr/scripts
+BURLCGI="http://root:dreambox@127.0.0.1/cgi-bin"
+
+
+while [ ! -z "$1" ] ; do
+    emu=$1
+    action=$2
+    [ -z "$action" ] && exit 1
+
+#   [ $action = 'start' ] && wget -O /tmp/daemonmsg.temp -q "$BURLCGI/xmessage?timeout=2&caption=emusrv&body=Starting+$emu."
+
+    if [ -f $EMUSCRIPTDIR/$emu ] ; then
+    	$EMUSCRIPTDIR/$emu $action
+    else
+        case $action in
+            start)
+                $emu &
+		;;
+            stop)
+            	killall -q  $emu
+		killall -q -9 $emu
+		;;
+        esac
+    fi
+    [ $action = 'stop' ] && rm -f /tmp/ecm.info
+    shift 2
+done
+        
+    
+#
+# The End
+#

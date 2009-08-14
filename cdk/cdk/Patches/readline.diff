@@ -1,0 +1,11 @@
+--- readline-4.3/configure.in	Wed Feb 20 16:05:17 2002
++++ readline-4.3new/configure.in	Fri Jul 26 13:20:53 2002
+@@ -116,7 +116,7 @@
+ 	fi
+ fi
+ 
+-BASH_CHECK_MULTIBYTE
++#BASH_CHECK_MULTIBYTE
+ 
+ case "$host_cpu" in
+ *cray*)	LOCAL_CFLAGS=-DCRAY ;;

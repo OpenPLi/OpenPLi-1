@@ -1,0 +1,24 @@
+::sysinit:/etc/init.d/rcS
+
+::once:/etc/init.d/start
+
+#tts/0::respawn:/bin/agetty -L tts/0 9600 vt102
+#vc/1::respawn:/bin/agetty 38400 vc/1
+#vc/2::respawn:/bin/agetty 38400 vc/2
+#vc/3::respawn:/bin/agetty 38400 vc/3
+#vc/4::respawn:/bin/agetty 38400 vc/4
+#vc/5::respawn:/bin/agetty 38400 vc/5
+#vc/6::respawn:/bin/agetty 38400 vc/6
+
+# this sucks
+::askfirst:-/bin/sh
+#vc/1::askfirst:-/bin/sh
+vc/2::askfirst:-/bin/sh
+vc/3::askfirst:-/bin/sh
+vc/4::askfirst:-/bin/sh
+vc/5::askfirst:-/bin/sh
+vc/6::askfirst:-/bin/sh
+
+::restart:/sbin/init
+::ctrlaltdel:/sbin/reboot
+::shutdown:/etc/init.d/rcK

@@ -1,0 +1,15 @@
+#startmenu-skin-file
+
+#this skin was created and tested by Dre
+
+#first-line=x,y,font-size,r,g,b
+first-line=80,125,40,255,255,255
+
+#menu-size=left,top,x-size, y-size
+menu-size=80,130,330,230
+
+#select-color=r,g,b
+select-color=112,112,112
+
+#string-color=r,g,b
+string-color=0,0,0

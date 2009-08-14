@@ -1,0 +1,526 @@
+menu.back Indietro
+
+options.off Spegni
+options.on Accendi
+options.serial seriale
+options.fb framebuffer
+options.null null
+
+mainmenu.head Menü Principale
+mainmenu.tvmode Modo-TV
+mainmenu.radiomode Modo-Radio
+mainmenu.scartmode Entrata Scart
+mainmenu.games Giochi
+mainmenu.sleeptimer SleepTimer
+mainmenu.shutdown Spegnere
+mainmenu.settings Impostazioni
+mainmenu.service Servizio
+mainmenu.streaming Streaming (Registrazione)
+mainmenu.streaming_start start
+mainmenu.streaming_stop stop
+
+servicemenu.head Service
+servicemenu.update Aggiornamento-Software
+servicemenu.scants Ricerca Canali
+servicemenu.ucodecheck Controllo UCodes
+
+cablesetup.provider Gestore
+
+satsetup.disqeqc DiSEqC
+satsetup.satellite Satellite
+satsetup.extended DiSEqC-Controllo
+satsetup.nodiseqc nessun DiSEqC
+satsetup.minidiseqc Mini-DiSEqC
+satsetup.diseqc10 DiSEqC 1.0
+satsetup.diseqc11 DiSEqC 1.1
+satsetup.smatvremote SMATV Remote Tuning
+satsetup.diseqcrepeat DiSEqC-Ripetizioni
+
+mainsettings.head Impostazioni
+mainsettings.savesettingsnow Salvare le Impostazioni
+mainsettings.language Lingua
+mainsettings.audio Audio
+mainsettings.video Video
+mainsettings.network Network
+mainsettings.streaming Streamingserver
+mainsettings.colors Colori / Themes
+mainsettings.lcd LC-Display
+mainsettings.keybinding Impostazioni-Tasti
+mainsettings.misc Altre Impostazioni
+mainsettings.scan Impostazioni Ricerca Canali
+
+miscsettings.head Altre Impostazioni
+miscsettings.shutdown_real Modo Standby
+miscsettings.boxtype DBox Costruttore
+miscsettings.startneutrinodirect Esecuzione diretta Neutrino
+miscsettings.general Generale
+miscsettings.fb_destination EXPERT! Boot-Konsole
+
+languagesetup.head Impostazioni Lingua
+languagesetup.select Lingua
+
+audiomenu.head Impostazioni -Audio
+audiomenu.analogout Uscita-Analogica
+audiomenu.monoright mono destro
+audiomenu.monoleft mono sinistro
+audiomenu.stereo stereo
+audiomenu.dolbydigital Dolby Digitale
+
+videomenu.head Impostazioni -Video
+videomenu.screensetup Impostazioni Margine Video
+videomenu.videosignal Tipo di segnale Video
+videomenu.videosignal_rgb RGB
+videomenu.videosignal_svideo S-Video
+videomenu.videosignal_composite Composite
+videomenu.videoformat Formato Schermo
+videomenu.videoformat_43 4:3
+videomenu.videoformat_169 16:9
+videomenu.videoformat_autodetect automatico
+videomenu.vcrswitch Entrata-Scart automatico
+
+networkmenu.head Impostazioni Rete
+networkmenu.test Test Rete
+networkmenu.show Impostazioni Attivi di Rete
+networkmenu.setupnow Attiva Impostazioni Rete
+networkmenu.setuponstartup alla Partenza attivare la Rete
+networkmenu.ipaddress Indirizzo-IP
+networkmenu.netmask Netmask
+networkmenu.broadcast Broadcast
+networkmenu.gateway Standard Gateway
+networkmenu.nameserver Nameserver
+
+streamingmenu.head Streamingserver Impostazioni
+streamingmenu.usestreamserver usare Streamingserver
+streamingmenu.streamingserver Streamingserver
+streamingmenu.streamingserverport Port
+streamingmenu.stopplayback Playback stop
+streamingmenu.stopsectionsd Sectionsd stop
+
+ping.e ok e raggiungibile (ping)
+ping.unreachable non e raggiungibile (unreachable)
+ping.protocol non e raggiungibile (Host or protocol error)
+ping.socket non e raggiungibile (Socket error)
+
+ipsetup.hint_1 Usare il 0..9 per Alto/Basso
+ipsetup.hint_2 OK Salva, Home Indietro
+
+colormenu.head Impostazioni -Colori
+colormenu.statusbar statusbar
+colormenu.themeselect Sciegli Tema
+colormenu.menucolors Colori Menü
+colormenu.background Colori di fondo
+colormenu.background_head Colori di fondo
+colormenu.textcolor Colori Testo
+colormenu.textcolor_head Colori di Testo
+colormenu.fade Menüs fade
+
+colorthememenu.head Sciegli Tema
+colorthememenu.neutrino_Theme Neutrino Tema
+colorthememenu.classic_theme Classico
+
+colormenusetup.head Colori Menü
+colormenusetup.menuhead Barra Titoli
+colormenusetup.menucontent Contenuto Menü
+colormenusetup.menucontent_inactive Contenuto Menü disattivato
+colormenusetup.menucontent_selected Contenuto Menü selezionato
+
+colorstatusbar.head Colori Contenuto Menü
+colorstatusbar.text Contenuto Menü
+
+repeatblocker.hint_1 Tempo (in ms) tra 2 premuteTasti
+repeatblocker.hint_2 0 spegne il Blocker tasti (Rosso e " ")
+
+keybindingmenu.RC Telecomando
+keybindingmenu.repeatblock Blocco ripetizione Tasti
+keybindingmenu.repeatblock Ritardo ripetizione
+keybindingmenu.repeatblockgeneric Ritardo iniziale ripetizione
+keybindingmenu.head Impostazione Tastiera
+keybindingmenu.modechange Cambio Modo
+keybindingmenu.channellist Lista Canali
+keybindingmenu.quickzap Cambio veloce
+keybindingmenu.tvradiomode Modo TV-/Radio
+keybindingmenu.tvradiomode_head Modo TV-/Radio
+keybindingmenu.pageup Pagina in Alto
+keybindingmenu.pageup_head Pagina in Alto
+keybindingmenu.pagedown  Pagina in Basso
+keybindingmenu.pagedown_head Pagina in Basso
+keybindingmenu.cancel Chiudi Lista Canali
+keybindingmenu.cancel_head Chiudi Lista Canali
+keybindingmenu.channelup Canale in Alto
+keybindingmenu.channelup_head Tasto Canale in Alto
+keybindingmenu.channeldown Canale verso Basso
+keybindingmenu.channeldown_head Canale verso Basso
+keybindingmenu.bouquetup Bouquet avanti
+keybindingmenu.bouquetup_head Tasto Bouquet avanti
+keybindingmenu.bouquetdown Bouquet Indietro
+keybindingmenu.bouquetdown_head Tasto Bouquet indietro
+keybindingmenu.bouquethandling Tasto-OK-per
+keybindingmenu.bouquetchannels_on_ok Bouquet-Canali
+keybindingmenu.bouquetlist_on_ok Lista Bouquet
+keybindingmenu.allchannels_on_ok Lista Canali
+keybindingmenu.subchannelup Sottocanale avanti
+keybindingmenu.subchannelup_head Sottocanale avanti
+keybindingmenu.subchanneldown Sottocanale indietro
+keybindingmenu.subchanneldown_head Sottocanale indietro
+
+colorchooser.red rosso
+colorchooser.green verde
+colorchooser.blue blu
+colorchooser.alpha alpha
+
+lcdmenu.head LCD Settings
+lcdmenu.inverse Inversione
+lcdmenu.power Power
+lcdmenu.lcdcontroler Contrasto / Luminosita
+
+lcdcontroler.head Impostazioni LCD
+lcdcontroler.contrast Contrasto
+lcdcontroler.brightness Luminosita normale
+lcdcontroler.brightnessstandby Luminosita Standby
+
+keychoosermenu.setnew Impostazioni nuovo Tasto
+keychoosermenu.setnone Nessun Tasto
+keychoosermenu.currentkey Tasto attuale
+
+keychooser.head Impostazioni per nuovo Tasto
+keychooser.text1 Premere il Tasto
+keychooser.text2 Per interrompere aspettare..
+
+screensetup.upperleft rot = Margine Alto, sinistro
+screensetup.lowerright grün = Margine Basso, destro
+
+channellist.head Tutti i Canali
+channellist.nonefound Non e stato trovato nessun Canale!\nEseguire una nuova Ricerca Canali\n(dbox-Taste -> Servizio)
+channellist.since dal %02d:%02d
+
+infoviewer.epgnotload Informazioni non ancora Caricati...
+infoviewer.epgwait Aspetto Informazioni-EPG
+infoviewer.streaminfo Features
+infoviewer.eventlist Programma
+infoviewer.languages Scelta Audio
+infoviewer.notavailable Canale (per il Momento) non Presente
+infoviewer.cantdecode Canale non puo essere Decodificato
+infoviewer.selecttime Orario Inizio
+infoviewer.nocurrent Nessuna Informazione sul Programma
+infoviewer.noepg Nessuna Informazione-EPG
+infoviewer.subservice Regia Video
+infoviewer.waittime Attendo Orario...
+
+epgviewer.notfound Nessuna Informazione-(EPG) trovati
+epgviewer.nodetailed Nessuna Informazione
+epgviewer.More_Screenings Prossimi eventi su questo Canale
+epglist.head Previsioni - %s
+epglist.noevents Nessuna Informazione-(EPG)
+
+streaminfo.head Informazione
+streaminfo.resolution Risoluzione Video
+streaminfo.bitrate Bitrate
+streaminfo.aratio Relativo
+streaminfo.aratio_unknown Relativo: sconosciuto
+streaminfo.framerate Bildrate
+streaminfo.framerate_unknown Bildrate: sconosciuta
+streaminfo.audiotype Tipo Audio
+streaminfo.audiotype_unknown Tipo Audio: sconosciuto
+streaminfo.not_crypted Non Codificato
+streaminfo.ecm_invalid Sistema CA invalido
+streaminfo.not_available non Disponibile
+
+streamfeatures.head Caratteristiche
+streamfeatures.info Stream-Informazione
+
+apidselector.head Selezione Lingua
+
+nvodselector.head Scelgliere Orario Inizio
+nvodselector.subservice Prospettive
+nvodselector.directormode Modo regia-Video
+
+ucodecheck.head Controllo UCode
+ucodecheck.avia500 Avia 500
+ucodecheck.avia600 Avia 600
+ucodecheck.ucode UCode
+ucodecheck.cam-alpha Cam-Alpha
+
+date.Mon  Lun
+date.Tue  Mar
+date.Wed  Mer
+date.Thu  Gio
+date.Fri  Ven
+date.Sat  Sab
+date.Sun  Dom
+
+date.Jan  Gen
+date.Feb  Feb
+date.Mar  Mar
+date.Apr  Apr
+date.May  Mag
+date.Jun  Giu
+date.Jul  Lug
+date.Aug  Ago
+date.Sep  Set
+date.Oct  Ott
+date.Nov  Nov
+date.Dec  Dic
+
+nvod.starting (Inizio in %d min)
+nvod.proz (%d%% passati)
+
+scants.head Ricerca Canali
+scants.startnow Start Ricerca Canali
+scants.actsatellite Satellite:
+scants.astra Astra
+scants.hotbird Hotbird
+scants.kopernikus Kopernikus
+scants.sirius Sirius
+scants.thor Thor
+scants.digituerk Digituerk
+scants.tuerksat Tuerksat
+scants.transponders Transponder:
+scants.services Services:
+scants.bouquet Bouquets
+scants.bouquet_leave Non Cambiare
+scants.bouquet_create Crea Nuovi
+scants.bouquet_erase Cancellare
+scants.finished Ricerca Canali finita con Successo!
+
+flashupdate.head Aggiornamento
+flashupdate.action Azione:
+flashupdate.globalprogress Status Generale:
+flashupdate.getinfofile Carica Info Versione
+flashupdate.getinfofileerrore impossibbile caricare Info
+flashupdate.getupdatefile Carica Update
+flashupdate.getupdatefileerror impossibbile caricare Update
+flashupdate.cantopenfile impossibbile aprire il File
+flashupdate.fileis0bytes il File e 0 Byte
+flashupdate.eraseingflash Cancella Flash
+flashupdate.programmingflash programmo Flash
+flashupdate.cantopenmtd impossibbile aprire MTD-Device
+flashupdate.ready Finito
+flashupdate.reboot Die DBox viene Riavviato
+flashupdate.updatemode ModoUpdate
+flashupdate.updatemode_manual manuale (ftp)
+flashupdate.updatemode_internet internet
+flashupdate.currentversion_sep Versione Installata
+flashupdate.currentversiondate Data
+flashupdate.currentversiontime Orario
+flashupdate.currentversionbaseversion Basisimage
+flashupdate.currentversionsnapshot ImageTipo
+flashupdate.checkupdate Cercare nuove Versioni
+flashupdate.versioncheck Controllo Versione
+flashupdate.nonewversion Nessuna Versione Nuova
+flashupdate.md5check Controllo Image
+flashupdate.md5sumerror Image e Corrotta
+flashupdate.proxyserver_sep Proxyserver
+flashupdate.proxyserver Proxynome
+flashupdate.proxyserver_hint1 Inserire Proxynome oppure IP  (Host:Port)
+flashupdate.proxyserver_hint2 Un Inserimento Vuoto non vuol dire un Proxy
+flashupdate.proxyusername Nome Utente
+flashupdate.proxyusername_hint1 Inserire Proxy-Nome Utente
+flashupdate.proxyusername_hint2 Un Inserimento Vuoto non vuol dire una Identificazione
+flashupdate.proxypassword Password
+flashupdate.proxypassword_hint1 Inserire la Proxy-Passwort
+flashupdate.proxypassword_hint2
+flashupdate.msgbox Sono state trovate queste Image:\nData: %s, %s\nBasisImage: %s\nImageTipo: %s\n\nVuole scaricare questa versione\ned Installarla?
+flashupdate.msgbox_manual E stata trovata una nuova Image:\nData: %s, %s\nBasisImage: %s\nImageTipo: %s\n\nVuole Installare questa Versione?
+flashupdate.expertfunctions Funzione-Esperti
+flashupdate.readflash Leggi tutta la Flashimage
+flashupdate.writeflash Scrivere tutta la Flashimage
+flashupdate.readflashmtd Leggere singole Partizioni
+flashupdate.writeflashmtd Scrivere singole Partizioni
+flashupdate.savesuccess La Image e stata salvata sotto\nquesto nome.
+flashupdate.mtdselector Scelta-Partizione
+flashupdate.titlereadflash Lettura Flash
+flashupdate.actionreadflash Leggo flash
+flashupdate.fileselector Scelta-File
+flashupdate.titlewriteflash Scrivo-Flash
+flashupdate.actionwriteflash Scrivo-Flash
+flashupdate.flashreadyreboot La Image e stata scritta con Successo.\nIl vostro DBox verra Riavviato.
+flashupdate.reallyflashmtd Vuole veramente scrivere il Flash?\n\nIn caso di un errore\nil vostro, DBox non potra piu riavviarsi.\n\nImagename: %s\nZiel: %s
+
+bouqueteditor.name Gestione-Bouquet
+bouqueteditor.delete Cancella
+bouqueteditor.add Aggiungere
+bouqueteditor.move Muovere
+bouqueteditor.rename Rinomina
+bouqueteditor.hide Nascondi
+bouqueteditor.lock Bloccare
+bouqueteditor.newbouquetname Nuovo nome del Bouquets
+bouqueteditor.bouquetname Nome del Bouquets
+bouqueteditor.savechanges? Salvare le modifiche?
+bouqueteditor.savingchanges Modifiche vengono salvate. Prego Attendere ...
+bouqueteditor.discardingchanges Modifiche vengono rifiutate. Prego Attendere ...
+bouqueteditor.switch Accettare Canale/Cancellare
+bouqueteditor.switchmode TV/Radio
+bouqueteditor.return Finito
+
+messagebox.yes Si
+messagebox.no No
+messagebox.cancel Cancella
+messagebox.back Indietro
+messagebox.error Errore
+messagebox.discard Vuole rifutare i cambiamenti?
+messagebox.info Informazioni
+
+settings.noconffile Le Impostazioni-Neutrino non sono stati\ntrovati. Verranno usati i parametri Standart.
+settings.missingoptionsconffile Le Impostazioni-Neutrino sono stati avanzati.\n i Nuovi parametri verrano aggiunti al Standart.
+
+cam.wrong Attenzione la vostra CAM_ALPHA.BIN non e adatta\nper la vostra Smart-Card!!!\n\nVuole rivedere questa informazione?
+ucodes.failure Attenzione non sono stati trovati le µCodes !\nCaricarle via FTP (oppure DBox-BootManager)\ e riavviare il  DBox !
+
+stringinput.caps Caratteri grandi/piccoli
+
+streamingserver.noconnect Nessun contatto con la Streamingserver.\nLa registrazione verra interrotta.
+
+GENRE.MOVIE.0 Telefilm / Drammatico
+GENRE.MOVIE.1 Film Criminale/Thriller
+GENRE.MOVIE.2 Avventura/Western/Film Guerra
+GENRE.MOVIE.3 Science-Fiction/Fantasia/Orrore
+GENRE.MOVIE.4 Comico
+GENRE.MOVIE.5 Soap/Melodramma/Folklore
+GENRE.MOVIE.6 Romantico
+GENRE.MOVIE.7 Serio/classico/religioso/Film Storico/Dramma
+GENRE.MOVIE.8 Film Adulti/Dramma
+
+GENRE.NEWS.0 Notizie
+GENRE.NEWS.1 Notizie/Tempo
+GENRE.NEWS.2 Telegiornale
+GENRE.NEWS.3 Documentazione
+GENRE.NEWS.4 Discussione/Interview/Dibattito
+GENRE.SHOW.0 Show / Gameshow
+GENRE.SHOW.1 Gameshow/Quiz
+GENRE.SHOW.2 Varieta
+GENRE.SHOW.3 Talkshow
+
+GENRE.SPORTS.0 Sport
+GENRE.SPORTS.1 Grandi eventi (Giochi Olimpiadi, Campionati ecc.)
+GENRE.SPORTS.2 Sportsmagazine
+GENRE.SPORTS.3 Calcio
+GENRE.SPORTS.4 Tennis
+GENRE.SPORTS.5 Sport di Squadra
+GENRE.SPORTS.6 Atletica Leggera
+GENRE.SPORTS.7 Sport Motori
+GENRE.SPORTS.8 Sport Acquatici
+GENRE.SPORTS.9 Sport Invernale
+GENRE.SPORTS.10 equestrian
+GENRE.SPORTS.11 martial sports
+
+GENRE.CHILDRENs_PROGRAMMES.0 Bambini / Giovanile
+GENRE.CHILDRENs_PROGRAMMES.1 Programma per Bambini
+GENRE.CHILDRENs_PROGRAMMES.2 Programma per Bambini da 6 a 14-Anni
+GENRE.CHILDRENs_PROGRAMMES.3 Programma per Bambini da 10 a 16-Anni
+GENRE.CHILDRENs_PROGRAMMES.4 Informazioni- Didattico
+GENRE.CHILDRENs_PROGRAMMES.5 Cartoni
+
+GENRE.MUSIC_DANCE.0 Musica/Balletto/Danza
+GENRE.MUSIC_DANCE.1 Rock/Pop
+GENRE.MUSIC_DANCE.2 serious music/Klassik
+GENRE.MUSIC_DANCE.3 Musica Volk
+GENRE.MUSIC_DANCE.4 Jazz
+GENRE.MUSIC_DANCE.5 Musical/Oper
+GENRE.MUSIC_DANCE.6 Balletto
+
+GENRE.ARTS.0 Arte / Cultura
+GENRE.ARTS.1 Arte
+GENRE.ARTS.2 fine arts
+GENRE.ARTS.3 Religione
+GENRE.ARTS.4 Arte Volk
+GENRE.ARTS.5 Litteratura
+GENRE.ARTS.6 Film/Cinema
+GENRE.ARTS.7 experimental film/video
+GENRE.ARTS.8 Radiofonico/Stampa
+GENRE.ARTS.9 Nuovi Media
+GENRE.ARTS.10 Arte-/Cultura-Magazin
+GENRE.ARTS.11 Moda
+
+GENRE.SOZIAL_POLITICAL.0 Sociale & Eventi Politici
+GENRE.SOZIAL_POLITICAL.1 Magazin/Report/Dokumentation
+GENRE.SOZIAL_POLITICAL.2 Economia ed Sociale
+GENRE.SOZIAL_POLITICAL.3 Persone Speciali
+
+GENRE.DOCUS_MAGAZINES.0 Docu/Magazin
+GENRE.DOCUS_MAGAZINES.1 Natura/Animali/Ambiente
+GENRE.DOCUS_MAGAZINES.2 Scienza e Tecnica
+GENRE.DOCUS_MAGAZINES.3 Medicina/Physiologia/Psychologia
+GENRE.DOCUS_MAGAZINES.4 Estero/Expeditioni
+GENRE.DOCUS_MAGAZINES.5 Sozial- und Geisteswissenschaften
+GENRE.DOCUS_MAGAZINES.6 Weiterbildung
+GENRE.DOCUS_MAGAZINES.7 Lingue
+
+GENRE.TRAVEL_HOBBIES.0 Viaggi & Tempo Libero
+GENRE.TRAVEL_HOBBIES.1 Viaggi e Turismo
+GENRE.TRAVEL_HOBBIES.2 Artigianato
+GENRE.TRAVEL_HOBBIES.3 Motori
+GENRE.TRAVEL_HOBBIES.4 Fitness e Salute
+GENRE.TRAVEL_HOBBIES.5 Cucina
+GENRE.TRAVEL_HOBBIES.6 Shopping
+GENRE.TRAVEL_HOBBIES.7 Giardinaggio
+
+GENRE.UNKNOWN Sconosciuto
+
+parentallock.parentallock Parental Control
+
+parentallock.prompt Inserimento-PIN
+parentallock.never Mai
+parentallock.onstart All avvio
+parentallock.changetolocked Con Bouquets Bloccati
+parentallock.onsignal Blocco al segnale
+parentallock.lockedsender Canali Bloccati
+parentallock.lockedprogram  Programmma Bloccato (FSK a %d)
+parentallock.head Parental PIN
+
+parentallock.lockage Trasmissioni
+parentallock.lockage12 da 12 Anni Bloccare
+parentallock.lockage16 da 16 Anni Bloccare
+parentallock.lockage18 da 18 Anni Bloccare
+
+parentallock.changepin Sciegliere PIN-Code
+parentallock.changepin_hint1 Inserire il nuovo PIN-Code !
+
+pinprotection.wrongcode Ripetere il PIN Code!
+pinprotection.head Richiesta-PIN
+
+favorites.bouquetname Miei Favoriti
+favorites.nobouquets Favoriti sono solamente possibbili nei Bouquet attivi
+favorites.addchannel Il Canale verra aggiuntoal Bouquet \n"Miei Favoriti" . \nOperazione a bisogno un po di tempo..attendere
+favorites.menueadd Aggiungere il Canale nei Favoriti
+favorites.bqcreated Bouquet "Miei Favoriti" e stato creato...\n
+favorites.chadded Il Calale attuale e stato aggiunto nei Favoriti...\n
+favorites.chalreadyinbq Il Canale attuale e gia esistente nei suoi Favoriti...\n
+favorites.finalhint \nCanali aggiunti per sbaglio possono\nessere corretti nelle impostazioni Bouquet.\n
+
+sleeptimerbox.title Sleeptimer
+sleeptimerbox.hint1 Spegnimento in Min. (000=off)
+sleeptimerbox.hint2 Il dbox2 Si spegnera a questo orario.
+sleeptimerbox.announce Sleeptimer in 1 min
+
+zaptotimer.announce In un Minuto verra cambiato il Canale
+recordtimer.announce La registrazione avra inizio in un Minuto
+
+timerbar.channelswitch Cambio Canale
+timerbar.recordevent Registrazione
+timer.eventtimed.title Prenotare la Trasmissione
+timer.eventtimed.msg La strasmissione e stata prenotata.\nil dbox2 cambiera Automaticamente sul Canale.
+timer.eventrecord.title Attivare per la Registrazione
+timer.eventrecord.msg   La trasmissione e stata attivata per la registrazione
+timerlist.name Lista Timer
+timerlist.delete Cancella
+timerlist.empty per il momento non ce nessun Timer
+timerlist.deleting Timer viene cancellato
+timerlist.type.shutdown Shutdown
+timerlist.type.nextprogramm Prossimo Programma
+timerlist.type.zapto Cambia
+timerlist.type.standby Standby
+timerlist.type.record Registrazione
+timerlist.type.remind Ricordami
+timerlist.type.sleeptimer Sleeptimer
+timerlist.type.unknown Sconosciuto
+timerlist.repeat.once una sola volta
+timerlist.repeat.daily Giornalmente
+timerlist.repeat.weekly Settimanalmente
+timerlist.repeat.biweekly 2-volte alla Settimana
+timerlist.repeat.fourweekly 4-volte alla Settimana
+timerlist.repeat.monthly Ogni Mese
+timerlist.repeat.byeventdescription vedi timer
+timerlist.repeat.unknown Sconosciuto
+timerlist.program.unknown Programma Sconosciuto
+timerlist.standby.on Riattivazione dal Standby
+timerlist.standby.off Vai a  Standby 

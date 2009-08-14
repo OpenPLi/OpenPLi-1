@@ -1,0 +1,51 @@
+diff -Naur lsof_4.64_src.orig/Configure lsof_4.64_src/Configure
+--- lsof_4.64_src.orig/Configure	Mon Jun 17 22:03:44 2002
++++ lsof_4.64_src/Configure	Fri Aug 23 15:59:46 2002
+@@ -116,7 +116,7 @@
+ fi	# }
+ LSOF_AFS=""
+ LSOF_AFSV=""
+-LSOF_AR="ar cr \${LIB} \${OBJ}"
++LSOF_AR="${CROSS_COMPILE}ar cr \${LIB} \${OBJ}"
+ if test "X$LSOF_ARCH" = "X"	# {
+ then
+   LSOF_ARCH=""
+@@ -125,9 +125,9 @@
+ LSOF_CFGD=""
+ LSOF_CFGDN=""
+ LSOF_CFGF=""
+-LSOF_CFGL=""
++LSOF_CFGL="${LDFLAGS}"
+ LSOF_CINFO=""
+-LSOF_DEBUG=""
++LSOF_DEBUG="${CFLAGS}"
+ LSOF_DOC=""
+ LSOF_ERR=""
+ LSOF_FCFGL=""
+@@ -135,7 +135,7 @@
+ if test "X$LSOF_INCLUDE" = "X"	# {
+ then
+   LSOF_DINC=""
+-  LSOF_INCLUDE="/usr/include"
++  LSOF_INCLUDE=""
+ else
+   LSOF_DINC="-I$LSOF_INCLUDE"
+ fi	# }
+@@ -143,7 +143,7 @@
+ LSOF_LIB_NO=""
+ LSOF_LINUX_INCL=""
+ LSOF_PL=""
+-LSOF_RANLIB="ranlib \${LIB}"
++LSOF_RANLIB="${CROSS_COMPILE}ranlib \${LIB}"
+ LSOF_SCRIPT_CALL="yes"
+ LSOF_SPMKF=""
+ LSOF_TMP1=""
+@@ -1904,7 +1904,7 @@
+     LSOF_TSTKMEM=0
+     if test "X$LSOF_CC" = "X"	# {
+     then
+-      LSOF_CC=cc
++      LSOF_CC=${CROSS_COMPILE}gcc
+       LSOF_CCV=`$LSOF_CC -v 2>&1 | sed -n 's/.*version \(.*\)/\1/p'`
+     fi	# }
+     LSOF_DIALECT_DIR=""

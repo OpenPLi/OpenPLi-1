@@ -1,0 +1,90 @@
+1.33
+
+- new option "-loop" to permanently record to two files
+  ("*1.mpg", "*2.mpg"), resetting the PTS at each start
+  of file
+
+- fix (hope so :-) for -1ptspergop mode
+
+
+1.32
+
+- added code to handle PTS overflows at either the 32- or the
+  33-bit "border". Will need some testing, though...
+
+- if writing the output is too slow, there's now a more sensible
+  error message telling the user the avbuf was overrun
+  
+- the new default method to give the reader thread a high priority
+  is using realtime-scheduling. This may be turned off by the new
+  switch "-nort"
+
+- new experimental switch "-1ptspergop" implemented - may help
+  recording of some stations
+
+1.31
+
+- fixed a bug that caused the -altscsi mode to be broken in 1.30
+
+- (hopefully) fixed a system-header bug. Interesting that no player
+  moaned about it so far... :-)
+
+1.30
+
+- support for dbox2. Running Linux, of course. 
+
+- "new file on sync" feature: if not disabled ("-nonfos"), grab will now
+  start writing to a new file on each sync.
+
+- "checkpoints": Every 10 minutes, the status line is now emitted
+  with a newline in the end, so you get a nice overview of what happened
+  during the recording in the end. These lines are emitted even in
+  "-quiet" mode.
+
+- implemented retries for SCSI commands. This may help some users with
+  other SCSI controllers than mine - but I cannot test that...
+
+- documented "-nomux" switch and SIGUSR1/2 usage
+
+- upgraded README a lot - take a look there...
+
+- changed dropout output.
+
+1.22
+
+- Allow "-" as a special filename for "standard out"
+
+- changed console and dbox status output a little - 
+  there's an approximate "dropout" value available now.
+
+- more small tweaks
+
+1.21
+
+- the Remuxer has undergone some more changes to make the resulting
+  .mpg file compatible to some conversion programs. Big changes
+  for quite a little effect... :-)
+  
+- some bugs fixed, sorry no lenghty comments as of yet :-)
+
+1.1
+
+- new mode "-altscsi" for those who get only errors with their SCSI
+  controllers. This causes tagged command queuing not to be used.
+
+- new option "-scsiadd" allows to rescan the SCSI bus for DVB2000
+  (needed if the dbox was turned off when Linux booted)
+
+- better AC3 handling. Should work now even if more than one language
+  is transmitted.
+
+- some more tweaks to make .mpg file more compatible to other software.
+  No end of these workarounds in sight... :-)
+
+- dbox display now used to show some values during recording
+
+
+1.0
+
+- initial release
+

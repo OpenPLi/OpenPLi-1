@@ -1,0 +1,327 @@
+<eskin>
+	<author>
+		<name>Christoph Ketzler</name>
+		<email>chk@xplore-it.de</email>
+		<title>chkdesign blue II</title>
+	</author>
+
+	<fonts>
+		<font file="bluehigh.ttf" name="Blue.Regular" /> <!-- Found at dafont.com freeware -->
+		<font file="bluebold.ttf" name="Blue.Bold" /> <!-- Found at dafont.com freeware -->
+		<font file="pakenham.ttf" name="lcd" /> <!-- Found at dafont.com freeware -->
+	</fonts>
+
+	<fontalias>
+		<map name="eServiceSelector.Entry.Description" font="Blue.Regular" size="26" />
+		<map name="eStatusBar" font="Blue.Regular" size="24" />
+		<map name="eChannelInfo" font="Blue.Regular" size="28" />
+		<map name="eWindow.TitleBar" font="Blue.Bold" size="32" />
+		<map name="eWindow.Childs" font="Blue.Regular" size="30" />
+
+		<map name="eListBox.EntryText.normal" font="Blue.Regular" size="30" />
+		<map name="eServiceSelector.singleColumn.Entry.Name" font="Blue.Regular" size="30" />
+		<!--map name="eBouquetSelector.Entry.Name" font="Blue.Regular" size="32" /-->
+		<map name="eEPGSelector.Entry.Description" font="Blue.Regular" size="30" />
+		<map name="eEPGSelector.Entry.DateTime" font="Blue.Bold" size="24" />
+
+		<map name="eventview.description" font="Blue.Regular" size="32" />
+		<map name="eventview.date" font="Blue.Regular" size="30" />
+		<map name="eventview.time" font="Blue.Regular" size="30" />
+		<map name="eventview.channel" font="Blue.Regular" size="30" />
+
+		<map name="lcd.menu.title" font="lcd" size="24" />
+		<map name="lcd.menu.element" font="lcd" size="26" />
+
+		<map name="lcd.main.service_name" font="lcd" size="30" />
+		<map name="lcd.main.clock" font="lcd" size="28" />
+	</fontalias>
+
+	<colors>
+		<color name="background" color="#ff000000" />
+		<color name="header" color="#1a586D88" end="#ffffff" size="16" />
+		<color name="content" color="#1aDDE1E7" end="#3F3F54" size="16" />
+		<color name="content_selected" color="#CED4DB" end="#3F3F54" size="16" />
+		<color name="white" color="#ffffffff" end="#ffffff" size="16" />
+		<color name="osd_shadowcol" color="#11030320" />
+		<color name="osd_shadow" color="#11030320" end="#B1B2D9" size="4" />
+		<color name="osd_normal" color="#D0E1E7" end="#5B5A69" size="16" />
+		<color name="osd_epg" color="#D0E1E7" end="#5B5A69" size="16" />
+		<color name="dark" color="#586D88" end="#ffffff" size="16" />
+		<color name="light" color="#CED4DB" end="#3F3F54" size="16" />
+		<color name="middle" color="#ACB6C3" end="#3F3F54" size="16" />
+		<color name="osd_timebar" color="#1010AA"/>
+		<color name="osd_timebarborder" color="#ffffff"/>
+		<color name="shadow_red" color="#586D88" end="#ff0303" size="4" />
+		<color name="shadow_green" color="#586D88" end="#03ff03" size="4" />
+		<color name="shadow_yellow" color="#586D88" end="#ffff03" size="4" />
+		<color name="shadow_blue" color="#586D88" end="#0303ff" size="4" />
+		<color name="shadow_gray" color="#586D88" end="#282828" size="4" />
+		<!--color name="button_border_dark" color=#1a636c72" />
+		<color name="button_border_light" color=#1FFFFFF" /-->
+	</colors>
+
+	<colorscheme>
+		<map name="eStatusBar.background" color="content" />
+		<map name="eStatusBar.foreground" color="content+15" />
+
+		<map name="global.normal.background" color="content" />
+		<map name="global.normal.foreground" color="content+15" />
+
+		<map name="button.normal.background" color="content" />
+
+		<map name="global.selected.background" color="dark" />
+		<map name="global.selected.foreground" color="dark+15" />
+
+		<map name="global.disabled.background" color="content" />
+		<map name="global.disabled.foreground" color="content+7" />
+
+		<map name="eWindow.titleBar" color="header" />
+		<map name="eWindow.titleBarFont" color="header+15" />
+
+		<map name="eProgress.border" color="dark" />
+		<map name="eProgress.left" color="light" />
+		<map name="eProgress.right" color="middle" />
+		<map name="eSlider.activated.left" color="shadow_red+3" />
+		<map name="eSlider.activated.right" color="middle" />
+
+		<map name="eServiceSelector.highlight.background" color="dark" />   <!-- used for all Selectors ... EPG, Service, Bouquet-->
+		<map name="eServiceSelector.highlight.foreground" color="dark+15" />
+	</colorscheme>
+
+	<values>
+		<value name="eComboBox.smallButton.decoWidth" value="25" />
+		<value name="eWindow.titleFontSize" value="24" />
+		<value name="eWindow.borderTop" value="50" />
+		<!--value name="eWindow.borderLeft" value="4" />
+		<value name="eWindow.borderRight" value="4" />
+		<value name="eWindow.borderBottom" value="16" />
+		<value name="eWindow.borderTop" value="50" /-->
+		<value name="eWindow.titleOffsetLeft" value="0" />
+		<value name="eWindow.titleOffsetTop" value="20" />
+		<value name="eWindow.titleHeight" value="30" />
+		<value name="fontsize" value="23" />
+	</values>
+
+	<images basepath="pli_shared" target="fb">
+ 		<img name="no_pig" src="my_pig_image.png" />
+	</images>	
+
+	<images basepath="chk_v2" target="fb">
+		<img name="eComboBox.arrow" src="combo_arrow.png" />
+		<img name="eCheckbox.checked" src="checked.png" />
+		<img name="eCheckbox.unchecked" src="unchecked.png" />
+		<img name="button_red" src="../button_red.png" />
+		<img name="button_green" src="../button_green.png" />
+		<img name="button_yellow" src="../button_yellow.png" />
+		<img name="button_blue" src="../button_blue.png" />
+		<img name="button_gray" src="../button_gray.png" />
+		<img name="osd_crypt_on" src="crypt_on.png" />
+		<img name="osd_format_on" src="format_on.png" />
+		<img name="osd_dolby_on" src="dolby_on.png" />
+		<img name="osd_dolby_off" src="dolby_off.png" />
+		<img name="osd_crypt_off" src="crypt_off.png" />
+		<img name="osd_format_off" src="format_off.png" />
+		<img name="br" src="br2.png" />
+		<img name="bl" src="bl2.png" />
+		<img name="lcd_enigma_logo" src="logo.png" nomerge="yes" />
+		<img name="lcd_menu" src="lcdmenu.png" nomerge="yes" />
+		<img name="lcd_scart" src="../video.png" nomerge="yes" />
+		<img name="speaker" src="../lcd-speaker.png" nomerge="yes" />
+		<img name="lcd-clock" src="../lcd-clock.png" nomerge="yes" />
+
+		<img name="eListBox.arrow.updown" src="lbarrow.png" />
+		<img name="eListBox.arrow.left" src="lbarrow_left.png" />
+		<img name="eListBox.arrow.right" src="lbarrow_right.png" />
+		<img name="eListBox.arrow.up" src="lbarrow_up.png" />
+		<img name="eListBox.arrow.down" src="lbarrow_down.png" />
+
+		<img name="eWindow.top" src="t.png" />
+		<img name="eWindow.topLeft" src="tl.png" />
+		<img name="eWindow.topRight" src="tr.png" />
+		<!--<img name="eWindow.left" src="chk_v2/blind.png" />
+		<img name="eWindow.right" src="chk_v2/blind.png" />-->
+		<img name="eWindow.bottomLeft" src="bl.png" />
+		<img name="eWindow.bottom" src="b.png" />
+		<img name="eWindow.bottomRight" src="br.png" />
+		<img name="3DBorder.unselected.corner.light" src="3D_border_unselected_corner_light.png" />
+		<img name="3DBorder.unselected.corner.dark" src="3D_border_unselected_corner_dark.png" />
+		<img name="3DBorder.unselected.corner.lightDark" src="3D_border_unselected_corner_lightDark.png" />
+		<img name="3DBorder.unselected.corner.darkLight" src="3D_border_unselected_corner_darkLight.png" />
+		<img name="3DBorder.unselected.hor.dark" src="3D_border_unselected_hor_dark.png" />
+		<img name="3DBorder.unselected.hor.light" src="3D_border_unselected_hor_light.png" />
+		<img name="3DBorder.unselected.ver.dark" src="3D_border_unselected_ver_dark.png" />		
+		<img name="3DBorder.unselected.ver.light" src="3D_border_unselected_ver_light.png" />
+		<img name="dvrtable" src="dvr-fs8.png" />
+	</images>
+
+	<imagealias>
+		<map name="eStatusBar.top" img="3DBorder.unselected.hor.light" />
+		<map name="eStatusBar.left" img="3DBorder.unselected.ver.light" />
+		<map name="eStatusBar.topLeft" img="3DBorder.unselected.corner.light" />
+		<map name="eStatusBar.bottom" img="3DBorder.unselected.hor.dark" />
+		<map name="eStatusBar.right" img="3DBorder.unselected.ver.dark" />
+		<map name="eStatusBar.bottomRight" img="3DBorder.unselected.corner.dark" />		
+		<map name="eStatusBar.topRight" img="3DBorder.unselected.corner.lightDark" />
+		<map name="eStatusBar.bottomLeft" img="3DBorder.unselected.corner.lightDark" />		
+
+		<map name="eComboBox.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eComboBox.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eComboBox.topLeft" img="3DBorder.unselected.corner.dark" />
+		<map name="eComboBox.bottom" img="3DBorder.unselected.hor.light" />
+		<map name="eComboBox.right" img="3DBorder.unselected.ver.light" />
+		<map name="eComboBox.bottomRight" img="3DBorder.unselected.corner.light" />		
+		<map name="eComboBox.topRight" img="3DBorder.unselected.corner.darkLight" />
+		<map name="eComboBox.bottomLeft" img="3DBorder.unselected.corner.darkLight" />		
+
+		<map name="eComboBox.listbox.bottom" img="3DBorder.unselected.hor.dark" />
+		<map name="eComboBox.listbox.right" img="3DBorder.unselected.ver.dark" />
+		<map name="eComboBox.listbox.bottomLeft" img="3DBorder.unselected.corner.dark" />
+		<map name="eComboBox.listbox.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eComboBox.listbox.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eComboBox.listbox.topRight" img="3DBorder.unselected.corner.dark" />		
+		<map name="eComboBox.listbox.bottomRight" img="3DBorder.unselected.corner.dark" />
+		<map name="eComboBox.listbox.topLeft" img="3DBorder.unselected.corner.dark" />		
+
+		<map name="eButton.top" img="3DBorder.unselected.hor.light" />
+		<map name="eButton.left" img="3DBorder.unselected.ver.light" />
+		<map name="eButton.topLeft" img="3DBorder.unselected.corner.light" />
+		<map name="eButton.bottom" img="3DBorder.unselected.hor.dark" />
+		<map name="eButton.right" img="3DBorder.unselected.ver.dark" />
+		<map name="eButton.bottomRight" img="3DBorder.unselected.corner.dark" />		
+		<map name="eButton.topRight" img="3DBorder.unselected.corner.lightDark" />
+		<map name="eButton.bottomLeft" img="3DBorder.unselected.corner.lightDark" />		
+
+		<map name="eNumber.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eNumber.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eNumber.topLeft" img="3DBorder.unselected.corner.dark" />
+		<map name="eNumber.bottom" img="3DBorder.unselected.hor.light" />
+		<map name="eNumber.right" img="3DBorder.unselected.ver.light" />
+		<map name="eNumber.bottomRight" img="3DBorder.unselected.corner.light" />		
+		<map name="eNumber.topRight" img="3DBorder.unselected.corner.darkLight" />
+		<map name="eNumber.bottomLeft" img="3DBorder.unselected.corner.darkLight" />		
+
+		<map name="eListBox.top" img="3DBorder.unselected.hor.dark" />
+		<map name="eListBox.left" img="3DBorder.unselected.ver.dark" />
+		<map name="eListBox.topLeft" img="3DBorder.unselected.corner.dark" />
+		<map name="eListBox.bottom" img="3DBorder.unselected.hor.light" />
+		<map name="eListBox.right" img="3DBorder.unselected.ver.light" />
+		<map name="eListBox.bottomRight" img="3DBorder.unselected.corner.light" />		
+		<map name="eListBox.topRight" img="3DBorder.unselected.corner.darkLight" />
+		<map name="eListBox.bottomLeft" img="3DBorder.unselected.corner.darkLight" />		
+	</imagealias>
+
+	<object name="enigma_lcd_main">
+		<eZapLCDMain position="0:0" size="120:64">
+			<eLabel position="0:0" size="120:45" font="lcd.main.service_name" wrap="on" name="service_name" />
+			<eLabel position="74:44" size="46:23" font="lcd.main.clock" name="clock" align="right" />
+			<eLabel position="0:53" size="9:13" pixmap="speaker" />
+			<eLabel position="0:46" size="7:7" pixmap="lcd-clock" />
+			<eProgress position="9:56" size="64:8" name="volume_bar" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+			<eProgress position="9:46" size="64:9" name="progress_bar" foregroundColor="255" leftColor="255" rightColor="0" border="1" />
+		</eZapLCDMain>
+	</object> 
+
+	<object name="enigma_lcd_scart">
+		<eZapLCDScart position="0:0" size="120:64">
+			<eProgress position="7:2" size="65:6" name="volume_bar" foregroundColor="0" leftColor="0" rightColor="255" border="1" />
+			<eLabel position="0:0" size="120:17" pixmap="lcd_enigma_logo" />
+		  <eLabel position="4:20" size="112:38" pixmap="lcd_scart" />	
+		</eZapLCDScart>
+	</object>
+
+	<object name="ezap_main">
+		<eZapMain position="70:382" size="580:134" >
+                        
+			<eLabel position="89:113" size="15:21" pixmap="bl" name="bl" />
+			<eLabel position="565:113" size="15:21" pixmap="br" name="br" />
+			<!--kanalnummer --> 
+			<eWidget position="0:39" size="70:70" backgroundColor="dark" />
+			<eWidget position="75:39" size="3:70" backgroundColor="dark" />
+                                   
+			<!--Klammer links  -->
+			<eWidget position="91:0" size="17:4" backgroundColor="dark" />
+			<eWidget position="91:32" size="17:4" backgroundColor="dark" />
+			<eWidget position="86:0" size="5:36" backgroundColor="dark" />
+
+			<!--Klammer rechts  -->
+			<eWidget position="558:0" size="17:4" backgroundColor="dark" />
+			<eWidget position="558:32" size="17:4" backgroundColor="dark" />
+			<eWidget position="575:0" size="5:36" backgroundColor="dark" />
+
+			<eWidget position="158:113" size="407:21" backgroundColor="dark" />
+
+			<eWidget name="dvbInfoBar" position="87:39" size="493:70">
+				<!--Zeilen  -->
+				<eWidget position="0:0" size="493:33" backgroundColor="light" />
+				<eWidget position="0:37" size="493:33" backgroundColor="middle" />
+
+				<eLabel position="3:3" size="55:30" font="Nimbus;22" name="e_now_time" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel position="3:40" size="55:30" font="Nimbus;22" name="e_next_time" backgroundColor="middle" foregroundColor="middle+15" />
+
+				<eLabel position="65:3" size="346:30" font="Blue.Regular;29" name="e_now_title" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel position="65:40" size="346:30" font="Blue.Regular;29" name="e_next_title" backgroundColor="middle" foregroundColor="middle+15" />
+
+				<eLabel position="401:5" size="90:26" font="Blue.Regular;26" name="e_now_duration" align="right" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel position="401:44" size="90:26" font="Blue.Regular;26" name="e_next_duration" align="right" backgroundColor="middle" foregroundColor="middle+15" />
+			</eWidget>
+
+			<eWidget name="fileInfoBar" position="87:39" size="493:70">
+				<eLabel position="0:0" size="e:e" font="Blue.Regular;29" name="fileinfos" backgroundColor="middle" foregroundColor="middle+15" wrap="on" />
+			</eWidget>
+                                                                            
+			<!--schatten
+			<eWidget position="14:85" size="113:10" backgroundColor="osd_shadowcol" />
+			<eWidget position="117:15" size="10:80" backgroundColor="osd_shadowcol" />
+			<eWidget position="127:35" size="478:25" backgroundColor="osd_shadowcol" />
+			<eWidget position="44:170" size="561:10" backgroundColor="osd_shadowcol" />
+			<eWidget position="595:35" size="10:135" backgroundColor="osd_shadowcol" />
+                                    -->
+			<!--
+			<eWidget position="560:69" size="95:20" backgroundColor="osd_timebarborder" />
+			<eWidget position="562:71" size="91:16" backgroundColor="osd_timebar" />
+			-->
+
+			<!--texte         -->
+			<eLabel position="0:79" size="65:30" font="Blue.Bold;32" name="ch_number" align="right" backgroundColor="dark" foregroundColor="dark+15" />
+
+			<eLabel position="96:4" size="479:27" font="Blue.Bold;36" name="ch_name" backgroundColor="white" foregroundColor="white+15" vcenter="on" />
+                                                      
+			<eLabel position="104:113" size="56:21" font="Blue.Regular;24" name="time" align="center" backgroundColor="dark" foregroundColor="dark+15" />
+
+			<eProgress position="160:115" size="150:16" name="progress_bar" foregroundColor="middle" border="1" />
+
+			<eLabel position="492:115" size="12:15" pixmap="osd_crypt_on" name="osd_crypt_on" />
+			<eLabel position="492:115" size="12:15" pixmap="osd_crypt_off" name="osd_crypt_off"/>
+
+			<eLabel position="508:115" size="28:15" pixmap="osd_format_on" name="osd_format_on"/>
+			<eLabel position="508:115" size="28:15" pixmap="osd_format_off" name="osd_format_off"/>
+			
+			<eLabel position="538:115" size="25:15" pixmap="osd_dolby_on" name="osd_dolby_on"/>
+			<eLabel position="538:115" size="25:15" pixmap="osd_dolby_off" name="osd_dolby_off"/>
+
+			<eLabel name="description" />
+		<!--	 -->
+			<eLabel position="393:117" size="12:12" pixmap="button_red" name="button_red_enabled" alphatest="on" />
+			<eLabel position="413:117" size="12:12" pixmap="button_green" name="button_green_enabled" alphatest="on" />
+			<eLabel position="433:117" size="12:12" pixmap="button_yellow" name="button_yellow_enabled" alphatest="on" />
+			<eLabel position="453:117" size="12:12" pixmap="button_blue" name="button_blue_enabled" alphatest="on" />
+
+			<eLabel position="393:117" size="12:12" pixmap="button_gray" name="button_red_disabled" alphatest="on" />
+			<eLabel position="413:117" size="12:12" pixmap="button_gray" name="button_green_disabled" alphatest="on" />
+			<eLabel position="433:117" size="12:12" pixmap="button_gray" name="button_yellow_disabled" alphatest="on" />
+			<eLabel position="453:117" size="12:12" pixmap="button_gray" name="button_blue_disabled" alphatest="on" />
+
+			<eLabel name="recStatus" position="7:42" size="12:12" pixmap="button_red" alphatest="on" />
+
+			<eLabel name="dvrInfoBar" position="87:39" size="493:70" pixmap="dvrtable">
+				<eLabel text="FR " position="54:5" size="85:30" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel text="Play " position="175:5" size="85:30" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel text="Pause " position="280:5" size="85:30" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel text="FF " position="405:5" size="85:30" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel text="Stop " position="54:35" size="85:30" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel text="Record " position="180:35" size="85:30" backgroundColor="light" foregroundColor="light+15" />
+				<eLabel name="TimeLeft" position="280:35" size="200:30" backgroundColor="light" foregroundColor="light+15" />
+			</eLabel>
+		</eZapMain>
+	</object>
+</eskin>

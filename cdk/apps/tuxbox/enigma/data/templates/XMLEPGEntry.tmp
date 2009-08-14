@@ -1,0 +1,10 @@
+<event id="#NO#">
+	<date>#DATE#</date>
+	<time>#TIME#</time>
+	<duration>#DURATION#</duration>
+	<description>#DESCRIPTION#</description>
+	<genre>#GENRE#</genre>
+	<genrecategory>#GENRECATEGORY#</genrecategory>
+	<start>#START#</start>
+	<details>#DETAILS#</details>
+</event>

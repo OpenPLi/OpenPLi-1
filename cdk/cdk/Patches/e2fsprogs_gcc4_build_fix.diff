@@ -1,0 +1,11 @@
+diff -Naur e2fsprogs-1.35/util/subst.c e2fsprogs-1.35-fixed/util/subst.c
+--- e2fsprogs-1.35/util/subst.c	2003-12-07 18:11:38.000000000 +0100
++++ e2fsprogs-1.35-fixed/util/subst.c	2005-09-13 16:09:14.000000000 +0200
+@@ -8,7 +8,6 @@
+ #include <stdio.h>
+ #include <errno.h>
+ #include <stdlib.h>
+-#include <unistd.h>
+ #include <string.h>
+ #include <ctype.h>
+ 

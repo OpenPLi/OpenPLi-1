@@ -1,0 +1,77 @@
+#
+#   Parts of the development effort for this project have been
+#   sponsored by SIEMENS AG, Austria. Thanks to SIEMENS for
+#   supporting an Open Source project!
+#
+#
+#   This is at least a partial credits-file of individual people that
+#   have contributed to the PPCBOOT project. It is sorted by name and
+#   formatted to allow easy grepping and beautification by scripts.
+#   The fields are: name (N), email (E), web-address (W), PGP key ID
+#   and fingerprint (P), description (D), and snail-mail address (S).
+#   Thanks,
+#
+#                       Wolfgang Denk
+#----------
+
+N: Andre Beaudin
+E: <andre.beaudin@colubris.com>
+D: PCMCIA, Ethernet, TFTP
+
+N: Raphael Bossek
+E: raphael.bossek@solutions4linux.de
+D: 8xxrom-0.3.0
+
+N: David Brown
+E: DBrown03@harris.com
+D: Extensions to 8xxrom-0.3.0
+
+N: Magnus Damm
+E: eramdam@kieray1.p.y.ki.era.ericsson.se
+D: 8xxrom
+
+N: Wolfgang Denk
+E: wd@denx.de
+D: PPCBOOT initial version
+W: www.denx.de
+
+N: Dan A. Dickey
+E: ddickey@charter.net
+D: FADS Support
+
+N: Marius Groeger
+E: mgroeger@sysgo.de
+D: MBX Support, board specific function interface
+W: www.elinos.com
+
+N: Kirk Haderlie
+E: khaderlie@vividimage.com
+D: Added TFTP to 8xxrom (-> 0.3.1)
+
+N: Murray Jensen
+E: Murray.Jensen@cmst.csiro.au
+D: Added port to the Cogent platform
+
+N: Dan Malek
+E: dan@netx4.com
+D: FADSROM, the grandfather of all of this
+
+N: Stefan Roese
+E: stefan.roese@esd-electronics.com
+D: IBM PPC401/403/405GP Support; Windows environment support
+
+N: Neil Russell
+E: caret@c-side.com
+D: Author of LiMon-1.4.2, which contributed some ideas
+
+N: Paolo Scaffardi
+E: arsenio@tin.it
+D: FADS823 configuration, MPC823 video support, I2C, wireless keyboard, lots more
+
+N: Rob Taylor
+E: robt@flyingpig.com
+D: Port to MBX860T and Sandpoint8240
+
+N: Christian Vejlbo
+E: christian.vejlbo@tellabs.com
+D: FADS860T ethernet support

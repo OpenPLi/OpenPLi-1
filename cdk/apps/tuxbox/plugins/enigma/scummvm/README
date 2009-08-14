@@ -1,0 +1,49 @@
+This is a plugin to start scummvm-games (see http://www.scummvm.org)
+Requirements:
+- the scummvm-binary has to be installed to directory /hdd/scummvm/ and made executable. 
+- the directory /hdd/scummvm/savegames/ has to exist (savegames are stored there)
+- scummvm may not work if you haven't need swap activated
+
+After a game is added by scummvm it will be shown in the list the next time you start the plugin.
+Additionally every savegame is added to the list so that you can easily start a saved game
+
+Controls:
+
+UP/DOWN/LEFT/RIGHT	: Move mouse pointer
+OK			: left mouse button
+BLUE			: right mouse button
+DREAM/MENU		: main menu
+RED			: skip cutscenes
+EXIT/LAME		: quit scummvm
+VOL+/-			: increase/decrease sound volume
+GREEN/YELLOW		: increase/decrease text speed
+MUTE			: pause game
+
+You can also use the mouse-control of the DMM-Keybord
+
+
+
+---------------------------------------------
+Dies ist ein Plugin zum Starten von ScummVM-Spielen (Näheres siehe http://www.scummvm.org)
+
+Vorraussetzungen:
+- Das scummvm-Binary muss im Verzeichnis /hdd/scummvm/ liegen und ausführbar sein.
+- Es muss das Verzeichnis /hdd/scummvm/savegames/ existieren (darin werden die gespeicherten Spielstände abgelegt
+- ScummVm wird vermutlich ohne aktivierten Swap nicht laufen
+
+Nachdem ein Spiel über scummVM hinzugefügt wurde, erscheint es beim nächsten Aufruf des Plugins in der Liste der Spiele
+Zusätzlich erscheinen alle gespeicherten Spielstände in der Liste, sodass man bequem direkt einen Spielstand aufrufen kann.
+
+Steuerung:
+
+HOCH/RUNTER/LINKS/RECHTS: Bewegung des Mauszeigers
+OK			: entspricht linker Maustaste
+BLAU			: entspricht rechter Maustaste
+DREAM/MENU		: Hauptmenü
+ROT			: Zwischensequenzen überspringen
+EXIT/LAME		: ScummVM beenden
+VOL+/-			: Lautstärke ändern
+GRÜN/GELB		: Textgeschwindigkeit ändern
+MUTE			: Spiel pausieren
+
+Der Mauszeiger kann auch mit dem Mausknubbel der DMM-Tastatur gesteuert werden

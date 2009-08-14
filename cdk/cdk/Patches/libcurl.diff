@@ -1,0 +1,11 @@
+diff -Naur curl-7.9.1.orig/curl-config.in curl-7.9.1/curl-config.in
+--- curl-7.9.1.orig/curl-config.in	Thu Aug 16 15:09:20 2001
++++ curl-7.9.1/curl-config.in	Thu Sep 19 00:24:42 2002
+@@ -73,7 +73,6 @@
+ 	;;
+ 
+     --cflags)
+-       	echo -I@includedir@
+        	;;
+ 
+     --libs)

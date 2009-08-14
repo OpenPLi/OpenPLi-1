@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: tuxbox-connection
+Description: connection
+Version: @VERSION@
+Libs: -L${libdir} -ltuxbox-connection
+Cflags: -I${includedir}/tuxbox/connection

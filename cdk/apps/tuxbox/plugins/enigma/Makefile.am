@@ -1,0 +1,1 @@
+SUBDIRS = bitrate demo dreamdata ngrabstart ngrabstop dslconnect dsldisconnect rss script weather dbswitch getset dreamflash movieplayer scummvm mv plimgr imdb dreamnetcast setupnetwork webstream2db inadyn dbepg remotetimer lancontrol

@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title>Image Settings</title>
+	</head>
+	<body onUnload="parent.window.opener.location.reload(true)">
+		<form name="imagesettings" action="/cgi-bin/setimagesettings">
+			<input type="hidden" name="image" value="#IMAGE#">
+			<table border="0" cellspacing="5" cellpadding="0">
+			<tr>
+				<td>Name:</td>
+				<td>
+					<input style="color:#000000" name="name" type="text" size="20" maxlength="256" value="#NAME#">
+				</td>	
+			</tr>
+			<tr>
+				<td>Reload Drivers:</td>
+				<td>
+					<input type="checkbox" name="reload_modules" value="on" #RELOADMODULES#>
+				</td>
+			</tr>
+			<tr>
+				<td>Disable HDD and CF mount:</td>
+				<td>
+					<input type="checkbox" name="fast_boot" value="on" #FASTBOOT#>
+				</td>
+			</tr>
+			<tr>
+				<td>Don't start DCCamd:</td>
+				<td>
+					<input type="checkbox" name="dont_start_dccamd" value="on" #DONTSTARTDCCAMD#>
+				</td>
+			</tr>	
+			</table>
+			<br>
+			<input style="color: #000000; width: 100px" type="submit" size="100px" value="Save">
+		</form>
+	</body>
+</html>

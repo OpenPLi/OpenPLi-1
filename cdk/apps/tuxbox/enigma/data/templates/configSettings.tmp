@@ -1,0 +1,104 @@
+<form name="configsettings" action="/cgi-bin/setConfigSettings">
+<h2>Network</h2>
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>MaxMTU (default: 1500):</td>
+	<td>
+		<input style="color:#000000" name="maxmtu" type="text" size="4" maxlength="4" value="#MAXMTU#">
+	</td>
+</tr>
+<tr>
+	<td>Activate Samba daemons:</td>
+	<td>
+		<input type="checkbox" name="samba" value="on" #SAMBA#>
+	</td>
+</tr>
+</table>
+<h2>Harddisk</h2>
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>Standby (min):</td>
+	<td>
+		<input style="color:#000000" name="hddstandby" type="text" size="3" maxlength="3" value="#HDDSTANDBY#">
+	</td>
+</tr>
+<tr>
+	<td>Acoustics:</td>
+	<td>
+		<input style="color:#000000" name="hddacoustics" type="text" size="3" maxlength="3" value="#HDDACOUSTICS#">
+	</td>
+	</td>
+</tr>
+</table>
+<h2>Timer</h2>
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>Time Start Offset (min):</td>
+	<td>
+		<input style="color:#000000" name="timeroffsetstart" type="text" size="2" maxlenght="2" value="#TIMEROFFSETSTART#">
+		&nbsp;&nbsp;(time a timer event starts earlier)
+	</td>	
+</tr>
+<tr>
+	<td>Time Stop Offset (min):</td>
+	<td>
+		<input style="color:#000000" name="timeroffsetstop" type="text" size="2" maxlenght="2" value="#TIMEROFFSETSTOP#">
+		&nbsp;&nbsp;(time a timer event finishes later)
+	</td>	
+</tr>
+</table>
+<h2>Audio Channels Priority</h2>
+Specifies the priority of audio channels (e.g. german#audio 1#english... use # as separator). When zapped to a tv channel, the audio channel (if available) will be selected with this priority.
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>
+		<input style="color:#000000" name="audiochannelspriority" type="text" size="90" maxlenght="256" value="#AUDIOCHANNELSPRIORITY#">
+	</td>	
+</tr>
+</table>
+<h2>Miscellaneous</h2>
+<table border=0 cellspacing=5 cellpdding=0>
+<tr>
+	<td>Show satellite positions on info bar:</td>
+	<td>
+		<input type="checkbox" name="showsatpos" value="on" #SHOWSATPOS#>
+	</td>	
+</tr>
+<tr>
+	<td>Web Interface password protection:</td>
+	<td>
+		<input type="checkbox" name="webiflock" value="on" #WEBIFLOCK#>
+	</td>
+</tr>
+</table>
+<h2>Trusted hosts</h2>
+Specifies the hosts in the network who don't have to authenticate<br>
+when connecting to the Box by Web-Interface,<br>
+seperated by semicolon (e.g "localhost;192.168.1.10")
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>
+		<input style="color:#000000" name="trustedhosts" type="text" size="90" maxlength="256" value="#TRUSTEDHOSTS#">
+	</td>	
+</tr>
+</table>
+<h2>EPG cache path</h2>
+Specifies the path where the epg cache of the memory store will be saved when shutting down the box<br>
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>
+		<input style="color:#000000" name="epgcachepath" type="text" size="90" maxlength="256" value="#EPGCACHEPATH#">
+	</td>	
+</tr>
+</table>
+Specifies the path where the epg of the SQLlite store will be saved<br>
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>
+		<input style="color:#000000" name="epgsqlpath" type="text" size="90" maxlength="256" value="#EPGSQLPATH#">
+	</td>	
+</tr>
+</table>
+<br><br>
+<input style="color: #000000; width: 100px" type="submit" size="100px" value="Save">
+</form>

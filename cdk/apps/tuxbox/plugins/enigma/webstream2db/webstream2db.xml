@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<feeds>
+	<feed>
+		<name>TVOost</name>
+		<url>mms://media.rtvoost.nl/TVOost</url>>
+	</feed>	
+	<feed>
+		<name>Omrop Fryslan</name>
+		<url>mms://streams.omroep.nl/tv/nos/omropfryslan/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Talpa TV</name>
+		<url>http://62.59.253.8/livestream1</url>
+	</feed>		
+	<feed>
+		<name>De Wereld Draait door: Verlenging</name>
+		<url>http://switch.streamgate.nl/cgi-bin/streamswitch?streamid=3&#38;a=.asx</url>
+	</feed>
+	<feed>
+		<name>Nova</name>
+		<url>mms://streams.omroep.nl/tv/nps/nova/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Lamas</name>
+		<url>mms://streams.omroep.nl/tv/bnn/delamas/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Spuiten en Slikken</name>
+		<url>mms://streams.omroep.nl/tv/bnn/spuitenenslikken/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Try before you Die</name>
+		<url>mms://streams.omroep.nl/tv/bnn/trybeforeyoudie/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Opsporing verzocht</name>
+		<url>mms://streams.omroep.nl/tv/avro/opsporingverzocht/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Blik op de Weg</name>
+		<url>mms://streams.omroep.nl/tv/avro/blikopdeweg/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Koefnoen</name>
+		<url>mms://streams.omroep.nl/tv/avro/koefnoen/bb.laatste.asf</url>
+	</feed>	
+	<feed>
+		<name>Pauw en Witteman</name>
+		<url>mms://streams.omroep.nl/tv/vara/pauwenwitteman/bb.laatste.asf</url>
+	</feed>				
+	<feed>
+		<name>Opgelicht</name>
+		<url>mms://streams.omroep.nl/tv/tros/opgelicht/bb.laatste.asf</url>
+	</feed>		
+	<feed>
+		<name>Radar</name>
+		<url>mms://streams.omroep.nl/tv/tros/radar/bb.laatste.asf</url>
+	</feed>				
+	<feed>
+		<name>De leugen regeert</name>
+		<url>mms://streams.omroep.nl/tv/vara/deleugenregeert/bb.laatste.asf</url>
+	</feed>				
+	<feed>
+		<name>De leugen regeert</name>
+		<url>mms://streams.omroep.nl/tv/vara/deleugenregeert/bb.laatste.asf</url>
+	</feed>				
+	<feed>
+		<name>Kassa</name>
+		<url>mms://streams.omroep.nl/tv/vara/kassa/bb.laatste.asf</url>
+	</feed>				
+	<feed>
+		<name>Mooi weer De Leeuw</name>
+		<url>mms://streams.omroep.nl/tv/vara/mooiweerdeleeuw/bb.laatste.asf</url>
+	</feed>						
+
+	<feed>
+		<name>Zembla</name>
+		<url>mms://streams.omroep.nl/tv/vara/zembla/bb.laatste.asf</url>
+	</feed>			
+</feeds>

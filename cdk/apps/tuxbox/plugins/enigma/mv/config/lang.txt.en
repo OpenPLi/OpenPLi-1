@@ -1,0 +1,405 @@
+# English language text file for MV
+#
+# -------------------------------------------------------- #
+#
+# Rules:
+#
+# - all lines which are not intended as a text must start
+# with a # or be completely (i.e. no spaces) blank
+# - the order of items cannot be changed.
+# - all items must be included.
+#
+# -------------------------------------------------------- #
+#
+# Version string
+
+MV B3.5
+
+# Welcome screen (shown once per version)
+
+Welcome to MV, an EPG for the Dreambox\nby PentVaer.\n\nSome things to try:\n\n    press 1-9, HELP or DREAM.\n\nUserguide:\n\n    http://mv.dinglisch.net/userguide.html\n\nHope you like it!
+
+# Buttons
+
+Done
+Add
+Delete
+Edit
+Unknown
+Mapped
+Ignore
+
+# - new Alex
+
+General Features
+Channel Features
+Program Features
+Status Bar Features
+Next View Selection
+
+# Next view pulldown
+
+[1] Current programs
+[2] Now and next
+[3] Info bar
+[4] Short term grid
+[5] Long term grid
+[6] List programs (one channel)
+[7] List films (all channels)
+[8] List favorites (all channels)
+[9] List programs (all channels)
+
+# ----------- PRESENTATION MENU ---------- #
+
+Background
+Font Size
+Font Family
+Back 1
+Back 2
+Playing
+Film
+Favourite
+
+# Pres menu labels
+
+Channel Header:
+Program Box:
+Window:
+
+# Pres menu test channel
+
+Channel
+Prog 1
+Prog 2
+Cursor
+Favourite
+Film
+
+# --------------- MISC MENU -------------- #
+
+Timer Start Offset: 
+Timer End Offset:
+View Offset:
+
+Aspect Ratio:
+As Enigma
+Always 16:9
+Always 4:3
+
+Warning: this setting has no effect unless your Enigma aspect ratio setting is '16:9'.
+
+# ------------- FEATURE MENU ------------ #
+
+# timebar labels
+
+TimeBar:
+Off
+15 Minutes
+Half Hour
+One Hour
+Two Hours
+
+# daybar labels
+
+DayBar:
+Off
+Fixed
+Popup
+
+# no cols
+
+No Columns:
+
+# entries per col
+
+Entries/Column:
+Items/Channel:
+Proportional
+All
+
+# Channel shift type
+
+Channel Shift:
+One Channel
+Half Page
+One Page
+
+# Program shift type
+
+Program Shift:
+One Program
+Half Page
+One Page
+
+# Program box flags
+
+Start Time
+End Time
+Duration (Minutes)
+Channel Name
+Difference Current Time to Start Time
+Program Description
+Channel Icon
+Horizontal Centre Program Title
+
+# Status bar flags
+
+Show Status Bar
+Channel Name
+Date
+Start Time
+Duration (minutes)
+Title
+Description
+
+# Channel header
+
+Channel Name in Header
+Channel Icon in Header
+Channel Number in Header
+Satellite Orbital Position in Header
+
+# Misc
+
+Elapsed
+Vertical Separators
+Horizontal Separators
+Show Empty Channels
+Cursor Enters Empty Channels
+
+# start channel
+
+Start Channel:
+Playing
+Top
+
+# next view
+
+This One
+
+# sort types
+
+Sort By:
+Bouquet Order
+Alphabetic
+Time Remaining
+Bouq/StartTime
+StartTime
+
+# --------------- INPUT MENU --------------- #
+
+# table headers
+
+Input
+LocalDir
+Download
+
+# Network column labels
+
+No
+Yes
+No network!
+
+# pre/post values
+
+Pre:
+Post:
+Tmp Detail Store:
+Storage Dir:
+Auto Dirs
+Channels Max
+Auto Reload
+
+# ------------ FAV EDIT MENU ------------- #
+
+Title:
+Any
+All
+All, In Order
+None
+
+Descr:
+Channel:
+Between:
+Outside of:
+and
+
+Notify
+
+# If user tries to exit when a download is going...
+
+Download in progress, please wait...
+
+# When user tries to change a channel or exit when
+# an MHW scan is going
+
+Converting XMLTV file(s), please wait...
+
+# View mode help title/contents
+
+Graphical View Controls
+1/2/3 - switch to view\n6/7/8/9 - list channel/films/favs/all\n</> - select jump day\nBqUp/BqDn - select jump time\n0 - reload data/day bar select\nSHIFT-RED - show timer list\nSHIFT-GREEN - add favourite program\nAUDIO - bouquet selector\nCOLOUR - delete/DVR/Ngrab/switch timer\nDREAM - show menu\nOK - cursor/play service/exit\nINFO - show descr/IMDB/stream info\nTV/RADIO/TEXT - fill bouquet cache data (chan/this sat/all sats)\nVIDEO - hide window\nLAME - remove cursor/exit
+
+# Edit mode help title/contents
+
+Edit Mode Controls
+< - shrink timescale\n> - stretch timescale\nCURSOR KEYS - move window\n2/4/6/8 - resize window\n0 - focus main window/time/status\nBouquet Up/Down - channel height\n7/9 - channel header width\nDREAM - show menu\nOK - end editing\nVIDEO = hide window\nLAME - exit
+
+# Program list view help title/contents
+
+Program List Controls
+INFO - show descr current program + IMDB (press twice)\n0 - reload data\nAUDIO - show bouquet selector\nSHIFT-RED - show timer list\nRED - delete timer event\nGREEN - DVR timer event\nYELLOW - Ngrab timer event\nBLUE - switch channel timer event\nSHIFT-GREEN - add favourite program\nBOUQUET UP/DN - activate channel picker\n</> - prev/next channel EPG\nOK - play selected item channel\nLAME - exit
+
+# Program list edit help title/contents
+
+Program List Edit Controls
+CURSOR KEYS - move window\n2/4/6/8 - resize window\n0 - toggle main window/status bar\nOK - return to view mode\nMENU - show menu\nLAME - exit
+
+# About title/content
+
+By Pent Vaer, 2004.\n\nThanks to my lovely wife Sabrina for waiting patiently during the Nth reboot of the evening.\n\nThanks to PLi for the mhwepg binary, help\nintegrating it with MV and general\ncorrespondence. Thanks to Bjorn Hijmans for helping\nwith development adn providing a server for IMDB data.\nThanks also to Alex Shtol for various bit of help,\nespecially reworking the feature menu.\n\nNo thanks to my interfering daughters,\nJade & Skye.
+
+# Feedback title/content
+
+MV Feedback
+I welcome feedback at the following place:\n\nhttp://sourceforge.net/projects/mv-plugin/
+
+# Tips title/content
+
+MV Tips
+* there are different HELP screens for graphical\nviews, list views and graph/list edit mode\n\n* pressing INFO again on the description window will query IMDB if you have network\n\n* once the day bar is active, you can use the\ncursor keys and OK button with it\n\n* after using the cursor, go back to fast\nscrolling by pressing the LAME button\n\n* pressing info when MV is hidden will show\ninfo for the playing program
+
+# Daybar labels
+
+Sun
+Mon
+Tue
+Wed
+Thu
+Fri
+Sat
+
+# Main menu title/items
+
+MV Menu
+Edit View Geometry
+Edit View Font/Colour
+Edit View Features
+Input Config
+Alias Manager
+Favourites Manager
+Misc Settings
+About
+Tips
+Feedback
+Reset Config
+
+# Misc Menu title
+
+MV Misc Menu
+
+# Alias Manager title
+
+MV Alias Manager
+
+# Favourite Manager title
+
+MV Favourite Manager
+
+# Favourite Edit window title
+
+MV Favourite Editor
+
+# Features  window title
+
+MV Feature Editor
+
+# Inputs edit window title
+
+MV Input Configuration
+
+# Presentation editor window title
+
+MV Fonts/Colours
+
+# Channel picker window title
+
+Channel Picker
+
+# Program list window title prefix
+
+Program List: 
+
+# Title for user confirmation box
+# and various texts for that box too
+
+Sure ?
+
+# Reset config confirmation
+
+This will remove all configuration changes you have made.
+
+# Set MyXMLTV input
+
+For this input you must provide data yourself\n e.g. by generating files on your PC and transferring them via FTP.\n\nSee http://mv.dinglisch.net/userguide.html#xmltv
+
+# IMDB
+
+No matching IMDB records were found.
+This program isn't a film!
+
+# Numbers
+
+One
+Two
+Three
+Four
+Five
+Six
+Seven
+Eight
+Nine
+
+# 
+
+Deleting old (bad) config
+Please wait, download in progress...
+
+# Error Messages
+
+The system time is not properly set.\nIf you've just turned on the receiver, please try again once you see a time in the display. If not, try changing the TV channel and waiting for a minute, maybe the current channel is not transmitting the correct time.
+
+Couldn't open conf file to write
+Config write failed
+Out of memory, probably I'll crash now...
+A network connection is required for this action.
+
+Bad XML in file: 
+Not an XML file, no root node: 
+Not an XML file, bad root node: 
+
+Download Error: 
+Failed to rename download tempfile: 
+Filesize zero after download: 
+File didn't exist after transfer: 
+
+Error deleting old files in 
+Failed to write favourites to 
+Bad favourites line: 
+Couldn't open inpet def file to write: 
+Couldn't open input defs: 
+Bad line in input defs: 
+Error writing map file.
+Couldn't make cache dir: 
+Warning: input name has no definition: 
+Bad input type for input name: 
+Bad input format specified for file:
+Couldn't move converted XMLTV tmpfile to: 
+Failed to make directory: 
+Failed to move old cache to tempfile: 
+Failed to open cache backup file: 
+Error deleting temp cache backup: 
+Couldn't set modify time of 
+Bad character encoding: 
+
+Error storing program description in detail cache (storage full ?)

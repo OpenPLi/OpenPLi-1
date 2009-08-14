@@ -1,0 +1,42 @@
+diff -Naur linux-2.4.20/Makefile linux-2.4.20/Makefile_cygwin 
+--- linux-2.4.20/Makefile   2002-06-04 11:57:07.000000000 +0200 
++++ linux-2.4.20/Makefile_cygwin   2002-06-04 11:39:30.000000000 +0200 
+@@ -414,7 +414,7 @@ 
+ endif
+ .PHONY: _modinst_post
+ _modinst_post: _modinst_post_pcmcia
+-	if [ -r System.map ]; then $(DEPMOD) -ae -F System.map $(depmod_opts) $(KERNELRELEASE); fi
++#	if [ -r System.map ]; then $(DEPMOD) -ae -F System.map $(depmod_opts) $(KERNELRELEASE); fi 
+
+ # Backwards compatibilty symlinks for people still using old versions
+ # of pcmcia-cs with hard coded pathnames on insmod.  Remove
+@@ -489,7 +489,7 @@ 
+ 
+ dep-files: scripts/mkdep archdep include/linux/version.h
+ 	scripts/mkdep -- init/*.c > .depend
+-	scripts/mkdep -- `find $(FINDHPATH) \( -name SCCS -o -name .svn \) -prune -o -follow -name \*.h ! -name modversions.h -print` > .hdepend
++	scripts/mkdep -- 'find $(FINDHPATH) \( -name SCCS -o -name .svn \) -prune -o -follow -name \*.h ! -name modversions.h -print' > .hdepend 
+ 	$(MAKE) $(patsubst %,_sfdep_%,$(SUBDIRS)) _FASTDEP_ALL_SUB_DIRS="$(SUBDIRS)"
+ ifdef CONFIG_MODVERSIONS
+ 	$(MAKE) update-modverfile
+ diff -Naur linux-2.4.20/arch/ppc/boot/simple/Makefile linux-2.4.20/arch/ppc/boot/simple/Makefile_org 
+--- linux-2.4.20/arch/ppc/boot/simple/Makefile   2002-06-06 08:52:08.000000000 +0200 
++++ linux-2.4.20/arch/ppc/boot/simple/Makefile_org   2002-06-06 08:55:00.000000000 +0200 
+@@ -95,7 +95,7 @@ 
+ 		--set-section-flags=.image=contents,alloc,load,readonly,data \
+ 		../common/dummy.o image.o
+ 	$(LD) $(LD_ARGS) -o $@ $(obj-y) image.o $(LIBS)
+-	$(OBJCOPY) $(OBJCOPY_ARGS) $@ $@ -R .comment -R .stab -R .stabstr \
++	$(OBJCOPY) $(OBJCOPY_ARGS) $@ -R .comment -R .stab -R .stabstr \
+ 		-R .ramdisk -R .sysmap
+ 
+ zvmlinux.initrd: $(obj-y) $(LIBS) ../ld.script ../images/vmlinux.gz \
+@@ -107,7 +107,7 @@ 
+ 		--set-section-flags=.image=contents,alloc,load,readonly,data \
+ 		../common/dummy.o image.o
+ 	$(LD) $(LD_ARGS) -o $@ $(obj-y) image.o $(LIBS)
+-	$(OBJCOPY) $(OBJCOPY_ARGS) $@ $@ -R .comment -R .stab -R .stabstr \
++	$(OBJCOPY) $(OBJCOPY_ARGS) $@ -R .comment -R .stab -R .stabstr \
+ 		-R .sysmap
+ 
+ # Sort-of dummy rules, that let us format the image we want.

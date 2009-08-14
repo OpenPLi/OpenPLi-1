@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: tuxbox-configfile
+Description: configfile
+Version: @VERSION@
+Libs: -L${libdir} -lconfigfile
+Cflags: -I${includedir}/tuxbox

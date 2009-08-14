@@ -1,0 +1,555 @@
+menu.back z'ruck 
+
+options.off us 
+options.on ii 
+options.serial säriell 
+options.fb frembaffer 
+options.null null 
+
+mainmenu.head Haupdmenü 
+mainmenu.tvmode TV-Modus 
+mainmenu.radiomode Radio-Modus 
+mainmenu.scartmode Scart-Igang 
+mainmenu.games Spiele 
+mainmenu.sleeptimer Schlofzit 
+mainmenu.shutdown Usschalde 
+mainmenu.settings Ischalde 
+mainmenu.service Sörvis 
+mainmenu.streaming Sdreaming (ufnehh) 
+mainmenu.streaming_start un los 
+mainmenu.streaming_stop hald 
+
+servicemenu.head Sörvis 
+servicemenu.update Software-Öbdaede 
+servicemenu.scants Kanalsürchi 
+servicemenu.ucodecheck UCodes tschegge 
+
+cablesetup.provider Kabelabieder 
+
+satsetup.disqeqc DiSEqC 
+satsetup.satellite Sadellid 
+satsetup.extended DiSEqC-Iinstellig 
+satsetup.nodiseqc Kein DiSEqC 
+satsetup.minidiseqc Mini-DiSEqC 
+satsetup.diseqc10 DiSEqC 1.0 
+satsetup.diseqc11 DiSEqC 1.1 
+satsetup.smatvremote SMATV Remote Tuning 
+satsetup.diseqcrepeat DiSEqC-Widderholigge 
+
+mainsettings.head Iischdellige 
+mainsettings.savesettingsnow Iischdellige jetz speichere 
+mainsettings.language Sprooch 
+mainsettings.audio Audio 
+mainsettings.video Video 
+mainsettings.network Netzwerk 
+mainsettings.streaming Sdreamingsörver 
+mainsettings.colors Farbe / Theme / Schrifd 
+mainsettings.lcd LC-Display 
+mainsettings.keybinding Taste-Iischdellige 
+mainsettings.misc Diversi Iischdellige 
+mainsettings.scan Iischdellige Kanalsürch 
+
+miscsettings.head Diverse Iischdellige 
+miscsettings.shutdown_real Sdändbymodus 
+miscsettings.boxtype DBox Hersteller 
+miscsettings.startneutrinodirect Neutrino diräkt starte 
+miscsettings.general Allg'mein 
+miscsettings.fb_destination EXPERT! Boot-Chonsole 
+
+languagesetup.head Sproochischellige 
+languagesetup.select Sprooch 
+
+audiomenu.head Audio-Iischdellige 
+audiomenu.analogout Analog-Usgang 
+audiomenu.monoright mono rächts 
+audiomenu.monoleft mono lings 
+audiomenu.stereo stereo 
+audiomenu.dolbydigital Dolby Digidaal 
+
+videomenu.head Video-Iischdellige 
+videomenu.screensetup Bildbereich ischelle 
+videomenu.videosignal Video Signalart 
+videomenu.videosignal_rgb RGB 
+videomenu.videosignal_svideo S-Video 
+videomenu.videosignal_composite Composite 
+videomenu.videoformat Bildschirmformat 
+videomenu.videoformat_43 4:3 
+videomenu.videoformat_169 16:9 
+videomenu.videoformat_autodetect audomaddisch 
+videomenu.vcrswitch Scart-Eingang audomaddisch 
+
+networkmenu.head Netzwerk Iischdellige 
+networkmenu.test Netzwerk teste 
+networkmenu.show aktive NetzwerkIischdellige zeige 
+networkmenu.setupnow NetzwerkIischdellige jetz zuewiise 
+networkmenu.setuponstartup Bim Starte Netzwerk setze 
+networkmenu.ipaddress IP-Adress' 
+networkmenu.netmask Netzmaske 
+networkmenu.broadcast Broadcast 
+networkmenu.gateway Standard Gateway 
+networkmenu.nameserver Nameserver 
+
+streamingmenu.head Streamingserver Iischdellige 
+streamingmenu.usestreamserver Streamingserver nee 
+streamingmenu.streamingserver Streamingserver 
+streamingmenu.streamingserverport Port 
+streamingmenu.stopplayback Playback a'halde 
+streamingmenu.stopsectionsd Sectionsd a'halde 
+
+ping.ok isch erreichbar (ping) 
+ping.unreachable isch nidd erreichbar (unreachable) 
+ping.protocol isch nidd erreichbar (Host or protocol error) 
+ping.socket isch nidd erreichbar (Socket error) 
+
+ipsetup.hint_1 Nimm  0..9 odder abe/uffe 
+ipsetup.hint_2 OK speichert, Home bricht ab 
+
+colormenu.head Farb-Iischdellige 
+colormenu.statusbar Statusbalke 
+colormenu.themeselect Theme usswähle 
+colormenu.font Schriftgrössi 
+colormenu.menucolors Menüfarb 
+colormenu.background Hintergrundfarb 
+colormenu.background_head Hintergrundfarb 
+colormenu.textcolor Textfarb 
+colormenu.textcolor_head Textfarb 
+colormenu.fade Menüs faden 
+
+colorthememenu.head Theme usswähle 
+colorthememenu.neutrino_theme Neutrino Theme 
+colorthememenu.classic_theme Klassik 
+
+colormenusetup.head Menüfarbe 
+colormenusetup.menuhead Titelleischde 
+colormenusetup.menucontent Fenschderinhalt 
+colormenusetup.menucontent_inactive Fenschderinhalt deaktiviert 
+colormenusetup.menucontent_selected Fenschderinhalt selektiert 
+
+colorstatusbar.head Statusbalken-Farbe 
+colorstatusbar.text Statusbalken 
+
+repeatblocker.hint_1 Mindeschtzit (in ms) zwüsche 2 Tastedrück' 
+repeatblocker.hint_2 0 schaldet de Blocker us (Rot isch " ") 
+
+keybindingmenu.RC Fernbedienig 
+keybindingmenu.repeatblock Taste-Wiederholblocker 
+keybindingmenu.repeatblock Wiederholigsverzögerig 
+keybindingmenu.repeatblockgeneric Afangsverzögerig 
+keybindingmenu.head Tasten-Iischdellige 
+keybindingmenu.modechange Modus wäggsle 
+keybindingmenu.channellist Kanallischde 
+keybindingmenu.quickzap Schnällumschaldig 
+keybindingmenu.tvradiomode Fernseh-/Radio-Modus 
+keybindingmenu.tvradiomode_head Fernseh-/Radio-Modus 
+keybindingmenu.pageup Sidde uffe blättere 
+keybindingmenu.pageup_head Sidde uffe blättere 
+keybindingmenu.pagedown Sidde abe blätter 
+keybindingmenu.pagedown_head Sidde abe blättere 
+keybindingmenu.cancel Kanallischde zuemache 
+keybindingmenu.cancel_head Kanallischde zuemache 
+keybindingmenu.channelup Kanal uffe 
+keybindingmenu.channelup_head Kanal uffe Taste 
+keybindingmenu.channeldown Kanal abe 
+keybindingmenu.channeldown_head Kanal abe Taste 
+keybindingmenu.bouquetup Bouquet widder 
+keybindingmenu.bouquetup_head Bouquet widder Taste 
+keybindingmenu.bouquetdown Bouquet z'ruck 
+keybindingmenu.bouquetdown_head Bouquet z'ruck Taste 
+keybindingmenu.bouquethandling OK-Taste für 
+keybindingmenu.bouquetchannels_on_ok Bouquet-Kanäl 
+keybindingmenu.bouquetlist_on_ok Bouquetlische 
+keybindingmenu.allchannels_on_ok Kanallischde 
+keybindingmenu.subchannelup Underkanal wiider 
+keybindingmenu.subchannelup_head Underkanal wiider 
+keybindingmenu.subchanneldown Underkanal z'ruck 
+keybindingmenu.subchanneldown_head Underkanal z'ruck 
+
+colorchooser.red rot 
+colorchooser.green grien 
+colorchooser.blue blau 
+colorchooser.alpha alpha 
+
+lcdmenu.head LCD Iistellige 
+lcdmenu.inverse Inverdiere 
+lcdmenu.power Power 
+lcdmenu.lcdcontroler Kontrast / Helligkeit 
+
+lcdcontroler.head LCD Stettings 
+lcdcontroler.contrast Kontrast 
+lcdcontroler.brightness normale Helligkeit 
+lcdcontroler.brightnessstandby Standby Helligkeit 
+
+keychoosermenu.setnew Neue Taste Iistelle 
+keychoosermenu.setnone Kei Taste 
+keychoosermenu.currentkey Derzitige Taste 
+
+keychooser.head Neue Taste Iistelle 
+keychooser.text1 Bitte Taste drucke 
+keychooser.text2 Zuem abbreche warde.. 
+
+screensetup.upperleft rot = Bildrand obe, links 
+screensetup.lowerright grün = Bildrand unde, rechts 
+
+channellist.head Alle Kanäle 
+channellist.nonefound M'r hänn keine Kanäl g'funde!\nMach e Kanalsüchi\n(dbox-Taste -> Service) 
+channellist.since sidd %02d:%02d 
+
+infoviewer.epgnotload Informatione no'nidd g'lade... 
+infoviewer.epgwait Wart' uf EPG-Informatione... 
+infoviewer.streaminfo Fiitschrs 
+infoviewer.eventlist Brogramm 
+infoviewer.languages Tonwahl 
+infoviewer.notavailable Kanal (zur Zit) nidd verfieegbar 
+infoviewer.cantdecode Kanal ka nidd entschlüsselt werde 
+infoviewer.selecttime Startzite 
+infoviewer.nocurrent Kei Info zuem laufende Programm 
+infoviewer.noepg Kei EPG-Information verfuegbar 
+infoviewer.subservice Bildregie 
+infoviewer.waittime Wart' uff'd Uhrzeit... 
+
+epgviewer.notfound keini Programminformatione (EPG) g'funde 
+epgviewer.nodetailed Keini usführliche Informationen verfuegbar 
+epgviewer.More_Screenings wiidere Termine uf dämm Kanal 
+epglist.head Vorschau - %s 
+epglist.noevents Keini EPG-Informatione verfuegbar. 
+
+streaminfo.head Informatione 
+streaminfo.resolution Uflösig 
+streaminfo.bitrate Bitrate 
+streaminfo.aratio Verhältnis 
+streaminfo.aratio_unknown Verhältnis: unbekannt 
+streaminfo.framerate Bildrate 
+streaminfo.framerate_unknown Bildrate: unbekannt 
+streaminfo.audiotype Audiotyp 
+streaminfo.audiotype_unknown Audiotyp: unbekannt 
+streaminfo.not_crypted nidd verschlüssld 
+streaminfo.ecm_invalid igüldiges CA-Syschdem 
+streaminfo.not_available nidd verfuegbar 
+
+streamfeatures.head Fiitschrs 
+streamfeatures.info Stream-Informatione 
+
+apidselector.head Sproochuswahl 
+
+nvodselector.head Anfangszit usswähle 
+nvodselector.subservice Perspektive 
+nvodselector.directormode Bildregie-Modus 
+
+ucodecheck.head UCode Ueberpruefig 
+ucodecheck.avia500 Avia 500 
+ucodecheck.avia600 Avia 600 
+ucodecheck.ucode UCode 
+ucodecheck.cam-alpha Cam-Alpha 
+
+date.Mon  Mä 
+date.Tue  Ts 
+date.Wed  Mi 
+date.Thu  Du 
+date.Fri  Fr 
+date.Sat  Sa 
+date.Sun  Su 
+
+date.Jan  Jan 
+date.Feb  Feb 
+date.Mar  Mär 
+date.Apr  Apr 
+date.May  Mai 
+date.Jun  Jun 
+date.Jul  Jul 
+date.Aug  Aug 
+date.Sep  Sep 
+date.Oct  Okt 
+date.Nov  Nov 
+date.Dec  Dez 
+
+nvod.starting (Goht los in %d min) 
+nvod.proz (%d%% vorbei) 
+
+scants.head Kanalsuechi 
+scants.startnow Kanalsuechi starde 
+scants.actsatellite Sadellid: 
+scants.astra Astra 
+scants.hotbird Hotbörd 
+scants.kopernikus Kopernikus 
+scants.sirius Sirius 
+scants.thor Thor 
+scants.digituerk Digituerk 
+scants.tuerksat Tuerksat 
+scants.transponders Transponder: 
+scants.services Services: 
+scants.bouquet Bouquets 
+scants.bouquet_leave nidd änder 
+scants.bouquet_create neu mache 
+scants.bouquet_erase lösche 
+scants.finished Kanalsueche erfolgrich beändet! 
+
+flashupdate.head Aktualisierig 
+flashupdate.action Aktion: 
+flashupdate.globalprogress G'samtstatus: 
+flashupdate.getinfofile lade Versioninfo 
+flashupdate.getinfofileerror ka Info nidd lade 
+flashupdate.getupdatefile lade Öpdate 
+flashupdate.getupdatefileerror ka Öpdate nidd lade 
+flashupdate.cantopenfile ka Datei nidd uffmache 
+flashupdate.fileis0bytes d'Dateigrößi isch 0 Byte 
+flashupdate.eraseingflash lösch' grad s'Fläsh 
+flashupdate.programmingflash programmier grad s'Fläsh 
+flashupdate.cantopenmtd ka's MTD-Device nidd uffmache 
+flashupdate.ready ferdig 
+flashupdate.reboot Die DBox wird neu g'starded 
+flashupdate.updatemode Öpdatemodus 
+flashupdate.updatemode_manual manuell (ftp) 
+flashupdate.updatemode_internet internet 
+flashupdate.currentversion_sep Installierdi Version 
+flashupdate.currentversiondate Datum 
+flashupdate.currentversiontime Uhrzit 
+flashupdate.currentversionbaseversion Basisimage 
+flashupdate.currentversionsnapshot ImageTyp 
+flashupdate.checkupdate nach neuer Version sueche 
+flashupdate.versioncheck Versionsueberpruefig 
+flashupdate.nonewversion kei neue Version verfuegbar 
+flashupdate.md5check Imagepruefig 
+flashupdate.md5sumerror Des Image isch fehlerhaft 
+flashupdate.proxyserver_sep Proxyserver 
+flashupdate.proxyserver Proxyname 
+flashupdate.proxyserver_hint1 Gib de Proxyname oder d'IP ii (Host:Port) 
+flashupdate.proxyserver_hint2 E leere Iintrag bedüded kei Proxy 
+flashupdate.proxyusername Benutzername 
+flashupdate.proxyusername_hint1 Gib de Proxy-Benutzername ii 
+flashupdate.proxyusername_hint2 E leere Iintrag bedüded kei Authentifizierig 
+flashupdate.proxypassword Passwort 
+flashupdate.proxypassword_hint1 Gib's Proxy-Passwort Ii 
+flashupdate.proxypassword_hint2 
+flashupdate.msgbox S'het folgendi neui Images:\nDatum: %s, %s\nBasisImage: %s\nImageTyp: %s\n\nWillsch die neui Version jetz abelade\nund installiere? 
+flashupdate.msgbox_manual S'het s'folgend neu Image:\nDatum: %s, %s\nBasisImage: %s\nImageTyp: %s\n\nWillsch die neui Version jetz installiere? 
+flashupdate.expertfunctions Experte-Funktione 
+flashupdate.readflash ganzes Flashimage usläse 
+flashupdate.writeflash ganzes Flashimage i'spile 
+flashupdate.readflashmtd einzelni Partition usläse 
+flashupdate.writeflashmtd einzelni Partition i'spile 
+flashupdate.savesuccess S'Image sich erfolgriich unterm \nDateiname %s gspeichrt. 
+flashupdate.mtdselector Partitions-Usswahl 
+flashupdate.titlereadflash Flash ussläse 
+flashupdate.actionreadflash lese flash 
+flashupdate.fileselector Datei-Usswahl 
+flashupdate.titlewriteflash Flash schriibe 
+flashupdate.actionwriteflash schrieb grad s'flash 
+flashupdate.flashreadyreboot S'Image isch erfolgriich g'flasht.\nd'DBox wird jetz neu g'starded. 
+flashupdate.reallyflashmtd Willsch dä Flashvorgang wirklich mache?\n\nFalls es e'Fehler gitt odder s'Image nidd\nfunktionfäähig isch, wird d'DBox nümmi boote.\n\nImagename: %s\nZiel: %s 
+
+bouqueteditor.name Bouquet-Verwaltig 
+bouqueteditor.delete Lösche 
+bouqueteditor.add d'zuemache 
+bouqueteditor.move Vschiebe 
+bouqueteditor.rename Umbenenne 
+bouqueteditor.hide Verstäcke 
+bouqueteditor.lock Spääre 
+bouqueteditor.newbouquetname Neue Name fürs Bouquet' 
+bouqueteditor.bouquetname Name vom Bouquet' 
+bouqueteditor.savechanges? Solle die Änderige g'speicheret werde? 
+bouqueteditor.savingchanges Änderige werde gspeicheret. Bitte warte ... 
+bouqueteditor.discardingchanges Änderige werde verworfe. Bitte warte ... 
+bouqueteditor.switch Kanal uffneh/entferne 
+bouqueteditor.switchmode TV/Radio 
+bouqueteditor.return Feddig 
+
+messagebox.yes Jo 
+messagebox.no Nei 
+messagebox.cancel Abbruch 
+messagebox.back z'ruck 
+messagebox.error Fehler 
+messagebox.discard Willsch d'Änderige verwärfe? 
+messagebox.info Informatione 
+
+settings.noconffile D'Neutrino-Iischdellige wurde nidd\ngfunde. S'werde d'Standardwert gno. 
+settings.missingoptionsconffile D'Neutrino-Iischdellige wurde erwiidered.\nDie neue Wärt werde uff Standard g'setzt. 
+
+cam.wrong Achtig, Ihr CAM_ALPHA.BIN basst\nnidd zu Ihrer Smart-Card!!!\n\nWänn Sie die Warnig widder seh? 
+ucodes.failure Achtig, die µCodes wurde nidd gefunde!\n\nBitte per FTP (oder DBox-BootManager)\nöploaden, un d'DBox neu starte! 
+
+stringinput.caps Groß-/Chleiueuchstabe 
+
+streamingserver.noconnect Kei Verbindig zuem Streamingsörver.\nd'Uffnahm' wird abbroche. 
+
+GENRE.MOVIE.0 Spielfilm / Drama 
+GENRE.MOVIE.1 Kriminalfilm/Thriller 
+GENRE.MOVIE.2 Abenteuerfilm/Western/Kriegsfilm 
+GENRE.MOVIE.3 Science-Fiction/Fantasy/Horror 
+GENRE.MOVIE.4 Comedy 
+GENRE.MOVIE.5 Soap/Melodram/Folklore 
+GENRE.MOVIE.6 Romantik 
+GENRE.MOVIE.7 serious/classical/religious/hischorical movie/drama 
+GENRE.MOVIE.8 adult movie/Drama 
+
+GENRE.NEWS.0 Nachrichte 
+GENRE.NEWS.1 Nachrichte/Wetter 
+GENRE.NEWS.2 Nachrichtemagazin 
+GENRE.NEWS.3 Dokumantation 
+GENRE.NEWS.4 Diskussion/Interview/Debatte 
+
+GENRE.SHOW.0 Show / Gameshow 
+GENRE.SHOW.1 Gameshow/Quiz 
+GENRE.SHOW.2 varietee 
+GENRE.SHOW.3 Talkshow 
+
+GENRE.SPORTS.0 Sport 
+GENRE.SPORTS.1 Großereigniss (Olympische Spiele, Weltmeischerschafte usw.) 
+GENRE.SPORTS.2 Sportsmagazine 
+GENRE.SPORTS.3 Fußball 
+GENRE.SPORTS.4 Tennis 
+GENRE.SPORTS.5 Mannschaftssport 
+GENRE.SPORTS.6 Leichtathletik 
+GENRE.SPORTS.7 Motorsport 
+GENRE.SPORTS.8 Wassersport 
+GENRE.SPORTS.9 Wintersport 
+GENRE.SPORTS.10 equestrian 
+GENRE.SPORTS.11 martial sports 
+
+GENRE.CHILDRENs_PROGRAMMES.0 Chinder / Jugendprogramm 
+GENRE.CHILDRENs_PROGRAMMES.1 Programm für Vorschuelchinder 
+GENRE.CHILDRENs_PROGRAMMES.2 Unterhaltigsprogramm für 6 bis 14-Jährigi 
+GENRE.CHILDRENs_PROGRAMMES.3 Unterhaltigsprogramm für 10 bis 16-Jährigi 
+GENRE.CHILDRENs_PROGRAMMES.4 Informations- un Bildigsprogramm 
+GENRE.CHILDRENs_PROGRAMMES.5 Trickfilm 
+
+GENRE.MUSIC_DANCE.0 Musik/Ballet/Tanz 
+GENRE.MUSIC_DANCE.1 Rock/Pop 
+GENRE.MUSIC_DANCE.2 serious music/Klassik 
+GENRE.MUSIC_DANCE.3 Volksmusik 
+GENRE.MUSIC_DANCE.4 Jazz 
+GENRE.MUSIC_DANCE.5 Musical/Oper 
+GENRE.MUSIC_DANCE.6 Ballet 
+
+GENRE.ARTS.0 Chunschd / Kultur 
+GENRE.ARTS.1 Darstellendi Chünschd 
+GENRE.ARTS.2 fine arts 
+GENRE.ARTS.3 Religion 
+GENRE.ARTS.4 Volkskunst 
+GENRE.ARTS.5 Literatur 
+GENRE.ARTS.6 Film/Kino 
+GENRE.ARTS.7 experimental film/video 
+GENRE.ARTS.8 Rundfunk/Presse 
+GENRE.ARTS.9 Neui Mediä 
+GENRE.ARTS.10 Chunschd-/Kultur-Magazin 
+GENRE.ARTS.11 Mode 
+
+GENRE.SOZIAL_POLITICAL.0 Sozial & Politikereignisse / Wirtschaft 
+GENRE.SOZIAL_POLITICAL.1 Magazin/Report/Dokumentation 
+GENRE.SOZIAL_POLITICAL.2 Wirtschaft un Soziales 
+GENRE.SOZIAL_POLITICAL.3 Bsunderi Mänsche 
+
+GENRE.DOCUS_MAGAZINES.0 Doku/Magazin 
+GENRE.DOCUS_MAGAZINES.1 Natur/Tiere/Umwelt 
+GENRE.DOCUS_MAGAZINES.2 Naturwissenschaft un Technik 
+GENRE.DOCUS_MAGAZINES.3 Medizin/Physiologie/Psychologie 
+GENRE.DOCUS_MAGAZINES.4 Usland/Expeditions 
+GENRE.DOCUS_MAGAZINES.5 Sozial- un Geischeswissenschaften 
+GENRE.DOCUS_MAGAZINES.6 wiiderbildig 
+GENRE.DOCUS_MAGAZINES.7 Sprooche 
+
+GENRE.TRAVEL_HOBBIES.0 Reise & Freizeit 
+GENRE.TRAVEL_HOBBIES.1 Reisen un Tourismus 
+GENRE.TRAVEL_HOBBIES.2 handicraft 
+GENRE.TRAVEL_HOBBIES.3 Motor 
+GENRE.TRAVEL_HOBBIES.4 Fitness un G'sundheit 
+GENRE.TRAVEL_HOBBIES.5 Choche 
+GENRE.TRAVEL_HOBBIES.6 Iichauf 
+GENRE.TRAVEL_HOBBIES.7 Garte 
+
+GENRE.UNKNOWN Unbekannt 
+
+parentallock.parentallock Goofe'schutz 
+
+parentallock.prompt PIN-Iigab 
+parentallock.never Nie 
+parentallock.onstart Bim Start 
+parentallock.changetolocked Bi vorgsperrte Bouquets 
+parentallock.onsignal Bi gsendeter Vorsperri 
+parentallock.lockedSänder Vorgesperrte Sänder... 
+parentallock.lockedprogram Gsperrtes Programm (FSK ab %d) 
+parentallock.head Jugendschutz PIN 
+
+parentallock.lockage Sendige 
+parentallock.lockage12 ab 12 Joohr sperre 
+parentallock.lockage16 ab 16 Joohr sperre 
+parentallock.lockage18 ab 18 Joohr sperre 
+
+parentallock.changepin PIN-Code feschdlege 
+parentallock.changepin_hint1 Gib de neu PIN-Code ii! 
+
+pinprotection.wrongcode Gib de Code nonemol ii! 
+pinprotection.head PIN-Abfroog 
+
+favorites.bouquetname Mieni Favoridde 
+favorites.nobouquets Favoridde sin numme mit aktivierte Bouquets mäglich 
+favorites.addchannel De aktuelle Kanal wirdm Bouquet \n"Mieni Favoridde" a'ghängt. \nS'speichere gooht e Moment... 
+favorites.menueadd Kanal Favoridde d'zue'due 
+favorites.bqcreated Bouquet "Miini Favoridde" isch a'gelegt...\n 
+favorites.chadded De aktuelle Kanal isch Ihre Favoridde hinzugefuegt worde...\n 
+favorites.chalreadyinbq De aktuelle Kanal isch bereits in Ihre Favoridde...\n 
+favorites.finalhint \nVersehentlich dezuefügti Kanäl chönne mit\nd'r Bouquetverwaltig korrigiert werde.\n 
+
+sleeptimerbox.title Schloofuhr 
+sleeptimerbox.hint1 Ussschaltzit in Min. (000=aus) 
+sleeptimerbox.hint2 D'dbox2 schaltet sich nach dere Zit uss. 
+sleeptimerbox.announce Ussschaltzit in 1 min 
+
+zaptotimer.announce In einere Minute wird umgeschalde 
+recordtimer.announce D'Ufnahm beginnt in einere Minute 
+
+timerbar.channelswitch Umschalte 
+timerbar.recordevent Ufneh 
+timer.eventtimed.title Sendig vormerke 
+timer.eventtimed.msg Die Sendig isch vorgmerkt 
+timer.eventrecord.title Uffnahm vormerke 
+timer.eventrecord.msg   D'Sendig isch zuer Aufnahm vorgmerkt 
+timerlist.name timerliste 
+timerlist.delete Lösche 
+timerlist.empty S'git momentan kei Timer 
+timerlist.deleting Timer wird glöscht 
+timerlist.type.shutdown Abe fahre 
+timerlist.type.nextprogramm Näggschdes Programm 
+timerlist.type.zapto Umschalte 
+timerlist.type.standby Standby 
+timerlist.type.record Uffnahm 
+timerlist.type.remind Erinnerig 
+timerlist.type.sleeptimer Schloofuhr 
+timerlist.type.unknown chenne m'r nit 
+timerlist.repeat.once eimalig 
+timerlist.repeat.daily jede daag 
+timerlist.repeat.weekly jedi wuche 
+timerlist.repeat.biweekly alli 2 wuche 
+timerlist.repeat.fourweekly alli 4 wuche 
+timerlist.repeat.monthly jede moned 
+timerlist.repeat.byeventdescription lueg under timer 
+timerlist.repeat.unknown chenne m'r nid 
+timerlist.program.unknown Programm chenne m'r nid 
+timerlist.standby.on Uffwache us Standby 
+timerlist.standby.off Uff Standby goh 
+
+fontsize.menu Menutext 
+fontsize.menu_title Menu Titel 
+fontsize.menu_info Menu Info 
+fontsize.epg_title EPG Titel 
+fontsize.epg_info1 EPG Info 1 
+fontsize.epg_info2 EPG Info 2 
+fontsize.epg_date EPG Datum 
+fontsize.alert Alert 
+fontsize.eventlist_title Eventlist Titel 
+fontsize.eventlist_itemlarge Eventlist gross 
+fontsize.eventlist_itemsmall Eventlist chlei 
+fontsize.eventlist_datetime Eventlist Datum / Zeit 
+fontsize.channellist Kanallischde 
+fontsize.channellist_descr Beschriebig 
+fontsize.channellist_number Nummere 
+fontsize.channel_num_zap kei Ahnig 
+fontsize.infobar_number Infobar Nummere 
+fontsize.infobar_channame Infobar Kanal 
+fontsize.infobar_info Infobar Info 
+fontsize.infobar_small Infobar chlei 
+
+fontmenu.head Schriftgrössen Iischdellige 
+fontmenu.channellist Kanallischde 
+fontmenu.eventlist Eventlist 
+fontmenu.epg EPG 
+fontmenu.infobar Infobar

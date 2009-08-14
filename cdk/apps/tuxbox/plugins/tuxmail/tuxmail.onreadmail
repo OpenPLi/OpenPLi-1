@@ -1,0 +1,32 @@
+#!/bin/sh
+# wakeup harddisc
+# wait until harddisc is up (up to 10 seconds)
+# this sample script works for images, where the usage of a harddisk
+# is marked with flag /var/etc/.start_ide and the path for a mounted
+# directory includes hdd for a used harddisk 
+# also, the harddisc should be mounted to /dev/discs/disc0/disc 
+
+if [ ! -e /var/etc/.start_ide ] ; then
+  echo "we do not use a harddisk"
+  exit 0
+fi;
+
+USEHDD=`cat /var/tuxbox/config/tuxmail/tuxmail.conf | grep MAILDIR | grep hdd`
+if [ "$USEHDD" == "" ] ; then
+  echo "we dont use the hdd as cache-directory"
+  exit 0
+fi;
+
+WAIT=10
+while [ "$WAIT" != "0" ]
+do
+  ACTIV=`hdparm -C /dev/discs/disc0/disc | grep active`
+  if [ "$ACTIV" = "" ] ; then
+    ls /media/hdd > /dev/null
+  else
+    echo "harddisc is active now"
+    exit 0
+  fi;
+  WAIT=`expr ${WAIT:-0} - 1`
+  sleep 1
+done

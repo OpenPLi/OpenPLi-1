@@ -1,0 +1,9 @@
+Index: enigma/boot/Makefile.am
+===================================================================
+--- enigma/boot/Makefile.am	(revision 883)
++++ enigma/boot/Makefile.am	(working copy)
+@@ -1,3 +1,3 @@
+ AUTOMAKE_OPTIONS = gnu
+ 
+-SUBDIRS = showlogo bootmenue chttpd
++SUBDIRS = chttpd

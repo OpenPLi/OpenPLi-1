@@ -1,0 +1,22 @@
+diff -ur sqlite-3.6.4.org/Makefile.in sqlite-3.6.4/Makefile.in
+--- sqlite-3.6.4.org/Makefile.in	2008-10-14 20:07:37.000000000 +0200
++++ sqlite-3.6.4/Makefile.in	2008-10-21 16:57:17.000000000 +0200
+@@ -33,6 +36,10 @@
+ # 
+ TCC += -D_HAVE_SQLITE_CONFIG_H
+ 
++# OE overrides
++#
++TARGET_LFLAGS = @TARGET_LFLAGS@
++
+ # Define -DNDEBUG to compile without debugging (i.e., for production usage)
+ # Omitting the define will cause extra debugging code to be inserted and
+ # includes extra comments when "EXPLAIN stmt" is used.
+@@ -145,6 +152,6 @@
+ # libtool compile/link/install
+ LTCOMPILE = $(LIBTOOL) --mode=compile --tag=CC $(TCC) $(LTCOMPILE_EXTRAS)
+-LTLINK = $(LIBTOOL) --mode=link $(TCC) $(LTCOMPILE_EXTRAS) @LDFLAGS@ $(LTLINK_EXTRAS)
++LTLINK = $(LIBTOOL) --mode=link $(TCC) $(LTCOMPILE_EXTRAS) @LDFLAGS@ $(LTLINK_EXTRAS) $(TARGET_LFLAGS)
+ LTINSTALL = $(LIBTOOL) --mode=install $(INSTALL)
+ 
+ # nawk compatible awk.

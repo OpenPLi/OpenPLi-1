@@ -1,0 +1,21 @@
+diff -ur i/samba-3.0.21c/source/configure samba-3.0.21c/source/configure
+--- i/samba-3.0.21c/source/configure	2006-02-24 07:40:13.000000000 +0100
++++ samba-3.0.21c/source/configure	2006-03-22 21:25:48.000000000 +0100
+@@ -19339,11 +19339,12 @@
+     *linux*)
+        # glibc <= 2.3.2 has a broken getgrouplist
+        if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++           linux_getgrouplist_ok=yes
++#  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&5
++#echo "$as_me: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&2;}
++#   { (exit 1); exit 1; }; }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */

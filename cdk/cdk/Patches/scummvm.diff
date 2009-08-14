@@ -1,0 +1,91 @@
+--- orig/scummvm-0.11.1/backends/platform/sdl/graphics.cpp	2008-02-23 23:48:19.000000000 +0100
++++ scummvm-0.11.1/backends/platform/sdl/graphics.cpp	2008-06-08 14:42:44.000000000 +0200
+@@ -341,7 +341,8 @@
+ 	// Create the surface that contains the scaled graphics in 16 bit mode
+ 	//
+ 
+-	_hwscreen = SDL_SetVideoMode(hwW, hwH, 16,
++	//_hwscreen = SDL_SetVideoMode(hwW, hwH, 16,
++	_hwscreen = SDL_SetVideoMode(640,480,16,
+ 		_fullscreen ? (SDL_FULLSCREEN|SDL_SWSURFACE) : SDL_SWSURFACE
+ 	);
+ 	if (_hwscreen == NULL) {
+--- orig/scummvm-0.11.1/configure	2008-02-23 23:46:02.000000000 +0100
++++ scummvm-0.11.1/configure	2008-06-08 14:42:44.000000000 +0200
+@@ -1096,6 +1096,19 @@
+ 			_mak_hq_scalers='DISABLE_HQ_SCALERS = 1'
+ 			_build_hq_scalers="no"
+ 			;;
++		powerpc-tuxbox-linux-gnu)
++			echo "Cross-compiling to $_host, forcing endianness, alignment and type sizes"
++			DEFINES="$DEFINES -DUNIX"
++			_endian=big
++			_need_memalign=yes
++			type_1_byte='char'
++			type_2_byte='short'
++			type_4_byte='int'
++			_backend="sdl"
++			_mak_hq_scalers='DISABLE_HQ_SCALERS = 1'
++			_build_hq_scalers="no"
++			LIBS="$LIBS $_prefix/lib/libSDL.a $_prefix/lib/libm.a -lpthread"
++			;;
+ 		*)
+ 			echo "Continuing with auto-detected values ... if you have problems, please add your target to configure."
+ 			;;
+--- orig/scummvm-0.11.1/backends/platform/sdl/sdl.cpp	2008-02-23 23:48:19.000000000 +0100
++++ scummvm-0.11.1/backends/platform/sdl/sdl.cpp	2008-06-08 14:42:44.000000000 +0200
+@@ -27,6 +27,7 @@
+ #include "common/config-manager.h"
+ #include "common/events.h"
+ #include "common/util.h"
++#include "SDL/SDL_keysym.h"
+ 
+ #include "backends/saves/default/default-saves.h"
+ #include "backends/timer/default/default-timer.h"
+@@ -42,6 +43,35 @@
+ void OSystem_SDL::initBackend() {
+ 	assert(!_inited);
+ 
++	SetTuxboxKeyMapping(TUXBOX_RC_1,SDLK_1,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_2,SDLK_2,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_3,SDLK_3,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_4,SDLK_4,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_5,SDLK_5,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_6,SDLK_6,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_7,SDLK_7,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_8,SDLK_8,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_9,SDLK_9,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_0,SDLK_0,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_STANDBY,SDLK_UNKNOWN,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_HOME,SDLK_q,KMOD_LCTRL); // quit
++	SetTuxboxKeyMapping(TUXBOX_RC_MENU,SDLK_F5,KMOD_NONE); // main menu
++	SetTuxboxKeyMapping(TUXBOX_RC_RED,SDLK_ESCAPE,KMOD_NONE); // skip cutscenes
++	SetTuxboxKeyMapping(TUXBOX_RC_GREEN,SDLK_MINUS,KMOD_NONE); // decrese text speed
++	SetTuxboxKeyMapping(TUXBOX_RC_YELLOW,SDLK_PLUS,KMOD_NONE); // increse text speed
++	SetTuxboxKeyMapping(TUXBOX_RC_BLUE,SDLK_TAB,KMOD_NONE); // right mouse button
++	SetTuxboxKeyMapping(TUXBOX_RC_OK,SDLK_UNKNOWN,KMOD_NONE); 
++	SetTuxboxKeyMapping(TUXBOX_RC_VOLPLUS,SDLK_RIGHTBRACKET,KMOD_NONE); // increase volume
++	SetTuxboxKeyMapping(TUXBOX_RC_VOLMINUS,SDLK_LEFTBRACKET,KMOD_NONE); // decrease volume
++	SetTuxboxKeyMapping(TUXBOX_RC_MUTE,SDLK_SPACE,KMOD_NONE); // pause game
++	SetTuxboxKeyMapping(TUXBOX_RC_HELP,SDLK_UNKNOWN,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_UP,SDLK_UNKNOWN,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_DOWN,SDLK_UNKNOWN,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_RIGHT,SDLK_UNKNOWN,KMOD_NONE);
++	SetTuxboxKeyMapping(TUXBOX_RC_LEFT,SDLK_UNKNOWN,KMOD_NONE);
++
++	SetTuxboxMouseMapping(1); // use up/down/left/right/ok as mouse emulation
++
+ 	int joystick_num = ConfMan.getInt("joystick_num");
+ 	uint32 sdlFlags = SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER;
+ 
+--- orig//scummvm-0.11.1/configure	2008-02-23 23:46:02.000000000 +0100
++++ scummvm-0.11.1/configure	2008-06-08 14:42:44.000000000 +0200
+@@ -1567,7 +1580,7 @@
+ 	sdl)
+ 		find_sdlconfig
+ 		INCLUDES="$INCLUDES `$_sdlconfig --cflags`"
+-		LIBS="$LIBS `$_sdlconfig --libs`"
++#		LIBS="$LIBS `$_sdlconfig --libs`"
+ 		DEFINES="$DEFINES -DSDL_BACKEND"
+ 		MODULES="$MODULES backends/platform/sdl"
+ 		;;

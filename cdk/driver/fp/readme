@@ -1,0 +1,35 @@
+exported functions:
+-------------------
+
+static int fp_set_tuner_dword(int type, u32 tw);
+T_QAM
+T_QPSK
+
+static int fp_set_polarisation(int pol);
+P_HOR
+P_VERT
+
+int fp_do_reset(int type);
+
+static int fp_send_diseqc(u32 dw);
+
+ioctl's:
+--------
+
+FP_IOCTL_GETID
+FP_IOCTL_POWEROFF
+FP_IOCTL_REBOOT
+FP_IOCTL_LCD_DIMM
+FP_IOCTL_LED
+
+devfs:
+------
+
+/dev/dbox/fp0
+/dev/dbox/rc0
+
+fpid
+----
+
+NOKIA: 0x5A
+SAGEM: 0x52

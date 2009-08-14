@@ -1,0 +1,31 @@
+panning is badly broken when using touchscreen
+
+xfce integration is extremely hackish, and too slow when panning due
+to too many updates and signals
+
+challenge: implement fractional scaling
+
+silly challenge: implement arbitrary rotation using three-shear method
+
+read raw keyboard instead of /dev/h3600_key
+
+use own /dev/fb open/close instead of ofbis library
+
+softkey autorepeat
+
+new input overlays - quikwriting, maybe graffiti
+
+autoscroll when mouse is on screen edge (optional)
+
+*** implemented / fixed:
+
+BUG in fbdraw.c: x0 and y0 must be even multiples of the scale after rescaling!
+	check pan functions
+
+open /dev/h3600_ts instead of obsolete /dev/ts
+	??? which is it ???
+
+portait 1:1 mode badly needs to be optimized (use 2x2 blocks and 32bit access ?)
+
+VT switching when quitting (done by libofbis)
+

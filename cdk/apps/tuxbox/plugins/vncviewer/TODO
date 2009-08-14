@@ -1,0 +1,20 @@
+TODO: 
+- support for samsung keyboard
+
+lots more;-)
+
+DONE: 
+- get rid of reuqired lib ofbis
+- convertet frambuffer mode from RGB565 to RGB555
+- tuxbox plugin architecture
+- IR-RC support
+- scaling (client side)
+- respect visible area on TV
+- virtual overlay keyboard
+- server side scaling
+- automatic panning of screen when cursor reaches screen borders
+- support for IR keyboard
+- fix missing keyboard keys (orig. ir keyboard)
+- mouse support
+- beautify virtual keyboard / convert to german keyboard
+

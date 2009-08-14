@@ -1,0 +1,10 @@
+# MV input definitions.
+# http://mv.dinglisch.net/userguide.html#id
+#
+EnigmaCache c u f 0 - 0 - - -
+SavedCache s u f 7200 ec-save 5 epg .dat -
+NordicTEAM e l r -7200 nordicteam 7 tv- .dat http://mv.nordicteam.com/
+Dinglisch(EU) e l r 0 dinglisch-eu 3 tv- .dat http://mv.dinglisch.net/data/e
+KULICHIKI e u r -18000 kul-rus 2 kul_ .dat http://www.twinline.net/tv/
+Wolf(NL) x u r 0 wolf-nl 4 tv- .xmltv http://wolf.xs4all.nl/xmltv/
+MyXMLTV x u f 0 myxmltv 4 tv .xmltv -

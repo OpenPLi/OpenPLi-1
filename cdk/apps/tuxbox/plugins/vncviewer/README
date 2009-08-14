@@ -1,0 +1,48 @@
+This is a vnc plugin for the tuxbox project by Zwen (Zwen@tuxbox.org)
+It is based on fbvnc - a framebuffer-based VNC client, 
+see http://pocketworkstation.org/fbvnc.html
+Also includes code from the unix vnc port , 
+see  http://www.uk.research.att.com/vnc/
+
+Lots to do still, but basic functionality is working.
+Code is very messy, that's the way I found it ;-)
+
+Keys:
+===============
+home : quit plugin
+ok : left mouse click
+setup (dbox/dream): toggle 16:9 mode
+? : mouse up/ mouse down toggle (e.g. for moving windows)
+mute: toggle mouse movement/panning mode
+up/down/left/right: move pointer/pan screen
+vol_down: scale++ (zoom out)
+vol_up: scale-- (zoom in)
+red: left mouse double click
+green: mouse middle click
+yellow: mouse right click
+blue: toggle virtual keyboard
+
+Configfile (CONFIGDIR + vnc.conf) syntax
+=========================================
+n:= 0 - 9
+server<n>=<vnc server>
+port<n>=<vnc port> (i.e. 5900 for screen0 5901 for screen1 ...)
+passwd<n>=<passwd> (only needed if not using using vncpasswd)
+scale<n>=<scale factor> (1 no scale - 4 scale by 1/4)
+server_scale<n>=<scale factor> (1 no scale.... / server must support this feature)
+debug=<debug?> (turn on debugging -> 1)
+
+ATTENTION: Unix style ! remove any CR
+
+Authentication
+=============================================
+The secure way:
+   generate a vncpasswd file on a unix machine tool 
+   vncpasswd (not yet portet to dbox2)
+   and copy it to CONFIGDIR/vncpasswd
+   donot include the passwd parameter in vnc.conf file
+
+The not so secure way:
+   Put the passwd in cleartext in the vnc.conf file
+   e.g. passwd=DISROCKS
+   

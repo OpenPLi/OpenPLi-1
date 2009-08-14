@@ -1,0 +1,70 @@
+   Stream2DB
+   ========================================
+   By: Aux (s_aukema@ not-so-coldmail . com
+
+   Streaming plug-in that invokes your VLC server
+   
+
+		Version 0.4 <Release candidate>
+		- Uses XML file for tv-stations
+		- Some code optimalisation
+		- Removed the stop button.. I didn't use it anyway
+		Version 0.3 <BETA>
+		- Reads IP number from movieplayer.xml config-file instead of hard-coded
+ 		- Sends the dreambox ip number to the VLC server, so the php script needs no configuration
+		- Adjusted php script to accept ip-numbers
+		- Adjusted php script to be platform independent (windows/linux)
+		- Added button to stop the server to stream (to save bandwith)
+	  Version 0.2
+		- listbox with multiple streams
+		- php script including code to handle variable in stream names
+		Version 0.1
+		- Proof of concept version
+		- 1 button to start the streaming
+		- simple php script
+		
+		
+------------------
+INSTALLATION NOTES
+------------------
+
+	
+
+Linux
+Install VLC on your system
+	- Check if this works correctly by running /usr/local/bin/vlc --version or /usr/bin/vlc --version
+Install a webserver with php (apache/php for example)
+	- Check if this works correctly.
+	
+Now put the startvlc.php file in the root directory of your webserver
+	- Check if this works by pointing you webbrowser at http://localhost/startvlc.php
+
+When everything passed the check, we can install the plug-in on the DreamBox.
+Copy the WebStream2db.* files to /var/tuxbox/plugins/
+Check the movieplayer.xml file in /var/tuxbox/config/webstream2db/ and see if the IP-number mentioned here is the same as 
+the IP-number of your Linux PC
+
+Now get your remote and start the streaming
+
+
+---------------
+TROUBLESHOOTING
+---------------
+
+It doesn't Work
+
+1. Shut down all firewalls
+
+2. Test the movieplayer using the webinterface of the dreambox.
+
+4. Enter the following URL in your browser and check if VLC starts. You can see this with the taskmanager under Windows.
+VLC should eat cpu power now. (don't mention the IP address here)
+http://localhost/startvlc.php?url=http://cgi.omroep.nl/cgi-bin/streams?/tv/bnn/delamas/bb.laatste.asf&ip=192.168.1.2
+--> If it doesn't work, VLC is not properly installed on you PC
+
+
+
+
+
+Thanks go to:
+Mechatron, Digi_Casi, Mordillo, bacicciosat, 

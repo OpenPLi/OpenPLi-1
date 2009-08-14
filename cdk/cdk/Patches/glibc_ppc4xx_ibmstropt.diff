@@ -1,0 +1,2705 @@
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/memchr.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memchr.S
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memchr.S	2004-11-19 14:51:37.000000000 +0100
+@@ -0,0 +1,143 @@
++/* stropt/memchr.S, pl_string_common, pl_linux 10/11/04 11:45:34
++ * ==========================================================================
++ * Optimized memchr implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Search for the first occurrence of character in buffer, checking
++ *           at most 'count' bytes.
++ *
++ *           char *memchr(const char *buf, int c, size_t count)
++ *
++ * Input:  r3 - buffer address
++ *         r4 - character in least significant byte of word
++ *         r5 - count of bytes to search
++ * Output: r3 - address of located character or NULL if not found
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>
++
++#define DLMZBDOT(ra,rs,rb) .long 0x7c00009d|(rs<<21)|(ra<<16)|(rb<<11)
++
++function_prolog(memchr)
++
++        /*
++         * Check count passed in R5. If zero, return null; otherwise continue.
++	 */
++	cmpwi	r5,0
++        beq-    ret_null        /* Branch to return NULL if so             */
++
++
++	addi 	r12,0,8		/* Byte count of 8 into XER for 'load      */
++	mtxer 	r12		/* string' instruction later               */
++
++	xor	r12,r12,r12	/* Clear offset from the start             */
++
++	rlwimi	r4,r4,8,16,23	/* Set up 'c' in all bytes of word.        */
++        rlwimi.	r4,r4,16,0,15   /* Remember 'c' in LSB of int              */
++
++        clrrwi  r8,r3,3         /* Find previous DW boundary               */
++        addi    r8,r8,8         /* Find next DW boundary                   */
++        subf    r8,r3,r8        /* Sub start addr from next DW boundary to */
++                                /* get byte count to next DW boundary      */
++
++        addic.  r9,r8,-8        /* If byte count = 8, we are DW aligned    */
++        beq     again           /* So branch straight to fast loop         */
++        			/* Otherwise, handle initial bytes one at  */
++				/* a time.				   */
++        andi.   r9,r4,255       /* Get search char only in low byte        */
++        addi    r10,r3,-1       /* Preset base pointer for auto incr       */
++
++next_byte:
++
++        lbzu    r11,1(r10)      /* Load byte and update pointer to next    */
++
++        addi    r12,r12,1       /* Bump the offset from the start          */
++
++        xor.    r11,r11,r9      /* Branch if search char found             */
++
++        beq-    found
++
++        addic.  r5,r5,-1        /* Decrement the total count               */
++
++	beq-	ret_null
++
++        addic.  r8,r8,-1        /* Decrement the DW byte count             */
++
++        bne+    next_byte       /* Loop again if still not DW aligned      */
++
++again:  			/* DW aligned, look for 'c' in new 8 bytes */
++
++	lswx 	r6,r3,r12	/* Load r6/r7 from r3 src + r12 offset     */
++                                /* from the start                          */
++
++	xor	r6,r6,r4	/* XOR r4 & r6 to look for match           */
++	xor	r7,r7,r4	/* XOR r4 & r7 to look for match           */
++
++	DLMZBDOT(0,6,7)         /* Check for hole created by match         */
++
++        add	r12,r12,r0	/* Update total offset with 1-8            */
++
++        beq+    no_match        /* Branch if no match found in 8 bytes     */
++
++	/* Match was found, but first must see if we've exceeded max count */									
++									
++        subf.   r5,r0,r5        /* Decrement total by DLMZB count 1-8      */
++
++        blt     ret_null
++
++found:
++
++	addi    r12,r12,-1
++
++	add	r3,r3,r12	/* Return string start addr + offset to 'c'*/
++
++	blr
++	
++no_match:
++
++        subf.   r5,r0,r5        /* Decrement total by DLMZB count 1-8      */
++
++        bgt+    again           /* If count > 0, read another 8 bytes      */
++
++ret_null:
++
++	xor	r3,r3,r3	/* Return NULL since no match found        */	
++
++	blr
++
++function_epilog(memchr)
++libc_hidden_builtin_def (memchr)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/memcmp.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memcmp.S
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memcmp.S	2004-11-19 14:51:39.000000000 +0100
+@@ -0,0 +1,268 @@
++/* stropt/memcmp.S, pl_string_common, pl_linux 10/11/04 11:45:35
++ * ==========================================================================
++ * Optimized memcmp implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Compare two character strings (up to n characters)
++ *
++ *           int memcmp(const char *s1, const char *s2, int n)
++ *
++ * Input:  r3 - buffer 1 address
++ *         r4 - buffer 2 address
++ *         r5 - maximum characters to compare
++ * Output: r3 <0 (less), 0 (equal), >0 (greater)
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++function_prolog(memcmp)
++
++        /*
++         * Check count passed in R5. If zero, return 0; otherwise continue.
++	 */
++	cmpwi	r5,0
++	beq-    ret_0;
++
++        /*
++         * Most of the time the difference is found in the first
++	 * several bytes.  The following code minimizes the number
++	 * of load operations for short compares.
++	 */
++
++	mr	r11, r3		        /* Save buffer 1                */
++
++again:
++
++	not	r10, r4		        /* buffer 2: bytes to page bdy	*/
++	rlwinm.	r10, r10,29,23,31	/* buffer 2: dwords to page bdy	*/
++	beq-	bytebybyte              /* If < 8 bytes to the page bdy */
++                                        /* do byte by byte              */
++	lwz	r8, 0(r4)		/* load 1st buffer 2 word      	*/
++
++	not	r12, r11		/* buffer 1: bytes to page bdy	*/
++	rlwinm.	r12, r12,29,23,31	/* buffer 1: dwords to page bdy	*/
++	beq-	bytebybyte              /* If < 8 bytes to the page bdy */
++                                        /* do byte by byte              */
++	lwz	r6, 0(r11)		/* load 1st buffer 1 word      	*/
++
++	cmpwi	r5, 4			/* If remaining count <= 4	*/
++	ble+	first4                  /* handle specially.  DWG       */
++
++	cmplw   r8, r6  	        /* compare buffer 2 and buffer 1*/
++	bne+    all_done   	       	/* different => we're done	*/
++
++	lwzu	r9, 4(r4)		/* load 2nd buffer 2 word      	*/
++	lwzu	r7, 4(r11)		/* load 2nd buffer 1 word      	*/
++
++	cmpwi	r5, 8			/* If remaining count <= 8      */
++	ble+	last4			/* handle specially.  DWG       */
++
++	cmplw   r9, r7  	        /* compare buffer 2 and buffer 1*/
++	bne+    all_done		/* different => we're done	*/
++
++	addi	r5, r5, -8		/* Update character counter DWG */
++	addi	r10, r4, 0x0004         /* DWG*/
++	not	r10, r10	        /* buffer 2: bytes to page bdy DWG */
++	rlwinm.	r10, r10,29,23,31	/* buffer 2: dwords to page bdy	DWG */
++	addi	r12, r11, 0x0004	/* DWG */
++	not	r12, r12		/* buffer 1: bytes to page bdy DWG */
++	rlwinm.	r12, r12,29,23,31	/* buffer 1: dwords to page bdy	DWG */
++	
++        /* The following section prior to loop: figures out whether     */
++        /* the buffer  1 or buffer  2 is closer to the page boundary.   */
++        /* The main loop count is then set up to reflect the number of  */
++        /* double words of the buffer  that is closest                  */
++
++	cmpw	r10, r12		/* Find closest			*/
++	blt	lt
++
++	mr	r10, r12
++
++lt:
++
++	srwi	r12, r5, 3              /* Double check the total count */
++	cmpw	r10, r12		/* limitation   		*/
++        blt	lt2
++
++	mr	r10, r12                /* DWG */
++lt2:					/* DWG */
++	cmpwi	r10, 0			/* DWG */
++	bne	lt3			/* DWG */
++	addi	r4, r4, 0x0004		/* DWG */
++	addi	r11,r11,0x0004		/* DWG */
++	b	again			/* DWG */
++lt3:					/* DWG */
++	mtctr	r10			/* dword count for loop		*/
++	lwzu	r6, 4(r11)		/* pre-load buffer  1 word	*/
++
++	b	in                      /* To the loop                  */
++
++loop:					/* main loop			*/
++
++	cmplw   r8, r6                  /* Compare first buffer  2 word */
++	bne-    all_done	        /* with first buffer  1 word    */
++                                        /* If different, we're done     */
++	cmplw   r9, r7                  /* Compare second buffer  2 word*/
++                                        /* with second buffer  1 word   */
++	lwzu	r6, 4(r11)              /* pre-load buffer  1 word	*/
++
++	bne-    all_done                /* If different, we're done     */
++
++in:
++
++	lwzu	r7, 4(r11)              /* pre-load buffer  1 word	*/
++	lwzu	r8, 4(r4)               /* pre-load buffer  2 word	*/
++	lwzu	r9, 4(r4)               /* pre-load buffer  2 word	*/
++
++        bdnz+	loop                    /* Do more DW's if cnt > 0      */
++
++	/*mfctr	r12*/ /*DWG*/		/* number of dwords left	*/
++	/*subf	r10, r12, r10*/ /*DWG*/	/* number of dwords compared	*/
++	slwi	r10, r10, 3
++	subf	r5, r10, r5	        /* adjust byte counter		*/
++	/*bne+	partial*/ /*DWG*/       /* If less than 8 bytes, handle */
++                                        /* specially                    */
++	/*cmpwi	r5, 8*/			/* Removed.                 DWG */
++	/*blt	partial*/		/* Removed.                 DWG */
++
++	/*addic	r5, r5, -8*/ /*DWG*/	/* Subtract two words from count*/
++
++	cmplw   r8, r6			/* compare last dword		*/
++	addi	r4, r4, 4
++	bne-    all_done
++
++	cmplw   r9, r7
++	addi	r11, r11, 4
++	bne-    all_done
++
++bytebybyte:
++
++	/* We've gotten close to a page boundary: do a byte-byte-byte
++	 * compare for the following 8 bytes, and then go back to
++	 * the full-word compare loop.
++	 */
++
++	li	r3, 8			/* loop count			*/
++	cmpw	r3, r5		        /* take min(8, counter)		*/
++	ble	f2
++
++	mr.	r3, r5
++
++	beqlr
++
++f2:
++
++	mtctr	r3
++	subf	r5, r3, r5	        /* adjust counter		*/
++
++bbb:
++
++	lbz	r6, 0(r11)		/* byte copy loop		*/
++
++	addi	r11, r11, 1
++
++	lbz	r8, 0(r4)
++
++	addi	r4, r4, 1
++
++	cmplw   r8, r6
++
++	bdnzt+	eq, bbb
++
++	bne     all_done
++
++	cmpwi	r5, 0
++	bgt	again   		/* handle the rest		*/
++
++        xor     r3,r3,r3
++
++	blr
++
++#if 0 /* Removed code section. DWG */
++partial:
++
++	mr.	r3, r5
++
++	beqlr                           /* If count -> 0, we're done    */
++
++f1:
++
++	subfic	r3, r3, 4		/* zero/end in first word?	*/
++	cmpwi	r3, 0
++	blt	last4
++#endif /* DWG */
++
++first4:
++	subfic	r3, r5, 4		/* If count <= 4, handle 	*/
++	rlwinm	r3, r3, 3, 0, 31	/* count *= 8			*/
++	srw	r6, r6, r3	        /* align 1st buffer 1 word     	*/
++	srw	r8, r8, r3	        /* align 1st buffer 2 word     	*/
++
++	cmplw   r8, r6  	        /* get result			*/
++        bne     all_done
++        xor     r3,r3,r3
++	blr
++
++last4:
++	subfic	r10, r5, 8		/*DWG*/
++	rlwinm	r10, r10, 3, 0, 31	/* count *= 8			*/
++	srw	r7, r7, r10	        /* align 2nd buffer 1 word     	*/
++	srw	r9, r9, r10	        /* align 2nd buffer 2 word     	*/
++
++	cmplw   r9, r7  	        /* get result			*/
++        bne     all_done
++ret_0:
++        xor     r3,r3,r3                /* Equal result                 */
++	blr
++
++all_done:
++
++        blt     finish_lt
++
++        addi    r3,0,-1                 /* Less than result             */
++
++        blr
++
++finish_lt:
++
++        addi    r3,0,1                  /* Greater than result          */
++
++        blr
++
++function_epilog(memcmp)
++weak_alias (memcmp, bcmp)
++libc_hidden_builtin_def(memcmp)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/memcpy.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memcpy.S
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memcpy.S	2004-11-19 14:51:42.000000000 +0100
+@@ -0,0 +1,96 @@
++/* stropt/memcpy_405.S, pl_string_common, pl_linux 10/11/04 11:45:35
++ * ==========================================================================
++ * Optimized memcpy implementation for IBM PowerPC 405.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ *
++ * ==========================================================================
++ *
++ * Function: Copy n bytes of the source to the destination. Behavior is
++ *           undefined for objects that overlap.
++ *
++ *           void *memcpy(void * dest, const void * src, int n)
++ *
++ * Input:  r3 - destination address
++ *         r4 - source address
++ *         r5 - byte count
++ * Output: r3 - destination address
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++function_prolog(memcpy)
++
++        /*
++         * Check count passed in R5. If zero, return; otherwise continue.
++	 */
++	cmpwi	r5,0
++	beqlr-
++
++
++	addi 	r0,0,16		/* Byte count of 16 in XER for 'load       */
++        mtxer   r0		/* string' instruction later		   */
++
++	xor	r12,r12,r12	/* Clear offset from the start             */
++
++again:
++
++        addic.  r5,r5,-16
++
++        blt-    partial         /* Branch if < 16 bytes left to copy       */
++
++	lswx    r6,r4,r12       /* Load r6-r9 from r4 src + r12 offset     */
++                                /* from the start                          */
++
++        stswx   r6,r3,r12       /* Store four words                        */
++
++        add     r12,r12,r0      /* Bump offset from the start by 16        */
++
++        b       again           /* Loop back and read 4 more words         */
++
++partial:			/* If <16 bytes left, move those           */
++
++        addi    r5,r5,16        /* Reconstruct remaining count and put in  */
++
++        mtxer   r5              /* XER for 'load string'                   */
++
++	lswx	r6,r4,r12	/* Read the remaining bytes		   */
++
++        stswx   r6,r3,r12       /* Store these remaining bytes             */
++
++        blr                     /* Return dest ptr which was unchanged     */
++
++function_epilog(memcpy)
++libc_hidden_builtin_def(memcpy)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/memmove.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memmove.S
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/memmove.S	2004-11-19 14:51:48.000000000 +0100
+@@ -0,0 +1,165 @@
++/* stropt/memmove.S, pl_string_common, pl_linux 10/11/04 11:45:37
++ * ==========================================================================
++ * Optimized memmove implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Move memory area (handles overlapping regions)
++ *
++ *           void *memmove(void * dest, const void * src, int n) 
++ *  
++ * Input:  r3 - destination address 
++ *         r4 - source address 
++ *         r5 - byte count
++ * Output: r3 - destination address
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++function_prolog(memmove)
++
++	mr	r8, r3		        /* Save dst (return value)	*/
++        
++	cmpw	r4, r8  		/* Branch to reverse if 	*/
++	blt	reverse			/* src < dest. Don't want to    */
++	                                /* overwrite end of src with    */
++					/* start of dest 		*/
++
++	addi	r4, r4, -4		/* Back up src and dst pointers */
++	addi	r8, r8, -4		/* due to auto-update of 'load' */ 
++        
++	srwi.	r9,r5,2		        /* How many words in total cnt  */
++	beq-	last1                   /* Handle byte by byte if < 4   */
++        				/* bytes total 			*/
++	mtctr	r9			/* Count of words for loop   	*/
++	lwzu	r7, 4(r4)               /* Preload first word   	*/
++        
++	b	g1
++
++g0:					/* Main loop			*/
++
++	lwzu	r7, 4(r4)		/* Load a new word		*/
++	stwu	r6, 4(r8)		/* Store previous word		*/
++        
++g1:
++
++	bdz-	last			/* Dec cnt, and branch if just  */
++        				/* one word to store            */
++	lwzu	r6, 4(r4)		/* Load another word		*/
++	stwu	r7, 4(r8)		/* Store previous word		*/
++	bdnz+	g0			/* Dec cnt, and loop again if   */
++					/* more words                   */
++	mr	r7, r6			/* If word count -> 0, then...  */
++        
++last:
++
++	stwu	r7, 4(r8)		/* ... store last word		*/
++
++last1:				        /* Byte-by-byte copy		*/
++
++	clrlwi.	r5,r5,30		/* If count -> 0, then ...      */
++	beqlr				/* we're done			*/
++        
++	mtctr	r5			/* else load count for loop     */
++        
++	lbzu	r6, 4(r4)		/* 1st byte: update addr by 4	*/
++	stbu	r6, 4(r8)		/* since we pre-adjusted by 4   */
++	bdzlr-				/* in anticipation of main loop */
++        
++last2:
++
++	lbzu	r6, 1(r4)		/* But handle the rest by  	*/
++	stbu	r6, 1(r8)		/* updating addr by 1           */
++	bdnz+	last2
++        
++	blr
++
++	/* We're here since src < dest. Don't want to overwrite end of  */
++	/* src with start of dest  					*/
++
++reverse:
++
++	add	r4, r4, r5	        /* Work from end to beginning	*/
++	add	r8, r8, r5 		/* so add count to string ptrs  */
++       	srwi.	r9,r5,2			/* Words in total count		*/
++       	beq-	rlast1                  /* Handle byte by byte if < 4   */
++        				/* bytes total 			*/
++        
++	mtctr	r9			/* Count of words for loop 	*/
++        
++	lwzu	r7, -4(r4)		/* Preload first word		*/
++	b	rg1
++
++rg0:					/* Main loop			*/
++
++	lwzu	r7, -4(r4)		/* Load a new word		*/
++	stwu	r6, -4(r8)		/* Store previous word		*/
++        
++rg1:
++
++	bdz-	rlast                   /* Dec cnt, and branch if just  */
++        				/* one word to store            */
++
++	lwzu	r6, -4(r4)		/* Load another word		*/
++	stwu	r7, -4(r8)		/* Store previous word		*/
++        
++	bdnz+	rg0                     /* Dec cnt, and loop again if   */
++					/* more words                   */
++
++	mr	r7, r6                  /* If word count -> 0, then...  */
++        
++rlast:
++
++	stwu	r7, -4(r8)		/* ... store last word		*/
++
++rlast1:				        /* Byte-by-byte copy		*/
++
++	clrlwi.	r5,r5,30		/* If count -> 0, then...	*/
++	beqlr				/* ... we're done 		*/
++        
++	mtctr	r5			/* else load count for loop 	*/
++        
++rlast2:
++
++	lbzu	r6, -1(r4)		/* Handle the rest, byte by 	*/
++	stbu	r6, -1(r8)		/* byte				*/
++        
++	bdnz+	rlast2		 	/* Dec ctr, and branch if more  */
++        				/* bytes left			*/
++	blr
++
++function_epilog(memmove)
++libc_hidden_builtin_def(memmove)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/ppc4xx.inc glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/ppc4xx.inc
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/ppc4xx.inc	2004-11-19 13:44:29.000000000 +0100
+@@ -0,0 +1,139 @@
++/* include/ppc4xx.inc, pl_common, pl_linux 12/11/03 13:43:26
++ *-----------------------------------------------------------------------------
++ *
++ *  Copyright (C) 2003 IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#ifndef ppc4xx_inc
++#define ppc4xx_inc
++
++
++/*----------------------------------------------------------------------------+
++| Function prolog definition and other GCC/EABI defines.
+++----------------------------------------------------------------------------*/
++
++#define r0 %r0
++#define r1 %r1
++#define r2 %r2
++#define r3 %r3
++#define r4 %r4
++#define r5 %r5
++#define r6 %r6
++#define r7 %r7
++#define r8 %r8
++#define r9 %r9
++#define r10 %r10
++#define r11 %r11
++#define r12 %r12
++#define r13 %r13
++#define r14 %r14
++#define r15 %r15
++#define r16 %r16
++#define r17 %r17
++#define r18 %r18
++#define r19 %r19
++#define r20 %r20
++#define r21 %r21
++#define r22 %r22
++#define r23 %r23
++#define r24 %r24
++#define r25 %r25
++#define r26 %r26
++#define r27 %r27
++#define r28 %r28
++#define r29 %r29
++#define r30 %r30
++#define r31 %r31
++
++#define cr0	%cr0
++#define cr1	%cr1
++#define cr2	%cr2
++#define cr3	%cr3
++#define cr4	%cr4
++#define cr5	%cr5
++#define cr6	%cr6
++#define cr7	%cr7
++
++/* helpful cr bit definitions */         
++#define cr0_0   0
++#define cr0_1   1
++#define cr0_2   2
++#define cr0_3   3
++
++#define cr1_0   4
++#define cr1_1   5
++#define cr1_2   6
++#define cr1_3   7
++
++#define cr2_0   8
++#define cr2_1   9
++#define cr2_2   10
++#define cr2_3   11
++
++#define cr3_0   12
++#define cr3_1   13
++#define cr3_2   14
++#define cr3_3   15
++
++#define cr4_0   16
++#define cr4_1   17
++#define cr4_2   18
++#define cr4_3   19
++
++#define cr5_0   20
++#define cr5_1   21
++#define cr5_2   22
++#define cr5_3   23
++
++#define cr6_0   24
++#define cr6_1   25
++#define cr6_2   26
++#define cr6_3   27
++
++#define cr7_0   28
++#define cr7_1   29
++#define cr7_2   30
++#define cr7_3   31
++
++
++#define function_prolog(func_name)	.text; \
++					.align  2; \
++					.globl  func_name; \
++					func_name:
++#define function_epilog(func_name)	.type func_name,@function; \
++					.size func_name,.-func_name
++
++#define function_call(func_name)	bl func_name 
++
++#endif
++
++
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/strcat.c glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strcat.c
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strcat.c	2004-11-19 14:51:51.000000000 +0100
+@@ -0,0 +1,67 @@
++/* stropt/strcat.c, pl_string_common, pl_linux 10/11/04 11:45:38
++ * ==========================================================================
++ * Optimized strcat implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Concatenates s2 to s1 and terminates s1 with a null. 
++ *
++ *           char *strcat(char *s1, const char *s2) 
++ *  
++ * Input:  r3 - destination string address s1
++ *         r4 - source string address s2 
++ * Output: r3 - address of string s1 
++ *
++ * Notes:  Since we have an optimized strlen and strcpy, this is an
++ *         easy way to implement a fast strcat.
++ *
++ * ==========================================================================
++ */
++
++#include <string.h>
++
++#undef strcat
++
++char * strcat (char *destination, const char *source)
++{
++  char *the_dest;
++
++  the_dest = destination + strlen(destination);
++
++  strcpy(the_dest, source);
++
++  return destination;
++}
++
++libc_hidden_builtin_def(strcat)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/strchr.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strchr.S
+--- glibc-2.3.2/sysdeps/powerpc/powerpc32/strchr.S	2004-11-19 00:51:39.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strchr.S	2004-11-19 14:51:53.000000000 +0100
+@@ -1,131 +1,198 @@
+-/* Optimized strchr implementation for PowerPC.
+-   Copyright (C) 1997, 1999, 2000, 2003 Free Software Foundation, Inc.
+-   This file is part of the GNU C Library.
+-
+-   The GNU C Library is free software; you can redistribute it and/or
+-   modify it under the terms of the GNU Lesser General Public
+-   License as published by the Free Software Foundation; either
+-   version 2.1 of the License, or (at your option) any later version.
+-
+-   The GNU C Library is distributed in the hope that it will be useful,
+-   but WITHOUT ANY WARRANTY; without even the implied warranty of
+-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-   Lesser General Public License for more details.
+-
+-   You should have received a copy of the GNU Lesser General Public
+-   License along with the GNU C Library; if not, write to the Free
+-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+-   02111-1307 USA.  */
+-
+-#include <sysdep.h>
+-#include <bp-sym.h>
+-#include <bp-asm.h>
+-
+-/* See strlen.s for comments on how this works.  */
+-
+-/* char * [r3] strchr (const char *s [r3] , int c [r4] )  */
+-
+-ENTRY (BP_SYM (strchr))
+-
+-#define rTMP1	r0
+-#define rRTN	r3	/* outgoing result */
+-#if __BOUNDED_POINTERS__
+-# define rSTR	r4
+-# define rCHR	r5	/* byte we're looking for, spread over the whole word */
+-# define rWORD	r8	/* the current word */
+-#else
+-# define rSTR	r8	/* current word pointer */
+-# define rCHR	r4	/* byte we're looking for, spread over the whole word */
+-# define rWORD	r5	/* the current word */
+-#endif
+-#define rCLZB	rCHR	/* leading zero byte count */
+-#define rFEFE	r6	/* constant 0xfefefeff (-0x01010101) */
+-#define r7F7F	r7	/* constant 0x7f7f7f7f */
+-#define rTMP2	r9
+-#define rIGN	r10	/* number of bits we should ignore in the first word */
+-#define rMASK	r11	/* mask with the bits to ignore set to 0 */
+-#define rTMP3	r12
+-
+-	CHECK_BOUNDS_LOW (rSTR, rTMP1, rTMP2)
+-	STORE_RETURN_BOUNDS (rTMP1, rTMP2)
+-
+-	rlwimi	rCHR, rCHR, 8, 16, 23
+-	li	rMASK, -1
+-	rlwimi	rCHR, rCHR, 16, 0, 15
+-	rlwinm	rIGN, rRTN, 3, 27, 28
+-	lis	rFEFE, -0x101
+-	lis	r7F7F, 0x7f7f
+-	clrrwi	rSTR, rRTN, 2
+-	addi	rFEFE, rFEFE, -0x101
+-	addi	r7F7F, r7F7F, 0x7f7f
+-/* Test the first (partial?) word.  */
+-	lwz	rWORD, 0(rSTR)
+-	srw	rMASK, rMASK, rIGN
+-	orc	rWORD, rWORD, rMASK
+-	add	rTMP1, rFEFE, rWORD
+-	nor	rTMP2, r7F7F, rWORD
+-	and.	rTMP1, rTMP1, rTMP2
+-	xor	rTMP3, rCHR, rWORD
+-	orc	rTMP3, rTMP3, rMASK
+-	b	L(loopentry)
+-
+-/* The loop.  */
+-
+-L(loop):lwzu rWORD, 4(rSTR)
+-	and.	rTMP1, rTMP1, rTMP2
+-/* Test for 0.	*/
+-	add	rTMP1, rFEFE, rWORD
+-	nor	rTMP2, r7F7F, rWORD
+-	bne	L(foundit)
+-	and.	rTMP1, rTMP1, rTMP2
+-/* Start test for the bytes we're looking for.  */
+-	xor	rTMP3, rCHR, rWORD
+-L(loopentry):
+-	add	rTMP1, rFEFE, rTMP3
+-	nor	rTMP2, r7F7F, rTMP3
+-	beq	L(loop)
+-/* There is a zero byte in the word, but may also be a matching byte (either
+-   before or after the zero byte).  In fact, we may be looking for a
+-   zero byte, in which case we return a match.  We guess that this hasn't
+-   happened, though.  */
+-L(missed):
+-	and.	rTMP1, rTMP1, rTMP2
+-	li	rRTN, 0
+-	STORE_RETURN_VALUE (rSTR)
+-	beqlr
+-/* It did happen. Decide which one was first...
+-   I'm not sure if this is actually faster than a sequence of
+-   rotates, compares, and branches (we use it anyway because it's shorter).  */
+-	and	rFEFE, r7F7F, rWORD
+-	or	rMASK, r7F7F, rWORD
+-	and	rTMP1, r7F7F, rTMP3
+-	or	rIGN, r7F7F, rTMP3
+-	add	rFEFE, rFEFE, r7F7F
+-	add	rTMP1, rTMP1, r7F7F
+-	nor	rWORD, rMASK, rFEFE
+-	nor	rTMP2, rIGN, rTMP1
+-	cmplw	rWORD, rTMP2
+-	bgtlr
+-	cntlzw	rCLZB, rTMP2
+-	srwi	rCLZB, rCLZB, 3
+-	add	rRTN, rSTR, rCLZB
+-	CHECK_BOUNDS_HIGH_RTN (rSTR, rTMP2, twlge)
+-	STORE_RETURN_VALUE (rSTR)
++/* stropt/strchr.S, pl_string_common, pl_linux 10/11/04 11:45:39
++ * ==========================================================================
++ *
++ * Optimized strchr implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Search for first occurrence of character in string. The character 
++ *           can be the NULL character and the NULL character in the search 
++ *           string is included in the search. 
++ *
++ *           char *strchr(const char *s1, int c) 
++ * 
++ * Input:  r3 - string address
++ *         r4 - character in least significant byte of word 
++ * Output: r3 - address of located character or NULL if not found
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++#define DLMZBDOT(ra,rs,rb) .long 0x7c00009d|(rs<<21)|(ra<<16)|(rb<<11)
++           
++function_prolog(strchr)
++	cmpwi	r4,0
++	beq-	char_is_null	/* Search char is NULL, so do strlen op    */
++
++	xor	r5,r5,r5	/* Clear total offset from start           */
++	neg	r9,r3     	/* get 2's complement of input address     */
++	rlwinm.	r7,r9,0,29,31   /* calc number of bytes to dword boundary  */
++	beq-	dwbndry         /* if zero, then already on dword bndry    */
++
++	mtctr	r7              /* do byte by byte until dword bndry       */
++bytebybyte:
++	lbzx    r6,r5,r3        /* load byte                               */
++	addi	r5,r5,1         /* bump offset                             */
++	cmpwi	r6,0            /* compare to NULL                         */
++	beq-	ret_null        /* found end of string with no match       */
++	cmpw	r6,r4
++	beq-	found
++	bdnz	bytebybyte      /* loop till zero count                    */
++
++dwbndry:
++	addi 	r6,0,8		/* Byte count of 8 in XER for 'load        */
++	mtxer 	r6		/* string' instruction later               */
++        
++	rlwimi	r4,r4,8,16,23	/* Set up 'c' in all bytes of word.        */
++        rlwimi.	r4,r4,16,0,15   /* Remember 'c' in LSB of int              */
++
++	b	again
++
++comp:			        /* No NULL in eight bytes, look for 'c'    */
++
++	xor	r6,r6,r4	/* XOR r4 & r6 to look for match           */
++	xor	r7,r7,r4	/* XOR r4 & r7 to look for match           */
++        
++	DLMZBDOT(0,6,7)         /* Check for hole created by match         */
++        
++	add	r5,r5,r0	/* Update total offset with 1-8            */
++        
++	bne-	found	        /* If no hole, fall through and get next 8 */
++                                /* bytes, otherwise, go to logic to handle */
++                                /* 8 bytes w/ match                        */
++
++again:			        /* New 8 bytes, look for NULL first        */
++
++	lswx 	r6,r3,r5	/* Load r6/r7 from r3 src + r5 offset      */
++                                /* from the start                          */
++	DLMZBDOT(12,6,7)	/* Look for NULL in these current 8 bytes  */
++	beq+	comp		/* If no NULL, search 8 bytes for 'c'      */
++
++   /* 
++    * Here we found a NULL because of end of string, but we don't know 
++    * if there is a match for 'c' in the bytes prior to the NULL. 
++    */
++
++	xor     r6,r6,r4	/* XOR r4 & r6 to look for match           */
++        xor     r7,r7,r4	/* XOR r4 & r7 to look for match           */
++        
++        DLMZBDOT(0,6,7)		/* Check for hole created by match         */
++        
++        cmplw   r0,r12		/* Was there a match before the NULL?      */
++        
++        bge     ret_null	/* If not, return NULL                     */
++        			
++        add     r5,r5,r0	/* Else, update the offset from the start  */
++        
++   /* 
++    * Here we know the string is not ending, but we found a match in 
++    * these 8 bytes or... we found a string ending NULL, but then found  
++    * a match before this NULL.
++    */
++
++found:
++
++	addi    r5,r5,-1
++	add	r3,r3,r5	/* Return string start addr + offset to 'c'*/
+ 	blr
++        
++ret_null:
+ 
+-L(foundit):
+-	and	rTMP1, r7F7F, rTMP3
+-	or	rIGN, r7F7F, rTMP3
+-	add	rTMP1, rTMP1, r7F7F
+-	nor	rTMP2, rIGN, rTMP1
+-	cntlzw	rCLZB, rTMP2
+-	subi	rSTR, rSTR, 4
+-	srwi	rCLZB, rCLZB, 3
+-	add	rRTN, rSTR, rCLZB
+-	CHECK_BOUNDS_HIGH_RTN (rSTR, rTMP2, twlge)
+-	STORE_RETURN_VALUE (rSTR)
++	xor	r3,r3,r3	/* Return NULL since no match found        */	
+ 	blr
+-END (BP_SYM (strchr))
+ 
+-weak_alias (BP_SYM (strchr), BP_SYM (index))
++char_is_null:			/* Since search char is NULL, we basically */
++				/* do a strlen operation                   */
++
++	xor	r12,r12,r12	/* Clear total offset from the start       */
++	neg	r9,r3     	/* get 2's complement of input address     */
++	rlwinm.	r7,r9,0,29,31   /* calc number of bytes to dword boundary  */
++	beq-	s_dwbndry       /* if zero, then already on dword bndry    */
++
++	mtctr	r7              /* do byte by byte until dword bndry       */
++s_bytebybyte:
++	lbzx    r6,r12,r3       /* load byte                               */
++	addi	r12,r12,1       /* bump offset                             */
++	cmpwi	r6,0            /* compare to NULL                         */
++	bdnzf	eq,s_bytebybyte /* loop till zero count or NULL found      */
++	beq-	s_found         /* check if NULL found                     */
++
++s_dwbndry:
++	rlwinm.	r7,r9,29,30,31  /* calc # of dwords to quad word bndry     */
++	beq	s_qwbndry       /* if zero, then already on qword bndry    */
++	addi 	r7,0,8		/* Byte count of 8 into XER for 'load      */
++				/* string' instruction later		   */	
++        mtxer   r7              /* Load count for 'load string'            */
++	lswx 	r6,r3,r12	/* Load r6-r7 from r3 src + r12 offset     */
++	DLMZBDOT(11,6,7)        /* Look for NULL in these 8 bytes          */
++        add     r12,r12,r11     /* Bump the offset from the start          */
++	bne-	s_found		/* If NULL found, done; else keep looking  */
++
++s_qwbndry:
++	
++       	addi 	r5,0,16		/* Byte count of 16 into XER for 'load     */
++				/* string' instruction later		   */
++     
++s_again:	                /* New 16 bytes, look for NULL             */
++
++        mtxer   r5              /* Load count for 'load string'            */
++	lswx 	r6,r3,r12	/* Load r6-r9 from r3 src + r12 offset     */
++                                /* from the start                          */
++	DLMZBDOT(11,6,7)        /* Look for NULL in these first   8 bytes  */
++        
++        add     r12,r12,r11     /* Bump the offset from the start          */
++
++	bne-	s_found		/* If no NULL in first 8 bytes, fall       */
++				/* through and test next 8 bytes, else,    */
++				/* we're done				   */
++
++        DLMZBDOT(11,8,9)        /* Look for NULL in these next    8 bytes  */
++
++        add     r12,r12,r11     /* Bump the offset from the start          */
++
++	beq+	s_again   	/* If no NULL, grab next 16 bytes, else,   */
++				/* we're done.				   */	
++s_found:
++
++	addi	r12,r12,-1      /* Compensate for NULL                     */
++
++ 	add	r3,r12,r3       /* Add returned length to string pointer   */
++	
++	blr
++	
++function_epilog(strchr)
++weak_alias (strchr, index)
+ libc_hidden_builtin_def (strchr)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/strcmp.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strcmp.S
+--- glibc-2.3.2/sysdeps/powerpc/powerpc32/strcmp.S	2004-11-19 00:51:39.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strcmp.S	2004-11-19 14:51:57.000000000 +0100
+@@ -1,127 +1,293 @@
+-/* Optimized strcmp implementation for PowerPC.
+-   Copyright (C) 1997, 1999, 2000, 2003 Free Software Foundation, Inc.
+-   This file is part of the GNU C Library.
+-
+-   The GNU C Library is free software; you can redistribute it and/or
+-   modify it under the terms of the GNU Lesser General Public
+-   License as published by the Free Software Foundation; either
+-   version 2.1 of the License, or (at your option) any later version.
+-
+-   The GNU C Library is distributed in the hope that it will be useful,
+-   but WITHOUT ANY WARRANTY; without even the implied warranty of
+-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-   Lesser General Public License for more details.
+-
+-   You should have received a copy of the GNU Lesser General Public
+-   License along with the GNU C Library; if not, write to the Free
+-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+-   02111-1307 USA.  */
+-
+-#include <sysdep.h>
+-#include <bp-sym.h>
+-#include <bp-asm.h>
+-
+-/* See strlen.s for comments on how the end-of-string testing works.  */
+-
+-/* int [r3] strcmp (const char *s1 [r3], const char *s2 [r4])  */
+-
+-EALIGN (BP_SYM (strcmp), 4, 0)
+-
+-#define rTMP	r0
+-#define rRTN	r3
+-#define rSTR1	r3	/* first string arg */
+-#define rSTR2	r4	/* second string arg */
+-#if __BOUNDED_POINTERS__
+-# define rHIGH1	r11
+-# define rHIGH2 r12
+-#endif
+-#define rWORD1	r5	/* current word in s1 */
+-#define rWORD2	r6	/* current word in s2 */
+-#define rFEFE	r7	/* constant 0xfefefeff (-0x01010101) */
+-#define r7F7F	r8	/* constant 0x7f7f7f7f */
+-#define rNEG	r9	/* ~(word in s1 | 0x7f7f7f7f) */
+-#define rBITDIF	r10	/* bits that differ in s1 & s2 words */
+-
+-	CHECK_BOUNDS_LOW (rSTR1, rTMP, rHIGH1)
+-	CHECK_BOUNDS_LOW (rSTR2, rTMP, rHIGH2)
+-
+-	or	rTMP, rSTR2, rSTR1
+-	clrlwi.	rTMP, rTMP, 30
+-	lis	rFEFE, -0x101
+-	bne	L(unaligned)
+-
+-	lwz	rWORD1, 0(rSTR1)
+-	lwz	rWORD2, 0(rSTR2)
+-	lis	r7F7F, 0x7f7f
+-	addi	rFEFE, rFEFE, -0x101
+-	addi	r7F7F, r7F7F, 0x7f7f
+-	b	L(g1)
+-
+-L(g0):	lwzu	rWORD1, 4(rSTR1)
+-	bne	cr1, L(different)
+-	lwzu	rWORD2, 4(rSTR2)
+-L(g1):	add	rTMP, rFEFE, rWORD1
+-	nor	rNEG, r7F7F, rWORD1
+-	and.	rTMP, rTMP, rNEG
+-	cmpw	cr1, rWORD1, rWORD2
+-	beq+	L(g0)
+-L(endstring):
+-/* OK. We've hit the end of the string. We need to be careful that
+-   we don't compare two strings as different because of gunk beyond
+-   the end of the strings...  */
+-	and	rTMP, r7F7F, rWORD1
+-	beq	cr1, L(equal)
+-	add	rTMP, rTMP, r7F7F
+-	xor.	rBITDIF, rWORD1, rWORD2
+-	andc	rNEG, rNEG, rTMP
+-	blt-	L(highbit)
+-	cntlzw	rBITDIF, rBITDIF
+-	cntlzw	rNEG, rNEG
+-	addi	rNEG, rNEG, 7
+-	cmpw	cr1, rNEG, rBITDIF
+-	sub	rRTN, rWORD1, rWORD2
+-	bgelr+	cr1
+-L(equal):
+-	li	rRTN, 0
+-	/* GKM FIXME: check high bounds.  */
+-	blr
+-
+-L(different):
+-	lwz	rWORD1, -4(rSTR1)
+-	xor.	rBITDIF, rWORD1, rWORD2
+-	sub	rRTN, rWORD1, rWORD2
+-	bgelr+
+-L(highbit):
+-	ori	rRTN, rWORD2, 1
+-	/* GKM FIXME: check high bounds.  */
+-	blr
+-
+-
+-/* Oh well.  In this case, we just do a byte-by-byte comparison.  */
+-	.align 4
+-L(unaligned):
+-	lbz	rWORD1, 0(rSTR1)
+-	lbz	rWORD2, 0(rSTR2)
+-	b	L(u1)
+-
+-L(u0):	lbzu	rWORD1, 1(rSTR1)
+-	bne-	L(u4)
+-	lbzu	rWORD2, 1(rSTR2)
+-L(u1):	cmpwi	cr1, rWORD1, 0
+-	beq-	cr1, L(u3)
+-	cmpw	rWORD1, rWORD2
+-	bne-	L(u3)
+-	lbzu	rWORD1, 1(rSTR1)
+-	lbzu	rWORD2, 1(rSTR2)
+-	cmpwi	cr1, rWORD1, 0
+-	cmpw	rWORD1, rWORD2
+-	bne+	cr1, L(u0)
+-L(u3):	sub	rRTN, rWORD1, rWORD2
+-	/* GKM FIXME: check high bounds.  */
+-	blr
+-L(u4):	lbz	rWORD1, -1(rSTR1)
+-	sub	rRTN, rWORD1, rWORD2
+-	/* GKM FIXME: check high bounds.  */
+-	blr
+-END (BP_SYM (strcmp))
++/* stropt/strcmp.S, pl_string_common, pl_linux 10/11/04 11:45:40
++ * ==========================================================================
++ * Optimized strcmp implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Compare two character strings
++ *
++ *           int strcmp(const char *s1, const char *s2) 
++ *  
++ * Input:  r3 - string 1 address
++ *         r4 - string 2 address
++ * Output: r3 <0 (less), 0 (equal), >0 (greater)
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++#define DLMZBDOT(ra,rs,rb) .long 0x7c00009d|(rs<<21)|(ra<<16)|(rb<<11)
++
++function_prolog(strcmp)
++
++        /* Most of the time the difference is found in the first
++	 * several bytes.  The following code minimizes the number
++	 * of load operations for short strings.  
++	 */
++         
++	mr	r10, r3		        /* Save string 2       		*/
++        
++again:
++	li	r8, -1		        /* 2nd word of dlmzb not used	*/
++        
++	not	r9, r4		        /* string 1: bytes to page bdy	*/
++	rlwinm.	r9, r9,29,23,31	        /* string 1: dwords to page bdy	*/
++	beq-	bytebybyte              /* If <8 bytes to page bdy      */
++                                        /* do byte by byte              */
++	lwz	r7, 0(r4)		/* load 1st string 1 word      	*/
++        
++	not	r11, r10		/* string 2: bytes to page bdy	*/
++	rlwinm.	r11, r11,29,23,31	/* string 2: dwords to page bdy	*/
++	beq-	bytebybyte              /* If <8 bytes to page bdy      */
++                                        /* do byte by byte              */
++
++	lwz	r5, 0(r10)		/* load 1st string 2 word      	*/
++        
++	DLMZBDOT(3,7,8)			/* quick zero check		*/
++        
++	subfic	r3, r3, 4		/* adjust counter		*/
++	bne+	first4                  /* Branch if <4 bytes           */
++        
++        cmplw   r7, r5                  /* compare string 1 and string 2*/
++	bne+    all_done                /* different => we're done	*/
++
++	lwzu	r7, 4(r4)		/* load 2nd string 1 word      	*/
++	lwzu	r5, 4(r10)		/* load 2nd string 2 word      	*/
++        
++	DLMZBDOT(3,7,8)			/* quick zero check		*/
++        
++	subfic	r3, r3, 4		/* adjust counter		*/
++	bne+	first4                  /* Branch if <4 bytes           */
++        
++	cmplw   r7, r5	                /* compare string 1 and string 2*/
++	bne+    all_done		/* different => we're done	*/
++
++	addi	r9, r4, 0x0004		/* DWG*/
++	not	r9, r9			/* buffer 2: bytes to page bdy DWG */
++	rlwinm.	r9, r9,29,23,31		/* buffer 2: dwords to page bdy	DWG */
++	addi	r11, r10, 0x0004	/* DWG */
++	not	r11, r11		/* buffer 1: bytes to page bdy DWG */
++	rlwinm.	r11, r11,29,23,31	/* buffer 1: dwords to page bdy	DWG */
++
++        /* The following section prior to loop: figures out whether     */
++        /* the string 1 or string  2 is closer to the page boundary.    */
++        /* The main loop count is then set up to reflect the number of  */
++        /* double words of the string  that is closest                  */
++
++        cmpw	r9, r11		        /* take minimum			*/
++	blt	lt
++        
++	mr	r9, r11
++lt:
++	cmpwi	r9, 0			/* DWG */
++	bne	lt2			/* DWG */
++	addi	r4, r4, 0x0004		/* DWG */
++	addi	r10,r10,0x0004		/* DWG */
++	b	again			/* DWG */
++lt2:					/* DWG */
++	mtctr	r9			/* dword count for loop 	*/
++	lwzu	r5, 4(r10)		/* pre-load string 1 word	*/
++                                        /* To the loop                  */
++	b	in
++        
++loop:					/* main loop			*/
++
++	cmplw   r7, r5                  /* Compare 1st string 2 word    */
++        bne-    all_done	        /* with first string 1 word     */
++                                        /* If different, we're done     */
++	cmplw   r8, r6                  /* Compare 2nd string 2 word    */
++                                        /* with 2nd string 1 word       */
++        lwzu	r5, 4(r10)              /* Preload string 1 word        */
++        
++	bne-    all_done                /* If different, we're done     */
++        
++in:
++
++	lwzu	r6, 4(r10)              /* Load string 1 word           */
++	lwzu	r7, 4(r4)               /* Load string 2 word           */
++        
++	DLMZBDOT(3,5,6)                 /* zero check                   */
++        
++	lwzu	r8, 4(r4)               /* Load string 2 word           */
++	bdnzt+	eq, loop                /* dec cnt, continue loop if    */
++                                        /* count not 0 and no strnig end*/
++	bne+	partial
++
++	cmplw   r7, r5	                /* compare last dword      	*/
++	addi	r4, r4, 4
++	bne-    all_done
++        
++	cmplw   r8, r6
++	addi	r10, r10, 4
++	bne-    all_done
++
++bytebybyte:
++
++	/* 
++         * We've got close to a page boundary: do a byte-byte-byte
++	 * compare for the following 8 bytes, and then go back to
++	 * the full-double word compare loop.
++	 */
++         
++	lbz	r5, 0(r10)
++	lbz	r7, 0(r4)
++	cmpwi	cr1, r5, 0
++	beq-	cr1, s2
++        
++	cmplw   r7, r5                  /* compare bytes		*/
++	lbzu    r5, 1(r10)		/* load next string 2 byte     	*/
++	bne-    all_done		/* bytes differ, we're done	*/
++	lbzu    r7, 1(r4)		/* load next string 1 byte     	*/
++	cmpwi   cr1, r5, 0		/* zero?			*/
++	beq-	cr1, s2
++        
++	cmplw   r7, r5	                /* compare bytes		*/
++	lbzu    r5, 1(r10)		/* load next string 2 byte     	*/
++	bne-    all_done		/* bytes differ, we're done	*/
++	lbzu    r7, 1(r4)		/* load next string 1 byte     	*/
++	cmpwi	cr1, r5, 0		/* zero?			*/
++	beq-	cr1, s2
++        
++	cmplw   r7, r5	                /* compare bytes		*/
++	lbzu    r5, 1(r10)	       	/* load next string 2 byte     	*/
++	bne-    all_done        	/* bytes differ, we're done	*/
++	lbzu    r7, 1(r4)		/* load next string 1 byte     	*/
++	cmpwi   cr1, r5, 0		/* zero?			*/
++	beq-	cr1, s2
++        
++	cmplw   r7, r5	                /* compare bytes		*/
++	lbzu    r5, 1(r10)		/* load next string 2 byte     	*/
++	bne-    all_done		/* bytes differ, we're done	*/
++	lbzu    r7, 1(r4)		/* load next string 1 byte     	*/
++	cmpwi	cr1, r5, 0		/* zero?			*/
++	beq-	cr1, s2
++        
++	cmplw   r7, r5	                /* compare bytes		*/
++	lbzu    r5, 1(r10)		/* load next string 2 byte     	*/
++	bne-    all_done        	/* bytes differ, we're done	*/
++	lbzu    r7, 1(r4)		/* load next string 1 byte     	*/
++	cmpwi	cr1, r5, 0		/* zero?		        */
++	beq-	cr1, s2
++        
++	cmplw   r7, r5	                /* compare bytes		*/
++	lbzu    r5, 1(r10)		/* load next string 2 byte    	*/
++	bne-    all_done		/* bytes differ, we're done	*/
++	lbzu    r7, 1(r4)		/* load next string 1 byte     	*/
++	cmpwi	cr1, r5, 0		/* zero?			*/
++	beq-	cr1, s2
++        
++	cmplw   r7, r5	                /* compare bytes		*/
++	lbzu    r5, 1(r10)		/* load next string 2 byte     	*/
++	bne-    all_done		/* bytes differ, we're done	*/
++	lbzu    r7, 1(r4)		/* load next string 1 byte    	*/
++	cmpwi	cr1, r5, 0		/* zero?			*/
++	beq-	cr1, s2
++        
++	cmplw   r7, r5	                /* compare bytes		*/
++
++	beqlr	cr1			/* zero found, we're done	*/
++        
++	addi	r4, r4, 1
++	bne     all_done		/* bytes differ, we're done	*/
++        
++	addi	r10, r10, 1
++        
++	b	again                   /* Back to DW loop              */
++        
++s2:
++
++	cmplw   r7, r5	                /* get result			*/
++	bne     all_done
++        
++        xor     r3,r3,r3                /* Strings are same             */
++        blr
++
++partial:
++
++	/* 
++         * Zero byte found.  Align the loaded data to the
++	 * zero byte position and compare the results.
++	 */
++         
++	subfic	r3, r3, 4		/* zero in first word?		*/
++	blt	last4
++        
++first4:
++
++	rlwinm	r3, r3, 3, 0, 31	/* count *= 8			*/
++        
++	srw	r5, r5, r3	        /* align 1st string 2 word     	*/
++	srw	r7, r7, r3	        /* align 1st string 1 word     	*/
++        
++	cmplw   r7, r5	                /* get result			*/
++        bne     all_done
++        
++        xor     r3,r3,r3                /* Strings are same             */
++        blr
++        
++last4:
++
++	addi	r9, r3, 4		/* adjust count			*/
++        
++	cmplw   r7, r5	                /* 1st word compare		*/
++	bne     all_done		/* words differ, we're done	*/
++        
++	rlwinm	r9, r9, 3, 0, 31	/* count *= 8			*/
++        
++	srw	r6, r6, r9	        /* align 2nd string 2 word     	*/
++	srw	r8, r8, r9	        /* align 2nd string 1 word     	*/
++        
++	cmplw   r8, r6	                /* get result			*/
++        bne     all_done
++
++        xor     r3,r3,r3                /* Strings are same             */
++        blr
++        
++all_done:
++
++        blt     finish_lt               /* Less than result             */
++        
++        addi    r3,0,-1
++        
++        blr
++        
++finish_lt:
++
++        addi    r3,0,1                  /* Greater than result          */
++        
++        blr
++
++function_epilog(strcmp)
+ libc_hidden_builtin_def (strcmp)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/strcpy.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strcpy.S
+--- glibc-2.3.2/sysdeps/powerpc/powerpc32/strcpy.S	2004-11-19 00:51:39.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strcpy.S	2004-11-19 14:51:59.000000000 +0100
+@@ -1,121 +1,136 @@
+-/* Optimized strcpy implementation for PowerPC.
+-   Copyright (C) 1997, 1999, 2000, 2003 Free Software Foundation, Inc.
+-   This file is part of the GNU C Library.
+-
+-   The GNU C Library is free software; you can redistribute it and/or
+-   modify it under the terms of the GNU Lesser General Public
+-   License as published by the Free Software Foundation; either
+-   version 2.1 of the License, or (at your option) any later version.
+-
+-   The GNU C Library is distributed in the hope that it will be useful,
+-   but WITHOUT ANY WARRANTY; without even the implied warranty of
+-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-   Lesser General Public License for more details.
+-
+-   You should have received a copy of the GNU Lesser General Public
+-   License along with the GNU C Library; if not, write to the Free
+-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+-   02111-1307 USA.  */
+-
+-#include <sysdep.h>
+-#include <bp-sym.h>
+-#include <bp-asm.h>
+-
+-/* See strlen.s for comments on how the end-of-string testing works.  */
+-
+-/* char * [r3] strcpy (char *dest [r3], const char *src [r4])  */
+-
+-EALIGN (BP_SYM (strcpy), 4, 0)
+-
+-#define rTMP	r0
+-#define rRTN	r3	/* incoming DEST arg preserved as result */
+-#if __BOUNDED_POINTERS__
+-# define rDEST	r4	/* pointer to previous word in dest */
+-# define rSRC	r5	/* pointer to previous word in src */
+-# define rLOW	r11
+-# define rHIGH	r12
+-#else
+-# define rSRC	r4	/* pointer to previous word in src */
+-# define rDEST	r5	/* pointer to previous word in dest */
+-#endif
+-#define rWORD	r6	/* current word from src */
+-#define rFEFE	r7	/* constant 0xfefefeff (-0x01010101) */
+-#define r7F7F	r8	/* constant 0x7f7f7f7f */
+-#define rNEG	r9	/* ~(word in s1 | 0x7f7f7f7f) */
+-#define rALT	r10	/* alternate word from src */
+-
+-	CHECK_BOUNDS_LOW (rSRC, rLOW, rHIGH)
+-	CHECK_BOUNDS_LOW (rDEST, rLOW, rHIGH)
+-	STORE_RETURN_BOUNDS (rLOW, rHIGH)
+-
+-	or	rTMP, rSRC, rRTN
+-	clrlwi.	rTMP, rTMP, 30
+-#if __BOUNDED_POINTERS__
+-	addi	rDEST, rDEST, -4
+-#else
+-	addi	rDEST, rRTN, -4
+-#endif
+-	bne	L(unaligned)
+-
+-	lis	rFEFE, -0x101
+-	lis	r7F7F, 0x7f7f
+-	lwz	rWORD, 0(rSRC)
+-	addi	rFEFE, rFEFE, -0x101
+-	addi	r7F7F, r7F7F, 0x7f7f
+-	b	L(g2)
+-
+-L(g0):	lwzu	rALT, 4(rSRC)
+-	stwu	rWORD, 4(rDEST)
+-	add	rTMP, rFEFE, rALT
+-	nor	rNEG, r7F7F, rALT
+-	and.	rTMP, rTMP, rNEG
+-	bne-	L(g1)
+-	lwzu	rWORD, 4(rSRC)
+-	stwu	rALT, 4(rDEST)
+-L(g2):	add	rTMP, rFEFE, rWORD
+-	nor	rNEG, r7F7F, rWORD
+-	and.	rTMP, rTMP, rNEG
+-	beq+	L(g0)
+-
+-	mr	rALT, rWORD
+-/* We've hit the end of the string.  Do the rest byte-by-byte.  */
+-L(g1):	rlwinm.	rTMP, rALT, 8, 24, 31
+-	stb	rTMP, 4(rDEST)
+-	beqlr-
+-	rlwinm.	rTMP, rALT, 16, 24, 31
+-	stb	rTMP, 5(rDEST)
+-	beqlr-
+-	rlwinm.	rTMP, rALT, 24, 24, 31
+-	stb	rTMP, 6(rDEST)
+-	beqlr-
+-	stb	rALT, 7(rDEST)
+-	/* GKM FIXME: check high bound.  */
+-	blr
+-
+-/* Oh well.  In this case, we just do a byte-by-byte copy.  */
+-	.align 4
+-	nop
+-L(unaligned):
+-	lbz	rWORD, 0(rSRC)
+-	addi	rDEST, rRTN, -1
+-	cmpwi	rWORD, 0
+-	beq-	L(u2)
+-
+-L(u0):	lbzu	rALT, 1(rSRC)
+-	stbu	rWORD, 1(rDEST)
+-	cmpwi	rALT, 0
+-	beq-	L(u1)
+-	nop		/* Let 601 load start of loop.  */
+-	lbzu	rWORD, 1(rSRC)
+-	stbu	rALT, 1(rDEST)
+-	cmpwi	rWORD, 0
+-	bne+	L(u0)
+-L(u2):	stb	rWORD, 1(rDEST)
+-	/* GKM FIXME: check high bound.  */
+-	blr
+-L(u1):	stb	rALT, 1(rDEST)
+-	/* GKM FIXME: check high bound.  */
+-	blr
++/* stropt/strcpy.S, pl_string_common, pl_linux 10/11/04 11:45:41 
++ * ==========================================================================
++ *
++ * Optimized strcpy implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Copies string s2 to location s1. Behavior is undefined for 
++ *           objects that overlap. 
++ *
++ *           char *strcpy(const char *s1, const char *s2) 
++ *  
++ * Input:  r3 - destination string address
++ *         r4 - source string address 
++ * Output: r3 - address of destination string
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++#define DLMZBDOT(ra,rs,rb) .long 0x7c00009d|(rs<<21)|(ra<<16)|(rb<<11)
++                  
++function_prolog(strcpy)
++
++	xor	r12,r12,r12	/* Clear total offset from the start */
++
++	neg	r9,r4     	/* get 2's complement of src address. DWG */
++	rlwinm.	r5,r9,0,29,31   /* calc number of bytes to dword boundary  */
++	beq-	dwbndry         /* if zero, then already on dword bndry */
++
++	mtctr	r5              /* do byte by byte until dword bndry */
++bytebybyte:
++	lbzx    r6,r12,r4       /* load byte */
++	stbx	r6,r12,r3
++	addi	r12,r12,1       /* bump offset */
++	cmpwi	r6,0            /* compare to NULL */
++	bdnzf	eq,bytebybyte   /* loop till zero count or NULL found */
++	beq-	found           /* check if NULL found */
++
++dwbndry:
++	rlwinm.	r5,r9,29,30,31  /* calc # of dwords to quad word bndry   */
++	beq	qwbndry         /* if zero, then already on qword bndry */
++	addi 	r5,0,8		/* Byte count of 8 into XER for 'load     */
++				/* string' instruction later		   */		
++        mtxer   r5              /* Load count for 'load string'            */
++	lswx 	r6,r4,r12	/* Load r6-r7 from r4 src + r12 offset     */
++	DLMZBDOT(0,6,7)         /* Look for NULL in these 8 bytes  */
++	bne-	null_found	/* If NULL found, done; else keep looking */
++        stswx   r6,r3,r12       /* Store                                   */
++        add     r12,r12,r0      /* Bump the offset from the start          */
++
++qwbndry:
++	addi 	r5,0,16		/* Byte count of 16 in XER for 'load       */
++              			/* string' instruction                     */
++        b       again		/* To main loop 			   */
++        
++store:
++        
++        DLMZBDOT(10,8,9)        /* Look for NULL in second 8 bytes         */
++        
++        add     r0,r0,r10       /* Add to offset from this DLMZB           */
++
++        bne-    null_found      /* Branch if end of string found           */
++        
++        mtxer   r5              /* Count of 16 in XER for 'load string'    */
++
++        stswx   r6,r3,r12       /* Store four words                        */
++        
++        add     r12,r12,r0      /* Bump offset from the start and fall     */
++        			/* into logic to read another 16 bytes     */
++again:
++        
++        mtxer   r5              /* Count of 16 in XER for load string      */
++        
++        xor     r0,r0,r0        /* Running offset from the start           */
++        
++    	lswx 	r6,r4,r12	/* Load r6-r9 from r4 src + r12 offset     */
++                                /* from the start                          */
++
++       	DLMZBDOT(10,6,7)        /* Look for NULL in these first 8 bytes    */
++        
++        add     r0,r0,r10       /* Add to offset from this DLMZB           */
++        
++        beq+    store           /* Loop back if no end of string found     */
++        
++        mtxer   r0              /* Count from DLMZBs                       */
++        
++        stswx   r6,r3,r12       /* Store partial from first two words      */
++        
++        blr                     /* Return dest ptr which was unchanged     */
++        
++null_found:
++
++        mtxer   r0              /* Count from DLMZBs                       */
++        
++        stswx   r6,r3,r12       /* Store from first two words and          */
++                                /* partial from second two words           */
++        
++found:
+ 
+-END (BP_SYM (strcpy))
+-libc_hidden_builtin_def (strcpy)
++	blr                     /* Return dest ptr which was unchanged     */
++
++function_epilog(strcpy)
++libc_hidden_builtin_def(strcpy)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/strlen.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strlen.S
+--- glibc-2.3.2/sysdeps/powerpc/powerpc32/strlen.S	2004-11-19 00:51:39.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strlen.S	2004-11-19 14:52:01.000000000 +0100
+@@ -1,160 +1,114 @@
+-/* Optimized strlen implementation for PowerPC.
+-   Copyright (C) 1997, 1999, 2000, 2003 Free Software Foundation, Inc.
+-   This file is part of the GNU C Library.
+-
+-   The GNU C Library is free software; you can redistribute it and/or
+-   modify it under the terms of the GNU Lesser General Public
+-   License as published by the Free Software Foundation; either
+-   version 2.1 of the License, or (at your option) any later version.
+-
+-   The GNU C Library is distributed in the hope that it will be useful,
+-   but WITHOUT ANY WARRANTY; without even the implied warranty of
+-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-   Lesser General Public License for more details.
+-
+-   You should have received a copy of the GNU Lesser General Public
+-   License along with the GNU C Library; if not, write to the Free
+-   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+-   02111-1307 USA.  */
+-
+-#include <sysdep.h>
+-#include <bp-sym.h>
+-#include <bp-asm.h>
+-
+-/* The algorithm here uses the following techniques:
+-
+-   1) Given a word 'x', we can test to see if it contains any 0 bytes
+-      by subtracting 0x01010101, and seeing if any of the high bits of each
+-      byte changed from 0 to 1. This works because the least significant
+-      0 byte must have had no incoming carry (otherwise it's not the least
+-      significant), so it is 0x00 - 0x01 == 0xff. For all other
+-      byte values, either they have the high bit set initially, or when
+-      1 is subtracted you get a value in the range 0x00-0x7f, none of which
+-      have their high bit set. The expression here is
+-      (x + 0xfefefeff) & ~(x | 0x7f7f7f7f), which gives 0x00000000 when
+-      there were no 0x00 bytes in the word.
+-
+-   2) Given a word 'x', we can test to see _which_ byte was zero by
+-      calculating ~(((x & 0x7f7f7f7f) + 0x7f7f7f7f) | x | 0x7f7f7f7f).
+-      This produces 0x80 in each byte that was zero, and 0x00 in all
+-      the other bytes. The '| 0x7f7f7f7f' clears the low 7 bits in each
+-      byte, and the '| x' part ensures that bytes with the high bit set
+-      produce 0x00. The addition will carry into the high bit of each byte
+-      iff that byte had one of its low 7 bits set. We can then just see
+-      which was the most significant bit set and divide by 8 to find how
+-      many to add to the index.
+-      This is from the book 'The PowerPC Compiler Writer's Guide',
+-      by Steve Hoxey, Faraydon Karim, Bill Hay and Hank Warren.
+-
+-   We deal with strings not aligned to a word boundary by taking the
+-   first word and ensuring that bytes not part of the string
+-   are treated as nonzero. To allow for memory latency, we unroll the
+-   loop a few times, being careful to ensure that we do not read ahead
+-   across cache line boundaries.
+-
+-   Questions to answer:
+-   1) How long are strings passed to strlen? If they're often really long,
+-   we should probably use cache management instructions and/or unroll the
+-   loop more. If they're often quite short, it might be better to use
+-   fact (2) in the inner loop than have to recalculate it.
+-   2) How popular are bytes with the high bit set? If they are very rare,
+-   on some processors it might be useful to use the simpler expression
+-   ~((x - 0x01010101) | 0x7f7f7f7f) (that is, on processors with only one
+-   ALU), but this fails when any character has its high bit set.  */
+-
+-/* Some notes on register usage: Under the SVR4 ABI, we can use registers
+-   0 and 3 through 12 (so long as we don't call any procedures) without
+-   saving them. We can also use registers 14 through 31 if we save them.
+-   We can't use r1 (it's the stack pointer), r2 nor r13 because the user
+-   program may expect them to hold their usual value if we get sent
+-   a signal. Integer parameters are passed in r3 through r10.
+-   We can use condition registers cr0, cr1, cr5, cr6, and cr7 without saving
+-   them, the others we must save.  */
+-
+-/* int [r3] strlen (char *s [r3])  */
+-
+-ENTRY (BP_SYM (strlen))
+-
+-#define rTMP1	r0
+-#define rRTN	r3	/* incoming STR arg, outgoing result */
+-#define rSTR	r4	/* current string position */
+-#define rPADN	r5	/* number of padding bits we prepend to the
+-			   string to make it start at a word boundary */
+-#define rFEFE	r6	/* constant 0xfefefeff (-0x01010101) */
+-#define r7F7F	r7	/* constant 0x7f7f7f7f */
+-#define rWORD1	r8	/* current string word */
+-#define rWORD2	r9	/* next string word */
+-#define rMASK	r9	/* mask for first string word */
+-#define rTMP2	r10
+-#define rTMP3	r11
+-#define rTMP4	r12
+-
+-	CHECK_BOUNDS_LOW (rRTN, rTMP1, rTMP2)
+-
+-	clrrwi	rSTR, rRTN, 2
+-	lis	r7F7F, 0x7f7f
+-	rlwinm	rPADN, rRTN, 3, 27, 28
+-	lwz	rWORD1, 0(rSTR)
+-	li	rMASK, -1
+-	addi	r7F7F, r7F7F, 0x7f7f
+-/* That's the setup done, now do the first pair of words.
+-   We make an exception and use method (2) on the first two words, to reduce
+-   overhead.  */
+-	srw	rMASK, rMASK, rPADN
+-	and	rTMP1, r7F7F, rWORD1
+-	or	rTMP2, r7F7F, rWORD1
+-	add	rTMP1, rTMP1, r7F7F
+-	nor	rTMP1, rTMP2, rTMP1
+-	and.	rWORD1, rTMP1, rMASK
+-	mtcrf	0x01, rRTN
+-	bne	L(done0)
+-	lis	rFEFE, -0x101
+-	addi	rFEFE, rFEFE, -0x101
+-/* Are we now aligned to a doubleword boundary?  */
+-	bt	29, L(loop)
+-
+-/* Handle second word of pair.  */
+-	lwzu	rWORD1, 4(rSTR)
+-	and	rTMP1, r7F7F, rWORD1
+-	or	rTMP2, r7F7F, rWORD1
+-	add	rTMP1, rTMP1, r7F7F
+-	nor.	rWORD1, rTMP2, rTMP1
+-	bne	L(done0)
+-
+-/* The loop.  */
+-
+-L(loop):
+-	lwz	rWORD1, 4(rSTR)
+-	lwzu	rWORD2, 8(rSTR)
+-	add	rTMP1, rFEFE, rWORD1
+-	nor	rTMP2, r7F7F, rWORD1
+-	and.	rTMP1, rTMP1, rTMP2
+-	add	rTMP3, rFEFE, rWORD2
+-	nor	rTMP4, r7F7F, rWORD2
+-	bne	L(done1)
+-	and.	rTMP1, rTMP3, rTMP4
+-	beq	L(loop)
+-
+-	and	rTMP1, r7F7F, rWORD2
+-	add	rTMP1, rTMP1, r7F7F
+-	andc	rWORD1, rTMP4, rTMP1
+-	b	L(done0)
+-
+-L(done1):
+-	and	rTMP1, r7F7F, rWORD1
+-	subi	rSTR, rSTR, 4
+-	add	rTMP1, rTMP1, r7F7F
+-	andc	rWORD1, rTMP2, rTMP1
+-
+-/* When we get to here, rSTR points to the first word in the string that
+-   contains a zero byte, and the most significant set bit in rWORD1 is in that
+-   byte.  */
+-L(done0):
+-	cntlzw	rTMP3, rWORD1
+-	subf	rTMP1, rRTN, rSTR
+-	srwi	rTMP3, rTMP3, 3
+-	add	rRTN, rTMP1, rTMP3
+-	/* GKM FIXME: check high bound.  */
++/* stropt/strlen.S, pl_string_common, pl_linux 10/11/04 11:45:42
++ * ==========================================================================
++ *
++ * Optimized strlen implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Determines the length of a string
++ *
++ *           size_t strlen(const char *s1)
++ *
++ * Input:  r3 - string address
++ * Output: r3 - Length of string, excluding NULL terminator
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++#define DLMZBDOT(ra,rs,rb) .long 0x7c00009d|(rs<<21)|(ra<<16)|(rb<<11)
++
++function_prolog(strlen)
++
++	xor	r12,r12,r12	/* Clear total offset from the start */
++
++	neg	r9,r3     	/* get 2's complement of input address */
++	rlwinm.	r5,r9,0,29,31   /* calc number of bytes to dword boundary  */
++	beq-	dwbndry         /* if zero, then already on dword bndry */
++
++	mtctr	r5              /* do byte by byte until dword bndry */
++bytebybyte:
++	lbzx    r4,r12,r3       /* load byte */
++	addi	r12,r12,1       /* bump offset */
++	cmpwi	r4,0            /* compare to NULL */
++	bdnzf	eq,bytebybyte   /* loop till zero count or NULL found */
++	beq-	found           /* check if NULL found */
++
++dwbndry:
++	rlwinm.	r5,r9,29,30,31  /* calc # of dwords to quad word bndry   */
++	beq	qwbndry         /* if zero, then already on qword bndry */
++	addi 	r5,0,8		/* Byte count of 8 into XER for 'load     */
++				/* string' instruction later		   */		
++        mtxer   r5              /* Load count for 'load string'            */
++	lswx 	r6,r3,r12	/* Load r6-r7 from r3 src + r12 offset     */
++	DLMZBDOT(11,6,7)        /* Look for NULL in these 8 bytes  */
++        add     r12,r12,r11     /* Bump the offset from the start          */
++	bne-	found		/* If NULL found, done; else keep looking */
++
++qwbndry:
++	addi 	r5,0,16		/* Byte count of 16 into XER for 'load     */
++				/* string' instruction later		   */		
++
++
++again:		                /* New 16 bytes, look for NULL             */
++
++        mtxer   r5              /* Load count for 'load string'            */
++
++	lswx 	r6,r3,r12	/* Load r6-r9 from r3 src + r12 offset     */
++                                /* from the start                          */
++
++	DLMZBDOT(11,6,7)        /* Look for NULL in these first   8 bytes  */
++
++        add     r12,r12,r11     /* Bump the offset from the start          */
++
++	bne-	found		/* If no NULL in first 8 bytes, fall       */
++				/* through and test next 8 bytes, else,    */
++				/* we're done				   */		
++
++        DLMZBDOT(11,8,9)        /* Look for NULL in these next    8 bytes  */
++
++        add     r12,r12,r11     /* Bump the offset from the start          */
++
++	beq+	again   	/* If no NULL, grab next 16 bytes, else,   */
++				/* we're done.				   */	
++
++found:
++
++	addi	r3,r12,-1       /* Return count less the NULL              */
++
+ 	blr
+-END (BP_SYM (strlen))
+-libc_hidden_builtin_def (strlen)
++
++function_epilog(strlen)
++libc_hidden_builtin_def(strlen)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/strncmp.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strncmp.S
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strncmp.S	2004-11-19 14:52:05.000000000 +0100
+@@ -0,0 +1,304 @@
++/* stropt/strncmp.S, pl_string_common, pl_linux 10/11/04 11:45:43
++ * ==========================================================================
++ *
++ * Optimized strncmp implementation for IBM PowerPC 405/440.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Compare two character strings (up to n characters)
++ *
++ *           int strncmp(const char *s1, const char *s2, int n)
++ *
++ * Input:  r3 - string 1 address
++ *         r4 - string 2 address
++ *         r5 - maximum characters to compare
++ * Output: r3 <0 (less), 0 (equal), >0 (greater)
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++#define DLMZBDOT(ra,rs,rb) .long 0x7c00009d|(rs<<21)|(ra<<16)|(rb<<11)
++
++function_prolog(strncmp)
++
++        /*
++         * Check count passed in R5. If zero, return 0; otherwise continue.
++	 */
++	cmpwi	r5,0
++	beq-    ret_0;
++
++        /*
++         * Most of the time the difference is found in the first
++	 * several bytes.  The following code minimizes the number
++	 * of load operations for short strings.
++	 */
++	mr	r11, r3		        /* Save string 2			*/
++
++again:
++
++	li	r9, -1		        /* 2nd word of dlmzb not used           */
++
++	not	r10, r4		        /* string 1: bytes to page boundary	*/
++	rlwinm.	r10, r10,29,23,31	/* string 1: dwords to page boundary	*/
++	beq-	bytebybyte              /* If < 8 bytes to page boundary,       */
++                                        /* handle bytewise                      */
++	lwz	r8, 0(r4)		/* load 1st string 1 word		*/
++
++	not	r12, r11		/* string 2: bytes to page boundary	*/
++	rlwinm.	r12, r12,29,23,31	/* string 2: dwords to page boundary	*/
++	beq-	bytebybyte              /* If < 8 bytes to page boundary,       */
++                                        /* handle bytewise                      */
++	lwz	r6, 0(r11)		/* load 1st string 2 word		*/
++
++	DLMZBDOT(3,8,9)			/* quick zero check	                */
++
++	bne+	partial
++
++	subfic	r3, r5, 4		/* prepare counter		*/
++	cmpwi	r3, 0			/* counter < 4 ?		*/
++	bge+	first4                  /* Handle special if so         */
++
++	cmplw   r8, r6  	        /* compare string 1 and string 2*/
++	bne+    all_done		/* different => we're done	*/
++
++	lwzu	r9, 4(r4)		/* load 2nd string 1 word      	*/
++	lwzu	r7, 4(r11)		/* load 2nd string 2 word      	*/
++
++	DLMZBDOT(3,8,9)			/* quick zero check		*/
++
++	bne+	partial                 /* Handle special if string end */
++
++	cmpwi	r5, 8			/* counter < 8 ?		*/
++	blt	partial                 /* Handle special if < 8 bytes  */
++
++	cmplw   r9, r7	                /* compare string 1 and string 2*/
++	bne+    all_done		/* different => we're done	*/
++
++	addi	r5, r5, -8		/* DWG */
++	addi	r10, r4, 0x0004		/* DWG */
++	not	r10, r10		/* DWG */
++	rlwinm. r10, r10,29,23,31	/* DWG */
++	addi	r12, r11, 0x0004	/* DWG */
++	not	r12, r12		/* DWG */
++	rlwinm. r12, r12,29,23,31	/* DWG */
++
++        /* The following section prior to loop: figures out whether     */
++        /* the string 1 or string  2 is closer to the page boundary.    */
++        /* The main loop count is then set up to reflect the number of  */
++        /* double words of the string  that is closest                  */
++
++	cmpw	r10, r12		/* take minimum			*/
++	blt	lt
++
++	mr	r10, r12
++
++lt:
++
++	srwi	r12, r5, 3
++	cmpw	r10, r12		/* ...and the counter		*/
++        blt	lt2
++
++	mr 	r10, r12		/* Changed from mr. to mr   DWG */
++        /*beqlr-*/			/* Removed. DWG */
++
++lt2:
++	cmpwi	r10, 0			/* DWG */
++	bne	lt3			/* DWG */
++	addi	r4, r4, 0x0004		/* DWG */
++	addi	r11,r11,0x0004		/* DWG */
++	b	again			/* DWG */
++lt3:					/* DWG */
++	mtctr	r10			/* dword count for loop		*/
++	lwzu	r6, 4(r11)		/* pre-load string 1   		*/
++                                        /* To the loop                  */
++	b	in
++
++loop:					/* main loop			*/
++
++	cmplw   r8, r6                  /* Compare 1st string 2 word    */
++	bne-    all_done	        /* with first string 1 word     */
++                                        /* If different, we're done     */
++	cmplw   r9, r7                  /* Compare 2nd string 2 word    */
++                                        /* with second string 1 word    */
++	lwzu	r6, 4(r11)              /* Preload string 1 word        */
++
++	bne-    all_done                /* If different, we're done     */
++
++in:
++
++	lwzu	r7, 4(r11)              /* Load string 1 word           */
++	lwzu	r8, 4(r4)               /* Load string 2 word           */
++
++	DLMZBDOT(3,6,7)                 /* Zero check                   */
++
++	lwzu	r9, 4(r4)               /* Load string 2 word           */
++	bdnzt+	eq, loop
++
++	mfctr	r12			/* number of dwords left	*/
++	subf	r10, r12, r10	        /* number of dwords compared	*/
++	slwi	r10, r10, 3
++	subf	r5, r10, r5	        /* adjust byte counter		*/
++	beq-	lt4			/* DWG */
++	addi	r5, r5, 8		/* DWG */
++	b	partial                 /* DWG Handle special if < 8    */
++
++lt4:
++	/*cmpwi	r5, 8*/ /*DWG*/
++	/*blt	partial*/ /*DWG*/       /* Handle special if < 8        */
++
++	/*addic	r5, r5, -8*/		/* Removed.                 DWG */
++
++	cmplw   r8, r6  	        /* compare last dword		*/
++	addi	r4, r4, 4
++	bne-    all_done
++
++	cmplw   r9, r7
++	addi	r11, r11, 4
++	bne-    all_done
++
++bytebybyte:
++
++	/* We've got close to a page boundary: do a byte-byte-byte
++	 * compare for the following 8 bytes, and then go back to
++	 * the full-word compare loop.
++	 */
++
++	li	r3, 8			/* loop count			*/
++	cmpw	r3, r5		        /* take min(8, counter)		*/
++	ble	f2
++
++	mr.	r3, r5
++
++	beqlr
++
++f2:
++
++	mtctr	r3
++	subf	r5, r3, r5	        /* adjust counter		*/
++
++bbb:
++
++	lbz	r6, 0(r11)		/* byte copy loop		*/
++
++	addi	r11, r11, 1
++
++	lbz	r8, 0(r4)
++
++	addi	r4, r4, 1
++	cmpwi	cr1, r6, 0
++
++	cmplw   r8, r6
++	beq	cr1,final
++
++	bdnzt+	eq, bbb
++	bne     all_done
++
++	cmpwi	r5, 0
++	bgt	again   		/* handle the rest		*/
++
++        xor     r3,r3,r3
++
++	blr
++
++final:
++
++        bne     all_done
++ret_0:
++        xor     r3,r3,r3                /* Equal case                   */
++        blr
++
++partial:
++	/*
++         * Zero byte found.  Align the loaded data to the
++	 * zero byte position and compare the results.
++	 */
++
++	cmpw	r3, r5		        /* take min(pos, counter)	*/
++	blt	f1
++
++	mr.	r3, r5
++
++	beqlr
++
++f1:
++
++	subfic	r3, r3, 4		/* zero/end in first word?	*/
++	cmpwi	r3, 0
++	blt	last4
++
++first4:
++
++	rlwinm	r3, r3, 3, 0, 31	/* count *= 8			*/
++	srw	r6, r6, r3	        /* align 1st string 2 word     	*/
++	srw	r8, r8, r3	        /* align 1st string 1 word     	*/
++
++	cmplw   r8, r6  	        /* get result			*/
++        bne     all_done
++        xor     r3,r3,r3                /* Equal case                   */
++	blr
++
++last4:
++
++	addi	r10, r3, 4		/* adjust count			*/
++
++	cmplw   r8, r6  	        /* 1st word compare		*/
++	bne     all_done
++
++	rlwinm	r10, r10, 3, 0, 31	/* count *= 8			*/
++	srw	r7, r7, r10	        /* align 2nd string 2 word     	*/
++	srw	r9, r9, r10	        /* align 2nd string 1 word     	*/
++
++	cmplw   r9, r7  	        /* get result			*/
++        bne     all_done
++        xor     r3,r3,r3                /* Equal case                   */
++	blr
++
++all_done:
++
++        blt     finish_lt
++
++        addi    r3,0,-1                 /* Less than case               */
++
++        blr
++
++finish_lt:
++
++        addi    r3,0,1                  /* Greater than case            */
++
++        blr
++
++function_epilog(strncmp)
++libc_hidden_builtin_def(strncmp)
+diff -Naur glibc-2.3.2/sysdeps/powerpc/powerpc32/strrchr.S glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strrchr.S
+--- /dev/null	1970-01-01 01:00:00.000000000 +0100
++++ glibc-2.3.2-perf/sysdeps/powerpc/powerpc32/strrchr.S	2004-11-19 14:52:09.000000000 +0100
+@@ -0,0 +1,203 @@
++/* stropt/strrchr.S, pl_string_common, pl_linux 10/11/04 11:45:44 
++ * ==========================================================================
++ *
++ * Optimized strrchr implementation for IBM PowerPC 405.
++ *
++ *  Copyright (c) 2003, IBM Corporation
++ *  All rights reserved.               
++ *                                     
++ *  Redistribution and use in source and binary forms, with or      
++ *  without modification, are permitted provided that the following 
++ *  conditions are met:                                             
++ *                                                                  
++ *    * Redistributions of source code must retain the above        
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer.                                                 
++ *    * Redistributions in binary form must reproduce the above     
++ *      copyright notice, this list of conditions and the following 
++ *      disclaimer in the documentation and/or other materials      
++ *      provided with the distribution.                             
++ *    * Neither the name of IBM nor the names of its contributors   
++ *      may be used to endorse or promote products derived from this
++ *      software without specific prior written permission.         
++ *                                                                  
++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND          
++ *  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,     
++ *  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF        
++ *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE        
++ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS   
++ *  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
++ *  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,            
++ *  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR  
++ *  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY 
++ *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT        
++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   
++ *  USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++ *                                                                          
++ * ==========================================================================
++ *
++ * Function: Search for last occurrence of character in string. The character 
++ *           can be the NULL character and the NULL character in the search 
++ *           string is included in the search. 
++ *
++ *           char *strrchr(const char *s1, int c) 
++ *  
++ * Input:  r3 - string address
++ *         r4 - character in least significant byte of word 
++ * Output: r3 - address of located character or NULL if not found
++ *
++ * ==========================================================================
++ */
++
++#include        <ppc4xx.inc>	
++
++#define DLMZBDOT(ra,rs,rb) .long 0x7c00009d|(rs<<21)|(ra<<16)|(rb<<11)
++           
++function_prolog(strrchr)
++
++	/* Since we are interested in the "last" occurrence of the search  */
++	/* char, this first section of code deos a strlen operation to     */
++	/* locate the end of string. Then we work backwards from there.    */      
++	
++	xor	r12,r12,r12	/* Clear total offset from the start       */
++
++	neg	r9,r3     	/* get 2's complement of input address     */
++	rlwinm.	r5,r9,0,29,31   /* calc number of bytes to dword boundary  */
++	beq-	dwbndry         /* if zero, then already on dword bndry    */
++
++	mtctr	r5              /* do byte by byte until dword bndry       */
++bytebybyte:
++	lbzx    r6,r12,r3       /* load byte                               */
++	addi	r12,r12,1       /* bump offset                             */
++	cmpwi	r6,0            /* compare to NULL                         */
++	bdnzf	eq,bytebybyte   /* loop till zero count or NULL found      */
++	beq-	found           /* check if NULL found                     */
++
++dwbndry:
++	rlwinm.	r5,r9,29,30,31  /* calc # of dwords to quad word bndry     */
++	beq	qwbndry         /* if zero, then already on qword bndry    */
++	addi 	r5,0,8		/* Byte count of 8 into XER for 'load      */
++				/* string' instruction later		   */
++	mtxer   r5              /* Load count for 'load string'            */
++	lswx 	r6,r3,r12	/* Load r6-r7 from r3 src + r12 offset     */
++	DLMZBDOT(11,6,7)        /* Look for NULL in these 8 bytes          */
++        add     r12,r12,r11     /* Bump the offset from the start          */
++	bne-	found		/* If NULL found, done; else keep looking  */
++
++qwbndry:
++	addi 	r5,0,16		/* Byte count of 16 into XER for 'load     */
++				/* string' instruction later		   */	
++loop:		                /* New 16 bytes, look for NULL             */
++
++        mtxer   r5              /* Load count for 'load string'            */
++
++	lswx 	r6,r3,r12	/* Load r6-r9 from r3 src + r12 offset     */
++                                /* from the start                          */
++
++	DLMZBDOT(11,6,7)        /* Look for NULL in these current 8 bytes  */
++        
++        add     r12,r12,r11     /* Bump the offset from the start          */      
++
++	bne-	found		/* If no NULL in first 8 bytes, fall       */
++				/* through and test next 8 bytes, else,    */
++				/* continue with strrchr function          */ 
++
++        DLMZBDOT(11,8,9)        /* Look for NULL in these current 8 bytes  */
++
++        add     r12,r12,r11     /* Bump the offset from the start          */
++
++	beq+	loop       	/* If no NULL, grab next 16 bytes, else    */
++				/* continue with strrchr function          */
++
++found:				/* r12 here has string length plus one     */
++
++	addi	r12,r12,-1      /* Remove NULL to get real string length   */
++        
++        rlwimi	r4,r4,8,16,23	/* Set up 'c' in all bytes of word.        */
++        rlwimi.	r4,r4,16,0,15   /* Remember 'c' in LSB of int              */
++
++        beq-    stringend       /* If search char is NULL, we have answer  */
++    
++        rlwinm  r5,r4,0,24,31   /* Setup search char in lower byte only    */
++
++        srwi.   r9,r12,3        /* Main loop reads 8 bytes, so how many    */
++	                        /* blocks of 8 bytes? If 1 or less,        */ 
++        beq-    bbb             /* handle byte-wise.                       */
++        
++        mtctr   r9              /* Number of 8 byte blocks for loop        */
++
++        add     r8,r3,r12       /* Location of "last" 8 bytes              */
++        addi    r8,r8,1         /* Adjust for -8 in next instruction       */
++
++again:
++
++        addi    r8,r8,-8        /* Backup to previous 8 bytes              */
++
++       	lswi 	r6,r8,8 	/* Load r6/r7                              */
++
++       	xor	r6,r6,r4	/* XOR r4 & r6 to look for match           */
++	xor	r7,r7,r4	/* XOR r4 & r7 to look for match           */
++        
++	DLMZBDOT(0,6,7)	        /* Check for hole created by match         */
++
++       	bdnzt-	eq,again        /* If no hole and still more blocks, loop  */
++                                /* back                                    */
++     
++        /* Here, either loop block count went to 0, or match found         */
++        
++        mr      r7,r8		   /* Save r8 in case we need it later     */
++        
++        addi    r8,r3,8		   /* Here, add 8 to string start, in case */
++        			   /* we do tst from start                 */
++        beq     byte_setup         /* If no match, do one byte by byte test*/
++                                   /* from the start                       */
++                                   
++        addi    r8,r7,8		   /* Here, we'll test current 8 bytes     */
++        			   /* where a match was found              */
++				   
++byte_setup:
++
++        li      r11,8		   /* Load CTR reg with 8 for byte loop    */
++        
++        mtctr   r11        
++
++one_more:			   /* Look for match in 8 (or less) bytes  */
++				   /* starting from the end to start.      */
++        lbzu    r11,-1(r8)	   /* Load last byte and back up pointer   */
++
++        xor.    r11,r11,r5	   /* Test for match                       */
++        beq     done2		   /* If match, we're done, else loop back */
++                                   
++        bdnz+   one_more 	   /* and test previous byte               */
++        
++        b       none       	   /* Byte count exhausted, char not found */
++
++done2:  
++
++        mr      r3,r8		   /* Set up required return reg           */
++        blr
++
++bbb:				   /* Here if original string length < 9   */
++
++        addi    r12,r12,1
++        
++        add     r8,r3,r12	   /* Point to end of bytes                */
++        
++        mtctr   r12		   /* Set up byte count                    */
++       
++        b       one_more 	   /* And handle in byte-wise loop         */
++
++none:
++
++        xor     r3,r3,r3           /* Return NULL, no match in the string  */
++        
++        blr
++        
++stringend:
++
++        add     r3,r3,r12          /* Add string len to start             */
++        blr                
++        
++function_epilog(strrchr)
++weak_alias(strrchr, rindex)
++libc_hidden_builtin_def(strrchr)

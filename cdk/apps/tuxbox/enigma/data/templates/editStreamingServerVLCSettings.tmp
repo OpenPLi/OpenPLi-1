@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>Streaming Server VLC Settings</title>
+		<link rel="stylesheet" type="text/css" href="webif.css">
+		<script>
+			function submitSettings()
+			{
+				var parms = "webifPort=" + document.f1.webifPort.value + "&streamingPort=" + document.f1.streamingPort.value + "&vlcUser=" + document.f1.vlcUser.value + "&vlcPass=" + document.f1.vlcPass.value;
+				document.location = "/cgi-bin/setStreamingServerVLCSettings?" + parms;
+				setTimeout("window.close()", 500);
+			}
+		</script>
+	</head>
+	<body id="mainbody" style="padding: 10px; background-color: #F4F4F4;" onUnload="parent.window.opener.location.reload(true)">
+		<form name="f1" action="/cgi-bin/setStreamingServerSettings">
+			<table border="0" cellpadding="0" cellspacing="10">
+			<tbody>
+				<tr>
+					<td>VLC Webif Port:</td>
+					<td>
+						<input name="webifPort" type="text" size="5" maxlength="5" value="#WEBIFPORT#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>VLC Streaming Port:</td>
+					<td>
+						<input name="streamingPort" type="text" size="5" maxlength="5" value="#STREAMINGPORT#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>VLC Admin Userid:</td>
+					<td>
+						<input name="vlcUser" type="text" value="#VLCUSER#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td>VLC Admin Password:</td>
+					<td>
+						<input name="vlcPass" type="text" value="#VLCPASS#" style="color: #000000">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">#CHANGEBUTTON#</td>
+				</tr>
+			</tbody>
+			</table>
+		</form>
+	</body>
+</html>

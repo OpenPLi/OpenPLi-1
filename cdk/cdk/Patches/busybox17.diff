@@ -1,0 +1,188 @@
+diff -Naur busybox-1.7.2/Config.in busybox-1.7.2-tuxbox/Config.in
+--- busybox-1.7.2/Config.in	2007-09-03 13:48:58.000000000 +0200
++++ busybox-1.7.2-tuxbox/Config.in	2007-10-27 15:57:49.000000000 +0200
+@@ -262,6 +262,14 @@
+ 	  This is automatically selected if any of enabled applets need it.
+ 	  You do not need to select it manually.
+ 
++config AUTH_IN_VAR_ETC
++       bool "Search auth files in /var/etc"
++       default n
++       help
++         passwd, shadow, group, gshadow, and nologin will be searched in
++         /var/etc instead of /etc. This is usefull, if /etc is not
++         writeable (flash). 
++
+ endmenu
+ 
+ menu 'Build Options'
+diff -Naur busybox-1.7.2/include/applets.h busybox-1.7.2-tuxbox/include/applets.h
+--- busybox-1.7.2/include/applets.h	2007-09-03 13:48:46.000000000 +0200
++++ busybox-1.7.2-tuxbox/include/applets.h	2007-10-27 15:57:50.000000000 +0200
+@@ -359,7 +359,7 @@
+ USE_VI(APPLET(vi, _BB_DIR_BIN, _BB_SUID_NEVER))
+ USE_VLOCK(APPLET(vlock, _BB_DIR_USR_BIN, _BB_SUID_ALWAYS))
+ USE_WATCH(APPLET(watch, _BB_DIR_BIN, _BB_SUID_NEVER))
+-USE_WATCHDOG(APPLET(watchdog, _BB_DIR_SBIN, _BB_SUID_NEVER))
++USE_BB_WATCHDOG(APPLET(watchdog, _BB_DIR_SBIN, _BB_SUID_NEVER))
+ USE_WC(APPLET(wc, _BB_DIR_USR_BIN, _BB_SUID_NEVER))
+ USE_WGET(APPLET(wget, _BB_DIR_USR_BIN, _BB_SUID_NEVER))
+ USE_WHICH(APPLET(which, _BB_DIR_USR_BIN, _BB_SUID_NEVER))
+diff -Naur busybox-1.7.2/init/init.c busybox-1.7.2-tuxbox/init/init.c
+--- busybox-1.7.2/init/init.c	2007-09-03 13:48:54.000000000 +0200
++++ busybox-1.7.2-tuxbox/init/init.c	2007-10-27 15:57:50.000000000 +0200
+@@ -512,15 +512,12 @@
+ 
+ 	runpid = (NULL == a)? pid : run(a);
+ 	while (1) {
+-		wpid = waitpid(runpid, &status, 0);
++		wpid =wait(&status);
++		if (wpid > 0 && wpid != runpid) {
++			continue;
++		}
+ 		if (wpid == runpid)
+ 			break;
+-		if (wpid == -1 && errno == ECHILD) {
+-			/* we missed its termination */
+-			break;
+-		}
+-		/* FIXME other errors should maybe trigger an error, but allow
+-		 * the program to continue */
+ 	}
+ 	return wpid;
+ }
+diff -Naur busybox-1.7.2/libbb/messages.c busybox-1.7.2-tuxbox/libbb/messages.c
+--- busybox-1.7.2/libbb/messages.c	2007-09-03 13:48:42.000000000 +0200
++++ busybox-1.7.2-tuxbox/libbb/messages.c	2007-10-27 15:57:50.000000000 +0200
+@@ -29,10 +29,17 @@
+ const char bb_str_default[] ALIGN1 = "default";
+ const char bb_hexdigits_upcase[] ALIGN1 = "0123456789ABCDEF";
+ 
++#ifdef CONFIG_AUTH_IN_VAR_ETC
++const char bb_path_passwd_file[] ALIGN1 = "/var/etc/passwd";
++const char bb_path_shadow_file[] ALIGN1 = "/var/etc/shadow";
++const char bb_path_group_file[] ALIGN1 = "/var/etc/group";
++const char bb_path_gshadow_file[] ALIGN1 = "/var/etc/gshadow";
++#else
+ const char bb_path_passwd_file[] ALIGN1 = "/etc/passwd";
+ const char bb_path_shadow_file[] ALIGN1 = "/etc/shadow";
+ const char bb_path_group_file[] ALIGN1 = "/etc/group";
+ const char bb_path_gshadow_file[] ALIGN1 = "/etc/gshadow";
++#endif
+ const char bb_path_motd_file[] ALIGN1 = "/etc/motd";
+ const char bb_dev_null[] ALIGN1 = "/dev/null";
+ const char bb_busybox_exec_path[] ALIGN1 = CONFIG_BUSYBOX_EXEC_PATH;
+diff -Naur busybox-1.7.2/Makefile busybox-1.7.2-tuxbox/Makefile
+--- busybox-1.7.2/Makefile	2007-09-30 01:54:25.000000000 +0200
++++ busybox-1.7.2-tuxbox/Makefile	2007-10-27 15:57:50.000000000 +0200
+@@ -570,7 +570,7 @@
+ quiet_cmd_busybox__ ?= LINK    $@
+       cmd_busybox__ ?= $(srctree)/scripts/trylink $(CC) $(LDFLAGS) \
+       -o $@ -Wl,-Map -Wl,$@.map \
+-      -Wl,--warn-common -Wl,--sort-common -Wl,--gc-sections \
++      -Wl,--warn-common -Wl,--sort-common \
+       -Wl,--start-group $(busybox-all) -Wl,--end-group \
+       $(LDLIBS)
+ 
+diff -Naur busybox-1.7.2/miscutils/Config.in busybox-1.7.2-tuxbox/miscutils/Config.in
+--- busybox-1.7.2/miscutils/Config.in	2007-09-03 13:48:46.000000000 +0200
++++ busybox-1.7.2-tuxbox/miscutils/Config.in	2007-10-27 15:57:50.000000000 +0200
+@@ -374,7 +374,7 @@
+ 	  only height, or both, in any order. It also does not complain on error,
+ 	  but returns default 80x24. Usage in shell scripts: width=`ttysize w`.
+ 
+-config WATCHDOG
++config BB_WATCHDOG
+ 	bool "watchdog"
+ 	default n
+ 	help
+diff -Naur busybox-1.7.2/miscutils/Kbuild busybox-1.7.2-tuxbox/miscutils/Kbuild
+--- busybox-1.7.2/miscutils/Kbuild	2007-09-03 13:48:46.000000000 +0200
++++ busybox-1.7.2-tuxbox/miscutils/Kbuild	2007-10-27 15:57:50.000000000 +0200
+@@ -28,4 +28,4 @@
+ lib-$(CONFIG_TASKSET)     += taskset.o
+ lib-$(CONFIG_TIME)        += time.o
+ lib-$(CONFIG_TTYSIZE)     += ttysize.o
+-lib-$(CONFIG_WATCHDOG)    += watchdog.o
++lib-$(CONFIG_BB_WATCHDOG) += watchdog.o
+diff -Naur busybox-1.7.2/modutils/insmod.c busybox-1.7.2-tuxbox/modutils/insmod.c
+--- busybox-1.7.2/modutils/insmod.c	2007-09-03 13:48:35.000000000 +0200
++++ busybox-1.7.2-tuxbox/modutils/insmod.c	2007-10-27 22:35:44.000000000 +0200
+@@ -3959,6 +3959,7 @@
+ 	int len;
+ 	int k_crcs;
+ 	char *tmp, *tmp1;
++	char *tmp2;
+ 	unsigned long m_size;
+ 	ElfW(Addr) m_addr;
+ 	struct obj_file *f;
+@@ -4031,6 +4032,14 @@
+ 	}
+ 
+ 	/* Get a filedesc for the module.  Check we we have a complete path */
++	/* first look in /var/lib/modules */
++	tmp2 = alloca(strlen(m_fullName) + sizeof "/var/lib/modules//");
++	strcpy(tmp2, "/var/lib/modules/");
++	strcat(tmp2, m_fullName);
++	if (stat(tmp2, &st) >= 0 && S_ISREG(st.st_mode) && (fp = fopen(tmp2, "r")) != NULL) {
++		m_filename = xstrdup(tmp2);
++		printf("insmod: preferring module %s\n", m_filename);
++	} else
+ 	if (stat(arg1, &st) < 0 || !S_ISREG(st.st_mode)
+ 	 || (fp = fopen(arg1, "r")) == NULL
+ 	) {
+diff -Naur busybox-1.7.2/networking/ifupdown.c busybox-1.7.2-tuxbox/networking/ifupdown.c
+--- busybox-1.7.2/networking/ifupdown.c	2007-09-03 13:48:27.000000000 +0200
++++ busybox-1.7.2-tuxbox/networking/ifupdown.c	2007-10-27 15:57:50.000000000 +0200
+@@ -952,7 +952,7 @@
+ 
+ static int execute_all(struct interface_defn_t *ifd, const char *opt)
+ {
+-	int i;
++	int i, fd;
+ 	char *buf;
+ 	for (i = 0; i < ifd->n_options; i++) {
+ 		if (strcmp(ifd->option[i].name, opt) == 0) {
+@@ -962,9 +962,15 @@
+ 		}
+ 	}
+ 
+-	buf = xasprintf("run-parts /etc/network/if-%s.d", opt);
+-	/* heh, we don't bother free'ing it */
+-	return doit(buf);
++	buf = xasprintf("/etc/network/if-%s.d", opt);
++	if ((fd = open(buf, O_RDONLY)) >= 0) {
++		close(fd);
++		buf = xasprintf("run-parts /etc/network/if-%s.d", opt);
++		if (doit(buf) != 1) {
++			return 0;
++		}
++	}
++	return 1;
+ }
+ 
+ static int check(char *str)
+diff -Naur busybox-1.7.2/networking/udhcp/common.h busybox-1.7.2-tuxbox/networking/udhcp/common.h
+--- busybox-1.7.2/networking/udhcp/common.h	2007-09-03 13:48:27.000000000 +0200
++++ busybox-1.7.2-tuxbox/networking/udhcp/common.h	2007-10-27 15:57:50.000000000 +0200
+@@ -12,7 +12,7 @@
+ 
+ #include "libbb.h"
+ 
+-#define DEFAULT_SCRIPT  "/usr/share/udhcpc/default.script"
++#define DEFAULT_SCRIPT  "/share/udhcpc/default.script"
+ 
+ extern const uint8_t MAC_BCAST_ADDR[6]; /* six all-ones */
+ 
+diff -Naur busybox-1.7.2/networking/wget.c busybox-1.7.2-tuxbox/networking/wget.c
+--- busybox-1.7.2/networking/wget.c	2007-09-03 13:48:27.000000000 +0200
++++ busybox-1.7.2-tuxbox/networking/wget.c	2007-10-27 15:57:50.000000000 +0200
+@@ -452,7 +452,7 @@
+ 	/* Do it before progressmeter (want to have nice error message) */
+ 	if (output_fd < 0)
+ 		output_fd = xopen(fname_out,
+-			O_WRONLY|O_CREAT|O_EXCL|O_TRUNC);
++			O_WRONLY|O_CREAT|O_TRUNC);
+ 
+ 	if (!(opt & WGET_OPT_QUIET))
+ 		progressmeter(-1);

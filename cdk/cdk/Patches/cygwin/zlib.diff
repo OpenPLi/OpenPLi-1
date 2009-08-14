@@ -1,0 +1,12 @@
+diff -Naur zlib-1.1.3.lnx/configure zlib-1.1.3.cyg/configure
+--- zlib-1.1.3.lnx/configure	Fri Jan  4 07:25:30 2002
++++ zlib-1.1.3.cyg/configure	Fri Jan  4 07:26:06 2002
+@@ -73,7 +73,7 @@
+   CFLAGS="$cflags"
+   case `(uname -s || echo unknown) 2>/dev/null` in
+   Linux | linux) LDSHARED=${LDSHARED-"$CC -shared -Wl,-soname,libz.so.1"};;
+-  *)             LDSHARED=${LDSHARED-"gcc -shared"};;
++  *)             LDSHARED=${LDSHARED-"$CC -shared -Wl,-soname,libz.so.1"};;
+   esac
+ else
+   # find system name and corresponding cc options

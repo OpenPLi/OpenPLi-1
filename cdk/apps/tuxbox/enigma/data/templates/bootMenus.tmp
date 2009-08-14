@@ -1,0 +1,25 @@
+<script>
+	function bootMenuChange()
+	{
+		var i = document.selector.menu.selectedIndex;
+		var menu = document.selector.menu.options[i].value;
+		document.location = "/cgi-bin/selectbootmenu?menu=" + menu;
+		window.setTimeout("document.location.reload()", 3000);
+	}
+</script>
+<form name="selector">
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+			<select name="menu" size="1" onChange="bootMenuChange()">
+				#OPTIONS#
+			</select>
+		</td>
+		<td>&nbsp;&nbsp;</td>
+		<td>
+			#BMSETTINGSBUTTON#
+		</td>
+	</tr>
+	</table>
+</form>
+

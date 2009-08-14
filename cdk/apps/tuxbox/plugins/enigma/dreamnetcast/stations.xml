@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding='UTF-8' standalone="yes"?>
+ <WinampXML>
+   <playlist num_entries="100" label="SHOUTcast top 100">
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=7847&amp;filename=playlist.pls">
+     <Name>S K Y . F M - The Christmas Channel - instant mood enhancer for the holiday season.</Name>
+     <Genre>Christmas Holiday Xmas</Genre>
+     <Nowplaying>michael crawford-angels we have heard on high-joy t</Nowplaying>
+     <Listeners>3297</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3281&amp;filename=playlist.pls">
+     <Name>CLUB 977 The Hitz Channel (HIGH BANDWIDTH)</Name>
+     <Genre>Pop Rock Top 40</Genre>
+     <Nowplaying>Eminem - Just Lose It</Nowplaying>
+     <Listeners>3034</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1346&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - European Trance, Techno, Hi-NRG... we can't define it!</Name>
+     <Genre>Trance Techno Dance</Genre>
+     <Nowplaying>tranceUNITED.com Supreme #045 - X-Mas 2005 Special with DITO, DJ Cop</Nowplaying>
+     <Listeners>2589</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3223&amp;filename=playlist.pls">
+     <Name>Xmas in Frisco: SomaFM's eclectic holiday mix. Not for the easily offended. [SomaFM]</Name>
+     <Genre>Christmas Holiday</Genre>
+     <Nowplaying>Billy May Orch - Rudolph, The Red-Nosed Reindeer</Nowplaying>
+     <Listeners>2118</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=7955&amp;filename=playlist.pls">
+     <Name>S K Y . F M - Absolutely Smooth Jazz - the world's smoothest jazz 24 hours a day</Name>
+     <Genre>Soft Smooth Jazz</Genre>
+     <Nowplaying>Chieli Minucci - You&#96;re My Reason</Nowplaying>
+     <Listeners>1979</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=338&amp;filename=playlist.pls">
+     <Name>Groove Salad: a nicely chilled plate of ambient beats and grooves. [SomaFM]</Name>
+     <Genre>Ambient Chill</Genre>
+     <Nowplaying>Audio Lotion - Otonal</Nowplaying>
+     <Listeners>1953</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2297&amp;filename=playlist.pls">
+     <Name>CLUB 977 The 80s Channel</Name>
+     <Genre>80s Pop Rock</Genre>
+     <Nowplaying>Belinda Carlisle - Circle in the Sand</Nowplaying>
+     <Listeners>1913</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2062&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - Vocal Trance - a fusion of trance, dance, and chilling vocals</Name>
+     <Genre>Vocal Trance Dance Pop</Genre>
+     <Nowplaying>york feat alaska-yesterday silence (full vocalmix)</Nowplaying>
+     <Listeners>1902</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1300&amp;filename=playlist.pls">
+     <Name>-=[:: HOT 108 JAMZ ::]=- #1 FOR HIP HOP -- ALL HIP HOP AND R &amp; B   LIVE 24/7 @ 128K</Name>
+     <Genre>TOP HIP URBAN RnB POP RAP</Genre>
+     <Nowplaying>Ja Rule - New York, New York (Ft Fat Joe &amp; Jadakiss)</Nowplaying>
+     <Listeners>1741</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6929&amp;filename=playlist.pls">
+     <Name>Smoothjazz.Com - The worlds best Smooth Jazz - Live From Monterey Bay</Name>
+     <Genre>smooth jazz</Genre>
+     <Nowplaying>Etta James - Merry Christmas Baby</Nowplaying>
+     <Listeners>1667</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6523&amp;filename=playlist.pls">
+     <Name>HitzRadio.com - #1 for all the hits!</Name>
+     <Genre>Pop  Rock  Top 40  Urban</Genre>
+     <Nowplaying>hitzradio-dearabby</Nowplaying>
+     <Listeners>1631</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9584&amp;filename=playlist.pls">
+     <Name>Radio Paradise - DJ-mixed modern &amp; classic rock, world, electronica &amp; more - info: radioparadise.com</Name>
+     <Genre>eclectic rock</Genre>
+     <Nowplaying>Tom McRae - Wonderful Christmastime</Nowplaying>
+     <Listeners>1545</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1186&amp;filename=playlist.pls">
+     <Name>radioparty.pl - najlepsza klubowa muzyka w sieci &#124;&#124; Techno Trance House Dance !!!</Name>
+     <Genre>Partyboy</Genre>
+     <Nowplaying>PARTYLISTA - w kazda niedziele od 19 do 21</Nowplaying>
+     <Listeners>1403</Listeners>
+     <Bitrate>48</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1500&amp;filename=playlist.pls">
+     <Name>Republic of Korea Top Radio. MUKULCAST.COM &#42; KPOP</Name>
+     <Genre>Republic of KoreaPOP</Genre>
+     <Nowplaying>KCM -</Nowplaying>
+     <Listeners>1223</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=8575&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - EuroDance &amp; HiNRG - Finest imported cheese on the net!</Name>
+     <Genre>Eurodance HiNRG Pop Italo</Genre>
+     <Nowplaying>Super Explosion 7 Megamix</Nowplaying>
+     <Listeners>1160</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=534&amp;filename=playlist.pls">
+     <Name>-=- MPEGRadio.Com -=- tormented radio / djdead</Name>
+     <Genre>industrial goth ebm synth</Genre>
+     <Nowplaying>Die Form - Rain of blood</Nowplaying>
+     <Listeners>1139</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=8524&amp;filename=playlist.pls">
+     <Name>ChroniX Aggression - Loud &amp; Clear - www.chronixradio.com</Name>
+     <Genre>Metal  Rock  Alternative</Genre>
+     <Nowplaying>Pantera - Cemetery Gates</Nowplaying>
+     <Listeners>1051</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=8010&amp;filename=playlist.pls">
+     <Name>FREQUENCE3 - www.frequence3.fr - No ads ! It's only HITS live from Paris France ! - French Webradio</Name>
+     <Genre>Top 40 Dance Pop Rock</Genre>
+     <Nowplaying>-= La Play-List des Auditeurs =-</Nowplaying>
+     <Listeners>1017</Listeners>
+     <Bitrate>192</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1253&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - Deep House - silky sexy deep house music direct from New York</Name>
+     <Genre>Deep House</Genre>
+     <Nowplaying>Spettro - Kou Kou</Nowplaying>
+     <Listeners>1005</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6100&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - Chillout - ambient psy chillout, check out our trippy flavors!</Name>
+     <Genre>Chillout Ambient Psy</Genre>
+     <Nowplaying>Retrodelica Megamix (February 2005) - mixed by Morlack</Nowplaying>
+     <Listeners>995</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3495&amp;filename=playlist.pls">
+     <Name>Music One - Today's Dance www.m1live.com</Name>
+     <Genre>dance trance house</Genre>
+     <Nowplaying>Narcotic Thrust - Waiting for you (Dance Music News, Forums and the last 10 tracks played at www.m1live.com)</Nowplaying>
+     <Listeners>983</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=83&amp;filename=playlist.pls">
+     <Name>S K Y . F M - Top Hits Music - who cares about the chart order, less rap &amp; more hits!</Name>
+     <Genre>Pop Top 40 Dance Rock</Genre>
+     <Nowplaying>Mariah Carey - We Belong Together</Nowplaying>
+     <Listeners>977</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=767&amp;filename=playlist.pls">
+     <Name>Techno4ever Radio - 24hours open</Name>
+     <Genre>Techno Trance Dance and m</Genre>
+     <Nowplaying>Track Update @ www.Techno4ever.net</Nowplaying>
+     <Listeners>895</Listeners>
+     <Bitrate>112</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=8776&amp;filename=playlist.pls">
+     <Name>POLSKIE RADIO CYBERPARTY</Name>
+     <Genre>Techno  Trance  Dance  Ho</Genre>
+     <Nowplaying>Cascada - Everytime We Touch (Rocco vs. Bass-T Remix)</Nowplaying>
+     <Listeners>873</Listeners>
+     <Bitrate>48</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1414&amp;filename=playlist.pls">
+     <Name>S K Y . F M - Best of the 80s - hear your classic favorites and relive those retro 80s!</Name>
+     <Genre>80s Pop Rock Oldies</Genre>
+     <Nowplaying>Diana Ross - Upside Down [1980]</Nowplaying>
+     <Listeners>852</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=5414&amp;filename=playlist.pls">
+     <Name>PulsRadio - www.pulsradio.com</Name>
+     <Genre>Dance Trance Techno House</Genre>
+     <Nowplaying>Robert Miles - Children</Nowplaying>
+     <Listeners>803</Listeners>
+     <Bitrate>192</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=4857&amp;filename=playlist.pls">
+     <Name>M O S T L Y - C L A S S I C A L - Now on S K Y . F M! - relax... it's good for you!</Name>
+     <Genre>classical easy symphonic</Genre>
+     <Nowplaying>J.S. Bach - Ouverture (Suite) Nr.3 D-dur (BWV 1068) Nikolaus Harnoncourt</Nowplaying>
+     <Listeners>752</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=342&amp;filename=playlist.pls">
+     <Name>} } X T C . R A D I O . L O N D O N { { DJ Journeys Into the Underground</Name>
+     <Genre>Trance  Techno   House</Genre>
+     <Nowplaying>Ger Stokes - May 1st 04</Nowplaying>
+     <Listeners>737</Listeners>
+     <Bitrate>160</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9090&amp;filename=playlist.pls">
+     <Name>idobi Radio: Music that doesn't suck! News, interviews and the best in alternative, rock, and punk m</Name>
+     <Genre>Alternative Rock Punk</Genre>
+     <Nowplaying>Sugarcult - Worst To December</Nowplaying>
+     <Listeners>722</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9804&amp;filename=playlist.pls">
+     <Name>KayFM 80's Hits And Memories [British and US Eighties]</Name>
+     <Genre>80s pop rock oldies</Genre>
+     <Nowplaying>Falco - Rock Me Amadeus</Nowplaying>
+     <Listeners>712</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=39&amp;filename=playlist.pls">
+     <Name>S K Y . F M - All Hit 70s - All Hits, All The Time!</Name>
+     <Genre>70s Hits Oldies Pop</Genre>
+     <Nowplaying>Barry White - Can't Get Enough of Your Love, Babe</Nowplaying>
+     <Listeners>705</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6891&amp;filename=playlist.pls">
+     <Name>The Christmas Station - 24/7 NON-STOP XMAS songs - mail or MSN: studio@vibe.fm</Name>
+     <Genre>Christmas songs  xmas</Genre>
+     <Nowplaying>Trijntje Oosterhuis Ft. Candy Dulfer - Merry Christmas Baby</Nowplaying>
+     <Listeners>678</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6448&amp;filename=playlist.pls">
+     <Name>Radioseven - www.radioseven.se</Name>
+     <Genre>Dance Pop RnB 80s Trance</Genre>
+     <Nowplaying>Marc Aurel - Sound Of Love</Nowplaying>
+     <Listeners>657</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1397&amp;filename=playlist.pls">
+     <Name>FG DJ RADIO - Live Techno from Paris - 128 Kbps</Name>
+     <Genre>Techno House Live</Genre>
+     <Nowplaying> @</Nowplaying>
+     <Listeners>641</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=4015&amp;filename=playlist.pls">
+     <Name>1.FM - Channel X (Formerly EnergyRadio.FM)</Name>
+     <Genre>Modern Rock Alternative</Genre>
+     <Nowplaying>Shinedown - Burning Bright</Nowplaying>
+     <Listeners>627</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=345&amp;filename=playlist.pls">
+     <Name>Radio Free Colorado - 96 Hours of Modern / Classic Christmas Music. Best Hi-Fi Sound on the Net!</Name>
+     <Genre>Christmas Holiday Rock</Genre>
+     <Nowplaying>Sammy Davis Jr. - The Christmas Song (Chestnuts Roasting On an Open Fire)</Nowplaying>
+     <Listeners>624</Listeners>
+     <Bitrate>192</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=198940&amp;filename=playlist.pls">
+     <Name>3mp3.ru: :: Stars Radio :: stars-radio.com</Name>
+     <Genre>Russian Stars</Genre>
+     <Nowplaying>SPB Boys - Boys</Nowplaying>
+     <Listeners>602</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=5482&amp;filename=playlist.pls">
+     <Name>Yabiladi Radio - 100% Maroc</Name>
+     <Genre>World Maroc</Genre>
+     <Nowplaying>Senhaji - Antouma Alaalamai</Nowplaying>
+     <Listeners>597</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=4546&amp;filename=playlist.pls">
+     <Name>Polskie Radio.Fotka 48Kbps</Name>
+     <Genre>Polskie Radio Fotka 48Kbp</Genre>
+     <Nowplaying>www.radio.fotka.pl</Nowplaying>
+     <Listeners>596</Listeners>
+     <Bitrate>48</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=801979&amp;filename=playlist.pls">
+     <Name>SmoothLounge.Com: For The Chill Of It (by Smoothjazz.Com)</Name>
+     <Genre>downtempo  ambient  chill</Genre>
+     <Nowplaying>Willie Bobo - Spanish Grease (Dorfmeister Con Madrid De Los Austrias Muga Reserva Mix)</Nowplaying>
+     <Listeners>592</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=4686&amp;filename=playlist.pls">
+     <Name>1.FM Jamz</Name>
+     <Genre>Urban Hip Hop RnB Rap</Genre>
+     <Nowplaying>Jamz Channel - New Music Sweep - 12 sec</Nowplaying>
+     <Listeners>585</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1185&amp;filename=playlist.pls">
+     <Name>MAGNATUNE.COM Classical: renaissance and baroque (try before you buy)</Name>
+     <Genre>Classical Instrumental</Genre>
+     <Nowplaying>13-The Rising of the Lark-Cheryl Ann Fulton_spoken</Nowplaying>
+     <Listeners>538</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=5309&amp;filename=playlist.pls">
+     <Name>TechnoBase.FM - 24h Techno, Dance, Trance, House and More - 96k MP3 / DSL</Name>
+     <Genre>Techno  Trance  House &amp; o</Genre>
+     <Nowplaying>We aRe oNe</Nowplaying>
+     <Listeners>521</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2348&amp;filename=playlist.pls">
+     <Name>MOHRADIO.COM - MASTERS OF HARDCORE RADIO - powered by: Art of Dance  - stream by dahhosting.nl  18-0</Name>
+     <Genre>Hardcore</Genre>
+     <Nowplaying>Ophidian - Skinbitten</Nowplaying>
+     <Listeners>508</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3732&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - Goa &amp; Psychedelic Trance - a voyage out of this world!</Name>
+     <Genre>Psychedelic Goa Trance</Genre>
+     <Nowplaying>DJ Shoom&#96;s Magical Opium Den of Doom</Nowplaying>
+     <Listeners>506</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=15&amp;filename=playlist.pls">
+     <Name>S K Y . F M - New Age - soothing sounds of new age and world music!</Name>
+     <Genre>New Age  World</Genre>
+     <Nowplaying>John Huling - Call of the Canyon</Nowplaying>
+     <Listeners>504</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=150292&amp;filename=playlist.pls">
+     <Name>RFM - Powered by SenewebNetworks: Vous &#255;coutez Radio  Futurs Medias 94.00 &#255; Dakar, 93.9 &#255; Kaolack, 1</Name>
+     <Genre>Mbalax</Genre>
+     <Nowplaying></Nowplaying>
+     <Listeners>497</Listeners>
+     <Bitrate>24</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=715&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D &amp; HappyHardcore.com - Hardcore - DJ mixes, hard dance and NuNRG!</Name>
+     <Genre>Hardcore Techno Trance</Genre>
+     <Nowplaying>Visa - Fly away (Time Ladies please 12&#96; mix)</Nowplaying>
+     <Listeners>491</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2024&amp;filename=playlist.pls">
+     <Name>Beatles Radio, Solos, Covers, Fab Four &amp; More = The Original  BRITISH INVASION The Beatles.</Name>
+     <Genre>60s 70s rock pop</Genre>
+     <Nowplaying>The Beatles - Tell Me Why</Nowplaying>
+     <Listeners>481</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6131&amp;filename=playlist.pls">
+     <Name>))) P O L S K A S T A C J A . P L ((( - Swiatecznie, XMAS (AACplus,AAC+)</Name>
+     <Genre>Polskie Swieta Xmas</Genre>
+     <Nowplaying>Bon Jovi - Please Come Home For Christmas</Nowplaying>
+     <Listeners>464</Listeners>
+     <Bitrate>48</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=928&amp;filename=playlist.pls">
+     <Name>Drone Zone: Atmospheric ambient space music. Serve Best Chilled. Safe with most medications. [SomaFM</Name>
+     <Genre>Techno Ambient Space</Genre>
+     <Nowplaying>Cluster Balm - Hallway</Nowplaying>
+     <Listeners>456</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=8892&amp;filename=playlist.pls">
+     <Name>Polskie Radio Megastacja.NET - Polish Radio Megastation</Name>
+     <Genre>Polskie Radio Megastacja</Genre>
+     <Nowplaying>Deep_Dish_-_Say_Hello</Nowplaying>
+     <Listeners>450</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=5048&amp;filename=playlist.pls">
+     <Name>NBOX RADIO: Kickin' Country - Today's Hottest Country Music</Name>
+     <Genre>Country</Genre>
+     <Nowplaying>Lonestar - Little Drummer Boy</Nowplaying>
+     <Listeners>447</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6922&amp;filename=playlist.pls">
+     <Name>KCRW Music</Name>
+     <Genre>Music</Genre>
+     <Nowplaying></Nowplaying>
+     <Listeners>434</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=7193&amp;filename=playlist.pls">
+     <Name>SoulfulSmoothJazz.com -The Worlds Best Variety of Smooth Jazz, Chill, R&amp;B and Soul--Live From NYC!</Name>
+     <Genre>Smooth Jazz  Chill  RnB</Genre>
+     <Nowplaying>Four 80 East - TKO</Nowplaying>
+     <Listeners>432</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6498&amp;filename=playlist.pls">
+     <Name>Bollywood Music Radio :: Indian Music :: Request your Hindi Songs</Name>
+     <Genre>World Bollywood Hindi</Genre>
+     <Nowplaying>Coming up: Zeher -  Agar Tum Mil Jao (Female)</Nowplaying>
+     <Listeners>429</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=4322&amp;filename=playlist.pls">
+     <Name>Radio Chanson</Name>
+     <Genre>Chanson</Genre>
+     <Nowplaying></Nowplaying>
+     <Listeners>428</Listeners>
+     <Bitrate>32</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2441&amp;filename=playlist.pls">
+     <Name>S K Y . F M - Roots Reggae - the best of classic and modern Roots Reggae with DJ Bahilman</Name>
+     <Genre>Roots Reggae World</Genre>
+     <Nowplaying>Don Carlos - Special Request To Everyone</Nowplaying>
+     <Listeners>423</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2462&amp;filename=playlist.pls">
+     <Name>Secret Agent: The soundtrack for your stylish, mysterious, dangerous life. For Spys and P.I.'s too!</Name>
+     <Genre>Downtempo Lounge Spy</Genre>
+     <Nowplaying>Boozoo Bajou - Bakar</Nowplaying>
+     <Listeners>406</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=7027&amp;filename=playlist.pls">
+     <Name>Radio Nippon - JPOP Weekly &amp; Monthly Top30 In JAPAN</Name>
+     <Genre>JPOP  CHARTS asian world</Genre>
+     <Nowplaying>Program2 Yearly2000 : #27 Ringo Shiina - Gibusu</Nowplaying>
+     <Listeners>403</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1680&amp;filename=playlist.pls">
+     <Name>1.FM -  Dance (Formerly EnergyRadio.FM)</Name>
+     <Genre>Dance House Pop Techno To</Genre>
+     <Nowplaying>Daniel Bedingfield - Gotta Get Thru This</Nowplaying>
+     <Listeners>398</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=734986&amp;filename=playlist.pls">
+     <Name>Radio Marimanga    (Ju Argeton Dj Real )</Name>
+     <Genre>Shqip Albanian any</Genre>
+     <Nowplaying>Jalah mor bilbil - Jalah mor bilbil</Nowplaying>
+     <Listeners>396</Listeners>
+     <Bitrate>24</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2424&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - DJ MIXES - non-stop DJ sets featuring various forms of techno</Name>
+     <Genre>Trance Techno House</Genre>
+     <Nowplaying>Dj Ferry Corsten - Global transmissions 01</Nowplaying>
+     <Listeners>389</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6829&amp;filename=playlist.pls">
+     <Name>&#42; H A P P Y D A Y &#42;CJ Sooin &#42;24hour Korea Pop Ballad</Name>
+     <Genre>World Asian Kpop</Genre>
+     <Nowplaying>    Music</Nowplaying>
+     <Listeners>386</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=249&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - Hard Dance - are you ready for this!</Name>
+     <Genre>Hard Trance Techno</Genre>
+     <Nowplaying>dj wheelz - wanna ride</Nowplaying>
+     <Listeners>374</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=74&amp;filename=playlist.pls">
+     <Name>idobi Radio: Music that doesn't suck! News, interviews and the best in alternative, rock, and punk m</Name>
+     <Genre>Alternative Rock Punk</Genre>
+     <Nowplaying>Sugarcult - Worst To December</Nowplaying>
+     <Listeners>372</Listeners>
+     <Bitrate>24</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=774885&amp;filename=playlist.pls">
+     <Name>radioioAmbient. Your world. Your station. No boundaries. &#255;2005 ioWorldMedia, inc (formerly powerCerv</Name>
+     <Genre>Ambient</Genre>
+     <Nowplaying>Net Radio Sales Survey - Click CD button to participate (10 p)</Nowplaying>
+     <Listeners>356</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1044&amp;filename=playlist.pls">
+     <Name>Smoothbeats.com: Streaming non-stop underground &amp; mainstream hiphop beats 24/7!</Name>
+     <Genre>Hip Hop  Rap  RnB  Urban</Genre>
+     <Nowplaying>Rayedan - Mr. Hiccup (Remix)</Nowplaying>
+     <Listeners>355</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3973&amp;filename=playlist.pls">
+     <Name>Proton Radio</Name>
+     <Genre>House  Dance</Genre>
+     <Nowplaying>Frequency on Proton Radio (12-25-05) - Part 2 - Pytzek - Disco Nights</Nowplaying>
+     <Listeners>335</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3906&amp;filename=playlist.pls">
+     <Name>KCRW Simulcast</Name>
+     <Genre>Live</Genre>
+     <Nowplaying></Nowplaying>
+     <Listeners>328</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=7124&amp;filename=playlist.pls">
+     <Name>Playdio :: Bara Bra Musik :: http://www.playdio.se ::</Name>
+     <Genre>Trance</Genre>
+     <Nowplaying>Bala - Drop The Bass</Nowplaying>
+     <Listeners>328</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9717&amp;filename=playlist.pls">
+     <Name>80s Grooves 103.9 FM Music To Make You Feel Good!</Name>
+     <Genre>80s Pop Rock Oldies 70s 9</Genre>
+     <Nowplaying>Jackson Browne - Somebody&#96;s Baby</Nowplaying>
+     <Listeners>326</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3489&amp;filename=playlist.pls">
+     <Name>96.5 KOIT San Francisco - Lite Rock, Less Talk</Name>
+     <Genre>Rock</Genre>
+     <Nowplaying></Nowplaying>
+     <Listeners>322</Listeners>
+     <Bitrate>48</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9423&amp;filename=playlist.pls">
+     <Name>))) P O L S K A S T A C J A . P L ((( - Tylko Polskie Przeboje 128kbps</Name>
+     <Genre>Polskie Piosenki</Genre>
+     <Nowplaying>Bajm - Bia a armia</Nowplaying>
+     <Listeners>320</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=596305&amp;filename=playlist.pls">
+     <Name>RaDioTEENTAAL.com 100% InDiAn MuSiC LiVe FrOm PaRiS - Request your song &#126; On Air &#126;  STEREO 128K</Name>
+     <Genre>Bollywood World hindi</Genre>
+     <Nowplaying>Aap Ko Samjha - Requested by PHEBUS-)A mes bananes.. Asma, Aur lia, Schamir, Mael &amp; Toonssia..</Nowplaying>
+     <Listeners>317</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9941&amp;filename=playlist.pls">
+     <Name>frisky R a d i o - feelin' frisky?</Name>
+     <Genre>progressive house dance</Genre>
+     <Nowplaying>Drag N Drop Christmas Marathon - December 25 2005 - Soulmate</Nowplaying>
+     <Listeners>315</Listeners>
+     <Bitrate>160</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=192&amp;filename=playlist.pls">
+     <Name>D I G I T A L L Y - I M P O R T E D - Progressive - house, techno, and trance beats for your mind!</Name>
+     <Genre>Progressive House Trance</Genre>
+     <Nowplaying></Nowplaying>
+     <Listeners>312</Listeners>
+     <Bitrate>96</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3336&amp;filename=playlist.pls">
+     <Name>RadioABF.net - Paris Electro Spirit Live From FRANCE - The Finest Global Music : Dance &amp; Club HITS !</Name>
+     <Genre>Dance House Electronic</Genre>
+     <Nowplaying>Infernal - From Paris To Berlin</Nowplaying>
+     <Listeners>309</Listeners>
+     <Bitrate>256</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=309492&amp;filename=playlist.pls">
+     <Name>HBR1.com - Dream Factory</Name>
+     <Genre>Downbeat  Chill Out  Ambi</Genre>
+     <Nowplaying>francofunghi - lowered expectations[ambientlounge@terra.es]</Nowplaying>
+     <Listeners>302</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1080&amp;filename=playlist.pls">
+     <Name>SomaFM presents: Indie Pop Rocks! [SomaFM]</Name>
+     <Genre>Indie LoFi College</Genre>
+     <Nowplaying>Say Hi To Your Mom - Your Brains Vs My Tractorbeam</Nowplaying>
+     <Listeners>297</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=247355&amp;filename=playlist.pls">
+     <Name>Glas Drine - Najslusaniji BiH Radio</Name>
+     <Genre>Narodna  izvorna i folk</Genre>
+     <Nowplaying></Nowplaying>
+     <Listeners>288</Listeners>
+     <Bitrate>24</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=378883&amp;filename=playlist.pls">
+     <Name>Thailand Radio Network: DJ - P!pE</Name>
+     <Genre>Various</Genre>
+     <Nowplaying>10 - Paradox-</Nowplaying>
+     <Listeners>288</Listeners>
+     <Bitrate>24</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=5932&amp;filename=playlist.pls">
+     <Name>Bassdrive - Music Beyond - 24/7 Drum and Bass Jungle Radio Featuring Live Shows</Name>
+     <Genre>Techno Drum and Bass</Genre>
+     <Nowplaying>Universal Project - Soulwalker</Nowplaying>
+     <Listeners>281</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=8876&amp;filename=playlist.pls">
+     <Name>Russian Fantasy! Radio [Germany]</Name>
+     <Genre>Russian</Genre>
+     <Nowplaying>17.         -       (RDV DJ Remix)</Nowplaying>
+     <Listeners>281</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=323030&amp;filename=playlist.pls">
+     <Name>radioioClassical. Your world. Your station. No boundaries. &#255;2005 ioWorldMedia, inc. (pcrv.pk)</Name>
+     <Genre>Classical</Genre>
+     <Nowplaying>Beethoven /  John Eliot Gardin - Symphony No. 1 In C Major</Nowplaying>
+     <Listeners>278</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=377&amp;filename=playlist.pls">
+     <Name>BIGUPRADIO.COM Slamming Dancehall Reggae ((ONE LOVE)) Online Reggae Music Store www.bigupradio.com</Name>
+     <Genre>reggae</Genre>
+     <Nowplaying>DJ BOOM - Boom Shots Mix 2005 (bassmentalitysound.com)</Nowplaying>
+     <Listeners>276</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3917&amp;filename=playlist.pls">
+     <Name>All Christmas Radio - Favorite Christmas Hits Past &amp; Present</Name>
+     <Genre>Christmas Holiday</Genre>
+     <Nowplaying>State Of The Heart - Blue Christmas</Nowplaying>
+     <Listeners>273</Listeners>
+     <Bitrate>64</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=5362&amp;filename=playlist.pls">
+     <Name>J A Z Z M U S I Q U E - Smooth &amp; Stylish Downtempo from NETMUSIQUE.com</Name>
+     <Genre>Ambient Downtempo Lounge</Genre>
+     <Nowplaying>JET BLACK CRAYON -  IF ONLY</Nowplaying>
+     <Listeners>273</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=3412&amp;filename=playlist.pls">
+     <Name>The EDGE ROCKS!! - 100% ROCK :::: (Godsmack, Ozzy, SlipKnot, Pantera, etc) :::: Format: Active Rock</Name>
+     <Genre>EXTREME ROCK &amp; METAL 24HR</Genre>
+     <Nowplaying>Van Halen Unchained  -</Nowplaying>
+     <Listeners>273</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=802587&amp;filename=playlist.pls">
+     <Name>XFM -- highstream --</Name>
+     <Genre>dance  house pop</Genre>
+     <Nowplaying>MY LIFE -- Chanel</Nowplaying>
+     <Listeners>273</Listeners>
+     <Bitrate>112</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=802051&amp;filename=playlist.pls">
+     <Name>AudioRealm: Ghanawaves Radio</Name>
+     <Genre>Ghanaian News  Music &amp; Sp</Genre>
+     <Nowplaying>C.S.T. Amankwah - Nsoo Ayire Me</Nowplaying>
+     <Listeners>272</Listeners>
+     <Bitrate>24</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=750363&amp;filename=playlist.pls">
+     <Name>ITALIAN DANCE NETWORK [24 Hours a day/7 days a week Dancemusic from Italy]</Name>
+     <Genre>Dance Euro Italo Trance</Genre>
+     <Nowplaying>Visit our website to see current Trackinfo www.italiandancenetwork.com</Nowplaying>
+     <Listeners>272</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2271&amp;filename=playlist.pls">
+     <Name>CLUB 977 The Country Channel</Name>
+     <Genre>Country</Genre>
+     <Nowplaying>Billy Currington - Must Be Doin&#96; Somethin&#96; Right</Nowplaying>
+     <Listeners>271</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=569171&amp;filename=playlist.pls">
+     <Name>Mavifm.com - Icinizdeki Sesi Uyandirin !</Name>
+     <Genre>Turkish Pop Radyo</Genre>
+     <Nowplaying>Listeden Sarkilar</Nowplaying>
+     <Listeners>271</Listeners>
+     <Bitrate>32</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=1970&amp;filename=playlist.pls">
+     <Name>Club Eurodance - Polskie Radio Radiosfera &amp; Radioredstar (mp3)</Name>
+     <Genre>Dance Techno Trance House</Genre>
+     <Nowplaying>losing my religion (club maxi mod Long</Nowplaying>
+     <Listeners>265</Listeners>
+     <Bitrate>48</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=7776&amp;filename=playlist.pls">
+     <Name>P h i l o s o m a t i k a - 100% Psychedelic Trance - Get your stomp on!</Name>
+     <Genre>Trance Techno Dance</Genre>
+     <Nowplaying>Silicon Sound - Cylinder &#124; Album: Conspirators of Pleasure</Nowplaying>
+     <Listeners>265</Listeners>
+     <Bitrate>160</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9936&amp;filename=playlist.pls">
+     <Name>AfterhoursDJs.org - All live, all the time.</Name>
+     <Genre>Trance Dance Breakbeat</Genre>
+     <Nowplaying>Bjorn Burton - Club246 Toronto 100.7FM radio Sept-2005</Nowplaying>
+     <Listeners>264</Listeners>
+     <Bitrate>192</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=2545&amp;filename=playlist.pls">
+     <Name>1.FM - 80's and 90's (Formerly EnergyRadio.FM)</Name>
+     <Genre>80s 90s</Genre>
+     <Nowplaying>Hazell Dean - Who&#96;s Leaving Who</Nowplaying>
+     <Listeners>262</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=9620&amp;filename=playlist.pls">
+     <Name>DEFJAY.COM - THE HOTTEST MUSIC MIX IN HIP HOP AND R&amp;B !! ( 24/7 )</Name>
+     <Genre>RnB URBAN HIP HOP RAP POP</Genre>
+     <Nowplaying>Alicia Keys - U Don&#96;t Know My Name</Nowplaying>
+     <Listeners>262</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+    <entry Playstring="http://www.shoutcast.com/sbin/tunein-station.pls?id=6926&amp;filename=playlist.pls">
+     <Name>SwissGroove - groovy - jazzy - funky - trippy ++ 128 k &amp; 56 k ++ 24/7 ++ more slots here!</Name>
+     <Genre>Mixed Jazz Funk Soul Trip</Genre>
+     <Nowplaying>Yennek - Serena X (Innerzone Mix)</Nowplaying>
+     <Listeners>262</Listeners>
+     <Bitrate>128</Bitrate>
+    </entry>
+  </playlist>
+ </WinampXML>
+

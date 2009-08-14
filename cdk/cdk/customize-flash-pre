@@ -1,0 +1,28 @@
+#!/bin/bash
+
+echo Removing and Copying own PLi files
+scriptdir=${0%/*}
+BOXTYPE=$1
+root=$scriptdir/../root/cdkflash/root
+standard=$scriptdir/standard/$BOXTYPE
+allimages=$scriptdir/allboxes
+cdkimages=$scriptdir/cdkboxes
+pliversion="`date +%d%m`" 
+
+
+#
+# the * is crucial!
+#
+# in here we can put the wifi drivers and etc/init.d/init1 and other nice stuff...
+#
+cp -avf $standard/. $root/.
+cp -avf $allimages/. $root/.
+cp -avf $cdkimages/. $root/.
+
+for i in `find $root -type d -name ".svn"`; do
+   rm -rf $i
+done
+
+sed  "s/^PLI_VERSION=PLIVERSION/PLI_VERSION=$pliversion/" $standard/etc/init.d/rcS >$root/etc/init.d/rcS
+
+

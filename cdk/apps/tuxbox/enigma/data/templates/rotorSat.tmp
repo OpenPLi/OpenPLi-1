@@ -1,0 +1,8 @@
+<tr>
+	<td><img src="#CURRENT#" border="0"></td>
+	<td>#SATPOS#</td>
+	<td>#STOREBUTTON#</td>
+	<td>#GOTOBUTTON#</td>
+	<td>#SATNAME#</td>
+	<td>#MOTORPOS#</td>
+</tr>
