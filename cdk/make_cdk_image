@@ -28,9 +28,6 @@ if [ ! -d $DESTDIR ] ; then
    mkdir $DESTDIR
 fi
 
-exit
-
-
 IMAGES_DIR=$CDK_ROOT/root/cdkflash/images
 
 echo "=========== Reverting PO files"
@@ -55,7 +52,7 @@ rm -Rf $CDK_ROOT/root/cdkroot/share/tuxbox/enigma/skins/*
 echo "=========== Get latest svn changes"
 cd $CDK_ROOT
 svn up
-# Allways run prepare since this generate things for the image which can change
+# Always run prepare since this generate things for the image which can change
 cd $CDK_ROOT/cdk
 echo "=========== Prepare $BOXTYPE"
 ./prepare $BOXTYPE
@@ -65,3 +62,4 @@ env SHELL=/bin/bash ./build-image > $DESTDIR/buildlog.txt 2>&1
 echo "=========== Stage results to $DESTDIR"
 cp $IMAGES_DIR/*.img $DESTDIR
 cp $IMAGES_DIR/*.zip $DESTDIR
+
