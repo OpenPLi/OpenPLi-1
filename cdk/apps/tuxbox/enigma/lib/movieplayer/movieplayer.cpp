@@ -757,8 +757,8 @@ eString eMoviePlayer::sout(eString mrl)
 		soutURL += "}:";
 	}
 	
-	//soutURL += "duplicate{dst=std{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}}";
-	soutURL += "standard{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}";
+	soutURL += "duplicate{dst=std{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}}";
+	//soutURL += "standard{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}";
 
 	status.A_SYNC=true;
 	status.SUBT = true;
