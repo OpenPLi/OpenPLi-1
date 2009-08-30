@@ -128,13 +128,11 @@ void eMoviePlayer::supportPlugin()
 	status.BUFFERFILLED = true;
 	status.A_SYNC = true;
 	status.SUBT = true;
-	status.DVDSUBT = true;
-	status.RES = false;
 }
 
 eMoviePlayer::eMoviePlayer(): messages(this, 1)
 {
-    init_eMoviePlayer();
+	init_eMoviePlayer();
 }
 void eMoviePlayer::init_eMoviePlayer()
 {
@@ -142,7 +140,7 @@ void eMoviePlayer::init_eMoviePlayer()
 		instance = this;
 	supportPlugin();
 	CONNECT(messages.recv_msg, eMoviePlayer::gotMessage);
-	eDebug("[MOVIEPLAYER] Version 2.53 starting...");
+	eDebug("[MOVIEPLAYER] Version 2.42 starting...");
 	status.ACTIVE = false;
 	run();
 }
@@ -171,9 +169,7 @@ void eMoviePlayer::startDVB()
 
 void eMoviePlayer::leaveStreamingClient()
 {
-	eString tmp;
-	sendGetRequest("/requests/status.xml?command=pl_empty",tmp);
-
+	eMoviePlayer::getInstance()->sendRequest2VLC("?control=stop");
 	pthread_mutex_lock(&mutex);
 	tsBuffer.clear();
 	pthread_mutex_unlock(&mutex);
@@ -222,9 +218,8 @@ void eMoviePlayer::control(const char *command, const char *filename)
 		pthread_mutex_lock(&mutex);
 		cancelBuffering = 1;
 		pthread_mutex_unlock(&mutex);
-
-		eString tmp;
-		sendGetRequest("/requests/status.xml?command=pl_empty",tmp);
+		sendRequest2VLC("?control=stop");
+		sendRequest2VLC("?control=empty");  // clear playlist
 
 		status.ACTIVE = false;
 		status.STAT = STOPPED;
@@ -249,9 +244,6 @@ void eMoviePlayer::control(const char *command, const char *filename)
 	if (cmd == "subtitles")
 		messages.send(Message(Message::subtitles, 0));
 	else
-	if (cmd == "dvdsubtitles")
-		messages.send(Message(Message::dvdsubtitles, 0));
-	else
 	if (cmd == "nsf")
 		messages.send(Message(Message::nsf, 0));
 	else
@@ -267,9 +259,6 @@ void eMoviePlayer::control(const char *command, const char *filename)
 	if (cmd == "endplg")
 		messages.send(Message(Message::endplg, 0));
 	else
-	if (cmd == "origres")
-		messages.send(Message(Message::origres, 0));
-	else
 	if (cmd == "bufsize")
 		messages.send(Message(Message::bufsize, filename ? strdup(filename) : 0));
 	else
@@ -278,80 +267,100 @@ void eMoviePlayer::control(const char *command, const char *filename)
 		messages.send(Message(Message::jump, filename ? strdup(filename) : 0));
 }
 
+int eMoviePlayer::sendRequest2VLC(eString command)	// sending tcp commands
+{
+	char ioBuffer[512];
+	int rc = -1;
+	int fd = tcpOpen(server.serverIP, atoi(server.webifPort.c_str()), 1);
+	if (fd > 0)
+	{
+		eString url = "GET /" + command + " HTTP/1.1\r\n\r\n";
+		strcpy(ioBuffer, url.c_str());
+//		eDebug("[MOVIEPLAYER] sendRequest2VLC : %d, %s", fd, ioBuffer);
+		rc = tcpRequest(fd, ioBuffer, sizeof(ioBuffer) - 1);
+		if (rc == 0)
+		{
+			if (strstr(ioBuffer, "HTTP/1.1 200 OK") == 0)
+			{
+				eDebug("[MOVIEPLAYER] 200 OK NOT received...");
+				rc = -2;
+			}
+			else 
+			{
+				eDebug("[MOVIEPLAYER] 200 OK...");
+			}
+		}
+		else 
+			rc = -3;
+		close(fd);
+	}
+
+	return rc;
+}
+
 int bufferStream(int fd, int bufferSize)
 {
-	
-//	char tempBuffer[BLOCKSIZE];
-	char *tempBuffer=NULL;
-	if((tempBuffer = (char *)malloc(sizeof(char) * BLOCKSIZE))!=NULL)
-	{ 
-	    int len = 0;
-	    int rc = 1;
-	    int error = 0;
-	    fd_set rfds;
-	    struct timeval tv;
-	    int tsBufferSize = 0;
+	int len = 0;
+	int rc = 1;
+	int error = 0;
+	char tempBuffer[BLOCKSIZE];
+	fd_set rfds;
+	struct timeval tv;
+	int tsBufferSize = 0;
 
-	    eDebug("[MOVIEPLAYER] buffering stream...");
+	eDebug("[MOVIEPLAYER] buffering stream...");
 
-	    // fill buffer and temp file
-	    while ((tsBufferSize < bufferSize) && (rc > 0))
-	    {
-	    	tv.tv_sec = 30; // max. 30sec
-	    	tv.tv_usec = 0;
-	    	FD_ZERO(&rfds);
-	    	FD_SET(fd, &rfds);
-	    	rc = select(fd + 1, &rfds, NULL, NULL, &tv);
-	    	if (rc)
-	    	{
-	    		len = recv(fd, tempBuffer, BLOCKSIZE, 0);
-	    		if (len < 0)
-	    		{
-	    			int error = errno;
-	    			if (error == EINTR)
-	    			{
-	    				continue;
-	    			}
-	    			else if (error == EAGAIN)
-	    			{
-	    				usleep(100000);
-	    				continue;
-	    			}
-	    			/* all other errors are fatal */
-	    			eDebug("[MOVIEPLAYER] bufferStream fatal recv error %d", error);
-	    			rc = 0;
-	    		}
-	    		else if (len == 0)
-	    		{
-	    			eDebug("[MOVIEPLAYER] bufferStream socket closed");
-	    			rc = 0;
-	    		}
-	    		else
-	    		{
-	    			error = 0;
-	    			tsBuffer.write(tempBuffer, len);
-	    			tsBufferSize = tsBuffer.size();
-// 	    			eDebug("[MOVIEPLAYER] writing %d bytes to buffer, total: %d", len, tsBufferSize);
-	    		}
-	    	}
-	    	pthread_mutex_lock(&mutex);
-	    	if (cancelBuffering > 0)
-	    	{
-	    		rc = 0;
-	    		tsBuffer.clear();
-	    		tsBufferSize = 0;
-	    	}
-	    	pthread_mutex_unlock(&mutex);
-	    }
-	    free(tempBuffer);
-	    return tsBufferSize;
-	}
-	else
+	// fill buffer and temp file
+	while ((tsBufferSize < bufferSize) && (rc > 0))
 	{
-	    eDebug("[MOVIEPLAYER] !!! cannot be allocate buffer in bufferStream !!!");
-	    free(tempBuffer);
-	    return 0;
+		tv.tv_sec = 30; // max. 30sec
+		tv.tv_usec = 0;
+		FD_ZERO(&rfds);
+		FD_SET(fd, &rfds);
+		rc = select(fd + 1, &rfds, NULL, NULL, &tv);
+		if (rc)
+		{
+			len = recv(fd, tempBuffer, BLOCKSIZE, 0);
+			if (len < 0)
+			{
+				int error = errno;
+				if (error == EINTR)
+				{
+					continue;
+				}
+				else if (error == EAGAIN)
+				{
+					usleep(100000);
+					continue;
+				}
+				/* all other errors are fatal */
+				eDebug("[MOVIEPLAYER] bufferStream fatal recv error %d", error);
+				rc = 0;
+			}
+			else if (len == 0)
+			{
+				eDebug("[MOVIEPLAYER] bufferStream socket closed");
+				rc = 0;
+			}
+			else
+			{
+				error = 0;
+				tsBuffer.write(tempBuffer, len);
+				tsBufferSize = tsBuffer.size();
+// 				eDebug("[MOVIEPLAYER] writing %d bytes to buffer, total: %d", len, tsBufferSize);
+			}
+		}
+		pthread_mutex_lock(&mutex);
+		if (cancelBuffering > 0)
+		{
+			rc = 0;
+			tsBuffer.clear();
+			tsBufferSize = 0;
+		}
+		pthread_mutex_unlock(&mutex);
 	}
+	
+	return tsBufferSize;
 }
 
 int eMoviePlayer::requestStream()
@@ -498,7 +507,7 @@ void eMoviePlayer::gotMessage(const Message &msg )
 {
 	eString mrl;
 	eString restmp = "";
-	eString command = "/requests/status.xml?command="; 
+	eString command = ""; 
 
 	eDebug("[MOVIEPLAYER] message %d coming in...", msg.type);
 	switch (msg.type)
@@ -519,23 +528,54 @@ void eMoviePlayer::gotMessage(const Message &msg )
 				
 				if (msg.type == Message::start2)
 				{
-					
-					// empty vlc's playlist
-					if (int res = sendGetRequest(command + "pl_empty",restmp) < 0)
+					// stop vlc, just to check whether vlc is up and running
+					if (int res = sendRequest2VLC("?control=stop") < 0)
 					{
 						eDebug("[MOVIEPLAYER] couldn't communicate with vlc, streaming server ip address may be wrong in settings. Errno: %d",res);
 						setErrorStatus();
 						break;
 					}
-					// vlc: set sout...
-					if (sendGetRequest("?sout=" + httpEscape(sout(mrl)),restmp) < 0)
+					usleep(200000);
+					// empty vlc's playlist
+					if (sendRequest2VLC("?control=empty") < 0)
 					{
 						setErrorStatus();
 						break;
 					}
 					usleep(200000);
-					// vlc: add mrl to playlist	and play
-					if (sendGetRequest(command + "in_play&input=" + httpEscape(mrl).strReplace("%5c","%5c%5c"),restmp) < 0)
+					// vlc: set sout...
+					if (sendRequest2VLC("?sout=" + httpEscape(sout(mrl))) < 0)
+					{
+						setErrorStatus();
+						break;
+					}
+					usleep(200000);
+					// vlc: add mrl to playlist
+					if (sendRequest2VLC("?control=add&mrl=" + httpEscape(mrl)) < 0)
+					{
+						setErrorStatus();
+						break;
+					}
+					if(mrl.left(3) != "dvd" && mrl.left(3) != "vcd" )
+					{
+						usleep(200000);
+						// vlc: play (circumvention for vlc deficiency)
+						if (sendRequest2VLC("?control=play") < 0)
+						{
+							setErrorStatus();
+							break;
+						}
+						usleep(200000);
+						// vlc: stop (circumvention for vlc deficiency)
+						if (sendRequest2VLC("?control=stop") < 0)
+						{
+							setErrorStatus();
+							break;
+						}
+					}
+					usleep(200000);
+					// vlc: start playback of first item in playlist
+					if (sendRequest2VLC("?control=play") < 0)
 					{
 						setErrorStatus();
 						break;
@@ -568,9 +608,6 @@ void eMoviePlayer::gotMessage(const Message &msg )
 		case Message::subtitles:
 		        status.SUBT=false;
 			break;
-		case Message::dvdsubtitles:
-		        status.DVDSUBT=false;
-			break;
 		case Message::nsf:
 		        status.NSF=true;
 			break;
@@ -585,9 +622,6 @@ void eMoviePlayer::gotMessage(const Message &msg )
 			break;
 		case Message::endplg:
 		        status.PLG=false;
-			break;
-		case Message::origres:
-		        status.RES=true;
 			break;
 		case Message::bufsize:
 		{
@@ -611,43 +645,6 @@ void eMoviePlayer::gotMessage(const Message &msg )
 			eDebug("unhandled thread message");
 	}
 	eDebug("[MOVIEPLAYER] message %d handled.", msg.type);
-}
-
-size_t CurlDummyWrite (void *ptr, size_t size, size_t nmemb, void *data)
-{
-	std::string *pStr = (std::string *)data;
-	*pStr += (char *)ptr;
-	return size * nmemb;
-}
-
-CURLcode eMoviePlayer::sendGetRequest (const eString& url, eString& response)  // send http commands to VLC, in response return info
-{
-	CURL *curl;
-	CURLcode httpres;
-    
-    response = "";
-	
-	eString command = "http://" + server.serverIP + ":" + server.webifPort + url;
-	
-    eString VLC_AUTH = server.vlcUser + ":" + server.vlcPass;
-    
-	curl = curl_easy_init();
-	curl_easy_setopt(curl, CURLOPT_URL, command.c_str());
-	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlDummyWrite);
-	curl_easy_setopt(curl, CURLOPT_FILE, (void *)&response);
-
-	if (VLC_AUTH)
-		curl_easy_setopt (curl, CURLOPT_USERPWD, VLC_AUTH.c_str());
-	curl_easy_setopt (curl, CURLOPT_FAILONERROR, true);
-
-	int timeout = 4;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/timeout", timeout);
-//	eDebug("[VLC] Timeout: %d",timeout);
-	curl_easy_setopt (curl, CURLOPT_TIMEOUT, timeout);
-	httpres = curl_easy_perform (curl);
-//	eDebug("[VLC] HTTP Result: %d", httpres);
-	curl_easy_cleanup(curl);
-	return httpres;
 }
 
 eString eMoviePlayer::sout(eString mrl)
@@ -674,7 +671,7 @@ eString eMoviePlayer::sout(eString mrl)
 	struct videoTypeParms video = mpconfig.getVideoParms(name, extension);
 	
 	eDebug("[MOVIEPLAYER] determine ?sout for mrl: %s", mrl.c_str());
-	eDebug("[MOVIEPLAYER] transcoding audio: %d, video: %d, subtitles: %d, dvbs: %d" , video.transcodeAudio, video.transcodeVideo, status.PLG ? status.SUBT : video.soutadd,status.DVDSUBT);
+	eDebug("[MOVIEPLAYER] transcoding audio: %d, video: %d, subtitles: %d" , video.transcodeAudio, video.transcodeVideo, status.PLG ? status.SUBT : video.soutadd);
 
 	// add sout (URL encoded)
 	// example (with transcode to mpeg1):
@@ -694,33 +691,9 @@ eString eMoviePlayer::sout(eString mrl)
 		{
 			soutURL += "vcodec=" + video.videoCodec;
 			soutURL += ",vb=" + video.videoRate;
-			
-			if(status.PLG && status.RES)
-			{
-			    int w = 0; 
-			    eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/w", w);
-			    int h = 0;
-			    eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/h", h);
-	            
-	            if(w)
-	                soutURL += ",width=" + eString().sprintf("%d",w);
-	            else
-			        soutURL += ",width=";
-			    
-			    if(h)
-			        soutURL += ",height=" + eString().sprintf("%d",h); 
-			    else
-			        soutURL += ",height="; 
-			    eDebug("used original resolution h:%d x w:%d",h,w);
-			}
-			else
-			{    
-			    soutURL += ",width=" + res_horiz;
-			    soutURL += ",height=" + res_vert;
-			}
-			
+			soutURL += ",width=" + res_horiz;
+			soutURL += ",height=" + res_vert;
 			soutURL += ",fps=" + video.fps;
-			
 			if(status.PLG)
 			{
 				if(status.SUBT)
@@ -732,20 +705,12 @@ eString eMoviePlayer::sout(eString mrl)
 					soutURL += ",soverlay";
 			}
 		}
-						
 		if (video.transcodeAudio)
 		{
 			if (video.transcodeVideo)
 				soutURL += ",";
 			soutURL += "acodec=mpga,ab=" + video.audioRate + ",channels=2";
 		}
-		
-		if(status.PLG)
-		{
-		    if(status.DVDSUBT)
-				soutURL += ",scodec=dvbs";
-		}
-				
 		if(status.PLG)
 		{
 			if(status.A_SYNC)
@@ -753,18 +718,15 @@ eString eMoviePlayer::sout(eString mrl)
 		}
 		else
 			soutURL += ",audio-sync";
-			
 		soutURL += "}:";
 	}
 	
-	soutURL += "duplicate{dst=std{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}}";
-	//soutURL += "standard{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}";
+	//soutURL += "duplicate{dst=std{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}}";
+	soutURL += "standard{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}";
 
 	status.A_SYNC=true;
 	status.SUBT = true;
-	status.DVDSUBT = true;
-	status.RES = false;
-   	eDebug("[MOVIEPLAYER] sout = %s", soutURL.c_str());
+	eDebug("[MOVIEPLAYER] sout = %s", soutURL.c_str());
 	return soutURL;
 }
 
@@ -778,80 +740,71 @@ void pvrThreadCleanup(void *pvrfd)
 
 void *pvrThread(void *pvrfd)
 {
-//	char tempBuffer[BLOCKSIZE];
-	char *tempBuffer=NULL;
-	if((tempBuffer = (char *)malloc(sizeof(char) * BLOCKSIZE))!=NULL)
-	{ 
-	    int rd = 0;
-    	int tsBufferSize = 0;
-	    int errors = 0;
-    	eDebug("[MOVIEPLAYER] pvrThread starting: pvrfd = %d", *(int *)pvrfd);
-    	pthread_cleanup_push(pvrThreadCleanup, (void *)pvrfd);
-	    nice(-1);
-	    while (true)
-	    {
-	    	pthread_testcancel();
-	    	pthread_mutex_lock(&mutex);
-	    	rd = tsBuffer.read(tempBuffer, BLOCKSIZE);
-	    	tsBufferSize = tsBuffer.size();
-	    	pthread_mutex_unlock(&mutex);
-	    	if (rd > 0)
-	    	{
-	    		errors = 0;
-	    		while (1)
-	    		{
-	    			int result;
-	    			result = write(*(int *)pvrfd, tempBuffer, rd);
-	    			if (result < 0)
-	    			{
-	    				int error = errno;
-	    				if (error == EINTR)
-	    				{
-	    					continue;
-	    				}
-	    				else if (error == EAGAIN)
-	    				{
-	    					usleep(100000);
-	    					continue;
-	    				}
-	    				else
-	    				{
-	    					/* all other errors are fatal */
-	    					eDebug("[MOVIEPLAYER] fatal pvr write error occurred %d", error);
-	    				}
-	    			}
-	    			break;
-	    		}
-	    		// eDebug("[MOVIEPLAYER] %d >>> writing %d bytes to pvr...", tsBufferSize, rd); - docasne
-	    	}
-	    	else
-	    	{
-	    		if (tsBufferSize == 0)
-	    		{
-	    			if (++errors > 100)
-	    			{
-	    				eDebug("[MOVIEPLAYER] pvrThread: exit after %d attempts reading from empty buffer", errors);
-	    				break;
-	    			}
-	    			/* wait a bit for new data to arrive */
-	    			usleep(100000);
-	    		}
-	    		else
-	    		{
-	    			/* fatal error, should never happen, stop at once */
-	    			eDebug("[MOVIEPLAYER] pvrThread: fatal error: failed to read from nonempty buffer");
-	    			break;
-	    		}
-	    	}
-	    }
-	    pthread_exit(NULL);
-	    pthread_cleanup_pop(1);
-	}
-	else
+	char tempBuffer[BLOCKSIZE];
+	int rd = 0;
+	int tsBufferSize = 0;
+	int errors = 0;
+	eDebug("[MOVIEPLAYER] pvrThread starting: pvrfd = %d", *(int *)pvrfd);
+	pthread_cleanup_push(pvrThreadCleanup, (void *)pvrfd);
+	nice(-1);
+	while (true)
 	{
-	    eDebug("[MOVIEPLAYER] !!! cannot be allocate buffer in pvrThread !!!");
+		pthread_testcancel();
+		pthread_mutex_lock(&mutex);
+		rd = tsBuffer.read(tempBuffer, BLOCKSIZE);
+		tsBufferSize = tsBuffer.size();
+		pthread_mutex_unlock(&mutex);
+		if (rd > 0)
+		{
+			errors = 0;
+			while (1)
+			{
+				int result;
+				result = write(*(int *)pvrfd, tempBuffer, rd);
+				if (result < 0)
+				{
+					int error = errno;
+					if (error == EINTR)
+					{
+						continue;
+					}
+					else if (error == EAGAIN)
+					{
+						usleep(100000);
+						continue;
+					}
+					else
+					{
+						/* all other errors are fatal */
+						eDebug("[MOVIEPLAYER] fatal pvr write error occurred %d", error);
+					}
+				}
+				break;
+			}
+			// eDebug("[MOVIEPLAYER] %d >>> writing %d bytes to pvr...", tsBufferSize, rd); - docasne
+		}
+		else
+		{
+			if (tsBufferSize == 0)
+			{
+				if (++errors > 100)
+				{
+					eDebug("[MOVIEPLAYER] pvrThread: exit after %d attempts reading from empty buffer", errors);
+					break;
+				}
+				/* wait a bit for new data to arrive */
+				usleep(100000);
+			}
+			else
+			{
+				/* fatal error, should never happen, stop at once */
+				eDebug("[MOVIEPLAYER] pvrThread: fatal error: failed to read from nonempty buffer");
+				break;
+			}
+		}
 	}
-	free(tempBuffer);
+	pthread_exit(NULL);
+	pthread_cleanup_pop(1);
 }
 
 void receiverThreadCleanup(void *fd)
@@ -862,75 +815,66 @@ void receiverThreadCleanup(void *fd)
 
 void *receiverThread(void *fd)
 {
-//	char tempBuffer[BLOCKSIZE];
-	char *tempBuffer=NULL;
-	if((tempBuffer = (char *)malloc(sizeof(char) * BLOCKSIZE))!=NULL)
-	{ 
-	    int len = 0;
-	    int tsBufferSize = 0;
+	char tempBuffer[BLOCKSIZE];
+	int len = 0;
+	int tsBufferSize = 0;
 	
-	    eDebug("[MOVIEPLAYER] receiverThread starting: fd = %d", *(int *)fd);
-	    pthread_cleanup_push(receiverThreadCleanup, (void *)fd);
-	    nice(-1);
-	    // fill buffer
-	    while (true)
-	    {
-	    	pthread_testcancel();
-	    	pthread_mutex_lock(&mutex);
-	    	tsBufferSize = tsBuffer.size();
-	    	pthread_mutex_unlock(&mutex);
-	    	if (tsBufferSize < INITIALBUFFER)
-	    	{
-	    		while (1)
-	    		{
-	    			len = recv(*(int *)fd, tempBuffer, BLOCKSIZE, 0);
-	    			if (len < 0)
-	    			{
-	    				int error = errno;
-	    				if (error == EINTR)
-	    				{
-	    					continue;
-	    				}
-	    				else if (error == EAGAIN)
-	    				{
-	    					usleep(100000);
-	    					continue;
-	    				}
-	    				/* all other errors are fatal */
-	    				eDebug("[MOVIEPLAYER] fatal recv error %d", error);
-	    			}
-	    			else if (len == 0)
-	    			{
-	    				eDebug("[MOVIEPLAYER] socket closed");
-	    			}
-	    			break;
-	    		}
-//	    		eDebug("[MOVIEPLAYER] %d <<< writing %d bytes to buffer...", tsBufferSize, len);
-	    		if (len > 0)
-	    		{
-	    			pthread_mutex_lock(&mutex);
-	    			tsBuffer.write(tempBuffer, len);
-	    			pthread_mutex_unlock(&mutex);
-	    		}
-	    		else
-	    		{
-	    			/* socket closed, or fatal error */
-	    			break;
-	    		}
-	    	}
-	    	else
-	    	{
-	    		/* buffer full, wait a bit */
-	    		usleep(200000);
-	    	}
-	    }
-	    pthread_exit(NULL);
-	    pthread_cleanup_pop(1);
-	}
-	else
+	eDebug("[MOVIEPLAYER] receiverThread starting: fd = %d", *(int *)fd);
+	pthread_cleanup_push(receiverThreadCleanup, (void *)fd);
+	nice(-1);
+	// fill buffer
+	while (true)
 	{
-	    eDebug("[MOVIEPLAYER] !!! cannot be allocate buffer in receiverThread !!!");
+		pthread_testcancel();
+		pthread_mutex_lock(&mutex);
+		tsBufferSize = tsBuffer.size();
+		pthread_mutex_unlock(&mutex);
+		if (tsBufferSize < INITIALBUFFER)
+		{
+			while (1)
+			{
+				len = recv(*(int *)fd, tempBuffer, BLOCKSIZE, 0);
+				if (len < 0)
+				{
+					int error = errno;
+					if (error == EINTR)
+					{
+						continue;
+					}
+					else if (error == EAGAIN)
+					{
+						usleep(100000);
+						continue;
+					}
+					/* all other errors are fatal */
+					eDebug("[MOVIEPLAYER] fatal recv error %d", error);
+				}
+				else if (len == 0)
+				{
+					eDebug("[MOVIEPLAYER] socket closed");
+				}
+				break;
+			}
+//			eDebug("[MOVIEPLAYER] %d <<< writing %d bytes to buffer...", tsBufferSize, len);
+			if (len > 0)
+			{
+				pthread_mutex_lock(&mutex);
+				tsBuffer.write(tempBuffer, len);
+				pthread_mutex_unlock(&mutex);
+			}
+			else
+			{
+				/* socket closed, or fatal error */
+				break;
+			}
+		}
+		else
+		{
+			/* buffer full, wait a bit */
+			usleep(200000);
+		}
 	}
-	free(tempBuffer);
+	pthread_exit(NULL);
+	pthread_cleanup_pop(1);
 }
 #endif
