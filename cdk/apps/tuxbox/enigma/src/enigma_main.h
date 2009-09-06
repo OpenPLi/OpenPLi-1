@@ -714,6 +714,7 @@ public:
 
 	void setServiceSelectorPath(eServicePath path);
 	void getServiceSelectorPath(eServicePath &path);
+	void getAllBouquetServices(std::list<ePlaylistEntry> &servicelist);
 
 	void moveService(const eServiceReference &path, const eServiceReference &ref, const eServiceReference &after);
 

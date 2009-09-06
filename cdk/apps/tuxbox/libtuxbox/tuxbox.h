@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: tuxbox.h,v 1.5.2.2 2003/03/09 16:26:41 waldi Exp $
+ * $Id: tuxbox.h,v 1.8 2009/02/11 21:29:13 rhabarber1848 Exp $
  */
 
 #ifndef TUXBOX_H
@@ -39,6 +39,8 @@ tuxbox_submodel_t tuxbox_get_submodel (void);
 const char *tuxbox_get_submodel_str (void);
 tuxbox_vendor_t tuxbox_get_vendor (void);
 const char *tuxbox_get_vendor_str (void);
+const char *tuxbox_get_tuner (void);
+const char *tuxbox_get_chipinfo (void);
 
 #ifdef __cplusplus
 }

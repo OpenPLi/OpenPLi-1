@@ -13,7 +13,6 @@ wer das nervend findet muss lcdd aus dem startscript nehmen.
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
-#include <sys/timeb.h>
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
@@ -202,7 +201,7 @@ int main(int argc, char *args[]) {
 	screen_t screen;
  
 
-        struct timeb tb;
+        struct timeval tb;
         struct tm *t;
 	
       
@@ -212,8 +211,8 @@ int main(int argc, char *args[]) {
 	while (1) 
 	{
 
-  			ftime(&tb);
-			t = localtime(&tb.time);
+  			gettimeofday(&tb, NULL);
+			t = localtime(&tb.tv_sec);
 			clear_clock(screen);
 			myclock(t->tm_hour,t->tm_min, screen);
 			draw_screen(screen);

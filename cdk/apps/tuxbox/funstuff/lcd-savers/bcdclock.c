@@ -12,7 +12,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
-#include <sys/timeb.h>
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
@@ -72,10 +71,10 @@ void render_nibble(int row, int val, screen_t s) {
 }
 
 void render_clock(screen_t s) {
-        struct timeb tb;
+        struct timeval tb;
         struct tm *t;
-        ftime(&tb);
-	t = localtime(&tb.time);
+        gettimeofday(&tb, NULL);
+	t = localtime(&tb.tv_sec);
 
 	memset(s, 0, LCD_BUFFER_SIZE);
 

@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
-#include <sys/timeb.h>
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
@@ -88,7 +87,7 @@ void putpixel(int x, int y, char col, screen_t s) {
 }
 
 void circle(int mx, int my, int r, char col, screen_t s) {
-	int x, y;
+	int x, y, tr=r-1;
 	for (x=0; x<=r; x++) {
 		y = Sqrt[r*r - x*x];
 		putpixel(mx-x, my-y, col, s);
@@ -100,9 +99,20 @@ void circle(int mx, int my, int r, char col, screen_t s) {
 		putpixel(mx+x, my+y, col, s);
 		putpixel(mx+y, my+x, col, s);
 	}
+	for (x=0; x<=tr; x++) {
+		y = Sqrt[tr*tr - x*x];
+		putpixel(mx-x, my-y, col, s);
+		putpixel(mx-y, my-x, col, s);
+		putpixel(mx+x, my-y, col, s);
+		putpixel(mx+y, my-x, col, s);
+		putpixel(mx-x, my+y, col, s);
+		putpixel(mx-y, my+x, col, s);
+		putpixel(mx+x, my+y, col, s);
+		putpixel(mx+y, my+x, col, s);
+	}
 }
 
-#define MX 88
+#define MX 60
 #define MY 32
 #define RAD 27
 
@@ -113,9 +123,13 @@ void init_clock(screen_t s) {
 	putpixel(MX, MY, 1, s);
 
 	for (m = 0; m < 60; m+=5) {
-		x = MX - isin(-m*SIN_SIZE/30)*29/SIN_MUL;
-		y = MY + isin(-SIN_SIZE/2 - m*SIN_SIZE/30)*29/SIN_MUL;
+		x = MX - isin(-m*SIN_SIZE/30)*28/SIN_MUL;
+		y = MY + isin(-SIN_SIZE/2 - m*SIN_SIZE/30)*28/SIN_MUL;
 		putpixel(x, y, 1, s);
+		if(m==0) {putpixel(x, y+1, 1, s);putpixel(x+1, y, 1, s);putpixel(x-1, y, 1, s);}
+		else if(m==15) {putpixel(x-1, y, 1, s);putpixel(x, y+1, 1, s);putpixel(x, y-1, 1, s);}
+		else if(m==30) {putpixel(x, y-1, 1, s);putpixel(x-1, y, 1, s);putpixel(x+1, y, 1, s);}
+		else if(m==45) {putpixel(x+1, y, 1, s);putpixel(x, y+1, 1, s);putpixel(x, y-1, 1, s);}
 	}
 }
 
@@ -126,75 +140,132 @@ int sgn (int arg) {
 	return 0;
 }
 
-void render_line(int x1, int y1, int x2, int y2, int color, int space, screen_t s)  {   
-	int dx,dy,sdx,sdy,px,py,dxabs,dyabs,i,remspace;
-	float slope;
-   
-	remspace = 0;
-	dx=x2-x1;      
-	dy=y2-y1;      
-	dxabs=abs(dx);
-	dyabs=abs(dy);
-	sdx=sgn(dx);
-	sdy=sgn(dy);
-	if (dxabs>=dyabs) /* the line is more horizontal than vertical */ {
-		slope=(float)dy / (float)dx;
-		for(i=0;i!=dx;i+=sdx) {	     
-			px=i+x1;
-			py=slope*i+y1;
-			if (remspace==0) {
-				putpixel(px, py, color, s);
-				remspace = space;
-			} else remspace--;
+void render_line( int xa, int ya, int xb, int yb, int farbe, int width, screen_t s )
+{
+	int 	dx = abs (xa - xb);
+	int	dy = abs (ya - yb);
+	int	x;
+	int	y;
+	int	End;
+	int	step;
+	int 	first=1;
+
+	if ( dx > dy )
+	{
+		if(first)
+		{
+			ya-=width/2;
+			yb-=width/2;
+			first=0;
+		}
+		while((width--)>0)	
+		{
+			int	p = 2 * dy - dx;
+			int	twoDy = 2 * dy;
+			int	twoDyDx = 2 * (dy-dx);
+
+			if ( xa > xb )
+			{
+				x = xb;
+				y = yb;
+				End = xa;
+				step = ya < yb ? -1 : 1;
+			}
+			else
+			{
+				x = xa;
+				y = ya;
+				End = xb;
+				step = yb < ya ? -1 : 1;
+			}
+
+			putpixel(x, y, farbe, s);
+
+			while( x < End )
+			{
+				x++;
+				if ( p < 0 )
+					p += twoDy;
+				else
+				{
+					y += step;
+					p += twoDyDx;
+				}
+				putpixel(x, y, farbe, s);
+			}
+			ya++;
+			yb++;
 		}
 	}
-	else /* the line is more vertical than horizontal */ {	
-		slope=(float)dx / (float)dy;
-		for(i=0;i!=dy;i+=sdy) {
-			px=slope*i+x1;
-			py=i+y1;
-			if (remspace==0) {
-				putpixel(px, py, color, s);
-				remspace = space;
-			} else remspace--;
+	else
+	{
+		if(first)
+		{
+			xa-=width/2;
+			xb-=width/2;
+			first=0;
+		}
+		while((width--)>0)
+		{
+			int	p = 2 * dx - dy;
+			int	twoDx = 2 * dx;
+			int	twoDxDy = 2 * (dx-dy);
+
+			if ( ya > yb )
+			{
+				x = xb;
+				y = yb;
+				End = ya;
+				step = xa < xb ? -1 : 1;
+			}
+			else
+			{
+				x = xa;
+				y = ya;
+				End = yb;
+				step = xb < xa ? -1 : 1;
+			}
+
+			putpixel(x, y, farbe, s);
+
+			while( y < End )
+			{
+				y++;
+				if ( p < 0 )
+					p += twoDx;
+				else
+				{
+					x += step;
+					p += twoDxDy;
+				}
+				putpixel(x, y, farbe, s);
+			}
+			xa++;
+			xb++;
 		}
 	}
 }
 
-
 void render_clock(screen_t back, screen_t s) {
-        struct timeb tb;
+        struct timeval tb;
         struct tm *t;
-	int bla, x, y, si, co;
-        ftime(&tb);
-	t = localtime(&tb.time);
+	int x, y;
+        gettimeofday(&tb, NULL);
+	t = localtime(&tb.tv_sec);
 
 	memcpy(s, back, LCD_BUFFER_SIZE);
 
-	si = isin(-((t->tm_hour % 12)*60 + t->tm_min)*SIN_SIZE/360);
-	co = isin(-SIN_SIZE/2 - ((t->tm_hour % 12)*60 + t->tm_min)*SIN_SIZE/360);
-	for (bla=0; bla<20; bla++) {
-		x = MX-si*bla/SIN_MUL;
-		y = MY+co*bla/SIN_MUL;
-		putpixel(x, y, 1, s);
-		putpixel(x-1, y, 1, s);
-		putpixel(x, y-1, 1, s);
-		putpixel(x, y+1, 1, s);
-		putpixel(x+1, y, 1, s);
-	}
+	x = MX - isin(-((t->tm_hour % 12)*60 + t->tm_min)*SIN_SIZE/360)*RAD/SIN_MUL*2/3;
+	y = MY + isin(-SIN_SIZE/2 - ((t->tm_hour % 12)*60 + t->tm_min)*SIN_SIZE/360)*RAD/SIN_MUL*2/3;
+	render_line(MX, MY, x, y, LCD_PIXEL_ON, 3, s);
 
 	x = MX - isin(-(t->tm_min*60+t->tm_sec)*SIN_SIZE/1800)*RAD/SIN_MUL;
 	y = MY + isin(-SIN_SIZE/2 - (t->tm_min*60+t->tm_sec)*SIN_SIZE/1800)*RAD/SIN_MUL;
-	render_line(MX, MY, x, y, LCD_PIXEL_ON, 0, s);
-	//si = isin(-(t->tm_min*60+t->tm_sec)*SIN_SIZE/1800);
-	//co = isin(-SIN_SIZE/2 - (t->tm_min*60+t->tm_sec)*SIN_SIZE/1800);
-	//for (bla=0; bla<30; bla++)
-		//putpixel(MX-si*bla/SIN_MUL, MY+co*bla/SIN_MUL, 1, s);
+	render_line(MX, MY, x, y, LCD_PIXEL_ON, 2, s);
 
 	x = MX - isin(-t->tm_sec*SIN_SIZE/30)*31/SIN_MUL;
 	y = MY + isin(-SIN_SIZE/2 - t->tm_sec*SIN_SIZE/30)*31/SIN_MUL;
 	render_line(MX, MY, x, y, LCD_PIXEL_ON, 1, s);
-	//putpixel(x, y, LCD_PIXEL_INV, s);
 }
 
 int main(int argc, char *args[]) {

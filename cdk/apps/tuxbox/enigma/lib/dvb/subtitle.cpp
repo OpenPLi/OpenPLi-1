@@ -8,7 +8,9 @@
 #include <lib/dvb/subtitle.h>
 #include <lib/base/eerror.h>
 #include <lib/gdi/fb.h>
-#include <lib/gdi/gpixmap.h>
+#include <lib/gdi/font.h>
+#include <lib/gdi/gfbdc.h>
+#include <lib/gui/eskin.h>
 
 void bitstream_init(struct bitstream *bit, void *buffer, int size)
 {
@@ -35,7 +37,7 @@ int bitstream_get(struct bitstream *bit)
 void subtitle_process_line(struct subtitle_ctx *sub, struct subtitle_page *page, int object_id, int line, __u8 *data, int len)
 {
 	struct subtitle_region *region = page->regions;
-	// eDebug("line for %d:%d", page->page_id, object_id);
+//	eDebug("line for %d:%d", page->page_id, object_id);
 	while (region)
 	{
 		struct subtitle_region_object *object = region->region_objects;
@@ -47,18 +49,72 @@ void subtitle_process_line(struct subtitle_ctx *sub, struct subtitle_page *page,
 				int y = object->object_vertical_position + line;
 				if (x + len > region->region_width)
 				{
-					// eDebug("[SUB] !!!! XCLIP %d + %d > %d", x, len, region->region_width);
+					//eDebug("[SUB] !!!! XCLIP %d + %d > %d", x, len, region->region_width);
 					len = region->region_width - x;
 				}
 				if (len < 0)
 					break;
 				if (y >= region->region_height)
 				{
-					// eDebug("[SUB] !!!! YCLIP %d >= %d", y, region->region_height);
+					//eDebug("[SUB] !!!! YCLIP %d >= %d", y, region->region_height);
 					break;
 				}
-//				// eDebug("inserting %d bytes (into region %d)", len, region->region_id);
+//				//eDebug("inserting %d bytes (into region %d)", len, region->region_id);
 				memcpy(region->region_buffer + region->region_width * y + x, data, len);
+			}
+			object = object->next;
+		}
+		region = region->next;
+	}
+}
+
+void subtitle_process_string(struct subtitle_ctx *sub, struct subtitle_page *page, int object_id, __u8 *data, int len)
+{
+	struct subtitle_region *region = page->regions;
+	gFont font=eSkin::getActive()->queryFont("global.normal");
+
+	while (region)
+	{
+		struct subtitle_region_object *object = region->region_objects;
+		while (object)
+		{
+			if (object->object_id == object_id)
+			{
+				eString s = convertDVBUTF8(data,len);
+
+				gPixmap pixmap;
+				pixmap.x=region->region_width;
+				pixmap.y=region->region_height;
+				pixmap.bpp=8;
+				pixmap.bypp=1;
+				pixmap.stride=region->region_width;
+				pixmap.data=region->region_buffer;
+				pixmap.clut.colors=gFBDC::getInstance()->getPixmap().clut.colors;
+				pixmap.clut.data=gFBDC::getInstance()->getPixmap().clut.data;
+
+				eRect pos( object->object_horizontal_position, object->object_vertical_position, region->region_width - object->object_horizontal_position, region->region_height - object->object_vertical_position);
+				gPixmapDC* outputDC = new gPixmapDC(&pixmap);
+				gPainter* p = new gPainter(*outputDC);
+				p->setBackgroundColor(gColor(object->background_pixel_value| 0xF0));
+				p->setForegroundColor(gColor(object->foreground_pixel_value| 0xF0));
+				eTextPara *para = new eTextPara( pos );
+				para->setFont( font );
+				para->renderString( s );
+				eRect bbox(para->getBoundBox());
+				bbox.moveBy(-2, -2);
+				bbox.setWidth(bbox.width()+4);
+				bbox.setHeight(bbox.height()+4);
+
+				p->clip(bbox);
+				p->clear();
+				p->renderPara( *para );
+				para->destroy();
+				p->clippop();
+				p->flush();
+				delete p;	
+				delete outputDC;
+				pixmap.clut.data=0;
+//eDebug("process_string:%s,%d,%d,%d,%d",s.c_str(),len,object->background_pixel_value,object->foreground_pixel_value,region->clut_id);
 			}
 			object = object->next;
 		}
@@ -223,38 +279,31 @@ int subtitle_process_pixel_data(struct subtitle_ctx *sub, struct subtitle_page *
 		bitstream_init(&bit, data, 4);
 		for ( int i=0; i < 4; ++i )
 			map_2_to_4_bit_table[i] = bitstream_get(&bit);
-		break;
+		return bit.consumed + 1;
 	case 0x21:  // ignore 2 -> 8bit map table
 		bitstream_init(&bit, data, 8);
 		for ( int i=0; i < 4; ++i )
 			bitstream_get(&bit);
-		break;
+		return bit.consumed + 1;
 	case 0x22:  // ignore 4 -> 8bit map table
 		bitstream_init(&bit, data, 8);
 		for ( int i=0; i < 16; ++i )
 			bitstream_get(&bit);
-		break;
+		return bit.consumed + 1;
 	case 0xF0:
-		// recreate default map
-		map_2_to_4_bit_table[0] = 0;
-		map_2_to_4_bit_table[1] = 8;
-		map_2_to_4_bit_table[2] = 7;
-		map_2_to_4_bit_table[3] = 15;
 		subtitle_process_line(sub, page, object_id, *linenr, line, *linep);
-#if 0
-		{
+/*		{
 			int i;
 			for (i=0; i<720; ++i)
-				eDebugNoNewLine("%d ", line[i]);
-			eDebug("");
-		}
-#endif
+				//eDebugNoNewLine("%d ", line[i]);
+			//eDebug("");
+		} */
 		(*linenr)+=2; // interlaced
 		*linep = 0;
-		// eDebug("[SUB] EOL");
+//		//eDebug("[SUB] EOL");
 		return 1;
 	default:
-		// eDebug("subtitle_process_pixel_data: invalid data_type %02x", data_type);
+		eDebug("subtitle_process_pixel_data: invalid data_type %02x", data_type);
 		return -1;
 	}
 	return 0;
@@ -265,7 +314,7 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 	int segment_type, page_id, segment_length, processed_length;
 	if (*segment++ !=  0x0F)
 	{
-		// eDebug("%s: out of sync.", __FUNCTION__);
+		eDebug("out of sync.");
 		return -1;
 	}
 	segment_type = *segment++;
@@ -273,8 +322,18 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 	page_id |= *segment++;
 	segment_length  = *segment++ << 8;
 	segment_length |= *segment++;
-	if (segment_type == 0xFF) // return immediately when we hit a stuffing packet
+	if (segment_type == 0xFF)
 		return segment_length + 6;
+//	//eDebug("have %d bytes of segment data", segment_length);
+	
+//	//eDebug("page_id %d, segtype %02x", page_id, segment_type);
+
+	sub->isdrawn = 0;
+	// recreate default map
+	map_2_to_4_bit_table[0] = 0;
+	map_2_to_4_bit_table[1] = 8;
+	map_2_to_4_bit_table[2] = 7;
+	map_2_to_4_bit_table[3] = 15;
 	
 	struct subtitle_page *page, **ppage;
 		
@@ -297,82 +356,107 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		int page_time_out = *segment++; processed_length++;
 		int page_version_number = *segment >> 4;
 		int page_state = (*segment >> 2) & 0x3;
+		//eDebug("pcs with %d bytes data (%d:%d:%d)", segment_length, page_id, page_version_number, page_state);
 		segment++;
 		processed_length++;
-		// eDebug("%s: %02x len=%d page composition segment id=%d time_out=%d, version=%d, state=%d", __FUNCTION__, segment_type, segment_length, page_id, page_time_out, page_version_number, page_state);
+		
+		//eDebug("page time out: %d", page_time_out);
+		//eDebug("page_version_number: %d" ,page_version_number);
+		//eDebug("page_state: %d", page_state);
 		
 		if (!page)
 		{
-			// eDebug("%s: new page", __FUNCTION__);
+			//eDebug("page not found");
 			page = new subtitle_page;
-			page->page_regions = NULL;
-			page->regions = NULL;
+			page->page_regions = 0;
+			page->regions = 0;
 			page->page_id = page_id;
-			page->cluts = NULL;
-			page->next = NULL;
+			page->cluts = 0;
+			page->next = 0;
 			*ppage = page;
 		} else
 		{
-			if (page->pcs_size != segment_length) // pcs_size is never filled ??????
+			if (page->pcs_size != segment_length)
 				page->page_version_number = -1;
 				// if no update, just skip this data.
 			if (page->page_version_number == page_version_number)
 			{
-				// eDebug("skip data... ");
+				eDebug("skip data... ");
 				break;
 			}
 		}
 
-		// eDebug("page updated: old: %d, new: %d", page->page_version_number, page_version_number);
-		// Start with a fresh list of page_regions!  Each PCR will include the list of 'visible' regions, even
-		// for page_state == 0
+//		eDebug("page updated: old: %d, new: %d", page->page_version_number, page_version_number);
+			// when acquisition point or mode change: remove all displayed pages.
+		if ((page_state == 1) || (page_state == 2))
+		{
+			while (page->page_regions)
+			{
+				struct subtitle_page_region *p = page->page_regions->next;
+				delete page->page_regions;
+				page->page_regions = p;
+			}
+			while (page->regions)
+			{
+				struct subtitle_region *p = page->regions->next;
+				while(page->regions->region_objects)
+				{
+					subtitle_region_object *ob = page->regions->region_objects->next;
+					delete page->regions->region_objects;
+					page->regions->region_objects = ob;
+				}
+				delete [] page->regions->region_buffer;
+				delete page->regions;
+				page->regions = p;
+			}
+		}
+
+//		eDebug("new page.. (%d)", page_state);
+
+		page->page_time_out = page_time_out;
+
+		page->page_version_number = page_version_number;
+
+		/* 
+			only display regions mentioned in this segment
+			=> remove all previous region references from this page
+			(at least if I understand ETSI EN 300 743 V1.2.1 (2002-10) Chapter 5.1.3 correctly)
+		*/
 		while (page->page_regions)
 		{
 			struct subtitle_page_region *p = page->page_regions->next;
 			delete page->page_regions;
 			page->page_regions = p;
 		}
-		#define PCS_NORMAL_CASE	0
-		#define PCS_ACQUISITION_POINT	1
-		#define PCS_MODE_CHANGE	2
-		// when acquisition point or mode change: remove all displayed pages.
-		if ((page_state == PCS_ACQUISITION_POINT) || (page_state == PCS_MODE_CHANGE))
-		{
-			while (page->regions)
-			{
-				struct subtitle_region *region = page->regions;
-			
-				while (region->region_objects)
-				{
-					struct subtitle_region_object *obj = region->region_objects;
-					region->region_objects = obj->next;
-					delete obj;
-				}
-			
-				delete [] region->region_buffer;
 
-				page->regions = region->next;
-				delete region;
-			}
+		struct subtitle_page_region **r = &page->page_regions;
+		
+		//eDebug("%d  / %d data left", processed_length, segment_length);
+		
+			// go to last entry
+		while (*r)
+			r = &(*r)->next;
+
+		if (processed_length == segment_length && !page->page_regions)
+		{
+//			eDebug("no regions in page.. clear screen!!");
+			if (sub->screen_enabled)
+				subtitle_redraw_all(sub);
 		}
 
-		page->page_time_out = page_time_out;
-		page->page_version_number = page_version_number;
-
-		// eDebug("%d  / %d data left", processed_length, segment_length);
-		struct subtitle_page_region *pr;
-		struct subtitle_page_region **r = &page->page_regions;
 		while (processed_length < segment_length)
 		{
-
+			struct subtitle_page_region *pr;
+			
+				// append new entry to list
 			pr = new subtitle_page_region;
-			pr->next = NULL;
+			pr->next = 0;
 			*r = pr;
 			r = &pr->next;
-
-        		pr->region_id = *segment++;
-			processed_length++;
+			
+			pr->region_id = *segment++; processed_length++;
 			segment++; processed_length++;
+
 			pr->region_horizontal_address  = *segment++ << 8; 
 			pr->region_horizontal_address |= *segment++;
 			processed_length += 2;
@@ -381,10 +465,11 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 			pr->region_vertical_address |= *segment++;
 			processed_length += 2;
 			
-			// eDebug("%s:      region %d: %d:%d", __FUNCTION__, pr->region_id, pr->region_horizontal_address, pr->region_vertical_address);
+			//eDebug("appended active region");
 		}
-		// if (processed_length != segment_length)
-		// 	eDebug("%d != %d", processed_length, segment_length);
+		
+		if (processed_length != segment_length)
+			eDebug("%d != %d", processed_length, segment_length);
 		break;
 	}
 	case 0x11: // region composition segment
@@ -397,7 +482,7 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 			// if we didn't yet received the pcs for this page, drop the region
 		if (!page)
 		{
-			// eDebug("ignoring region %x, since page %02x doesn't yet exist.", region_id, page_id);
+			eDebug("ignoring region %x, since page %02x doesn't yet exist.", region_id, page_id);
 			break;
 		}
 		
@@ -407,6 +492,7 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 
 		while (region)
 		{
+			fflush(stdout);
 			if (region->region_id == region_id)
 				break;
 			pregion = &region->next;
@@ -432,7 +518,7 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		else 
 			break;
 		
-		// eDebug("%s:       region comp pageid=%d regionid=%d update", __FUNCTION__, page_id, region_id);
+		//eDebug("region %d:%d update", page_id, region_id);
 			
 		region->region_id = region_id;
 		region->region_version_number = region_version_number;
@@ -452,7 +538,6 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		region_level_of_compatibility = (*segment >> 5) & 7;
 		region_depth = (*segment++ >> 2) & 7;
 		processed_length++;
-		// eDebug("%s: %02x len=%d page_id=%d region composition segment id=%d version=%d fill=%d wxh=%dx%d comp=%d depth=%d", __FUNCTION__, segment_type, segment_length, page_id, region_id, region_version_number, region_fill_flag, region->region_width, region->region_height, region_level_of_compatibility, region_depth);
 		
 		int CLUT_id;
 		CLUT_id = *segment++; processed_length++;
@@ -479,9 +564,11 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 				memset(region->region_buffer, region_4bit_pixel_code, region->region_height * region->region_width);
 			else if (region_depth == 3)
 				memset(region->region_buffer, region_8bit_pixel_code, region->region_height * region->region_width);
-			//else
-				// eDebug("!!!! invalid depth");
+			else
+				eDebug("!!!! invalid depth");
 		}
+		
+		//eDebug("region %02x, version %d, %dx%d", region->region_id, region->region_version_number, region->region_width, region->region_height);
 		
 		region->region_objects = 0;
 		struct subtitle_region_object **pobject = &region->region_objects;
@@ -506,7 +593,7 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 			object->object_horizontal_position |= *segment++; 
 			processed_length += 2;
 			
-			object->object_vertical_position  = (*segment++ & 0xF) << 8;
+			object->object_vertical_position  = *segment++ << 8;
 			object->object_vertical_position |= *segment++ ;
 			processed_length += 2;
 			
@@ -519,13 +606,12 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		}
 
 		if (processed_length != segment_length)
-		 	eDebug("too less data! (%d < %d)", segment_length, processed_length);
+			eDebug("too less data! (%d < %d)", segment_length, processed_length);
 		
 		break;
 	}
 	case 0x12: // CLUT definition segment
 	{
-		// eDebug("%s: %02x len=%d page_id=%d clut definition segment", __FUNCTION__, segment_type, segment_length, page_id);
 		int CLUT_id, CLUT_version_number;
 		struct subtitle_clut *clut, **pclut;
 		
@@ -573,11 +659,6 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 			
 			CLUT_entry_id = *segment++;
 			entry_CLUT_flag = *segment >> 5;
-			if (!(entry_CLUT_flag & 6)) // if no 4 or 16 color entry, skip it
-			{
-				// eDebug("skipped 8bit CLUT entry");
-				continue;
-			}
 			full_range = *segment++ & 1;
 			processed_length += 2;
 			
@@ -597,19 +678,24 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 				v_T   = (*segment++ & 3) << 6;
 				processed_length += 2;
 			}
+			if (!(entry_CLUT_flag & 6)) // if no 4 or 16 color entry, skip it
+			{
+				eDebug("skipped 8bit CLUT entry");
+				continue;
+			}
 			
 			clut->entries[CLUT_entry_id].Y = v_Y; 
 			clut->entries[CLUT_entry_id].Cr = v_Cr; 
 			clut->entries[CLUT_entry_id].Cb = v_Cb; 
 			clut->entries[CLUT_entry_id].T = v_T; 
-			clut->size++;
+			if (clut->size <= CLUT_entry_id)
+				clut->size = CLUT_entry_id+1;
 			//eDebug("  %04x %02x %02x %02x %02x", CLUT_entry_id, v_Y, v_Cb, v_Cr, v_T);
 		}
 		break;
 	}
 	case 0x13: // object data segment
 	{
-		// eDebug("%s: %02x object date len=%d page_id=%d object data", __FUNCTION__, segment_type, segment_length, page_id);
 		int object_id, object_version_number, object_coding_method, non_modifying_color_flag;
 		
 		object_id  = *segment++ << 8;
@@ -668,7 +754,6 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 				}
 			} 
 			else if (top_field_data_blocklength)
-				// should copy the top_field data to the bottom field. How hard can that be?
 				eDebug("!!!! unimplemented: no bottom field! (%d : %d)", top_field_data_blocklength, bottom_field_data_blocklength);
 
 			if ((top_field_data_blocklength + bottom_field_data_blocklength) & 1)
@@ -677,27 +762,27 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 			}
 		} 
 		else if (object_coding_method == 1)
-			// int number_of_codes = *segment++;
-			// alloc short_array of number_of_codes shorts str
-			// while (number_of_codes-- > 0) {
-			//          *str++ = *segment++;
-			//          *str++ = *segment++;
-			// }
-			eDebug("---- object_coding_method 1 unsupported!");
-
+		{
+			int len = *segment++;
+			processed_length++;
+			subtitle_process_string(sub, page, object_id, segment, len*2);
+			segment += len;
+			processed_length += len;
+		}
 		break;
 	}
 	case 0x80: // end of display set segment
 	{
-		// eDebug("%s: %02x len=%d end of display set page_id=%d", __FUNCTION__, segment_type, segment_length, page_id);
+//		eDebug("end of display set segment");
 		if (sub->screen_enabled)
 			subtitle_redraw_all(sub);
+		sub->isdrawn = 1;
 		break;
 	}
 	case 0xFF: // stuffing
 		break;
 	default:
-		eDebug("%s: %02x len=%d page_id=%d unknown segment type", __FUNCTION__, segment_type, segment_length, page_id);
+		eDebug("unhandled segment type %02x", segment_type);
 	}
 	
 	return segment_length + 6;
@@ -708,12 +793,12 @@ void subtitle_process_pes(struct subtitle_ctx *sub, void *buffer, int len)
 	__u8 *pkt = (__u8*)buffer;
 	if (pkt[0] || pkt[1] || (pkt[2] != 1))
 	{
-		// eDebug("%s: invalid startcode %02x %02x %02x", __FUNCTION__, pkt[0], pkt[1], pkt[2]);
+		//eDebug("%s: invalid startcode %02x %02x %02x", __FUNCTION__, pkt[0], pkt[1], pkt[2]);
 		return;
 	}
 	if (pkt[3] != 0xBD)
 	{
-		// eDebug("%s: invalid stream_id %02x", __FUNCTION__, pkt[3]);
+		//eDebug("%s: invalid stream_id %02x", __FUNCTION__, pkt[3]);
 		return;
 	}
 	pkt += 6; len -= 6;
@@ -727,31 +812,28 @@ void subtitle_process_pes(struct subtitle_ctx *sub, void *buffer, int len)
 
 	if (*pkt != 0x20)
 	{
-		// eDebug("%s: data identifier is 0x%02x, but not 0x20", __FUNCTION__, *pkt);
+		//eDebug("data identifier is 0x%02x, but not 0x20", *pkt);
 		return;
 	}
 	pkt++; len--; // data identifier
-	pkt++; len--; // stream id;
+	*pkt++; len--; // stream id;
 	
 	if (len <= 0)
 	{
-		// eDebug("%s: no data left (%d)", __FUNCTION__, len);
+		//eDebug("no data left (%d)", len);
 		return;
 	}
 	
-	int segs = 0;
 	while (len && *pkt == 0x0F)
 	{
 		int l = subtitle_process_segment(sub, pkt);
 		if (l < 0)
 			break;
-		segs++;
 		pkt += l;
 		len -= l;
 	}
-	//if (len && *pkt != 0xFF)
-		// eDebug("%s: strange data at the end", __FUNCTION__);
-	// eDebug("%s: processed %d subtitle segments", __FUNCTION__, segs);
+//	if (len && *pkt != 0xFF)
+//		eDebug("strange data at the end");
 }
 
 void subtitle_clear_screen(struct subtitle_ctx *sub)
@@ -759,15 +841,15 @@ void subtitle_clear_screen(struct subtitle_ctx *sub)
 		/* clear bbox */
 	int y;
 
-	// eDebug("%s: %d:%d -> %d:%d bpp=%d", __FUNCTION__, sub->bbox_left, sub->bbox_top, sub->bbox_right, sub->bbox_bottom, sub->bpp);
-	// do not draw when someone has locked the framebuffer ( non enigma plugins... )
+	//eDebug("BBOX clear %d:%d -> %d:%d", sub->bbox_left, sub->bbox_top, sub->bbox_right, sub->bbox_bottom);
+
+	// do not draw when anyone has locked the 
+	// framebuffer ( non enigma plugins... )
 	sub->bbox_right = 720;
 	if (sub->bbox_right > sub->bbox_left && !fbClass::getInstance()->islocked())
 		for (y=sub->bbox_top; y < sub->bbox_bottom; ++y)
-		{
-			memset(sub->screen_buffer + y * sub->stride + sub->bbox_left*sub->bpp, 0, (sub->bbox_right - sub->bbox_left)*sub->bpp);
-		}
-				
+			memset(sub->screen_buffer + y * sub->screen_width, 0, sub->bbox_right - sub->bbox_left);
+
 	sub->bbox_right = 0;
 	sub->bbox_left = sub->screen_width;
 	sub->bbox_top = sub->screen_height;
@@ -776,20 +858,19 @@ void subtitle_clear_screen(struct subtitle_ctx *sub)
 
 void subtitle_redraw_all(struct subtitle_ctx *sub)
 {
-	struct subtitle_page *page = sub->pages;
-	//eDebug("%s: ", __FUNCTION__);
-	if ( page )
-	{
-		// eDebug("%s: clearing page_id=%d", __FUNCTION__, page->page_id);
-		subtitle_clear_screen(sub);
-	}
 #if 1
+	struct subtitle_page *page = sub->pages;
+	if ( page )
+		subtitle_clear_screen(sub);
 	while(page)
 	{
 		subtitle_redraw(sub, page->page_id);
 		page = page->next;
 	}
 #else
+	struct subtitle_page *page = sub->pages;
+	if ( page )
+		subtitle_clear_screen(sub);
 	//eDebug("----------- end of display set");
 	//eDebug("active pages:");
 	while (page)
@@ -832,7 +913,6 @@ void subtitle_redraw_all(struct subtitle_ctx *sub)
 
 void subtitle_reset(struct subtitle_ctx *sub)
 {
-	//eDebug("%s: freeing whole subtitle set", __FUNCTION__);
 	while (struct subtitle_page *page = sub->pages)
 	{
 			/* free page regions */
@@ -957,7 +1037,7 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 	struct subtitle_page *page = sub->pages;
 	int main_clut_id = -1;
 	
-	// eDebug("displaying page id %d", page_id);
+	//eDebug("displaying page id %d", page_id);
 	
 	while (page)
 	{
@@ -967,7 +1047,7 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 	}
 	if (!page)
 	{
-		// eDebug("%s: page=%d not found", __FUNCTION__, page_id);
+		//eDebug("page not found");
 		return;
 	}
 	
@@ -976,7 +1056,7 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 	struct subtitle_page_region *region = page->page_regions;
 	while (region)
 	{
-		// eDebug("   region %d", region->region_id);
+		//eDebug("region %d", region->region_id);
 			/* find corresponding region */
 		struct subtitle_region *reg = page->regions;
 		while (reg)
@@ -989,13 +1069,13 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 		{
 			int y;
 			int clut_id = reg->clut_id;
-			// eDebug("clut %d, %d", clut_id, main_clut_id);
+			//eDebug("clut %d, %d", clut_id, main_clut_id);
 			if (main_clut_id != -1)
 			{
 				if (main_clut_id != clut_id)
 				{
-					// eDebug("MULTIPLE CLUTS IN USE! prepare for pixelmuell!");
-					// exit(0);
+					eDebug("MULTIPLE CLUTS IN USE! prepare for pixelmuell!");
+//					exit(0);
 				}
 			}
 			main_clut_id = clut_id;
@@ -1004,8 +1084,9 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 			int y0 = region->region_vertical_address;
 			int x1 = x0 + reg->region_width;
 			int y1 = y0 + reg->region_height;
-			// eDebug("copy region %d box: %d:%d - %dx%d", region->region_id, x0, y0, x1, y1);
-				
+
+			//eDebug("copy region %d to %d, %d, size %d %d", region->region_id, x0, y0, x1, y1);
+
 			if ((x0 < 0) || (y0 < 0) || (x0 > sub->screen_width) || (x0 > sub->screen_height))
 				continue;
 
@@ -1019,17 +1100,16 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 			if (y1 > sub->bbox_bottom)
 				sub->bbox_bottom = y1;
 
-			// eDebug("%s: page_id=%d, page_version=%d page_timeout=%d region_id=%d clut_id=%d ul:br=%03dx%03d:%03dx%03d", __FUNCTION__, page->page_id, page->page_version_number, page->page_time_out, region->region_id, clut_id, x0, y0, x1, y1);
 			// start timeout... 
 			sub->timeout_timer->start(page->page_time_out*1000, true);
 
-			// do not draw when someone has locked the framebuffer ( non enigma plugins... )
+			// do not draw when anyone has locked the 
+			// framebuffer ( non enigma plugins... )
 			if ( !fbClass::getInstance()->islocked() )
 			{
-				// eDebug("dvb_subtitle:copy region %d to pos=%d,%d size=%d,%d bpp=%d", region->region_id, x0, y0, reg->region_width, reg->region_height, sub->bpp);
-				if (sub->bpp == 1)
+				if (sub->bpp == 1) // PLi extension for 32bit skins
 				{
-					/* copy to screen - 8-bit color mode */
+					/* copy to screen */
 					for (y=0; y < reg->region_height; ++y)
 					{
 						memcpy(sub->screen_buffer + 
@@ -1062,8 +1142,8 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 				}
 			}
 		} 
-		// else
-			// eDebug("%s: page_id=%d region_id=%d not found", __FUNCTION__, page_id, region->region_id);
+		else
+			eDebug("region not found");
 		region = region->next;
 	}
 	//eDebug("schon gut.");
@@ -1086,7 +1166,8 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 	}
 	if (clut)
 	{
-		// do not change color palette when someone has locked the framebuffer (non enigma plugins)
+		// do not change color palette when anyone has 
+		// locked the framebuffer ( non enigma plugins )
 		if (!fbClass::getInstance()->islocked())
 			sub->set_palette(clut);
 	}

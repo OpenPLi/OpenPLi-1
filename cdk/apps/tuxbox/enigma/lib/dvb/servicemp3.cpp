@@ -1120,6 +1120,8 @@ int eServiceHandlerMP3::serviceCommand(const eServiceCommand &cmd)
 		break;
 	case eServiceCommand::cmdSeekEnd:
 		decoder->messages.send(eMP3Decoder::eMP3DecoderMessage(eMP3Decoder::eMP3DecoderMessage::stopSkip));
+		/* jumping to the current position after leaving seekmode avoids audio/video sync problems */
+		decoder->messages.send(eMP3Decoder::eMP3DecoderMessage(eMP3Decoder::eMP3DecoderMessage::seekreal, decoder->getPosition(1)));
 		break;
 	case eServiceCommand::cmdSkip:
 		decoder->messages.send(eMP3Decoder::eMP3DecoderMessage(eMP3Decoder::eMP3DecoderMessage::skip, cmd.parm));

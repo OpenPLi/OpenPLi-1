@@ -697,7 +697,7 @@ int existNetworks::addNetwork(tpPacket &packet, XMLTreeNode *node, int type)
 			if (!apolarisation)
 				continue;
 			if (!afec_inner)
-				continue;
+				afec_inner="0";
 			if (!ainversion)
 				ainversion="2";
 			int frequency=atoi(afrequency), symbol_rate=atoi(asymbol_rate),
@@ -722,17 +722,17 @@ int existNetworks::addNetwork(tpPacket &packet, XMLTreeNode *node, int type)
 			if (!abandwidth)
 				continue;
 			if (!aconstellation)
-				continue;
+				aconstellation="3";
 			if (!ahierarchy_information)
-				continue;
+				ahierarchy_information="4";
 			if (!acode_rate_hp)
-				continue;
+				acode_rate_hp="5";
 			if (!acode_rate_lp)
-				continue;
+				acode_rate_lp="5";
 			if (!aguard_interval)
-				continue;
+				aguard_interval="4";
 			if (!atransmission_mode)
-				continue;
+				atransmission_mode="3";
 			if (!ainversion)
 				ainversion="2";
 			int centre_frequency=atoi(acentre_frequency),

@@ -875,7 +875,7 @@ void eDVRPlayerThread::gotMessage(const eDVRPlayerThreadMessage &message)
 					offset=3*1024*1024; // assuming 3MBit bitrate...
 			}
 			offset/=8000;
-			offset*=(message.parm >= 0 ? message.parm : message.parm - 4000);
+			offset*=message.parm -(message.parm >= 0 ? 0 : offset*12);
 			buffer.clear();
 			offset-=1000*1000; // account for pvr buffer
 			if (message.type == eDVRPlayerThreadMessage::skip)
@@ -1418,6 +1418,19 @@ struct eServiceHandlerDVB_addService
 		if ( onlyNew && !(s->dvb && s->dvb->dxflags & eServiceDVB::dxNewFound ) )
 			return;
 		int t = ((eServiceReferenceDVB&)service).getServiceType();
+// hack for dish network TV service types!!!
+		if ( type & (1<<1) ) // search for tv services ?
+		{
+			int onid = ((eServiceReferenceDVB&)service).getOriginalNetworkID().get();
+			if (onid >= 0x1001 && onid <= 0x100b) // is dish network id?
+			{
+				static int dish_tv_types[] = { 128, 133, 137, 140, 144, 145, 150, 154, 160, 163, 164, 165, 166, 167, 168, 173, 174 };
+				static size_t dish_tv_num_types = sizeof(dish_tv_types) / sizeof(int);
+				if (std::binary_search(dish_tv_types, dish_tv_types + dish_tv_num_types, t))
+					t = 1; // patch to tv service
+			}
+		}
+///////////////////////////////////////////
 		int nspace = ((eServiceReferenceDVB&)service).getDVBNamespace().get()&0xFFFF0000;
 		if (t < 0)
 			t=0;

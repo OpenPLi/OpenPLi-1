@@ -1,5 +1,5 @@
 /*
- * $Id: timestampts.cpp,v 1.7 2009/05/29 17:53:26 dbluelle Exp $
+ * $Id: timestampts.cpp,v 1.8 2009/06/09 19:28:41 dbluelle Exp $
  *
  * (C) 2008 by Dr. Best  <dr.best@dreambox-tools.info>
  *
@@ -111,13 +111,13 @@ void eTimeStampParserTS::RefreshEndTime()
 		tfilename = basefilename + (slice ? eString().sprintf(".%03d", slice) : eString(""));
 		slice++;
 	}
-eDebug("RefreshEndTime:%s,%s",basefilename.c_str(), tfilename.c_str());
 	int fd_end=::open(tfilename.c_str(), O_RDONLY|O_LARGEFILE);
 	if (fd_end>= 0)
 	{
 		// Endzeit setzen!
 		pktptr= 0;
 		needNextPacket = 0;
+		MovieDuration = 0;
 		off64_t posbegin=::lseek64(fd_end,0, SEEK_END);
 		::lseek64(fd_end, posbegin - (off64_t)654240, SEEK_SET);
 		char p[65424];
@@ -180,7 +180,7 @@ int eTimeStampParserTS::processPacket(const unsigned char *pkt, int type)
 		tempTime.tm_year = 70;
   		tempTime.tm_mon = 0;
 		tempTime.tm_mday = 1;
-
+		tempTime.tm_isdst = 0;
 		switch(type)
 		{
 			case 0:

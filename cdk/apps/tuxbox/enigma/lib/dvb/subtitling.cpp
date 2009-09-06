@@ -76,29 +76,28 @@ static int extractPTS(unsigned long long &pts, unsigned char *pkt)
 void eSubtitleWidget::processPESPacket(unsigned char *pkt, int len)
 {
 	unsigned long long current = 0;
-	unsigned long long pts = 0;
-	
 	if (Decoder::getSTC(current))
 		eDebug("bloed, going unsyced");
-	// eDebug("DEMUX STC: %08llx", current);
+	eDebug("DEMUX STC: %08llx", current);
+	
+	unsigned long long pts = 0;
 	
 	int enqueue = !queue.empty();
 
 	if (!extractPTS(pts, pkt))
 	{
+		eDebug("PES   STC: %08llx", pts);
 		signed long long int diff = pts - current;
+		eDebug("     diff: %lld(%lldms)", diff, diff/90);
 		if (diff > 1800)
-		{
-			//eDebug("PES   STC: %08llx diff: %lld (%f seconds) enqueing", pts, diff, (float)diff/90000.0);
 			enqueue = 1;
-		}
 		else if (enqueue) // this should not happen !!
 		{
-			//eDebug("PES   STC: %08llx diff: %lld (%f seconds) showing now, but queue not empty!!!", pts, diff, (float)diff/90000.0);
+			eDebug("showing instantly, diff small enough... but queue not empy!!!!");
 			enqueue = 0;
 		}
-		// else
-		// 	eDebug("PES   STC: %08llx diff: %lld (%f seconds) showing now", pts, diff, (float)diff/90000.0);
+		else
+			eDebug("showing instantly, diff small enough...!");
 	}
 
 	if (enqueue)
@@ -110,21 +109,28 @@ void eSubtitleWidget::processPESPacket(unsigned char *pkt, int len)
 		memcpy(pes.pkt, pkt, len);
 		pes.len = len;
 		queue.push(pes);
+		eDebug("enqueue");
 		if (wasempty)
 		{
-			// eDebug("setting nextpacket timer to %d ms from empty queue!", (pes.pts - current) / 90);
+			eDebug("setting timer to %lld ms!\n", (pes.pts - current) / 90);
 			timer.start((pes.pts - current) / 90, 1);
 		}
+		else
+			eDebug("");
+
 		return;
 	}
 	subtitle_process_pes(subtitle, pesbuffer, peslen);
+	if (!subtitle->isdrawn && subtitle->screen_enabled)
+		subtitle_redraw_all(subtitle);
+
 }
 
 void eSubtitleWidget::displaying_timeout()
 {
-	// eDebug("displaying timeout reached... hide visible subtitles visible=%d", isvisible);
+	eDebug("displaying timeout reached... hide visible subtitles");
 	subtitle_reset(subtitle);
-	if ( isvisible )
+	if ( isVisible() )
 		subtitle_clear_screen(subtitle);
 }
 
@@ -143,47 +149,52 @@ void eSubtitleWidget::processNext()
 #endif
 	if (queue.empty())
 	{
-		eWarning("%s: Subtitle queue is empty, but timer was called!", __FUNCTION__);
+		eWarning("Subtitle queue is empty, but timer was called!");
 		return;
 	}
 
-	unsigned long long current = 0;
+	unsigned long long fpts=0;
 	int first = 1;
-
 	while (!queue.empty())
 	{
 		pes_packet_s pes = queue.front();
-		if (pes.pts && !first) {
-			// see if the next subtitle is about to be displayed. If not, set a timer and return.
-			if (Decoder::getSTC(current))
-			{
-				eWarning("getSTC failed, dropping all Subtitle packets!");
-				while (!queue.empty())
-				{
-					pes_packet_s pkt = queue.front();
-					queue.pop();
-					delete [] pkt.pkt;
-				}
-				return;
-			}
-			signed long long int diff = queue.front().pts - current;
-			if (diff > 900) { // if we need to wait for more than 10 milliseconds
-				// eDebug("setting nextpacket timer to %d ms from queue!", diff / 90);
-				timer.start(diff / 90, 1);
-				return;
-			}
-		}
-	
-		if (first) {
-			first = 0;
-		}
+		if (pes.pts && !first)
+			break;
+		if (first)
+			fpts = pes.pts;
+		first = 0;
 		queue.pop();
 
-		// eDebug("%s: process new subtitle from queue!", __FUNCTION__);
 		subtitle_process_pes(subtitle, pes.pkt, pes.len);
 
 		delete [] pes.pkt;
 	}
+	if (!subtitle->isdrawn && subtitle->screen_enabled)
+		subtitle_redraw_all(subtitle);
+
+	unsigned long long current = 0;
+	
+	if (Decoder::getSTC(current))
+	{
+		eWarning("getSTC failed, dropping all Subtitle packets!");
+		while (!queue.empty())
+		{
+			pes_packet_s pkt = queue.front();
+			queue.pop();
+			delete [] pkt.pkt;
+		}
+		return;
+	}
+	
+	eDebug("by the way, actual delay was %lld(%lld msek)", current - fpts, (current-fpts)/90 );
+
+	if (!queue.empty()) {
+		signed long long int diff = queue.front().pts - current;
+		timer.start(diff / 90, 1);
+		eDebug("setting timer to %lld ms!\n", diff / 90);
+	}
+	else
+		eDebug("");
 }
 
 void eSubtitleWidget::gotData(int what)
@@ -241,7 +252,7 @@ int eSubtitleWidget::eventHandler(const eWidgetEvent &event)
 	switch (event.type)
 	{
 	case eWidgetEvent::willShow:
-//		eDebug("willShow Subtitle stream!!!");
+//		eDebug("willShow!!!");
 #ifndef TUXTXT_CFG_STANDALONE
 		startttx(ttxpage);
 #endif
@@ -255,7 +266,7 @@ int eSubtitleWidget::eventHandler(const eWidgetEvent &event)
 		return eWidget::eventHandler(event);
 #endif
 	case eWidgetEvent::willHide:
-//		eDebug("willHide Subtitle stream!!!");
+//		eDebug("willHide!!!");
 #ifndef TUXTXT_CFG_STANDALONE
 		stopttx();
 #endif
@@ -349,8 +360,8 @@ void eSubtitleWidget::start(int pid, const std::set<int> &ppageids)
 	f.flags = DMX_IMMEDIATE_START;
 	if (::ioctl(fd, DMX_SET_PES_FILTER, &f) == -1)
 		eWarning("DMX_SET_PES_FILTER: %m (subtitling)");
-	//else
-	//	eDebug("started subtitling filter..");
+	else
+		eDebug("started subtitling filter..");
 		
 	pos = 0;
 }
@@ -358,10 +369,10 @@ void eSubtitleWidget::start(int pid, const std::set<int> &ppageids)
 static void subtitle_set_palette(struct subtitle_clut *pal)
 {
 	static gRGB def_palette[16];
-	static gRGB palette[16]; // risky: is pal->size always <= 16? It seems so
 	static bool def_palette_initialized;
 
-	if ( !pal )// use default palette
+	gPainter p(*gFBDC::getInstance());
+	if ( !pal )// use default pallette
 	{
 		if ( !def_palette_initialized )  // fill default palette
 		{
@@ -392,13 +403,15 @@ static void subtitle_set_palette(struct subtitle_clut *pal)
 			}
 			def_palette_initialized=1;
 		}
+		p.setPalette(def_palette, 240, 16);
 	}
 	else
 	{
 	//	eDebug("updating palette!");
-
 		int bcktrans = 0xC0;
 		eConfig::getInstance()->getKey("/elitedvb/subtitle/backgroundTransparency", bcktrans);
+		gRGB palette[pal->size];
+
 		for (int i=0; i<pal->size; ++i)
 		{
 			int y = pal->entries[i].Y, cr = pal->entries[i].Cr, cb = pal->entries[i].Cb;
@@ -418,6 +431,9 @@ static void subtitle_set_palette(struct subtitle_clut *pal)
 				palette[i].g = ((1164 * y - 813 * cr - 392 * cb) + 500) / 1000;
 				palette[i].b = ((1164 * y + 2017 * cb) + 500) / 1000;
 #endif
+#if 0 // subtitle transparency fix by PLi
+				palette[i].a = (pal->entries[i].T) & 0xFF;
+#endif
 				// transparency: if black then set our own transparency level. We could have used the OSD transparancy
 				// level but it seems better to have seperate control for this.
 				// Some services have proper subtitles with dropwshadowed text, but BBC for example uses a big black
@@ -426,19 +442,17 @@ static void subtitle_set_palette(struct subtitle_clut *pal)
 					palette[i].a = (pal->entries[i].T) & 0xFF;
 				else
 					palette[i].a = bcktrans;
-			}
-			else
+			} else
 			{
 				palette[i].r = 0;
 				palette[i].g = 0;
 				palette[i].b = 0;
 				palette[i].a = 0xFF;
 			}
-			//eDebug("set_palette: %d: %d %d %d %d", i, palette[i].r, palette[i].g, palette[i].b, palette[i].a);
+//		eDebug("%d: %d %d %d %d", i, palette[i].r, palette[i].g, palette[i].b, palette[i].a);
 		}
+		p.setPalette(palette, 240, pal->size);
 	}
-	gPainter p(*gFBDC::getInstance());
-	p.setPalette(pal ? palette : def_palette, 240, pal ? pal->size : 16);
 //	eDebug("palette changed");
 }
 
@@ -471,8 +485,6 @@ void eSubtitleWidget::init_eSubtitleWidget()
 
 	subtitle->screen_width = pixmap->x;
 	subtitle->screen_height = pixmap->y;
-	subtitle->bpp = pixmap->bypp;
-	subtitle->stride = pixmap->stride;
 	subtitle->screen_buffer = (__u8*)pixmap->data;
 	subtitle->set_palette = subtitle_set_palette;
 	
