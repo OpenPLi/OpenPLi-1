@@ -921,7 +921,7 @@ void CPLiManager::Run(int argc, char *argv[])
 				int programinfo_length = 0;
 				int lengthdatasize = 0;
 				int readcount;
-				unsigned char buffer[1024];
+				unsigned char buffer[4096];
 				readcount = 0;
 				if (Read(m_iCaPMTFd, &buffer[readcount], 4) <= 0) break;
 				readcount += 4;
