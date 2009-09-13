@@ -10,29 +10,29 @@ BOXTYPE=$1
 #
 # in here we can put the wifi drivers and etc/init.d/init1 and other nice stuff...
 #
-	rm $flashprefix/root/bin/newcamd
-	rm $flashprefix/root/bin/cardserver
-	rm $flashprefix/root/bin/cardspider
-	rm $flashprefix/root/bin/cs2gbox.ppc
-	rm $flashprefix/root/bin/evocamd
-	rm $flashprefix/root/bin/dreamdvd
-	rm $flashprefix/root/bin/dropbearmulti
-	rm $flashprefix/root/lib/tuxbox/plugins/jukebox.so
-	rm $flashprefix/root/lib/tuxbox/plugins/jukebox.cfg
+	rm -f $flashprefix/root/bin/newcamd
+	rm -f $flashprefix/root/bin/cardserver
+	rm -f $flashprefix/root/bin/cardspider
+	rm -f $flashprefix/root/bin/cs2gbox.ppc
+	rm -f $flashprefix/root/bin/evocamd
+	rm -f $flashprefix/root/bin/dreamdvd
+	rm -f $flashprefix/root/bin/dropbearmulti
+	rm -f $flashprefix/root/lib/tuxbox/plugins/jukebox.so
+	rm -f $flashprefix/root/lib/tuxbox/plugins/jukebox.cfg
+	# removed the installed satfind We do not have the space but was installed so libfx2.so is available in the build	
+	rm -f $flashprefix/root/lib/tuxbox/plugins/satfind.so
+	rm -f $flashprefix/root/lib/tuxbox/plugins/satfind.cfg
+
 	ln -sf /lib/libcrypto.so.0 $flashprefix/root/lib/libcrypto.so.0.9.7 
 	
 	if [ $BOXTYPE == dm7000 ] ; then
-		# remove CCcam from the build, was only added to prevent to much stripping of libs
+		# remove CCcam from the build, was only added to prevent too much stripping of libs
 		rm $flashprefix/root/bin/CCcam
-
-		# removed the installed satfind We do not have the space but was installed so libfx2.so is available in the build	
-		rm -rf $flashprefix/root/lib/tuxbox/plugins/satfind.so
-		rm -rf $flashprefix/root/lib/tuxbox/plugins/satfind.cfg
 
 		# we want smbd and nmbnd in the image during stripping
 		# but due to the size we remove it here
-		rm $flashprefix/root/bin/nmbd
-		rm $flashprefix/root/bin/smbd
+		rm -f $flashprefix/root/bin/nmbd
+		rm -f $flashprefix/root/bin/smbd
 
 		# remove the installed serial usb kernel drivers
 		# we put them on the download server to save space as most of the people won't use it anyway

@@ -2254,21 +2254,21 @@ endif
 else
 if MAXVAR
 dreamboximage_root: core .enigma .etherwake .linuxkernel .dreamfiles .libcrypto \
-	flash-enigma flash-plugin_tuxtxt flash-plugin_dbswitch \
+	flash-enigma flash-plugin_tuxtxt flash-plugin_satfind flash-plugin_dbswitch \
 	flash-ftpd flash-dvb-tools flash-etherwake flash-dreamfiles \
 	flash-sambaclient flash-plugin_plimgr flash-plugin_setupnetwork \
 	flash-plugin_movieplayer
 else
 if CHINESE_YES
 dreamboximage_root: core .enigma .etherwake .linuxkernel .dreamfiles .libcrypto \
-	flash-enigma flash-plugin_tuxtxt \
+	flash-enigma flash-plugin_tuxtxt flash-plugin_satfind\
 	flash-ftpd flash-dvb-tools flash-etherwake flash-dreamfiles \
 	flash-sambaclient flash-plugin_plimgr flash-plugin_setupnetwork \
 	flash-plugin_movieplayer \
 	flash-scramble
 else
 dreamboximage_root: core .enigma .etherwake .linuxkernel .dreamfiles .libcrypto \
-	flash-enigma flash-mv flash-plugin_tuxtxt flash-plugin_dbswitch \
+	flash-enigma flash-mv flash-plugin_tuxtxt flash-plugin_satfind flash-plugin_dbswitch \
 	flash-ftpd flash-dvb-tools flash-etherwake flash-dreamfiles \
 	flash-sambaclient flash-plugin_plimgr flash-plugin_setupnetwork \
 	flash-plugin_movieplayer \
