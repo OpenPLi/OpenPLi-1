@@ -11,7 +11,7 @@ BINARY_VERSION_dm800 = "2"
 BINARY_VERSION_dm8000 = "6"
 
 PV = "${DISTRO_VERSION}"
-PR = "r13"
+PR = "r14"
 
 SRC_URI = "http://sources.dreamboxupdate.com/download/7020/bootlogo-${MACHINE}-${BINARY_VERSION}.elf \
 	http://sources.dreamboxupdate.com/download/7020/bootlogo-${MACHINE}-${IMAGES_VERSION}.mvi \
