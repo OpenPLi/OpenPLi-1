@@ -64,7 +64,7 @@
  {
  	if (execable("/sbin/udhcpc")) {
 -		return( execute("udhcpc -n -p /var/run/udhcpc.%iface%.pid -i "
-+		return( execute("udhcpc -b -p /var/run/udhcpc.%iface%.pid -i "
++		return( execute("udhcpc -b -z -p /var/run/udhcpc.%iface%.pid -i "
  					"%iface% [[-H %hostname%]] [[-c %clientid%]]", ifd, exec));
  	} else if (execable("/sbin/pump")) {
  		return( execute("pump -i %iface% [[-h %hostname%]] [[-l %leasehours%]]", ifd, exec));

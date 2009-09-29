@@ -1110,7 +1110,7 @@ Index: busybox-1.01/examples/udhcp/simple.script
  
  [ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
  
-@@ -9,31 +8,46 @@
+@@ -9,31 +8,51 @@
  [ -n "$subnet" ] && NETMASK="netmask $subnet"
  
  case "$1" in
@@ -1164,6 +1164,11 @@ Index: busybox-1.01/examples/udhcp/simple.script
 +      echo "adding dns $i"
 +      echo "nameserver $i" >> $RESOLV_CONF
 +    done
++    ;;
++
++    leasefail)
++    echo retry immediately
++    kill -16 `cat /var/run/udhcpc.$interface.pid`
 +    ;;
 +
 +    zeroconf)
