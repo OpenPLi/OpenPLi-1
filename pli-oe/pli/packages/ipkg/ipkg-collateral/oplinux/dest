@@ -1,3 +1,0 @@
-dest root /
-dest ram /tmp
-dest smbfs /tmp/smbfs
