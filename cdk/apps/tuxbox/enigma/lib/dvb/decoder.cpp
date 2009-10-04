@@ -195,7 +195,10 @@ void Decoder::Flush(int keepaudiotype)
 	parms.descriptor_length=parms.restart_camd=0;
 	Set();
 }
-
+void Decoder::Flush() // for Binary compatibility
+{ 
+	Flush(0); 
+} 
 void Decoder::Pause( int flags )
 // flags & 1 = disableAudio
 // flags & 2 = onlyFreeze

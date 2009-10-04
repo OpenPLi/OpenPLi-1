@@ -40,6 +40,13 @@ void subtitle_process_line(struct subtitle_ctx *sub, struct subtitle_page *page,
 //	eDebug("line for %d:%d", page->page_id, object_id);
 	while (region)
 	{
+		struct subtitle_clut *clut = page->cluts;
+		while (clut)
+		{
+			if (clut->clut_id == region->clut_id)
+				break;
+			clut = clut->next;
+		}
 		struct subtitle_region_object *object = region->region_objects;
 		while (object)
 		{
@@ -61,6 +68,12 @@ void subtitle_process_line(struct subtitle_ctx *sub, struct subtitle_page *page,
 				}
 //				//eDebug("inserting %d bytes (into region %d)", len, region->region_id);
 				memcpy(region->region_buffer + region->region_width * y + x, data, len);
+				if (clut && clut->mapping)
+				{
+					// set color entries for second clut_id in same page
+					for (int i = 0; i < len; i++)
+						*(region->region_buffer + region->region_width * y + x+i)&=0xef; 
+				}
 			}
 			object = object->next;
 		}
@@ -122,7 +135,7 @@ void subtitle_process_string(struct subtitle_ctx *sub, struct subtitle_page *pag
 	}
 }
 
-static int map_2_to_4_bit_table[4] = { 0, 8, 7, 15 };
+static int map_2_to_4_bit_table[4] = { 0, 7, 8, 15 };
 
 int subtitle_process_pixel_data(struct subtitle_ctx *sub, struct subtitle_page *page, int object_id, int *linenr, int *linep, __u8 *data)
 {
@@ -331,8 +344,8 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 	sub->isdrawn = 0;
 	// recreate default map
 	map_2_to_4_bit_table[0] = 0;
-	map_2_to_4_bit_table[1] = 8;
-	map_2_to_4_bit_table[2] = 7;
+	map_2_to_4_bit_table[1] = 7;
+	map_2_to_4_bit_table[2] = 8;
 	map_2_to_4_bit_table[3] = 15;
 	
 	struct subtitle_page *page, **ppage;
@@ -390,6 +403,7 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 			// when acquisition point or mode change: remove all displayed pages.
 		if ((page_state == 1) || (page_state == 2))
 		{
+			subtitle_clear_screen(sub);
 			while (page->page_regions)
 			{
 				struct subtitle_page_region *p = page->page_regions->next;
@@ -441,7 +455,8 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		{
 //			eDebug("no regions in page.. clear screen!!");
 			if (sub->screen_enabled)
-				subtitle_redraw_all(sub);
+				subtitle_clear_screen(sub);
+				//subtitle_redraw_all(sub);
 		}
 
 		while (processed_length < segment_length)
@@ -549,13 +564,6 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		region_4bit_pixel_code = *segment >> 4;
 		region_2bit_pixel_code = (*segment++ >> 2) & 3;	
 		processed_length++;
-		
-		if (!region_fill_flag)
-		{
-			region_2bit_pixel_code = region_4bit_pixel_code = region_8bit_pixel_code = 0;
-			region_fill_flag = 1;
-		}
-		
 		if (region_fill_flag)
 		{
 			if (region_depth == 1)
@@ -638,10 +646,13 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		
 		if (!clut)
 		{
+			int mapping = (page->cluts ? 1 : 0);
 			*pclut = clut = new subtitle_clut;
+			clut->mapping = mapping;
 			clut->next = 0;
-		} else if (clut->CLUT_version_number == CLUT_version_number)
-			break;
+		}
+//		} else if (clut->CLUT_version_number == CLUT_version_number)
+//			break;
 			
 		clut->clut_id = CLUT_id;
 
@@ -860,8 +871,8 @@ void subtitle_redraw_all(struct subtitle_ctx *sub)
 {
 #if 1
 	struct subtitle_page *page = sub->pages;
-	if ( page )
-		subtitle_clear_screen(sub);
+	//if ( page )
+	//	subtitle_clear_screen(sub);
 	while(page)
 	{
 		subtitle_redraw(sub, page->page_id);
@@ -1036,7 +1047,7 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 {
 	struct subtitle_page *page = sub->pages;
 	int main_clut_id = -1;
-	
+	int sub_clut_id = -1;
 	//eDebug("displaying page id %d", page_id);
 	
 	while (page)
@@ -1074,11 +1085,12 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 			{
 				if (main_clut_id != clut_id)
 				{
-					eDebug("MULTIPLE CLUTS IN USE! prepare for pixelmuell!");
+					sub_clut_id = clut_id;
 //					exit(0);
 				}
 			}
-			main_clut_id = clut_id;
+			else
+				main_clut_id = clut_id;
 				
 			int x0 = region->region_horizontal_address;
 			int y0 = region->region_vertical_address;
@@ -1166,15 +1178,27 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 	}
 	if (clut)
 	{
+		if (sub_clut_id != -1)
+		{
+			struct subtitle_clut *subclut = page->cluts;
+			while (subclut)
+			{
+				if (subclut->clut_id == sub_clut_id)
+					break;
+				subclut = subclut->next;
+			}
+			if (!fbClass::getInstance()->islocked())
+				sub->set_palette(subclut,subclut->mapping);
+		}
 		// do not change color palette when anyone has 
 		// locked the framebuffer ( non enigma plugins )
 		if (!fbClass::getInstance()->islocked())
-			sub->set_palette(clut);
+			sub->set_palette(clut,clut->mapping);
 	}
 	else
 	{
 		if (!fbClass::getInstance()->islocked())
-			sub->set_palette(0);
+			sub->set_palette(0,0);
 	}
 }
 

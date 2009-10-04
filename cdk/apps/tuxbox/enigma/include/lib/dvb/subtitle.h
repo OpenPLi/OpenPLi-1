@@ -16,7 +16,7 @@ struct subtitle_clut
 	int size;
 	struct subtitle_clut_entry entries[16];
 	int CLUT_version_number;
-	
+	int mapping;
 	struct subtitle_clut *next;
 };
 
@@ -86,7 +86,7 @@ struct subtitle_ctx
 	eTimer *timeout_timer;
 
 	int bbox_left, bbox_top, bbox_right, bbox_bottom;
-	void (*set_palette)(struct subtitle_clut *pal);
+	void (*set_palette)(struct subtitle_clut *pal,int subpal);
 	int isdrawn;
 };
 

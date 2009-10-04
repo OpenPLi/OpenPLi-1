@@ -366,9 +366,9 @@ void eSubtitleWidget::start(int pid, const std::set<int> &ppageids)
 	pos = 0;
 }
 
-static void subtitle_set_palette(struct subtitle_clut *pal)
+static void subtitle_set_palette(struct subtitle_clut *pal, int subpal)
 {
-	static gRGB def_palette[16];
+	static gRGB def_palette[32];
 	static bool def_palette_initialized;
 
 	gPainter p(*gFBDC::getInstance());
@@ -376,7 +376,7 @@ static void subtitle_set_palette(struct subtitle_clut *pal)
 	{
 		if ( !def_palette_initialized )  // fill default palette
 		{
-			for (int i=0; i < 16; ++i)
+			for (int i=0; i < 32; ++i)
 			{
 				if (!i)
 					def_palette[i].a = 0xFF;
@@ -403,7 +403,7 @@ static void subtitle_set_palette(struct subtitle_clut *pal)
 			}
 			def_palette_initialized=1;
 		}
-		p.setPalette(def_palette, 240, 16);
+		p.setPalette(def_palette, 224, 32);
 	}
 	else
 	{
@@ -451,7 +451,7 @@ static void subtitle_set_palette(struct subtitle_clut *pal)
 			}
 //		eDebug("%d: %d %d %d %d", i, palette[i].r, palette[i].g, palette[i].b, palette[i].a);
 		}
-		p.setPalette(palette, 240, pal->size);
+		p.setPalette(palette, subpal ? 224 : 240, pal->size);
 	}
 //	eDebug("palette changed");
 }
@@ -478,6 +478,7 @@ void eSubtitleWidget::init_eSubtitleWidget()
 	subtitle->bbox_top = 0;
 	subtitle->bbox_bottom = 0;
 	subtitle->screen_enabled = 0;
+	subtitle->isdrawn=0;
 	subtitle->timeout_timer = &timeout;
 
 	gFBDC *fbdc = gFBDC::getInstance();
