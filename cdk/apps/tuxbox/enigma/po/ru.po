@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: tuxbox-enigma 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-10 19:57+0200\n"
-"PO-Revision-Date: 2009-09-17 12:24+0200\n"
+"PO-Revision-Date: 2009-10-05 11:46+0200\n"
 "Last-Translator: igbt <igbt@mail.ru>\n"
 "Language-Team: igbt\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: default.esml:848
 msgid "&#53;"
-msgstr ""
+msgstr "&#53;"
 
 #: default.esml:404
 msgid "here you can change your sat/lnb mapping"
@@ -54,9 +54,8 @@ msgid "SNR"
 msgstr "SNR"
 
 #: default.esml:914
-#, fuzzy
 msgid "Service:"
-msgstr "Каналы"
+msgstr "Канал:"
 
 #: default.esml:428
 msgid "Uncommitted Switch:"
@@ -104,9 +103,8 @@ msgid "increased voltage"
 msgstr "Повысить напряжение"
 
 #: default.esml:922
-#, fuzzy
 msgid "Language:"
-msgstr "Язык"
+msgstr "Язык:"
 
 #: default.esml:440 default.esml:642
 msgid "LOCK"
@@ -117,9 +115,8 @@ msgid "choose the code rate HP (left, right)"
 msgstr "Выбрать code rate HP (ВЛЕВО, ВПРАВО)"
 
 #: default.esml:917
-#, fuzzy
 msgid "switch to 16:9 in split screen mode"
-msgstr "Переключиться в режим Файлы"
+msgstr "Режим 16:9 для разделённого экрана"
 
 #: default.esml:412
 msgid "turn 12V output on (for 12V relais) (ok)"
@@ -172,9 +169,8 @@ msgid "Direction:"
 msgstr "Направление:"
 
 #: default.esml:923
-#, fuzzy
 msgid "set the language of the displayed pages"
-msgstr "Установить яркость для страниц телетекста"
+msgstr "Установка языка для страниц телетекста"
 
 #: default.esml:585 default.esml:600
 msgid "MHz"
@@ -216,11 +212,11 @@ msgstr "Удалить выбранную запись"
 
 #: default.esml:864
 msgid "abc &lt;-&gt; ABC"
-msgstr ""
+msgstr "abc &lt;-&gt; ABC"
 
 #: default.esml:858
 msgid "&lt;"
-msgstr ""
+msgstr "&lt;"
 
 #: default.esml:421
 msgid "select DiSEqC mode (ok)"
@@ -256,7 +252,7 @@ msgstr "Прозрач-ть:"
 
 #: stone.esml:516 stone.esml:517 stone.esml:518
 msgid "B"
-msgstr ""
+msgstr "B"
 
 #: default.esml:823
 msgid "close window"
@@ -310,11 +306,11 @@ msgstr "Настройки поиска:"
 
 #: default.esml:850
 msgid "&#54;"
-msgstr ""
+msgstr "&#54;"
 
 #: default.esml:844
 msgid "&#51;"
-msgstr ""
+msgstr "&#51;"
 
 #: default.esml:625
 msgid "Coderate LP:"
@@ -338,7 +334,7 @@ msgstr "Закрыть"
 
 #: default.esml:862
 msgid "&gt;"
-msgstr ""
+msgstr "&gt;"
 
 #: stone.esml:588 src/enigma_plugins.cpp:98
 msgid "Plugins"
@@ -349,9 +345,8 @@ msgid "select month (ok)"
 msgstr "Выберите месяц (OK)"
 
 #: default.esml:942
-#, fuzzy
 msgid "Start"
-msgstr "Суб"
+msgstr "Пуск"
 
 #: default.esml:466
 msgid "enter your latitude (0..9, +, -, ok)"
@@ -412,9 +407,8 @@ msgid "Use gotoXX Function"
 msgstr "Применить gotoXX"
 
 #: default.esml:913
-#, fuzzy
 msgid "add page"
-msgstr "Добавить маркер"
+msgstr "Добавить страницу"
 
 #: default.esml:866
 msgid "vol+"
@@ -441,18 +435,16 @@ msgid "Transponder:"
 msgstr "Транспондер:"
 
 #: default.esml:915
-#, fuzzy
 msgid "select teletext service"
-msgstr "Удалить канал"
+msgstr "Выделить канал с телетекстом"
 
 #: default.esml:584 default.esml:599 default.esml:614
 msgid "enter transponder frequency (0..9, left, right)"
 msgstr "Введите частоту транспондера (0..9, ВЛЕВО, ВПРАВО)"
 
 #: stone.esml:543 stone.esml:544 stone.esml:545
-#, fuzzy
 msgid "P"
-msgstr "PM"
+msgstr "P"
 
 #: default.esml:386
 msgid "22Khz"
@@ -476,7 +468,7 @@ msgstr "Опция для увеличения чувствительности 
 
 #: default.esml:842
 msgid "&#50;"
-msgstr ""
+msgstr "&#50;"
 
 #: default.esml:753
 msgid "About..."
@@ -495,13 +487,12 @@ msgid "to change service press ok"
 msgstr "Нажмите ОК для изменения канала"
 
 #: default.esml:909
-#, fuzzy
 msgid "Favourites:"
-msgstr "Избранные (TV)"
+msgstr "Избранные:"
 
 #: default.esml:852
 msgid "&#55;"
-msgstr ""
+msgstr "&#55;"
 
 #: default.esml:748
 msgid "scan EPG"
@@ -520,9 +511,8 @@ msgid "duration:"
 msgstr "в течении:"
 
 #: default.esml:912
-#, fuzzy
 msgid "remove selected page from favourites"
-msgstr "Добавить страницу в избранное"
+msgstr "Удалить выбранную страницу из избранных"
 
 #: default.esml:430
 msgid "Fast DiSEqC"
@@ -563,7 +553,7 @@ msgstr "Пред. стр."
 
 #: stone.esml:519 stone.esml:520 stone.esml:521
 msgid "I"
-msgstr ""
+msgstr "I"
 
 #: default.esml:731 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
@@ -715,13 +705,12 @@ msgid "choose entry to edit or remove"
 msgstr "Выберите пункт для изменения или удаления"
 
 #: default.esml:756
-#, fuzzy
 msgid "processor: "
 msgstr "Процессор:"
 
 #: default.esml:846
 msgid "&#52;"
-msgstr ""
+msgstr "&#52;"
 
 #: default.esml:475
 msgid "add to table/existing will be overwritten"
@@ -738,16 +727,15 @@ msgstr "Приёмник:"
 
 #: default.esml:856
 msgid "&#57;"
-msgstr ""
+msgstr "&#57;"
 
 #: default.esml:371 default.esml:443
 msgid "AGC:"
 msgstr "AGC:"
 
 #: stone.esml:540 stone.esml:541 stone.esml:542
-#, fuzzy
 msgid "D"
-msgstr "ND"
+msgstr "D"
 
 #: default.esml:520
 msgid "enter manual pids"
@@ -802,7 +790,6 @@ msgid "enter LNB lowband offset frequency (0..9, ok)"
 msgstr "Нижняя частота гетеродина LNB (0..9, OK)"
 
 #: default.esml:908
-#, fuzzy
 msgid "Teletext Settings"
 msgstr "Настройки телетекста"
 
@@ -816,7 +803,7 @@ msgstr "Пятница"
 
 #: default.esml:840
 msgid "&#49;"
-msgstr ""
+msgstr "&#49;"
 
 #: default.esml:728
 msgid "select what todo after event"
@@ -896,9 +883,8 @@ msgid "Threshold:"
 msgstr "Порог переключения:"
 
 #: stone.esml:582
-#, fuzzy
 msgid "CI"
-msgstr "CI:"
+msgstr "CI"
 
 #: default.esml:815
 msgid "select filesystem to format"
@@ -994,7 +980,7 @@ msgstr "Введите вашу долготу (0..9, +, -, ok)"
 
 #: default.esml:865
 msgid "abc2 &lt;-&gt; 2abc"
-msgstr ""
+msgstr "abc2 &lt;-&gt; 2abc"
 
 #: default.esml:392
 msgid "remove the selected Satellite"
@@ -1009,9 +995,8 @@ msgid "choose wished satellite (ok)"
 msgstr "Выбрать спутник (OK)"
 
 #: default.esml:912
-#, fuzzy
 msgid "remove page"
-msgstr "Пред. стр."
+msgstr "Удалить страницу"
 
 #: default.esml:814
 msgid "show extended configuration"
@@ -1134,7 +1119,7 @@ msgstr "След. стр."
 
 #: default.esml:591 default.esml:606
 msgid "Symbol Rate:"
-msgstr "Symbol Rate:"
+msgstr "Скорость SR:"
 
 #: default.esml:913
 msgid "add page to favourites"
@@ -1151,7 +1136,7 @@ msgstr "Нажмите (ВЛЕВО, ВПРАВО) для поворота мот
 
 #: stone.esml:537 stone.esml:538 stone.esml:539
 msgid "CO"
-msgstr ""
+msgstr "CO"
 
 #: default.esml:495
 msgid "calc param 2 (see your motor manual or let it 00)"
@@ -1219,7 +1204,7 @@ msgstr "Пон"
 
 #: default.esml:854
 msgid "&#56;"
-msgstr ""
+msgstr "&#56;"
 
 #: default.esml:425
 msgid "select DiSEqC repeats (ok)"
@@ -1250,9 +1235,8 @@ msgid "select day (ok)"
 msgstr "Выберите день (OK)"
 
 #: default.esml:941
-#, fuzzy
 msgid "Closes EPG search window"
-msgstr "Закрыть Помощь"
+msgstr "Закрыть окно поиска EPG"
 
 #: default.esml:529
 msgid "change circular to linear polarization"
@@ -1278,7 +1262,7 @@ msgstr "Применить"
 
 #: default.esml:860
 msgid "&#48;"
-msgstr ""
+msgstr "&#48;"
 
 #: default.esml:520
 msgid "enter pids"
@@ -1443,7 +1427,6 @@ msgid "(%d%% in use)"
 msgstr "(%d%% занято)"
 
 #: lib/dvb/servicefile.cpp:86 src/setup_mounts.cpp:170
-#, fuzzy
 msgid "network mount"
 msgstr "Подсоединение по сети"
 
@@ -1701,22 +1684,19 @@ msgstr "Все"
 
 #: src/backup.cpp:138
 msgid "Addons/plugins"
-msgstr ""
+msgstr "Плагины"
 
 #: src/backup.cpp:139
-#, fuzzy
 msgid "Complete config"
-msgstr "Открыть Настройки спутниковой системы"
+msgstr "Другая конфигурация"
 
 #: src/backup.cpp:140
-#, fuzzy
 msgid "Settings"
-msgstr "Сохранить"
+msgstr "Настройки"
 
 #: src/backup.cpp:141
-#, fuzzy
 msgid "Enigma"
-msgstr "Enigma EPG"
+msgstr "Enigma"
 
 #: src/backup.cpp:142
 msgid "Softcams"
@@ -1735,19 +1715,16 @@ msgid "Etc"
 msgstr "Etc"
 
 #: src/backup.cpp:146
-#, fuzzy
 msgid "Library"
-msgstr "Февраль"
+msgstr "Библотека"
 
 #: src/backup.cpp:147
-#, fuzzy
 msgid "Share"
-msgstr "Сохран."
+msgstr "Общее"
 
 #: src/backup.cpp:148
-#, fuzzy
 msgid "Spool"
-msgstr "Школа"
+msgstr "Катушка"
 
 #: src/backup.cpp:149
 msgid "Keys"
@@ -2247,9 +2224,8 @@ msgid "Current Stickies"
 msgstr "Текущие ссылки"
 
 #: src/emuconfig.cpp:628
-#, fuzzy
 msgid "Sticky Settings 1"
-msgstr "Открыть Настройки USB HDD"
+msgstr "Важная настройка 1"
 
 #: src/engrab.cpp:37 src/enigma_event.cpp:179 src/enigma_event.cpp:188
 #: src/enigma_event.cpp:352 src/enigma_event.cpp:361
@@ -2848,7 +2824,7 @@ msgstr "Тихо"
 
 #: src/enigma_main.cpp:127 src/enigma_main.cpp:187
 msgid "toggle mute flag"
-msgstr "toggle mute flag"
+msgstr "Флаг молчания"
 
 #: src/enigma_main.cpp:129 src/enigma_main.cpp:142
 msgid "stop playback"
@@ -2920,7 +2896,7 @@ msgstr "Включить DVR"
 
 #: src/enigma_main.cpp:165
 msgid "toggle index mark"
-msgstr "toggle index mark"
+msgstr "Флаг индекса"
 
 #: src/enigma_main.cpp:167
 msgid "seek to next index mark"
@@ -3302,9 +3278,9 @@ msgid "Play"
 msgstr "Воспроизведение"
 
 #: src/enigma_main.cpp:6523
-#, fuzzy, c-format
+#, c-format
 msgid "%s was not found!"
-msgstr " не найден!"
+msgstr "%s не найден!"
 
 #: src/enigma_main.cpp:6674
 msgid ""
@@ -3413,9 +3389,8 @@ msgid "Reloading..."
 msgstr "Перезагрузка..."
 
 #: src/enigma_main.cpp:9127
-#, fuzzy
 msgid "Please wait..."
-msgstr "Подождите"
+msgstr "Подождите..."
 
 #: src/enigma_main.cpp:9146
 msgid "Service Menu"
@@ -3931,7 +3906,8 @@ msgstr ""
 "\n"
 "(1)Телевидение  (2)Радио  (3)Файлы\n"
 "(4)Информация  (5)Выключение  (6)Настройки\n"
-"(7)Игры  (8)Таймера  (9)Запись. . . . . . . . . .\n"
+"(7)Игры  (8)Таймера  (9)Запись\n"
+". . . . . . . . . .\n"
 "\n"
 "Использование:\n"
 "\n"
@@ -3979,9 +3955,8 @@ msgid "Browse..."
 msgstr "Обзор..."
 
 #: src/enigma_mount.cpp:1176
-#, fuzzy
 msgid "No device found"
-msgstr "Не найдено устройство для резер. копирования"
+msgstr "Устройство не найдено "
 
 #: src/enigma_picmanager.cpp:52
 msgid "Slide Viewer (1.6)"
@@ -4250,119 +4225,108 @@ msgid "enigma tuxtxt"
 msgstr "enigma tuxtxt"
 
 #: src/enigma_tuxtxt.cpp:35
-#, fuzzy
 msgid "toggle double height"
-msgstr "toggle mute flag"
+msgstr "Двойная высота"
 
 #: src/enigma_tuxtxt.cpp:36
 msgid "toggle splitscreen mode"
 msgstr "Переключение режима разделения экрана"
 
 #: src/enigma_tuxtxt.cpp:37
-#, fuzzy
 msgid "toggle transparency"
-msgstr "Изображение"
+msgstr "Прозрачность"
 
 #: src/enigma_tuxtxt.cpp:38
-#, fuzzy
 msgid "toggle hidden information"
-msgstr "Информация об обрудовании"
+msgstr "Скрытая информация"
 
 #: src/enigma_tuxtxt.cpp:88
 msgid "TuxTxt setup"
 msgstr "Настройка TuxTxt"
 
 #: src/enigma_tuxtxt.cpp:127
-#, fuzzy
 msgid "automatic"
-msgstr "Открыть Редактирование транспондеров для автосканирования"
+msgstr "Автоматически"
 
 #: src/enigma_tuxtxt.cpp:128
 msgid "Czech/Slovak"
-msgstr ""
+msgstr "Czech/Slovak"
 
 #: src/enigma_tuxtxt.cpp:129
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: src/enigma_tuxtxt.cpp:130
-#, fuzzy
 msgid "Estonian"
-msgstr "Кони"
+msgstr "Estonian"
 
 #: src/enigma_tuxtxt.cpp:131
-#, fuzzy
 msgid "French"
-msgstr "Частота:"
+msgstr "French"
 
 #: src/enigma_tuxtxt.cpp:132
 msgid "German"
-msgstr ""
+msgstr "German"
 
 #: src/enigma_tuxtxt.cpp:133
-#, fuzzy
 msgid "Italian"
-msgstr "Установлено %s"
+msgstr "Italian"
 
 #: src/enigma_tuxtxt.cpp:134
 msgid "Latvian/Lithuanian"
-msgstr ""
+msgstr "Latvian/Lithuanian"
 
 #: src/enigma_tuxtxt.cpp:135
-#, fuzzy
 msgid "Polish"
-msgstr "Плагины"
+msgstr "Polish"
 
 #: src/enigma_tuxtxt.cpp:136
 msgid "Portuguese/Spanish"
-msgstr ""
+msgstr "Portuguese/Spanish"
 
 #: src/enigma_tuxtxt.cpp:137
-#, fuzzy
 msgid "Romanian"
-msgstr "Романсы"
+msgstr "Romanian"
 
 #: src/enigma_tuxtxt.cpp:138
 msgid "Serbian/Croatian/Slovenian"
-msgstr ""
+msgstr "Serbian/Croatian/Slovenian"
 
 #: src/enigma_tuxtxt.cpp:139
 msgid "Swedish/Finnish/Hungarian"
-msgstr ""
+msgstr "Swedish/Finnish/Hungarian"
 
 #: src/enigma_tuxtxt.cpp:140
 msgid "Turkish"
-msgstr ""
+msgstr "Turkish"
 
 #: src/enigma_tuxtxt.cpp:141
 msgid "Serbian/Croatian"
-msgstr ""
+msgstr "Serbian/Croatian"
 
 #: src/enigma_tuxtxt.cpp:142
 msgid "Russian/Bulgarian"
-msgstr ""
+msgstr "Russian/Bulgarian"
 
 #: src/enigma_tuxtxt.cpp:143
 msgid "Ukranian"
-msgstr ""
+msgstr "Ukranian"
 
 #: src/enigma_tuxtxt.cpp:144
-#, fuzzy
 msgid "Greek"
-msgstr "Жанр"
+msgstr "Greek"
 
 #: src/enigma_tuxtxt.cpp:145
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebrew"
 
 #: src/enigma_tuxtxt.cpp:146
 msgid "Arabic"
-msgstr ""
+msgstr "Arabic"
 
 #: src/enigma_tuxtxt.cpp:267
-#, fuzzy
 msgid "no services on this transponder"
-msgstr "Поиск каналов телетекста на транспондере"
+msgstr "Нет каналов на транспондере"
 
 #: src/enigma_tuxtxt.cpp:345
 msgid "Searching for Teletext services on this Transponder"
@@ -4373,24 +4337,20 @@ msgid "Search"
 msgstr "Поиск"
 
 #: src/enigma_tuxtxt.cpp:619
-#, fuzzy
 msgid "switch to direct page selecting mode"
-msgstr "Переключиться в режим Файлы"
+msgstr "Включить на странице выбранный режим"
 
 #: src/enigma_tuxtxt.cpp:620
-#, fuzzy
 msgid "show previously selected page"
-msgstr "Открыть Меню списка каналов"
+msgstr "Показать предыдущую выбранную страницу"
 
 #: src/enigma_tuxtxt.cpp:621
-#, fuzzy
 msgid "go to next favourite page"
-msgstr "Переход к следующей части"
+msgstr "Перейти к следующей избранной странице"
 
 #: src/epgactions.h:14
-#, fuzzy
 msgid "EPG selector"
-msgstr "Выбор отображения EPG и работа с ним"
+msgstr "Выбор EPG"
 
 #: src/epgactions.h:15
 msgid "add this event as DVR Event to timer list"
@@ -4413,9 +4373,8 @@ msgid "show extended event information"
 msgstr "Показать расширенную информацию о таймерах"
 
 #: src/epgactions.h:20
-#, fuzzy
 msgid "search for event information"
-msgstr "Показать расширенную информацию о таймерах"
+msgstr "Поиск информации о позиции"
 
 #: src/epgsearch.cpp:339
 msgid "No genre"
@@ -4426,7 +4385,6 @@ msgid "Thriller"
 msgstr "Триллер"
 
 #: src/epgsearch.cpp:388
-#, fuzzy
 msgid "All services"
 msgstr "Все каналы"
 
@@ -4435,9 +4393,8 @@ msgid "Case sensitive"
 msgstr "Учитывать регистр"
 
 #: src/epgsearch.cpp:420
-#, fuzzy
 msgid "Start searching"
-msgstr "Поиск для "
+msgstr "Начало поиска"
 
 #: src/epgsearch.cpp:485
 msgid "in all services"
@@ -4452,14 +4409,12 @@ msgid "Searching for"
 msgstr "Поиск для "
 
 #: src/epgsearch.cpp:499
-#, fuzzy
 msgid "genre:"
-msgstr "Жанр"
+msgstr "Жанр:"
 
 #: src/epgwindow.cpp:111
-#, fuzzy
 msgid "no event data available"
-msgstr "Новая версия. Без изменения данных."
+msgstr "Данные не доступны"
 
 #: src/epgwindow.cpp:203
 msgid "EPG - "
@@ -6049,13 +6004,12 @@ msgstr ""
 "Для поиска доступных спутников нажмите OK. Или выберите спутник и нажмите OK."
 
 #: src/scan.cpp:390
-#, fuzzy
 msgid ""
 "To begin searching for a valid cable provider press OK, or choose your "
 "desired cable provider manually and press OK"
 msgstr ""
-"Для поиска доступных транспондеров нажмите OK. Или выберите транспондер и "
-"нажмите OK."
+"Для поиска доступных кабельных операторов нажмите OK. Или выберите оператора "
+"и нажмите OK."
 
 #: src/scan.cpp:393
 msgid ""
@@ -7132,18 +7086,16 @@ msgid "LCD"
 msgstr "LCD"
 
 #: src/setup_lcd.cpp:91
-#, fuzzy
 msgid "set LCD brightness ( left / right )"
-msgstr "Выбрать систему TV (ВЛЕВО, ВПРАВО)"
+msgstr "Установить яркость LCD (ВЛЕВО, ВПРАВО)"
 
 #: src/setup_lcd.cpp:96 src/setup_osd.cpp:264
 msgid "Contrast:"
 msgstr "Контраст:"
 
 #: src/setup_lcd.cpp:104
-#, fuzzy
 msgid "set LCD contrast ( left / right )"
-msgstr "Выбрать пропорции изображения (ВЛЕВО, ВПРАВО)"
+msgstr "Установить контрастность LCD (ВЛЕВО, ВПРАВО)"
 
 #: src/setup_lcd.cpp:109
 msgid "Standby:"
@@ -7151,12 +7103,11 @@ msgstr "Ожидание:"
 
 #: src/setup_lcd.cpp:117
 msgid "set LCD brightness for Standby Mode ( left / right )"
-msgstr ""
+msgstr "Яркость LCD в режиме Ождание (ВЛЕВО,ВПРАВО)"
 
 #: src/setup_lcd.cpp:124
-#, fuzzy
 msgid "Inverted"
-msgstr "Инверсия:"
+msgstr "Инвертирование"
 
 #: src/setup_lcd.cpp:126
 msgid "enable/disable inverted LCD (ok)"
@@ -8002,23 +7953,23 @@ msgstr "Выберите канал для дистанционного упра
 
 #: src/setup_rc.cpp:118
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/setup_rc.cpp:119
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/setup_rc.cpp:120
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: src/setup_rc.cpp:121
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: src/setup_rc.cpp:122
 msgid "80"
-msgstr ""
+msgstr "80"
 
 #: src/setup_rc.cpp:132
 msgid "Remote control style:"
@@ -8089,23 +8040,20 @@ msgid "Recording and playing"
 msgstr "Запись и Воспр-ние"
 
 #: src/setup_recordingplaying.cpp:33
-#, fuzzy
 msgid "Timeshift settings"
-msgstr "Пауза Timeshift"
+msgstr "Натсройка Timeshift"
 
 #: src/setup_recordingplaying.cpp:34
-#, fuzzy
 msgid "Timer settings"
-msgstr "Сохранить"
+msgstr "Настройка таймера"
 
 #: src/setup_recordingplaying.cpp:59
 msgid "Recordings on"
 msgstr "Записать в"
 
 #: src/setup_recordingplaying.cpp:94 src/setup_recordingplaying.cpp:316
-#, fuzzy
 msgid "Not mounted :"
-msgstr "Не подсоединено"
+msgstr "Не подсоединено:"
 
 #: src/setup_recordingplaying.cpp:101
 msgid ""
@@ -8156,17 +8104,15 @@ msgstr "Записать телетект в фильм"
 
 #: src/setup_recordingplaying.cpp:185
 msgid "You are recording now and cannot change all settings"
-msgstr ""
+msgstr "Идёт запись, невозможно изменить настройки."
 
 #: src/setup_recordingplaying.cpp:195
-#, fuzzy
 msgid "Timeshift"
 msgstr "Пауза Timeshift"
 
 #: src/setup_recordingplaying.cpp:200
-#, fuzzy
 msgid "Edit the timeshift options"
-msgstr "Изменение параметров таймера"
+msgstr "Изменение параметров Timeshift"
 
 #: src/setup_recordingplaying.cpp:211
 msgid "Edit the recording timer options"
@@ -8185,9 +8131,8 @@ msgstr ""
 "другие каналы"
 
 #: src/setup_recordingplaying.cpp:281
-#, fuzzy
 msgid "Timeshifts on"
-msgstr "Пауза Timeshift"
+msgstr "Timeshift включён"
 
 #: src/setup_recordingplaying.cpp:323
 msgid ""
@@ -8198,18 +8143,16 @@ msgstr ""
 "'timeshift')"
 
 #: src/setup_recordingplaying.cpp:334
-#, fuzzy
 msgid "Timeshift delay"
-msgstr "Пауза Timeshift"
+msgstr "Задержка Timeshift"
 
 #: src/setup_recordingplaying.cpp:341
 msgid "Number of seconds the recording is delayed after switching channel"
 msgstr "Задержка записи после переключения на канал, сек"
 
 #: src/setup_recordingplaying.cpp:346
-#, fuzzy
 msgid "Timeshift recording time"
-msgstr "Установить время окончания записи"
+msgstr "Время записи Timeshift "
 
 #: src/setup_recordingplaying.cpp:353
 msgid "Maximum number of recorded minutes"
@@ -8539,9 +8482,8 @@ msgid "You are running in multiboot, moving /var is disabled"
 msgstr "Включена мультизагрузка. Перемещение /var блокировано"
 
 #: src/setup_swapandvar.cpp:310
-#, fuzzy
 msgid "Creating swap file"
-msgstr "Ошибка создания файловой ситемы."
+msgstr "Создание файла подкачки"
 
 #: src/setup_swapandvar.cpp:381 src/setup_swapandvar.cpp:387
 msgid "harddisk"
@@ -8581,7 +8523,7 @@ msgid "Are you sure?"
 msgstr "Вы уверены?"
 
 #: src/setup_swapandvar.cpp:451
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s, please wait!"
 msgstr "%s %s, подождите!"
 
@@ -9255,32 +9197,27 @@ msgstr ""
 
 #: src/sselect.cpp:2338
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: src/sselect.cpp:2339
-#, fuzzy
 msgid "Select"
-msgstr "Выбор LNB"
+msgstr "Выбор"
 
 #: src/sselect.cpp:2340
-#, fuzzy
 msgid "New Directory"
-msgstr "Каталог"
+msgstr "Новый каталог"
 
 #: src/sselect.cpp:2357
-#, fuzzy
 msgid "Enter name of new directory:"
-msgstr "Каталог на сервере"
+msgstr "Введите имя нового каталога:"
 
 #: src/sselect.cpp:2358
-#, fuzzy
 msgid "Create Directory"
-msgstr "Каталог ввода"
+msgstr "Создать каталог"
 
 #: src/sselect.cpp:2367
-#, fuzzy
 msgid "Error creating directory"
-msgstr "Перейти на каталог выше"
+msgstr "Ошибка создания каталога"
 
 #: src/streaminfo.cpp:183
 msgid "album"
@@ -9841,6 +9778,8 @@ msgid ""
 "Sorry, you can not add a time shifted service manually to the timer.\n"
 "Please close the Timer and use the EPG of the service you wish to add!"
 msgstr ""
+"Вы не можете добавить TimeShift к этому таймеру.\n"
+"Закройте таймер и используйте EPG для добавления."
 
 #: src/time_settings.cpp:31
 msgid "Time"
@@ -9891,7 +9830,6 @@ msgid "To change time correction you must tune first to any transponder"
 msgstr "Для коррекции времени нужно сначала настроится на транспондер"
 
 #: src/time_settings.cpp:125
-#, fuzzy
 msgid "time correction change error"
 msgstr "Ошибка коррекции времени"
 
@@ -10279,9 +10217,8 @@ msgid "Default LNB type"
 msgstr "Тип LNB по умолчанию"
 
 #: src/wizard_scan.cpp:157
-#, fuzzy
 msgid "Select your default LNB type"
-msgstr "Тип LNB по умолчанию"
+msgstr "Выберите тип LNB по умолчанию"
 
 #: src/wizard_scan.cpp:166
 msgid "Select the LNB used in your region"
