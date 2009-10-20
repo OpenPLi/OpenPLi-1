@@ -1,0 +1,98 @@
+#!/bin/bash
+
+export CVS_RSH=ssh
+
+if [ "${DISTROVERSION}x" = "x" ]; then
+	DISTROVERSION=plicurrent
+fi
+
+# Default: build image from /dreambox/oe/build if these env. variables are not set
+if [ "${OE_ROOT}x" = "x" ]; then
+	OE_ROOT=/dreambox/oe
+fi
+
+if [ "${OE_BUILD}x" = "x" ]; then
+	OE_BUILD=${OE_ROOT}/build
+fi
+
+if [ "${IMAGEDIR}x" = "x" ]; then
+	IMAGEDIR=${OE_ROOT}
+fi
+
+MACHINE=`grep "^MACHINE = " $OE_BUILD/conf/local.conf | sed "s/MACHINE = \"//" | sed "s/\"$//"`
+
+OE_WORK=$OE_BUILD/tmp/work
+OE_STAMPS=$OE_BUILD/tmp/stamps
+OE_SOURCES=$OE_ROOT/sources
+OE_IPK=$OE_BUILD/tmp/deploy/ipk
+OE_IMAGES=$OE_BUILD/tmp/deploy/images
+
+#old images can be cleared
+rm -f $OE_IMAGES/*
+
+#you have to define FORCECLEAN=1 to clean some more
+if [ "${FORCECLEAN}" = "1" ]; then
+	rm -rf $OE_WORK/enigma-$DISTROVERSION-*
+	rm -rf $OE_WORK/tuxbox-plugins-$DISTROVERSION-*
+	rm -rf $OE_WORK/tuxbox-plugins-dev-$DISTROVERSION-*
+	rm -rf $OE_WORK/tuxbox-stream-*
+	rm -rf $OE_WORK/libtuxtxt-*
+	rm -rf $OE_WORK/plimgr-*
+	rm -rf $OE_WORK/pli-files-*
+	rm -rf $OE_WORK/dreambox-secondstage-*
+	rm -rf $OE_WORK/scramble-*
+	rm -rf $OE_WORK/db-epg-*
+
+	rm -f $OE_STAMPS/enigma-$DISTROVERSION-*
+	rm -f $OE_STAMPS/tuxbox-plugins-$DISTROVERSION-*
+	rm -f $OE_STAMPS/tuxbox-plugins-dev-$DISTROVERSION-*
+	rm -f $OE_STAMPS/tuxbox-stream-*
+	rm -f $OE_STAMPS/libtuxtxt-*
+	rm -f $OE_STAMPS/plimgr-*
+	rm -f $OE_STAMPS/pli-files-*
+	rm -f $OE_STAMPS/dreambox-secondstage-*
+	rm -f $OE_STAMPS/scramble-*
+	rm -f $OE_STAMPS/db-epg-*
+
+	rm -f $OE_IPK/enigma-locale-*
+	rm -f $OE_IPK/enigma_*
+	rm -f $OE_IPK/tuxbox-plugin-*
+	rm -f $OE_IPK/tuxbox-stream_*
+	rm -f $OE_IPK/libtuxtxt-*
+	rm -f $OE_IPK/plimgr_*
+	rm -f $OE_IPK/pli-files_*
+	rm -f $OE_IPK/scramble*
+	rm -f $OE_IPK/db-epg*
+
+	rm -f $OE_SOURCES/enigma_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/plugins_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/allboxes_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/${MACHINE}_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/secondstage_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/scramble_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/libs_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/stream_svn.dreamvcr.com*
+	rm -f $OE_SOURCES/db_epg_svn.dreamvcr.com*
+fi
+
+cd $OE_ROOT && svn up || ( echo "Error during svn update started in $OE_ROOT"; exit 1 )
+
+#make sure we build a clean index for our feed
+rm -f $OE_BUILD/tmp/deploy/ipk/Packages
+rm -f $OE_BUILD/tmp/deploy/ipk/Packages.gz
+
+cd $OE_BUILD && . env.source && bitbake dreambox-image || ( echo "Error building image started in $OE_BUILD"; exit 1 )
+
+ENIGMADIR=`find $OE_WORK -maxdepth 1 -name enigma-$DISTROVERSION-\* | tail -1`/enigma
+#IMAGENAME=`find $OE_WORK -maxdepth 1 -name pli-files-\* | tail -1`
+#IMAGENAME=`basename $IMAGENAME`
+#IMAGENAME=${IMAGENAME#pli-files-}
+#IMAGENAME=${IMAGENAME%-*}
+FILENAME="OpenPLi-unstable-${MACHINE}-`date +%Y%m%d`"
+
+mv $OE_IMAGES/*.nfi $OE_IMAGES/$FILENAME.nfi
+zip -j $OE_IMAGES/$FILENAME $OE_IMAGES/$FILENAME.nfi
+
+
+rsync $OE_IMAGES/$FILENAME.zip rsync://upload.pli-images.org:8730::/builds/$IMAGEDIR/
+
