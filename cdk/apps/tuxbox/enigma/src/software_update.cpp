@@ -108,9 +108,9 @@ void eSoftwareUpdate::stop_mode()
 {
 	eMessageBox messagebox(_("Are you sure you want to put\n"
 				"your box in **STOP** mode?\n"
-				"When box is in **STOP** mode\n"
-				"you need to connect to box via\n"
-				"your webbrowser and flash the new image\n"
+				"When the box is in **STOP** mode\n"
+				"you need to connect to it with\n"
+				"a webbrowser and flash the new image\n"
 				"Make sure you make a backup of\n"
 				"your settings before continuing"), _("Flash new image"), eMessageBox::iconInfo | eMessageBox::btYes | eMessageBox::btNo, eMessageBox::btNo );
 
@@ -119,7 +119,7 @@ void eSoftwareUpdate::stop_mode()
 	messagebox.hide();
 	if ( ret == eMessageBox::btYes )
 	{
-		system("mount /boot -o remount,rw && echo 1 > /boot/stop");
+		system("mount /boot -o remount,rw && mv /boot/autoexec.bat /boot/autoexec.bat.ignore");
 		// Now reboot the box
 		eZap::getInstance()->quit(4);
 	}
