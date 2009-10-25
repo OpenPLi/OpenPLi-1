@@ -25,7 +25,7 @@
  *  $Revision$
  */
 
-#define RELEASENAME "jade"
+#define RELEASENAME "openpli"
 #define EHTTPDOWNLOAD
 
 #include <stdio.h>
