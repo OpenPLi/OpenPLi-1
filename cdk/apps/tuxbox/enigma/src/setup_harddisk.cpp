@@ -595,9 +595,10 @@ void eHarddiskMenu::s_format()
 #endif
 				, host, bus, target).c_str());
 
-		eMessageBox::ShowBox(
+		eMessageBox msg(
 			_("Please wait while formatting the harddisk.\nThis might take some minutes.\n"),
 			_("formatting harddisk..."), 0);
+		msg.show();
 
 		eDebug("HDDformat: running sfdisk to partition the disk");
 		FILE *f=popen(eString().sprintf(
