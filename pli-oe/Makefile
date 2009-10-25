@@ -87,6 +87,7 @@ $(OE_BASE)/${BUILDDIR}/env.source:
 	echo 'export LD_LIBRARY_PATH=' >> $@
 	echo 'export LANG=C' >> $@
 	echo 'export CVS_RSH=ssh' >> $@
+	echo 'umask 0022' >> $@
 	cat $@
 
 $(OE_BASE)/openembedded: $(OE_BASE)/openembedded/.git
