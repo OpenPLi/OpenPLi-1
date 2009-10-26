@@ -199,7 +199,6 @@ void eSystemInfo::init_eSystemInfo()
 					hashdd = canrecordts = cantimeshift = 1;
 					isOE = 1;
 					hasscartswitch = 0;
-					alphaincrement=25;
 					hwtype = DM600PVR;
 					defaulttimertype=ePlaylistEntry::RecTimerEntry|ePlaylistEntry::recDVR;
 					break;
