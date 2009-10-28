@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # target platform: dm500plus, dm600pvr, dm7020, dm7025, dm800, dm8000
-MACHINE = dm8000
+MACHINE ?= dm8000
 BUILDDIR = build-${MACHINE}
 
 # for a list of some other repositories have
