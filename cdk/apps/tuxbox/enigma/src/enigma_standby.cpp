@@ -1,4 +1,5 @@
 #include <enigma_standby.h>
+#include <enigma_main.h>
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -93,6 +94,7 @@ int eZapStandby::eventHandler(const eWidgetEvent &event)
 		return 0;
 	case eWidgetEvent::execBegin:
 	{
+		eZapMain::getInstance()->savePlaylist();
 		eConfig::getInstance()->flush();
 		/*emit*/ enterStandby();
 		struct stat s;
