@@ -83,12 +83,6 @@ mount -t jffs2 /dev/mtdblock/1 /var_flash
 # If there are backup files now is the time to copy them back ;-)
 [ -d "/tmp/var_backup" ] && /bin/restoreflash.sh
 
-#create empty keyfile for keyfile updater
-[ ! -f "/var/keys/irdeto" ]      && touch /var/keys/irdeto
-[ ! -f "/var/keys/SoftCam.Key" ] && touch /var/keys/SoftCam.Key
-
-[ ! -d "/var/tuxbox/scce" ] && ln -s /var/scce /var/tuxbox/scce
-
 ln -s /dev/dvb/card0/demux0 /dev/dvb/card0/demux1
 ln -s /dev/dvb/card0/dvr0 /dev/dvb/card0/dvr1
 

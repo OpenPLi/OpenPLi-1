@@ -147,12 +147,6 @@ fi
 # Reread config file
 [ -e /var/etc/rc.config ] && . /var/etc/rc.config || . /var_init/etc/rc.config
 
-#create empty keyfile for keyfile updater
-[ ! -f "/var/keys/irdeto" ]      && touch /var/keys/irdeto
-[ ! -f "/var/keys/SoftCam.Key" ] && touch /var/keys/SoftCam.Key
-
-[ ! -d "/var/tuxbox/scce" ] && ln -s /var/scce /var/tuxbox/scce
-
 # create a symlink to /dev/ca1 as used by newcamd emu
 ln -sf ca0 /dev/ca1
 
