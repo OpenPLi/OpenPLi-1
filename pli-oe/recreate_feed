@@ -1,12 +1,12 @@
 #!/bin/sh
 
-pkg_dir=`pwd`/build/tmp/deploy/ipk/
+pkg_dir=$1
 if [ -z $pkg_dir ] || [ ! -d $pkg_dir ]; then
-  echo "Usage: ipkg-make-index <package_directory>"
+  echo "Usage: recreate_feed <package_directory>"
   exit 1
 fi
 
-for pkg in `find $pkg_dir -name '*.ipk' -maxdepth 1 | sort`; do
+for pkg in `find $pkg_dir -maxdepth 1 -name '*.ipk' | sort`; do
   filename=`basename $pkg`
   pkgname=${filename%%_*}
   echo "Generating index for package ${pkgname}" >&2
