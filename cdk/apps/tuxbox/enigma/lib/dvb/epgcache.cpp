@@ -800,7 +800,7 @@ void eEPGCache::cleanLoop()
 	if ( isRunning || (temp.size() && haveData) || !epgStore )
 	{
 		CleanTimer.startLongTimer(5);
-		eDebug("[EPGC] schedule cleanloop");
+		eDebug("[EPGC] busy, delay cleanloop");
 		return;
 	}
 	
