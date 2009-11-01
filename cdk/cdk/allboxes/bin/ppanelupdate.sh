@@ -4,7 +4,7 @@
 # Downloads ppanel(s) from the server and installs them if the versions differ
 
 VERSION=0.12
-RELEASE=jade
+RELEASE=openpli
 
 #
 # Check for new version
