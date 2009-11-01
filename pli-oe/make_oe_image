@@ -2,8 +2,13 @@
 
 export CVS_RSH=ssh
 
+if [ "${OE_BUILD}x" = "x" -a "${MACHINE}x" = "x" ]; then
+	echo "ERROR: either OE_BUILD or MACHINE must be defined!"
+	exit
+fi
+
 if [ "${DISTROVERSION}x" = "x" ]; then
-	DISTROVERSION=plicurrent
+	DISTROVERSION=openpli
 fi
 
 # Default: build image from /dreambox/oe/build if these env. variables are not set
@@ -12,14 +17,18 @@ if [ "${OE_ROOT}x" = "x" ]; then
 fi
 
 if [ "${OE_BUILD}x" = "x" ]; then
-	OE_BUILD=${OE_ROOT}/build
+	#when OE_BUILD is not defined, MACHINE must be defined (checked above)
+	OE_BUILD=${OE_ROOT}/build-${MACHINE}
 fi
 
 if [ "${IMAGEDIR}x" = "x" ]; then
 	IMAGEDIR=${OE_ROOT}
 fi
 
-MACHINE=`grep "^MACHINE = " $OE_BUILD/conf/local.conf | sed "s/MACHINE = \"//" | sed "s/\"$//"`
+if [ "${MACHINE}x" = "x" ]; then
+	#when MACHINE is not defined, OE_BUILD must be defined (checked above)
+	MACHINE=`grep "^MACHINE = " $OE_BUILD/conf/local.conf | sed "s/MACHINE = \"//" | sed "s/\"$//"`
+fi
 
 OE_WORK=$OE_BUILD/tmp/work
 OE_STAMPS=$OE_BUILD/tmp/stamps
