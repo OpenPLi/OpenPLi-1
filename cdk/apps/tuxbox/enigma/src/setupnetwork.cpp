@@ -695,10 +695,10 @@ void eZapNetworkSetup::fieldSelected(int *number)
 
 void eZapNetworkSetup::dhcpStateChanged(int state)
 {
-	// Issue 689 netmask->setActive(!state, combo_type);
-	ip->setActive(!state, netmask);
-	gateway->setActive(!state, bOK);
-	dns->setActive(!state, gateway);
+	ip->setActive(!state, dhcp, true);
+	netmask->setActive(!state, ip, true);
+	dns->setActive(!state, netmask, true);
+	gateway->setActive(!state, dns, true);
 }
 
 void eZapNetworkSetup::okPressed()
