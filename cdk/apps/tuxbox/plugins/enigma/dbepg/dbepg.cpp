@@ -123,7 +123,7 @@ EpgConfigDialog::EpgConfigDialog():
 	makeNewLabel(this, "Update at", 190, yPos(), 130, widgetHeight());
 	cStartTime = new eNumber( this, 2, 0, 59, 2, 0, 0);
 	setWidgetGeom( cStartTime , 310, yPos(), 80, widgetHeight() );
-	cStartTime->setHelpText("Time EPG will be retreived");
+	cStartTime->setHelpText("Time EPG will be retrieved");
 	cStartTime->loadDeco();
 	cStartTime->setFlags( eNumber::flagDrawPoints|eNumber::flagFillWithZeros|eNumber::flagTime );
 	cStartTime->show();
