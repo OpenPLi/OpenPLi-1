@@ -19,9 +19,8 @@ GIT_BRANCH = master
 #UPGRADE_FROM_MONOTONE=1
 
 # you should not need to change anything below
-BB_VERSION = 1.4.2
-SVN = svn
-SVN_BITBAKE_PARENT = "svn://svn.berlios.de/bitbake/"
+BB_URL = git://git.opendreambox.org/git/bitbake
+BB_BRANCH = 1.4.2-git
 
 GIT = git
 
@@ -44,12 +43,16 @@ all: initialize
 	@echo "$(BUILDDIR)/tmp/deploy/images/"
 	@echo 
 
-bb:
-	$(SVN) checkout $(SVN_BITBAKE_PARENT)/tags/bitbake-$(BB_VERSION) bb
-	#fix bb's git fetch command for recent git versions
-	${SED} -i 's/pull/fetch/g' bb/lib/bb/fetch/git.py
+bb: bb/.git
 
-
+bb/.git:
+	$(GIT) clone -n $(BB_URL) bb
+	cd bb && ( \
+		if [ -n "$(GIT_AUTHOR_EMAIL)" ]; then git config user.email "$(GIT_AUTHOR_EMAIL)"; fi; \
+		if [ -n "$(GIT_AUTHOR_NAME)" ]; then git config user.name "$(GIT_AUTHOR_NAME)"; fi; \
+		$(GIT) branch --track $(BB_BRANCH) origin/$(BB_BRANCH) || true; \
+		$(GIT) checkout -f $(BB_BRANCH) \
+	)
 
 .PHONY: image initialize openembedded-update openembedded-update-all
 
