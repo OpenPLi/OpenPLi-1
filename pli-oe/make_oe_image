@@ -110,4 +110,10 @@ mkdir $OE_BUILD/tmp/deploy/3rd-party
 rsync rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/upload/*.ipk $OE_BUILD/tmp/deploy/3rd-party/
 cd $OE_ROOT
 ./recreate_feed $OE_BUILD/tmp/deploy/3rd-party
-rsync $OE_BUILD/tmp/deploy/3rd-party/* rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/$MACHINE/
+rsync -h -r --timeout=600 --progress --delete-during $OE_BUILD/tmp/deploy/3rd-party/ rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/$MACHINE/
+
+if [ ! -f $OE_BUILD/tmp/deploy/ipk/Packages.gz ]; tjen
+	echo "Feed not complete!"
+	exit
+fi
+rsync -h -r --timeout=600 --progress --delete-during --exclude morgue $OE_BUILD/tmp/deploy/ipk/ rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/$MACHINE/
