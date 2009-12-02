@@ -14,6 +14,10 @@ using namespace ::std;
 #include "wrappers.h"
 #include "configtree.h"
 
+const char* SERVICESLINKS_DIR 	= "/var/etc/plimgr/services";
+const char* EMULINKS_DIR 	= "/var/etc/plimgr/cams";
+const char* CARDSERVERLINKS_DIR	= "/var/etc/plimgr/cardservers";
+
 #ifdef HAVE_LIBXML2
 void CConfigTree::StartElement(void *user_data, const xmlChar *name, const xmlChar **attrs)
 {
@@ -33,6 +37,31 @@ void CConfigTree::Characters(void *user_data, const xmlChar *ch, int len)
 	pUser->CharacterDataHandler((const char*)ch, len);
 }
 #endif
+
+CConfigTree::CServiceInfo::CServiceInfo(const char *pcName, const char *pcVersion)
+{
+	if (pcName) m_strName = pcName;
+	if (pcVersion) m_strVersion = pcVersion;
+}
+
+CConfigTree::CServiceInfo::CServiceInfo(const char *pcName)
+{
+	if (pcName) m_strName = pcName;
+}
+
+CConfigTree::CServiceInfo::~CServiceInfo()
+{
+}
+
+std::string CConfigTree::CServiceInfo::GetName()
+{
+	return m_strName;
+}
+
+std::string CConfigTree::CServiceInfo::GetVersion()
+{
+	return m_strVersion;
+}
 
 CConfigTree::CServiceConfig::CServiceConfig(const char *pcName)
 {
@@ -90,10 +119,22 @@ CConfigTree::CStickySetting::~CStickySetting()
 	if (m_pcName) delete m_pcName;
 }
 
-void CConfigTree::CStickySetting::SetStickyEmu(const char *pcName)
+int CConfigTree::CStickySetting::SetEmu(const char *pcName, std::vector<CServiceInfo*> &emulist)
 {
 	if (m_pEmu) delete m_pEmu;
-	m_pEmu = new CEmuConfig(pcName);
+	m_pEmu = NULL;
+	if (pcName && pcName[0])
+	{
+		for (unsigned int i = 0; i < emulist.size(); i++)
+		{
+			if (emulist[i]->GetName() == pcName)
+			{
+				m_pEmu = new CEmuConfig(pcName);
+				break;
+			}
+		}
+	}
+	return 0;
 }
 
 CConfigTree::CStickyProvider::CStickyProvider(int iID, const char *pcName)
@@ -161,11 +202,32 @@ CConfigTree::CConfigTree()
 	m_pDefaultEmu = NULL;
 	m_pCardserver = NULL;
 
+	ScanForServices();
 	ReadConfig();
 }
 
 CConfigTree::~CConfigTree()
 {
+	std::vector<CServiceInfo*>::iterator it;
+	for (it = m_EmuList.begin(); it != m_EmuList.end(); )
+	{
+		CServiceInfo *pInfo = *it;
+		it = m_EmuList.erase(it);
+		delete pInfo;
+	}
+	for (it = m_CardServerList.begin(); it != m_CardServerList.end(); )
+	{
+		CServiceInfo *pInfo = *it;
+		it = m_CardServerList.erase(it);
+		delete pInfo;
+	}
+	for (it = m_ServiceList.begin(); it != m_ServiceList.end(); )
+	{
+		CServiceInfo *pInfo = *it;
+		it = m_ServiceList.erase(it);
+		delete pInfo;
+	}
+
 	{
 		std::list<CStickyProvider*>::iterator it;
 		for (it = m_Providers.begin(); it != m_Providers.end(); )
@@ -271,12 +333,12 @@ void CConfigTree::EndElementHandler(const XML_Char *name)
 		if (m_pParsingChannel)
 		{
 			m_eParseState = CHANNEL;
-			if (m_strElementData.size()) m_pParsingChannel->SetEmu(m_strElementData.c_str());
+			if (m_strElementData.size()) m_pParsingChannel->SetEmu(m_strElementData.c_str(), m_EmuList);
 		}
 		else if (m_pParsingProvider)
 		{
 			m_eParseState = PROVIDER;
-			if (m_strElementData.size()) m_pParsingProvider->SetEmu(m_strElementData.c_str());
+			if (m_strElementData.size()) m_pParsingProvider->SetEmu(m_strElementData.c_str(), m_EmuList);
 		}
 		else
 		{
@@ -397,7 +459,17 @@ int CConfigTree::CreateDefaultEmu(const char *pcName)
 		delete m_pDefaultEmu;
 		m_pDefaultEmu = NULL;
 	}
-	if (pcName && pcName[0]) m_pDefaultEmu = new CConfigTree::CEmuConfig(pcName);
+	if (pcName && pcName[0])
+	{
+		for (unsigned int i = 0; i < m_EmuList.size(); i++)
+		{
+			if (m_EmuList[i]->GetName() == pcName)
+			{
+				m_pDefaultEmu = new CConfigTree::CEmuConfig(pcName);
+				break;
+			}
+		}
+	}
 	return 0;
 }
 
@@ -408,7 +480,17 @@ int CConfigTree::CreateCardserver(const char *pcName)
 		delete m_pCardserver;
 		m_pCardserver = NULL;
 	}
-	if (pcName && pcName[0]) m_pCardserver = new CConfigTree::CCardserverConfig(pcName);
+	if (pcName && pcName[0])
+	{
+		for (unsigned int i = 0; i < m_CardServerList.size(); i++)
+		{
+			if (m_CardServerList[i]->GetName() == pcName)
+			{
+				m_pCardserver = new CConfigTree::CCardserverConfig(pcName);
+				break;
+			}
+		}
+	}
 	return 0;
 }
 
@@ -511,11 +593,11 @@ int CConfigTree::StoreCurrentSettings(const char *pcDefaultEmu, int iProviderID,
 			if (pChannel)
 			{
 				cout << "set channel emu" << endl;
-				pChannel->SetEmu(pcChannelEmu);
+				pChannel->SetEmu(pcChannelEmu, m_EmuList);
 			}
 
 			cout << "set provider emu" << endl;
-			pProvider->SetEmu(pcProviderEmu);
+			pProvider->SetEmu(pcProviderEmu, m_EmuList);
 		}
 	}
 
@@ -740,3 +822,121 @@ int CConfigTree::SetService(const char *pcName, int iOn)
 	return returnValue;
 }
 
+int CConfigTree::linkmatch(const struct dirent *entry)
+{
+	if (!entry) return 0;
+	if (entry->d_name[0] == '.') return 0;
+	return 1;
+}
+
+void CConfigTree::ScanForServices()
+{
+	int i;
+	int number;
+	int index;
+	std::vector<CServiceInfo*>::iterator it;
+	struct dirent **namelist = NULL;
+	number = scandir(EMULINKS_DIR, &namelist, linkmatch, NULL); /* no sorting */
+	index = 0;
+	for (it = m_EmuList.begin(); it != m_EmuList.end(); )
+	{
+		CServiceInfo *pInfo = *it;
+		it = m_EmuList.erase(it);
+		delete pInfo;
+	}
+	for (i = 0; i < number; i++)
+	{
+		FILE *pFile;
+		std::string strFileName;
+		if (!namelist[i] || !namelist[i]->d_name) continue;
+		strFileName = (string)EMULINKS_DIR + (string)"/" + (string)namelist[i]->d_name;
+		pFile = fopen(strFileName.c_str(), "r");
+		if (pFile)
+		{
+			char pcContents[64];
+			int iResult = 0;
+			if ((iResult = fread(pcContents, 1, sizeof(pcContents) - 1, pFile)) > 0)
+			{
+				pcContents[iResult] = 0;
+				m_EmuList.push_back(new CServiceInfo(namelist[i]->d_name, pcContents));
+			}
+			else
+			{
+				m_EmuList.push_back(new CServiceInfo(namelist[i]->d_name));
+			}
+			fclose(pFile);
+		}
+		free(namelist[i]);
+	}
+	if (namelist) free(namelist);
+
+	namelist = NULL;
+	number = scandir(CARDSERVERLINKS_DIR, &namelist, linkmatch, NULL); /* no sorting */
+	index = 0;
+	for (it = m_CardServerList.begin(); it != m_CardServerList.end(); )
+	{
+		CServiceInfo *pInfo = *it;
+		it = m_CardServerList.erase(it);
+		delete pInfo;
+	}
+	for (i = 0; i < number; i++)
+	{
+		FILE *pFile;
+		std::string strFileName;
+		if (!namelist[i] || !namelist[i]->d_name) continue;
+		strFileName = (string)CARDSERVERLINKS_DIR + (string)"/" + (string)namelist[i]->d_name;
+		pFile = fopen(strFileName.c_str(), "r");
+		if (pFile)
+		{
+			char pcContents[64];
+			int iResult = 0;
+			if ((iResult = fread(pcContents, 1, sizeof(pcContents) - 1, pFile)) > 0)
+			{
+				pcContents[iResult] = 0;
+				m_CardServerList.push_back(new CServiceInfo(namelist[i]->d_name, pcContents));
+			}
+			else
+			{
+				m_CardServerList.push_back(new CServiceInfo(namelist[i]->d_name));
+			}
+			fclose(pFile);
+		}
+		free(namelist[i]);
+	}
+	if (namelist) free(namelist);
+
+	namelist = NULL;
+	number = scandir(SERVICESLINKS_DIR, &namelist, linkmatch, NULL); /* no sorting */
+	index = 0;
+	for (it = m_ServiceList.begin(); it != m_ServiceList.end(); )
+	{
+		CServiceInfo *pInfo = *it;
+		it = m_ServiceList.erase(it);
+		delete pInfo;
+	}
+	for (i = 0; i < number; i++)
+	{
+		FILE *pFile;
+		std::string strFileName;
+		if (!namelist[i] || !namelist[i]->d_name) continue;
+		strFileName = (string)SERVICESLINKS_DIR + (string)"/" + (string)namelist[i]->d_name;
+		pFile = fopen(strFileName.c_str(), "r");
+		if (pFile)
+		{
+			char pcContents[64];
+			int iResult = 0;
+			if ((iResult = fread(pcContents, 1, sizeof(pcContents) - 1, pFile)) > 0)
+			{
+				pcContents[iResult] = 0;
+				m_ServiceList.push_back(new CServiceInfo(namelist[i]->d_name, pcContents));
+			}
+			else
+			{
+				m_ServiceList.push_back(new CServiceInfo(namelist[i]->d_name));
+			}
+			fclose(pFile);
+		}
+		free(namelist[i]);
+	}
+	if (namelist) free(namelist);
+}

@@ -1,4 +1,4 @@
-bin_PROGRAMS = plimgr pli_pmthelper pli_ecmhelper pli_clfb pip flashtool
+bin_PROGRAMS = plimgr pli_pmthelper pli_ecmhelper
 
 plimgr_CPPFLAGS = -fno-exceptions -fno-check-new -fno-rtti
 

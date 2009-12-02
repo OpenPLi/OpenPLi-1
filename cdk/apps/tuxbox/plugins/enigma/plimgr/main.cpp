@@ -28,7 +28,6 @@ using namespace ::std;
 #include <sys/un.h>
 #include <unistd.h>
 #include <alloca.h>
-#include <dirent.h>
 #include <errno.h>
 
 #include "main.h"
@@ -45,10 +44,6 @@ const char* PMT_SOCKET = "/tmp/.listen.camd.socket";
 #ifndef VERSION
 const char* VERSION = "1.4";
 #endif
-
-const char* SERVICESLINKS_DIR 	= "/var/etc/plimgr/services";
-const char* EMULINKS_DIR 	= "/var/etc/plimgr/cams";
-const char* CARDSERVERLINKS_DIR	= "/var/etc/plimgr/cardservers";
 
 /*
  * ca_pmt_list_management values:
@@ -110,35 +105,6 @@ int main(int argc, char *argv[])
 	}
 }
 
-CPLiManager::CServiceInfo::CServiceInfo(const char *pcName, const char *pcVersion)
-{
-	m_pcName = m_pcVersion = NULL;
-	if (pcName) m_pcName = strdup(pcName);
-	if (pcVersion) m_pcVersion = strdup(pcVersion);
-}
-
-CPLiManager::CServiceInfo::CServiceInfo(const char *pcName)
-{
-	m_pcName = m_pcVersion = NULL;
-	if (pcName) m_pcName = strdup(pcName);
-}
-
-CPLiManager::CServiceInfo::~CServiceInfo()
-{
-	if (m_pcName) free(m_pcName);
-	if (m_pcVersion) free(m_pcVersion);
-}
-
-const char *CPLiManager::CServiceInfo::GetName()
-{
-	return m_pcName;
-}
-
-const char *CPLiManager::CServiceInfo::GetVersion()
-{
-	return m_pcVersion;
-}
-
 CPLiManager::CPLiManager()
 {
 	m_bStartup = true;
@@ -154,29 +120,8 @@ CPLiManager::CPLiManager()
 
 CPLiManager::~CPLiManager()
 {
-	std::vector<CServiceInfo*>::iterator it;
-
 	if (m_pRunServices) delete m_pRunServices;
 	if (m_pConfigTree) delete m_pConfigTree;
-
-	for (it = m_EmuList.begin(); it != m_EmuList.end(); )
-	{
-		CServiceInfo *pInfo = *it;
-		it = m_EmuList.erase(it);
-		delete pInfo;
-	}
-	for (it = m_CardServerList.begin(); it != m_CardServerList.end(); )
-	{
-		CServiceInfo *pInfo = *it;
-		it = m_CardServerList.erase(it);
-		delete pInfo;
-	}
-	for (it = m_ServiceList.begin(); it != m_ServiceList.end(); )
-	{
-		CServiceInfo *pInfo = *it;
-		it = m_ServiceList.erase(it);
-		delete pInfo;
-	}
 
 	if (m_piCmdPipe[0] >= 0)
 	{
@@ -214,139 +159,6 @@ void CPLiManager::DaemonInit(const char *pcLogFile)
 	freopen(pcLogFile, "a", stderr);
 }
 
-int CPLiManager::linkmatch(const struct dirent *entry)
-{
-	if (!entry) return 0;
-	if (entry->d_name[0] == '.') return 0;
-	return 1;
-}
-
-void CPLiManager::ScanForEmus()
-{
-	int i;
-	int number;
-	int index;
-	std::vector<CServiceInfo*>::iterator it;
-	struct dirent **namelist = NULL;
-	number = scandir(EMULINKS_DIR, &namelist, linkmatch, NULL); /* no sorting */
-	index = 0;
-	for (it = m_EmuList.begin(); it != m_EmuList.end(); )
-	{
-		CServiceInfo *pInfo = *it;
-		it = m_EmuList.erase(it);
-		delete pInfo;
-	}
-	for (i = 0; i < number; i++)
-	{
-		FILE *pFile;
-		std::string strFileName;
-		if (!namelist[i] || !namelist[i]->d_name) continue;
-		strFileName = (string)EMULINKS_DIR + (string)"/" + (string)namelist[i]->d_name;
-		pFile = fopen(strFileName.c_str(), "r");
-		if (pFile)
-		{
-			char pcContents[64];
-			int iResult = 0;
-			if ((iResult = fread(pcContents, 1, sizeof(pcContents) - 1, pFile)) > 0)
-			{
-				pcContents[iResult] = 0;
-				m_EmuList.push_back(new CServiceInfo(namelist[i]->d_name, pcContents));
-			}
-			else
-			{
-				m_EmuList.push_back(new CServiceInfo(namelist[i]->d_name));
-			}
-			fclose(pFile);
-		}
-		free(namelist[i]);
-	}
-	if (namelist) free(namelist);
-}
-
-void CPLiManager::ScanForCardservers()
-{
-	int i;
-	int number;
-	int index;
-	std::vector<CServiceInfo*>::iterator it;
-	struct dirent **namelist = NULL;
-	number = scandir(CARDSERVERLINKS_DIR, &namelist, linkmatch, NULL); /* no sorting */
-	index = 0;
-	for (it = m_CardServerList.begin(); it != m_CardServerList.end(); )
-	{
-		CServiceInfo *pInfo = *it;
-		it = m_CardServerList.erase(it);
-		delete pInfo;
-	}
-	for (i = 0; i < number; i++)
-	{
-		FILE *pFile;
-		std::string strFileName;
-		if (!namelist[i] || !namelist[i]->d_name) continue;
-		strFileName = (string)CARDSERVERLINKS_DIR + (string)"/" + (string)namelist[i]->d_name;
-		pFile = fopen(strFileName.c_str(), "r");
-		if (pFile)
-		{
-			char pcContents[64];
-			int iResult = 0;
-			if ((iResult = fread(pcContents, 1, sizeof(pcContents) - 1, pFile)) > 0)
-			{
-				pcContents[iResult] = 0;
-				m_CardServerList.push_back(new CServiceInfo(namelist[i]->d_name, pcContents));
-			}
-			else
-			{
-				m_CardServerList.push_back(new CServiceInfo(namelist[i]->d_name));
-			}
-			fclose(pFile);
-		}
-		free(namelist[i]);
-	}
-	if (namelist) free(namelist);
-}
-
-void CPLiManager::ScanForServices()
-{
-	int i;
-	int number;
-	int index;
-	std::vector<CServiceInfo*>::iterator it;
-	struct dirent **namelist = NULL;
-	number = scandir(SERVICESLINKS_DIR, &namelist, linkmatch, NULL); /* no sorting */
-	index = 0;
-	for (it = m_ServiceList.begin(); it != m_ServiceList.end(); )
-	{
-		CServiceInfo *pInfo = *it;
-		it = m_ServiceList.erase(it);
-		delete pInfo;
-	}
-	for (i = 0; i < number; i++)
-	{
-		FILE *pFile;
-		std::string strFileName;
-		if (!namelist[i] || !namelist[i]->d_name) continue;
-		strFileName = (string)SERVICESLINKS_DIR + (string)"/" + (string)namelist[i]->d_name;
-		pFile = fopen(strFileName.c_str(), "r");
-		if (pFile)
-		{
-			char pcContents[64];
-			int iResult = 0;
-			if ((iResult = fread(pcContents, 1, sizeof(pcContents) - 1, pFile)) > 0)
-			{
-				pcContents[iResult] = 0;
-				m_ServiceList.push_back(new CServiceInfo(namelist[i]->d_name, pcContents));
-			}
-			else
-			{
-				m_ServiceList.push_back(new CServiceInfo(namelist[i]->d_name));
-			}
-			fclose(pFile);
-		}
-		free(namelist[i]);
-	}
-	if (namelist) free(namelist);
-}
-
 int CPLiManager::SendReply(int iSocket, int iReply, const void *pData, int iSize)
 {
 	packet datapacket;
@@ -368,14 +180,16 @@ void CPLiManager::TransmitEmuName()
 
 	name = m_pRunServices->GetCurrentEmu();
 
-	for (i = 0; i < (int)m_EmuList.size(); i++)
+	std::vector<CConfigTree::CServiceInfo*> emulist;
+	if (m_pConfigTree) m_pConfigTree->GetEmuList(emulist);
+	for (i = 0; i < (int)emulist.size(); i++)
 	{
-		if (name == m_EmuList[i]->GetName())
+		if (name == emulist[i]->GetName())
 		{
-			if (m_EmuList[i]->GetVersion())
+			if (emulist[i]->GetVersion() != "")
 			{
 				name += " ";
-				name += m_EmuList[i]->GetVersion();
+				name += emulist[i]->GetVersion();
 			}
 			break;
 		}
@@ -423,17 +237,19 @@ int CPLiManager::HandleCommand(int iSocket)
 				currentsettings->channelname[sizeof(currentsettings->channelname) - 1] = 0;
 				currentsettings->providername[sizeof(currentsettings->providername) - 1] = 0;
 
-				if (currentsettings->defaultemu >= 0 && currentsettings->defaultemu < (signed)m_EmuList.size())
+				std::vector<CConfigTree::CServiceInfo*> emulist;
+				if (m_pConfigTree) m_pConfigTree->GetEmuList(emulist);
+				if (currentsettings->defaultemu >= 0 && currentsettings->defaultemu < (signed)emulist.size())
 				{
-					defaultemu = *m_EmuList[currentsettings->defaultemu];
+					defaultemu = *emulist[currentsettings->defaultemu];
 				}
-				if (currentsettings->channelemu >= 0 && currentsettings->channelemu < (signed)m_EmuList.size())
+				if (currentsettings->channelemu >= 0 && currentsettings->channelemu < (signed)emulist.size())
 				{
-					channelemu = *m_EmuList[currentsettings->channelemu];
+					channelemu = *emulist[currentsettings->channelemu];
 				}
-				if (currentsettings->provideremu >= 0 && currentsettings->provideremu < (signed)m_EmuList.size())
+				if (currentsettings->provideremu >= 0 && currentsettings->provideremu < (signed)emulist.size())
 				{
-					provideremu = *m_EmuList[currentsettings->provideremu];
+					provideremu = *emulist[currentsettings->provideremu];
 				}
 				result = m_pConfigTree->StoreCurrentSettings(defaultemu, m_iCurrentProvider, currentsettings->providername, provideremu, m_iCurrentChannel, currentsettings->channelname, channelemu);
 			}
@@ -462,18 +278,20 @@ int CPLiManager::HandleCommand(int iSocket)
 			settings.provideremu = -1;
 			result = m_pConfigTree->RetrieveCurrentSettings(m_iCurrentProvider, m_iCurrentChannel, defaultemu, (signed)sizeof(defaultemu), provideremu, (signed)sizeof(provideremu), channelemu, (signed)sizeof(channelemu));
 			cout << "channel emu " << channelemu << endl;
-			for (int i = 0; i < (signed)m_EmuList.size(); i++)
+			std::vector<CConfigTree::CServiceInfo*> emulist;
+			if (m_pConfigTree) m_pConfigTree->GetEmuList(emulist);
+			for (int i = 0; i < (signed)emulist.size(); i++)
 			{
-				if (!strcmp(*m_EmuList[i], defaultemu))
+				if (!strcmp(*emulist[i], defaultemu))
 				{
 					settings.defaultemu = i;
 				}
-				if (!strcmp(*m_EmuList[i], channelemu))
+				if (!strcmp(*emulist[i], channelemu))
 				{
 					settings.channelemu = i;
 					cout << "channel emu " << i << endl;
 				}
-				if (!strcmp(*m_EmuList[i], provideremu))
+				if (!strcmp(*emulist[i], provideremu))
 				{
 					settings.provideremu = i;
 				}
@@ -488,9 +306,11 @@ int CPLiManager::HandleCommand(int iSocket)
 			char name[128];
 			int result = -1;
 			name[0] = 0;
-			if (id && *id >= 0 && *id < (signed)m_EmuList.size())
+			std::vector<CConfigTree::CServiceInfo*> emulist;
+			if (m_pConfigTree) m_pConfigTree->GetEmuList(emulist);
+			if (id && *id >= 0 && *id < (signed)emulist.size())
 			{
-				strncpy(name, *m_EmuList[*id], sizeof(name) - 1);
+				strncpy(name, *emulist[*id], sizeof(name) - 1);
 				name[sizeof(name) - 1] = 0;
 				result = 0;
 			}
@@ -504,13 +324,15 @@ int CPLiManager::HandleCommand(int iSocket)
 			emuinfo info;
 			bzero(&info, sizeof(info));
 			int result = -1;
-			if (id && *id >= 0 && *id < (signed)m_EmuList.size())
+			std::vector<CConfigTree::CServiceInfo*> emulist;
+			if (m_pConfigTree) m_pConfigTree->GetEmuList(emulist);
+			if (id && *id >= 0 && *id < (signed)emulist.size())
 			{
-				strncpy(info.name, *m_EmuList[*id], sizeof(info.name) - 1);
+				strncpy(info.name, *emulist[*id], sizeof(info.name) - 1);
 				info.name[sizeof(info.name) - 1] = 0;
-				if (m_EmuList[*id]->GetVersion())
+				if (emulist[*id]->GetVersion() != "")
 				{
-					strncpy(info.version, m_EmuList[*id]->GetVersion(), sizeof(info.version) - 1);
+					strncpy(info.version, emulist[*id]->GetVersion().c_str(), sizeof(info.version) - 1);
 					info.version[sizeof(info.version) - 1] = 0;
 				}
 				result = 0;
@@ -552,9 +374,11 @@ int CPLiManager::HandleCommand(int iSocket)
 			char name[128];
 			int result = -1;
 			name[0] = 0;
-			if (id && *id >= 0 && *id < (signed)m_CardServerList.size())
+			std::vector<CConfigTree::CServiceInfo*> cardserverlist;
+			if (m_pConfigTree) m_pConfigTree->GetCardServerList(cardserverlist);
+			if (id && *id >= 0 && *id < (signed)cardserverlist.size())
 			{
-				strncpy(name, *m_CardServerList[*id], sizeof(name) - 1);
+				strncpy(name, *cardserverlist[*id], sizeof(name) - 1);
 				name[sizeof(name) - 1] = 0;
 				result = 0;
 			}
@@ -605,9 +429,11 @@ int CPLiManager::HandleCommand(int iSocket)
 			char name[128];
 			int result = -1;
 			name[0] = 0;
-			if (id && *id >= 0 && *id < (signed)m_ServiceList.size())
+			std::vector<CConfigTree::CServiceInfo*> servicelist;
+			if (m_pConfigTree) m_pConfigTree->GetServiceList(servicelist);
+			if (id && *id >= 0 && *id < (signed)servicelist.size())
 			{
-				strncpy(name, *m_ServiceList[*id], sizeof(name) - 1);
+				strncpy(name, *servicelist[*id], sizeof(name) - 1);
 				name[sizeof(name) - 1] = 0;
 				result = 0;
 			}
@@ -620,10 +446,12 @@ int CPLiManager::HandleCommand(int iSocket)
 			int *id = (int*)pData;
 			int setting = 0;
 			int result = -1;
-			if (id && *id >= 0 && *id < (signed)m_ServiceList.size())
+			std::vector<CConfigTree::CServiceInfo*> servicelist;
+			if (m_pConfigTree) m_pConfigTree->GetServiceList(servicelist);
+			if (id && *id >= 0 && *id < (signed)servicelist.size())
 			{
 				result = 0;
-				if (m_pConfigTree->GetService(*m_ServiceList[*id])) setting = 1;
+				if (m_pConfigTree->GetService(*servicelist[*id])) setting = 1;
 			}
 			if (SendReply(iSocket, result, &setting, sizeof(setting)) < 0) return -1;
 			break;
@@ -633,12 +461,14 @@ int CPLiManager::HandleCommand(int iSocket)
 			cout << "received CMD_SET_SERVICE_SETTING" << endl;
 			setserversetting *serversetting = (struct setserversetting*)pData;
 			int result = -1;
-			if (serversetting && serversetting->id >= 0 && serversetting->id < (signed)m_ServiceList.size())
+			std::vector<CConfigTree::CServiceInfo*> servicelist;
+			if (m_pConfigTree) m_pConfigTree->GetServiceList(servicelist);
+			if (serversetting && serversetting->id >= 0 && serversetting->id < (signed)servicelist.size())
 			{
-				result = m_pConfigTree->SetService(*m_ServiceList[serversetting->id], serversetting->on);
+				result = m_pConfigTree->SetService(*servicelist[serversetting->id], serversetting->on);
 				if (serversetting->on == 0)
 				{
-					m_pRunServices->StopService(*m_ServiceList[serversetting->id]);
+					m_pRunServices->StopService(*servicelist[serversetting->id]);
 				}
 			}
 			if (SendReply(iSocket, result, NULL, 0) < 0) return -1;
@@ -1070,9 +900,7 @@ void CPLiManager::Run(int argc, char *argv[])
 				if ((emudfd = Accept(emudlistenfd, (struct sockaddr*)&cliaddr, &clilen)) >= 0)
 				{
 					/* a new client connected, make sure we have our lists of installed services up to date */
-					ScanForEmus();
-					ScanForCardservers();
-					ScanForServices();
+					if (m_pConfigTree) m_pConfigTree->ScanForServices();
 				}
 			}
 			if (m_piCmdPipe[0] >= 0 && FD_ISSET(m_piCmdPipe[0], &rset))

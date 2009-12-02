@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
 
 #ifdef HAVE_LIBXML2
 #include <libxml/tree.h>
@@ -19,6 +20,8 @@
 #else
 #include <xmltree.h>
 #endif
+
+#include <dirent.h>
 
 #include "xmlgenerator.h"
 #include "service.h"
@@ -33,6 +36,19 @@ class CConfigTree : public XML_Parser
 #endif
 {
 public:
+	class CServiceInfo
+	{
+		std::string m_strName;
+		std::string m_strVersion;
+		public:
+		CServiceInfo(const char *pcName, const char *pcVersion);
+		CServiceInfo(const char *pcName);
+		~CServiceInfo();
+		std::string GetName();
+		std::string GetVersion();
+		operator const char * () { return m_strName.c_str(); }
+	};
+
 	class CServiceConfig
 	{
 		const char *m_pcName;
@@ -65,7 +81,6 @@ public:
 	public:
 		CStickySetting(int iID, const char *pcName);
 		virtual ~CStickySetting();
-		void SetStickyEmu(const char *pcName);
 		const char *GetName() { return m_pcName; }
 		void SetName(const char *pcName)
 		{
@@ -79,13 +94,7 @@ public:
 		int GetID() { return m_iID; }
 		CEmuConfig *GetEmu() { return m_pEmu; }
 		const char *GetEmuName() { if (!m_pEmu) return NULL; return m_pEmu->GetName(); }
-		int SetEmu(const char *pcName)
-		{
-			if (m_pEmu) delete m_pEmu;
-			m_pEmu = NULL;
-			if (pcName) m_pEmu = new CEmuConfig(pcName);
-			return 0;
-		}
+		int SetEmu(const char *pcName, std::vector<CServiceInfo*> &emulist);
 		virtual int Store(CXMLGenerator &xml) = 0;
 	};
 
@@ -116,6 +125,12 @@ protected:
 	std::list<CServiceConfig*> m_Services;
 	CEmuConfig* m_pDefaultEmu;
 	CCardserverConfig* m_pCardserver;
+
+	std::vector<CServiceInfo*> m_EmuList;
+	std::vector<CServiceInfo*> m_CardServerList;
+	std::vector<CServiceInfo*> m_ServiceList;
+
+	static int linkmatch(const struct dirent *entry);
 
 	//void LoadConfigTree(XMLTreeNode *pTree);
 
@@ -149,16 +164,22 @@ public:
 	CConfigTree();
 	~CConfigTree();
 
+	/* scan for all types of services */
+	void ScanForServices();
+
 	/* emu settings */
+	void GetEmuList(std::vector<CServiceInfo*> &list) { list = m_EmuList; }
 	int StoreCurrentSettings(const char *pcDefaultEmu, int iProviderID, const char *pcProviderName, const char *pcProviderEmu, int iChannelID, const char *pcChannelName, const char *pcChannelEmu);
 	int RetrieveCurrentSettings(int iProviderID, int iChannelID, char *pcDefaultEmu, int iDefaultEmuSize, char *pcProviderEmu, int iProviderEmuSize, char *pcChannelEmu, int iChannelEmuSize);
 	int EnumSettings(int iOffset, int &iProviderID, int &iChannelID, char *pcSettingName, int iSettingNameSize, char *pcEmuName, int iEmuNameSize);
 
 	/* cardserver setting */
+	void GetCardServerList(std::vector<CServiceInfo*> &list) { list = m_CardServerList; }
 	int GetCardServer(char *pcName, int iSize);
 	int SetCardServer(const char *pcName);
 
 	/* service settings */
+	void GetServiceList(std::vector<CServiceInfo*> &list) { list = m_ServiceList; }
 	int GetService(const char *pcName);
 	int SetService(const char *pcName, int iOn);
 
