@@ -37,7 +37,9 @@ OE_IPK=$OE_BUILD/tmp/deploy/ipk
 OE_IMAGES=$OE_BUILD/tmp/deploy/images
 
 #old images can be cleared
-rm -f $OE_IMAGES/*
+rm -f $OE_IMAGES/*.nfi
+rm -f $OE_IMAGES/*.zip
+rm -f $OE_IMAGES/*.jfs2
 
 #you have to define FORCECLEAN=1 to clean some more
 if [ "${FORCECLEAN}" = "1" ]; then
