@@ -368,7 +368,7 @@ void eSubtitleWidget::start(int pid, const std::set<int> &ppageids)
 
 static void subtitle_set_palette(struct subtitle_clut *pal, int subpal)
 {
-	static gRGB def_palette[32];
+	static gRGB def_palette[64];
 	static bool def_palette_initialized;
 
 	gPainter p(*gFBDC::getInstance());
@@ -376,7 +376,7 @@ static void subtitle_set_palette(struct subtitle_clut *pal, int subpal)
 	{
 		if ( !def_palette_initialized )  // fill default palette
 		{
-			for (int i=0; i < 32; ++i)
+			for (int i=0; i < 64; ++i)
 			{
 				if (!i)
 					def_palette[i].a = 0xFF;
@@ -403,13 +403,11 @@ static void subtitle_set_palette(struct subtitle_clut *pal, int subpal)
 			}
 			def_palette_initialized=1;
 		}
-		p.setPalette(def_palette, 224, 32);
+		p.setPalette(def_palette, 192, 64);
 	}
 	else
 	{
 	//	eDebug("updating palette!");
-		int bcktrans = 0xC0;
-		eConfig::getInstance()->getKey("/elitedvb/subtitle/backgroundTransparency", bcktrans);
 		gRGB palette[pal->size];
 
 		for (int i=0; i<pal->size; ++i)
@@ -431,17 +429,7 @@ static void subtitle_set_palette(struct subtitle_clut *pal, int subpal)
 				palette[i].g = ((1164 * y - 813 * cr - 392 * cb) + 500) / 1000;
 				palette[i].b = ((1164 * y + 2017 * cb) + 500) / 1000;
 #endif
-#if 0 // subtitle transparency fix by PLi
 				palette[i].a = (pal->entries[i].T) & 0xFF;
-#endif
-				// transparency: if black then set our own transparency level. We could have used the OSD transparancy
-				// level but it seems better to have seperate control for this.
-				// Some services have proper subtitles with dropwshadowed text, but BBC for example uses a big black
-				// bar beneath the text. Converting the black bar to transparancy will give us back a bit of the picture...
-				if (palette[i].r || palette[i].g || palette[i].b)
-					palette[i].a = (pal->entries[i].T) & 0xFF;
-				else
-					palette[i].a = bcktrans;
 			} else
 			{
 				palette[i].r = 0;
@@ -451,7 +439,7 @@ static void subtitle_set_palette(struct subtitle_clut *pal, int subpal)
 			}
 //		eDebug("%d: %d %d %d %d", i, palette[i].r, palette[i].g, palette[i].b, palette[i].a);
 		}
-		p.setPalette(palette, subpal ? 224 : 240, pal->size);
+		p.setPalette(palette, 240- subpal*16, pal->size);
 	}
 //	eDebug("palette changed");
 }

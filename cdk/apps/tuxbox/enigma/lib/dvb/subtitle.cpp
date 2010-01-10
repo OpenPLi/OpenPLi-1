@@ -72,7 +72,7 @@ void subtitle_process_line(struct subtitle_ctx *sub, struct subtitle_page *page,
 				{
 					// set color entries for second clut_id in same page
 					for (int i = 0; i < len; i++)
-						*(region->region_buffer + region->region_width * y + x+i)&=0xef; 
+						*(region->region_buffer + region->region_width * y + x+i)&=((3-clut->mapping) <<4)|0xcf; 
 				}
 			}
 			object = object->next;
@@ -635,20 +635,20 @@ int subtitle_process_segment(struct subtitle_ctx *sub, __u8 *segment)
 		//eDebug("page %d, CLUT %02x, version %d", page->page_id, CLUT_id, CLUT_version_number);
 
 		clut = page->cluts; pclut = &page->cluts;
-		
+		int clutcount = 0;
 		while (clut)
 		{
 			if (clut->clut_id == CLUT_id)
 				break;
 			pclut = &clut->next;
 			clut = clut->next;
+			clutcount++;
 		}
 		
 		if (!clut)
 		{
-			int mapping = (page->cluts ? 1 : 0);
 			*pclut = clut = new subtitle_clut;
-			clut->mapping = mapping;
+			clut->mapping = clutcount < 4 ? clutcount : 0;
 			clut->next = 0;
 		}
 //		} else if (clut->CLUT_version_number == CLUT_version_number)
@@ -964,90 +964,14 @@ void subtitle_reset(struct subtitle_ctx *sub)
 	}
 }
 
-static __u32 * argb_palette( struct subtitle_clut *pal, int clut_id)
-{
-	static __u32 def_palette[16];
-	static __u32 palette[16];
-	static bool def_palette_initialized;
-	static int prev_clut_id = -1;
-
-	while (pal)
-	{
-		if (pal->clut_id == clut_id)
-			break;
-		pal = pal->next;
-	}
-	if ( !pal )// use default pallette
-	{
-		// eDebug("Subtitle: default palette");
-		if ( !def_palette_initialized )  // fill default palette
-		{
-			for (int i=0; i < 16; ++i)
-			{
-				if (!i)
-					def_palette[i] = 0x00000000;
-				else if (i&8)
-				{
-					def_palette[i] = 0xFF000000;
-					if (i & 1) def_palette[i] |= 0x80 << 16; // r
-					if (i & 2) def_palette[i] |= 0x80 << 8; // g
-					if (i & 4) def_palette[i] |= 0x80; // b
-				}
-				else
-				{
-					def_palette[i] = 0xFF000000;
-					if (i & 1) def_palette[i] |= 0xFF << 16;
-					if (i & 2) def_palette[i] |= 0xFF << 8;
-					if (i & 4) def_palette[i] |= 0xFF;
-				}
-				// eDebug("%d %08x", i, def_palette[i]);
-			}
-			def_palette_initialized=1;
-		}
-		return(def_palette);
-	}
-	else
-	{
-		if (clut_id != prev_clut_id)
-		{
-			// eDebug("Subtitle: palette of %d colors, clut_id = %d", pal->size, clut_id);
-			for (int i=0; i<pal->size; ++i)
-			{
-				int y = pal->entries[i].Y,
-				    cr = pal->entries[i].Cr,
-				    cb = pal->entries[i].Cb;
-				if (y > 0)
-				{
-					y -= 16;
-					cr -= 128;
-					cb -= 128;
-					palette[i] = 
-				             	(MAX(MIN(((298 * y            + 460 * cr) / 256), 255), 0)) << 16 |
-				             	(MAX(MIN(((298 * y -  55 * cb - 137 * cr) / 256), 255), 0)) <<  8 |
-				             	(MAX(MIN(((298 * y + 543 * cb           ) / 256), 255), 0));
-					if (palette[i])
-						palette[i] |= (((pal->entries[i].T) & 0xFF) ^ 0xFF) << 24;
-					else
-						palette[i] |= (0x00) << 24;
-					//palette[i].a = (pal->entries[i].T) & 0xFF;
-				}
-				else
-				{
-					palette[i] = 0;
-				}
-				// eDebug("%d: %08x", i, palette[i]);
-			}
-			prev_clut_id = clut_id;
-		}
-		return(palette);
-	}
-}
-
 void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 {
 	struct subtitle_page *page = sub->pages;
-	int main_clut_id = -1;
-	int sub_clut_id = -1;
+	int clut_ids[4];
+	clut_ids[0] = -1;
+	clut_ids[1] = -1;
+	clut_ids[2] = -1;
+	clut_ids[3] = -1;
 	//eDebug("displaying page id %d", page_id);
 	
 	while (page)
@@ -1081,16 +1005,11 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 			int y;
 			int clut_id = reg->clut_id;
 			//eDebug("clut %d, %d", clut_id, main_clut_id);
-			if (main_clut_id != -1)
-			{
-				if (main_clut_id != clut_id)
-				{
-					sub_clut_id = clut_id;
-//					exit(0);
-				}
-			}
-			else
-				main_clut_id = clut_id;
+			int i = 0;
+			while (i < 4 && clut_ids[i] != -1)
+				i++;
+			if (i < 4)
+			  clut_ids[i] = clut_id;
 				
 			int x0 = region->region_horizontal_address;
 			int y0 = region->region_vertical_address;
@@ -1118,41 +1037,14 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 			// do not draw when anyone has locked the 
 			// framebuffer ( non enigma plugins... )
 			if ( !fbClass::getInstance()->islocked() )
-			{
-				if (sub->bpp == 1) // PLi extension for 32bit skins
+				/* copy to screen */
+				for (y=0; y < reg->region_height; ++y)
 				{
-					/* copy to screen */
-					for (y=0; y < reg->region_height; ++y)
-					{
-						memcpy(sub->screen_buffer + 
-							sub->screen_width * (y + region->region_vertical_address) + 
-							region->region_horizontal_address, 
-							reg->region_buffer + reg->region_width * y, reg->region_width);
-					}
+					memcpy(sub->screen_buffer + 
+						sub->screen_width * (y + region->region_vertical_address) + 
+						region->region_horizontal_address, 
+						reg->region_buffer + reg->region_width * y, reg->region_width);
 				}
-				else
-				{ // must be 32-bit...
-					__u8 *srcptr=(__u8*) reg->region_buffer;
-					__u8 *dstptr=(__u8*) (sub->screen_buffer +
-								sub->stride * region->region_vertical_address +
-								region->region_horizontal_address * 4);
-					// Get a colortable
-					__u32 *pal = argb_palette(page->cluts, main_clut_id);
-				
-					for (y = 0; y < reg->region_height; ++y)
-					{
-						__u8  *srcp = (__u8*)  srcptr;
-						__u32 *dstp = (__u32*) dstptr;
-						int width = reg->region_width;
-						while (width--) {
-							//eDebug("sub%d,%d: ind=%02x col=%08x", y, width, *srcp, pal[(*srcp)&0x0F]);
-							*dstp++ = pal[(*srcp++) & 0x0F];
-						}
-						srcptr += reg->region_width;
-						dstptr += sub->stride;
-					}
-				}
-			}
 		} 
 		else
 			eDebug("region not found");
@@ -1160,45 +1052,39 @@ void subtitle_redraw(struct subtitle_ctx *sub, int page_id)
 	}
 	//eDebug("schon gut.");
 	
-	if (main_clut_id == -1)
+	if (clut_ids[0] == -1)
 		return; /* most probably no display active */
 	
-	if ((sub->current_clut_id == main_clut_id) && (sub->current_clut_page_id == page_id))
+	if ((sub->current_clut_id == clut_ids[0]) && (sub->current_clut_page_id == page_id))
 		return;
 	
 	//eDebug("updating clut..");
 			/* find corresponding clut */
-	struct subtitle_clut *clut = page->cluts;
-	while (clut)
+	for (int i = 0; i < 4; i++)
 	{
-		//eDebug("have %d, want %d", clut->clut_id, main_clut_id);
-		if (clut->clut_id == main_clut_id)
-			break;
-		clut = clut->next;
-	}
-	if (clut)
-	{
-		if (sub_clut_id != -1)
+		if (clut_ids[i] == -1)
+		  break;
+		
+		struct subtitle_clut *clut = page->cluts;	
+		while (clut)
 		{
-			struct subtitle_clut *subclut = page->cluts;
-			while (subclut)
-			{
-				if (subclut->clut_id == sub_clut_id)
-					break;
-				subclut = subclut->next;
-			}
-			if (!fbClass::getInstance()->islocked())
-				sub->set_palette(subclut,subclut->mapping);
+			//eDebug("have %d, want %d", clut->clut_id, main_clut_id);
+			if (clut->clut_id == clut_ids[i])
+				break;
+			clut = clut->next;
 		}
-		// do not change color palette when anyone has 
-		// locked the framebuffer ( non enigma plugins )
-		if (!fbClass::getInstance()->islocked())
-			sub->set_palette(clut,clut->mapping);
-	}
-	else
-	{
-		if (!fbClass::getInstance()->islocked())
-			sub->set_palette(0,0);
+		if (clut)
+		{
+			// do not change color palette when anyone has 
+			// locked the framebuffer ( non enigma plugins )
+			if (!fbClass::getInstance()->islocked())
+				sub->set_palette(clut,clut->mapping);
+		}
+		else
+		{
+			if (!fbClass::getInstance()->islocked())
+				sub->set_palette(0,0);
+		}
 	}
 }
 
