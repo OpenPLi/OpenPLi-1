@@ -2579,7 +2579,14 @@ endif
 	$(INSTALL) -d $(flashprefix)/root/share/locale
 	$(INSTALL) -d $(flashprefix)/root/var_init/share/locale
 	@for i in `find $(targetprefix)/share/locale -name "tuxbox-enigma.mo"` ; \
-		do cp -pa $${i%%/LC_MESSAGES/tuxbox-enigma.mo} $(flashprefix)/root/share/locale; done
+		do cp -pa $${i%%/LC_MESSAGES/tuxbox-enigma.mo} $(flashprefix)/root/share/locale; \
+	done
+
+	$(INSTALL) -d $(downloadserverprefix)/languages;
+	@for i in ar cs da de el es et fi fr fy hr hu is it lt nl no pl pt ro ru sk sl sr sv tr ur zh; do \
+		tar czf $(downloadserverprefix)/languages/lang_$$i.tar.gz -C $(flashprefix)/root/ --transform 's,^,var/,' share/locale/$$i/LC_MESSAGES/tuxbox-enigma.mo; \
+	done
+
 if CHINESE_NO
 	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es zh ; do \
 		rm -R $(flashprefix)/root/share/locale/$$i; \
@@ -2825,6 +2832,8 @@ $(flashprefix)/.part_plugin_movieplayer: $(flashprefix)/.flash .plugins
 	$(INSTALL) -d $(flashprefix)/root/lib/tuxbox/plugins
 	$(INSTALL) $(targetprefix)/lib/tuxbox/plugins/movieplayer.so $(flashprefix)/root/lib/tuxbox/plugins/
 	$(INSTALL) $(targetprefix)/lib/tuxbox/plugins/movieplayer.cfg $(flashprefix)/root/lib/tuxbox/plugins/
+	$(INSTALL) -d $(downloadserverprefix)/plugins
+	@tar czf $(downloadserverprefix)/plugins/movieplayer.tar.gz -C $(flashprefix)/root/lib/tuxbox/plugins/ --transform 's,^,var/tuxbox/plugins/,' movieplayer.so movieplayer.cfg
 	@touch $@
 
 flash-plugin_dbswitch: $(flashprefix)/.part_plugin_dbswitch

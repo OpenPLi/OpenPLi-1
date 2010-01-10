@@ -228,12 +228,17 @@ AC_ARG_WITH(flashprefix,
 	[  --with-flashprefix=DIR  prefix for flash files [[PREFIX/cdkflash]] (only used for flash building)],
 	[flashprefix="$with_flashprefix"],[flashprefix="${prefix}/cdkflash"])
 
+AC_ARG_WITH(downloadserverprefix,
+	[  --with-downloadserverprefix=DIR prefix for download server files [[PREFIX/downloadserver]]],
+	[downloadserverprefix="$with_downloadserverprefix"],[downloadserverprefix="${prefix}/downloadserver"])
+
 buildprefix=`pwd`
 AC_SUBST(targetprefix)
 AC_SUBST(hostprefix)
 AC_SUBST(buildprefix)
 AC_SUBST(bootprefix)
 AC_SUBST(flashprefix)
+AC_SUBST(downloadserverprefix)
 flashprefix_ro=${flashprefix}/ro
 AC_SUBST(flashprefix_ro)
 flashprefix_rw=${flashprefix}/rw
