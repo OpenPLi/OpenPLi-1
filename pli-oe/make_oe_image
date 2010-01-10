@@ -104,7 +104,7 @@ FILENAME="OpenPLi-unstable-${MACHINE}-`date +%Y%m%d`"
 mv $OE_IMAGES/*.nfi $OE_IMAGES/$FILENAME.nfi
 zip -j $OE_IMAGES/$FILENAME $OE_IMAGES/$FILENAME.nfi
 
-mv $OE_IMAGES/*_usb.zip $OE_IMAGES/$FILENAME_usb.zip
+mv $OE_IMAGES/*_usb.zip $OE_IMAGES/${FILENAME}_usb.zip
 
 rsync $OE_IMAGES/$FILENAME*.zip rsync://upload.pli-images.org:8730::/builds/$IMAGEDIR/
 
