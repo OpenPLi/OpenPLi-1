@@ -85,7 +85,7 @@ $(OE_BASE)/${BUILDDIR}/conf/local.conf:
 $(OE_BASE)/${BUILDDIR}/env.source:
 	echo 'OE_BASE=$(OE_BASE)' > $@
 	echo 'export BBPATH="$${OE_BASE}/openembedded/:$(PWD)/bb/:$${OE_BASE}/${BUILDDIR}/"' >> $@
-	echo 'PATH=$${PATH}:$(PWD)/bb/bin:$${OE_BASE}/${BUILDDIR}/tmp/cross/bin' >> $@
+	echo 'PATH=$(PWD)/bb/bin:$${OE_BASE}/${BUILDDIR}/tmp/cross/bin:$${PATH}' >> $@
 	echo 'export PATH' >> $@
 	echo 'export LD_LIBRARY_PATH=' >> $@
 	echo 'export LANG=C' >> $@
