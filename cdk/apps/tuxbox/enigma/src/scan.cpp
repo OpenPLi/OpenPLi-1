@@ -840,7 +840,7 @@ void tsScan::dvbEvent(const eDVBEvent &event)
 			transponder_data->setText( eString().sprintf("%d MHz / %d ksyms / %s",
 				event.transponder->satellite.frequency / 1000,
 				event.transponder->satellite.symbol_rate / 1000,
-				event.transponder->satellite.polarisation?_("Vertical"):"Horizontal") );
+				event.transponder->satellite.polarisation?_("vertical"):_("horizontal")));
 		}
 		else if( eSystemInfo::getInstance()->getFEType() == eSystemInfo::feCable )
 		{
@@ -1317,7 +1317,7 @@ int TransponderScan::Exec()
 					}
 
 					eString str = ' '+toScan.front().packet->name;
-					str += eString().sprintf("        (%d/%d)", satScanned+1, toScan.size()+satScanned);
+					str += eString().sprintf("   (%d/%d)", satScanned+1, toScan.size()+satScanned);
 
 					statusbar->setText(_("Waiting for tuner lock... please wait"));
 					tsTryLock t(this, pkt, str);
@@ -1356,7 +1356,7 @@ int TransponderScan::Exec()
 				}
 
 				eString str = ' '+toScan.front().packet->name;
-				str += eString().sprintf("        (%d/%d)", satScanned+1, toScan.size()+satScanned);
+				str += eString().sprintf("   (%d/%d)", satScanned+1, toScan.size()+satScanned);
 
 				if ( eSystemInfo::getInstance()->getFEType() == eSystemInfo::feSatellite )
 					eTransponderList::getInstance()->removeNewFlags(sapi->getOrbitalPosition());
