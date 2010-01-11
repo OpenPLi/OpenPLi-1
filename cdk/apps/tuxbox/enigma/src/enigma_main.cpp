@@ -8071,10 +8071,6 @@ void eZapMain::startService(const eServiceReference &_serviceref, int err)
 		}
 	}
 #endif // DISABLE_FILE
-	int showosd = 1;
-	eConfig::getInstance()->getKey("/ezap/osd/showOSDOnSwitchService", showosd );
-	if (showosd)
-		showInfobar(true);
 
 	cur_event_id = -1;
 
@@ -8085,7 +8081,7 @@ void eZapMain::startService(const eServiceReference &_serviceref, int err)
 
 
 	showInfobarOnZap = 1;
-	eConfig::getInstance()->getKey("/ezap/osd/showInfoBarOnZap", showInfobarOnZap);
+	eConfig::getInstance()->getKey("/ezap/osd/showOSDOnSwitchService", showInfobarOnZap);
 	if (showInfobarOnZap) {
 		showInfobar(true);
 		if (doHideInfobar())

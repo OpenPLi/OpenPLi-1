@@ -26,6 +26,7 @@ i:/ezap/webif/lockWebIf=00000000
 i:/ezap/osd/showCurrentRemaining=00000001
 i:/ezap/osd/alpha=00000000
 i:/ezap/lastEPGStyle=00000002
+i:/ezap/osd/showOSDOnSwitchService=00000001
 i:/ezap/osd/OSDExtraInfo=00000001
 i:/ezap/osd/OSDVerboseInfo=00000001
 i:/ezap/osd/brightness=00000080

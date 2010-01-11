@@ -28,6 +28,7 @@ i:/enigma/plugins/needoffsets/right=000002a3
 i:/enigma/plugins/needoffsets/top=0000001d
 i:/ezap/lastEPGStyle=00000002
 i:/elitedvb/network/samba=00000001
+i:/ezap/osd/showOSDOnSwitchService=00000001
 i:/ezap/osd/OSDExtraInfo=00000001
 i:/ezap/osd/OSDVerboseInfo=00000001
 i:/ezap/osd/hideshortcuts=00000001

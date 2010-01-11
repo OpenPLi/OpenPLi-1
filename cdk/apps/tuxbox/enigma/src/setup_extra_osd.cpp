@@ -57,9 +57,8 @@ ExtraOSDSetup::ExtraOSDSetup()
 	list.setFlags(list.getFlags()|eListBoxBase::flagNoPageMovement);
 	list.setColumns(2);
 
-	new eListBoxEntryCheck(&list, _("OSD on zap"), "/ezap/osd/showInfoBarOnZap", _("Show OSD after a zap"));
+	new eListBoxEntryCheck(&list, _("OSD on zap"), "/ezap/osd/showOSDOnSwitchService", _("Show OSD after a zap"));
 	new eListBoxEntryCheck(&list, _("Extra OSD"), "/ezap/osd/OSDExtraInfo", _("Show extra info in OSD on OK"));
-	new eListBoxEntryCheck(&list, _("Extra OSD on zap"), "/ezap/osd/OSDExtraZap", _("Show extra info in OSD when zapping"));
 	new eListBoxEntryCheck(&list, _("Autohide OSD on OK"), "/ezap/osd/enableAutohideOSDOn", _("Autohide OSD when pressing OK button"));
 	new eListBoxEntryCheck(&list, _("Autohide radio/mp3 OSD"), "/ezap/osd/hideinradiomode", _("Autohide the OSD display in radio/mp3 mode"));
 	new eListBoxEntryCheck(&list, _("SNR in dB"), "/pli/SNRdB", _("Show SNR values in dB instead of %"));
