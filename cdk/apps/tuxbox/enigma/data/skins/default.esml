@@ -180,6 +180,7 @@
 		<img name="country_cn" src="zh_bj.png" />
 		<img name="country_sk" src="sk.png" />
 		<img name="country_ee" src="ee.png" />
+		<img name="country_bg" src="bg.png" />
 		<img name="country_missing" src="missing.png" />
 	</images>
 	<images basepath="shortcut">

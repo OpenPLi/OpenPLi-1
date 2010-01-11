@@ -2583,18 +2583,18 @@ endif
 	done
 
 	$(INSTALL) -d $(downloadserverprefix)/languages;
-	@for i in ar cs da de el es et fi fr fy hr hu is it lt nl no pl pt ro ru sk sl sr sv tr ur zh; do \
+	@for i in ar bg cs da de el es et fi fr fy hr hu is it lt nl no pl pt ro ru sk sl sr sv tr ur zh; do \
 		tar czf $(downloadserverprefix)/languages/lang_$$i.tar.gz -C $(flashprefix)/root/ --transform 's,^,var/,' share/locale/$$i/LC_MESSAGES/tuxbox-enigma.mo; \
 	done
 
 if CHINESE_NO
-	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es zh ; do \
+	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es zh bg ; do \
 		rm -R $(flashprefix)/root/share/locale/$$i; \
 		ln -s /var/share/locale/$$i $(flashprefix)/root/share/locale/$$i; \
 	done
 endif
 if CHINESE_YES
-	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es fy de nl ; do \
+	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es fy de nl bg ; do \
 		rm -R $(flashprefix)/root/share/locale/$$i; \
 		ln -s /var/share/locale/$$i $(flashprefix)/root/share/locale/$$i; \
 	done
