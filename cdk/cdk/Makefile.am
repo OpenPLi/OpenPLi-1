@@ -2337,9 +2337,9 @@ if BOXTYPE_DM500
 	@echo "target=6" >> $(flashprefix)/root/.version
 endif
 	
-	@echo "creator=homebuilder@example.com" >> $(flashprefix)/root/.version
-	@echo "url=http://servername/pli-$(name)-$(BOXTYPE)-$(imgversion).img" >> $(flashprefix)/root/.version
-	@echo "catalog=http://servername/$(BOXTYPE).xml" >> $(flashprefix)/root/.version
+	@echo "creator=buildserver@pli-images.org" >> $(flashprefix)/root/.version
+	@echo "url=http://downloads.pli-images.org/openpli/cdk/$(name)-$(BOXTYPE)-$(imgversion).img" >> $(flashprefix)/root/.version
+	@echo "catalog=http://downloads.pli-images.org/openpli/catalog/$(BOXTYPE).xml" >> $(flashprefix)/root/.version
 
 	@touch $@
 
