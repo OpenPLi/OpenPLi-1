@@ -1,16 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR tuxbox project
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Bulgarian E1 translations
+# Copyright (C) 2010 PLi team
+# This file is distributed under the same license as the Enigma package.
+# Dimitar Tsenev <dcenev@mail.bg>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: tuxbox-enigma 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-11 15:43+0100\n"
+"POT-Creation-Date: 2010-01-19 18:15+0100\n"
 "PO-Revision-Date: 2009-11-24 14:23+0200\n"
 "Last-Translator: Dimitar Tsenev <dcenev@mail.bg>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Bulgarian <dcenev@mail.bg>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,176 +18,176 @@ msgstr ""
 "X-Poedit-Country: BULGARIA\n"
 "X-Poedit-SourceCharset: iso-8859-5\n"
 
-#: default.esml:848
+#: default.esml:849
 msgid "&#53;"
 msgstr "&#53;"
 
-#: default.esml:404
+#: default.esml:405
 msgid "here you can change your sat/lnb mapping"
 msgstr "Тук може да смените вашата SAT/LNB конф."
 
-#: default.esml:437 src/enigma_scan.cpp:73
+#: default.esml:438 src/enigma_scan.cpp:73
 msgid "Satfind"
 msgstr "Satfind"
 
-#: default.esml:921
+#: default.esml:922
 msgid "set amount of transparency when in semi-transparent mode"
 msgstr ""
 
-#: default.esml:459
+#: default.esml:460
 msgid "motor power input difference between running and not running"
 msgstr "Потенциална разлика при работещ мотор и неработещ"
 
-#: default.esml:429
+#: default.esml:430
 msgid "send the complete DiSEqC sequence twice"
 msgstr "Изпрати цялата DiSEqC команда два пъти"
 
-#: default.esml:450 default.esml:486 default.esml:581 src/rotorconfig.cpp:597
+#: default.esml:451 default.esml:487 default.esml:582 src/rotorconfig.cpp:597
 msgid "Satellite:"
 msgstr "Сателит:"
 
-#: default.esml:924
+#: default.esml:925
 msgid "use truetype font instead of standard font"
 msgstr ""
 
-#: default.esml:430
+#: default.esml:431
 msgid "send no DiSEqC when only Hi/Lo or H/V changes"
 msgstr "Не изпращай DiSEqC когато Hi/Lo или H/V се променя"
 
-#: default.esml:639
+#: default.esml:640
 msgid "SNR"
 msgstr "SNR"
 
-#: default.esml:914
+#: default.esml:915
 #, fuzzy
 msgid "Service:"
 msgstr "Сървизи"
 
-#: default.esml:428
+#: default.esml:429
 msgid "Uncommitted Switch:"
 msgstr "Uncommitted Switch:"
 
-#: default.esml:586 default.esml:601 default.esml:616
+#: default.esml:587 default.esml:602 default.esml:617
 msgid "enable/disable inversion here (ok)"
 msgstr "Разреши/Забрани инверсията (ок)"
 
-#: default.esml:432
+#: default.esml:433
 msgid "prev. page"
 msgstr "Пред. стр."
 
-#: default.esml:406
+#: default.esml:407
 msgid "LOF/L:"
 msgstr "LOF/L:"
 
-#: default.esml:730 src/enigma_main.cpp:237 src/timer.cpp:2846
+#: default.esml:731 src/enigma_main.cpp:237 src/timer.cpp:2846
 msgid "Wednesday"
 msgstr "Сряда"
 
-#: default.esml:916
+#: default.esml:917
 msgid "switch to 16:9 mode when displaying teletext pages"
 msgstr ""
 
-#: default.esml:820
+#: default.esml:821
 msgid "Partition Check"
 msgstr "Проверка на дяла"
 
-#: default.esml:793
+#: default.esml:794
 msgid "enter recording end time (0..9, left, right, ok)"
 msgstr "Време за край на записа (0..9, left, right, ok)"
 
-#: default.esml:735 default.esml:740
+#: default.esml:736 default.esml:741
 msgid "select year (ok)"
 msgstr "Година (ок)"
 
-#: default.esml:734 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
+#: default.esml:735 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
 msgid "Sun"
 msgstr "Нед"
 
-#: default.esml:411
+#: default.esml:412
 msgid "increased voltage"
 msgstr "Повишено напр."
 
-#: default.esml:922
+#: default.esml:923
 #, fuzzy
 msgid "Language:"
 msgstr "Език"
 
-#: default.esml:440 default.esml:642
+#: default.esml:441 default.esml:643
 msgid "LOCK"
 msgstr "ЗАКЛ."
 
-#: default.esml:628
+#: default.esml:629
 msgid "choose the code rate HP (left, right)"
 msgstr "choose the code rate HP (left, right)"
 
-#: default.esml:917
+#: default.esml:918
 #, fuzzy
 msgid "switch to 16:9 in split screen mode"
 msgstr "вкл. на File режим"
 
-#: default.esml:412
+#: default.esml:413
 msgid "turn 12V output on (for 12V relais) (ok)"
 msgstr "Вкл. 12V на изх.(за 12V релейки) (ок)"
 
-#: default.esml:516
+#: default.esml:517
 msgid "enable/disable use BAT for scan (if exists)"
 msgstr "Разреши/Забрани BAT за скан. (ако същ.)"
 
-#: default.esml:931 src/epgsearch.cpp:322
+#: default.esml:932 src/epgsearch.cpp:322
 msgid "Title:"
 msgstr "Заглавие:"
 
-#: default.esml:572
+#: default.esml:573
 msgid "Skin Selector"
 msgstr "Избор на кожа"
 
-#: default.esml:713
+#: default.esml:714
 msgid "Timer List"
 msgstr "Таймери"
 
-#: default.esml:554
+#: default.esml:555
 msgid "transponder scanned:"
 msgstr "Сканирани трансп.:"
 
-#: default.esml:911
+#: default.esml:912
 msgid "teletext page number (100 - 899)"
 msgstr ""
 
-#: default.esml:723
+#: default.esml:724
 msgid "press ok to change event name manually"
 msgstr "ОК за ръчна промяна  на името на събитието"
 
-#: default.esml:792
+#: default.esml:793
 msgid "recording end time:"
 msgstr "край на записа   :"
 
-#: default.esml:458
+#: default.esml:459
 msgid "Use motor input power for running detection.. else use timeout"
 msgstr "Use motor input power for running detection.. else use timeout"
 
-#: default.esml:529
+#: default.esml:530
 msgid "no circ polariz."
 msgstr "без circ polariz."
 
-#: default.esml:473 default.esml:491
+#: default.esml:474 default.esml:492
 msgid "Direction:"
 msgstr "Направ.:"
 
-#: default.esml:923
+#: default.esml:924
 #, fuzzy
 msgid "set the language of the displayed pages"
 msgstr "enter the name of the share"
 
-#: default.esml:585 default.esml:600
+#: default.esml:586 default.esml:601
 msgid "MHz"
 msgstr "MHz"
 
-#: default.esml:553
+#: default.esml:554
 msgid "services scanned     :"
 msgstr "сканирани сървизи  :"
 
-#: default.esml:575 src/setupvideo.cpp:196 src/setupvideo.cpp:501
+#: default.esml:576 src/setupvideo.cpp:196 src/setupvideo.cpp:501
 #: src/tpeditwindow.cpp:120 src/tpeditwindow.cpp:166
 msgid "save changes and return"
 msgstr "Запазване и връщане"
@@ -196,16 +196,16 @@ msgstr "Запазване и връщане"
 msgid "PPanel"
 msgstr "PPanel"
 
-#: default.esml:538
+#: default.esml:539
 msgid "aborts the transponder scan"
 msgstr "спиране на сканиране на транс."
 
-#: default.esml:476 default.esml:715 default.esml:869 default.esml:901
+#: default.esml:477 default.esml:716 default.esml:870 default.esml:902
 #: src/setup_mounts.cpp:975
 msgid "remove"
 msgstr "Изтриване"
 
-#: default.esml:457 default.esml:483
+#: default.esml:458 default.esml:484
 msgid "Motor Config"
 msgstr "Конф. на мотора"
 
@@ -213,47 +213,47 @@ msgstr "Конф. на мотора"
 msgid "CI:"
 msgstr "CI:"
 
-#: default.esml:476
+#: default.esml:477
 msgid "remove selected entry"
 msgstr "Премахни избраното"
 
-#: default.esml:864
+#: default.esml:865
 msgid "abc &lt;-&gt; ABC"
 msgstr "абв &lt;-&gt; АБВ"
 
-#: default.esml:858
+#: default.esml:859
 msgid "&lt;"
 msgstr "&lt;"
 
-#: default.esml:421
+#: default.esml:422
 msgid "select DiSEqC mode (ok)"
 msgstr "Избор на DiSEqC режим (ок)"
 
-#: default.esml:431
+#: default.esml:432
 msgid "Swap Commands"
 msgstr "Размяна на команди"
 
-#: default.esml:410
+#: default.esml:411
 msgid "enter LNB threshold frequency (0..9, ok)"
 msgstr "въвеждане на LNB праг. чест. (0..9, ok)"
 
-#: default.esml:499
+#: default.esml:500
 msgid "close motor setup"
 msgstr "изход от настр. на мотора"
 
-#: default.esml:470
+#: default.esml:471
 msgid "insert rotor memory cell for this orbital position"
 msgstr "Поставете паметта на ротора за тази орб. поз."
 
-#: default.esml:528 default.esml:545
+#: default.esml:529 default.esml:546
 msgid "add only unscrambled services"
 msgstr "Само некодирани сървизи"
 
-#: default.esml:538 default.esml:834 src/enigma_picmanager.cpp:114
+#: default.esml:539 default.esml:835 src/enigma_picmanager.cpp:114
 msgid "abort"
 msgstr "Прекрати"
 
-#: default.esml:920 src/setup_osd.cpp:235
+#: default.esml:921 src/setup_osd.cpp:235
 msgid "Transparency:"
 msgstr "Прозрачност:"
 
@@ -261,69 +261,69 @@ msgstr "Прозрачност:"
 msgid "B"
 msgstr "B"
 
-#: default.esml:823
+#: default.esml:824
 msgid "close window"
 msgstr "Изход"
 
-#: default.esml:447 default.esml:641
+#: default.esml:448 default.esml:642
 msgid "BER"
 msgstr "BER"
 
-#: default.esml:902
+#: default.esml:903
 msgid "manual scan selected transponder (ok)"
 msgstr "Ръчно скан. на избрания трансп. (ok)"
 
-#: default.esml:493
+#: default.esml:494
 msgid "Recalc Params:"
 msgstr "Преизч. на парам."
 
-#: default.esml:933 src/epgsearch.cpp:372
+#: default.esml:934 src/epgsearch.cpp:372
 msgid "Search in:"
 msgstr "Търси в:"
 
-#: default.esml:475 default.esml:716 default.esml:899
+#: default.esml:476 default.esml:717 default.esml:900
 msgid "add"
 msgstr "Въведи"
 
-#: default.esml:519
+#: default.esml:520
 msgid "start the transponder scan"
 msgstr "Старт на скан. на трансп."
 
-#: default.esml:519 default.esml:530 default.esml:547 default.esml:568
+#: default.esml:520 default.esml:531 default.esml:548 default.esml:569
 msgid "start scan"
 msgstr "Старт на скан."
 
-#: default.esml:813
+#: default.esml:814
 msgid "check"
 msgstr "Проверка"
 
-#: default.esml:653 default.esml:659 default.esml:665 default.esml:672
-#: default.esml:682 default.esml:692 stone.esml:618 stone.esml:624
+#: default.esml:654 default.esml:660 default.esml:666 default.esml:673
+#: default.esml:683 default.esml:693 stone.esml:618 stone.esml:624
 #: stone.esml:630 stone.esml:637 stone.esml:647 stone.esml:657
 msgid "Services"
 msgstr "Сървизи"
 
-#: default.esml:939 src/epgsearch.cpp:336 src/epgsearch.cpp:500
+#: default.esml:940 src/epgsearch.cpp:336 src/epgsearch.cpp:500
 msgid "Genre:"
 msgstr "Жанр:"
 
-#: default.esml:936 src/epgsearch.cpp:399
+#: default.esml:937 src/epgsearch.cpp:399
 msgid "Search options:"
 msgstr "Настройки Търсене:"
 
-#: default.esml:850
+#: default.esml:851
 msgid "&#54;"
 msgstr "&#54;"
 
-#: default.esml:844
+#: default.esml:845
 msgid "&#51;"
 msgstr "&#51;"
 
-#: default.esml:625
+#: default.esml:626
 msgid "Coderate LP:"
 msgstr "Coderate LP:"
 
-#: default.esml:918 src/setup_lcd.cpp:83 src/setup_osd.cpp:250
+#: default.esml:919 src/setup_lcd.cpp:83 src/setup_osd.cpp:250
 msgid "Brightness:"
 msgstr "Яркост:"
 
@@ -331,15 +331,15 @@ msgstr "Яркост:"
 msgid "subservices"
 msgstr "Субсървизи"
 
-#: default.esml:622
+#: default.esml:623
 msgid "choose the bandwidth (left, right)"
 msgstr "Избор на обхват (left, right)"
 
-#: default.esml:941 lib/gui/ExecuteOutput.cpp:50
+#: default.esml:942 lib/gui/ExecuteOutput.cpp:50
 msgid "Close"
 msgstr "Изход"
 
-#: default.esml:862
+#: default.esml:863
 msgid "&gt;"
 msgstr "&gt;"
 
@@ -347,106 +347,106 @@ msgstr "&gt;"
 msgid "Plugins"
 msgstr "Добавки"
 
-#: default.esml:736 default.esml:741
+#: default.esml:737 default.esml:742
 msgid "select month (ok)"
 msgstr "Избор на месец (ok)"
 
-#: default.esml:942
+#: default.esml:943
 #, fuzzy
 msgid "Start"
 msgstr "Сат"
 
-#: default.esml:466
+#: default.esml:467
 msgid "enter your latitude (0..9, +, -, ok)"
 msgstr "географска ширина (0..9, +, -, ok)"
 
-#: default.esml:422
+#: default.esml:423
 msgid "DiSEqC Mode:"
 msgstr "DiSEqC режим:"
 
-#: default.esml:397
+#: default.esml:398
 msgid "LNB Configuration"
 msgstr "LNB конфигурация"
 
-#: default.esml:535 default.esml:552 src/scan.cpp:712
+#: default.esml:536 default.esml:553 src/scan.cpp:712
 msgid "scanning..."
 msgstr "сканиране..."
 
-#: default.esml:496
+#: default.esml:497
 msgid "calc param 3 (see your motor manual or let it 00)"
 msgstr "calc param 3 (see your motor manual or let it 00)"
 
-#: default.esml:640
+#: default.esml:641
 msgid "AGC"
 msgstr "AGC"
 
-#: default.esml:427
+#: default.esml:428
 msgid "select uncommitted input"
 msgstr "select uncommitted input"
 
-#: default.esml:458
+#: default.esml:459
 msgid "Use Motor Input Power"
 msgstr "Използване на изх. напр. на мотора"
 
-#: default.esml:461
+#: default.esml:462
 msgid "when the motor support this, then use"
 msgstr "използвай това ако мотора го поддържа"
 
-#: default.esml:615
+#: default.esml:616
 msgid "KHz"
 msgstr "KHz"
 
-#: default.esml:377
+#: default.esml:378
 msgid "HTTP Download"
 msgstr "HTTP доунлоад"
 
-#: default.esml:432
+#: default.esml:433
 msgid "goto prev page (LNB)"
 msgstr "към пред. стр. (LNB)"
 
-#: default.esml:916
+#: default.esml:917
 msgid "16:9 mode in normal view"
 msgstr ""
 
-#: default.esml:461
+#: default.esml:462
 msgid "Use gotoXX Function"
 msgstr "Използване на gotoXX"
 
-#: default.esml:913
+#: default.esml:914
 #, fuzzy
 msgid "add page"
 msgstr "добави маркер"
 
-#: default.esml:866
+#: default.esml:867
 msgid "vol+"
 msgstr "vol+"
 
-#: default.esml:621
+#: default.esml:622
 msgid "Bandwidth:"
 msgstr "Обхват:"
 
-#: default.esml:726
+#: default.esml:727
 msgid "for a multiple event enable this"
 msgstr "За няколко събития разреши"
 
-#: default.esml:714
+#: default.esml:715
 msgid "press ok to select another event"
 msgstr "избери ок за друго събитие"
 
-#: default.esml:773 default.esml:784 default.esml:796
+#: default.esml:774 default.esml:785 default.esml:797
 msgid "shutdown  "
 msgstr "Изключване"
 
-#: default.esml:452 default.esml:489
+#: default.esml:453 default.esml:490
 msgid "Transponder:"
 msgstr "Транспондер:"
 
-#: default.esml:915
+#: default.esml:916
 #, fuzzy
 msgid "select teletext service"
 msgstr "изтриване сървиз"
 
-#: default.esml:584 default.esml:599 default.esml:614
+#: default.esml:585 default.esml:600 default.esml:615
 msgid "enter transponder frequency (0..9, left, right)"
 msgstr "Честота на транспондера (0..9, left, right)"
 
@@ -454,112 +454,112 @@ msgstr "Честота на транспондера (0..9, left, right)"
 msgid "P"
 msgstr "P"
 
-#: default.esml:386
+#: default.esml:387
 msgid "22Khz"
 msgstr "22Khz"
 
-#: default.esml:795
+#: default.esml:796
 msgid "o'clock"
 msgstr "часа"
 
-#: default.esml:408
+#: default.esml:409
 msgid "LOF/H:"
 msgstr "LOF/H:"
 
-#: default.esml:924
+#: default.esml:925
 msgid "use truetype font"
 msgstr ""
 
-#: default.esml:938 src/epgsearch.cpp:413
+#: default.esml:939 src/epgsearch.cpp:413
 msgid "Select this option if you want to make this epg search case sensitive"
 msgstr "Изберете ако искате да има значение големината на буквите"
 
-#: default.esml:842
+#: default.esml:843
 msgid "&#50;"
 msgstr "&#50;"
 
-#: default.esml:753
+#: default.esml:754
 msgid "About..."
 msgstr "За...."
 
-#: default.esml:716
+#: default.esml:717
 msgid "add new Timer (ok)"
 msgstr "Нов таймер  (ok)"
 
-#: default.esml:938
+#: default.esml:939
 #, fuzzy
 msgid "Case Sensitive"
 msgstr "Case sensitive"
 
-#: default.esml:746
+#: default.esml:747
 msgid "to change service press ok"
 msgstr "за смяна на сървиз натиснете ок"
 
-#: default.esml:909
+#: default.esml:910
 #, fuzzy
 msgid "Favourites:"
 msgstr "Фаворити (TV)"
 
-#: default.esml:852
+#: default.esml:853
 msgid "&#55;"
 msgstr "&#55;"
 
-#: default.esml:748
+#: default.esml:749
 msgid "scan EPG"
 msgstr "EPG скан."
 
-#: default.esml:942
+#: default.esml:943
 #, fuzzy
 msgid "Begin EPG Search"
 msgstr "ЕПГ търсене"
 
-#: default.esml:391 src/setup_mounts.cpp:955
+#: default.esml:392 src/setup_mounts.cpp:955
 msgid "new"
 msgstr "Нов"
 
-#: default.esml:781
+#: default.esml:782
 msgid "duration:"
 msgstr "Прод.:"
 
-#: default.esml:912
+#: default.esml:913
 #, fuzzy
 msgid "remove selected page from favourites"
 msgstr "премахване на избрания сат."
 
-#: default.esml:430
+#: default.esml:431
 msgid "Fast DiSEqC"
 msgstr "Бърз DiSEqC"
 
-#: default.esml:730 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
+#: default.esml:731 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
 msgid "Wed"
 msgstr "Сря"
 
-#: default.esml:462
+#: default.esml:463
 msgid "Longitude:"
 msgstr "Геогр. шир.:"
 
-#: default.esml:464 default.esml:467 default.esml:474
+#: default.esml:465 default.esml:468 default.esml:475
 msgid "choose direction"
 msgstr "изпор на напр."
 
-#: default.esml:806
+#: default.esml:807
 msgid "capacity:"
 msgstr "капацитет:"
 
-#: default.esml:626
+#: default.esml:627
 msgid "choose the code rate LP (left, right)"
 msgstr "choose the code rate LP (left, right)"
 
-#: default.esml:902
+#: default.esml:903
 msgid "scan"
 msgstr "Сканиране"
 
-#: default.esml:494
+#: default.esml:495
 msgid "calc param 1 (see your motor manual or let it 00)"
 msgstr "calc param 1 (see your motor manual or let it 00)"
 
-#: default.esml:499
+#: default.esml:500
 msgid "prev page"
 msgstr "пред. стр."
 
@@ -567,40 +567,40 @@ msgstr "пред. стр."
 msgid "I"
 msgstr "I"
 
-#: default.esml:731 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
+#: default.esml:732 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
 msgid "Thu"
 msgstr "Четв."
 
-#: default.esml:623
+#: default.esml:624
 msgid "Transm. Mode:"
 msgstr "Режим на пред.:"
 
-#: default.esml:412
+#: default.esml:413
 msgid "12V output on"
 msgstr "12V на изхода"
 
-#: default.esml:784
+#: default.esml:785
 msgid "shutdown the box to deepstandby (ok)"
 msgstr "Изключи за пълен стендбай  (ok)"
 
-#: default.esml:771
+#: default.esml:772
 msgid "enter recording duration (0..9, left, right, ok)"
 msgstr "Въведи прод. на записа  (0..9, left, right, ok)"
 
-#: default.esml:744
+#: default.esml:745
 msgid "edit the end time (0..9, left, right)"
 msgstr "промени време за край (0..9, left, right)"
 
-#: default.esml:729 src/enigma_main.cpp:237 src/timer.cpp:2846
+#: default.esml:730 src/enigma_main.cpp:237 src/timer.cpp:2846
 msgid "Tuesday"
 msgstr "Вторник"
 
-#: default.esml:770
+#: default.esml:771
 msgid "recording duration:"
 msgstr "Прод. на запис:"
 
-#: default.esml:717
+#: default.esml:718
 msgid "delete expired timer (ok)"
 msgstr "Изтриване на невал. таймери (ok)"
 
@@ -608,75 +608,75 @@ msgstr "Изтриване на невал. таймери (ok)"
 msgid "ND"
 msgstr "ND"
 
-#: default.esml:453 default.esml:490
+#: default.esml:454 default.esml:491
 msgid "choose the Transponder you wish to find"
 msgstr "Избор на транспондер за търсене"
 
-#: default.esml:899
+#: default.esml:900
 msgid "add new Transponder to selected sat (ok)"
 msgstr "Нов транспондер към избрания сат. (ok)"
 
-#: default.esml:940 src/epgsearch.cpp:364
+#: default.esml:941 src/epgsearch.cpp:364
 msgid "Select a genre if you want to search for a genre"
 msgstr "Изберете жанр ако искате търсене по жанр"
 
-#: default.esml:917
+#: default.esml:918
 msgid "16:9 mode on splitscreen"
 msgstr ""
 
-#: default.esml:731 src/enigma_main.cpp:237 src/timer.cpp:2847
+#: default.esml:732 src/enigma_main.cpp:237 src/timer.cpp:2847
 msgid "Thursday"
 msgstr "Четвъртък"
 
-#: default.esml:786
+#: default.esml:787
 msgid "set sleeptimer and close window (ok)"
 msgstr "Таймер за заспиване и изход (ok)"
 
-#: default.esml:391
+#: default.esml:392
 msgid "add a new Satellite"
 msgstr "добавяне на сателит"
 
-#: default.esml:501
+#: default.esml:502
 msgid "open transponder scan"
 msgstr "Сканиране на трансп."
 
-#: default.esml:772 default.esml:783
+#: default.esml:773 default.esml:784
 msgid "min"
 msgstr "мин"
 
-#: default.esml:460
+#: default.esml:461
 msgid "mA"
 msgstr "mA"
 
-#: default.esml:478
+#: default.esml:479
 msgid "goto advanced motor setup"
 msgstr "Мотор разширени настр."
 
-#: default.esml:727 src/enigma_main.cpp:237 src/timer.cpp:2846
+#: default.esml:728 src/enigma_main.cpp:237 src/timer.cpp:2846
 msgid "Monday"
 msgstr "Понеделник"
 
-#: default.esml:812
+#: default.esml:813
 msgid "format"
 msgstr "формат"
 
-#: default.esml:530 default.esml:547
+#: default.esml:531 default.esml:548
 msgid "starts the transponder scan"
 msgstr "Старт на скан. на трансп."
 
-#: default.esml:898
+#: default.esml:899
 msgid "sat"
 msgstr "Сателит"
 
-#: default.esml:387
+#: default.esml:388
 msgid "Voltage"
 msgstr "Напрежение"
 
-#: default.esml:624
+#: default.esml:625
 msgid "choose the transmission mode (left, right)"
 msgstr "Режим на предаване (left, right)"
 
-#: default.esml:647
+#: default.esml:648
 msgid "Help"
 msgstr "Помощ"
 
@@ -684,64 +684,64 @@ msgstr "Помощ"
 msgid "S"
 msgstr "S"
 
-#: default.esml:867
+#: default.esml:868
 msgid "insert"
 msgstr "Добавяне"
 
-#: default.esml:748
+#: default.esml:749
 msgid "search event name for this beg-/end time in epg"
 msgstr "Търсене на събитие за този времеви инт. в ЕПГ"
 
-#: default.esml:390 default.esml:413 default.esml:433 default.esml:477
-#: default.esml:575 src/enigma_picmanager.cpp:103 src/scan.cpp:1820
+#: default.esml:391 default.esml:414 default.esml:434 default.esml:478
+#: default.esml:576 src/enigma_picmanager.cpp:103 src/scan.cpp:1820
 #: src/setup_mounts.cpp:965 src/setup_rfmod.cpp:164 src/setupvideo.cpp:496
 #: src/tpeditwindow.cpp:114 src/tpeditwindow.cpp:163
 msgid "save"
 msgstr "Запис"
 
-#: default.esml:729 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
+#: default.esml:730 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
 msgid "Tue"
 msgstr "Вт"
 
-#: default.esml:451 default.esml:487
+#: default.esml:452 default.esml:488
 msgid "choose the Satellite you wish to find"
 msgstr "Избор на сателит за търсене"
 
-#: default.esml:794 src/time_correction.cpp:69
+#: default.esml:795 src/time_correction.cpp:69
 msgid "AM/pm"
 msgstr "AM/PM"
 
-#: default.esml:468
+#: default.esml:469
 msgid "choose entry to edit or remove"
 msgstr "избор на ел. за промяна/изтриване"
 
-#: default.esml:756
+#: default.esml:757
 msgid "processor: "
 msgstr "Процесор:"
 
-#: default.esml:846
+#: default.esml:847
 msgid "&#52;"
 msgstr "&#52;"
 
-#: default.esml:475
+#: default.esml:476
 msgid "add to table/existing will be overwritten"
 msgstr "Добавяне в табл./замяна на съществ."
 
-#: default.esml:732 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
+#: default.esml:733 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
 msgid "Fri"
 msgstr "Пет"
 
-#: default.esml:757
+#: default.esml:758
 msgid "frontend: "
 msgstr "frontend: "
 
-#: default.esml:856
+#: default.esml:857
 msgid "&#57;"
 msgstr "&#57;"
 
-#: default.esml:371 default.esml:443
+#: default.esml:372 default.esml:444
 msgid "AGC:"
 msgstr "AGC:"
 
@@ -749,15 +749,15 @@ msgstr "AGC:"
 msgid "D"
 msgstr "D"
 
-#: default.esml:520
+#: default.esml:521
 msgid "enter manual pids"
 msgstr "Ръчно въвеж. на PID"
 
-#: default.esml:420
+#: default.esml:421
 msgid "Toneburst:"
 msgstr "Toneburst:"
 
-#: default.esml:774 default.esml:785 default.esml:797
+#: default.esml:775 default.esml:786 default.esml:798
 msgid "standby  "
 msgstr "standby  "
 
@@ -765,64 +765,64 @@ msgstr "standby  "
 msgid "CW"
 msgstr "CW"
 
-#: default.esml:589 default.esml:604
+#: default.esml:590 default.esml:605
 msgid "FEC:"
 msgstr "FEC:"
 
-#: default.esml:445 default.esml:643
+#: default.esml:446 default.esml:644
 msgid "SYNC"
 msgstr "SYNC"
 
-#: default.esml:465
+#: default.esml:466
 msgid "Latitude:"
 msgstr "Геогр. шир.:"
 
-#: default.esml:573
+#: default.esml:574
 msgid "Skins:"
 msgstr "Кожи:"
 
-#: default.esml:763
+#: default.esml:764
 msgid "ok"
 msgstr "ОК"
 
-#: default.esml:588
+#: default.esml:589
 msgid "choose polarity (left, right)"
 msgstr "Поляризация (left, right)"
 
-#: default.esml:586 default.esml:601 default.esml:616
+#: default.esml:587 default.esml:602 default.esml:617
 msgid "Inv:"
 msgstr "Inv:"
 
-#: default.esml:738
+#: default.esml:739
 msgid "edit the start time (0..9, left, right)"
 msgstr "Промяна на начало (0..9, left, right)"
 
-#: default.esml:405
+#: default.esml:406
 msgid "enter LNB lowband offset frequency (0..9, ok)"
 msgstr "LNB lowband  отместена чест. (0..9, ok)"
 
-#: default.esml:908
+#: default.esml:909
 #, fuzzy
 msgid "Teletext Settings"
 msgstr "Set teletext options"
 
-#: default.esml:603 default.esml:618
+#: default.esml:604 default.esml:619
 msgid "choose modulation (left, right)"
 msgstr "избор модулация (left, right)"
 
-#: default.esml:732 src/enigma_main.cpp:237 src/timer.cpp:2847
+#: default.esml:733 src/enigma_main.cpp:237 src/timer.cpp:2847
 msgid "Friday"
 msgstr "Петък"
 
-#: default.esml:840
+#: default.esml:841
 msgid "&#49;"
 msgstr "&#49;"
 
-#: default.esml:728
+#: default.esml:729
 msgid "select what todo after event"
 msgstr "Действие след събитието"
 
-#: default.esml:471 src/tpeditwindow.cpp:77
+#: default.esml:472 src/tpeditwindow.cpp:77
 msgid "Orbital Position:"
 msgstr "Орбитална поз.:"
 
@@ -830,68 +830,68 @@ msgstr "Орбитална поз.:"
 msgid "N"
 msgstr "N"
 
-#: default.esml:932 src/epgsearch.cpp:330
+#: default.esml:933 src/epgsearch.cpp:330
 msgid "Enter title for epg searching"
 msgstr "Въведи заглавие на търсене в ЕПГ"
 
-#: default.esml:426
+#: default.esml:427
 msgid "DiSEqC Repeats:"
 msgstr "DiSEqC Repeats:"
 
-#: default.esml:407
+#: default.esml:408
 msgid "enter LNB highband offset frequency (0..9, ok)"
 msgstr "LNB highband отместена честота (0..9, ok)"
 
-#: default.esml:773 default.esml:796
+#: default.esml:774 default.esml:797
 msgid "shutdown the box after recording (ok)"
 msgstr "Изключване след края на запис (ok)"
 
-#: default.esml:934 src/epgsearch.cpp:383
+#: default.esml:935 src/epgsearch.cpp:383
 msgid ""
 "Select this option if you want to search the title only in selected channel"
 msgstr "Изберете ако искате да търсите само по заглавие в избрания канал"
 
-#: default.esml:889
+#: default.esml:890
 msgid "Please choose your DiSEqC-Configuration:"
 msgstr "Избор на DiSEqC - конфигурация:"
 
-#: default.esml:769 default.esml:791
+#: default.esml:770 default.esml:792
 msgid "Stop Record"
 msgstr "Стоп на записа"
 
-#: default.esml:717
+#: default.esml:718
 msgid "cleanup"
 msgstr "почистване"
 
-#: default.esml:484
+#: default.esml:485
 msgid "Mode:"
 msgstr "Режим:"
 
-#: default.esml:593 default.esml:608
+#: default.esml:594 default.esml:609
 msgid "KSymb/s"
 msgstr "KSymb/s"
 
-#: default.esml:935 src/enigma_dyn.cpp:627 src/sselect.cpp:515
+#: default.esml:936 src/enigma_dyn.cpp:627 src/sselect.cpp:515
 msgid "All Services"
 msgstr "Всички сървизи"
 
-#: default.esml:557
+#: default.esml:558
 msgid "Progress:"
 msgstr "Прогрес:"
 
-#: default.esml:368 default.esml:438
+#: default.esml:369 default.esml:439
 msgid "SNR:"
 msgstr "SNR:"
 
-#: default.esml:382 src/enigma_scan.cpp:72
+#: default.esml:383 src/enigma_scan.cpp:72
 msgid "Satellite Configuration"
 msgstr "Конфигурация на сателити"
 
-#: default.esml:747
+#: default.esml:748
 msgid "save data and close window"
 msgstr "Запис на инф. и изход"
 
-#: default.esml:409
+#: default.esml:410
 msgid "Threshold:"
 msgstr "Праг:"
 
@@ -899,43 +899,43 @@ msgstr "Праг:"
 msgid "CI"
 msgstr "CI"
 
-#: default.esml:815
+#: default.esml:816
 msgid "select filesystem to format"
 msgstr "Избор на файлова система"
 
-#: default.esml:433
+#: default.esml:434
 msgid "save changes"
 msgstr "Запис"
 
-#: default.esml:900
+#: default.esml:901
 msgid "edit selected transponder (ok)"
 msgstr "Промяна на избрания трансп.  (ok)"
 
-#: default.esml:500
+#: default.esml:501
 msgid "save in motor"
 msgstr "Запис в мотор"
 
-#: default.esml:901
+#: default.esml:902
 msgid "remove selected transponder"
 msgstr "премахване на избрания трансп."
 
-#: default.esml:587
+#: default.esml:588
 msgid "Polarity:"
 msgstr "Полярност:"
 
-#: default.esml:813
+#: default.esml:814
 msgid "do a filesystem check"
 msgstr "Проверка на файловата сист."
 
-#: default.esml:725
+#: default.esml:726
 msgid "End time"
 msgstr "Край"
 
-#: default.esml:812
+#: default.esml:813
 msgid "initialize the disk for use with the dreambox"
 msgstr "инициализ. на диск за използване в dreambox"
 
-#: default.esml:385
+#: default.esml:386
 msgid "LNB"
 msgstr "LNB"
 
@@ -943,208 +943,208 @@ msgstr "LNB"
 msgid "V"
 msgstr "V"
 
-#: default.esml:423
+#: default.esml:424
 msgid "select DiSEqC parameter (ok)"
 msgstr "избор на DiSEqC парам. (ok)"
 
-#: default.esml:823
+#: default.esml:824
 msgid "close"
 msgstr "Изход"
 
-#: default.esml:583 default.esml:598 default.esml:613
+#: default.esml:584 default.esml:599 default.esml:614
 msgid "Frequency:"
 msgstr "Честота:"
 
-#: default.esml:592 default.esml:607
+#: default.esml:593 default.esml:608
 msgid "enter symbol rate (0..9, left, right)"
 msgstr "въведи symbol rate (0..9, left, right)"
 
-#: default.esml:919
+#: default.esml:920
 msgid "set brightness of the displayed teletext page"
 msgstr ""
 
-#: default.esml:875
+#: default.esml:876
 msgid "press ok to enter the name"
 msgstr "изберете ок за въвеждане на име"
 
-#: default.esml:627
+#: default.esml:628
 msgid "Coderate HP:"
 msgstr "Coderate HP:"
 
-#: default.esml:715
+#: default.esml:716
 msgid "delete the current selected timer (ok)"
 msgstr "премахване на избрания таймер (ok)"
 
-#: default.esml:419
+#: default.esml:420
 msgid "select MiniDiSEqC parameter (ok)"
 msgstr "избор на MiniDiSEqC парам. (ok)"
 
-#: default.esml:724
+#: default.esml:725
 msgid "Start time"
 msgstr "Начало"
 
-#: default.esml:760
+#: default.esml:761
 msgid "Software Version:"
 msgstr "Версия на софт.:"
 
-#: default.esml:463
+#: default.esml:464
 msgid "enter your longitude (0..9, +, -, ok)"
 msgstr "въвеждане на геогр. шир.(0..9, +, -, ok)"
 
-#: default.esml:865
+#: default.esml:866
 msgid "abc2 &lt;-&gt; 2abc"
 msgstr "абв2 &lt;-&gt; 2абв"
 
-#: default.esml:392
+#: default.esml:393
 msgid "remove the selected Satellite"
 msgstr "премахване на избрания сат."
 
-#: default.esml:785
+#: default.esml:786
 msgid "goto standby (ok)"
 msgstr "стендбай (ok)"
 
-#: default.esml:582
+#: default.esml:583
 msgid "choose wished satellite (ok)"
 msgstr "избор на желан сат. (ok)"
 
-#: default.esml:912
+#: default.esml:913
 #, fuzzy
 msgid "remove page"
 msgstr "пред. стр."
 
-#: default.esml:814
+#: default.esml:815
 msgid "show extended configuration"
 msgstr "разширена конфигурация"
 
-#: default.esml:485
+#: default.esml:486
 msgid "choose what you want to do"
 msgstr "избери какво искате да извършите"
 
-#: default.esml:734 src/enigma_main.cpp:237 src/timer.cpp:2846
+#: default.esml:735 src/enigma_main.cpp:237 src/timer.cpp:2846
 msgid "Sunday"
 msgstr "Неделя"
 
-#: default.esml:469
+#: default.esml:470
 msgid "Number in motor:"
 msgstr "Номер в мотора:"
 
-#: default.esml:804
+#: default.esml:805
 msgid "model:"
 msgstr "модел:"
 
-#: default.esml:392
+#: default.esml:393
 msgid "erase"
 msgstr "изтриване"
 
-#: default.esml:384
+#: default.esml:385
 msgid "Sat/Position"
 msgstr "Сат/Позиция"
 
-#: default.esml:403
+#: default.esml:404
 msgid "Sat/LNB mapping:"
 msgstr "Сат/LNB конф.:"
 
-#: default.esml:413
+#: default.esml:414
 msgid "save changes and use current selected LNB for the chosen satellite"
 msgstr "запази и използвай маркираният LNB за избраният сателит"
 
-#: default.esml:477
+#: default.esml:478
 msgid ""
 "save changes and use the selected LNB (in first page) for the choosen "
 "satellite"
 msgstr ""
 "запази и използвай маркираният LNB (на първа стр.) за избраният сателит"
 
-#: default.esml:424
+#: default.esml:425
 msgid "DiSEqC Parameter:"
 msgstr "DiSEqC параметри:"
 
-#: default.esml:411
+#: default.esml:412
 msgid "0,5V higher LNB Voltage (for long cables) (ok)"
 msgstr "0,5V по-високо LNB напрежение (за дълги кабели) (ok)"
 
-#: default.esml:602
+#: default.esml:603
 msgid "Modulation:"
 msgstr "Модулация:"
 
-#: default.esml:515
+#: default.esml:516
 msgid "enable/disable check ONIT on any transponder"
 msgstr "разреши/забрани ONIT за всеки транспондер"
 
-#: default.esml:794
+#: default.esml:795
 msgid "checked is AM, unchecked is PM"
 msgstr "маркирано е AM, не маркирано PM"
 
-#: default.esml:758
+#: default.esml:759
 msgid "harddisk: "
 msgstr "HDD: "
 
-#: default.esml:762
+#: default.esml:763
 msgid "FP Version:"
 msgstr "FP Version:"
 
-#: default.esml:810
+#: default.esml:811
 msgid "status:"
 msgstr "статус:"
 
-#: default.esml:516
+#: default.esml:517
 msgid "use BAT"
 msgstr "вкл. ВАТ"
 
-#: default.esml:780
+#: default.esml:781
 msgid "Set Sleeptimer"
 msgstr "Задай време за заспиване"
 
-#: default.esml:567
+#: default.esml:568
 msgid "press ok to change"
 msgstr "избери ок за промяна"
 
-#: default.esml:935 src/epgsearch.cpp:391
+#: default.esml:936 src/epgsearch.cpp:391
 msgid "Select this option if you want to search the title in all services"
 msgstr "Изберете ако искате да търсите по заглавие във всички сървизи"
 
-#: default.esml:895
+#: default.esml:896
 msgid "Transponders"
 msgstr "Транспондери"
 
-#: default.esml:775 default.esml:798
+#: default.esml:776 default.esml:799
 msgid "set recording end time and close window (ok)"
 msgstr "Задай време за край на записа и излез (ok)"
 
-#: default.esml:390
+#: default.esml:391
 msgid "close Satellite Configuration"
 msgstr "изход от конф. на сателита"
 
-#: default.esml:708 stone.esml:584 src/setup_epg.cpp:6
+#: default.esml:709 stone.esml:584 src/setup_epg.cpp:6
 msgid "EPG"
 msgstr "EPG"
 
-#: default.esml:900
+#: default.esml:901
 msgid "edit"
 msgstr "Промяна"
 
-#: default.esml:808
+#: default.esml:809
 msgid "connected:"
 msgstr "свързан:"
 
-#: default.esml:414 default.esml:478
+#: default.esml:415 default.esml:479
 msgid "next page"
 msgstr "следваща стр."
 
-#: default.esml:591 default.esml:606
+#: default.esml:592 default.esml:607
 msgid "Symbol Rate:"
 msgstr "Symbol Rate:"
 
-#: default.esml:913
+#: default.esml:914
 msgid "add page to favourites"
 msgstr ""
 
-#: default.esml:775 default.esml:786 default.esml:798
+#: default.esml:776 default.esml:787 default.esml:799
 #: src/time_correction.cpp:112
 msgid "set"
 msgstr "ОК"
 
-#: default.esml:492
+#: default.esml:493
 msgid "press left or right to move motor"
 msgstr "избери  left или right за завъртане на мотора"
 
@@ -1152,192 +1152,192 @@ msgstr "избери  left или right за завъртане на мотор�
 msgid "CO"
 msgstr "CO"
 
-#: default.esml:495
+#: default.esml:496
 msgid "calc param 2 (see your motor manual or let it 00)"
 msgstr "изч. парам.2(виж описанието на мотора или запишете 00)"
 
-#: default.esml:745
+#: default.esml:746
 msgid "select the timer type (ok)"
 msgstr "избор на таймер тип (ok)"
 
-#: default.esml:937 src/epgsearch.cpp:406
+#: default.esml:938 src/epgsearch.cpp:406
 msgid "Select this option if you want to search the exact title"
 msgstr "Изберете ако искате да търсите по точно наименование"
 
-#: default.esml:525 default.esml:543
+#: default.esml:526 default.esml:544
 msgid "choose satellite/cable provider (ok)"
 msgstr "избор на сат./кабелен оператор (ok)"
 
-#: default.esml:739 default.esml:743
+#: default.esml:740 default.esml:744
 msgid "select AM/PM (ok)"
 msgstr "избор AM/PM (ok)"
 
-#: default.esml:515
+#: default.esml:516
 msgid "use ONIT"
 msgstr "вкл. ONIT"
 
-#: default.esml:501 src/enigma_tuxtxt.cpp:113
+#: default.esml:502 src/enigma_tuxtxt.cpp:113
 msgid "search"
 msgstr "търсене"
 
-#: default.esml:497
+#: default.esml:498
 msgid "Counter(Movement)"
 msgstr "Брояч(Движение)"
 
-#: default.esml:518
+#: default.esml:519
 msgid "enable/disable initiate network search"
 msgstr "вкл./изкл. мрежово търсене"
 
-#: default.esml:733 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
+#: default.esml:734 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
 msgid "Sat"
 msgstr "Сат"
 
-#: default.esml:619
+#: default.esml:620
 msgid "Guard:"
 msgstr "Guard:"
 
-#: default.esml:930 src/enigma_epg.cpp:547 src/enigma_main.cpp:6524
+#: default.esml:931 src/enigma_epg.cpp:547 src/enigma_main.cpp:6524
 #: src/epgsearch.cpp:299 src/epgsearch.cpp:502 src/epgwindow.cpp:369
 #: src/epgwindow.cpp:449 src/sselect.cpp:88 src/sselect.cpp:2075
 msgid "EPG Search"
 msgstr "ЕПГ търсене"
 
-#: default.esml:383
+#: default.esml:384
 msgid "select your configuration here"
 msgstr "избери желата конф. тук"
 
-#: default.esml:937 src/epgsearch.cpp:403
+#: default.esml:938 src/epgsearch.cpp:403
 msgid "Exact match"
 msgstr "Точно съвпадение"
 
-#: default.esml:727 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
+#: default.esml:728 src/enigma_epg.cpp:884 src/epgwindow.cpp:135
 #: src/timer.cpp:225
 msgid "Mon"
 msgstr "Пон"
 
-#: default.esml:854
+#: default.esml:855
 msgid "&#56;"
 msgstr "&#56;"
 
-#: default.esml:425
+#: default.esml:426
 msgid "select DiSEqC repeats (ok)"
 msgstr "избери DiSEqC  повторители (ok)"
 
-#: default.esml:590 default.esml:605 default.esml:620
+#: default.esml:591 default.esml:606 default.esml:621
 msgid "choose the FEC (left, right)"
 msgstr "избор на FEC (left, right)"
 
-#: default.esml:881
+#: default.esml:882
 msgid "OSD Language"
 msgstr "OSD Език"
 
-#: default.esml:828
+#: default.esml:829
 msgid "Software upgrade..."
 msgstr "Обновяване на софт..."
 
-#: default.esml:888
+#: default.esml:889
 msgid "DiSEqC..."
 msgstr "DiSEqC..."
 
-#: default.esml:574
+#: default.esml:575
 msgid "select skin and press ok or choose save"
 msgstr "избери кожа и натисни \"ок\" или \"запази\""
 
-#: default.esml:737 default.esml:742
+#: default.esml:738 default.esml:743
 msgid "select day (ok)"
 msgstr "избор на ден (ok)"
 
-#: default.esml:941
+#: default.esml:942
 #, fuzzy
 msgid "Closes EPG search window"
 msgstr "изход от помощ"
 
-#: default.esml:529
+#: default.esml:530
 msgid "change circular to linear polarization"
 msgstr "промени circular в linear  поляриз."
 
-#: default.esml:414
+#: default.esml:415
 msgid "goto next page (DiSEqC)"
 msgstr "към следваща стр.(DiSEqC)"
 
-#: default.esml:898
+#: default.esml:899
 msgid "select sat(up/down), ok(edit), green(add new), red(delete)"
 msgstr "избор на сателит(up/down), промяна(ok), нов(green), изтриване(red)"
 
-#: default.esml:722
+#: default.esml:723
 msgid "Timer Edit"
 msgstr "Промяна на таймер"
 
-#: default.esml:747
+#: default.esml:748
 msgid "apply"
 msgstr "приложи"
 
-#: default.esml:860
+#: default.esml:861
 msgid "&#48;"
 msgstr "&#48;"
 
-#: default.esml:520
+#: default.esml:521
 msgid "enter pids"
 msgstr "въвеждане pids"
 
-#: default.esml:726
+#: default.esml:727
 msgid "Repeated timer"
 msgstr "Повтарящ  се таймер"
 
-#: default.esml:488
+#: default.esml:489
 msgid "enter stored satellite pos"
 msgstr "въведи съхранена поз. на сат."
 
-#: default.esml:429
+#: default.esml:430
 msgid "Sequence repeat"
 msgstr "Повторение на команса"
 
-#: default.esml:821
+#: default.esml:822
 msgid "status output:"
 msgstr "изх. статус:"
 
-#: default.esml:803 src/setup_harddisk.cpp:40
+#: default.esml:804 src/setup_harddisk.cpp:40
 msgid "Harddisk"
 msgstr "Твърддиск"
 
-#: default.esml:498
+#: default.esml:499
 msgid "bla"
 msgstr "bla"
 
-#: default.esml:774 default.esml:797
+#: default.esml:775 default.esml:798
 msgid "goto standby after recording (ok)"
 msgstr "към стендбай след запис (ok)"
 
-#: default.esml:517 default.esml:528 default.esml:545
+#: default.esml:518 default.esml:529 default.esml:546
 msgid "only Free"
 msgstr "само свободни"
 
-#: default.esml:617
+#: default.esml:618
 msgid "Constellation:"
 msgstr "Съзвездие:"
 
-#: default.esml:733 src/enigma_main.cpp:237 src/timer.cpp:2847
+#: default.esml:734 src/enigma_main.cpp:237 src/timer.cpp:2847
 msgid "Saturday"
 msgstr "Събота"
 
-#: default.esml:782
+#: default.esml:783
 msgid "(0..9, left, right, ok)"
 msgstr "(0..9, left, right, ok)"
 
-#: default.esml:431
+#: default.esml:432
 msgid "swaps committed and uncommitted DiSEqC Commands"
 msgstr "размени пътвърдени и непотвърдени DiSEqC команди"
 
-#: default.esml:868
+#: default.esml:869
 msgid "vol-"
 msgstr "vol-"
 
-#: default.esml:518
+#: default.esml:519
 msgid "network search"
 msgstr "търсене на мрежа"
 
-#: default.esml:517
+#: default.esml:518
 msgid "add only not scrambled services"
 msgstr "въведи само сободни сървизи"
 
