@@ -51,8 +51,8 @@ DFB++-0.9.22-cvs20050216.tar.gz;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
 ++DFB-0.9.22-cvs20050601.tar.bz2;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
 openssl-0.9.7a.tar.gz;http://www.openssl.org/source
 curl-7.10.1.tar.bz2;http://curl.haxx.se/download
-freetype-2.0.9.tar.bz2;http://gd.tuwien.ac.at/graphics/libs/freetype/freetype2
-freetype-2.1.4.tar.bz2;http://gd.tuwien.ac.at/graphics/libs/freetype/freetype2
+freetype-2.0.9.tar.bz2;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
+freetype-2.1.4.tar.bz2;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
 ncurses-5.3.tar.gz;ftp://$(gnuserver)/ncurses
 jpegsrc.v6b.tar.gz;http://www.ijg.org/files
 libpng-1.2.8.tar.bz2;http://mesh.dl.sourceforge.net/sourceforge/libpng
