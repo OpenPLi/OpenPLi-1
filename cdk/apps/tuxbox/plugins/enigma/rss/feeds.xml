@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--     
-Quick Note: 
-If you are adding a feed and a the popup: User Abort "Configfile parse error" occeurs.. Change the & into &#38;
-(Thanks to Hamster)
--->
 
 <feeds>
 	<feed>
@@ -47,6 +42,10 @@ If you are adding a feed and a the popup: User Abort "Configfile parse error" oc
 		<url>http://www.pli-images.org/feeds.php?type=forum&#38;id=58</url>
 	</feed>
 	<feed>
+		<name>[NL] SAT: PLi images voor de VU+ Duo</name>
+		<url>http://www.pli-images.org/feeds.php?type=forum&#38;id=60</url>
+	</feed>
+	<feed>
 		<name>[EN] SAT: PLi Dreambox General</name>
 		<url>http://www.pli-images.org/feeds.php?type=forum&#38;id=28</url>
 	</feed>
@@ -85,6 +84,10 @@ If you are adding a feed and a the popup: User Abort "Configfile parse error" oc
 	<feed>
 		<name>[NL] SAT: PLi images for the DM8000</name>
 		<url>http://www.pli-images.org/feeds.php?type=forum&#38;id=59</url>
+	</feed>
+	<feed>
+		<name>[NL] SAT: PLi images for the VU+ Duo</name>
+		<url>http://www.pli-images.org/feeds.php?type=forum&#38;id=61</url>
 	</feed>
 	<feed>
 		<name>[EN] SAT: PLi images: Third-Party Development</name>
@@ -127,6 +130,10 @@ If you are adding a feed and a the popup: User Abort "Configfile parse error" oc
 		<url>http://www.satnews.de/schlagzeilen.xml</url>
 	</feed>
 	<feed>
+		<name>[NL] CABLE: Ziggo gebruikersforum</name>
+		<url>http://feeds.feedburner.com/ZiggoGebruikers</url>
+	</feed>
+	<feed>
 		<name>[NL] NIEUWS: Geenstijl</name>
 		<url>http://www.geenstijl.nl/index.xml</url>
 	</feed>
@@ -165,10 +172,6 @@ If you are adding a feed and a the popup: User Abort "Configfile parse error" oc
 	<feed>
 		<name>[NL] NIEUWS: NOS Nieuws</name>
 		<url>http://feeds.nos.nl/nosnieuws</url>
-	</feed>
-	<feed>
-		<name>[NL] NIEUWS: FOK!frontpage Nieuws</name>
-		<url>http://rss.fok.nl/feeds/nieuws</url>
 	</feed>
 	<feed>
 		<name>[NL] WEER/VERKEER: Weersverwachting KNMI</name>
@@ -271,16 +274,16 @@ If you are adding a feed and a the popup: User Abort "Configfile parse error" oc
 		<url>http://feeds.nos.nl/nossport.xml</url>
 	</feed>
 	<feed>
+		<name>[NL] SPORT: FOK! Sport nieuws</name>
+		<url>http://rss.fok.nl/feeds/sport</url>
+	</feed>
+	<feed>
+		<name>[EN] SPORT: formula1.com news</name>
+		<url>http://www.formula1.com/rss/news/latest.rss</url>
+	</feed>
+	<feed>
 		<name>[NL] SPORT: Headliner Formule 1 Nieuws</name>
 		<url>http://rssfeeds.headliner.nl/rssfeeds/f1/feed.xml</url>
-	</feed>
-	<feed>
-		<name>[NL] SPORT: FOK! Formule1 Nieuws</name>
-		<url>http://rss.fok.nl/feeds/formule1</url>
-	</feed>
-	<feed>
-		<name>[NL] SPORT: FOK Voetbalnieuws</name>
-		<url>http://rss.fok.nl/feeds/voetbal</url>
 	</feed>
 	<feed>
 		<name>[NL] SPORT: Voetbal headlines NL</name>
