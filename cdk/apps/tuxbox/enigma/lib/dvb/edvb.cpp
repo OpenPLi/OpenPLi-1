@@ -34,6 +34,7 @@
 #endif
 #include <lib/dvb/dvbservice.h>
 #include <lib/dvb/dvbscan.h>
+#include <lib/dvb/dvbfastscan.h>
 #include <lib/dvb/service.h>
 
 #include <lib/system/info.h>
@@ -458,6 +459,9 @@ void eDVB::setMode(int mode)
 	case controllerScan:
 		controller = new eDVBScanController(*this);
 		break;
+	case controllerFastscan:
+		controller = new eDVBFastscanController(*this);
+		break;
 	case controllerService:
 		controller = new eDVBServiceController(*this);
 #ifndef DISABLE_CI
@@ -482,6 +486,13 @@ eDVBScanController *eDVB::getScanAPI()
 	if (controllertype != controllerScan)
 		return 0;
 	return (eDVBScanController*)controller;
+}
+
+eDVBFastscanController *eDVB::getFastscanAPI()
+{
+	if (controllertype != controllerFastscan)
+		return 0;
+	return (eDVBFastscanController*)controller;
 }
 
 ////////////////////////////////// NETWORK STUFF //////////////////////////////

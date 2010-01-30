@@ -580,6 +580,9 @@ private:
 	void addServiceToUserBouquet(eServiceReference *s, int dontask=0);
 public:
 	void addServiceToLastScannedUserBouquet (const eServiceReference &service, int service_type, int services_scanned, bool newService);
+	void fillFastscanBouquet(eString bouquetname, std::map<int, eServiceReferenceDVB> &numbered_channels, int originalNumbering, bool radio=false);
+	bool existsBouquet(eString bouquetname, bool radio=false);
+
 private:
 	void addServiceToCurUserBouquet(const eServiceReference &ref);
 	void removeServiceFromUserBouquet( eServiceSelector *s );

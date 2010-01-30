@@ -563,6 +563,21 @@
 			<eLabel name="service_provider" position="10:295" size="e-10:30" />
 		</tsScan>
 	</object>
+	<object name="tsFastscan">
+		<tsFastscan position="0:0" size="e:340">
+			<eLabel text="Status:" position="10:5" size="300:30" />
+			<eLabel name="state" position="145:5" size="e-10:30" text="scanning..." />
+			<eLabel text="Services found:" position="10:45" size="300:30" />
+			<eLabel name="services_scanned" position="145:45" size="e-10:30" align="right" />
+			<eLabel text="Progress:" position="10:135" size="200:30" />
+			<eProgress name="scan_progress" position="145:140" size="e-10:20" />
+			<eLabel text="Scan time:" position="10:175" size="300:30" />
+			<eLabel name="time_done" position="145:175" size="e-10:30" align="right" />
+			<eLabel name="transponder_data" position="10:225" size="e-10:30" />
+			<eLabel text="Scanning for:" position="10:295" size="300:30" />
+			<eLabel name="service_provider" position="145:295" size="e-10:30" />
+		</tsFastscan>
+	</object>
 	<object name="tsMultiSat">
 		<tsMultiSat position="0:0" size="e:340">
 			<eListbox name="satellites" position="10:10" size="e-10:e-70" helptext="press ok to change" loadDeco="" />

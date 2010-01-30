@@ -25,6 +25,7 @@ private:
 	void sel_transponderEdit();
 	void sel_autoScan();
 	void sel_multiScan();
+	void sel_Fastscan();
 	void sel_manualScan();
 	void sel_satfind();
 	void sel_blindScan();

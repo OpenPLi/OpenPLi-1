@@ -1,3 +1,4 @@
+
 #include <time.h>
 #include <scan.h>
 #include <enigma.h>
@@ -21,6 +22,7 @@
 #include <lib/gui/guiactions.h>
 #include <lib/dvb/dvbwidgets.h>
 #include <lib/dvb/dvbscan.h>
+#include <lib/dvb/dvbfastscan.h>
 #include <lib/dvb/dvbservice.h>
 #include <lib/system/info.h>
 
@@ -49,6 +51,10 @@ void tsSelectType::init_tsSelectType()
 	if ( eSystemInfo::getInstance()->getFEType() == eSystemInfo::feSatellite )
 		new eListBoxEntryMenuItem(list, _("Automatic Multisat Scan"), (void*)3, 0, _("open automatic multisat transponder scan") );
 	new eListBoxEntryMenuItem(list, _("manual scan.."), (void*)1, 0, _("open manual transponder scan") );
+	if ( eSystemInfo::getInstance()->getFEType() == eSystemInfo::feSatellite )
+	{
+		new eListBoxEntryMenuItem(list, _("fastscan scan.."), (void*)5, 0, _("open fastscan") );
+	}
 	CONNECT(list->selected, tsSelectType::selected);
 	if ( eFrontend::getInstance()->canBlindScan() && eZapPlugins(eZapPlugins::StandardPlugin).execPluginByName("enigma_blindscan.cfg", true) == "OK" )
 		new eListBoxEntryMenuItem(list, _("Satellite Blindscan"), (void*)4, 0, _("open transponder blindscan") );
@@ -1195,6 +1201,88 @@ int TransponderScan::Exec()
 			oldTp=manual_scan.getTransponder();
 			break;
 		}
+		case stateFastscan:
+		{
+			//eDebug("[FASTSCAN] setup");
+			setText(_("Fastscan"));
+			Decoder::Flush();
+			showScanPic();
+			Decoder::locked=1;
+			if ( !service )
+			{
+				//eDebug("[FASTSCAN] process running service");
+				service = eServiceInterface::getInstance()->service;
+				// must stop running TS Playback ( demux source memory )
+				if ( service && service.path && service.type == eServiceReference::idDVB )
+					eServiceInterface::getInstance()->stop();
+			}
+
+			//eDebug("[FASTSCAN] setup transponder");
+			eTransponder transponder(*eDVB::getInstance()->settings->getTransponders());
+			transponder.setSatellite(12515000, 22000000, eFrontend::polHor, 4, 192, 0);	// astra fastscan transponder
+
+			//eDebug("[FASTSCAN] set fastscan controller");
+			eDVB::getInstance()->setMode(eDVB::controllerFastscan); 
+			eDVBFastscanController *sapi=eDVB::getInstance()->getFastscanAPI();
+
+			sapi->addTransponder(transponder);
+
+			eSize s = statusbar->getSize();
+			ePoint pos = statusbar->getPosition();
+			statusbar->hide();
+			statusbar->resize( eSize( s.width(), s.height()-20 ) );
+			statusbar->move( ePoint( pos.x(), pos.y()+20) );
+			statusbar->show();
+#ifndef DISABLE_LCD
+			tsFastscanGUI fast_scan(this, LCDTitle, LCDElement);
+#else
+			tsFastscanGUI fast_scan(this);
+#endif
+			fast_scan.show();
+			if  (fast_scan.exec())
+			{
+				if ( stateInitial == stateMenu )
+					state=stateMenu;
+				else
+					state=stateEnd;
+			}
+			else {
+				fast_scan.hide();
+				statusbar->hide();
+				statusbar->resize( s );
+				statusbar->move( pos );
+				statusbar->show();
+				tsFastscan scan(this);
+#ifndef DISABLE_LCD
+				scan.setLCD(LCDTitle, LCDElement);
+#endif
+				scan.move(ePoint(0, 0));
+				scan.resize(size);
+			
+				//eDebug("[FASTSCAN] startup scanner");
+				scan.show();
+				statusbar->setText(_("Fastscan is in progress... please wait"));
+				eDebug("[FASTSCAN] start scan");
+				int scanstatus = scan.exec();
+				scan.hide();
+				eDebug("[FASTSCAN] scan done");
+				int newTVServices = scan.newTVServices;
+				int newRadioServices = scan.newRadioServices;
+				int newDataServices = scan.newDataServices;
+				int servicesScanned = scan.servicesScanned;
+				if (scanstatus == 0)
+					text.sprintf(_("The Fastscan has finished and found\n\n   %i TV Services,\n\n   %i Radio Services,\n\n   %i Data Services and\n\n   %i Other Services."), 
+						newTVServices,
+						newRadioServices,
+						newDataServices,
+						servicesScanned - newTVServices - newRadioServices - newDataServices
+						);
+				else 
+					text.sprintf(_("The Fastscan has failed.\n\nThe scan operation probably timed out while looing for satellite data."));
+				state=stateDone;
+			}
+			break;
+		}
 		case stateAutomatic:
 		{
 			Decoder::Flush();
@@ -2286,4 +2374,718 @@ void ManualPIDWindow::hexdec()
 		sprintf(tmp, hex?"%04x":"%d", val);
 		(*p)->setText(tmp);
 	}
+}
+
+
+//
+// FASTSCAN
+//
+
+tsFastscanGUI::tsFastscanGUI(eWidget *parent, eWidget* LCDTitle, eWidget* LCDElement)
+	:eWidget(0)
+{
+	init_tsFastscanGUI(parent, LCDTitle, LCDElement);
+}
+
+
+void tsFastscanGUI::init_tsFastscanGUI(eWidget *parent, eWidget* LCDTitle, eWidget* LCDElement)
+{
+	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/provider", v_provider))
+		v_provider = 0;
+	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/hdlist", v_hdlist))
+		v_hdlist = 0;
+	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/usenum", v_usenum))
+		v_usenum = 0;
+	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/usename", v_usename))
+		v_usename = 0;
+
+	int fd = eSkin::getActive()->queryValue("fontsize", 20);
+
+	setText(_("Fastscan Setup"));
+	cresize(eSize(390, 310));
+	valign();
+
+	eLabel *l=new eLabel(this);
+	l->setText(_("Provider"));
+	l->move(ePoint(20, 5));
+	l->resize(eSize(150, fd + 4));
+
+	l_provider=new eListBox<eListBoxEntryText>(this, l);
+	l_provider->loadDeco();
+	l_provider->setFlags(eListBox<eListBoxEntryText>::flagNoUpDownMovement);
+	l_provider->move(ePoint(150, 5));
+	l_provider->resize(eSize(150, fd + 4));
+
+	eString ts = _("TéléSAT");
+	entrys[0]=new eListBoxEntryText(l_provider, _("Canal Digitaal"), (void*)0);
+	entrys[1]=new eListBoxEntryText(l_provider, _("TV Vlaanderen"), (void*)1);
+	entrys[2]=new eListBoxEntryText(l_provider, convertDVBUTF8((const unsigned char*)ts.c_str(), strlen(ts.c_str())) ,(void*)2);
+	l_provider->setCurrent(entrys[v_provider]);
+	l_provider->setHelpText(_("choose provider for Fastscan (left, right)"));
+	CONNECT( l_provider->selchanged, tsFastscanGUI::providerChanged );
+
+	c_hdlist = new eCheckbox(this, v_hdlist, 1);
+	c_hdlist->move(ePoint(20,40));
+	c_hdlist->resize(eSize(350,fd + 4));
+	c_hdlist->setText(_("Use HD list"));
+	c_hdlist->setHelpText(_("Use HD list"));
+	CONNECT( c_hdlist->checked, tsFastscanGUI::hdlistChanged );
+
+	c_usenum = new eCheckbox(this, v_usenum, 1);
+	c_usenum->move(ePoint(20,75));
+	c_usenum->resize(eSize(350, fd + 4));
+	c_usenum->setText(_("Use Fastscan channel numbering"));
+	c_usenum->setHelpText(_("Use Fastscan channel numebring"));
+	CONNECT( c_usenum->checked, tsFastscanGUI::usenumChanged );
+
+	c_usename = new eCheckbox(this, v_usenum, 1);
+	c_usename->move(ePoint(20,110));
+	c_usename->resize(eSize(350, fd + 4));
+	c_usename->setText(_("Use Fastscan channel name"));
+	c_usename->setHelpText(_("Use Fastscan channel name"));
+	CONNECT( c_usename->checked, tsFastscanGUI::usenameChanged );
+
+	b_start=new eButton(this);
+	b_start->setText(_("Start Fastscan"));
+	b_start->setShortcut("green");
+	b_start->setShortcutPixmap("green");
+	b_start->move(ePoint(20, 145));
+	b_start->resize(eSize(175, fd + 9));
+	b_start->setHelpText(_("start Fastscan"));
+	b_start->loadDeco();
+	CONNECT(b_start->selected, tsFastscanGUI::start);		
+
+	warntv=new eLabel(this);
+	warntv->setText(_(""));
+	warntv->move(ePoint(20, 190));
+	warntv->resize(eSize(350, fd + 4));
+
+	warnrad=new eLabel(this);
+	warnrad->setText(_(""));
+	warnrad->move(ePoint(20, 225));
+	warnrad->resize(eSize(350, fd + 4));
+
+	status = new eStatusBar(this);	
+	status->move( ePoint(0, clientrect.height()-50) );
+	status->resize( eSize( clientrect.width(), 50) );
+	status->loadDeco();
+
+	checkProvider();
+
+	/* help text for AV setup screen */
+	setHelpText(_("\tFastscan Settings\n" \
+			"Define parameters for fastscan and go"));
+}
+
+
+tsFastscanGUI::~tsFastscanGUI()
+{
+}
+
+
+void tsFastscanGUI::start()
+{
+	eDVBFastscanController *sapi=eDVB::getInstance()->getFastscanAPI();
+	if (!sapi)
+	{
+		eWarning("no scan active");
+		close(1);
+	} else
+	{
+		int pid = 900 + v_provider * 10 + v_hdlist;
+		sapi->setPID(pid);
+		sapi->setUseNum(v_usenum);
+		sapi->setUseName(v_usename);
+		sapi->setProviderName(entrys[v_provider]->getText());
+		close(0);
+	}
+}
+
+
+void tsFastscanGUI::providerChanged( eListBoxEntryText * e )
+{
+	if ( e )
+	{
+		v_provider = (unsigned int) e->getKey();
+		eConfig::getInstance()->setKey("/elitedvb/fastscan/provider", v_provider);
+		checkProvider();
+	}
+}
+
+
+void tsFastscanGUI::checkProvider()
+{
+	eZapMain* z = eZapMain::getInstance();
+	if (z->existsBouquet(entrys[v_provider]->getText(), false))
+		warntv->setText(_("Current TV bouquet will be cleared!!!"));
+	else
+		warntv->setText(_(""));
+	if (!v_usenum && z->existsBouquet(entrys[v_provider]->getText(), true))
+		warnrad->setText(_("Current Radio bouquet will be cleared!!!"));
+	else
+		warnrad->setText(_(""));
+}
+
+
+void tsFastscanGUI::hdlistChanged( int i )
+{
+	v_hdlist = (unsigned int) i;
+	eConfig::getInstance()->setKey("/elitedvb/fastscan/hdlist", v_hdlist);
+}
+
+
+void tsFastscanGUI::usenumChanged( int i )
+{
+	v_usenum = (unsigned int) i;
+	eConfig::getInstance()->setKey("/elitedvb/fastscan/usenum", v_usenum);
+	checkProvider();
+}
+
+
+void tsFastscanGUI::usenameChanged( int i )
+{
+	v_usename = (unsigned int) i;
+	eConfig::getInstance()->setKey("/elitedvb/fastscan/usename", v_usename);
+}
+
+
+tsFastscan::tsFastscan(eWidget *parent, eString sattext)
+	:eWidget(parent, 1), timer(eApp)
+{
+	init_tsFastscan(sattext);
+}
+
+
+void tsFastscan::init_tsFastscan(eString sattext)
+{
+	services_scanned = new eLabel(this);
+	services_scanned->setName("services_scanned");
+
+	timeleft = new eLabel(this);
+	timeleft->setName("time_left");
+
+	service_provider = new eLabel(this);
+	service_provider->setName("service_provider");
+	service_provider->setText(eDVB::getInstance()->getFastscanAPI()->getProviderName());
+
+	progress = new eProgress(this);
+	progress->setName("scan_progress");
+
+	transponder_data = new eLabel(this);
+	transponder_data->setName("transponder_data");
+
+	status = new eLabel(this);
+	status->setName("state");
+
+	eSkin *skin=eSkin::getActive();
+	if (skin->build(this, "tsFastscan"))
+		eFatal("skin load of \"tsFastscan\" failed");
+
+	status->setText(text);
+
+	CONNECT(eDVB::getInstance()->eventOccured, tsFastscan::dvbEvent);
+	CONNECT(eDVB::getInstance()->stateChanged, tsFastscan::dvbState);
+	CONNECT(timer.timeout, tsFastscan::updateTime);
+	CONNECT(eDVB::getInstance()->getFastscanAPI()->tService, tsFastscan::serviceFound);
+	CONNECT(eDVB::getInstance()->getFastscanAPI()->tProgress, tsFastscan::TableProgress);
+}
+
+
+int tsFastscan::eventHandler(const eWidgetEvent &event)
+{
+	switch (event.type)
+	{
+	case eWidgetEvent::execBegin:
+	{
+		scantime=0;
+		eDVBFastscanController *sapi=eDVB::getInstance()->getFastscanAPI();
+		if (!sapi)
+		{
+			eWarning("[tsFASTSCAN]no fastscan active");
+			close(1);
+		} else
+			sapi->start();
+		break;
+	}
+	case eWidgetEvent::wantClose:
+		if ( event.parameter == 1 ) // global Cancel
+		{
+			eDVBFastscanController *sapi=eDVB::getInstance()->getFastscanAPI();
+			if ( sapi )
+				sapi->abort();
+			eWidgetEvent ev = event;
+			ev.parameter=2;
+			eFrontend::getInstance()->abortTune();
+			return eWidget::eventHandler(ev);
+		}
+		eFrontend::getInstance()->abortTune();
+	default:
+		break;
+	}
+	return eWidget::eventHandler(event);
+}
+
+
+void tsFastscan::serviceFound(int service_type)
+{
+	servicesScanned++;
+
+	switch(service_type)
+	{
+		case 4:	// NVOD reference service
+		case 1:	// digital television service
+			newTVServices++;
+			break;
+		case 2:	// digital radio service
+			newRadioServices++;
+			break;
+		case 3:	// teletext service
+			break;
+		case 5:	// NVOD time shifted service
+			break;
+		case 6:	// mosaic service
+			break;
+		default: // data
+			newDataServices++;
+		break;
+	}
+}
+
+
+void tsFastscan::updateTime()
+{
+	scantime++;
+	int sek = scantime;
+	services_scanned->setText(eString().sprintf("%i", servicesScanned));
+	if (sek > 59)
+		timeleft->setText(eString().sprintf(_("%02i minutes and %02i seconds"), sek / 60, sek % 60));
+	else
+		timeleft->setText(eString().sprintf(_("%02i seconds"), sek ));
+	timer.start(1000);
+}
+
+
+void tsFastscan::TableProgress(int size, int max)
+{
+	switch (eDVB::getInstance()->getState())
+	{
+		case eDVBFastscanState::stateFastscanGetServices:
+			progress->setPerc((int) 45.0 * size / max );
+			break;
+		case eDVBFastscanState::stateFastscanGetNetworks:
+			progress->setPerc(45 + ((int) 45.0 * size / max ));
+			break;
+	}
+}
+
+
+void tsFastscan::dvbEvent(const eDVBEvent &event)
+{
+
+	switch (event.type)
+	{
+	case eDVBFastscanEvent::eventTunedIn:
+		eDebug("[tsFASTSCAN] eventTunedIn");
+		if ( !timer.isActive() )
+			timer.start(1000);
+		break;
+	case eDVBFastscanEvent::eventFastscanBegin:
+		eDebug("[tsFASTSCAN] eventFastscanBegin");
+		progress->setPerc(0);
+		newTVServices = newRadioServices = newDataServices = servicesScanned = 0;
+		break;
+	case eDVBFastscanEvent::eventFastscanTuneBegin:
+		eDebug("[tsFASTSCAN] eventFastscanTuneBegin");
+		transponder_data->setText( eString().sprintf("%d MHz / %d ksyms / %s",
+				event.transponder->satellite.frequency / 1000,
+				event.transponder->satellite.symbol_rate / 1000,
+				event.transponder->satellite.polarisation?_("vertical"):_("horizontal")));
+		break;
+	case eDVBFastscanEvent::eventFastscanComplete:
+		eDebug("[tsFASTSCAN] eventFastscanComplete");
+		status->setText("Adding services and bouqeut to enigma");
+		parseResult();
+		timer.stop();
+		close(0);
+		break;
+	case eDVBFastscanEvent::eventFastscanError:
+		eDebug("[tsFASTSCAN] eventFastscanError");
+		timer.stop();
+		close(1);
+		break;
+	default:
+		eDebug("[tsFASTSCAN] nothing to do for event %d", event.type);
+		break;
+	}
+}
+
+
+void tsFastscan::dvbState(const eDVBState &state)
+{
+	switch (state.state)
+	{
+		case eDVBFastscanState::stateFastscanTune:
+			status->setText("Tuning to transponder");
+			break;
+		case eDVBFastscanState::stateFastscanGetServices:
+			status->setText("Scanning services");
+			break;
+		case eDVBFastscanState::stateFastscanGetNetworks:
+			status->setText("Scanning networks");
+			break;
+		case eDVBFastscanState::stateFastscanComplete:
+			status->setText("Adding services and bouqeut to enigma");
+			break;
+	}
+}
+
+
+// 
+// Special functions for fastscan. Need this in eZapMain class to get to the proper internal enigma structures...
+//
+bool eZapMain::existsBouquet(eString bouquetname, bool radio)
+{
+	eServiceReference parentRef = radio ? userRadioBouquetsRef : userTVBouquetsRef;
+	ePlaylist* parentList       = radio ? userRadioBouquets    : userTVBouquets;
+
+	ePlaylist *pl;
+	for (std::list<ePlaylistEntry>::iterator it(parentList->getList().begin()); it != parentList->getList().end(); it++ )
+	{
+		pl = (ePlaylist*) eServiceInterface::getInstance()->addRef(it->service);
+		if (pl && pl->service_name == bouquetname )
+			return true;
+	}
+	return false;
+}
+
+void eZapMain::fillFastscanBouquet(eString bouquetname, std::map<int, eServiceReferenceDVB> &numbered_channels, int originalNumbering, bool radio)
+{
+	eServiceReference parentRef = radio ? userRadioBouquetsRef : userTVBouquetsRef;
+	ePlaylist* parentList       = radio ? userRadioBouquets    : userTVBouquets;
+
+	bool foundpl = false;
+	ePlaylist *pl;
+	for (std::list<ePlaylistEntry>::iterator it(parentList->getList().begin()); it != parentList->getList().end(); it++ )
+	{
+		pl = (ePlaylist*) eServiceInterface::getInstance()->addRef(it->service);
+		if (pl && pl->service_name == bouquetname )
+		{
+			eDebug("[eFASTSCAN] clearing existing playlist %s", pl->service_name.c_str());
+			foundpl = true;
+			// clear playlist and make sure bouquet is on the fron of the bouquet list
+			pl->getList().clear();
+			parentList->getList().erase( it );
+			parentList->getList().push_front( it->service );
+			break;
+		}
+	}
+	if (!foundpl)
+	{
+		eDebug("[eFASTSCAN] creating new playlist %s", bouquetname.c_str());
+		// create new playlist and add to the front of the bouquet list
+		eServiceReference newlist = eServicePlaylistHandler::getInstance()->newPlaylist();
+		eString path = eplPath + '/' + eString().sprintf("userbouquet.%x.%s", newlist.data[1], radio ? "radio": "tv");
+		pl = (ePlaylist*)eServiceInterface::getInstance()->addRef(newlist);
+		pl->service_name = bouquetname;
+		pl->load( path.c_str() );
+		pl->save();
+		eServiceInterface::getInstance()->removeRef(newlist);
+		newlist.path=path;
+		eServicePlaylistHandler::getInstance()->newPlaylist(parentRef, newlist); // add to playlists multimap
+		pl = (ePlaylist*)eServiceInterface::getInstance()->addRef(newlist);
+		pl->load( path.c_str() );
+		parentList->getList().push_front( newlist );
+		parentList->getList().front().type = ePlaylistEntry::PlaylistEntry|ePlaylistEntry::boundFile;
+	}
+		
+	parentList->save();
+
+	if (pl)
+	{
+		int number = 1;
+		for (std::map<int, eServiceReferenceDVB>::const_iterator
+			service(numbered_channels.begin()); service != numbered_channels.end(); ++service)
+		{
+			if (originalNumbering)
+			{
+				while (number < service->first)
+				{
+					const eServiceReference ref(eServiceReference::idDVB, eServiceReference::isMarker);
+					//eString descr = "-";
+					//ref.descr = descr;
+					pl->getList().push_back((const eServiceReferenceDVB &)ref);
+					number++;
+				}
+			}
+			pl->getList().push_back(service->second);
+			number++;
+		}
+	}
+	pl->save();
+}
+
+
+void tsFastscan::parseResult()
+{
+	eDebug("[tsFASTSCAN] parseResult");
+	eDVB *dvb = eDVB::getInstance();
+	eDVBFastscanController *sapi = dvb->getFastscanAPI();
+	eTransponderList *tps = dvb->settings->getTransponders();
+
+	// bouquetFilename = replace_all(providerName, " ", "");
+	originalNumbering = sapi->getUseNum();
+	useFixedServiceInfo = sapi->getUseName();
+	providerName = sapi->getProviderName();
+#if DEBUGFASTSCAN
+	FILE *out = fopen("/hdd/fparse.out", "w");
+	if (out)
+		fprintf( out, "orignum=%d\n usename=%d\n, Provider=%s\n", originalNumbering, useFixedServiceInfo, providerName.c_str());
+#endif
+
+	FastscanNetwork* networksections = dvb->tFastscanNetwork.getCurrent();
+	FastscanService* servicessections = dvb->tFastscanService.getCurrent();
+
+	std::map<int, int> service_orbital_position;
+	std::map<int, eServiceReferenceDVB> numbered_channels;
+	std::map<int, eServiceReferenceDVB> radio_channels;
+
+	//
+	// Loop over network sections
+	for (ePtrList<FastscanNetworkEntry>::iterator i(networksections->entries); i != networksections->entries.end(); ++i)
+	{
+		uint16_t onid = i->getOriginalNetworkId();
+		uint16_t tsid = i->getTransportStreamId();
+		uint16_t orbitalpos = i->getOrbitalPosition();
+		SatelliteDeliverySystemDescriptor * sat = i->getDeliverySystem();
+
+		eDVBNamespace ns = eDVBNamespace(orbitalpos<<16);
+
+#if DEBUGFASTSCAN
+		if (out) {
+			fprintf( out, "tsid=%d onid=%d freq=%d symrate=%d polar=%d fec=%d orbpos=%d inversion=%d\n", tsid, onid,
+					sat->frequency,
+					sat->symbol_rate,
+					sat->polarisation,
+					sat->FEC_inner,
+					sat->orbital_position,
+					INVERSION_AUTO
+				);
+		}
+#endif
+
+		// add new transponders to transponderlist 
+		eTransponder &tp = tps->createTransponder(ns, tsid, onid);
+		if (tp.isValid())
+		{
+#if DEBUGFASTSCAN
+			if(out)
+			{
+				if ( abs( sat->frequency - tp.satellite.frequency ) > 3000 )
+					fprintf(out, "    frequency %i not near  %i \n", sat->frequency, tp.satellite.frequency);
+				if ( abs(sat->symbol_rate - tp.satellite.symbol_rate) > 4000 )
+					fprintf(out, "    symbol_rate -> %i != %i\n", sat->symbol_rate, tp.satellite.symbol_rate );
+				if (sat->polarisation != tp.satellite.polarisation)
+					fprintf(out, "    polarisation -> %i != %i\n", sat->polarisation, tp.satellite.polarisation );
+				if (sat->FEC_inner != tp.satellite.fec)
+					fprintf(out, "    fec -> %i != %i\n", sat->FEC_inner, tp.satellite.fec );
+				// dont compare inversion when one have AUTO
+				if (tp.satellite.inversion != INVERSION_AUTO)
+					fprintf(out, "    inversion not auto -> %i\n", tp.satellite.inversion );
+				if (abs(sat->orbital_position - tp.satellite.orbital_position) > 5)
+					fprintf(out, "    orbital_position -> %i != %i\n", sat->orbital_position, tp.satellite.orbital_position);
+			}
+#endif
+			;
+		}
+		else
+		{
+#if DEBUGFASTSCAN
+			if (out) fprintf(out, "    New transponder, adding sat setting\n");
+#endif
+			tp.setSatellite(sat->frequency, sat->symbol_rate, sat->polarisation, sat->FEC_inner, sat->orbital_position, INVERSION_AUTO);
+		}
+
+		// collect orbital position and servicetype info in temp arrays for services on this transponder
+		std::map<int, int> servicetypemap;
+		ServiceListDescriptor *services = i->getServiceList();
+		if (services)
+		{
+			for (ePtrList<ServiceListDescriptorEntry>::iterator service(services->entries); service != services->entries.end(); service++)
+			{
+				service_orbital_position[service->service_id] = orbitalpos;
+				servicetypemap[service->service_id] = service->service_type;
+#if DEBUGFASTSCAN
+				if (out)
+					fprintf( out, "    service_list_desc sid=%04x servicetype=%02x\n",
+						service->service_id,
+						service->service_type
+						);
+#endif
+			}
+		}
+
+		// map service order for this provider
+		const LogicalChannelList *channels = i->getLogicalChannelList();
+		if (channels)
+		{
+			for (LogicalChannelListConstIterator channel = channels->begin(); channel != channels->end(); channel++)
+			{
+				int sid = (*channel)->getServiceId();
+				int lognum = (*channel)->getLogicalChannelNumber();
+				int type = servicetypemap[sid];
+				eServiceReferenceDVB ref(ns, eTransportStreamID(tsid), eOriginalNetworkID(onid), eServiceID(sid), type);
+				if (originalNumbering)
+				{
+					numbered_channels[lognum] = ref;
+				}
+				else
+				{
+					switch (type)
+					{
+					case 1: /* digital television service */
+					case 4: /* nvod reference service (NYI) */
+					case 17: /* MPEG-2 HD digital television service */
+					case 22: /* advanced codec SD digital television */
+					case 24: /* advanced codec SD NVOD reference service (NYI) */
+					case 25: /* advanced codec HD digital television */
+					case 27: /* advanced codec HD NVOD reference service (NYI) */
+					default:
+						/* just assume that anything *not* radio is tv */
+						numbered_channels[lognum] = ref;
+						break;
+					case 2: /* digital radio sound service */
+					case 10: /* advanced codec digital radio sound service */
+						radio_channels[lognum] = ref;
+						break;
+					}
+				}
+#if DEBUGFASTSCAN
+				if (out)
+					fprintf( out, "    logical_channel   sid=%04x logical_channel_number=%04x servicetype=%d\n",
+							sid, lognum, type);
+#endif
+			}
+		}
+	}
+	progress->setPerc(92);
+
+	// loop over 'scanned' services and create servicereference info for them
+	std::map<eServiceReferenceDVB, eServiceDVB*> new_services;
+	for (ePtrList<FastscanServiceEntry>::iterator i(servicessections->entries); i != servicessections->entries.end(); ++i)
+	{
+		eServiceReferenceDVB ref(service_orbital_position[i->serviceId] << 16, i->transportStreamId, i->originalNetworkId, i->serviceId, i->service_type);
+		eServiceDVB *service = new eServiceDVB(service_orbital_position[i->serviceId] << 16, i->transportStreamId,
+								i->originalNetworkId, i->serviceId);
+
+		service->service_name = convertDVBUTF8((const unsigned char*)i->serviceName.c_str(), strlen(i->serviceName.c_str()));
+		service->service_provider = convertDVBUTF8((const unsigned char*)i->serviceProviderName.c_str(), strlen(i->serviceProviderName.c_str()));
+		service->set(eServiceDVB::cVPID, i->defaultVideoPid);
+		service->set(eServiceDVB::cAPID, i->defaultAudioPid);
+		service->set(eServiceDVB::cPCRPID, i->defaultPcrPid);
+
+		if (useFixedServiceInfo)
+		{
+			/* we want to use the fixed settings from our fastscan table, don't allow them to be overruled by sdt and nit */
+			service->dxflags = eServiceDVB::dxHoldName | eServiceDVB::dxNoSDT;
+		}
+		new_services[ref] = service;
+#if DEBUGFASTSCAN
+		if (out)
+			fprintf(out, "    Service processed %04x - %s  --  %s\n", i->serviceId, i->serviceName.c_str(), service->service_name.c_str());
+#endif
+	}
+	progress->setPerc(94);
+
+	// now add/update scanned services to the enigma service list
+	for (std::map<eServiceReferenceDVB, eServiceDVB* >::const_iterator service(new_services.begin()); service != new_services.end(); ++service)
+	{
+		//eServiceDVB &dvb_service;
+		bool newService;
+		// dvb_service = tps->searchService(service->first);
+		eServiceDVB &dvb_service = tps->createService(service->first, -1, &newService);
+		if (!newService)
+		{
+#if DEBUGFASTSCAN
+			if (out)
+				fprintf(out, "    Service found in transponderlist VP=%d-%d AP=%d-%d PP=%d-%d fl=%d-%d %s\n",
+					dvb_service.get(eServiceDVB::cVPID),   service->second->get(eServiceDVB::cVPID),
+					dvb_service.get(eServiceDVB::cAPID),   service->second->get(eServiceDVB::cAPID),
+					dvb_service.get(eServiceDVB::cPCRPID), service->second->get(eServiceDVB::cPCRPID),
+					dvb_service.dxflags,  service->second->dxflags,
+					service->second->service_name.c_str());
+#endif
+			if (useFixedServiceInfo)
+			{
+				/*
+				 * replace current settings by fastscan settings,
+				 * note that we don't obey the dxHoldName flag here,
+				 * as the user explicitly gave us permission to use
+				 * the fastscan names.
+				 */
+				dvb_service.service_name = service->second->service_name;
+				dvb_service.service_provider = service->second->service_provider;
+			}
+			dvb_service.dxflags |= service->second->dxflags;
+		}
+		else
+		{
+#if DEBUGFASTSCAN
+			if (out) fprintf(out, "    New service %s\n", service->second->service_name.c_str());
+#endif
+			dvb_service.service_name = service->second->service_name;
+			dvb_service.service_provider = service->second->service_provider;
+			dvb_service.set(eServiceDVB::cVPID,   service->second->get(eServiceDVB::cVPID));
+			dvb_service.set(eServiceDVB::cAPID,   service->second->get(eServiceDVB::cAPID));
+			dvb_service.set(eServiceDVB::cPCRPID, service->second->get(eServiceDVB::cPCRPID));
+			dvb_service.dxflags |= service->second->dxflags;
+			dvb_service.dxflags |= eServiceDVB::dxNewFound;
+			;
+		}
+	}
+	progress->setPerc(96);
+
+	// finally create the bouquet(s)
+#if PROVIDERBOUQUETS
+	std::map<int, eBouquet*> * bqmap = dvb->settings->getBouquets();
+	if (out) {
+		fprintf(out, "Current bouquet names\n");
+		for (std::map<int,eBouquet*>::iterator i(bqmap->begin()); i != bqmap->end(); ++i)
+			fprintf(out, "bouquet %d %s\n", i->first, i->second->bouquet_name.c_str());
+	}
+
+	eBouquet *bouquet;
+	eString bn = providerName;
+
+	bouquet = dvb->settings->getBouquet(bn);
+	if (bouquet) {
+		if (out) fprintf(out, "Bouquet %s -- %s already there, removing it\n", bn.c_str(), bouquet->bouquet_name.c_str());
+		dvb->settings->removeDVBBouquet(bouquet->bouquet_id);
+	}
+	bouquet = dvb->settings->createBouquet(bn);
+	if (out) fprintf(out, "Bouquet %s -- %s created\n", bn.c_str(), bouquet->bouquet_name.c_str());
+	if (bouquet)
+		fillBouquet(bouquet, numbered_channels);
+
+	bqmap = dvb->settings->getBouquets();
+	if (out) {
+		fprintf(out, "Current bouquet names\n");
+		for (std::map<int,eBouquet*>::iterator i(bqmap->begin()); i != bqmap->end(); ++i)
+			fprintf(out, "bouquet %d %s\n", i->first, i->second->bouquet_name.c_str());
+	}
+	dvb->settings->saveBouquets();
+#endif
+
+	eString bn = providerName;
+	eZapMain* z = eZapMain::getInstance();
+	z->fillFastscanBouquet(bn, numbered_channels, originalNumbering, 0);
+	progress->setPerc(98);
+
+	if (!radio_channels.empty())
+		z->fillFastscanBouquet(bn, radio_channels, originalNumbering, 1);
+
+	progress->setPerc(100);
+
+#if PROVIDERBOUQUETS
+	if (out) fclose(out);
+#endif
 }

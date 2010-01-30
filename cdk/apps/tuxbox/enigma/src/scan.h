@@ -58,6 +58,38 @@ public:
 	eTransponder &getTransponder() { return transponder; }
 };
 
+
+class tsFastscanGUI: public eWidget
+{
+	eButton *b_start; 
+	eStatusBar *status;
+	eCheckbox *c_hdlist, *c_usenum, *c_usename;
+	eListBox<eListBoxEntryText> *l_provider;
+	eListBoxEntryText* entrys[3];
+	eLabel *warntv, *warnrad;
+
+	unsigned int v_provider, v_hdlist, v_usenum, v_usename;
+
+	eStatusBar *statusbar;
+private:
+	void providerChanged( eListBoxEntryText *);
+	void checkProvider();
+	void hdlistChanged(int);
+	void usenumChanged(int);
+	void usenameChanged(int);
+	void start();
+	void abort();
+	// int eventHandler( const eWidgetEvent &e );
+	void init_tsFastscanGUI(eWidget *parent, eWidget* LCDTitle=0, eWidget* LCDElement=0);
+public:
+	tsFastscanGUI(eWidget *parent, eWidget* LCDTitle=0, eWidget* LCDElement=0);
+	~tsFastscanGUI();
+
+	/* eCallableMenu functions */
+	void doMenu(eWidget* lcdTitle, eWidget* lcdElement);
+};
+
+
 class tsTryLock: public eWidget
 {
 	eButton *b_abort;
@@ -127,6 +159,37 @@ public:
 	tsScan(eWidget *parent, eString satText="");
 };
 
+
+class tsFastscan: public eWidget
+{
+
+	eTimer timer;
+	eLabel *status;
+	eLabel *timeleft, *service_name, *service_provider, *transponder_data, *services_scanned, *transponder_scanned;
+	eProgress *progress;
+
+	eString providerName, bouquetFilename;
+	bool originalNumbering;
+	bool useFixedServiceInfo;
+
+	int scantime;
+	void init_tsFastscan(eString sattext);
+protected:
+	int eventHandler(const eWidgetEvent &event);
+	void dvbEvent(const eDVBEvent &event);
+	void dvbState(const eDVBState &event);
+	void serviceFound(int service_type);
+	void updateTime();
+	void TableProgress(int size, int max);
+	void fillBouquet(eBouquet *bouquet, std::map<int, eServiceReferenceDVB> &numbered_channels);
+	void parseResult();
+
+public:
+	int newTVServices, newRadioServices, newDataServices, servicesScanned;
+	tsFastscan(eWidget *parent, eString satText="");
+};
+
+
 class eListBoxEntrySat: public eListBoxEntryText
 {
 	eTextPara *statePara;
@@ -181,6 +244,7 @@ public:
 		stateAutomatic,
 		stateMulti,
 		stateBlind,
+		stateFastscan,
 		stateScan,
 		stateMultiScan,
 		stateDone,

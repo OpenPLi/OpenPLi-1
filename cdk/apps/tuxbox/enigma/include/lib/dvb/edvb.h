@@ -24,6 +24,8 @@ class NIT;
 class EIT;
 class TDT;
 class BAT;
+class FastscanService;
+class FastscanNetwork;
 class Descriptor;
 
 #define ENOCASYS	1000	/// service is not free and no valid caid
@@ -37,6 +39,7 @@ class eRFmod;
 class MHWEIT;
 class eDVBRecorder;
 class eDVBScanController;
+class eDVBFastscanController;
 class eDVB;
 class eConsoleAppContainer;
 
@@ -127,6 +130,8 @@ public:
 	eAUTable<NIT> tNIT, tONIT;
 	eAUTable<EIT> tEIT;
 	eAUTable<BAT> tBAT;
+	eAUTable<FastscanService> tFastscanService;
+	eAUTable<FastscanNetwork> tFastscanNetwork;
 	EIT *parentEIT;
 
 	Signal2<void, EIT*, int> gotEIT;
@@ -194,7 +199,8 @@ public:
 	void setMode(int mode);
 	eDVBServiceController *getServiceAPI();
 	eDVBScanController *getScanAPI();
-	enum {controllerNone,controllerScan,controllerService};
+	eDVBFastscanController *getFastscanAPI();
+	enum {controllerNone,controllerScan,controllerService,controllerFastscan};
 protected:
 	int controllertype;
 	eDVBController *controller;
