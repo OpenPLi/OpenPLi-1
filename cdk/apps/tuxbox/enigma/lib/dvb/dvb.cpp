@@ -918,9 +918,10 @@ eServiceDVB &eTransponderList::createService(const eServiceReferenceDVB &service
 					std::pair<eServiceReferenceDVB,eServiceDVB>
 						(service,
 							eServiceDVB(service.getDVBNamespace(),
-							service.getTransportStreamID(),
-							service.getOriginalNetworkID(),
-							service.getServiceID(),chnum))
+								service.getTransportStreamID(),
+								service.getOriginalNetworkID(),
+								service.getServiceID(),
+								chnum))
 							).first->second;
 
 		channel_number.insert(std::pair<int,eServiceReferenceDVB>(chnum,service));
