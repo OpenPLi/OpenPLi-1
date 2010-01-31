@@ -63,18 +63,26 @@ class tsFastscanGUI: public eWidget
 {
 	eButton *b_start; 
 	eStatusBar *status;
-	eCheckbox *c_hdlist, *c_usenum, *c_usename;
+#if HDINE1
+	eCheckbox *c_hdlist;
+#endif
+	eCheckbox *c_usenum, *c_usename;
 	eListBox<eListBoxEntryText> *l_provider;
 	eListBoxEntryText* entrys[3];
 	eLabel *warntv, *warnrad;
 
-	unsigned int v_provider, v_hdlist, v_usenum, v_usename;
+#if HDINE1
+	unsigned int v_hdlist;
+#endif
+	unsigned int v_provider, v_usenum, v_usename;
 
 	eStatusBar *statusbar;
 private:
 	void providerChanged( eListBoxEntryText *);
 	void checkProvider();
+#if HDINE1
 	void hdlistChanged(int);
+#endif
 	void usenumChanged(int);
 	void usenameChanged(int);
 	void start();

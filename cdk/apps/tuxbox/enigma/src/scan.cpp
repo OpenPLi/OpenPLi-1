@@ -2392,8 +2392,10 @@ void tsFastscanGUI::init_tsFastscanGUI(eWidget *parent, eWidget* LCDTitle, eWidg
 {
 	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/provider", v_provider))
 		v_provider = 0;
+#if HDINE1
 	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/hdlist", v_hdlist))
 		v_hdlist = 0;
+#endif
 	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/usenum", v_usenum))
 		v_usenum = 0;
 	if (eConfig::getInstance()->getKey("/elitedvb/fastscan/usename", v_usename))
@@ -2416,20 +2418,24 @@ void tsFastscanGUI::init_tsFastscanGUI(eWidget *parent, eWidget* LCDTitle, eWidg
 	l_provider->move(ePoint(150, 5));
 	l_provider->resize(eSize(150, fd + 4));
 
-	eString ts = _("TéléSAT");
 	entrys[0]=new eListBoxEntryText(l_provider, _("Canal Digitaal"), (void*)0);
 	entrys[1]=new eListBoxEntryText(l_provider, _("TV Vlaanderen"), (void*)1);
+#if HDINE1
+	eString ts = _("TéléSAT");
 	entrys[2]=new eListBoxEntryText(l_provider, convertDVBUTF8((const unsigned char*)ts.c_str(), strlen(ts.c_str())) ,(void*)2);
+#endif
 	l_provider->setCurrent(entrys[v_provider]);
 	l_provider->setHelpText(_("choose provider for Fastscan (left, right)"));
 	CONNECT( l_provider->selchanged, tsFastscanGUI::providerChanged );
 
+#if HDINE1
 	c_hdlist = new eCheckbox(this, v_hdlist, 1);
 	c_hdlist->move(ePoint(20,40));
 	c_hdlist->resize(eSize(350,fd + 4));
 	c_hdlist->setText(_("Use HD list"));
 	c_hdlist->setHelpText(_("Use HD list"));
 	CONNECT( c_hdlist->checked, tsFastscanGUI::hdlistChanged );
+#endif
 
 	c_usenum = new eCheckbox(this, v_usenum, 1);
 	c_usenum->move(ePoint(20,75));
@@ -2492,7 +2498,10 @@ void tsFastscanGUI::start()
 		close(1);
 	} else
 	{
+#if HDINE1
 		int pid = 900 + v_provider * 10 + v_hdlist;
+#endif
+		int pid = 900 + v_provider * 10;
 		sapi->setPID(pid);
 		sapi->setUseNum(v_usenum);
 		sapi->setUseName(v_usename);
@@ -2527,11 +2536,13 @@ void tsFastscanGUI::checkProvider()
 }
 
 
+#if HDINE1
 void tsFastscanGUI::hdlistChanged( int i )
 {
 	v_hdlist = (unsigned int) i;
 	eConfig::getInstance()->setKey("/elitedvb/fastscan/hdlist", v_hdlist);
 }
+#endif
 
 
 void tsFastscanGUI::usenumChanged( int i )
