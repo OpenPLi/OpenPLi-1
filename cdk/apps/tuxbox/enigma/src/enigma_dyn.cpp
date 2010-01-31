@@ -115,12 +115,12 @@ eString zapSubModes[6] = {"Name", "Category", "Satellites", "Providers", "Bouque
 
 eString zap[6][6] =
 {
-	{"TV", "0:7:1:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:12:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:12:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:6:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:12:ffffffff:0:0:0:0:0:"},
-	{"Radio", "0:7:2:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:4:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:4:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:4:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:4:ffffffff:0:0:0:0:0:"},
-	{"Data", "0:7:6:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:ffffffe9:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:ffffffe9:ffffffff:0:0:0:0:0:", /* Bouquets */ "", /* All */ ""},
-	{"Movies", "4097:7:0:1:0:0:0:0:0:0:", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
-	{"Root", "2:47:0:0:0:0:/", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
-	{"Stream", "", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""}
+	{_("TV"), "0:7:1:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:12:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:12:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:6:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:12:ffffffff:0:0:0:0:0:"},
+	{_("Radio"), "0:7:2:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:4:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:4:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:4:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:4:ffffffff:0:0:0:0:0:"},
+	{_("Data"), "0:7:6:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:ffffffe9:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:ffffffe9:ffffffff:0:0:0:0:0:", /* Bouquets */ "", /* All */ ""},
+	{_("Movies"), "4097:7:0:1:0:0:0:0:0:0:", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
+	{_("Root"), "2:47:0:0:0:0:/", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
+	{_("Stream"), "", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""}
 };
 
 extern bool onSameTP(const eServiceReferenceDVB& ref1, const eServiceReferenceDVB &ref2); // implemented in timer.cpp
@@ -570,13 +570,13 @@ eString getCurService(void)
 eString getChanNavi(bool showVLCButton)
 {
 	eString result;
-	result += button(100, "EPG", RED, "javascript:openEPG('')", "#FFFFFF");
-	result += button(100, "Video", GREEN, "javascript:selectSubChannel()", "#FFFFFF");
-	result += button(100, "Audio", YELLOW, "javascript:selectAudio()", "#FFFFFF");
-	result += button(100, "Info", BLUE, "javascript:openChannelInfo()", "#FFFFFF");
-	result += button(100, "Stream Info", TOPNAVICOLOR, "javascript:openSI()", "#000000");
+	result += button(100, _("EPG"), RED, "javascript:openEPG('')", "#FFFFFF");
+	result += button(100, _("Video"), GREEN, "javascript:selectSubChannel()", "#FFFFFF");
+	result += button(100, _("Audio"), YELLOW, "javascript:selectAudio()", "#FFFFFF");
+	result += button(100, _("Info"), BLUE, "javascript:openChannelInfo()", "#FFFFFF");
+	result += button(100, _("Stream Info"), TOPNAVICOLOR, "javascript:openSI()", "#000000");
 	if (showVLCButton)
-		result += button(100, "VLC", TOPNAVICOLOR, "javascript:vlc()", "#000000");
+		result += button(100, _("VLC"), TOPNAVICOLOR, "javascript:vlc()", "#000000");
 	return result;
 }
 
@@ -591,16 +591,16 @@ eString getTopNavi()
 		post = "')";
 	}
 
-	result += button(100, "ZAP", TOPNAVICOLOR, pre + "?mode=zap" + post);
-	result += button(100, "TIMERS", TOPNAVICOLOR, pre + "?mode=timers" + post);
-	result += button(100, "CONTROL", TOPNAVICOLOR, pre + "?mode=control" + post);
+	result += button(100, _("ZAP"), TOPNAVICOLOR, pre + "?mode=zap" + post);
+	result += button(100, _("TIMERS"), TOPNAVICOLOR, pre + "?mode=timers" + post);
+	result += button(100, _("CONTROL"), TOPNAVICOLOR, pre + "?mode=control" + post);
 	if (pdaScreen == 0)
 	{
 #ifdef ENABLE_EXPERT_WEBIF
-		result += button(100, "CONFIG", TOPNAVICOLOR, pre + "?mode=config" + post);
+		result += button(100, _("CONFIG"), TOPNAVICOLOR, pre + "?mode=config" + post);
 #endif
 	}
-	result += button(100, "HELP", TOPNAVICOLOR, pre + "?mode=help" + post);
+	result += button(100, _("HELP"), TOPNAVICOLOR, pre + "?mode=help" + post);
 
 	return result;
 }
@@ -658,63 +658,63 @@ eString getLeftNavi(eString mode)
 	{
 		if (pdaScreen == 0)
 		{
-			result += button(110, "TV", LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODETV) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODEBOUQUETS) + post, "#000000");
+			result += button(110, _("TV"), LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODETV) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODEBOUQUETS) + post, "#000000");
 			result += "<br>";
-			result += button(110, "Radio", LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODERADIO) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODEBOUQUETS) + post, "#000000");
+			result += button(110, _("Radio"), LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODERADIO) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODEBOUQUETS) + post, "#000000");
 			result += "<br>";
-			result += button(110, "Data", LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODEDATA) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODESATELLITES) + post, "#000000");
+			result += button(110, _("Data"), LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODEDATA) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODESATELLITES) + post, "#000000");
 			result += "<br>";
 #ifndef DISABLE_FILE
-			result += button(110, "Movies", LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODERECORDINGS) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODECATEGORY) + post, "#000000");
+			result += button(110, _("Movies"), LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODERECORDINGS) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODECATEGORY) + post, "#000000");
 			result += "<br>";
-			result += button(110, "Root", LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODEROOT) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODECATEGORY) + post, "#000000");
+			result += button(110, _("Root"), LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODEROOT) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODECATEGORY) + post, "#000000");
 #endif
 #ifdef ENABLE_EXPERT_WEBIF
 			result += "<br>";
-			result += button(110, "Stream", LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODESTREAMING) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODECATEGORY) + post, "#000000");
+			result += button(110, _("Stream"), LEFTNAVICOLOR, pre + "?mode=zap&zapmode=" + eString().sprintf("%d", ZAPMODESTREAMING) + "&zapsubmode=" + eString().sprintf("%d", ZAPSUBMODECATEGORY) + post, "#000000");
 #endif
 		}
 		else
 		{
-			result += button(110, "TV", LEFTNAVICOLOR, "?mode=zap&path=0:7:1:0:0:0:0:0:0:0:");
+			result += button(110, _("TV"), LEFTNAVICOLOR, "?mode=zap&path=0:7:1:0:0:0:0:0:0:0:");
 			result += "<br>";
-			result += button(110, "Radio", LEFTNAVICOLOR, "?mode=zap&path=0:7:2:0:0:0:0:0:0:0:");
+			result += button(110, _("Radio"), LEFTNAVICOLOR, "?mode=zap&path=0:7:2:0:0:0:0:0:0:0:");
 			result += "<br>";
-			result += button(110, "Data", LEFTNAVICOLOR, "?mode=zap&path=0:7:6:0:0:0:0:0:0:0:");
+			result += button(110, _("Data"), LEFTNAVICOLOR, "?mode=zap&path=0:7:6:0:0:0:0:0:0:0:");
 #ifndef DISABLE_FILE
 			result += "<br>";
-			result += button(110, "Root", LEFTNAVICOLOR, "?mode=zap&path=2:47:0:0:0:0:%2f");
+			result += button(110, _("Root"), LEFTNAVICOLOR, "?mode=zap&path=2:47:0:0:0:0:%2f");
 			result += "<br>";
-			result += button(110, "Movies", LEFTNAVICOLOR, "?mode=zap&path=4097:7:0:1:0:0:0:0:0:0:");
+			result += button(110, _("Movies"), LEFTNAVICOLOR, "?mode=zap&path=4097:7:0:1:0:0:0:0:0:0:");
 #endif
 		}
 	}
 	else
 	if (mode.find("control") == 0)
 	{
-		result += button(110, "Message2TV", LEFTNAVICOLOR, "javascript:sendMessage2TV()");
+		result += button(110, _("Message2TV"), LEFTNAVICOLOR, "javascript:sendMessage2TV()");
 		result += "<br>";
 #ifdef DEBUG
 		int disableSerialOutput = 0;
 		eConfig::getInstance()->getKey("/ezap/extra/disableSerialOutput", disableSerialOutput);
 		if (disableSerialOutput == 0)
 		{
-			result += button(110, "Logging", LEFTNAVICOLOR, "javascript:logging()");
+			result += button(110, _("Logging"), LEFTNAVICOLOR, "javascript:logging()");
 			result += "<br>";
 		}
 #endif
-		result += button(110, "Satfinder", LEFTNAVICOLOR, pre + "?mode=controlSatFinder" + post);
+		result += button(110, _("Satfinder"), LEFTNAVICOLOR, pre + "?mode=controlSatFinder" + post);
 		switch (eSystemInfo::getInstance()->getHwType())
 		{
 			case eSystemInfo::dbox2Nokia:
 			case eSystemInfo::dbox2Sagem:
 			case eSystemInfo::dbox2Philips:
 				result += "<br>";
-				result += button(110, "Remote Control", LEFTNAVICOLOR, "javascript:remoteControl('dbox2')");
+				result += button(110, _("Remote Control"), LEFTNAVICOLOR, "javascript:remoteControl('dbox2')");
 				break;
 			default:
 				if (eSystemInfo::getInstance()->hasKeyboard())
-				    result += "<br>"+button(110, "Remote Control", LEFTNAVICOLOR, "javascript:remoteControl('dreambox')");
+				    result += "<br>"+button(110, _("Remote Control"), LEFTNAVICOLOR, "javascript:remoteControl('dreambox')");
 				break;
 		}
 	}
@@ -723,30 +723,30 @@ eString getLeftNavi(eString mode)
 	{
 #ifdef ENABLE_EXPERT_WEBIF
 		if (eSystemInfo::getInstance()->getHwType() == eSystemInfo::DM7000)
-			result += button(110, "Boot Manager", LEFTNAVICOLOR, pre + "?mode=configBoot" + post);
-		result += button(110, "Mount Manager", LEFTNAVICOLOR, pre + "?mode=configMountMgr" + post);
+			result += button(110, _("Boot Manager"), LEFTNAVICOLOR, pre + "?mode=configBoot" + post);
+		result += button(110, _("Mount Manager"), LEFTNAVICOLOR, pre + "?mode=configMountMgr" + post);
 		result += "<br>";
 // Only enable Flash Manager in webinterface when bootmenue is available
 // Whenever we put it back in the image it is available here automatically
 		if (access("/bin/bootmenue", X_OK) == 0)
 		{
-			result += button(110, "Flash Manager", LEFTNAVICOLOR, pre + "?mode=configFlashMgr" + post);
+			result += button(110, _("Flash Manager"), LEFTNAVICOLOR, pre + "?mode=configFlashMgr" + post);
 			result += "<br>";
 		}
-		result += button(110, "Settings", LEFTNAVICOLOR, pre + "?mode=configSettings" + post);
+		result += button(110, _("Settings"), LEFTNAVICOLOR, pre + "?mode=configSettings" + post);
 // Only show Rotor button when rotor is enabled in config
 		eSatelliteConfigurationManager satconfig(false);
 		if (satconfig.getRotorEnabled())
 		{
 			result += "<br>";
-			result += button(110, "Rotor", LEFTNAVICOLOR, pre + "?mode=configRotor" + post);
+			result += button(110, _("Rotor"), LEFTNAVICOLOR, pre + "?mode=configRotor" + post);
 		}
 // Only enable extra webserver in webinterface when chttpd is available
 // Whenever we put it back in the image it is available here automatically
 		if (access("/bin/chttpd", X_OK) == 0 || access("/var/bin/chttpd", X_OK) == 0)
 		{
 			result += "<br>";
-			result += button(110, "Web Server", LEFTNAVICOLOR, pre + "?mode=configWebserver" + post);
+			result += button(110, _("Web Server"), LEFTNAVICOLOR, pre + "?mode=configWebserver" + post);
 		}
 #endif
 	}
