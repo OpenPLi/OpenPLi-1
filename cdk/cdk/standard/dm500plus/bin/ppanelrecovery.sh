@@ -3,8 +3,8 @@
 # ppanelrecovery.sh DM500PLUS version
 # Tries to download known XML files from the server if the file is missing.
 
-VERSION=0.8
-RELEASE=jade
+VERSION=0.9
+RELEASE=openpli
 BOX=dm500plus
 
 # Check for new version
@@ -24,7 +24,7 @@ echo "Downloading the latest version now..."
 case $XMLFILE in
    /var/etc/software.xml)
    rm /var/etc/software.ver
-   ppanelupdate.sh http://servername/$BOX/software.tar.gz /
+   ppanelupdate.sh http://downloads.pli-images.org/$RELEASE/xml/$BOX/software.tar.gz /
    rm -f /tmp/ppanelrefresh
    ;;
 
