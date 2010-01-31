@@ -115,12 +115,12 @@ eString zapSubModes[6] = {"Name", "Category", "Satellites", "Providers", "Bouque
 
 eString zap[6][6] =
 {
-	{_("TV"), "0:7:1:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:12:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:12:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:6:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:12:ffffffff:0:0:0:0:0:"},
-	{_("Radio"), "0:7:2:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:4:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:4:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:4:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:4:ffffffff:0:0:0:0:0:"},
-	{_("Data"), "0:7:6:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:ffffffe9:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:ffffffe9:ffffffff:0:0:0:0:0:", /* Bouquets */ "", /* All */ ""},
-	{_("Movies"), "4097:7:0:1:0:0:0:0:0:0:", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
-	{_("Root"), "2:47:0:0:0:0:/", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
-	{_("Stream"), "", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""}
+	{"TV", "0:7:1:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:12:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:12:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:6:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:12:ffffffff:0:0:0:0:0:"},
+	{"Radio", "0:7:2:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:4:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:4:ffffffff:0:0:0:0:0:", /* Bouquets */ "4097:7:0:4:0:0:0:0:0:0:", /* All */ "1:15:fffffffe:4:ffffffff:0:0:0:0:0:"},
+	{"Data", "0:7:6:0:0:0:0:0:0:0:", /* Satellites */ "1:15:fffffffc:ffffffe9:0:0:0:0:0:0:", /* Providers */ "1:15:ffffffff:ffffffe9:ffffffff:0:0:0:0:0:", /* Bouquets */ "", /* All */ ""},
+	{"Movies", "4097:7:0:1:0:0:0:0:0:0:", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
+	{"Root", "2:47:0:0:0:0:/", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""},
+	{"Stream", "", /* Satellites */ "", /* Providers */ "", /* Bouquets */ "", /* All */ ""}
 };
 
 extern bool onSameTP(const eServiceReferenceDVB& ref1, const eServiceReferenceDVB &ref2); // implemented in timer.cpp
