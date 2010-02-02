@@ -467,6 +467,20 @@ const eString &eListBoxEntryService::redraw(gPainter *rc, const eRect &rect, gCo
 		}
 		if (descrPara)  // only render descr Para, when avail...
 		{
+			if (perc >=0)  // displaying borders in same color as channelnumber and name
+			{
+#define PB_BorderWidth 2
+#define PB_Width 50
+#define PB_Height 6
+				rc->line(ePoint(rect.right() - 52, rect.top() + 3), ePoint(rect.right() + 2, rect.top() + 3));
+				rc->line(ePoint(rect.right() - 52, rect.top() + 4), ePoint(rect.right() + 2, rect.top() + 4));
+				rc->line(ePoint(rect.right() - 52, rect.top() + rect.height() - 4), ePoint(rect.right() + 2, rect.top() + rect.height() - 4));
+				rc->line(ePoint(rect.right() - 52, rect.top() + rect.height() - 3), ePoint(rect.right() + 2, rect.top() + rect.height() - 3));
+				rc->line(ePoint(rect.right() - 52, rect.top() + 5), ePoint(rect.right() - 52, rect.top() + rect.height() - 5));
+				rc->line(ePoint(rect.right() - 51, rect.top() + 5), ePoint(rect.right() - 51, rect.top() + rect.height() - 5));
+				rc->line(ePoint(rect.right() +  1, rect.top() + 5), ePoint(rect.right() +  1, rect.top() + rect.height() - 5));
+				rc->line(ePoint(rect.right() +  2, rect.top() + 5), ePoint(rect.right() +  2, rect.top() + rect.height() - 5));
+			}
 			if ( hilited )
 				rc->setForegroundColor( eSkin::getActive()->queryColor("eServiceSelector.highlight.epg.foreground") ); // selected  
 			else
