@@ -115,6 +115,11 @@ cd $OE_ROOT
 ./recreate_feed $OE_BUILD/tmp/deploy/3rd-party
 rsync -h -r --timeout=600 --progress --delete-during $OE_BUILD/tmp/deploy/3rd-party/ rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/$MACHINE/
 
+rm -f $OE_BUILD/tmp/deploy/ipk/*-locale-*.ipk
+rm -f $OE_BUILD/tmp/deploy/ipk/*-dbg_*.ipk
+rm -f $OE_BUILD/tmp/deploy/ipk/*-doc_*.ipk
+cd $OE_BUILD && bitbake package-index
+
 if [ ! -f $OE_BUILD/tmp/deploy/ipk/Packages.gz ]; then
 	echo "Feed not complete!"
 	exit
