@@ -115,7 +115,10 @@ cd $OE_ROOT
 ./recreate_feed $OE_BUILD/tmp/deploy/3rd-party
 rsync -h -r --timeout=600 --progress --delete-during $OE_BUILD/tmp/deploy/3rd-party/ rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/$MACHINE/
 
-rm -f $OE_BUILD/tmp/deploy/ipk/*-locale-*.ipk
+#don't delete locale packages from enigma images, we need enigma-locale-??
+if [ "${MACHINE}" != "dm500plus" -a "${MACHINE}" != "dm600pvr" -a "${MACHINE}" != "dm7020" ]; then
+	rm -f $OE_BUILD/tmp/deploy/ipk/*-locale-*.ipk
+fi
 rm -f $OE_BUILD/tmp/deploy/ipk/*-dbg_*.ipk
 rm -f $OE_BUILD/tmp/deploy/ipk/*-doc_*.ipk
 cd $OE_BUILD && bitbake package-index
