@@ -16,8 +16,8 @@ eDVBFastscanController::eDVBFastscanController(eDVB &dvb)
 void eDVBFastscanController::init_eDVBFastscanController(eDVB &dvb)
 {
 
-	CONNECT(dvb.tFastscanService.tableReady, eDVBFastscanController::FastscanServicesready);
-	CONNECT(dvb.tFastscanNetwork.tableReady, eDVBFastscanController::FastscanNetworksready);
+	CONNECT(tFastscanService.tableReady, eDVBFastscanController::FastscanServicesready);
+	CONNECT(tFastscanNetwork.tableReady, eDVBFastscanController::FastscanNetworksready);
 	dvb.setState(eDVBState(eDVBState::stateIdle));
 }
 
@@ -80,23 +80,23 @@ void eDVBFastscanController::handleEvent(const eDVBEvent &event)
 			// found valid transponder
 			dvb.setState(eDVBFastscanState(eDVBFastscanState::stateFastscanGetServices));
 			eDebug("[FASTSCANController] start tFastscanService");
-			dvb.tFastscanService.start(new FastscanService(fastscan_pid));
+			tFastscanService.start(new FastscanService(fastscan_pid));
 			break;
 		case eDVBFastscanEvent::eventFastscanGotServices:
 			eDebug("[FASTSCANController] eventScanGotServices");
 			if (dvb.getState() != eDVBFastscanState::stateFastscanGetServices)
 				eFatal("[FASTSCANController] unexpected gotServices");
-			if (!dvb.tFastscanService.ready())
+			if (!tFastscanService.ready())
 				eFatal("[FASTSCANController] mm trouble -> no fastscanservice");
 			dvb.setState(eDVBFastscanState(eDVBFastscanState::stateFastscanGetNetworks));
 			eDebug("[FASTSCANController] start tFastscanNetwork");
-			dvb.tFastscanNetwork.start(new FastscanNetwork(fastscan_pid));
+			tFastscanNetwork.start(new FastscanNetwork(fastscan_pid));
 			break;
 		case eDVBFastscanEvent::eventFastscanGotNetworks:
 			eDebug("[FASTSCANController] eventScanGotNetworks");
 			if (dvb.getState() != eDVBFastscanState::stateFastscanGetNetworks)
 				eFatal("[FASTSCANController] unexpected gotNetworks");
-			if (!dvb.tFastscanNetwork.ready())
+			if (!tFastscanNetwork.ready())
 				eFatal("[FASTSCANController] mm trouble -> no fastscannetwork");
 			dvb.setState(eDVBFastscanState(eDVBFastscanState::stateFastscanComplete));
 			dvb.event(eDVBFastscanEvent(eDVBFastscanEvent::eventFastscanComplete));

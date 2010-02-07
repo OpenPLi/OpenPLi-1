@@ -2781,7 +2781,7 @@ void eZapMain::fillFastscanBouquet(eString bouquetname, std::map<int, eServiceRe
 		pl = (ePlaylist*) eServiceInterface::getInstance()->addRef(it->service);
 		if (pl && pl->service_name == bouquetname )
 		{
-			eDebug("[eFASTSCAN] clearing existing playlist %s", pl->service_name.c_str());
+			eDebug("[eFASTSCAN] clearing existing %s playlist %s", radio ? "radio" : "tv", pl->service_name.c_str());
 			foundpl = true;
 			// clear playlist and make sure bouquet is on the fron of the bouquet list
 			pl->getList().clear();
@@ -2792,7 +2792,7 @@ void eZapMain::fillFastscanBouquet(eString bouquetname, std::map<int, eServiceRe
 	}
 	if (!foundpl)
 	{
-		eDebug("[eFASTSCAN] creating new playlist %s", bouquetname.c_str());
+		eDebug("[eFASTSCAN] creating new %s playlist %s", radio ? "radio" : "tv", bouquetname.c_str());
 		// create new playlist and add to the front of the bouquet list
 		eServiceReference newlist = eServicePlaylistHandler::getInstance()->newPlaylist();
 		eString path = eplPath + '/' + eString().sprintf("userbouquet.%x.%s", newlist.data[1], radio ? "radio": "tv");
@@ -2853,8 +2853,8 @@ void tsFastscan::parseResult()
 		fprintf( out, "orignum=%d\n usename=%d\n, Provider=%s\n", originalNumbering, useFixedServiceInfo, providerName.c_str());
 #endif
 
-	FastscanNetwork* networksections = dvb->tFastscanNetwork.getCurrent();
-	FastscanService* servicessections = dvb->tFastscanService.getCurrent();
+	FastscanNetwork* networksections = sapi->tFastscanNetwork.getCurrent();
+	FastscanService* servicessections = sapi->tFastscanService.getCurrent();
 
 	std::map<int, int> service_orbital_position;
 	std::map<int, eServiceReferenceDVB> numbered_channels;

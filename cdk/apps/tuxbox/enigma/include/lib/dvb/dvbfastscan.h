@@ -9,6 +9,9 @@
 #define TID_Services 0xBD
 #define TID_Networks 0xBC
 
+class FastscanService;
+class FastscanNetwork;
+
 class eDVBFastscanEvent: public eDVBEvent
 {
 public:
@@ -77,6 +80,9 @@ public:
 	eString getProviderName() { return fastscan_provider; }
 	bool getUseNum() { return fastscan_usenum; }
 	bool getUseName() { return fastscan_usename; }
+
+	eAUTable<FastscanService> tFastscanService;
+	eAUTable<FastscanNetwork> tFastscanNetwork;
 
 	Signal2<void, int, int> tProgress;
 	Signal1<void, int> tService;
