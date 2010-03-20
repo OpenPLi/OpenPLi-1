@@ -1,15 +1,22 @@
 #!/bin/bash
 
-echo Removing and Copying own PLi files
+echo Removing and Copying own PLi files in customize-flash-past
 scriptdir=${0%/*}
-flashprefix=$scriptdir/../root/cdkflash
 BOXTYPE=$1
+flashprefix=$scriptdir/../root/cdkflash
+standard=$scriptdir/standard/$BOXTYPE
 
 #
 # the * is crucial!
 #
 # in here we can put the wifi drivers and etc/init.d/init1 and other nice stuff...
 #
+
+	# CCcam is stripped in the Makefile after customize-flash-pre which destroys the binary
+	# Just copy the exe again because there's no need to strip 3rd party binaries
+	# We don't have a directory for 3rd party binaries so no generic solution possible
+	cp -avf $standard/bin/CCcam $flashprefix/root/bin/
+	
 	rm -f $flashprefix/root/bin/newcamd
 	rm -f $flashprefix/root/bin/cardserver
 	rm -f $flashprefix/root/bin/cardspider
@@ -23,8 +30,8 @@ BOXTYPE=$1
 	rm -f $flashprefix/root/lib/tuxbox/plugins/satfind.so
 	rm -f $flashprefix/root/lib/tuxbox/plugins/satfind.cfg
 
-	ln -sf /lib/libcrypto.so.0 $flashprefix/root/lib/libcrypto.so.0.9.7 
-	
+	ln -sf /lib/libcrypto.so.0 $flashprefix/root/lib/libcrypto.so.0.9.7
+
 	if [ $BOXTYPE == dm7000 ] ; then
 		# remove CCcam from the build, was only added to prevent too much stripping of libs
 		rm $flashprefix/root/bin/CCcam

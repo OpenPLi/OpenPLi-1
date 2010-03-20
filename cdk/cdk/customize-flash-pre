@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo Removing and Copying own PLi files
+echo Removing and Copying own PLi files in customize-flash-pre
 scriptdir=${0%/*}
 BOXTYPE=$1
 root=$scriptdir/../root/cdkflash/root
@@ -15,9 +15,9 @@ pliversion="`date +%d%m`"
 #
 # in here we can put the wifi drivers and etc/init.d/init1 and other nice stuff...
 #
-cp -avf $standard/. $root/.
 cp -avf $allimages/. $root/.
 cp -avf $cdkimages/. $root/.
+cp -avf $standard/. $root/.
 
 for i in `find $root -type d -name ".svn"`; do
    rm -rf $i
