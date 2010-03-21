@@ -2272,7 +2272,7 @@ dreamboximage_root: core .enigma .etherwake .linuxkernel .dreamfiles .libcrypto 
 	flash-ftpd flash-dvb-tools flash-etherwake flash-dreamfiles \
 	flash-sambaclient flash-plugin_plimgr flash-plugin_setupnetwork \
 	flash-plugin_movieplayer \
-	flash-plugin_pacman flash-plugin_tetris flash-plugin_snake \
+	flash-plugin_tetris \
 	flash-scramble
 endif
 endif
