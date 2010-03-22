@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: tuxbox-enigma 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-01 10:40+0100\n"
-"PO-Revision-Date: 2009-11-24 15:25+0100\n"
-"Last-Translator: robi <robertut@yahoo.com>\n"
+"PO-Revision-Date: 2010-02-21 11:50+0100\n"
+"Last-Translator: robertut <robertut@yahoo.com>\n"
 "Language-Team: lbalogh, robertut <lbalogh@mediavox.hu, robertut@yahoo.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -311,7 +311,7 @@ msgstr "Keresés:"
 #: default.esml:716
 #: default.esml:899
 msgid "add"
-msgstr "hozzáadás"
+msgstr "hozzáad"
 
 #: default.esml:519
 msgid "start the transponder scan"
@@ -326,7 +326,7 @@ msgstr "keresés indítása"
 
 #: default.esml:813
 msgid "check"
-msgstr "ellenőrzés"
+msgstr "ellenörzés"
 
 #: default.esml:653
 #: default.esml:659
@@ -392,7 +392,7 @@ msgstr ""
 #: stone.esml:588
 #: src/enigma_plugins.cpp:98
 msgid "Plugins"
-msgstr "Bővítmények"
+msgstr "Bövítm."
 
 #: default.esml:736
 #: default.esml:741
@@ -2432,7 +2432,7 @@ msgstr "új üres bouquet létrehozása"
 
 #: src/enigma_bouquet.cpp:68
 msgid "Add services to bouquet"
-msgstr "Csatornák felvétele a bouquet-be"
+msgstr "Csatornák felvétele bouquet-be"
 
 #: src/enigma_bouquet.cpp:68
 msgid "add multiple services to a specific bouquet"
@@ -2504,7 +2504,7 @@ msgstr "várakozás a modul válaszára..."
 #: src/enigma.cpp:433
 #: src/setup_swapandvar.cpp:112
 msgid "Internal harddisk"
-msgstr "Belső merevlemez"
+msgstr "Belsö merevlemez"
 
 #: src/enigma.cpp:440
 #: src/setup_swapandvar.cpp:111
@@ -3517,16 +3517,16 @@ msgid ""
 "A recording is currently in progress!\n"
 "This stops the recording!"
 msgstr ""
-"Egy felvétel jelenleg aktív!\n"
-"Megállítsam a felvételt?"
+"Egy felvétel most folyamatban van!\n"
+"Megállítsam?"
 
 #: src/enigma_main.cpp:6696
 msgid ""
 "A timer event is currently in progress!\n"
 "This stops the timer event!"
 msgstr ""
-"Egy időzítés jelenleg még aktív!\n"
-"Megállítsam az idözítést?"
+"Egy idözítés most folyamatban van!\n"
+"Megállítsam?"
 
 #: src/enigma_main.cpp:6704
 msgid "Really do this?"
@@ -3668,7 +3668,7 @@ msgstr "jelölje be ezt az opciót hogy az 'újonnan talált' jelölőt törölj
 
 #: src/enigma_main.cpp:9200
 msgid "create new bouquet"
-msgstr "Új bouquet létrehozása"
+msgstr "új bouquet létrehozása"
 
 #: src/enigma_main.cpp:9200
 msgid "select to create a new bouquet"
@@ -3755,11 +3755,11 @@ msgstr "a korábban kiválasztott csatorna fog megjelenni indításkor"
 
 #: src/enigma_main.cpp:9269
 msgid "disable move mode"
-msgstr "mozgatás mód tiltása"
+msgstr "mozgatás mód kikapcsolása"
 
 #: src/enigma_main.cpp:9269
 msgid "switch move mode off"
-msgstr "mozgatás mód kikapcsolása"
+msgstr "kilépés a mozgatás módból"
 
 #: src/enigma_main.cpp:9271
 msgid "enable move mode"
@@ -3767,7 +3767,7 @@ msgstr "mozgatás mód bekapcsolása"
 
 #: src/enigma_main.cpp:9271
 msgid "activate mode to simply change the entry order"
-msgstr "'egyszerü sorrend megváltoztatás' mód bekapcsolása"
+msgstr "csatornák sorrendjének megváltoztatásához"
 
 #: src/enigma_main.cpp:9280
 msgid "copy to bouquet list"
@@ -4966,7 +4966,7 @@ msgstr "Szünet"
 #: src/key_mapping.cpp:287
 #: src/key_mapping.cpp:295
 msgid "Plug"
-msgstr "Bővítmények"
+msgstr "Bövítm."
 
 #: src/key_mapping.cpp:291
 msgid "Txt"
@@ -7011,7 +7011,7 @@ msgstr "nincs inicializálva - használat elött meg kell formázni!"
 #: src/setup_harddisk.cpp:742
 #, c-format
 msgid "in use, %d.%04d GB (about %d minutes) free"
-msgstr "foglalva, %d.%03d GB (~%d perc) szabad táthely"
+msgstr "%d.%04d GB (kb. ~%d percnyi) szabad táthely"
 
 #: src/setup_harddisk.cpp:744
 msgid "initialized, but unknown filesystem"
@@ -7051,7 +7051,7 @@ msgstr "Billentyüzet beállítások"
 
 #: src/setup_keyboard.cpp:58
 msgid "Keyboard mapping:"
-msgstr "Billentyüzet kiosztás"
+msgstr "Billentyüzet kiosztás:"
 
 #: src/setup_keyboard.cpp:66
 msgid "select your keyboard mapping (ok)"
@@ -7292,7 +7292,7 @@ msgstr "A hálózati meghajtó leválasztása"
 
 #: src/setup_mounts.cpp:402
 msgid "Mount"
-msgstr "Csatlakoztat"
+msgstr "Csatlak."
 
 #: src/setup_mounts.cpp:405
 msgid "Save and mount this network mount"
@@ -7989,7 +7989,7 @@ msgstr "Most felvétel van folyamatban, nem lehet minden beállítást változta
 
 #: src/setup_recordingplaying.cpp:195
 msgid "Timeshift"
-msgstr "Időcsúsztatás"
+msgstr "Idöcsúszt."
 
 #: src/setup_recordingplaying.cpp:200
 msgid "Edit the timeshift options"
@@ -8033,7 +8033,7 @@ msgstr "a felvétel maximális időhossza (perc)"
 
 #: src/setup_recordingplaying.cpp:430
 msgid "Timer start offset"
-msgstr "Az idözítö kezdési ráhagyása"
+msgstr "Felvétel elöbb kezdése"
 
 #: src/setup_recordingplaying.cpp:437
 msgid "Time in minutes a timer event starts earlier (0-60)"
@@ -8041,7 +8041,7 @@ msgstr "Az idő, percben, amennyivel korábban kezdödik az esemény (0-60)"
 
 #: src/setup_recordingplaying.cpp:443
 msgid "Timer stop offset"
-msgstr "Az idözítö befejezési ráhagyása"
+msgstr "Ráhagyás a felvétel végén"
 
 #: src/setup_recordingplaying.cpp:450
 msgid "Time in minutes a timer event finishes later (0-60)"
@@ -8049,7 +8049,7 @@ msgstr "Az idő, percben, amennyivel később fejeződik be az esemény (0-60)"
 
 #: src/setup_recordingplaying.cpp:456
 msgid "Default action on timer end"
-msgstr "Alapért. művelet befejezéskor"
+msgstr "Alapért. müvelet befejezéskor"
 
 #: src/setup_recordingplaying.cpp:463
 msgid "Set default action on timer end"
@@ -8058,7 +8058,7 @@ msgstr "Alapértelmezett művelet az időzítés végeztekor (</>)"
 #: src/setup_recordingplaying.cpp:467
 #: src/timer.cpp:2233
 msgid "Nothing"
-msgstr "Semmi"
+msgstr "Bekapcsolva"
 
 #: src/setup_recordingplaying.cpp:468
 #: src/timer.cpp:2234
@@ -9918,6 +9918,7 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #, fuzzy
 #~ msgid "SoftCam Setup"
 #~ msgstr "Motor beállítások"
+
 #~ msgid "Service Organising"
 #~ msgstr "Csatornarendezés"
 
@@ -9928,6 +9929,7 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #, fuzzy
 #~ msgid "show installed plugins"
 #~ msgstr "Müholdas lista mutatása"
+
 #~ msgid "show extension Plugins"
 #~ msgstr "Plugin bövítések listája"
 
@@ -9962,6 +9964,7 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #, fuzzy
 #~ msgid "MultiEPG settings"
 #~ msgstr "idöbeállítások megnyitása"
+
 #~ msgid "Expert Setup"
 #~ msgstr "Haladó beállítások"
 
@@ -10008,6 +10011,7 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #, fuzzy
 #~ msgid "No recording device found"
 #~ msgstr "felvétel hossza:"
+
 #~ msgid "UHF-Modulator Setup"
 #~ msgstr "UHF-modulátor beállítások"
 
@@ -10038,6 +10042,7 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #, fuzzy
 #~ msgid "Show current BN version"
 #~ msgstr "Szoftver verzió:"
+
 #~ msgid "Software Update"
 #~ msgstr "Szoftver-frissítés"
 
@@ -10057,50 +10062,69 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #~ "indulni!\n"
 #~ "\n"
 #~ "Biztos hogy kéri a gyári alapbeállításokra való visszaállítást?"
+
 #~ msgid "Common Interface Modules"
 #~ msgstr "Modulok"
+
 #~ msgid "Common Interface Module"
 #~ msgstr "Common Interface modul"
 
 #, fuzzy
 #~ msgid "1 ... 6 select hours"
 #~ msgstr "az 1 ... 6 gombokkal választható ki a látható órák száma"
+
 #~ msgid "Infos"
 #~ msgstr "Információk"
+
 #~ msgid "open the Streaminfo"
 #~ msgstr "adatfolyam információk megnyitása"
+
 #~ msgid "open the about dialog"
 #~ msgstr "névjegy ablak megnyitása"
+
 #~ msgid "open service organising"
 #~ msgstr "csatorna rendezö megnyitása"
+
 #~ msgid "open service searching"
 #~ msgstr "csatorna keresö megnyitása"
+
 #~ msgid "open system settings"
 #~ msgstr "rendszer beállítások megnyitása"
+
 #~ msgid "open common interface menu"
 #~ msgstr "Common Interface menü megnyitása"
 
 #, fuzzy
 #~ msgid "Parental Lock"
 #~ msgstr "Gyermekzár"
+
 #~ msgid "open parental setup"
 #~ msgstr "gyermekzár beállítása"
+
 #~ msgid "open expert setup"
 #~ msgstr "haladó beállítások megnyitása"
+
 #~ msgid "Parental setup"
 #~ msgstr "Gyermekzár beállítása"
+
 #~ msgid "Communication Setup"
 #~ msgstr "Kommunikációs beállítások"
+
 #~ msgid "open communication setup"
 #~ msgstr "kommunikációs beállítások megnyitása"
+
 #~ msgid "open ngrab server setup"
 #~ msgstr "Ngrab szerver beállítások megnyitása"
+
 #~ msgid "open software update"
 #~ msgstr "szoftver-frissítés megnyitása"
+
 #~ msgid "enable/disable confirmations"
 #~ msgstr "jóváhagyások engedélyezése/tiltása"
+
 #~ msgid "Don't open serial port"
 #~ msgstr "Ne nyissa meg a soros portot"
+
 #~ msgid "don't write debug messages to /dev/tts/0"
 #~ msgstr "ne írjon debug üzeneteket a /dev/tts/0 -ra"
 
@@ -10115,46 +10139,67 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #, fuzzy
 #~ msgid "Disable HDD mount"
 #~ msgstr "WSS letiltása 4:3 esetében"
+
 #~ msgid "LC-Display Setup"
 #~ msgstr "LCD kijelzö beállítása"
+
 #~ msgid "Alpha:"
 #~ msgstr "Alpha:"
+
 #~ msgid "Show Mainmenu like Listbox"
 #~ msgstr "Fömenü megjelenítése lista-alakban"
+
 #~ msgid "Change skin"
 #~ msgstr "Skin megváltoztatása"
+
 #~ msgid "press ok to open skin selector"
 #~ msgstr "OK-val megnyitja a Skin-kiválasztó menüt"
+
 #~ msgid "here you can center the Tuxtxt (builtin videotext)"
 #~ msgstr "itt középre lehet pozícionálni a TuxTxt-t (beépített teletext)"
+
 #~ msgid "Communication setup"
 #~ msgstr "Kommunikációs beállítások"
+
 #~ msgid "enter IP Address of the box (0..9, left, right)"
 #~ msgstr "adja meg a DreamBox IP számát (0..9, </>)"
+
 #~ msgid "press ok to change connection type"
 #~ msgstr "Ok-val megváltoztatható a kapcsolat típusa"
+
 #~ msgid "enable/disable network (ok)"
 #~ msgstr "hálózat engedélyezése/letiltása (OK)"
+
 #~ msgid "here you can setup nfs/cifs mounts"
 #~ msgstr "itt telepítheti az NFS/CIFS mountokat"
+
 #~ msgid "press ok to mount this share"
 #~ msgstr "OK-val telepíthetö ez a megosztás"
+
 #~ msgid "enter the name of the share without trailing slash"
 #~ msgstr "adja meg a megosztás nevét"
+
 #~ msgid "NFS/CIFS-Setup..."
 #~ msgstr "NFS/CIFS beállítások..."
+
 #~ msgid "no description found"
 #~ msgstr "nincs információ"
+
 #~ msgid "Harddisc Setup"
 #~ msgstr "HDD beállítások"
+
 #~ msgid "open language selector"
 #~ msgstr "Nyelv választó menü megnyitása"
+
 #~ msgid "open LCD settings"
 #~ msgstr "LCD beállítások megnyitása"
+
 #~ msgid "open timezone selector"
 #~ msgstr "idözóna beállítások megnyitása"
+
 #~ msgid "open time correction window"
 #~ msgstr "idökorrekciós ablak megnyitása"
+
 #~ msgid "FF "
 #~ msgstr "FF"
 
@@ -10165,6 +10210,6 @@ msgstr "DISH LNB Észak-Amerika és Kanada esetében"
 #, fuzzy
 #~ msgid "FR "
 #~ msgstr "FF"
+
 #~ msgid "Stop "
 #~ msgstr "Állj"
-
