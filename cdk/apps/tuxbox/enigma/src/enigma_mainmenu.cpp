@@ -309,7 +309,9 @@ void eMainMenu::sel_file()
 void eMainMenu::sel_vcr()
 {
 	hide();
+	eConfig::getInstance()->setKey("/elitedvb/video/VCRmanual", 1);
 	eZapMain::getInstance()->toggleScart(1);
+	eConfig::getInstance()->setKey("/elitedvb/video/VCRmanual", 0);
 	show();
 }
 

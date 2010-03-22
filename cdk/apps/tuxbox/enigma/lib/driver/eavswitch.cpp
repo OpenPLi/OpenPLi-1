@@ -360,8 +360,12 @@ void eAVSwitch::muteAvsAudio(bool m)
 int eAVSwitch::setTVPin8CheckVCR(int vol)
 {
 	int isVCRActive = eStreamWatchdog::getInstance()->getVCRActivity();
-	if (active && input && isVCRActive)
+	int isVCRManual = 0;
+	eConfig::getInstance()->getKey("/elitedvb/video/VCRmanual", isVCRManual);
+	if (active && input && (isVCRActive || isVCRManual))
+	{
 		return 1;
+	}
 	return setTVPin8(vol);
 }
 int eAVSwitch::setTVPin8(int vol)
