@@ -2421,7 +2421,7 @@ void tsFastscanGUI::init_tsFastscanGUI(eWidget *parent, eWidget* LCDTitle, eWidg
 	entrys[0]=new eListBoxEntryText(l_provider, _("Canal Digitaal"), (void*)0);
 	entrys[1]=new eListBoxEntryText(l_provider, _("TV Vlaanderen"), (void*)1);
 #if HDINE1
-	eString ts = _("TéléSAT");
+	eString ts = _("TeleSAT");
 	entrys[2]=new eListBoxEntryText(l_provider, convertDVBUTF8((const unsigned char*)ts.c_str(), strlen(ts.c_str())) ,(void*)2);
 #endif
 	l_provider->setCurrent(entrys[v_provider]);
@@ -2441,7 +2441,7 @@ void tsFastscanGUI::init_tsFastscanGUI(eWidget *parent, eWidget* LCDTitle, eWidg
 	c_usenum->move(ePoint(20,75));
 	c_usenum->resize(eSize(350, fd + 4));
 	c_usenum->setText(_("Use Fastscan channel numbering"));
-	c_usenum->setHelpText(_("Use Fastscan channel numebring"));
+	c_usenum->setHelpText(_("Use Fastscan channel numbering"));
 	CONNECT( c_usenum->checked, tsFastscanGUI::usenumChanged );
 
 	c_usename = new eCheckbox(this, v_usenum, 1);
@@ -2462,12 +2462,12 @@ void tsFastscanGUI::init_tsFastscanGUI(eWidget *parent, eWidget* LCDTitle, eWidg
 	CONNECT(b_start->selected, tsFastscanGUI::start);		
 
 	warntv=new eLabel(this);
-	warntv->setText(_(""));
+	warntv->setText("");
 	warntv->move(ePoint(20, 190));
 	warntv->resize(eSize(350, fd + 4));
 
 	warnrad=new eLabel(this);
-	warnrad->setText(_(""));
+	warnrad->setText("");
 	warnrad->move(ePoint(20, 225));
 	warnrad->resize(eSize(350, fd + 4));
 
@@ -2528,11 +2528,11 @@ void tsFastscanGUI::checkProvider()
 	if (z->existsBouquet(entrys[v_provider]->getText(), false))
 		warntv->setText(_("Current TV bouquet will be cleared!!!"));
 	else
-		warntv->setText(_(""));
+		warntv->setText("");
 	if (!v_usenum && z->existsBouquet(entrys[v_provider]->getText(), true))
 		warnrad->setText(_("Current Radio bouquet will be cleared!!!"));
 	else
-		warnrad->setText(_(""));
+		warnrad->setText("");
 }
 
 

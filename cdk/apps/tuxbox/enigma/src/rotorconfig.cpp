@@ -462,7 +462,7 @@ void eRotorManual::init_eRotorManual(eLNB *lnb)
 	new eListBoxEntryText(*Mode, _("position"), (void*) 0, 0, _("store new sat positions"));
 	new eListBoxEntryText(*Mode, _("drive to stored pos"), (void*) 1, 0, _("drive to stored position"));
 	new eListBoxEntryText(*Mode, _("drive to satellite"), (void*) 8, 0, _("drive to stored satellite"));
-	new eListBoxEntryText(*Mode, _("drive to 0\xC2\xB0"), (void*) 2, 0, _("drives to 0\xB0"));
+	new eListBoxEntryText(*Mode, _("drive to 0 degree"), (void*) 2, 0, _("drives to degree"));
 	new eListBoxEntryText(*Mode, _("recalculate"), (void*) 3, 0, _("recalculate stored positions rel. to current pos"));
 	new eListBoxEntryText(*Mode, _("set east limit"), (void*) 4, 0, _("set east soft limit"));
 	new eListBoxEntryText(*Mode, _("set west limit"), (void*) 5, 0, _("set west soft limit"));
