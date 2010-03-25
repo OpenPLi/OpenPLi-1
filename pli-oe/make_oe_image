@@ -9,6 +9,9 @@ fi
 
 if [ "${DISTROVERSION}x" = "x" ]; then
 	DISTROVERSION=openpli
+	FILENAME="OpenPLi-unstable-${MACHINE}-`date +%Y%m%d`"
+else
+	FILENAME="${DISTROVERSION}-${MACHINE}-`date +%Y%m%d`"
 fi
 
 # Default: build image from /dreambox/oe/build if these env. variables are not set
@@ -93,13 +96,6 @@ rm -f $OE_BUILD/tmp/deploy/ipk/Packages
 rm -f $OE_BUILD/tmp/deploy/ipk/Packages.gz
 
 cd $OE_BUILD && . env.source && bitbake dreambox-image || ( echo "Error building image started in $OE_BUILD"; exit 1 )
-
-ENIGMADIR=`find $OE_WORK -maxdepth 1 -name enigma-$DISTROVERSION-\* | tail -1`/enigma
-#IMAGENAME=`find $OE_WORK -maxdepth 1 -name pli-files-\* | tail -1`
-#IMAGENAME=`basename $IMAGENAME`
-#IMAGENAME=${IMAGENAME#pli-files-}
-#IMAGENAME=${IMAGENAME%-*}
-FILENAME="OpenPLi-unstable-${MACHINE}-`date +%Y%m%d`"
 
 mv $OE_IMAGES/*.nfi $OE_IMAGES/$FILENAME.nfi
 zip -j $OE_IMAGES/$FILENAME $OE_IMAGES/$FILENAME.nfi
