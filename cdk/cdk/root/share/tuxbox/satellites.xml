@@ -513,7 +513,7 @@ and combinations of these.
 		<transponder frequency="12713000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12731000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 	</sat>
-	<sat name="15.8E Eurobird 16..Eutelsat W2M..Eutelsat Sesat 1" flags="1" position="158">
+	<sat name="16.0E Eurobird 16E Eutelsat 1" flags="1" position="160">
 		<transponder frequency="10957000" symbol_rate="2821000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="10975000" symbol_rate="22500000" polarization="0" fec_inner="8" system="1" modulation="1"/>
 		<transponder frequency="10994000" symbol_rate="4444000" polarization="0" fec_inner="0" system="0" modulation="1"/>
