@@ -5933,7 +5933,7 @@ and combinations of these.
 		<transponder frequency="3735000" symbol_rate="3776000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3973000" symbol_rate="4362000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 	</sat>
-	<sat name="102.8W Spaceway 1 & DirecTV 10/12 Ka Band" flags="1" position="-1030">
+	<sat name="102.8W Spaceway 1 + DirecTV 10/12 Ka Band" flags="1" position="-1030">
 		<transponder frequency="18327000" symbol_rate="30000000" polarization="2" fec_inner="2" system="0" modulation="1"/>
 		<transponder frequency="18327000" symbol_rate="30000000" polarization="3" fec_inner="2" system="0" modulation="1"/>
 		<transponder frequency="18367000" symbol_rate="30000000" polarization="2" fec_inner="2" system="0" modulation="1"/>
