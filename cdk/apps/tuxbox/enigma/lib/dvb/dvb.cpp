@@ -353,7 +353,6 @@ void eServiceDVB::update(const SDTEntry *sdtentry)
 			case 145:
 			case 150:
 			case 154:
-			case 160:
 			case 163:
 			case 164:
 			case 166:
