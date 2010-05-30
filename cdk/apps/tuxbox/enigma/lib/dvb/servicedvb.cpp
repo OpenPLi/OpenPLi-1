@@ -1424,7 +1424,7 @@ struct eServiceHandlerDVB_addService
 			int onid = ((eServiceReferenceDVB&)service).getOriginalNetworkID().get();
 			if (onid >= 0x1001 && onid <= 0x100b) // is dish network id?
 			{
-				static int dish_tv_types[] = { 128, 133, 137, 140, 144, 145, 150, 154, 160, 163, 164, 165, 166, 167, 168, 173, 174 };
+				static int dish_tv_types[] = { 128, 133, 137, 140, 144, 145, 150, 154, 163, 164, 165, 166, 167, 168, 173, 174 };
 				static size_t dish_tv_num_types = sizeof(dish_tv_types) / sizeof(int);
 				if (std::binary_search(dish_tv_types, dish_tv_types + dish_tv_num_types, t))
 					t = 1; // patch to tv service
