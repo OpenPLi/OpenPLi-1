@@ -6,11 +6,6 @@
 #define VIDEO_DEV "/dev/dvb/card0/video0"
 #define AUDIO_DEV "/dev/dvb/card0/audio0"
 #define DEMUX_DEV "/dev/dvb/card0/demux0"
-typedef struct ca_pid {
-        unsigned int pid;
-        int index;              /* -1 == disable*/
-} rdn_ca_pid_t;
-#define RDN_CA_SET_PID      _IOW('o', 135, rdn_ca_pid_t)
 #else
 #include <linux/dvb/dmx.h>
 #include <linux/dvb/video.h>
@@ -75,86 +70,6 @@ int Decoder::fd::demux_pcr;
 int Decoder::fd::demux_vtxt;
 int Decoder::fd::mpeg;
 int Decoder::locked=0;
-
-int rdn_addPid(int fd_ca, int index, int pid) {
-	rdn_ca_pid_t ca_pid;
-	ca_pid.index = index;
-	ca_pid.pid = pid;
-	printf ( "Adding pid to descrambler: %x\n", pid);
-	return ioctl(fd_ca, RDN_CA_SET_PID, &ca_pid);
-}
-
-
-static void SetECM(int vpid, int apid, int pmtpid, int descriptor_length, __u8 *descriptors)
-{
-#if 0
-// to use this old code you should read my comment in addCADescriptor..
-	if ( eDVB::getInstance()->recorder && eServiceInterface::getInstance()->service.path )
-		return;
-
-	eDebug("-------------------Set ECM-----------------");
-	static int lastpid=-1;
-
-	if (lastpid != -1)
-	{
-		kill(lastpid, SIGKILL);
-		waitpid(lastpid, 0, 0);
-		lastpid=-1;
-	}
-
-	if (!descriptor_length)
-		return;
-
-	char buffer[3][5];
-	sprintf(buffer[0], "%x", vpid);
-	sprintf(buffer[1], "%x", apid);
-	eDVBServiceController *sapi=eDVB::getInstance()->getServiceAPI();
-	if (!sapi)
-		return;
-	sprintf(buffer[2], "%x", sapi->service.getServiceID().get());
-
-	char descriptor[2048];
-
-	for (int i=0; i<descriptor_length; i++)
-		sprintf(descriptor+i*2, "%02x", descriptors[i]);
-
-	switch (lastpid=fork())
-	{
-	case -1:
-		eDebug("fork failed!");
-		return;
-	case 0:
-	{
-#if 0
-		close(0);
-		close(1);
-		close(2);
-#endif
-		for (unsigned int i=3; i < 90; ++i )
-			close(i);
-
-		for (int i=0; i<=2; i++)
-		{
-			char qqq[24];
-			sprintf (qqq, "/dev/dvb/card0/ca%d", i);
-                	int rdn_fd = open ( qqq, O_RDWR );
-			if (rdn_fd>0)
-			{
-				rdn_addPid(rdn_fd, 0, vpid);
-				rdn_addPid(rdn_fd, 0, apid);
-				close(rdn_fd);
-			}
-		}
-
-		if (execlp("camd", "camd", buffer[0], buffer[1], buffer[2], descriptor, 0)<0)
-			eDebug("camd");
-
-		_exit(0);
-		break;
-	}
-	}
-#endif
-}
 
 int Decoder::Initialize()
 {
