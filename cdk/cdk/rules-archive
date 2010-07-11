@@ -51,7 +51,8 @@ DFB++-0.9.22-cvs20050216.tar.gz;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
 ++DFB-0.9.22-cvs20050601.tar.bz2;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
 openssl-0.9.7a.tar.gz;http://www.openssl.org/source
 curl-7.10.1.tar.bz2;http://curl.haxx.se/download
-freetype-2.0.9.tar.bz2;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
+#freetype-2.0.9.tar.bz2;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
+freetype-2.0.9.tar.bz2;http://ftp.uniroma2.it/unix/packages/FREETYPE/freetype2
 freetype-2.1.4.tar.bz2;http://tuxbox.berlios.de/pub/tuxbox/cdk/src
 ncurses-5.3.tar.gz;ftp://$(gnuserver)/ncurses
 jpegsrc.v6b.tar.gz;http://www.ijg.org/files
@@ -59,7 +60,8 @@ libpng-1.2.8.tar.bz2;http://mesh.dl.sourceforge.net/sourceforge/libpng
 popt-1.6.4.tar.gz;http://www.mirrorservice.org/sites/ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/
 libupnp-1.6.5.tar.bz2;http://easynews.dl.sourceforge.net/sourceforge/pupnp
 libxml2-2.4.22.tar.bz2;ftp://ftp.uni-duesseldorf.de/pub/unix/linux/src/GNOME-2.0;ftp://ftp.gnome.org/pub/GNOME/sources/libxml2/2.4
-zlib-1.2.3.tar.bz2;http://www.zlib.net
+#zlib-1.2.3.tar.bz2;http://www.zlib.net
+zlib-1.2.3.tar.bz2;http://downloads.sourceforge.net/project/libpng/zlib/1.2.3
 libffi-1.20.tar.gz;http://www.mirrorservice.org/sites/sources.redhat.com/pub/libffi/
 SDL-1.2.9.tar.gz;http://www.libsdl.org/release
 SDL_image-1.2.4.tar.gz;http://www.libsdl.org/projects/SDL_image/release
