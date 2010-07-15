@@ -2228,6 +2228,9 @@ endif
 	@cp Patches/mklibs.py $(flashprefix)
 	touch $@
 
+clear_cdkflash:
+	rm -rf $(flashprefix)/root
+
 if BOXTYPE_DM7000
 dreamboximage_root: core .enigma .e2fsprogs .samba .libcrypto .portmap .nfs_utils \
 	.etherwake .utillinux .linuxkernel .dreamfiles .dvbsnoop .lcdfun \

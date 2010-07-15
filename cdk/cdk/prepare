@@ -102,6 +102,7 @@ echo "scriptdir=\${0%/*}" >> build-image
 echo "flashdir=\$scriptdir/../root/cdkflash" >> build-image
 echo "" >> build-image
 echo "# Make sure all libs are build for this environment" >> build-image
+echo "make clear_cdkflash" >> build-image
 echo "make dreamboximage_root" >> build-image
 echo "" >> build-image
 echo "make rebuild-flash" >> build-image
