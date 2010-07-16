@@ -2228,9 +2228,6 @@ endif
 	@cp Patches/mklibs.py $(flashprefix)
 	touch $@
 
-clear_cdkflash:
-	rm -rf $(flashprefix)/root
-
 if BOXTYPE_DM7000
 dreamboximage_root: core .enigma .e2fsprogs .samba .libcrypto .portmap .nfs_utils \
 	.etherwake .utillinux .linuxkernel .dreamfiles .dvbsnoop .lcdfun \
@@ -2618,6 +2615,7 @@ endif
 	$(INSTALL) -d $(flashprefix)/root/var_init/tuxbox/config/enigma
 	$(INSTALL) -m 0644 $(targetprefix)/var/tuxbox/config/enigma/encoding.conf $(flashprefix)/root/var_init/tuxbox/config/enigma
 
+	rm -f $(flashprefix)/root/share/tuxbox/enigma/pictures/radio.mvi
 	cp -pa $(targetprefix)/share/tuxbox/enigma/* $(flashprefix)/root/share/tuxbox/enigma
 
 	@for i in `find $(flashprefix)/root/share/tuxbox/enigma/htdocs` ; do \
