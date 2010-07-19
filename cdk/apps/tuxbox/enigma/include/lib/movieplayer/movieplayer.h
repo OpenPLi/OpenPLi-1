@@ -30,11 +30,11 @@
 #include <lib/dvb/dvbservice.h>
 #include <lib/movieplayer/mpconfig.h>
 
-
+#include <curl/curl.h>
 struct player_value
 {
 	int STAT, BUFFERTIME, JUMPMIN;
-	bool ACTIVE, ACT_AC3, BUFFERFILLED, AVPIDS_FOUND, DVB, PLG, A_SYNC, SUBT, NSF;
+	bool ACTIVE, ACT_AC3, BUFFERFILLED, AVPIDS_FOUND, DVB, PLG, A_SYNC, SUBT, DVDSUBT, NSF, RES;
 	unsigned short PIDA, PIDV;
 	short AC3;
 };
@@ -58,12 +58,14 @@ class eMoviePlayer: public eMainloop, private eThread, public Object
 			terminate,
 			async,
 			subtitles,
+			dvdsubtitles,
 			dvbon,
 			dvboff,
 			runplg,
 			endplg,
 			bufsize,
 			nsf,
+			origres,
 			quit
 			
 		};
@@ -79,14 +81,16 @@ class eMoviePlayer: public eMainloop, private eThread, public Object
 	int requestStream();
 	int playStream(eString mrl);
 	void setErrorStatus();
-	void init_eMoviePlayer();
+//	size_t CurlDummyWrite (void *ptr, size_t size, size_t nmemb, void *data);
+    void init_eMoviePlayer();
+
 public:
 	eMoviePlayer();
 	~eMoviePlayer();
 	player_value status;
 	struct serverConfig server;
 	eMPConfig mpconfig;
-	int sendRequest2VLC(eString command);
+//	int sendRequest2VLC(eString command);
 	void control(const char *command, const char *filename);
 	void leaveStreamingClient();
 	player_value getStatus() { return status; }
@@ -97,6 +101,7 @@ public:
 	void stopDVB();
 	void startDVB();
 	void supportPlugin();
+	CURLcode sendGetRequest(const eString& url, eString& response);
 };
 
 #endif

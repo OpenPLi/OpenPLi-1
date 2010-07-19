@@ -26,7 +26,7 @@
 #include <lib/dvb/decoder.h>
 #include <lib/base/buffer.h>
 
-#define REL "Movieplayer Plugin, v0.9.29"
+#define REL "Movieplayer Plugin, v0.9.36"
 
 extern "C" int plugin_exec(PluginParam *par);
 extern eString getWebifVersion();
@@ -51,7 +51,7 @@ eSCGui::eSCGui(): menu(true)
 
 	pauseBox = new eMessageBox(_("Press yellow or green button for continue..."),_("Pause"), eMessageBox::iconInfo);
 
-	cmove(ePoint(90, 110));
+    cmove(ePoint(90, 110));
 	cresize(eSize(540, 380));
 
 	addActionMap(&i_shortcutActions->map);
@@ -94,7 +94,7 @@ eSCGui::eSCGui(): menu(true)
 	l_cfg->setProperty("vcenter", "");
 	l_cfg->setProperty("backgroundColor", "std_dblue");
 	l_cfg->setText(_("Options"));
-
+	
 	status = new eStatusBar(this);
 	status->move(ePoint(10, clientrect.height() - 70));
 	status->resize(eSize(clientrect.width() - 20, 60));
@@ -116,7 +116,7 @@ eSCGui::eSCGui(): menu(true)
 		VLC_AUTH = server.vlcUser + ":" + server.vlcPass;
 
 	int mode = DATA;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/lastmode", mode);
+	eConfig::getInstance()->getKey((pathcfg+"lastmode").c_str(), mode);
 
 	if(mode == DATA)
 		getSavedPath();
@@ -143,7 +143,10 @@ void eSCGui::loadList(int mode, eString pathfull)
 {
 	playList.clear();
 	PLAYLIST a;
-
+	
+	VLC8=0;
+    eConfig::getInstance()->getKey((pathcfg+"vlc8").c_str(), VLC8 );
+	
 	infoBox = 0; bufferingBox = 0; jumpBox = 0; skip_time = 0;
 	list->setHelpText(_("Please wait ... communicating with VLC"));
 
@@ -166,12 +169,18 @@ void eSCGui::loadList(int mode, eString pathfull)
 		case VCD:
 			tmp2 += "SVCD&VCD";
 			setText(tmp2 + " - Drive: " + cddrive);
-			tmp3 = "vcd:";
+			if(VLC8)
+			    tmp3 = "vcd:";
+			else
+			    tmp3 = "vcd://";
 			break;
 		case DVD:
 			tmp2 += "DVD";
 			setText(tmp2 + " - Drive: " + cddrive);
-			tmp3 = "dvdsimple:";
+			if(VLC8)
+			    tmp3 = "dvdsimple:";
+			else
+			    tmp3 = "dvd://";
 			break;
 	}
 
@@ -258,9 +267,9 @@ void eSCGui::loadList(int mode, eString pathfull)
 							nGoUp++;
 
 							int savepath = 0;
-							eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/savepath",savepath);
+							eConfig::getInstance()->getKey((pathcfg+"savepath").c_str(),savepath);
 							if(savepath)
-								eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/path",display);
+								eConfig::getInstance()->setKey((pathcfg+"path").c_str(),display);
 						}
 					}
 					else
@@ -297,7 +306,10 @@ void eSCGui::loadList(int mode, eString pathfull)
 			for (int i = 1; i <= 30; i++)
 			{
 				a.Filename = (eString)_("Chapter") + eString().sprintf(" %02d", i);
-				a.Fullname = tmp3 + cddrive + "@1:" + eString().sprintf("%d-", i);
+				if(VLC8)
+				    a.Fullname = tmp3 + cddrive + "@1:" + eString().sprintf("%d-", i);
+				else
+				    a.Fullname = tmp3 + cddrive + "\\@1:" + eString().sprintf("%d", i);
 				a.Filetype = FILES;
 				playList.push_back(a);
 				nFiles++;
@@ -320,7 +332,7 @@ void eSCGui::loadList(int mode, eString pathfull)
 	}
 
 	viewList();
-	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/lastmode", mode);
+	eConfig::getInstance()->setKey((pathcfg+"lastmode").c_str(), mode);
 }
 
 void eSCGui::viewList()
@@ -409,7 +421,7 @@ void eSCGui::timerHandler()
 			setText((eString)_(" A streaming error occurred..."));
 			list->setHelpText(_("Please make sure that VLC is started on the PC and that it can play the file you selected."));
 			int stop_err=0;
-			eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/err", stop_err );
+			eConfig::getInstance()->getKey((pathcfg+"err").c_str(), stop_err );
 			if(stop_err)
 			{
 				showMenu();
@@ -428,9 +440,10 @@ void eSCGui::timerHandler()
 		}
 		case eMoviePlayer::STOPPED:
 		{
+
 //		        eDebug("#   STOPPED:");
 			int play_next=1;
-			eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/playnext", play_next );
+			eConfig::getInstance()->getKey((pathcfg+"playnext").c_str(), play_next );
 
 			if (playList.size() > 1 && play_next)
 			{
@@ -486,7 +499,7 @@ void eSCGui::timerHandler()
 			if(jumpBox)
 			{
 				int msgTime=3;
-				eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/msgtime", msgTime );
+				eConfig::getInstance()->getKey((pathcfg+"msgtime").c_str(), msgTime );
 				if(++skip_time >= msgTime)
 				{
 					jumpBox->hide();
@@ -511,14 +524,22 @@ void eSCGui::playerStart(int val)
 		menu = false;
 
 	}
+	if(jumpBox)
+	{
+		jumpBox->hide();
+		delete jumpBox;
+		jumpBox=0;
+	}
 
-	eDebug("\n[VLC] play %d \"%s\"", val, playList[val].Fullname.c_str());
+	eDebug("\n[VLC] trying play %d \"%s\"", val, playList[val].Fullname.c_str());
 
 	if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED &&
 		eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STREAMERROR)
 	{
+		eDebug("\n[VLC] is not STOPPED and is not STREAMERROR");
 		if(eMoviePlayer::getInstance()->status.BUFFERFILLED) // info about played file - OK button:
 		{
+			eDebug("\n[VLC] BUFFERFILLED");
 			if(infoBox)
 			{
 				infoBox->hide();
@@ -535,7 +556,7 @@ void eSCGui::playerStart(int val)
 		}
 	}
 	else
-	{
+	{	eDebug("\n[VLC] will be play ...");
 		changeSout();  // change some sout parameters
 		setText(path); // refresh title
 		eMoviePlayer::getInstance()->control("start2", playList[val].Fullname.c_str());
@@ -555,33 +576,38 @@ eString eSCGui::filePos(int both, eString name, eString size, eString& text)
 	return caption;
 }
 
-void eSCGui::changeSout()
+void eSCGui::changeSout() 
 {
 	int async = 1;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/async", async );
+	eConfig::getInstance()->getKey((pathcfg+"async").c_str(), async );
 	if(!async)
 		eMoviePlayer::getInstance()->control("async", ""); // play without audio-sync
 
 	int subtitles = 1;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/sub", subtitles );
+	eConfig::getInstance()->getKey((pathcfg+"sub").c_str(), subtitles );
 	if(!subtitles)
 		eMoviePlayer::getInstance()->control("subtitles", ""); // play without subtitles
 
 	int nsf = 0;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/nsf", nsf);
+	eConfig::getInstance()->getKey((pathcfg+"nsf").c_str(), nsf);
 	if(nsf)
 		eMoviePlayer::getInstance()->control("nsf", ""); // can play file without A or V
+	
+	int origres = 1;
+	eConfig::getInstance()->getKey((pathcfg+"origres").c_str(), origres);
+	if(origres)
+		eMoviePlayer::getInstance()->control("origres", ""); // streaming in original video resolution 
 }
 
 // Help message, positions of jump 0-9 are used for jump message in eventHandler !
 static char *NAME[] =
 {
-	_("red:\tRewind 5 percent"),
-	_("green:\tPlay/Resync"),
-	_("yellow:\tPause -max cca 8s"),
-	_("blue:\tFast forward 5 percent/Options"),
+    _("RED:\tRewind 5 percent"),
+	_("GREEN:\tPlay/Resync"),
+	_("YELLOW:\tPause -max cca 8s"),
+	_("BLUE:\tFast forward 5 percent/Options"),
 	_("OK:\tPlay/Info about played file"),
-	_("1:\tRewind 15 seconds"),
+	_("1:\tRewind 15 seconds"),  
 	_("2:\tGo to 20 percent"),
 	_("3:\tFast forward 15 seconds"),
 	_("4:\tRewind 1 minute"),
@@ -591,11 +617,26 @@ static char *NAME[] =
 	_("8:\tGo to 80 percent"),
 	_("9:\tFast forward 5 minutes"),
 	_("0:\tRewind to begin"),
-	_("up:\tNext item"),
-	_("down:\tPrevious item"),
-	_("exit:\tCancel playback"),
-	_("menu:\tOptions if play"),
+	_("UP/DOWN:\tNext/previous item"),
+	_("EXIT:\tCancel playback"),
+	_("MENU:\tOptions when is playback"),
 	" "
+/*	_("RED\tRewind 5 percent"),
+	_("GREEN:\tPlay/Resync"),
+	_("YELLOW:\tPause - max cca 8s"),
+	_("BLUE:\tFast forward 5 percent/Options"),
+	_("OK:\tPlay/Info about played file"),
+	_("1/3:\tRewind/Forward 15 seconds"),
+	_("2:\tGo to 20 percent"),
+	_("4/6:\tRewind/Forward 1 minute"),
+	_("5:\tGo to 50 percent"),
+	_("7/9:\tRewind/Forward 5 minutes"),
+	_("8:\tGo to 80 percent"),
+	_("0:\tRewind to begin"),
+	_("UP/DOWN:\tNext/Previous item"),
+	_("EXIT:\tCancel playback"),
+	_("MENU:\tOptions when is playback")
+*/
 };
 
 void eSCGui::pause()
@@ -675,7 +716,7 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 			}
 			else
 			{
-				if(!bufferingBox)
+				if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
 				{
 					command+="seek&val=%2d5%";sendGetRequest(command, restmp);
 					//eMoviePlayer::getInstance()->control("jump", "");
@@ -696,27 +737,27 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 			{
 				if(!bufferingBox)
 				{
-    					if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PLAY)
+    				if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PLAY)
+    				{
+    					command+="pl_pause";
+    					for( int i = 0; i < 2; i++)  // pseudo resync
     					{
-    						command+="pl_pause";
-    						for( int i = 0; i < 2; i++)  // pseudo resync
-    						{
-    							sendGetRequest(command, restmp); //pause
-    							usleep(10000);
-    							sendGetRequest(command, restmp); //play
-    							usleep(10000);
-    						}
-    						eMoviePlayer::getInstance()->control("resync", "");
+    						sendGetRequest(command, restmp); //pause
+    						usleep(10000);
+    						sendGetRequest(command, restmp); //play
+    						usleep(10000);
     					}
-    					else
-    					{
-    						command+="pl_pause";sendGetRequest(command, restmp);
-    						pause();
-    						eMoviePlayer::getInstance()->control("play", "");
-    						pauseBox->hide();
-    					}
+    					eMoviePlayer::getInstance()->control("resync", "");
+    				}
+    				else
+    				{
+    					command+="pl_pause";sendGetRequest(command, restmp);
+    					pause();
+    					eMoviePlayer::getInstance()->control("play", "");
+    					pauseBox->hide();
     				}
     			}
+    		}
 		}
 		else
 		if (e.action == &i_shortcutActions->yellow)
@@ -725,22 +766,22 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				loadList(DVD, "");
 			else
 			{
-    				if(!bufferingBox)
+    			if(!bufferingBox)
 				{
 					command+="pl_pause";sendGetRequest(command, restmp);
 					pause();
-    					if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PAUSE)
-    					{
-    						eMoviePlayer::getInstance()->control("play", "");
-    						pauseBox->hide();
-    					}
-    					else
-    					{
-    						eMoviePlayer::getInstance()->control("pause", "");
-    						pauseBox->show();
-    					}
+    				if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PAUSE)
+    				{
+    					eMoviePlayer::getInstance()->control("play", "");
+    					pauseBox->hide();
+    				}
+    				else
+    				{
+    					eMoviePlayer::getInstance()->control("pause", "");
+    					pauseBox->show();
     				}
     			}
+    		}
 		}
 		else
 		if (e.action == &i_shortcutActions->blue)
@@ -753,10 +794,14 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				cfg.exec();
 				cfg.hide();
 				show();
+				int mode = DATA;
+				eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
+				if(mode != DATA)
+				    loadList(mode, "");
 			}
 			else
 			{
-				if(!bufferingBox)
+				if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
 				{
 					command+="seek&val=%2b5%";sendGetRequest(command, restmp);
 					if(!jumpBox)
@@ -779,6 +824,10 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				cfg.show();
 				cfg.exec();
 				cfg.hide();
+				int mode = DATA;
+				eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
+				if(mode != DATA)
+				    loadList(mode, "");
 				if (menu)
 					show();
 			}
@@ -814,7 +863,7 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				{
 					if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
 						eMoviePlayer::getInstance()->control("stop", "");
-							changeSout();
+					changeSout();
 					eMoviePlayer::getInstance()->control("start2", playList[++val].Fullname.c_str());
 					timer->start(2000, true);
 				}
@@ -929,7 +978,7 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				// rewind to begin
 				case 10:command+="seek"; break;
 			}
-			if(!bufferingBox)
+			if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
 			{
     				sendGetRequest(command, restmp);
     				eString tmp = eString().sprintf(NAME[jump+4],jump) ;
@@ -975,6 +1024,7 @@ size_t CurlDummyWrite (void *ptr, size_t size, size_t nmemb, void *data)
 
 CURLcode eSCGui::sendGetRequest (const eString& url, eString& response)  // send http commands to VLC, in response return info
 {
+
 	CURL *curl;
 	CURLcode httpres;
 
@@ -991,7 +1041,7 @@ CURLcode eSCGui::sendGetRequest (const eString& url, eString& response)  // send
 	curl_easy_setopt (curl, CURLOPT_FAILONERROR, true);
 
 	int timeout = 5;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/timeout", timeout);
+	eConfig::getInstance()->getKey((pathcfg+"timeout").c_str(), timeout);
 //	eDebug("[VLC] Timeout: %d",timeout);
 	curl_easy_setopt (curl, CURLOPT_TIMEOUT, timeout);
 	httpres = curl_easy_perform (curl);
@@ -1003,9 +1053,9 @@ CURLcode eSCGui::sendGetRequest (const eString& url, eString& response)  // send
 void eSCGui::getSavedPath()
 {
 	int savepath=0;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/savepath", savepath);
+	eConfig::getInstance()->getKey((pathcfg+"savepath").c_str(), savepath);
 	if(savepath)
-		eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/path", startdir);
+		eConfig::getInstance()->getKey((pathcfg+"path").c_str(), startdir);
 }
 
 eString eSCGui::getPar(eString buf, const char* parameter)
@@ -1022,7 +1072,7 @@ eString eSCGui::getPar(eString buf, const char* parameter)
 <loop>
 <repeat> */
 
-        eString par = "";
+    eString par = "";
 //        eDebug("[getPar] entry: %s",buf.c_str());
 	unsigned int start = 0;
 	for (unsigned int pos = buf.find('\n', 0); pos != std::string::npos; pos = buf.find('\n', start))
@@ -1041,106 +1091,157 @@ eString eSCGui::getPar(eString buf, const char* parameter)
 	return par;
 }
 
-eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 400)  // Config window
+eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
 {
+    int fc = 10;
+    int sc = 220;
+    int l = 200;
+    
 	play_next = 1;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/playnext", play_next );
+	eConfig::getInstance()->getKey((pathcfg+"playnext").c_str(), play_next );
 
 	int Timeout = 5;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/timeout", Timeout);
+	eConfig::getInstance()->getKey((pathcfg+"timeout").c_str(), Timeout);
 
 	int msgTime = 3;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/msgtime", msgTime );
+	eConfig::getInstance()->getKey((pathcfg+"msgtime").c_str(), msgTime );
 
 	int savepath = 0;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/savepath", savepath );
+	eConfig::getInstance()->getKey((pathcfg+"savepath").c_str(), savepath );
 
 	int stop_err = 0;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/err", stop_err );
+	eConfig::getInstance()->getKey((pathcfg+"err").c_str(), stop_err );
 
 	int async = 1;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/async", async );
+	eConfig::getInstance()->getKey((pathcfg+"async").c_str(), async );
 
 	int subtitles = 1;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/sub", subtitles );
+	eConfig::getInstance()->getKey((pathcfg+"sub").c_str(), subtitles );
 
-	int resdvb = 1;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/resdvb", resdvb );
+	int resdvb = 0;
+	eConfig::getInstance()->getKey((pathcfg+"resdvb").c_str(), resdvb );
 
 	int pbuf = 100;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/pbuf", pbuf);
+	eConfig::getInstance()->getKey((pathcfg+"pbuf").c_str(), pbuf);
 
 	int nsf = 0;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/nsf", nsf);
+	eConfig::getInstance()->getKey((pathcfg+"nsf").c_str(), nsf);
+	
+	int vlc8 = 0;
+	eConfig::getInstance()->getKey((pathcfg+"vlc8").c_str(), vlc8 );
+	
+	int origres = 0;
+	eConfig::getInstance()->getKey((pathcfg+"origres").c_str(), origres);
+    
+	int width = 0;
+	eConfig::getInstance()->getKey((pathcfg+"w").c_str(), width);
+
+	int height = 0;
+ 	eConfig::getInstance()->getKey((pathcfg+"h").c_str(), height);
 
 	playNext=new eCheckbox(this, play_next, 1);
 	playNext->setText(_("Continuous playback"));
-	playNext->move(ePoint(10, yPos()));
-	playNext->resize(eSize(260, widgetHeight()));
+	playNext->move(ePoint(fc, yPos()));
+	playNext->resize(eSize(l, widgetHeight()));
 	playNext->setHelpText(_("Playback next file from playlist"));
-
-	nextYPos(35);
 
 	stopErr=new eCheckbox(this, stop_err, 1);
 	stopErr->setText(_("Stop after error"));
-	stopErr->move(ePoint(10, yPos()));
-	stopErr->resize(eSize(260, widgetHeight()));
+	stopErr->move(ePoint(sc, yPos()));
+	stopErr->resize(eSize(l, widgetHeight()));
 	stopErr->setHelpText(_("Don't playback next file from list if previous playback failed"));
+
 	nextYPos(35);
 
 	savePath=new eCheckbox(this, savepath, 1);
 	savePath->setText(_("Last directory path"));
-	savePath->move(ePoint(10, yPos()));
-	savePath->resize(eSize(260, widgetHeight()));
+	savePath->move(ePoint(fc, yPos()));
+	savePath->resize(eSize(l, widgetHeight()));
 	savePath->setHelpText(_("Use last path or path from .xml file"));
 
-	nextYPos(35);
+    resDVB=new eCheckbox(this, resdvb, 1);
+	resDVB->setText(_("Restoring DVB"));
+	resDVB->move(ePoint(sc, yPos()));
+	resDVB->resize(eSize(l, widgetHeight()));
+	resDVB->setHelpText(_("Restoring DVB after each played file"));
+	CONNECT (resDVB->checked, eSCGuiConfig::setDVB);
 
-	aSync=new eCheckbox(this, async, 1);
-	aSync->setText(_("Audio-sync"));
-	aSync->move(ePoint(10, yPos()));
-	aSync->resize(eSize(260, widgetHeight()));
-	aSync->setHelpText(_("Use audio-sync parameter for playback"));
-
+    if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::PLAY)
+        resDVB->show();
+	else
+	    resDVB->hide();
+	    
 	nextYPos(35);
 
 	subTitles=new eCheckbox(this, subtitles, 1);
 	subTitles->setText(_("Auto Subtitles"));
-	subTitles->move(ePoint(10, yPos()));
-	subTitles->resize(eSize(260, widgetHeight()));
+	subTitles->move(ePoint(fc, yPos()));
+	subTitles->resize(eSize(l, widgetHeight()));
 	subTitles->setHelpText(_("Use autoselection of subtitles by VLC"));
 
-	if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::PLAY)
-	{
-		nextYPos(35);
+	aSync=new eCheckbox(this, async, 1);
+	aSync->setText(_("Audio-sync"));
+	aSync->move(ePoint(sc, yPos()));
+	aSync->resize(eSize(l, widgetHeight()));
+	aSync->setHelpText(_("Use audio-sync parameter for playback"));
 
-		resDVB=new eCheckbox(this, resdvb, 1);
-		resDVB->setText(_("Restoring DVB"));
-		resDVB->move(ePoint(10, yPos()));
-		resDVB->resize(eSize(260, widgetHeight()));
-		resDVB->setHelpText(_("Restoring DVB after each played file"));
-		CONNECT (resDVB->checked, eSCGuiConfig::setDVB);
-	}
-
-	nextYPos(35);
-
+    nextYPos(35);
+    
+    setVlc8=new eCheckbox(this, vlc8 , 1);
+	setVlc8->setText(_("VLC v0.86"));
+	setVlc8->move(ePoint(fc, yPos()));
+	setVlc8->resize(eSize(l, widgetHeight()));
+	setVlc8->setHelpText(_("Used VLC v0.86 or VLC v0.99 and newer."));
+	
 	setNsf=new eCheckbox(this, nsf, 1);
 	setNsf->setText(_("Non-standard file"));
-	setNsf->move(ePoint(10, yPos()));
-	setNsf->resize(eSize(260, widgetHeight()));
+	setNsf->move(ePoint(sc, yPos()));
+	setNsf->resize(eSize(l, widgetHeight()));
 	setNsf->setHelpText(_("Can playback file with missing audio or video"));
-
 
 	nextYPos(35);
 
+	setRes=new eCheckbox(this, origres , 1);
+	setRes->setText(_("Use own resolution"));
+	setRes->move(ePoint(fc, yPos()));
+	setRes->resize(eSize(l, widgetHeight()));
+	setRes->setHelpText(_("Streaming file with standard resolution or with own setting."));
+	CONNECT (setRes->checked, eSCGuiConfig::setCheckRes);
+	
+	nextYPos(35);
+	
+	l_width = new eLabel(this);
+	l_width->setText(_("Horizontal res."));
+	l_width->move(ePoint(fc, yPos()));
+	l_width->resize(eSize(l-65, widgetHeight()));
+
+   	setWidth = new eNumber(this, 1, 0,720, 3, &width, 0, l_width);
+    setWidth->move(ePoint(fc + l-65, yPos()));
+    setWidth->resize(eSize(55, widgetHeight()));
+    setWidth->setHelpText(_("Horizontal resolution for streaming (0-720). 0 for original."));
+    setWidth->loadDeco();
+	
+    l_height = new eLabel(this);
+    l_height->setText(_("Vertical res."));
+    l_height->move(ePoint(sc, yPos()));
+    l_height->resize(eSize(l-65, widgetHeight()));
+   
+    setHeight = new eNumber(this, 1, 0,576, 3, &height, 0, l_height);
+    setHeight->move(ePoint(sc + l-65, yPos()));
+    setHeight->resize(eSize(55, widgetHeight()));
+    setHeight->setHelpText(_("Vertical resolution for streaming (0-576). 0 for original."));
+    setHeight->loadDeco();
+    
+    nextYPos(35);
+	
 	lNrSec = new eLabel(this);
-	lNrSec->move(ePoint(10, yPos()));
-	lNrSec->resize(eSize(200, widgetHeight()));
+	lNrSec->move(ePoint(fc, yPos()));
+	lNrSec->resize(eSize(l, widgetHeight()));
 	lNrSec->setText(_("Timeout in seconds:"));
 	lNrSec->loadDeco();
 
 	comNrSec = new eComboBox(this, 3, lNrSec);
-	comNrSec->move(ePoint(210, yPos()));
+	comNrSec->move(ePoint(sc, yPos()));
 	comNrSec->resize(eSize (60, widgetHeight()));
 	comNrSec->setHelpText(_("How long is tested comunication with VLC"));
 	comNrSec->loadDeco();
@@ -1155,33 +1256,32 @@ eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 400)  // Config window
 
 	lbuff = new eLabel(this);
 	lbuff->setText(_("Buffer size:"));
-	lbuff->move(ePoint(10, yPos()));
+	lbuff->move(ePoint(fc, yPos()));
 	lbuff->resize(eSize(120, widgetHeight()));
 
 	sBuff = new eSlider( this, lbuff, 10, 100 );
-	sBuff->setIncrement( 10 ); // percent
-	sBuff->move( ePoint( 120, yPos() ) );
-	sBuff->resize(eSize( 220, widgetHeight()) );
+	sBuff->setIncrement( fc ); // percent
+	sBuff->move( ePoint( 150, yPos() ) );
+	sBuff->resize(eSize( sc, widgetHeight()) );
 	sBuff->setHelpText(_("Size of streaming buffer (left, right)"));
 	sBuff->setValue(pbuf);
 	CONNECT( sBuff->changed, eSCGuiConfig::BuffChanged );
 
 	lbuff1 = new eLabel(this);
 	lbuff1->setText(eString().sprintf("%d%c",pbuf,'%'));
-	lbuff1->move(ePoint(120+225, yPos()));
+	lbuff1->move(ePoint(150+225, yPos()));
 	lbuff1->resize(eSize(45, widgetHeight()));
-
 
 	nextYPos(35);
 
 	lmsgTime = new eLabel(this);
-	lmsgTime->move(ePoint(10, yPos()));
-	lmsgTime->resize(eSize(210, widgetHeight()));
+	lmsgTime->move(ePoint(fc, yPos()));
+	lmsgTime->resize(eSize(l, widgetHeight()));
 	lmsgTime->setText(_("Skip message delay:"));
 	lmsgTime->loadDeco();
 
 	comMsgTime = new eComboBox(this, 3, lmsgTime);
-	comMsgTime->move(ePoint(210, yPos()));
+	comMsgTime->move(ePoint(sc, yPos()));
 	comMsgTime->resize(eSize (60, widgetHeight()));
 	comMsgTime->setHelpText(_("How long is displayed message about skipping (in seconds)"));
 	comMsgTime->loadDeco();
@@ -1191,33 +1291,58 @@ eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 400)  // Config window
 		new eListBoxEntryText(*comMsgTime, eString().sprintf("%d", time), (void*)(time));
 	}
 	comMsgTime->setCurrent((void *)msgTime);
-
+    
 	buildWindow();
-	CONNECT (bOK->selected, eSCGuiConfig::okPressed);
+    setCheckRes(origres);
+    CONNECT (bOK->selected, eSCGuiConfig::saveCFG );
+
 }
 
-void eSCGuiConfig::okPressed()
+void eSCGuiConfig::saveCFG()
 {
-	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/playnext", playNext->isChecked() ? 1 : 0 );
-	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/savepath", savePath->isChecked() ? 1 : 0);
- 	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/err", stopErr->isChecked() ? 1 : 0);
- 	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/timeout", (const int)comNrSec->getCurrent()->getKey());
- 	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/msgtime", (const int)comMsgTime->getCurrent()->getKey());
- 	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/sub", subTitles->isChecked() ? 1 : 0 );
-	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/async", aSync->isChecked() ? 1 : 0);
-	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/resdvb", resDVB->isChecked() ? 1 : 0);
-	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/pbuf", (const int)sBuff->getValue());
-	eConfig::getInstance()->setKey("/enigma/plugins/movieplayer/nsf", setNsf->isChecked() ? 1 : 0);
-
-	eMoviePlayer::getInstance()->control("bufsize", eString().sprintf("%d", (const int)sBuff->getValue()).c_str());
+	eConfig::getInstance()->setKey((pathcfg+"playnext").c_str(),(int)playNext->isChecked() ? 1 : 0 );
+	eConfig::getInstance()->setKey((pathcfg+"savepath").c_str(),(int)savePath->isChecked() ? 1 : 0);
+ 	eConfig::getInstance()->setKey((pathcfg+"err").c_str(),(int)stopErr->isChecked() ? 1 : 0);
+ 	eConfig::getInstance()->setKey((pathcfg+"timeout").c_str(),(int)comNrSec->getCurrent()->getKey());
+ 	eConfig::getInstance()->setKey((pathcfg+"msgtime").c_str(),(int)comMsgTime->getCurrent()->getKey());
+ 	eConfig::getInstance()->setKey((pathcfg+"sub").c_str(),(int)subTitles->isChecked() ? 1 : 0 );
+	eConfig::getInstance()->setKey((pathcfg+"async").c_str(),(int)aSync->isChecked() ? 1 : 0);
+	eConfig::getInstance()->setKey((pathcfg+"resdvb").c_str(),(int)resDVB->isChecked() ? 1 : 0);
+	eConfig::getInstance()->setKey((pathcfg+"pbuf").c_str(),(int)sBuff->getValue());
+	eConfig::getInstance()->setKey((pathcfg+"nsf").c_str(),(int)setNsf->isChecked() ? 1 : 0);
+	eConfig::getInstance()->setKey((pathcfg+"vlc8").c_str(),(int)setVlc8->isChecked() ? 1 : 0);
+    eConfig::getInstance()->setKey((pathcfg+"origres").c_str(),(int)setRes->isChecked() ? 1 : 0);
+    eConfig::getInstance()->setKey((pathcfg+"w").c_str(),(int)setWidth->getNumber());
+ 	eConfig::getInstance()->setKey((pathcfg+"h").c_str(),(int)setHeight->getNumber());
+	    
+	eMoviePlayer::getInstance()->control("bufsize", eString().sprintf("%d", (int)sBuff->getValue()).c_str());
 
 	close(0);
 }
 
 void eSCGuiConfig::BuffChanged( int i )
 {
-//        eDebug("eSlider %d",i);
+//    eDebug("eSlider %d",i);
 	lbuff1->setText(eString().sprintf("%d%c",i,'%'));
+}
+
+void eSCGuiConfig::setCheckRes(int status)
+{
+	if (status)
+	{
+		l_width->show();
+		l_height->show();
+		setWidth->show();
+		setHeight->show();
+		
+	}
+	else
+	{
+		l_width->hide();
+		l_height->hide();
+		setWidth->hide();
+		setHeight->hide();
+	}
 }
 
 void eSCGuiConfig::setDVB(int status)
@@ -1245,7 +1370,7 @@ int plugin_exec(PluginParam *par)
 	{
 		eMoviePlayer::getInstance()->control("runplg", "");
 		int resdvb = 1;
-		eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/resdvb", resdvb );
+		eConfig::getInstance()->getKey((pathcfg+"resdvb").c_str(), resdvb );
 		if(!resdvb)
 		{
 			eMoviePlayer::getInstance()->stopDVB();
@@ -1253,7 +1378,7 @@ int plugin_exec(PluginParam *par)
 
 		}
 		int pbuf = 100;
-		eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/pbuf", pbuf );
+		eConfig::getInstance()->getKey((pathcfg+"pbuf").c_str(), pbuf );
 		eMoviePlayer::getInstance()->control("bufsize", eString().sprintf("%d", pbuf).c_str());
 		dlg.show();
 		dlg.exec();

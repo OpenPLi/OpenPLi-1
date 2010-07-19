@@ -34,6 +34,9 @@
 #include <curl/easy.h>
 #include <lib/gui/ePLiWindow.h>
 #include <lib/gui/slider.h>
+#include <lib/gui/enumber.h>
+
+eString pathcfg = "/enigma/plugins/movieplayer/";
 
 class PLAYLIST
 {
@@ -60,6 +63,8 @@ class eSCGui: public eWindow
 	
 	bool menu;
 	unsigned int val, nFiles, skip_time;
+	
+	int VLC8;
 	
 	eListBox<eListBoxEntryText> *list;
 	eTimer *timer;
@@ -96,31 +101,36 @@ class eSCGuiHelp: public eWindow
 {
 	eListBox<eListBoxEntryText> *list;
 public:
-        eSCGuiHelp();
+    eSCGuiHelp();
       
 };
 
 class eSCGuiConfig: public ePLiWindow
 {
 private:
-        eLabel *lNrSec;
-        eLabel *lmsgTime;
-        eLabel *lbuff, *lbuff1;
-        eCheckbox *playNext;
-        eCheckbox *stopErr;
+    eLabel *lNrSec;
+    eLabel *lmsgTime;
+    eLabel *lbuff, *lbuff1;
+    eLabel *l_width,*l_height;     
+    eCheckbox *playNext;
+    eCheckbox *stopErr;
 	eCheckbox *savePath;
 	eCheckbox *aSync;
 	eCheckbox *subTitles;
 	eCheckbox *resDVB;
 	eCheckbox *setNsf;
-        eComboBox *comNrSec;
-        eComboBox *comMsgTime;
-        eSlider *sBuff;
+	eCheckbox *setVlc8;
+	eCheckbox *setRes;
+	eComboBox *comNrSec;
+    eComboBox *comMsgTime;
+    eSlider *sBuff;
+    eNumber *setWidth, *setHeight;
 
-        int play_next;
-	void okPressed();
+    int play_next;
+	void saveCFG();
 	void setDVB(int status);
 	void BuffChanged(int i);
+	void setCheckRes(int status);
 
 public:
 	eSCGuiConfig();
