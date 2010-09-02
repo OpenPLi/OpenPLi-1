@@ -6,7 +6,7 @@
 	<zone name="(GMT-10:00) Hawaii" zone="Honolulu" />
 	<zone name="(GMT-09:00) Alaska" zone="Anchorage" />
 	<zone name="(GMT-08:00) Pacific Time (US and Canada), Tijuana" zone="Tijuana" />
-	<zone name="(GMT-07:00) Arizona" zone="MST7MDT" />
+	<zone name="(GMT-07:00) Arizona" zone="MST" />
 	<zone name="(GMT-07:00) Chihuahua, La Paz, Mazatlan" zone="MST7MDT" />
 	<zone name="(GMT-07:00) Mountain Time (US &amp; Canada) " zone="MST7MDT" />
 	<zone name="(GMT-06:00) Central America" zone="CST6CDT" />
