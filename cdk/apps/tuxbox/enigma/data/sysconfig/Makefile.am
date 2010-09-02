@@ -4,7 +4,7 @@ EXTRA_DIST =  \
 	Casablanca CET Colombo CST6CDT Danmarkshavn Darwin Dhaka Dublin \
 	East EST EST5EDT Fiji Guam Harare Hobart Hong_Kong Honolulu \
 	Irkutsk Istanbul Jerusalem Kabul Katmandu Kinshasa Krasnoyarsk \
-	Kuala_Lumpur Kwajalein Magadan Midway Moscow MST7MDT Muscat \
+	Kuala_Lumpur Kwajalein Magadan Midway Moscow MST MST7MDT Muscat \
 	Nairobi Newfoundland Noronha Omsk Perth Rangoon Riyadh Santiago \
 	Saskatchewan Seoul Sydney Taipei Tashkent Tehran Tijuana Tokyo \
 	Tongatapu Vladivostok West Yakutsk
