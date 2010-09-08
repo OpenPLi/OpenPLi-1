@@ -34,6 +34,7 @@
 #include <lib/driver/eavswitch.h>
 #include <lib/system/init_num.h>
 
+int epg_search = 0;
 int drawTlines = 1;
 gPixmap *eZapEPG::entry::inTimer=0;
 gPixmap *eZapEPG::entry::inTimerRec=0;
@@ -484,7 +485,7 @@ int eZapEPG::eventHandler(const eWidgetEvent &event)
 			selService(+1);
 		else if (event.action == &i_multiEpgActions->ok)
 			close(eventvalid?0:-1);
-		else if (event.action == &i_multiEpgActions->exit)
+		else if (event.action == &i_multiEpgActions->exit && !epg_search)
 			close(-1);
 		else if (event.action == &i_epgSelectorActions->showExtendedInfo)
 		{
@@ -532,6 +533,7 @@ int eZapEPG::eventHandler(const eWidgetEvent &event)
 					return 0;
 
 				eString EPGSearchName = "";
+				epg_search = 1;
 				drawTlines = 0;
 				eEPGSearch *dd = new eEPGSearch(getCurSelected()->service,current_service->current_entry->title);
 				drawTlines = 1;
@@ -566,7 +568,8 @@ int eZapEPG::eventHandler(const eWidgetEvent &event)
 					eEPGSelectorSearch.show(); eEPGSelectorSearch.exec(); eEPGSelectorSearch.hide();
 				}
 			}
-			drawTimeLines();	
+			drawTimeLines();
+			epg_search = 0;
 		} // EPG search end ims								
 		else 
 		{
