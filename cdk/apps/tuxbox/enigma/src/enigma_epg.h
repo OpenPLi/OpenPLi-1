@@ -25,6 +25,7 @@ class eZapEPG: public eWidget
 	eStatusBar *sbar;
 	eWidget *eventWidget;
 	int NowTimeLineXPos;
+	int epg_search, drawTlines;
 	time_t start, end;
 	struct serviceentry;
 	struct entry: public eWidget
@@ -50,7 +51,7 @@ class eZapEPG: public eWidget
 		~entry();
 	};
 	enum {ScrollUp, ScrollDown, ScrollLeft, ScrollRight, ScrollNone};
-	
+
 	struct serviceentry
 	{
 		eRect pos;
@@ -78,7 +79,7 @@ public:
 	void addToList( const eServiceReference& ref );
 	eZapEPG();
 	~eZapEPG();
-	
+
 	/* eWidget functions */
 	void show();
 };

@@ -34,8 +34,6 @@
 #include <lib/driver/eavswitch.h>
 #include <lib/system/init_num.h>
 
-int epg_search = 0;
-int drawTlines = 1;
 gPixmap *eZapEPG::entry::inTimer=0;
 gPixmap *eZapEPG::entry::inTimerRec=0;
 
@@ -83,6 +81,7 @@ eAutoInitP0<multiEpgActions> i_multiEpgActions(eAutoInitNumbers::actions, "multi
 eZapEPG::eZapEPG() 
 	:eWidget(0,1), offs(0), focusColumn(0), hours(3)
 	,numservices(6), eventWidget(0), NowTimeLineXPos(-1)
+	,epg_search(0), drawTlines(1)	
 {
 	init_eZapEPG();
 }
