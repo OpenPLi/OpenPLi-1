@@ -90,7 +90,7 @@ public:
 	player_value status;
 	struct serverConfig server;
 	eMPConfig mpconfig;
-//	int sendRequest2VLC(eString command);
+	int sendRequest2VLC(eString command);
 	void control(const char *command, const char *filename);
 	void leaveStreamingClient();
 	player_value getStatus() { return status; }
@@ -101,7 +101,7 @@ public:
 	void stopDVB();
 	void startDVB();
 	void supportPlugin();
-	CURLcode sendGetRequest(const eString& url, eString& response);
+//	CURLcode sendGetRequest(const eString& url, eString& response);
 };
 
 #endif

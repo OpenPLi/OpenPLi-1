@@ -69,6 +69,8 @@ static int pvrfd = -1;
 
 static int cancelBuffering = 0;
 
+#define CMD "requests/status.xml?command="
+
 eMoviePlayer *eMoviePlayer::instance;
 
 void createThreads()
@@ -143,7 +145,7 @@ void eMoviePlayer::init_eMoviePlayer()
 		instance = this;
 	supportPlugin();
 	CONNECT(messages.recv_msg, eMoviePlayer::gotMessage);
-	eDebug("[MOVIEPLAYER] Version 2.54 starting...");
+	eDebug("[MOVIEPLAYER] Version 2.60 starting...");
 	status.ACTIVE = false;
 	run();
 }
@@ -172,8 +174,7 @@ void eMoviePlayer::startDVB()
 
 void eMoviePlayer::leaveStreamingClient()
 {
-	eString tmp;
-	sendGetRequest("/requests/status.xml?command=pl_empty",tmp);
+	sendRequest2VLC((eString)CMD+"pl_empty");
 
 	pthread_mutex_lock(&mutex);
 	tsBuffer.clear();
@@ -224,8 +225,7 @@ void eMoviePlayer::control(const char *command, const char *filename)
 		cancelBuffering = 1;
 		pthread_mutex_unlock(&mutex);
 
-		eString tmp;
-		sendGetRequest("/requests/status.xml?command=pl_empty",tmp);
+		sendRequest2VLC((eString)CMD+"pl_empty");
 
 		status.ACTIVE = false;
 		status.STAT = STOPPED;
@@ -359,7 +359,7 @@ int eMoviePlayer::requestStream()
 {
 	char ioBuffer[512];
 
-//	eDebug("[MOVIEPLAYER] requesting VLC stream... %s:%s", server.serverIP.c_str(), server.streamingPort.c_str());
+	eDebug("[MOVIEPLAYER] requesting VLC stream... %s:%s", server.serverIP.c_str(), server.streamingPort.c_str());
 
 	fd = tcpOpen(server.serverIP, atoi(server.streamingPort.c_str()), 10);
 	if (fd < 0)
@@ -374,7 +374,6 @@ int eMoviePlayer::requestStream()
 		close(fd);
 		return -2;
 	}
-
 	if (strstr(ioBuffer, "HTTP/1.0 200 OK") == 0)
 	{
 		eDebug("[MOVIEPLAYER] 200 OK not received...");
@@ -498,8 +497,7 @@ void eMoviePlayer::setErrorStatus()
 void eMoviePlayer::gotMessage(const Message &msg )
 {
 	eString mrl;
-	eString restmp = "";
-	eString command = "/requests/status.xml?command="; 
+	eString command = CMD;
 
 	eDebug("[MOVIEPLAYER] message %d coming in...", msg.type);
 	switch (msg.type)
@@ -522,21 +520,22 @@ void eMoviePlayer::gotMessage(const Message &msg )
 				{
 					
 					// empty vlc's playlist
-					if (int res = sendGetRequest(command + "pl_empty",restmp) < 0)
+					if (int res = sendRequest2VLC(command + "pl_empty") < 0)
 					{
 						eDebug("[MOVIEPLAYER] couldn't communicate with vlc, streaming server ip address may be wrong in settings. Errno: %d",res);
 						setErrorStatus();
 						break;
 					}
+					usleep(200000);
 					// vlc: set sout...
-					if (sendGetRequest("?sout=" + httpEscape(sout(mrl)),restmp) < 0)
+					if (sendRequest2VLC("?sout=" + httpEscape(sout(mrl))) < 0) 
 					{
 						setErrorStatus();
 						break;
 					}
 					usleep(200000);
 					// vlc: add mrl to playlist	and play
-					if (sendGetRequest(command + "in_play&input=" + httpEscape(mrl).strReplace("%5c","%5c%5c"),restmp) < 0)
+					if (sendRequest2VLC(command + "in_play&input=" + httpEscape(mrl).strReplace("%5c","%5c%5c")) < 0)
 					{
 						setErrorStatus();
 						break;
@@ -548,6 +547,7 @@ void eMoviePlayer::gotMessage(const Message &msg )
 				if (playStream(mrl) < 0)
 				{
 					setErrorStatus();
+					sendRequest2VLC(command + "pl_empty"); // dont streaming, stop VLC
 					break;
 				}
 			}
@@ -592,7 +592,7 @@ void eMoviePlayer::gotMessage(const Message &msg )
 			break;
 		case Message::bufsize:
 		{
-				percBuffer = atoi(msg.filename);
+			percBuffer = atoi(msg.filename);
 //			eDebug("### percBuffer %d", percBuffer);
 			initialBuffer = (int)( INITIALBUFFER/100. * percBuffer );
 			break;
@@ -614,42 +614,39 @@ void eMoviePlayer::gotMessage(const Message &msg )
 	eDebug("[MOVIEPLAYER] message %d handled.", msg.type);
 }
 
-size_t CurlDummyWrite (void *ptr, size_t size, size_t nmemb, void *data)
-{
-	std::string *pStr = (std::string *)data;
-	*pStr += (char *)ptr;
-	return size * nmemb;
+int eMoviePlayer::sendRequest2VLC(eString command)  // sending tcp commands 	 
+{  	 	 
+    char ioBuffer[512];  	 	 
+	int rc = -1;  	 	 
+	int fd = tcpOpen(server.serverIP, atoi(server.webifPort.c_str()), 1);  	 	 
+	if (fd > 0)  	 	 
+	{  	 	 
+	    eString url = "GET /" + command + " HTTP/1.1\r\n\r\n";  	 	 
+	    strcpy(ioBuffer, url.c_str());  	 	 
+    	//eDebug("[MOVIEPLAYER] sendRequest2VLC : %d, %s", fd, ioBuffer);  	 	 
+	    rc = tcpRequest(fd, ioBuffer, sizeof(ioBuffer) - 1);	 	 
+	    if (rc == 0)  	 	 
+	    {  	 	 
+	        if (strstr(ioBuffer, "HTTP/1.1 200 OK") == 0)  	 	 
+	        {  	
+    			//eDebug("[MOVIEPLAYER] sendRequest2VLC return: %s", ioBuffer);
+				eDebug("[MOVIEPLAYER] 200 OK NOT received...");  
+//				if (strstr(ioBuffer, "403 Forbidden") != 0)
+// 					eDebug("[MOVIEPLAYER] is not enabled IP in .host !");  	 
+	            rc = -2;  	 	 
+	        }  	 	 
+	        else   	 	 
+	        {  	 	 
+	            eDebug("[MOVIEPLAYER] 200 OK...");  	 	 
+	        }  	 	 
+	    }  	 	 
+	    else   	 	 
+	        rc = -3;  	 	 
+	    close(fd);  	 	 
+	}  	 	 
+	return rc;  	 	 
 }
 
-CURLcode eMoviePlayer::sendGetRequest (const eString& url, eString& response)  // send http commands to VLC, in response return info
-{
-	CURL *curl;
-	CURLcode httpres;
-    
-    response = "";
-	
-	eString command = "http://" + server.serverIP + ":" + server.webifPort + url;
-	
-    eString VLC_AUTH = server.vlcUser + ":" + server.vlcPass;
-    
-	curl = curl_easy_init();
-	curl_easy_setopt(curl, CURLOPT_URL, command.c_str());
-	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, CurlDummyWrite);
-	curl_easy_setopt(curl, CURLOPT_FILE, (void *)&response);
-
-	if (VLC_AUTH)
-		curl_easy_setopt (curl, CURLOPT_USERPWD, VLC_AUTH.c_str());
-	curl_easy_setopt (curl, CURLOPT_FAILONERROR, true);
-
-	int timeout = 4;
-	eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/timeout", timeout);
-//	eDebug("[VLC] Timeout: %d",timeout);
-	curl_easy_setopt (curl, CURLOPT_TIMEOUT, timeout);
-	httpres = curl_easy_perform (curl);
-//	eDebug("[VLC] HTTP Result: %d", httpres);
-	curl_easy_cleanup(curl);
-	return httpres;
-}
 
 eString eMoviePlayer::sout(eString mrl)
 {

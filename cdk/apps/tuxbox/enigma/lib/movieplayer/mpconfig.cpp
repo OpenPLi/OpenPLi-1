@@ -202,7 +202,7 @@ struct videoTypeParms eMPConfig::getVideoParms(eString name, eString extension)
 	vparms.fps = "25";
 	vparms.soutadd = false;
 
-	for ( int i = 0; i < videoParmList.size(); i++)
+	for ( unsigned int i = 0; i < videoParmList.size(); i++)
 	{
 		if ((videoParmList[i].extension == extension) && (videoParmList[i].name == name))
 		{
