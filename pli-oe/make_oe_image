@@ -28,7 +28,7 @@ fi
 
 if [ "${DISTROVERSION}x" = "x" ]; then
 	DISTROVERSION=openpli
-	FILENAME="OpenPLi-unstable-${MACHINE}-`date +%Y%m%d`"
+	FILENAME="OpenPLi-beta-${MACHINE}-`date +%Y%m%d`"
 else
 	FILENAME="${DISTROVERSION}-${MACHINE}-`date +%Y%m%d`"
 fi
