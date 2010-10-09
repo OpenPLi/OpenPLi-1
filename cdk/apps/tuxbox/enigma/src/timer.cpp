@@ -1154,7 +1154,8 @@ void eTimerManager::actionHandler()
 				{
 					eDebug("[eTimerManager] start Ngrab");
 					writeToLogfile(eString().sprintf("call ENgrab::getNew()->sendStart(%s)",descr.length()?descr.c_str():""));
-					ENgrab::getNew()->sendstart(descr.length()?descr.c_str():0);
+//					ENgrab::getNew()->sendstart(descr.length()?descr.c_str():0);
+					eZapMain::getInstance()->startNGrabRecord();
 				}
 #else
 				{
@@ -1194,7 +1195,8 @@ void eTimerManager::actionHandler()
 			{
 				writeToLogfile("call ENgrab::getNew()->sendstop()");
 				eDebug("[eTimerManager] stop Ngrab");
-				ENgrab::getNew()->sendstop();
+//				ENgrab::getNew()->sendstop();
+				eZapMain::getInstance()->stopNGrabRecord();
 			}
 			else  // insert lirc ( VCR stop ) here
 #endif

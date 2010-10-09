@@ -9048,6 +9048,7 @@ void eZapMain::startNGrabRecord()
 {
 	state |= (stateRecording|recDVR);
 	ENgrab::getNew()->sendstart();
+	recStatusBlink.start(500, 1);
 }
 
 void eZapMain::stopNGrabRecord()
@@ -9057,6 +9058,15 @@ void eZapMain::stopNGrabRecord()
 #endif
 	state &= ~(stateRecording|recDVR);
 	ENgrab::getNew()->sendstop();
+	recStatusBlink.stop();
+#ifndef DISABLE_LCD
+	if(state & stateSleeping)
+	{
+		lcdmain.lcdMain->hide();
+		lcdmain.lcdStandby->show();
+	}
+	lcdmain.lcdMain->Clock->show();
+#endif
 }
 #endif
 
