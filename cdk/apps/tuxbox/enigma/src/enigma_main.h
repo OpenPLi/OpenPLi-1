@@ -638,6 +638,9 @@ private:
 	void renameFile(eServiceSelector *);
 	void showHDDSpaceLeft();
 	void startPermanentTimeshift();
+	int led_timer;
+	eTimer ledStatusBack;
+	void ledBack();
 
 #endif // DISABLE_FILE
 

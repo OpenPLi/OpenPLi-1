@@ -1963,6 +1963,8 @@ eZapMain::eZapMain()
 	,skipping(0)
 	,state(0)
 	,wasSleeping(0)
+	,led_timer(0)
+	,ledStatusBack(eApp)
 {
 	init_main();
 }
@@ -2331,6 +2333,7 @@ void eZapMain::init_main()
 #ifndef DISABLE_FILE
 	CONNECT(recStatusBlink.timeout, eZapMain::blinkRecord);
 	CONNECT(permanentTimeshiftTimer.timeout, eZapMain::startPermanentTimeshift);
+	CONNECT(ledStatusBack.timeout, eZapMain::ledBack);
 #endif
 
 	CONNECT( eFrontend::getInstance()->s_RotorRunning, eZapMain::onRotorStart );
@@ -4550,8 +4553,10 @@ int eZapMain::recordDVR(int onoff, int user, time_t evtime, const char *timer_de
 		state &= ~(stateRecording|recDVR);
 		handler->serviceCommand(eServiceCommand(eServiceCommand::cmdRecordStop));
 		handler->serviceCommand(eServiceCommand(eServiceCommand::cmdRecordClose));
+
 		DVRSpaceLeft->hide();
 		recStatusBlink.stop();
+
 		recstatus->hide();
 		recchannel->hide();
 		recchannel->setText("");
@@ -6747,6 +6752,22 @@ void eZapMain::blinkRecord()
 		else
 			lcdmain.lcdMain->Clock->show();
 #endif
+		// LED flash for DM500,DM600PVR,DM500PLUS
+		if(eSystemInfo::getInstance()->getHwType()==eSystemInfo::DM500 || 
+           eSystemInfo::getInstance()->getHwType()==eSystemInfo::DM600PVR ||
+		   eSystemInfo::getInstance()->getHwType()==eSystemInfo::DM500PLUS)
+		{
+			int green=0;int red=1;
+			if(led_timer > 2) // interval
+			{
+				int fd=::open("/dev/dbox/fp0",O_RDWR);
+  	        	::ioctl(fd, 11, (state & stateSleeping ? &green : &red));
+				::close(fd);
+				ledStatusBack.start(12, 1); // time of change - 12ms
+				led_timer=0;
+			}
+			led_timer++;
+		}
 
 		if (isVisible())
 		{
@@ -6765,6 +6786,14 @@ void eZapMain::blinkRecord()
 		}
 		recStatusBlink.start(500, 1);
 	}
+}
+
+void eZapMain::ledBack()
+{
+	int green=0;int red=1;
+	int fd=::open("/dev/dbox/fp0",O_RDWR);
+	::ioctl(fd, 11, (state & stateSleeping ? &red : &green));
+	::close(fd);
 }
 #endif // DISABLE_FILE
 
