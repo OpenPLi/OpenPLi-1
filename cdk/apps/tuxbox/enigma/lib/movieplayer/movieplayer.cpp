@@ -145,7 +145,7 @@ void eMoviePlayer::init_eMoviePlayer()
 		instance = this;
 	supportPlugin();
 	CONNECT(messages.recv_msg, eMoviePlayer::gotMessage);
-	eDebug("[MOVIEPLAYER] Version 2.60 starting...");
+	eDebug("[MOVIEPLAYER] Version 2.63 starting...");
 	status.ACTIVE = false;
 	run();
 }
@@ -359,7 +359,7 @@ int eMoviePlayer::requestStream()
 {
 	char ioBuffer[512];
 
-	eDebug("[MOVIEPLAYER] requesting VLC stream... %s:%s", server.serverIP.c_str(), server.streamingPort.c_str());
+//	eDebug("[MOVIEPLAYER] requesting VLC stream... %s:%s", server.serverIP.c_str(), server.streamingPort.c_str());
 
 	fd = tcpOpen(server.serverIP, atoi(server.streamingPort.c_str()), 10);
 	if (fd < 0)
@@ -374,6 +374,7 @@ int eMoviePlayer::requestStream()
 		close(fd);
 		return -2;
 	}
+//	eDebug("[MOVIEPLAYER] requestStream() returns: %s", ioBuffer);
 	if (strstr(ioBuffer, "HTTP/1.0 200 OK") == 0)
 	{
 		eDebug("[MOVIEPLAYER] 200 OK not received...");
@@ -629,10 +630,10 @@ int eMoviePlayer::sendRequest2VLC(eString command)  // sending tcp commands
 	    {  	 	 
 	        if (strstr(ioBuffer, "HTTP/1.1 200 OK") == 0)  	 	 
 	        {  	
-    			//eDebug("[MOVIEPLAYER] sendRequest2VLC return: %s", ioBuffer);
+//    			eDebug("[MOVIEPLAYER] sendRequest2VLC return: %s", ioBuffer);
 				eDebug("[MOVIEPLAYER] 200 OK NOT received...");  
-//				if (strstr(ioBuffer, "403 Forbidden") != 0)
-// 					eDebug("[MOVIEPLAYER] is not enabled IP in .host !");  	 
+				if (strstr(ioBuffer, "403 Forbidden") != 0)
+ 					eDebug("[MOVIEPLAYER] is not enabled IP in .host file !");  	 
 	            rc = -2;  	 	 
 	        }  	 	 
 	        else   	 	 
@@ -735,7 +736,7 @@ eString eMoviePlayer::sout(eString mrl)
 		{
 			if (video.transcodeVideo)
 				soutURL += ",";
-			soutURL += "acodec=mpga,ab=" + video.audioRate + ",channels=2";
+			soutURL += "acodec=mp2a,ab=" + video.audioRate + ",channels=2";
 		}
 		
 		if(status.PLG)
