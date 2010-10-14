@@ -1154,8 +1154,10 @@ void eTimerManager::actionHandler()
 				{
 					eDebug("[eTimerManager] start Ngrab");
 					writeToLogfile(eString().sprintf("call ENgrab::getNew()->sendStart(%s)",descr.length()?descr.c_str():""));
-//					ENgrab::getNew()->sendstart(descr.length()?descr.c_str():0);
-					eZapMain::getInstance()->startNGrabRecord();
+					if (eSystemInfo::getInstance()->getDefaultTimerType() == ePlaylistEntry::RecTimerEntry|ePlaylistEntry::recDVR)
+						eZapMain::getInstance()->startNGrabRecord();
+					else
+						ENgrab::getNew()->sendstart(descr.length()?descr.c_str():0);
 				}
 #else
 				{

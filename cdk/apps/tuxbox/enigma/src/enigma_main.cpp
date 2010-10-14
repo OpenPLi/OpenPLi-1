@@ -4547,6 +4547,11 @@ int eZapMain::recordDVR(int onoff, int user, time_t evtime, const char *timer_de
 	}
 	else   // stop recording
 	{
+		if(ENgrab::nGrabActive) //is running nGrab
+		{
+			stopNGrabRecord();
+			return 0;
+		}
 		eServiceHandler *handler=eServiceInterface::getInstance()->getServiceHandler(eServiceReference::idDVB);
 		if (!handler)
 			return -1;
@@ -9046,19 +9051,28 @@ void eZapMain::ShowTimeCorrectionWindow( tsref ref )
 #ifndef DISABLE_NETWORK
 void eZapMain::startNGrabRecord()
 {
+	if(state & (stateRecording|recDVR))return; //is any recording
+	stopPermanentTimeshift();
 	state |= (stateRecording|recDVR);
 	ENgrab::getNew()->sendstart();
+#ifndef DISABLE_FILE
 	recStatusBlink.start(500, 1);
+#endif
 }
 
 void eZapMain::stopNGrabRecord()
 {
+	if (!ENgrab::nGrabActive)return; // nGrab not recording
 #ifndef DISABLE_FILE
 	if ( !eDVB::getInstance()->recorder )
 #endif
 	state &= ~(stateRecording|recDVR);
 	ENgrab::getNew()->sendstop();
+#ifndef DISABLE_FILE
 	recStatusBlink.stop();
+	recstatus->hide();
+	recchannel->hide();
+	beginPermanentTimeshift();
 #ifndef DISABLE_LCD
 	if(state & stateSleeping)
 	{
@@ -9066,6 +9080,7 @@ void eZapMain::stopNGrabRecord()
 		lcdmain.lcdStandby->show();
 	}
 	lcdmain.lcdMain->Clock->show();
+#endif
 #endif
 }
 #endif

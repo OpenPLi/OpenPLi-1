@@ -40,6 +40,7 @@
 							<area shape="circle" coords="104, 11, 11" href="javascript:video('forward')" alt="Forward">
 							<area shape="circle" coords="134, 11, 11" href="javascript:video('stop')" alt="Stop">
 							<area shape="circle" coords="164, 11, 11" href="javascript:video('record')" alt="Record">
+							<area shape="circle" coords="194, 11, 11" href="javascript:video('ngrab')" alt="nGrab">
 							</map>
 							<table id="videocontrol" border="0" cellspacing="0" cellpadding="0" height="100%">
 							<tr>

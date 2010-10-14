@@ -17,6 +17,8 @@
 #include <lib/gui/statusbar.h>
 #include <epgwindow.h>
 
+bool ENgrab::nGrabActive;
+
 static eString getServiceName()
 {
 	eService *current=eServiceInterface::getInstance()->addRef( eServiceInterface::getInstance()->service );
@@ -130,6 +132,7 @@ void ENgrab::sendstart( const char *descr )
 {
 	eDebug("ngrab sendstart requested");
 	sendStr = startxml(descr);
+	nGrabActive = true;
 	sending();
 }
 
@@ -137,6 +140,7 @@ void ENgrab::sendstop()
 {
 	eDebug("ngrab sendstop requested");
 	sendStr = stopxml();
+	nGrabActive = false;
 	sending();
 }
 

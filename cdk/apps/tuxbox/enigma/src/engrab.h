@@ -25,6 +25,7 @@ public:
 	static ENgrab *getNew() { return new ENgrab(); }
 	void sendstart( const char* descr=0 );
 	void sendstop();
+	static bool nGrabActive;
 };
 
 #endif

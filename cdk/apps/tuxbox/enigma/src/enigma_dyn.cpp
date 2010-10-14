@@ -323,7 +323,12 @@ static eString videocontrol(eString request, eString dirpath, eString opts, eHTT
 			if (eZapMain::getInstance()->isRecording())
 			{
 				if (eSystemInfo::getInstance()->getDefaultTimerType() == ePlaylistEntry::RecTimerEntry|ePlaylistEntry::recDVR)
-					eZapMain::getInstance()->recordDVR(0,0);
+				{
+					if(ENgrab::nGrabActive) // stop ngrab from webif
+						eZapMain::getInstance()->stopNGrabRecord();
+					else
+						eZapMain::getInstance()->recordDVR(0,0);
+				}
 				else
 				if (eSystemInfo::getInstance()->getDefaultTimerType() == ePlaylistEntry::RecTimerEntry|ePlaylistEntry::recNgrab)
 					eZapMain::getInstance()->stopNGrabRecord();
@@ -364,6 +369,9 @@ static eString videocontrol(eString request, eString dirpath, eString opts, eHTT
 			if (eSystemInfo::getInstance()->getDefaultTimerType() == ePlaylistEntry::RecTimerEntry|ePlaylistEntry::recNgrab)
 				eZapMain::getInstance()->startNGrabRecord();
 		}
+		else
+		if (command == "ngrab") //recording with nGrab
+			eZapMain::getInstance()->startNGrabRecord();
 	}
 
 	return closeWindow(content, "", 500);

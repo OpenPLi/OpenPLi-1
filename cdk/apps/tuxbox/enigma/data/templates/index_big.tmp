@@ -66,6 +66,7 @@
 					<area shape="circle" coords="54, 7, 6" href="javascript:video('forward')" alt="Forward">
 					<area shape="circle" coords="71, 7, 6" href="javascript:video('stop')" alt="Stop">
 					<area shape="circle" coords="87, 7, 6" href="javascript:video('record')" alt="Record">
+					<area shape="circle" coords="103, 7, 6" href="javascript:video('ngrab')" alt="nGrab">
 					</map>
 					<table cellpadding="0" cellspacing="0" style="height:12px;width:100%;padding-bottom:1px">
 						<tr>
