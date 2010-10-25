@@ -2503,7 +2503,7 @@ endif
 # lib
 	@for i in ar_AE cs_CZ da_DK el_GR es_ES et_EE fi_FI fr_FR hr_HR \
 	hu_HU is_IS it_IT lt_LT nl_NL no_NO pl_PL pt_PT ro_RO ru_RU sk_SK \
-	sl_SI sr_YU sv_SE tr_TR ur_IN fy_FY zh_CN; do \
+	sl_SI sr_YU sv_SE tr_TR ur_IN fy_FY zh_CN bg_BG; do \
 		ln -sf de_DE $(flashprefix)/root/lib/locale/$$i; \
 	done;
 # I don't think enigma needs anything but LC_MESSAGES in the locale
