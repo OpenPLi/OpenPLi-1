@@ -19,7 +19,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
- 
+
 #include <lib/gui/emessage.h>
 #include <lib/gui/eskin.h>
 #include <lib/gui/listbox.h>
@@ -35,6 +35,9 @@
 #include <lib/gui/ePLiWindow.h>
 #include <lib/gui/slider.h>
 #include <lib/gui/enumber.h>
+
+#include <lib/gui/eprogress.h>
+#include <lib/gui/egauge.h>
 
 eString pathcfg = "/enigma/plugins/movieplayer/";
 
@@ -67,7 +70,7 @@ class eSCGui: public eWindow
 	int VLC8;
 	
 	eListBox<eListBoxEntryText> *list;
-	eTimer *timer;
+	eTimer *timer, *volumeTimer;
 	eMessageBox *bufferingBox, *pauseBox, *infoBox, *jumpBox;
 	eStatusBar *status;
 
@@ -91,6 +94,16 @@ class eSCGui: public eWindow
 	void changeSout();
 	eString filePos(int both, eString name, eString size, eString& text);
 	void getSavedPath();
+	int isLargeRC();
+	int silver_large_rc;
+	eProgress *VolumeBar; /* this is the standard volumebar, in it's own widget */
+	eMultiProgress *IBVolumeBar; /* these are all custom volume bars/gauges, integrated in the OSD widgets */
+	eLabel *volume;
+	void volumeUp();
+	void volumeDown();
+	void hideVolumeSlider();
+	void updateVolume(int mute_state, int vol);
+	void init_volume_bar();
 
 public:
 	eSCGui();
@@ -131,7 +144,6 @@ private:
 	void setDVB(int status);
 	void BuffChanged(int i);
 	void setCheckRes(int status);
-
 public:
 	eSCGuiConfig();
 };

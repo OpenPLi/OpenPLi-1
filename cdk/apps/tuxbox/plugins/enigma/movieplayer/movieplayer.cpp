@@ -20,13 +20,25 @@
  *
  */
 
+//#define RC_VOLUP	10
+//#define RC_VOLDN	11
+#define RC_LEFT		35
+#define RC_RIGHT	36
+
+#define KEY_STATE_DOWN		0
+#define KEY_STATE_REPEAT	eRCKey::flagRepeat
+#define KEY_STATE_UP		eRCKey::flagBreak
+
 #include <plugin.h>
 #include <xmltree.h>
 #include "movieplayer.h"
 #include <lib/dvb/decoder.h>
 #include <lib/base/buffer.h>
+#include <lib/driver/eavswitch.h>
+#include <lib/system/info.h>
+#include <enigma.h>
 
-#define REL "Movieplayer Plugin, v0.9.36"
+#define REL "Movieplayer Plugin, v0.9.43"
 
 extern "C" int plugin_exec(PluginParam *par);
 extern eString getWebifVersion();
@@ -51,11 +63,13 @@ eSCGui::eSCGui(): menu(true)
 
 	pauseBox = new eMessageBox(_("Press yellow or green button for continue..."),_("Pause"), eMessageBox::iconInfo);
 
-    cmove(ePoint(90, 110));
+  	cmove(ePoint(90, 110));
 	cresize(eSize(540, 380));
 
 	addActionMap(&i_shortcutActions->map);
 	addActionMap(&i_cursorActions->map);
+
+	silver_large_rc = isLargeRC();
 
 	list = new eListBox<eListBoxEntryText>(this);
 	list->move(ePoint(10, 10));
@@ -103,6 +117,9 @@ eSCGui::eSCGui(): menu(true)
 	timer = new eTimer(eApp);
 	CONNECT(timer->timeout, eSCGui::timerHandler);
 
+	if(!silver_large_rc)  // used for non large silver RC only 
+		init_volume_bar();
+	
 	eMoviePlayer::getInstance()->mpconfig.load();
 	server = eMoviePlayer::getInstance()->mpconfig.getServerConfig();
 
@@ -146,7 +163,7 @@ void eSCGui::loadList(int mode, eString pathfull)
 	
 	VLC8=0;
     eConfig::getInstance()->getKey((pathcfg+"vlc8").c_str(), VLC8 );
-	
+
 	infoBox = 0; bufferingBox = 0; jumpBox = 0; skip_time = 0;
 	list->setHelpText(_("Please wait ... communicating with VLC"));
 
@@ -237,7 +254,7 @@ void eSCGui::loadList(int mode, eString pathfull)
 
 				eString tmptype = node->GetAttributeValue("type");
 				eString tmpsize = node->GetAttributeValue("size");
-//				eString tmpdate = node->GetAttributeValue("date");  //  VLC returns date = size only :(
+				eString tmpdate = node->GetAttributeValue("date"); 
 				eString tmppath = node->GetAttributeValue("path");
 				eString tmpname = node->GetAttributeValue("name");
 
@@ -291,7 +308,7 @@ void eSCGui::loadList(int mode, eString pathfull)
 						a.Filetype = FILES;
 						playList.push_back(a);
 						nFiles++;
-						eDebug("[MOVIEPLAYER] file name: %d %s %s", nFiles, a.Fullname.c_str(),a.Filesize.c_str());
+//						eDebug("[MOVIEPLAYER] file name: %d %s %s", nFiles, a.Fullname.c_str(),a.Filesize.c_str());
 					}
 				}
 			}
@@ -500,7 +517,7 @@ void eSCGui::timerHandler()
 			{
 				int msgTime=3;
 				eConfig::getInstance()->getKey((pathcfg+"msgtime").c_str(), msgTime );
-				if(++skip_time >= msgTime)
+				if(++skip_time >= (unsigned int)msgTime)
 				{
 					jumpBox->hide();
 					delete jumpBox;
@@ -660,359 +677,340 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 	eString restmp = "";
 
 	switch (e.type)
-	{
-		case eWidgetEvent::evtAction:
-		if (e.action == &i_cursorActions->cancel)
-		{
-			if(infoBox)
+	{		
+	  	case eWidgetEvent::evtAction:
+			if (e.action == &i_cursorActions->cancel)
 			{
-				infoBox->hide();
-				delete infoBox;
-				infoBox=0;
-			}
-			else
-			{
-				if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
-					eMoviePlayer::getInstance()->control("stop", "");
-
-				if (!menu)
-					showMenu();
+				if(infoBox)
+				{
+					infoBox->hide();
+					delete infoBox;
+					infoBox=0;
+				}
 				else
 				{
-					// set back DVB
-					if(eMoviePlayer::getInstance()->status.DVB)
-//					{
-//						eMoviePlayer::getInstance()->control("dvbon", "");
-					    eMoviePlayer::getInstance()->startDVB();
-//					}
-					eMoviePlayer::getInstance()->control("endplg", "");
-					eMoviePlayer::getInstance()->supportPlugin();
-					close(0);
-				}
-			}
-		}
-		else
-		if (e.action == &i_cursorActions->help)
-		{
-			if(!bufferingBox)
-			{
-				if (menu)
-					hide();
-    				eSCGuiHelp help;
-    				help.show();
-    				help.exec();
-    				help.hide();
-    				if (menu)
-					show();
-    			}
-    		}
-		else
-		if (e.action == &i_shortcutActions->red)
-		{
-			if (menu)
-			{
-				getSavedPath();
-				loadList(DATA, startdir);
-			}
-			else
-			{
-				if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
-				{
-					command+="seek&val=%2d5%";sendGetRequest(command, restmp);
-					//eMoviePlayer::getInstance()->control("jump", "");
-					if(!jumpBox)
+					if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
+						eMoviePlayer::getInstance()->control("stop", "");
+
+					if (!menu)
+						showMenu();
+					else
 					{
-						jumpBox = new eMessageBox(_("Rewind 5 percent"),_("Skipping"), eMessageBox::iconInfo);
-						jumpBox->show();
+						// set back DVB
+						if(eMoviePlayer::getInstance()->status.DVB)
+//						{
+//							eMoviePlayer::getInstance()->control("dvbon", "");
+					    	eMoviePlayer::getInstance()->startDVB();
+//						}
+						eMoviePlayer::getInstance()->control("endplg", "");
+						eMoviePlayer::getInstance()->supportPlugin();
+						close(0);
 					}
 				}
 			}
-		}
-		else
-		if (e.action == &i_shortcutActions->green)
-		{
-			if (menu)
-				loadList(VCD, "");
 			else
+			if (e.action == &i_cursorActions->help)
 			{
 				if(!bufferingBox)
 				{
-    				if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PLAY)
-    				{
-    					command+="pl_pause";
-    					for( int i = 0; i < 2; i++)  // pseudo resync
-    					{
-    						sendGetRequest(command, restmp); //pause
-    						usleep(10000);
-    						sendGetRequest(command, restmp); //play
-    						usleep(10000);
-    					}
-    					eMoviePlayer::getInstance()->control("resync", "");
-    				}
-    				else
-    				{
-    					command+="pl_pause";sendGetRequest(command, restmp);
-    					pause();
-    					eMoviePlayer::getInstance()->control("play", "");
-    					pauseBox->hide();
+					if (menu)
+						hide();
+    					eSCGuiHelp help;
+    					help.show();
+    					help.exec();
+    					help.hide();
+    					if (menu)
+						show();
     				}
     			}
-    		}
-		}
-		else
-		if (e.action == &i_shortcutActions->yellow)
-		{
-			if (menu)
-				loadList(DVD, "");
 			else
+			if (e.action == &i_shortcutActions->red)
 			{
-    			if(!bufferingBox)
+				if (menu)
 				{
-					command+="pl_pause";sendGetRequest(command, restmp);
-					pause();
-    				if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PAUSE)
-    				{
-    					eMoviePlayer::getInstance()->control("play", "");
-    					pauseBox->hide();
-    				}
-    				else
-    				{
-    					eMoviePlayer::getInstance()->control("pause", "");
-    					pauseBox->show();
-    				}
-    			}
-    		}
-		}
-		else
-		if (e.action == &i_shortcutActions->blue)
-		{
-			if (menu)
-			{
-				hide();
-				eSCGuiConfig cfg;
-				cfg.show();
-				cfg.exec();
-				cfg.hide();
-				show();
-				int mode = DATA;
-				eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
-				if(mode != DATA)
-				    loadList(mode, "");
+					getSavedPath();
+					loadList(DATA, startdir);
+				}
+				else
+				{
+					if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
+					{
+						command+="seek&val=%2d5%";sendGetRequest(command, restmp);
+						//eMoviePlayer::getInstance()->control("jump", "");
+						if(!jumpBox)
+						{
+							jumpBox = new eMessageBox(_("Rewind 5 percent"),_("Skipping"), eMessageBox::iconInfo);
+							jumpBox->show();
+						}
+					}
+				}
 			}
 			else
+			if (e.action == &i_shortcutActions->green)
 			{
+				if (menu)
+					loadList(VCD, "");
+				else
+				{
+					if(!bufferingBox)
+					{
+    					if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PLAY)
+    					{
+    						command+="pl_pause";
+    						for( int i = 0; i < 2; i++)  // pseudo resync
+    						{
+    							sendGetRequest(command, restmp); //pause
+    							usleep(10000);
+    							sendGetRequest(command, restmp); //play
+    							usleep(10000);
+    						}
+    						eMoviePlayer::getInstance()->control("resync", "");
+    					}
+    					else
+    					{
+    						command+="pl_pause";sendGetRequest(command, restmp);
+    						pause();
+    						eMoviePlayer::getInstance()->control("play", "");
+    						pauseBox->hide();
+    					}
+    				}
+    			}
+			}
+			else
+			if (e.action == &i_shortcutActions->yellow)
+			{
+				if (menu)
+					loadList(DVD, "");
+				else
+				{
+    				if(!bufferingBox)
+					{
+						command+="pl_pause";sendGetRequest(command, restmp);
+						pause();
+    					if (eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PAUSE)
+    					{
+    						eMoviePlayer::getInstance()->control("play", "");
+    						pauseBox->hide();
+    					}
+    					else
+    					{
+    						eMoviePlayer::getInstance()->control("pause", "");
+    						pauseBox->show();
+    					}
+    				}
+    			}
+			}
+			else
+			if (e.action == &i_shortcutActions->blue)
+			{
+				if (menu)
+				{
+					hide();
+					eSCGuiConfig cfg;
+					cfg.show();
+					cfg.exec();
+					cfg.hide();
+					show();
+					int mode = DATA;
+					eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
+					if(mode != DATA)
+					    loadList(mode, "");
+				}
+				else
+				{
+					if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
+					{
+						command+="seek&val=%2b5%";sendGetRequest(command, restmp);
+						if(!jumpBox)
+						{
+							jumpBox = new eMessageBox(_("Fast forward 5 percent"),_("Skipping"), eMessageBox::iconInfo);
+							jumpBox->show();
+						}
+						//eMoviePlayer::getInstance()->control("jump", "");
+					}
+				}
+			}
+			else
+			if (e.action == &i_shortcutActions->menu)
+			{
+				if(!bufferingBox)
+				{
+					if (menu)
+						hide();
+					eSCGuiConfig cfg;
+					cfg.show();
+					cfg.exec();
+					cfg.hide();
+					int mode = DATA;
+					eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
+					if(mode != DATA)
+					    loadList(mode, "");
+					if (menu)
+						show();
+				}
+			}
+			else
+			if (e.action == &i_cursorActions->up)
+			{
+				if (!menu && !bufferingBox)
+				{
+					if(infoBox)
+					{
+						infoBox->hide();
+						delete infoBox;
+						infoBox=0;
+					}
+					eMoviePlayer::getInstance()->control("up", "");
+					if(val<nFiles)
+					{
+						if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
+							eMoviePlayer::getInstance()->control("stop", "");
+						changeSout();
+						eMoviePlayer::getInstance()->control("start2", playList[++val].Fullname.c_str());
+							timer->start(2000, true);
+					}
+				}
+				else
+					return eWindow::eventHandler(e);
+			}
+			else
+			if (e.action == &i_cursorActions->down)
+			{
+				if (!menu && !bufferingBox)
+				{
+					if(infoBox)
+					{       
+						infoBox->hide();
+						delete infoBox;
+						infoBox=0;
+					}
+					eMoviePlayer::getInstance()->control("down", "");
+					if(val > 0 )
+					{
+						eMoviePlayer::getInstance()->control("forward", "");
+						if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
+							eMoviePlayer::getInstance()->control("stop", "");
+						changeSout();
+						eMoviePlayer::getInstance()->control("start2", playList[--val].Fullname.c_str());
+						timer->start(2000, true);
+					}
+				}
+				else
+					return eWindow::eventHandler(e);
+			}
+			else
+			if (e.action == &i_shortcutActions->number1)
+			{
+				if (!menu)
+					jump = 1;
+			}
+			else
+			if (e.action == &i_shortcutActions->number2)
+			{
+				if (!menu)
+					jump = 2;
+			}
+			else
+			if (e.action == &i_shortcutActions->number3)
+			{
+				if (!menu)
+					jump = 3;
+			}
+			else
+			if (e.action == &i_shortcutActions->number4)
+			{
+				if (!menu)
+					jump = 4;
+			}
+			else
+			if (e.action == &i_shortcutActions->number5)
+			{
+				if (!menu)
+					jump = 5;
+			}
+			else
+			if (e.action == &i_shortcutActions->number6)
+			{
+				if (!menu)
+					jump = 6;
+			}
+			else
+			if (e.action == &i_shortcutActions->number7)
+			{
+				if (!menu)
+					jump = 7;
+			}
+			else
+			if (e.action == &i_shortcutActions->number8)
+			{
+				if (!menu)
+					jump = 8;
+			}
+			else
+			if (e.action == &i_shortcutActions->number9)
+			{
+				if (!menu)
+					jump = 9;
+			}
+			else
+			if (e.action == &i_shortcutActions->number0)
+			{
+				if (!menu)
+					jump = 10;
+			}
+			else
+				break;
+	
+			if (jump > 0 )
+			{
+				switch(jump)
+				{
+					// forward relative
+					case 1:	command+="seek&val=%2d15"; break;
+					case 4: command+="seek&val=%2d60"; break;
+					case 7: command+="seek&val=%2d5m"; break;
+					// go to position in %
+					case 2: command+="seek&val=20%"; break;
+					case 5: command+="seek&val=50%"; break;
+					case 8: command+="seek&val=80%"; break;
+					// rewind relative
+					case 3: command+="seek&val=%2b15"; break;
+					case 6: command+="seek&val=%2b60"; break;
+					case 9: command+="seek&val=%2b5m"; break;
+					// rewind to begin
+					case 10:command+="seek"; break;
+				}
 				if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
 				{
-					command+="seek&val=%2b5%";sendGetRequest(command, restmp);
-					if(!jumpBox)
-					{
-						jumpBox = new eMessageBox(_("Fast forward 5 percent"),_("Skipping"), eMessageBox::iconInfo);
+    					sendGetRequest(command, restmp);
+    					eString tmp = eString().sprintf(NAME[jump+4],jump) ;
+    					eMoviePlayer::getInstance()->control("jump", eString().sprintf("%d", jump).c_str());
+    					if(!jumpBox)
+    					{
+						jumpBox = new eMessageBox(tmp.strReplace(":\t", " - "),_("Skipping"), eMessageBox::iconInfo);
 						jumpBox->show();
-					}
-					//eMoviePlayer::getInstance()->control("jump", "");
-				}
-			}
-		}
-		else
-		if (e.action == &i_shortcutActions->menu)
-		{
-			if(!bufferingBox)
-			{
-				if (menu)
-					hide();
-				eSCGuiConfig cfg;
-				cfg.show();
-				cfg.exec();
-				cfg.hide();
-				int mode = DATA;
-				eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
-				if(mode != DATA)
-				    loadList(mode, "");
-				if (menu)
-					show();
-			}
-		}
-/*		if (e.action == &i_cursorActions->left)
-		{
-			if (!menu)
-				eMoviePlayer::getInstance()->control("left", "");
-			else
-				return eWindow::eventHandler(e);
-		}
-		else
-		if (e.action == &i_cursorActions->right)
-		{
-			if (!menu)
-				eMoviePlayer::getInstance()->control("right", "");
-			else
-				return eWindow::eventHandler(e);
-		}
-*/		else
-		if (e.action == &i_cursorActions->up)
-		{
-			if (!menu && !bufferingBox)
-			{
-				if(infoBox)
-				{
-					infoBox->hide();
-					delete infoBox;
-					infoBox=0;
-				}
-				eMoviePlayer::getInstance()->control("up", "");
-				if(val<nFiles)
-				{
-					if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
-						eMoviePlayer::getInstance()->control("stop", "");
-					changeSout();
-					eMoviePlayer::getInstance()->control("start2", playList[++val].Fullname.c_str());
-					timer->start(2000, true);
-				}
-			}
-			else
-				return eWindow::eventHandler(e);
-		}
-		else
-		if (e.action == &i_cursorActions->down)
-		{
-			if (!menu && !bufferingBox)
-			{
-				if(infoBox)
-				{       
-					infoBox->hide();
-					delete infoBox;
-					infoBox=0;
-				}
-				eMoviePlayer::getInstance()->control("down", "");
-				if(val > 0 )
-				{
-					eMoviePlayer::getInstance()->control("forward", "");
-					if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
-						eMoviePlayer::getInstance()->control("stop", "");
-					changeSout();
-					eMoviePlayer::getInstance()->control("start2", playList[--val].Fullname.c_str());
-					timer->start(2000, true);
-				}
-			}
-			else
-				return eWindow::eventHandler(e);
-		}
-		else
-		if (e.action == &i_shortcutActions->number1)
-		{
-			if (!menu)
-				jump = 1;
-		}
-		else
-		if (e.action == &i_shortcutActions->number2)
-		{
-			if (!menu)
-				jump = 2;
-		}
-		else
-		if (e.action == &i_shortcutActions->number3)
-		{
-			if (!menu)
-				jump = 3;
-		}
-		else
-		if (e.action == &i_shortcutActions->number4)
-		{
-			if (!menu)
-				jump = 4;
-		}
-		else
-		if (e.action == &i_shortcutActions->number5)
-		{
-			if (!menu)
-				jump = 5;
-		}
-		else
-		if (e.action == &i_shortcutActions->number6)
-		{
-			if (!menu)
-				jump = 6;
-		}
-		else
-		if (e.action == &i_shortcutActions->number7)
-		{
-			if (!menu)
-				jump = 7;
-		}
-		else
-		if (e.action == &i_shortcutActions->number8)
-		{
-			if (!menu)
-				jump = 8;
-		}
-		else
-		if (e.action == &i_shortcutActions->number9)
-		{
-			if (!menu)
-				jump = 9;
-		}
-		else
-		if (e.action == &i_shortcutActions->number0)
-		{
-			if (!menu)
-				jump = 10;
-		}
-		else
-			break;
-
-		if (jump > 0 )
-		{
-			switch(jump)
-			{
-				// forward relative
-				case 1:	command+="seek&val=%2d15"; break;
-				case 4: command+="seek&val=%2d60"; break;
-				case 7: command+="seek&val=%2d5m"; break;
-				// go to position in %
-				case 2: command+="seek&val=20%"; break;
-				case 5: command+="seek&val=50%"; break;
-				case 8: command+="seek&val=80%"; break;
-				// rewind relative
-				case 3: command+="seek&val=%2b15"; break;
-				case 6: command+="seek&val=%2b60"; break;
-				case 9: command+="seek&val=%2b5m"; break;
-				// rewind to begin
-				case 10:command+="seek"; break;
-			}
-			if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
-			{
-    				sendGetRequest(command, restmp);
-    				eString tmp = eString().sprintf(NAME[jump+4],jump) ;
-    				eMoviePlayer::getInstance()->control("jump", eString().sprintf("%d", jump).c_str());
-    				if(!jumpBox)
-    				{
-					jumpBox = new eMessageBox(tmp.strReplace(":\t", " - "),_("Skipping"), eMessageBox::iconInfo);
-					jumpBox->show();
+    					}
     				}
-    			}
+			}
+			return 1;
+		case eWidgetEvent::evtKey:
+	  	{
+			if (((e.key)->flags == KEY_STATE_DOWN || (e.key)->flags == KEY_STATE_REPEAT) &&  !silver_large_rc && !menu) {
+				switch ( (e.key)->code  ) {
+					case RC_LEFT:
+						eSCGui::volumeDown();
+					break;
+					case RC_RIGHT:
+						eSCGui::volumeUp();
+					break;
+				}
+			}	
 		}
-		return 1;
-	default:
-		break;
+	   	break;
+		default:
+			break;
 	}
 	return eWindow::eventHandler(e);
-}
-
-eSCGuiHelp::eSCGuiHelp()  // Help window
-{
-	cmove(ePoint(90, 80));
-	cresize(eSize(540, 440));
-
-	eString rel = REL;
-	setText((eString)_("Help")+" - "+rel);
-
-	list = new eListBox<eListBoxEntryText>(this);
-	list->move(ePoint(10, 10));
-	list->resize(eSize(clientrect.width() - 20, clientrect.height() - 20));
-
-//	new eListBoxEntryText(list, REL);
-	int i = 0;
-	while (eString(NAME[i]) != " ")
-		new eListBoxEntryText(list, NAME[i++]);
 }
 
 size_t CurlDummyWrite (void *ptr, size_t size, size_t nmemb, void *data)
@@ -1089,6 +1087,135 @@ eString eSCGui::getPar(eString buf, const char* parameter)
 	}
 	eDebug("[getPar] parameter: %s par: %s",parameter,par.c_str());
 	return par;
+}
+
+int eSCGui::isLargeRC()
+{
+	int large_silver=0;	
+	eString style="default";
+	eConfig::getInstance()->getKey("/ezap/rc/style", style);
+	if((eSystemInfo::getInstance()->getHwType() == eSystemInfo::DM7020 
+	|| eSystemInfo::getInstance()->getHwType() == eSystemInfo::DM7000
+	|| eSystemInfo::getInstance()->getHwType() == eSystemInfo::DM600PVR) 
+	|| style=="7000")
+		large_silver = 1;
+
+	return large_silver;
+}
+
+void eSCGui::volumeUp()
+{
+	eAVSwitch::getInstance()->changeVolume(0, -2);
+	if ( eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PLAY && !IBVolumeBar->isVisible() )
+	{	
+		volume->show();
+		volumeTimer->start(2000, true);
+	}
+}
+
+void eSCGui::volumeDown()
+{
+	eAVSwitch::getInstance()->changeVolume(0, +2);
+	if ( eMoviePlayer::getInstance()->status.STAT == eMoviePlayer::PLAY && !IBVolumeBar->isVisible() )
+	{
+		volume->show();
+		volumeTimer->start(2000, true);
+	}
+}
+void eSCGui::hideVolumeSlider()
+{
+	volume->hide();
+}
+
+void eSCGui::updateVolume(int mute_state, int vol)
+{
+
+	if (mute_state)
+	{
+		volume->hide();
+	}
+	else
+	{
+		VolumeBar->setPerc((63-vol)*100/63);
+		IBVolumeBar->setPerc((63-vol)*100/63);
+	}
+}
+
+void eSCGui::init_volume_bar()
+{
+	eString x, y;
+	volume = new eLabel( eZap::getInstance()->getDesktop( eZap::desktopFB ) );
+
+	gPixmap *pm = NULL;
+	if ((pm = eSkin::getActive()->queryImage("volume.background.pixmap")))
+	{
+		x = eSkin::getActive()->queryValue("volume.background.pos.x", "0");
+		y = eSkin::getActive()->queryValue("volume.background.pos.y", "0");
+	}
+	else if ((pm = eSkin::getActive()->queryImage("volume_grafik")))
+	{
+		x = eSkin::getActive()->queryValue("volume.grafik.pos.x", "0");
+		y = eSkin::getActive()->queryValue("volume.grafik.pos.y", "0");
+	}
+
+	if (pm)
+	{
+		volume->setPixmap(pm);
+		volume->setProperty("position", x + ":" + y);
+		volume->resize( eSize( pm->x, pm->y ) );
+		volume->setPixmapPosition(ePoint(0,0));
+		volume->hide();
+		volume->setBlitFlags( BF_ALPHATEST );
+	}
+
+	if (eSkin::getActive()->queryValue("volume.slider.gauge", 0))
+		VolumeBar = new eGauge(volume);
+	else
+		VolumeBar = new eProgress(volume);
+	VolumeBar->setSliderPixmap(eSkin::getActive()->queryImage("volume.slider.pixmap"));
+
+	if (eSkin::getActive()->queryValue("volume.slider.alphatest", 0))
+		VolumeBar->setProperty("alphatest", "on");
+	
+	x = eSkin::getActive()->queryValue("volume.slider.pos.x", "0"),
+	y = eSkin::getActive()->queryValue("volume.slider.pos.y", "0");
+	VolumeBar->setProperty("position", x + ":" + y);
+
+	x = eSkin::getActive()->queryValue("volume.slider.width", "0"),
+	y = eSkin::getActive()->queryValue("volume.slider.height", "0");
+	VolumeBar->setProperty("size", x + ":" + y);
+
+	VolumeBar->setLeftColor( eSkin::getActive()->queryColor("volume_left") );
+	VolumeBar->setRightColor( eSkin::getActive()->queryColor("volume_right") );
+	VolumeBar->setBorder(0);
+
+	VolumeBar->setDirection(eSkin::getActive()->queryValue("volume.slider.direction", 0));
+	VolumeBar->setStart(eSkin::getActive()->queryValue("volume.slider.start", 0));
+
+	ASSIGN_MULTIPLE(IBVolumeBar, eMultiProgress, "volume_bar");
+
+	volumeTimer = new eTimer(eApp);
+	CONNECT(volumeTimer->timeout, eSCGui::hideVolumeSlider );
+
+	CONNECT(eAVSwitch::getInstance()->volumeChanged, eSCGui::updateVolume);	
+}
+
+eSCGuiHelp::eSCGuiHelp()  // Help window
+{
+	cmove(ePoint(90, 80));
+	cresize(eSize(540, 440));
+
+	eString rel = REL;
+	setText((eString)_("Help")+" - "+rel);
+
+	list = new eListBox<eListBoxEntryText>(this);
+	list->move(ePoint(10, 10));
+	list->resize(eSize(clientrect.width() - 20, clientrect.height() - 20));
+
+//	new eListBoxEntryText(list, REL);
+	int i = 0;
+	while (eString(NAME[i]) != " ")
+		new eListBoxEntryText(list, NAME[i++]);
 }
 
 eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
@@ -1295,7 +1422,6 @@ eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
 	buildWindow();
     setCheckRes(origres);
     CONNECT (bOK->selected, eSCGuiConfig::saveCFG );
-
 }
 
 void eSCGuiConfig::saveCFG()
@@ -1322,7 +1448,6 @@ void eSCGuiConfig::saveCFG()
 
 void eSCGuiConfig::BuffChanged( int i )
 {
-//    eDebug("eSlider %d",i);
 	lbuff1->setText(eString().sprintf("%d%c",i,'%'));
 }
 
@@ -1334,7 +1459,6 @@ void eSCGuiConfig::setCheckRes(int status)
 		l_height->show();
 		setWidth->show();
 		setHeight->show();
-		
 	}
 	else
 	{
@@ -1375,7 +1499,6 @@ int plugin_exec(PluginParam *par)
 		{
 			eMoviePlayer::getInstance()->stopDVB();
 			eMoviePlayer::getInstance()->control("dvboff", "");
-
 		}
 		int pbuf = 100;
 		eConfig::getInstance()->getKey((pathcfg+"pbuf").c_str(), pbuf );
