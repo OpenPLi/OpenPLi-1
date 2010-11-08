@@ -1,0 +1,7863 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxbox-enigma 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-10 19:57+0200\n"
+"PO-Revision-Date: 2010-07-07 19:48+0200\n"
+"Last-Translator: Madars Auns <madars.a@one.lv>\n"
+"Language-Team: igbt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: e:\\cvs\\apps\\tuxbox\\enigma\n"
+
+msgid ""
+"\tA/V Settings\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [3] System Settings\n"
+">>> [2] A/V Settings\n"
+". . . . . . . . . .\n"
+"\n"
+"Set the aspect ratio, color format, and TV System.\n"
+". . . . . . . . . .\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Colorformat:\n"
+"[LEFT]/[RIGHT]\tSelect CVBS, RGB, SVideo, or YPbPr\n"
+"\n"
+"Aspect Ratio:\n"
+"[LEFT]/[RIGHT]\tSelect 4:3 (Panscan/Letterbox), or 16:9\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tUzstādījumi\n"
+"\tAudio un video\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [3] Sistēmas uzstādījumi >>> [1] Audio un video\n"
+". . . . . . . . . .\n"
+"\n"
+"Uzstādīt attēla izmēru, krāsu formātu un TV sistēmu.\n"
+". . . . . . . . . .\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIzvēlēties ievades laukus\n"
+"\tvai pogas\n"
+"\n"
+"Krāsu formāts:\n"
+"[kreisais]/[labais]\tIzvēlēties CVBS, RGB,\n"
+"\tSVideo vai YPbPr\n"
+"\n"
+"Attēla izmērs:\n"
+"[kreisais]/[labais]\tIzvēlēties\n"
+"\t4:3 (Izstiepts/Platekrāna)\n"
+"\tvai 16:9\n"
+"\n"
+"[ZAĻĀ]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet bez saglabāšanas"
+
+msgid ""
+"\tAbout...\n"
+"\n"
+">>> [MENU] >>> [4] Information >>> About...\n"
+". . . . . . . . . .\n"
+"\n"
+"Provides information about your Dreambox, like model, CPU, harddisk(s), software version, skin, etc.\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[GREEN]/[OK]/[EXIT]\tClose window"
+msgstr ""
+"\tInformācija...\n"
+"\n"
+">>> [MENU] >>> [4] Informācija >>> Informācija par...\n"
+". . . . . . . . . .\n"
+"\n"
+"Informācija par Dreambox, modelis, CPU, HDD, programmas versija, izskats utt...\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[ZAĻĀ]/[OK]/[EXIT]\tIziet"
+
+msgid ""
+"\tAdd/Edit Transponders\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [2] Service Searching\n"
+">>> [4] Transponder Edit >>> Add or Edit\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can manually Add or Edit a transponder\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"Enter/Edit Frequency (MHz), Polarity, FEC, and SymbolRate for this specific Transponder.\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tTranspondera rediģēšana\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [2] Kanālu uzstādīšana\n"
+">>> [4] Transpondera rediģēšana >>> Pievienošana vai mainīšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Manuāla transponderu pievienošana vai parametru maiņa\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"Ievedīt/izmainīt transpondera frevenci (MHz), polarizāciju, FEC un Symbol Rate.\n"
+"\n"
+"[ZAĻĀ]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet bez saglabāšanas"
+
+msgid ""
+"\tAutomatic transponder scan\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [2] Channels >>> Channel search >>> Automatic scan\n"
+". . . . . . . . . .\n"
+"\n"
+"During an automatic transponder scan, ENIGMA will scan all selected satellites by itself.\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Satellite: [OK],[UP]/[DOWN],[OK]\tSelect satellite\n"
+"\n"
+"Overwrite all: [OK]\tOverwrite all services and bouquets\n"
+"\n"
+"Start scan: [OK]\tStart scanning\n"
+"\n"
+"no circ. polarity: [OK]\tswitch between circular and linear polarity\n"
+"\n"
+"abort [EXIT]\tClose window without saving changes"
+msgstr ""
+"\tAutomātiska transponderu meklēšana\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [2] Kanālu meklēšana >>>>>> Automātiska transponderu skanēšana\n"
+". . . . . . . . . .\n"
+"\n"
+" Izvēlēto Pavadoņu automātiska transponderu skanēšana.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIzvēlēties ievades lauku vai pogu\n"
+"\n"
+"pavadoņi: [OK],[uz augšu]/[uz leju],[OK]\tpavadoņa izvēle\\n"
+"Pārrakstīt visu: [OK]\tPārrakstīt visus servisus un paketes\n"
+"\n"
+"Skanēt: [OK]\tSākt skanēšanu\n"
+"\n"
+"Necirkulārā polarizācij: [OK]\tIzvēlēties starp cirkulāro un lineāro polarizāciju\n"
+"\n"
+"Pārtraukt [EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tChange Skin\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [3] System Settings\n"
+">>> [6] OSD Settings >>> [BLUE] Change Skin\n"
+". . . . . . . . . .\n"
+"\n"
+"Your Dreambox supports custom made skins. PLi offers additional skin downloads and previews from the download menu automating skin installation.\n"
+"Note: Changing a skin requires a reboot.\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield, Button, or skin\n"
+"\n"
+"[GREEN]/[OK]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tIzskats\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [3] Sistēmas uzstādījumi >>> [6] Izskata uzstādījumi >>> Izskats\n"
+". . . . . . . . . .\n"
+"\n"
+"Jūsu Dreambox pieļauj izskata nomaiņu. Šim nolūkam varat apskatīt vai lejupielādēt un uzstādīt izskatu caur lejupielādes izvēlni, vai manuālajā režīmā.\n"
+"Uzmanību: izskata nomaiņai nepieciešama pārstartēšana.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIzvēlēties ievades lauku, pogu\n"
+"\tvai noformēšanas failu\n"
+"\n"
+"[ZAĻAIS]/[OK]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tChannel EPG\n"
+"\n"
+">>> [RED]\n"
+". . . . . . . . . .\n"
+"\n"
+"The Channel EPG shows titel and start time of events of a selected channel.\n"
+"\n"
+"Please be aware that not all stations provide EPG data!\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tPrevious/Next Event\n"
+"\n"
+"[LEFT]/[RIGHT]\tPrevious/Next Event\n"
+"\n"
+"[RED]\tRemove timer event\n"
+"\n"
+"[GREEN]\tAdd to DVR timer events\n"
+"\n"
+"[YELLOW]\tAdd to Ngrab-Timer events\n"
+"\n"
+"[BLUE]\tAdd to Switch timer events\n"
+"\n"
+"[INFO]\tToggle channel/detail information\n"
+"\n"
+"[EXIT]\tClose window"
+msgstr ""
+"\tPārraides programma (EPG)\n"
+"\n"
+">>> [SARKANAIS]\n"
+". . . . . . . . . .\n"
+"\n"
+"EPG satur izvēlētā kanāla pārraides nosaukumu un laiku.\n"
+"\n"
+"Visi kanāli neraida pārraižu programmu EPG !\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]/[kreisais]/[labais]:\n"
+"\n"
+"Iepriekšējais/nākamais notikums\n"
+"\n"
+"[SARKANAIS]\tNodzēst taimeri no notikuma\n"
+"\n"
+"[ZAĻAIS]\tDVR-taimera uzstādīšana\n"
+"\tierakstīšana notikumā\n"
+"\n"
+"[DZELTANAIS]\tNgrab-taimera uzstādīšana\n"
+"\tierakstīšana notikumā\n"
+"\n"
+"[ZILAIS]\tTaimera uzstādīšana\n"
+"\tpārslēgšana uz notikumu\n"
+"\n"
+"[INFO]\tPapildus informācija\n"
+"\tpar kanālu\n"
+"\n"
+"[EXIT]\tIziet"
+
+msgid ""
+"\tCommunication Setup\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [6] Expert Setup\n"
+">>> [1] Communication Setup\n"
+". . . . . . . . . .\n"
+"\n"
+"You will need to setup your network settings in order to be able to share A/V Recordings, FTP/HTTP/Telnet access, Streaming A/V to, and from your Dreambox.\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"[NUMBERS]\tEnter numbers/text\n"
+"\n"
+"[LEFT]/[RIGHT]\tPrevious/next number field\n"
+"\n"
+"IP: [NUMBERS]\tIP-Address of your Dreambox\n"
+"\n"
+"Netmask: [NUMBERS]\n"
+"Netmask of your network (usually 255.255.255.0)\n"
+"\n"
+"Nameserver: [NUMBERS]\n"
+"The IP-Address of a Nameservers (or Gateway)\n"
+"\n"
+"Gateway: [NUMBERS]\n"
+"IP-Address of your Default Gateway\n"
+"\n"
+"Enable Network: [OK]\n"
+"Activate the Network\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[MOUNTS]\tGoto Mount menu\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tUzstādījumi сети\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [4] Sistēmas uzstādījumi >>> [0] Tīkls\n"
+". . . . . . . . . .\n"
+"\n"
+"Tīkla uzstādījumi nepieciešmi lai piekļūtu tīkla resursiem filu, mūzikas ierakstam vai atskaņošanai, piekļūšanai FTP, HTTP, Telnet, audio un video pārraidei uz Dreambox.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[UZ AUGŠU]/[UZ LEJU]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"[CIPARI]\tCiparu un teksta ievade\n"
+"\n"
+"[PA KREISI]/[PA LABI]\tNavigācija pa laukiem\n"
+"\n"
+"IP: [CIPARI]\tDreambox adrese tīklā\n"
+"\n"
+"Maska: [CIPARI]\n"
+"Apakštīkla maska (parasti 255.255.255.0)\n"
+"\n"
+"Serveris: [CIPARI]\n"
+"DNS servera (vai vārtejas) adrese\n"
+"\n"
+"Vārteja: [CIPARI]\n"
+"Standarta vārtejas adrese\n"
+"\n"
+"Ieslēgt tīklu: [OK]\n"
+"Aktivizēt tīklun\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tEvent EPG\n"
+"\n"
+">>> [INFO]\n"
+". . . . . . . . . .\n"
+"\n"
+"The EPG (Electronic Program Guide) Event shows you information of the current and next event of the channel you're watching right now.\n"
+"\n"
+"Please be aware that not all stations provide EPG data!\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[LEFT]/[RIGHT]\tPrevious/Next Event\n"
+"\n"
+"[RED]\tRemove timer event\n"
+"\n"
+"[GREEN]\tAdd to DVR timer events\n"
+"\n"
+"[YELLOW]\tAdd to Ngrab-Timer events\n"
+"\n"
+"[BLUE]\tAdd to Switch timer events\n"
+"\n"
+"[EXIT]\tClose window"
+msgstr ""
+"\tInformācija в EPG\n"
+"\n"
+">>> [INFO]\n"
+". . . . . . . . . .\n"
+"\n"
+"EPG (Elektroniskais Programmas Gids) parāda kanāla pārraižu programmu.\n"
+"\n"
+"Visi kanāli neraida pārraižu programmu EPG !\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[kreisais]/[labais]\tIepriekšējais/nākamais notikums\n"
+"\n"
+"[SARKANAIS]\tNodzēst taimeri no notikuma\n"
+"\n"
+"[ZAĻAIS]\tDVR-taimera uzstādīšana notikumam\n"
+"\n"
+"[DZELTANAIS]\tNgrab-taimera uzstādīšana ierakstīšanai notikumā\n"
+"\n"
+"[ZILAIS]\tTaimera uzstādīšana pārslēgšanai uz notikumu\n"
+"\n"
+"[EXIT]\tIziet"
+
+msgid ""
+"\tLCD Settings\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [3] System Settings\n"
+">>> [8] LCD Settings\n"
+". . . . . . . . . .\n"
+"\n"
+"Setup of the LCD screen on your Dreambox (front)\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"[LEFT]/[RIGHT]\n"
+"Set  Brightness/Contrast/Standby(brightness)\n"
+"\n"
+"INVERTED:\tToggle inverted LCD screen\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tUzstādījumi LCD экрана\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [3] Sistēmas uzstādījumi\n"
+">>> [8] LCD uzstādījumi\n"
+". . . . . . . . . .\n"
+"\n"
+"LCD ekrāna uzstādījumi priekšējā Dreambox panelī\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIevades lauku un pogu izvēle\n"
+"\n"
+"[kreisais]/[labais]:\n"
+"Spilgtuma/kontrasta uzstādīšana...\n"
+"\n"
+"INVERTED:\tUzrakstu krāsas invertēšana\n"
+"\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tMainMenu\n"
+"\n"
+">>> [MENU]\n"
+". . . . . . . . . .\n"
+"\n"
+"The MainMenu gives you access to the main control groups of your DreamBox:\n"
+"\n"
+"  (1)TV mode\t(2)Radio mode\t(3)File mode\n"
+"  (4)Information\t(5)Shutdown\t(6)Setup\n"
+"  (7)Games\t(8)Timer\t(9)VCR\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[LEFT]/[RIGHT]\tPrevious/Next Menu item\n"
+"\n"
+"[NUMBERS]\tSelect Menu item directly\n"
+"\n"
+"[EXIT]/[MENU]\tClose Menu"
+msgstr ""
+"\tGalvenā izvēlne\n"
+"\n"
+">>> [MENU]\n"
+". . . . . . . . . .\n"
+"\n"
+"Galvenā izvēlne nodrošina piekļuvi Dreambox vadībai:\n"
+"\n"
+"(1)Televīzija  (2)Radio  (3)Faili\n"
+"(4)Informācija  (5)Izslēgšana  (6)Uzstādījumi\n"
+"(7)Spēles  (8)Taimeri  (9)Ieraksts\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[kreisais]/[labais]\tIepriekšējais/nākošais\n"
+"\tizvēlnes punkts\n"
+"\n"
+"[CIPARI]\tTiešā izvēlnes punkta izvēle\n"
+"\n"
+"[EXIT]/[MENU]\tIziet"
+
+msgid ""
+"\tManual transponder scan\n"
+"\n"
+">>> [MENU] ->[6] Setup >>> [2] Channels >>> Channel scan >>> Manual scan\n"
+". . . . . . . . . .\n"
+"\n"
+"For the manual scan you need information about available services You can find this for instance on http://www1.digitalfernsehen.de/frequenzen/\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Satellite: [OK],[UP]/[DOWN],[OK]\tSelect satellite\n"
+"\n"
+"Frequency, Polarity, FFC, Symbolrate:[NUMBERS]\tSettings of the desired channel\n"
+"\n"
+"Inv.:[OK]\tInversion on/off\n"
+"\n"
+"ONIT:[OK]\tONIT-test on/off\n"
+"\n"
+"use BAT:[OK]\tBAT-use on/off (of available)\n"
+"\n"
+"Empty list: [OK]\tclears the list before the search\n"
+"\n"
+"Network scan: [OK]\tscans all transponders of the same network\n"
+"\n"
+"Start scan: [OK]\tStart scanning\n"
+"\n"
+"abort [EXIT]\tClose window without saving changes"
+msgstr ""
+"\tManuālā transponderu skanēšana\n"
+"\n"
+">>> [MENU] ->[6] Uzstādijumi >>> [2] Kanālu uzstādījumi >>> Manuālā skanēšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Manuālajai skanēšanai nepieciešama informācija par pieejamiem servisiem. Jūs to varat atrast - http://www1.digitalfernsehen.de/frequenzen/\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIzvēlēties ievades lauku vai pogu\n"
+"\n"
+"Satelīts: [OK],[uz augšu]/[uz leju],[OK]\tpavadoņa izvēle\n"
+"\n"
+"Frekvence, Polarizācija, FEC, Symbol Rate:[CIPARI]\tIzvēlētā kanāla uzstādījumi\n"
+"\n"
+"Inv.:[OK]\tIslēgt inversiju\n"
+"\n"
+"lietot ONIT:[OK]\tIeslēgt ONIT pārbaudi uz jebkura transpondera\n"
+"\n"
+"lietot BAT:[OK]\tIeslēgt BAT lietošanu skanēšanai\n"
+"\n"
+"attīrīt: [OK]\tAttīrīt sarakstu pirms skanēšanas\n"
+"\n"
+"tīkla meklēšana: [OK]\tSkanēt visus tā paša tīkla transponderus\n"
+"\n"
+"Skanēt: [OK]\tSkanēt transponderus\n"
+"\n"
+"Pārtraukt [EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tNgrab Streaming Setup\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [6] Expert Setup\n"
+">>> [2] Ngrab Streaming Setup\n"
+". . . . . . . . . .\n"
+"\n"
+"When using NGrab for recording purposes, you will need to do some network settings here\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Srv IP:\n"
+"[NUMBERS]\tIP-Address of your Computer\n"
+"\n"
+"Srv Port:\n"
+"[NUMBERS]\tTCP/IP Port to be used by NGrab\n"
+"\t(default 4000)\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[RED]/[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tNgrab uzstādīšana\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [4] Sistēmas uzstādījumi >>> [2] Ngrab uzstādīšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Lai izmantotu Ngrab ierakstīšanu jāizveido tīkla uzstādījumi.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"Serveris:\n"
+"[CIPARI]\tDatora adrese/\n"
+"\tiekārta ierakstīšanai\n"
+"\n"
+"Ports\n"
+"[CIPARI]\tDatora ports/\n"
+"\tiekārta ierakstīšanai\n"
+"\t(обычно 4000)\n"
+"\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[SARKANAIS]/[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tOSD Language\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [3] System Settings\n"
+">>> [7] OSD Language\n"
+"\n"
+"Your language\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect your language\n"
+"\n"
+"[OK]\tSelect and save language\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tOSD valoda\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [3] Sistēmas uzstādījumi >>> [7] OSD valoda\n"
+"\n"
+"OSD valodas izvēle\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tValodas izvēle\n"
+"\n"
+"[OK]\tUzstādīt izvēlēto valodu\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tOSD Settings\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [3] System Settings\n"
+">>> [6] OSD Settings\n"
+". . . . . . . . . .\n"
+"\n"
+"Setup of your OSD (On-Screen Display, this is information display on your screen, like channel number, volume bar, Program information, etc.)\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"[OK]\tEnter selected Inputfield or button\n"
+"\n"
+"[LEFT]/[RIGHT]\tSet Alpha blend, Brightness/Contrast\n"
+"\n"
+"[BLUE]\tChange skin Menu\n"
+"\n"
+"[YELLOW]\tFine tune TuxText position\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tIzskata uzstādījumi\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [5] OSD uzstādījumi >>> [1] Izskata uzstādījumi\n"
+". . . . . . . . . .\n"
+"\n"
+"Dreambox vadības sistēmas (OSD) izskata uzstādījumi (logu izskats, kanālu numuri, skaļuma regulators, programmas informācija utt...)\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"[OK]\tIeslēgšana/atslēgšana\n"
+"\n"
+"[kreisais]/[labais]\tUzstādīt krāšņumu,\n"
+"\tspilgtumu un kontrastu\n"
+"\n"
+"[ZILAIS]\tIzskata nomaiņa\n"
+"\n"
+"[DZELTANAIS]\tInterfeisa pozīcijas\n"
+"\tuzstādīšana uz ekrāna\n"
+"\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tParental Lock\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [5] Parental Lock\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can enable and setup Parental Lock. After reboot locked channels will not be available unless unlocked with your PIN code\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Parental lock\tToggle Channel access on/off\n"
+"\n"
+"Setup lock\tToggle setup access on/off\n"
+"\n"
+"Change PIN\tEnter a new PIN code\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tVecāku kontrole\n"
+"\tSkatīšanās aizliegumi\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>>\n"
+"[5] Skatīšanās aizliegumi\n"
+". . . . . . . . . .\n"
+"\n"
+"Uzstādīt vecāku kontroli (skatīšanās aizliegumu) izvēlētajiem kanāliem. Pēc pārstartēšanās kanāli tiks nobloķēti, un būs pieejami tikai izmantojot PIN kodu.\n"
+" . . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"Bloķēšana\tIeslēgšana/atslēgšana\n"
+"\n"
+"Uzstādīt\tIeslēgt/atslēgt\n"
+"\tbloķēšanas uzstādījumus\n"
+"\n"
+"PIN koda monaiņa\tIevadīt jauno PIN kodu\n"
+"\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tRemote Control\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [6] Expert Setup\n"
+">>> [3] Remote Control\n"
+". . . . . . . . . .\n"
+"\n"
+"Setup for your Remote Control\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Repeat Rate/Repeat Delay:\n"
+"[LEFT]/[RIGHT]\tReduce/Increase Repeat Rate/Delay\n"
+"\n"
+"Remotecontrol Style:\n"
+"[UP]/[DOWN]\tSelect ENIGMA or Neutrino keylayout\n"
+"\n"
+"Next Char Timeout:\n"
+"[NUMBERS]\tMilliSeconds before moving to next\n"
+"\tCharacter in Text inputfields\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tVadības pults\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [4] Iekārtas\n"
+">>> [2] Vadības pults\n"
+". . . . . . . . . .\n"
+"\n"
+"Vadības pults uzstādīšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"Atkārtošanas ātrums/aizture:\n"
+"[kreisais]/[labais]\tParametru palielināšana/ samazināšana\n"
+"\n"
+"Vadības pults tips:\n"
+"[uz augšu]/[uz leju]\tVadības pults izvēle\n"
+"\n"
+"Simbola aizture:\n"
+"[CIPARI]\tAiztures laiks līdz nākošā simbola parādīšanai atkārtojot\n"
+"\tuzstāda milisekundēs\n"
+"\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tSatFind\n"
+"\n"
+">>> [MENU] >>> [6] Setup\n"
+">>> Service Searching >>> SatFind\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can see the quality of the signal your receiver is getting from your dish/lnb(s).\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"SNR\tSignal to Noise Ratio\n"
+"\n"
+"AGC\tAutomatic Gain Control\n"
+"\n"
+"BER\tBit Error Rate\n"
+"\n"
+"SATTELITE\tSelect satellite to monitor\n"
+"\n"
+"TRANSPONDER\tSelect transponder to monitor\n"
+"\n"
+"[OK]/[EXIT]\tClose window"
+msgstr ""
+"\tPavadoņu meklēšana\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi\n"
+">>> Kanālu uzstādīšana >>> Pavadoņu meklēšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Varat apskatīt signāla kvalitāti kādu uztvērējs saņem no antenas.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"SNR\tSignāla/ trokšņa attiecība\n"
+"\n"
+"AGC\tSignāla pastiprinājuma\n"
+"\tautomātiska regulēšana\n"
+"\n"
+"BER\tKļūdu daudzums\n"
+"\n"
+"Satelīts\tpavadoņa izvēle\n"
+"\n"
+"Transponderis\tTranspondera izvēle\n"
+"\n"
+"[OK]/[EXIT]\tIziet"
+
+msgid ""
+"\tSatellite Configuration\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [2] Service Searching >>> [1] Satellite Configuration\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you configure your dish setup (DiSEqC, LNB, etc)\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Satellite Configuration:\n"
+"[UP]/[DOWN]\tSelect one of the predefined\n"
+"\tconfigurations or 'non-standard user\n"
+"\tdefined configuration...'\n"
+"\n"
+"Sat/Position:\n"
+"[UP]/[DOWN]\tSelect the satellite you want to use\n"
+"\n"
+"LNB:\tLNB Setup menu (for selected LNB)\n"
+"\n"
+"22kHz:\tSelect Hi/Lo,On.Off\n"
+"\n"
+"Voltage:\tSelect a voltage (H/V,14V,18V,Off)\n"
+"\n"
+"[YELLOW]\tAdd a LNB/Satellite\n"
+"\n"
+"[RED]\tDelete selected Satellite/LNB\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tPavadoņu konfigurācija\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [2] Kanālu uzstādīšana >>> [1] Pavadoņu konfigurācija\n"
+". . . . . . . . . .\n"
+"\n"
+"Pavadoņu uztveršanas sistēmas konfigurēšana (DiSEqC, LNB, utt...)\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"Sistēmas konfigurācija:\n"
+"[uz augšu]/[uz leju]\tStandarta konfigurācijas\n"
+"\tizvēle, vai\n"
+"\tpatstāvīga\n"
+"\tsistēmas konfigurācija.\n"
+"\n"
+"Satelīts:\n"
+"[uz augšu]/[uz leju]\tpavadoņa izvēle\n"
+"\n"
+"LNB:\tLNB galviņas uzstādīšanas izvēlne\n"
+"\n"
+"22kHz:\tIzvēle\n"
+"\tHi/Lo (augsta/zema),\n"
+"\tOn/Off\n"
+"\t(ieslēgts/atslēgts)\n"
+"\n"
+"Spriegums:\tIzvēle\n"
+"\tHi/Lo (augsta/zema),\n"
+"\t14V, 18V,\n"
+"\tAtsl. (atslēgts)\n"
+"\n"
+"[DZELTANAIS]\tPievienot pozīciju\n"
+"\n"
+"[SARKANAIS]\tDzēst pozīciju\n"
+"\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tSet Sleeptimer\n"
+"\n"
+">>> [MENU] >>> [5] Shutdown >>> Set sleeptimer\n"
+". . . . . . . . . .\n"
+"\n"
+"Sleeptimer allows you to set a countdown time for when the Dreambox should shutdown automatically.\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[LEFT]/[RIGHT]\tPrevious/Next Menu item\n"
+"[UP]/[DOWN]\n"
+"\n"
+"Duration:\tCountdown time\n"
+"[NUMBERS]\n"
+"\n"
+"Shutdown [OK]\tToggle Shutdown mode\n"
+"\n"
+"Standby [OK]\tToggle standby mode\n"
+"\n"
+"[GREEN]\tSave changes and close window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tTaimeris отключения(сна)\n"
+"\n"
+">>> [MENU] >>> [5] Izslēgšana >>> Taimeris\n"
+". . . . . . . . . .\n"
+"\n"
+"Atslēgšanas taimeri uzstāda dreambox izslēgšanai pēc noteikta laika.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[kreisais]/[labais]\tIepriekšējais/nākamais notikums\n"
+"[uz augšu]/[uz leju]\n"
+"\n"
+"Laiks:\tLaiks līdz izslēgšanai\n"
+"[CIPARI]\n"
+"\n"
+"Izslēgšana [OK]\tIzslēgšanas režīms\n"
+"\n"
+"Gaidīšana [OK]\tGaidīšanas režīms\n"
+"\n"
+"[GREEN]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tShow current BN version\n"
+"\n"
+"-> [MENU] -> ->(4)Information ->Show BN Version\n"
+". . . . . . . . . .\n"
+"\n"
+"Show current BN Version\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"Current BN-Version\n"
+"\n"
+"[GREEN]/[OK]/[EXIT]\tClose window"
+msgstr ""
+"\tInformācija par ierīci\n"
+"\n"
+"-> [MENU] -> ->(4)Informācija ->Informācija par ierīci\n"
+". . . . . . . . . .\n"
+"\n"
+"Informācija par Dreambox un programmām\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"Informācija par ierīci\n"
+"\n"
+"[ZAĻAIS]/[OK]/[EXIT]\tIziet"
+
+msgid ""
+"\tShutdown/Standby Menu\n"
+"\n"
+">>> [MENU] >>> [5] Shutdown\n"
+". . . . . . . . . .\n"
+"\n"
+"This menu offers you ways to shutdown your receiver.\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"restart enigma\tRestarts your Dreambox (warm restart)\n"
+"\n"
+"Shutdown now\tShutdown your Dreambox\n"
+"\n"
+"Restart\tRestart you Dreambox (cold restart)\n"
+"\n"
+"Goto standby\tSwitch to StandBy mode\n"
+"\n"
+"Set Sleeptimer\tSleep timer setup\n"
+"\n"
+"[EXIT]\tClose window"
+msgstr ""
+"\tIzslēgšana\n"
+"\n"
+">>> [MENU] >>> [5] Izslēgšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Šeit varat Dreambox izslēgt vai pārstartēt.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"ENIGMA pārstartēšana\tAtmiņas pārstartēšana (siltā)\n"
+"\n"
+"Izslēgšana\tDreambox izslēgšana\n"
+"\n"
+"Pārstartēšana\tDreambox pārstartēšana\n"
+"\n"
+"Gaidīšana\tPāriet gaidīšanas režīmā\n"
+"\n"
+"Izslēgšanas taimeris\tIzslēgšanas taimera\n"
+"\tuzstādīšana\n"
+"\n"
+"[EXIT]\tIziet"
+
+msgid ""
+"\tSoftware Update\n"
+"\n"
+"-> [MENU] ->(6)Setup ->Update\n"
+". . . . . . . . . .\n"
+"\n"
+"ENIGMA is always under development\n"
+"\n"
+"Here you can install an updated version of ENIGMA\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"Version:[UP]/[DOWN],[OK]\tSelect software version\n"
+"\n"
+"[OK]\tStart update\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tProgrammu atjaunošana\n"
+"\n"
+"-> [MENU] >>> (6) Uzstādījumi >>> Sistēmas uzstādījumi >>> Programmu atjaunošana\n"
+". . . . . . . . . .\n"
+"\n"
+"programma visu laiku papildinās.\n"
+"Šeit var uzstādīt jaunāku Programmu versiju\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"Versija:\n"
+"[uz augšu]/[uz leju],[OK]\tProgrammu piejamās versija izvēle\n"
+"\n"
+"[OK]\tSākt atjaunošanu\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tStreaminfo\n"
+"\n"
+">>> [MENU] >>> [4] Information >>> Streaminfo\n"
+". . . . . . . . . .\n"
+"\n"
+"Streaminfo provides 3 pages of detailed information concerning the Channel you are watching.\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[LEFT]/[RIGHT]\tSwitch pages\n"
+"\n"
+"    Page 1\tService-Information\n"
+"\n"
+"    Page 2\tEncryption Information\n"
+"\n"
+"    Page 3\tTransponder-Information\n"
+"\n"
+"[OK]/[EXIT]\tClose window"
+msgstr ""
+"\tInformācija par plūsmu\n"
+"\n"
+">>> [MENU] >>> [4] Informācija >>> Informācija par plūsmu\n"
+". . . . . . . . . .\n"
+"\n"
+"Šeit parāda pilnu informāciju par tekošo datu plūsmu. Iznformācija attēlota trīs lappusēs.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[kreisais]/[labais]\tPāreja pa lappusēm\n"
+"\n"
+"    Страница 1\tInformācija par kanālu\n"
+"\n"
+"    Страница 2\tInformācija par kodējumu\n"
+"\n"
+"    Страница 3\tInformācija par transponderi\n"
+"\n"
+"[OK]/[EXIT]\tIziet"
+
+msgid ""
+"\tTimer\n"
+"\n"
+">>> [MENU] >>> [8] Timer\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can add/remove/review timer settings for DVR (recording), Switching, and NGrab\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Timer list:\n"
+"[UP]/[DOWN]\tScroll through the list\n"
+"[OK]\tSelect item\n"
+"\n"
+"[GREEN]\tAdd new event\n"
+"\n"
+"[RED]\tRemove timer event\n"
+"\n"
+"[BLUE]\tCleanup list (remove old events)\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tTaimeru saraksts\n"
+"\n"
+">>> [MENU] >>> [8] Taimeri\n"
+". . . . . . . . . .\n"
+"\n"
+"Šeit var izmainīt ieraksta un pārslēgšanās taimeru uzstādījumus.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"Taimeru saraksts:\n"
+"[uz augšu]/[uz leju]\tPāreja pa pozīcijām\n"
+"[OK]\tIzvēle\n"
+"\n"
+"[ZAĻAIS]\tPievienot\n"
+"\n"
+"[SARKANAIS]\tDzēst\n"
+"\n"
+"[ZILAIS]\tDzēst vecos taimerus\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tTimer\n"
+"\n"
+">>> [MENU] >>> [8] Timer >>> Select Event\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can set the details of an event for DVR (recording), Switching, and NGrab\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"Repeated Timer:\n"
+"Use [OK] to toggle repetition on/off - if in repeat mode, toggle the day(s) on/off by using [OK]\n"
+"\n"
+"Start time and Stop time:\n"
+"First line (year, month, day, time) represents the START time of an event, the second line the STOP time.\n"
+"Use [UP]/[DOWN]/[LEFT]/[RIGHT] to select the desired fields. Use [OK]/[UP]/[DOWN] to select from a dropdown box, or use [NUMBERS] to enter time\n"
+"\n"
+"Don't forget to select the event type (record DVR, switch, NGrab), service (channel etc), and what to do after the event (Nothing, Shutdown, Standby).\n"
+"\n"
+"[BLUE]\tSee if there is matching EPG data\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tTaimeris\n"
+"\n"
+">>> [MENU] >>> [8] Taimeri >>> Notikuma izvēle\n"
+". . . . . . . . . .\n"
+"\n"
+"Šeit varat izmainīt uzstādījumus ieraksta un pārslēgšanās taimeriem.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"Izpildes atkārtošana:\n"
+"[OK] - ieslēgt/ atslēgt - izslēgt: atkārtošanas dienu izvēle.\n"
+"\n"
+"Sākuma/ pārtraukšanas laiks:\n"
+"Pirmā līnija (gads, mēnesis, diena, laiks) - darbības sākums otrā līnija - darbības pārtraukšana.\n"
+"[uz augšu]/[uz leju]/[kreisais]/[labais] pāreja pa laukiem.\n"
+"[OK]/[uz augšu]/[uz leju]/[OK] datu izvēle laukā.\n"
+"[CIPARI] laika norādīšana\n"
+"\n"
+"Neaizmirstiet izvēlēties darbību (DVR ieraksts uz iebūvēto vai pievienoto disku, NGrab uz ārējo datoru, pārslēgšana), kanālu un darbību pēc beigšanas (neko, izslēgšana, gaidīšana).\n"
+"\n"
+"[ZILAIS]\tProgrammas skatīšanās\n"
+"\tпередач\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tTimezone Configuration\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [3] System Settings\n"
+" >>> [1] Time Settings >>> [1] Timezone Configuration\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can select your timezone, if changed a reboot is needed for the system to use the right time\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tSelect Inputfield or Button\n"
+"\n"
+"Time Zone:\n"
+"Select Timezone and use [OK] to make a selection\n"
+"\n"
+"[GREEN]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tLaika josla\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [3] Sistēmas uzstādījumi >>> [2] Laiks >>> [1] Laika josla\n"
+". . . . . . . . . .\n"
+"\n"
+"Šeit var izmainīt savu laika koslu. Izmaiņas stāsies spēkā pēc pārstartēšanas.\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIvades lauka vai pogas izvēle\n"
+"\n"
+"Laika josla:\n"
+"[OK]\tLaika joslas izvēle\n"
+"\n"
+"[ZAĻAIS]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\tTransponder Edit\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [2] Service Searching\n"
+">>> [4] Transponder Edit\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can edit individual transponders\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[UP]/[DOWN]\tPrevious/Next item in the list\n"
+"\n"
+"[LEFT]/[RIGHT]\tSelect Sat/Add/Edit/Remove\n"
+"\n"
+"[EXIT]\tClose window"
+msgstr ""
+"\tTransponderu\n"
+"\trediģēšana\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [2] Kanālu uzstādīšana>>> [4] Transponderu rediģēšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Transponderu parametru uzstādīšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[uz augšu]/[uz leju]\tIepriekšējais/nākošais\n"
+"\n"
+"[kreisais]/[labais]\tIzvēle: satelīts, pievienot,\n"
+"\tizmainīt vai dzēst\n"
+"[EXIT]\tIziet"
+
+msgid ""
+"\tTuxText/MultiEPG position\n"
+"\n"
+">>> [MENU] >>> [6] Setup >>> [3] System Settings\n"
+">>> [6] OSD Settings >>> [YELLOW] TuxText position\n"
+". . . . . . . . . .\n"
+"\n"
+"Here you can align the horizontal and vertical position where your Dreambox outputs Windows, Messages, etc. to match your TV. Keep in mind that not all custom made plugins keep this range in mind! Make sure both corners remain fully visible to avoid unexpected results!\n"
+". . . . . . . . . .\n"
+"\n"
+"Usage:\n"
+"\n"
+"[RED]\tSelect upper/left screen corner\n"
+"\n"
+"[GREEN]\tSelect lower/right screen corner\n"
+"\n"
+"[LEFT]/[RIGHT]\tMove the selected corner around\n"
+"[UP]/[DOWN]\n"
+"\n"
+"[OK]\tSave Settings and Close Window\n"
+"\n"
+"[EXIT]\tClose window without saving changes"
+msgstr ""
+"\tInterfeisa pozīcija\n"
+"\n"
+">>> [MENU] >>> [6] Uzstādījumi >>> [3] Sistēmas uzstādījumi >>> [6] OSD uzstādījumi >>> Pozīcija\n"
+". . . . . . . . . .\n"
+"\n"
+"Dreambox vadības inerfeisa pozīcijas uzstādīšana uz televizora ekrāna (logi ,paziņojumi, izvēlnes utt...). Pārliecinieties, ka abi uzstādīšanas stūri atrodas televizora ekrāna redzamajā daļā. Visi plugini neievēro šos uzstādījumus!\n"
+". . . . . . . . . .\n"
+"\n"
+"Lietošana:\n"
+"\n"
+"[SARKANAIS]\tAugšējā kreisā stūra\n"
+"\tuzstādīšana\n"
+"\n"
+"[ZAĻAIS]\tApakšējā labā stūra\n"
+"\tuzstādīšana\n"
+"\n"
+"[kreisais]/[labais]\tStūra pārvietošana pa ekrānu\n"
+"[uz augšu]/[uz leju]\n"
+"\n"
+"[OK]\tSaglabāt un iziet\n"
+"\n"
+"[EXIT]\tIziet nesaglabājot izmaiņas"
+
+msgid ""
+"\n"
+"Filesize/date: %d %cB, %s"
+msgstr ""
+"\n"
+"Izmērs/datums: %d %cB, %s"
+
+msgid "   Left Mono  >"
+msgstr "Kreisais mono >"
+
+msgid " (%d entries)"
+msgstr "(%d ieraksti)"
+
+msgid " - new found"
+msgstr "- atrasts jauns"
+
+msgid " - provider"
+msgstr "- provaiders"
+
+msgid " - services"
+msgstr "- kanāli"
+
+msgid " Euro lost)"
+msgstr "Pazaudēts Euro)"
+
+msgid " for writing!"
+msgstr "Ierakstam!"
+
+msgid " to "
+msgstr "uz"
+
+msgid " was not found!"
+msgstr " nav atrasts!"
+
+msgid "%02i minutes and %02i seconds left"
+msgstr "Atlikušas %02i minūtes un %02i sekundes"
+
+msgid "%02i seconds left"
+msgstr "Atlikušas %02i sekundes"
+
+msgid ""
+"%d.%d°%c is currently stored at location %d!\n"
+"When you store this now at Location %d, we must remove the old Location.\n"
+"Are you sure you want to do this?"
+msgstr ""
+"%d.%d%c glabājas pozīcijā %d!\n"
+"Ja saglabājat jauno pozīciju %d, vecā pozīcija tiks dzēsta.\n"
+"Turpināt?"
+
+msgid ""
+"%s\n"
+"%d bytes downloaded\n"
+"Press exit to cancel download"
+msgstr ""
+"%s\n"
+"ielādēti %d baiti \n"
+"Nospiediet EXIT lai atceltu ielādēšanu"
+
+msgid "%s %s, please wait!"
+msgstr "%s %s, uzgaidiet!"
+
+msgid "%s was not found!"
+msgstr "%s nav atrasts!"
+
+msgid "&#48;"
+msgstr "&#48;"
+
+msgid "&#49;"
+msgstr "&#49;"
+
+msgid "&#50;"
+msgstr "&#50;"
+
+msgid "&#51;"
+msgstr "&#51;"
+
+msgid "&#52;"
+msgstr "&#52;"
+
+msgid "&#53;"
+msgstr "&#53;"
+
+msgid "&#54;"
+msgstr "&#54;"
+
+msgid "&#55;"
+msgstr "&#55;"
+
+msgid "&#56;"
+msgstr "&#56;"
+
+msgid "&#57;"
+msgstr "&#57;"
+
+msgid "&gt;"
+msgstr "&gt;"
+
+msgid "&lt;"
+msgstr "&lt;"
+
+msgid "(%d%% in use)"
+msgstr "(%d%% aizņemts)"
+
+msgid "(0..9, left, right, ok)"
+msgstr "(0..9, kreisais, labais, OK)"
+
+msgid "(error reading information)"
+msgstr "(kļūda lasot informāciju)"
+
+msgid "(removed service)"
+msgstr "(izdzēsts kanāls)"
+
+msgid ""
+"**WARNING**\n"
+"You are about to do a factory reset. You will lose ALL of your configuration settings and the default configuration will be used. Your Dreambox will then reboot.\n"
+"\n"
+"Are you REALLY sure?"
+msgstr ""
+"**UZMANĪBU**\n"
+"Jūs vēlaties atgriezties pie rūpnīcas uzstādījumiem. Jūs pazaudēsiet VISUS uzstādījumus, konfigurācijas, datus un atgriezīsieties pie pamata uzstādījumiem. Pēctam Dreambox pārstartēsies.\n"
+"\n"
+"Vai jūs TIEŠĀM to vēlaties?"
+
+msgid "-- Default --"
+msgstr "-- Pamata --"
+
+msgid "-- None --"
+msgstr "-- Nē --"
+
+msgid "-Entry stored. Further entry?\n"
+msgstr "-Ieraksts saglabāts. Nākošais ieraksts?\n"
+
+msgid "-Setup..."
+msgstr "-Uzstādīšana..."
+
+msgid "/var location"
+msgstr "/var atrodas"
+
+msgid "/var settings"
+msgstr "/var uzstādījumi"
+
+msgid "/var used %d%%"
+msgstr "/var aizņem %d%%"
+
+msgid ""
+"/var will be %s %s.\n"
+"After that, your dreambox will reboot automatically.\n"
+"Are you sure you want to do this?\n"
+msgstr ""
+"/var atradīsies %s %s.\n"
+"Pēc tā Dreambox automātiski pārstartēsies!\n"
+"Vai esat pārliecināts, ka vēlaties turpināt?\n"
+
+msgid "0,5V higher LNB Voltage (for long cables) (ok)"
+msgstr "Paaugstināt LNB spriegumu par 0,5V (kabeļiem garākiem par 20m)"
+
+msgid "1"
+msgstr "1"
+
+msgid "1 LNB with DiSEqC Rotor"
+msgstr "1 LNB ar DiSEqC 1.2 motoru"
+
+msgid "12 hours clock"
+msgstr "12 stundu pulktenis"
+
+msgid "128-QAM"
+msgstr "128-QAM"
+
+msgid "12V output on"
+msgstr "Ieslēgt 12V izeju"
+
+msgid "16-QAM"
+msgstr "16-QAM"
+
+msgid "16:9"
+msgstr "16:9"
+
+msgid "16:9 mode in normal view"
+msgstr "16:9 standarta"
+
+msgid "16:9 mode on splitscreen"
+msgstr "16:9 platekrāna"
+
+msgid "2"
+msgstr "2"
+
+msgid "2 LNBs via 22kHz Signal.. special for old analog switches"
+msgstr "2 LNB caur 22kHz.. veciem analogajiem slēdžiem"
+
+msgid "2 LNBs via DiSEqC"
+msgstr "2 LNB caur DiSEqC"
+
+msgid "2 LNBs via Toneburst Signal"
+msgstr "2 LNB caur toņa signālu"
+
+msgid "2 satellites via 22kHz (only Highband)"
+msgstr "2 pavadoņi caur 22kHz (augšējam diapazonam)"
+
+msgid "2 satellites via DiSEqC A/B"
+msgstr "2 pavadoņi caur DiSEqC A/B"
+
+msgid "2 satellites via Toneburst"
+msgstr "2 pavadoņi caur toņa signālu"
+
+msgid "22Khz"
+msgstr "22kHz"
+
+msgid "22kHz Off"
+msgstr "22kHz atsl."
+
+msgid "22kHz On"
+msgstr "22kHz iesl."
+
+msgid "22kHz is always disabled (low band)"
+msgstr "22kHz vienmēr atslēgts (apakšējam diapazonam)"
+
+msgid "22kHz is always enabled (high band)"
+msgstr "22kHz vienmēr ieslēgts (augšējam diapazonam)"
+
+msgid "22kHz signal is automatically switched"
+msgstr "22kHz tiek automātiski pārslēgts"
+
+msgid "24 hours clock"
+msgstr "24 stundu pulkstenis"
+
+msgid "250Khz steps"
+msgstr "Solis 250kHz (kreisais, labais)"
+
+msgid "256-QAM"
+msgstr "256-QAM"
+
+msgid "3"
+msgstr "3"
+
+msgid "32-QAM"
+msgstr "32-QAM"
+
+msgid "4"
+msgstr "4"
+
+msgid "4 LNBs via DiSEqC"
+msgstr "4 LNB caur DiSEqC"
+
+msgid "4 satellites via DiSEqC OPT A/B"
+msgstr "4 pavadoņi caur DiSEqC OPT A/B"
+
+msgid "4.5 MHz"
+msgstr "4.5МHz"
+
+msgid "4:3 letterbox"
+msgstr "4:3 platekrāna"
+
+msgid "4:3 panscan"
+msgstr "4:3 izstiepts"
+
+msgid "5.5 MHz"
+msgstr "5.5МHz"
+
+msgid "6.0 MHz"
+msgstr "6.0МHz"
+
+msgid "6.5 MHz"
+msgstr "6.5МHz"
+
+msgid "64-QAM"
+msgstr "64-QAM"
+
+msgid "80"
+msgstr "80"
+
+msgid "<    Stop    >"
+msgstr "< Stop >"
+
+msgid "<  Right Mono  "
+msgstr "< Labais mono"
+
+msgid "<  Stereo  >"
+msgstr "< Stereo >"
+
+msgid "<< Scroll left"
+msgstr "<< kreisais"
+
+msgid "A new menu is available. The new menu will be visible if you return to the setup panel.You can continue your work here after pressing OK."
+msgstr "Ir pieejama jauna izvēlne. Jaunā izvēlne būs redzama ja atgriezīsieties pie uzstādījumu paneļa. Jūs varat šeit turpināt pēc OK nospiešanas."
+
+msgid ""
+"A recording is currently in progress!\n"
+"This stops the recording!"
+msgstr ""
+"Notiek ieraksts!\n"
+"Tas apturēs ierakstu!Turpināt?"
+
+msgid ""
+"A service named '%s' with this sid/onid/tsid/namespace is already exist\n"
+"in provider '%s'.\n"
+"Should i use this service name and provider name?"
+msgstr ""
+"Knāls ar nosaukumu '%s' ar šo sid/onid/vārdu jau eksistē\n"
+"provaiderī '%s'.\n"
+"Lietot šī kanāla un prov. nosaukumu?"
+
+msgid ""
+"A timer based recording is currently in progress!\n"
+"This stops the timer, and recording!"
+msgstr ""
+"Notiek ieraksts pēc uzstādītā taimera!\n"
+"Tas apturēs ierakstu un taimeri!"
+
+msgid ""
+"A timer event is currently in progress!\n"
+"This stops the timer event!"
+msgstr ""
+"taimeris palaists!\n"
+"Tas apturēs taimeri! Turpinaāt?"
+
+msgid "A transponder with the same tsid / onid but other frequency/pol/... already exist.. create a new transponder with the same data is no possible.. please do change tsid and/or onid"
+msgstr "Transponders ar tādu tsid/onid bet citu frekvenci/ polariz. jau ir. veidojiet jaunu, ar šiem datiem,un mainiet tsid un/vai onid"
+
+msgid "A valid transponder has been found. Verify that the right network is selected"
+msgstr "Transponders atrasts. Pārbaudiet, vai izvēlēts pareizais tīkls."
+
+msgid "AC3 default output"
+msgstr "AC3 izeja pēc noklusējuma"
+
+msgid "AGC"
+msgstr "AGC"
+
+msgid "AGC:"
+msgstr "AGC:"
+
+msgid "AM"
+msgstr "AM"
+
+msgid "AM/pm"
+msgstr "AM/PM"
+
+msgid "About"
+msgstr "Informācija"
+
+msgid "About the PLi team"
+msgstr "Informācija par PLi"
+
+msgid "About the hardware"
+msgstr "Informācija par iekārtām"
+
+msgid "About..."
+msgstr "Par uztvērēju"
+
+msgid "Activate mount option"
+msgstr "Aktivizēt pieslēgšanos"
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Add a new mount"
+msgstr "Pievienot jaunu mount punktu"
+
+msgid "Add event to timerlist"
+msgstr "Pievienot uzdevumu taimera sarakstā"
+
+msgid "Add new bouquet"
+msgstr "Pievienot jaunu paketi"
+
+msgid "Add services to bouquet"
+msgstr "Pievienot kanālu paketei"
+
+msgid "Addons/plugins"
+msgstr "Plugini"
+
+msgid "Adult"
+msgstr "Pieaugušajiem"
+
+msgid "Advanced options for this mount"
+msgstr "Papildus uzstādījumi"
+
+msgid "Adventure"
+msgstr "Piedzīvojumi"
+
+msgid "Age 10-16"
+msgstr "Vecums 10-16"
+
+msgid "Age 6-14"
+msgstr "Vecums 6-14"
+
+msgid "All"
+msgstr "Visu"
+
+msgid "All Services"
+msgstr "Visi kanāli"
+
+msgid "All known transponders have been tried, but no lock was possible. Verify antenna-/cable-setup or try another satellite/network."
+msgstr "Visi transponderi pārbaudīti,nekas netika atrasts. Parbaudiet antenas/kabeļu savienojumus vai mēģiniet citu pavadoni/tīklu"
+
+msgid "All known transponders have been tried, but no lock was possible. Verify antenna-/cable-setup or try manual search if its some obscure satellite/network."
+msgstr "Visi transponderi pārbaudīti,nekas netika atrasts. Pārbaudiet antenas/kabeļu savienojumus, vai meklējiet manuāli ja tas ir kāds neskaidrs pavadonis"
+
+msgid "All services"
+msgstr "Visi kanāli"
+
+msgid "All services (Data)"
+msgstr "Visi kanāli (Dati)"
+
+msgid "All services (Radio)"
+msgstr "Visi kanāli (Radio)"
+
+msgid "All services (TV)"
+msgstr "Visi kanāli (TV)"
+
+msgid "Alternative EPG Languages:"
+msgstr "EPG alternatīvās valodas: "
+
+msgid "Always show infobar when new event info is available"
+msgstr "Atjaunojot informāciju vienmēr rādīt infopaneli"
+
+msgid "Always show slides in 16:9 format"
+msgstr "Vienmēr rādīt slaidus 16:9 režīmā"
+
+msgid "Apr"
+msgstr "Аpr"
+
+msgid "April"
+msgstr "Aprillis"
+
+msgid "Arabic"
+msgstr "Arabic"
+
+msgid "Are you SURE that you want to format this USB disk?\n"
+msgstr "Vai tiešām vēlaties formatizēt šo USB disku?\n"
+
+msgid "Are you SURE that you want to format this disk?\n"
+msgstr "Vai tiešām vēlaties formatēt šo disku?\n"
+
+msgid "Are you sure to delete this mount?"
+msgstr "Dzēst? Vai esat pārliecināts?"
+
+msgid ""
+"Are you sure to download\n"
+"%s?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties lejuplādēt\n"
+"%s?"
+
+msgid ""
+"Are you sure to execute\n"
+"%s?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties palaist\n"
+"%s?"
+
+msgid ""
+"Are you sure to install\n"
+"%s?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties uzstādīt\n"
+"%s?"
+
+msgid ""
+"Are you sure to open\n"
+"%s?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties atvērt\n"
+"%s?"
+
+msgid ""
+"Are you sure to play\n"
+"%s?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties atskaņot\n"
+"%s?"
+
+msgid ""
+"Are you sure to remove\n"
+"%s?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties dzēst\n"
+"%s?"
+
+msgid ""
+"Are you sure to write\n"
+"%s?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties ierakstīt\n"
+"%s?"
+
+msgid ""
+"Are you sure you want to put\n"
+"your box in **STOP** mode?\n"
+"When box is in **STOP** mode\n"
+"you need to connect to box via\n"
+"your webbrowser and flash the new image\n"
+"Make sure you make a backup of\n"
+"your settings before continuing"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties pārvērst\n"
+"Dreambox režīmā **STOP**?\n"
+"Režīmā **STOP** nepieciešams\n"
+"pāršūt jaunu imidžu.\n"
+"pirms turpināt pārliecinieties,\n"
+"ka jūsu dati un uzstādījumi\n"
+"saglabāti drošā vietā."
+
+msgid "Are you sure you want to upgrade to this new version?"
+msgstr "Vai tiešām vēlaties atjaunot uz jaunāku versiju?"
+
+msgid "Are you sure?"
+msgstr "Vai esat pārliecināts?"
+
+msgid "Art Mag."
+msgstr "Mākslas žurnāls"
+
+msgid "Aspect Ratio:"
+msgstr "Proporcijas:"
+
+msgid "Assign blue button"
+msgstr "Piešķirt ZILAI pogai"
+
+msgid "Assign button as:"
+msgstr "Nozīmēt pogu kā:"
+
+msgid "Assign functionality, menus or plugins to the colour buttons"
+msgstr "Nozīmes piešķiršana krāsainām pogām"
+
+msgid "Assign the blue button to a menu, function or plugin"
+msgstr "Piešķirt ZILAI pogai izvēlni, funkciju vai pluginu..."
+
+msgid "Assign the yellow button to a menu, function or plugin"
+msgstr "Piešķirt DZELTANAIS pogai izvēlni, funkciju vai pluginu..."
+
+msgid "Assign yellow button"
+msgstr "Piešķirt DZELTANAI pogai"
+
+msgid "Athletics"
+msgstr "Atlētika"
+
+msgid "Aud"
+msgstr "Aud"
+
+msgid "Audio"
+msgstr "Audio"
+
+msgid "Audio Level:"
+msgstr "Skaļums:"
+
+msgid "Audio PID:"
+msgstr "Audio PID:"
+
+msgid "Audio and video"
+msgstr "Audio un video"
+
+msgid "Audio selection"
+msgstr "Audio izvēle"
+
+msgid "Audiotrack"
+msgstr "Audio celiņš"
+
+msgid "Audiotrack(AC3)"
+msgstr "Audio celiņš (AC3)"
+
+msgid "Aug"
+msgstr "Aug"
+
+msgid "August"
+msgstr "Augusts"
+
+msgid "Auto"
+msgstr "Automātiski"
+
+msgid "Auto VCR switching"
+msgstr "Atomaiska pārsl. uz videomagnetofonu"
+
+msgid "Auto bouquet change"
+msgstr "Automātiska paketes maiņa"
+
+msgid "Auto mount"
+msgstr "Auto pieslēgšana"
+
+msgid "Auto reconnect cahandler"
+msgstr "ECM PID autosavienoš."
+
+msgid "Auto show Infobar"
+msgstr "Automātiski rādīt Infopaneli"
+
+msgid "Autohide OSD on OK"
+msgstr "Automātiski izsl. OSD pēc OK"
+
+msgid "Autohide OSD when pressing OK button"
+msgstr "Automātiski izslēgt OSD pēc OK nospiešanas"
+
+msgid "Autohide radio/mp3 OSD"
+msgstr "Automātiski izslēgt Radio/mp3"
+
+msgid "Autohide the OSD display in radio/mp3 mode"
+msgstr "Automātiski izslēgt OSD Radio/mp3 režīmā"
+
+msgid "Automatic Multisat Scan"
+msgstr "Automātiski meklēt vairākus pavadoņus"
+
+msgid "Automatic Transponder Scan"
+msgstr "Auomātiska transponderu skanēšana"
+
+msgid "Automatic menu update"
+msgstr "Auomātiska izvēlnes atjaunošana"
+
+msgid "Automount"
+msgstr "Auto pieslēgšana"
+
+msgid "B"
+msgstr "B"
+
+msgid "B&W"
+msgstr "meln-balts"
+
+msgid "BER"
+msgstr "BER"
+
+msgid "Backup"
+msgstr "Rezervēšana"
+
+msgid "Backup Dreambox"
+msgstr "Dreambox rezerves kopija"
+
+msgid "Backup and restore your Dreambox"
+msgstr "Dreambox rezervēšana un atjaunošana"
+
+msgid "Backup device:"
+msgstr "Rezervēt uz:"
+
+msgid "Backup/restore"
+msgstr "Rezervēt vai atjaunot"
+
+msgid "Ballet"
+msgstr "Balets"
+
+msgid "Bandwidth:"
+msgstr "Caurlaides spēja:"
+
+msgid "Begin EPG Search"
+msgstr "Uzsākt melkēt iekš EPG"
+
+msgid "Bin"
+msgstr "Bin"
+
+msgid "Bouquet Type"
+msgstr "Paketes tips"
+
+msgid "Bouquets"
+msgstr "Paketes"
+
+msgid "Bouquets (File)"
+msgstr "Paketes (Faili)"
+
+msgid "Bouquets (Radio)"
+msgstr "Paketes (Radio)"
+
+msgid "Bouquets (TV)"
+msgstr "Paketes (TV)"
+
+msgid "Brightness:"
+msgstr "Spilgtums:"
+
+msgid "Browse..."
+msgstr "Izvēlēties..."
+
+msgid "CF card"
+msgstr "CF karte"
+
+msgid "CI"
+msgstr "CI"
+
+msgid "CI module"
+msgstr "CI modulis"
+
+msgid "CI:"
+msgstr "CI:"
+
+msgid "CIFS file system not supported"
+msgstr "CIFS failu sistēma netiek uzturēta"
+
+msgid "CO"
+msgstr "CO"
+
+msgid "CVBS"
+msgstr "CVBS"
+
+msgid "CW"
+msgstr "CW"
+
+msgid ""
+"Calibration Pictures\n"
+"\n"
+"->[MENU] ->(6)Settings; ->Video Calibration\n"
+". . . . . . . . . .\n"
+"\n"
+"Test pattern with which you can adjust your TV set.\n"
+"\n"
+"Not for commercial use!\n"
+". . . . . . . . . .\n"
+"Usage:\n"
+"\n"
+"[OK]\tConfirm warning\n"
+"\n"
+"[DIGITS]\tSelect test pattern\n"
+"\n"
+"[1]\tRed\n"
+"\n"
+"[2]\tGreen\n"
+"\n"
+"[3]\tBlue\n"
+"\n"
+"[4]\tColorbars\n"
+"\n"
+"[5]\tWhite\n"
+"\n"
+"[6]\tTest image\n"
+"\n"
+"\tGrey pallet\n"
+"\n"
+"[8]\tBlack\n"
+"\n"
+"[EXIT]\tClose window"
+msgstr ""
+"\tAttēla kalibrēšana\n"
+"\n"
+"->[MENU] ->(6)Uzstādījumi; ->Video kalibrēšana\n"
+". . . . . . . . . .\n"
+"\n"
+"Televizora noregulēšanas testa tabulas\n"
+"\n"
+"Nekomerciālai lietošanai!\n"
+". . . . . . . . . .\n"
+"Lietošana:\n"
+"\n"
+"[OK]\tApstiprināt\t\n"
+"brīdinājumu\n"
+"\n"
+"[CIPARI]\tTabulas izvēle\n"
+"\n"
+"[1]\tSARKANĀ ekrāns\n"
+"\n"
+"[2]\tZaļš ekrāns\n"
+"\n"
+"[3]\tZILĀ ekrāns\n"
+"\n"
+"[4]\tKrāsas strīpas\n"
+"\n"
+"[5]\tBalsts ekrāns\n"
+"\n"
+"[6]\tTesta tabula\n"
+"\n"
+"[7]\tPelēka skala\n"
+"\n"
+"[8]\tMelns ekrāns\n"
+"\n"
+"[EXIT]\tIziet"
+
+msgid "Cam or common interface can handle two services at the same time"
+msgstr "CAM vai CI modulis vienlaicīgi var apstrādāt divus kanālus"
+
+msgid "Can handle two services"
+msgstr "Var apstrādāt divus kanālus"
+
+msgid "Can't open "
+msgstr "Nevar atvērt"
+
+msgid "Can't open mtd device!"
+msgstr "mtd nevar atvērt!"
+
+msgid "Can't open mtd!"
+msgstr "Nevar atvērt mtd!"
+
+msgid "Can't read flashimage.img!"
+msgstr "Nevar nolasīt flashimage.img!"
+
+msgid "Can't read image!"
+msgstr "Imidžu nevar nolasīt!"
+
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgid "Cannot execute %s (check rights)"
+msgstr "Nevar izpildīt %s (nav tiesību)"
+
+msgid "Cardinfo"
+msgstr "Karte"
+
+msgid "Cardserver"
+msgstr "Kartes serveris"
+
+msgid "Cardserver info"
+msgstr "Kartes servera info"
+
+msgid "Cartoons"
+msgstr "Multfilmas"
+
+msgid "Case Sensitive"
+msgstr "Ievērot liel./maz. burtus"
+
+msgid "Case sensitive"
+msgstr "Reģistrjūtīgs"
+
+msgid "Center the OSD on your screen"
+msgstr "Centrēt OSD ekrānā"
+
+msgid "Change DiSEqC-Type..."
+msgstr "Mainīt DiSEqC tipu.."
+
+msgid "Change hardware settings like harddisk, USB-stick or keyboard"
+msgstr "Izmainīt klaviatūras, HDD, USB parametrus"
+
+msgid "Change internal settings like time, EPG and debugging settings"
+msgstr "Izmainīt pulksteņa, EPG, tīkla, attēla utt... uzstādījumus"
+
+msgid "Change into next bouquet when end of current bouquet is reached"
+msgstr "Pāriet uz nākošo paketi, kad nonāksiet esošās beigās"
+
+msgid "Change user interface settings like OSD, LCD and languages"
+msgstr "Izmainīt izskatu, valodu, attēlošanu"
+
+msgid "Channel"
+msgstr "Kanāls"
+
+msgid "Channel EPG"
+msgstr "EPG (TV programma)"
+
+msgid "Channel Nr.:"
+msgstr "Kanāla Nr.:"
+
+msgid "Channel:"
+msgstr "Kanāls:"
+
+msgid "Checked is AM, unchecked is PM"
+msgstr "Atzīmēts- AM, neatzīmēts- PM"
+
+msgid "Checksum OK. Ready to upgrade."
+msgstr "Kontrolsumma OK. Var atjaunot."
+
+msgid "Children"
+msgstr "Bērniem"
+
+msgid "Choose the logpath to use"
+msgstr "Log failu atrašanās vieta"
+
+msgid "Choose your language..."
+msgstr "Izvēlieties jūsu valodu..."
+
+msgid "Classical"
+msgstr "Klasika"
+
+msgid "Close"
+msgstr "Aizvērt"
+
+msgid "Close window (no changes are saved)"
+msgstr "Iziet nesaglabājot izmaiņas"
+
+msgid "Close window and save entries"
+msgstr "Saglabāt un iziet"
+
+msgid "Closes EPG search window"
+msgstr "Aizvērt EPG meklēšanas logu"
+
+msgid "Coderate HP:"
+msgstr "HP režīms:"
+
+msgid "Coderate LP:"
+msgstr "LP režīms:"
+
+msgid "Color Format:"
+msgstr "Krāsu formāts:"
+
+msgid "Comedy"
+msgstr "Komēdija"
+
+msgid "Common Interface Module - mmi"
+msgstr "Kopējā Iinterfeisa modulis - mmi"
+
+msgid "Compact Flash card"
+msgstr "CF karte"
+
+msgid "Complete config"
+msgstr "Cita konfigurācija"
+
+msgid "Complex configuration (including DiSEqC 1.2)"
+msgstr "Kompleksā konfigurācija (ietverot DiSEqC 1.2)"
+
+msgid ""
+"Configuration contains some elements\n"
+"which don't fit into new DiSEqC-Type. Drop these items?"
+msgstr ""
+"Konfigurācija satur dažus elementus\n"
+"kuri neatbilst jaunajam DiSEqC tipam. Atcelt tos?"
+
+msgid "Configure FW"
+msgstr "Ugunsmūra uzstādīšana"
+
+msgid "Configure a Ngrab stream server"
+msgstr "Ngrab plūsmas servera uzstādīšana"
+
+msgid "Configure the Electronic Program Guide"
+msgstr "Elektroniskā programmas gida (EPG) uzstādīšana"
+
+msgid "Configure the firewall"
+msgstr "Ugunsmūra uzstādīšana"
+
+msgid "Configure the softcam"
+msgstr "Emulatora uzstādīšana"
+
+msgid "Configure the web interface"
+msgstr "Web izskata uzstādīšana"
+
+msgid "Configure your ethernet network"
+msgstr "Ethernet tīkla uzstādīšana"
+
+msgid "Configure your external mounts to access them on the Dreambox"
+msgstr "Ārējo disku uzstādīšana piekļūšanai no Dreambox"
+
+msgid "Connecting..."
+msgstr "Savienošanās..."
+
+msgid "Constellation:"
+msgstr "Konstelācija:"
+
+msgid "Continue"
+msgstr "Turpināšana"
+
+msgid "Continue playing last selected movie when entering file mode"
+msgstr "Pēdējās iezīmētās filmas tskaņošana turpinās pēc ieiešanas režīmā Faili"
+
+msgid "Contrast:"
+msgstr "Kontrasts:"
+
+msgid "Cooking"
+msgstr "Virtuve"
+
+msgid "Correct the time received from the satellites"
+msgstr "Laika korekcija pēc transpondera laika (OK)"
+
+msgid "Could not create local directory"
+msgstr "Nevar izveidot lokālo mapi"
+
+msgid "Could not execute %s"
+msgstr "Nevar izpildīt%s"
+
+msgid "Could not execute script"
+msgstr "Skriptu nevar izpildīt"
+
+msgid "Couldn't read plugin directory %s"
+msgstr "Nevar nolasīt pluginu mapi %s"
+
+msgid "Counter(Movement)"
+msgstr "Skaitītājs (kustības)"
+
+msgid "Create Directory"
+msgstr "Izveidot mapi"
+
+msgid "Create core files after an Enigma crash"
+msgstr "Izveidot sistēmas failus pēc Enigmas kraha"
+
+msgid "Create new bouquet"
+msgstr "Izveidot jaunu paketi"
+
+msgid "Create or edit bouquets"
+msgstr "Izveidot vai izmainīt paketi"
+
+msgid "Creating swap file"
+msgstr "Izveidot lapošanas (swap) failu"
+
+msgid "Culture"
+msgstr "Kultūra"
+
+msgid "Current Stickies"
+msgstr "Tekošās atsauksmes"
+
+msgid "Czech/Slovak"
+msgstr "Czech/Slovak"
+
+msgid "D"
+msgstr "D"
+
+msgid "DEC"
+msgstr "DEC"
+
+msgid "DHCP"
+msgstr "DHCP"
+
+msgid "DISH LNB for North America and Canada"
+msgstr "Standarta LNB Ziemeļamerikai un Kanādai"
+
+msgid "DISH/BEV network EEPG, up to 9 days EPG"
+msgstr "DISH/BEV tīkls EEPG priekš EPG 9 dienām"
+
+msgid "DVB Subtitle Black Transparency:"
+msgstr "DVB subtitru caurspīdīgums:"
+
+msgid "Data error. The checksum didn't match."
+msgstr "Datu kļūda. Kontrolsumma nesakrīt"
+
+msgid "Debugging"
+msgstr "Labošana"
+
+msgid "Dec"
+msgstr "Dec"
+
+msgid "December"
+msgstr "Decembris"
+
+msgid "Default LNB type"
+msgstr "Noklusētais LNB tips"
+
+msgid "Default SoftCam"
+msgstr "Noklusētais emulators:"
+
+msgid "Default action on timer end"
+msgstr "Noklusētā darbība beidzoties taimera laikam"
+
+msgid "Del Timer"
+msgstr "Dzēst taimeri"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Delete %s"
+msgstr "Dzēst %s"
+
+msgid "Delete File"
+msgstr "Dzēst failu"
+
+msgid "Delete bouquet"
+msgstr "Dzēst paketi"
+
+msgid "Delete recorded stream"
+msgstr "Dzēst ierakstīto plūsmu"
+
+msgid "Delete the event from the timer list"
+msgstr "Dzēst uzdevumu no taimera  saraksta"
+
+msgid "Delete this mount entry"
+msgstr "Dzēst šo pieslēguma ierakstu"
+
+msgid "Description"
+msgstr "Apraksts"
+
+msgid "Detect MAC address"
+msgstr "Noteikt MAC adresi"
+
+msgid "Detect duration from DVB timestamps when replaying recordings"
+msgstr "Noteikt ilgumu no laika atzīmēm atskaņojot"
+
+msgid "DiSEqC 1.2 is enabled on more than one LNB, please select the LNB the motor is connected to"
+msgstr "DiSEqC 1.2 ieslēgts vairak kā uz viena LNB, lūdzu izvēlieties LNB pie kura pieslēgts motors"
+
+msgid "DiSEqC AA"
+msgstr "DiSEqC 1.0 AA"
+
+msgid "DiSEqC AB"
+msgstr "DiSEqC 1.0 AB"
+
+msgid "DiSEqC BA"
+msgstr "DiSEqC 1.0 BA"
+
+msgid "DiSEqC BB"
+msgstr "DiSEqC 1.0 BB"
+
+msgid "DiSEqC Mode:"
+msgstr "DiSEqC versija:"
+
+msgid "DiSEqC Parameter:"
+msgstr "DiSEqC parametri:"
+
+msgid "DiSEqC Repeats:"
+msgstr "DiSEqC atkārtojums:"
+
+msgid "DiSEqC..."
+msgstr "DiSEqC..."
+
+msgid "Dir:"
+msgstr "Mape:"
+
+msgid "Direct connection to one LNB"
+msgstr "Tiešais savienojums ar vienu LNB"
+
+msgid "Direction:"
+msgstr "Virziens:"
+
+msgid "Disable 5V"
+msgstr "Atslēgt 5V"
+
+msgid "Disable DiSEqC"
+msgstr "Atslēgt DiSEqC"
+
+msgid "Disable WSS on 4:3"
+msgstr "Atslēgt WSS uz 4:3"
+
+msgid "Disable background scanning"
+msgstr "Atslēgt skanēšanu fonā"
+
+msgid "Discard changes and return"
+msgstr "Iziet nesaglabājot izmaiņas"
+
+msgid "Discussion"
+msgstr "Apspriešana"
+
+msgid "Do you really want to flash a new image now?"
+msgstr "Vai esat pārliecināts, ka vēlaties uzstādīt jaunu imidžu?"
+
+msgid ""
+"Do you want\n"
+"to scan another\n"
+"%s?"
+msgstr ""
+"Vai vēlaties\n"
+"skanēt citu\n"
+"%s?"
+
+msgid "Do you want to rebuild your movie list?"
+msgstr "Jūs vēlaties pārlādēt filmu sarakstu?"
+
+msgid "Documentary"
+msgstr "Dokumentālās"
+
+msgid "Don't care about actual mode when zapping in history list"
+msgstr "Izslēgt pēdējā kanāla atcerēšanos"
+
+msgid "Don't look for new services in the background"
+msgstr "Atslēgt kanālu skanēšanu fonā"
+
+msgid "Don't show shortcut icons in menus"
+msgstr "Atslēgt norāžu ikonu attēlošanu izvēlnē"
+
+msgid "Don't show zap error messages like service not found"
+msgstr "Nerādīt kļūdu paziņojumus piem. 'serviss nav atrasts'"
+
+msgid "Done."
+msgstr "Izpildīts!"
+
+msgid "Download aborted."
+msgstr "Lejupielāde pārtraukta."
+
+msgid ""
+"Download failed.\n"
+"Please check available space and your communication settings."
+msgstr ""
+"Lejupielādes kļūda.\n"
+"Pārbaudiet brīvo vietu un tīkla uztādījumus"
+
+msgid "Downloading"
+msgstr "Lejupielādē"
+
+msgid "Downloading %s"
+msgstr "Lejupielādēts %s"
+
+msgid "Dreambox settings"
+msgstr "Dreambox parametru uzstādījumi"
+
+msgid "E: currently another plugin is running..."
+msgstr "E : patreiz izmanto citu pluginu..."
+
+msgid "E: no name given"
+msgstr "E: nav norādīts nosaukums"
+
+msgid "EPG"
+msgstr "EPG"
+
+msgid "EPG - "
+msgstr "TV Programma (EPG)- "
+
+msgid "EPG Search"
+msgstr "EPG meklēšana"
+
+msgid "EPG Style"
+msgstr "EPG izskats"
+
+msgid "EPG Style Selector"
+msgstr "EPG izskata izvēle un pielāgošana"
+
+msgid "EPG data store"
+msgstr "EPG dati"
+
+msgid "EPG selector"
+msgstr "EPG izvēle "
+
+msgid "East"
+msgstr "Austrumi"
+
+msgid "Economics"
+msgstr "Ekonomika"
+
+msgid "Edit bouquets"
+msgstr "Rediģēt  paketes"
+
+msgid "Edit the recording timer options"
+msgstr "Izmainīt ieraksta taimera parametrus"
+
+msgid "Edit the timeshift options"
+msgstr "Izmainīt Timeshift parametrus"
+
+msgid "Education"
+msgstr "Izglītība"
+
+msgid "Enable AC3 recording"
+msgstr "Iespējot AC3 ierakstīšanu"
+
+msgid "Enable DISH/BEV EEPG"
+msgstr "Iespējot DISH/BEV EEPG "
+
+msgid "Enable EPG genre colours"
+msgstr "Attēlot EPG žanrus krāsās"
+
+msgid "Enable Enigma core files"
+msgstr "Iespējot Enigmas sistēmas failus"
+
+msgid "Enable Linux extensions (some NAS devices need this disabled)"
+msgstr "Iespējot Linux paplašinājumus (dažām NAS iekārtām nepieciešams atspējot)"
+
+msgid "Enable MHW EPG"
+msgstr "Aktivizēt MHW EPG"
+
+msgid "Enable Zapping History"
+msgstr "Iespējot pārslēgšanās vēsturi"
+
+msgid "Enable autoplay"
+msgstr "Iespējot autoatskaņošanu"
+
+msgid "Enable caching of teletext pages to access them faster (also needed for web interface)"
+msgstr "Iespējot teleteksta lappušu saglabāšanu ātrākai piekļuvei (arī priekš web interfeisa)"
+
+msgid "Enable fast zapping"
+msgstr "Ātrā kanālu pārslēgšana"
+
+msgid "Enable network"
+msgstr "Iespējot tīklu"
+
+msgid "Enable or disable the ethernet connection"
+msgstr "Iespējot vai atslēgt Ethernet savienojumu"
+
+msgid "Enable permanent recording. You will always record and can zap to other channels meanwhile"
+msgstr "Iespējot nepārtraukto ierakstu. Ieraksts netiks pārtraukts pārslēdzot uz citiem kanāliem"
+
+msgid "Enable serial debug"
+msgstr "Iespējot seriālo labošanu"
+
+msgid "Enable teletext caching"
+msgstr "Iespējot teleteksta saglabāšanu"
+
+msgid "Enable teletext recording"
+msgstr "Ierakstīt teletekstu"
+
+msgid "Enable timeshift"
+msgstr "Iespējot Timeshift"
+
+msgid "Enable timestamp detection"
+msgstr "Laika atzīmes"
+
+msgid "Enables faster zapping.. but with visible sync"
+msgstr "Ātrā kanālu pārslēgšana.. būs redzams sync"
+
+msgid "Enables the http (user/password) authentication"
+msgstr "Iespējot HTTP (liet./ parole) autorizāciju"
+
+msgid "End time"
+msgstr "Beigas"
+
+msgid "English"
+msgstr "English"
+
+msgid "Enigma"
+msgstr "Enigma"
+
+msgid "Enigma EPG"
+msgstr "Enigma EPG"
+
+msgid "Enigma EPG location"
+msgstr "Enigma EPG mape"
+
+msgid "Enlarge your system memory by swap"
+msgstr "Palielināt sistēmas atmiņu ar lappošanu (swap)"
+
+msgid "Enlarge your system memory by swap or more space for programs in /var"
+msgstr "Izvēlieties /var atrašanās vietu: Dreamboxā vai tīklā. Atļauj palielinā vietu jaunai programmai."
+
+msgid "Enter Directory"
+msgstr "Atvērt mapi"
+
+msgid "Enter EPG language (3 chars)"
+msgstr "Ievadiet EPG valodu (3 simboli)"
+
+msgid "Enter IP Address of the Ngrab server (0..9, left, right)"
+msgstr "Ngrab servera IP adrese (0..9, kreisais, labais)"
+
+msgid "Enter IP address"
+msgstr "IP adrese (0..9, kreisais, labais)"
+
+msgid "Enter MAC address of server (for Wake-on-LAN)"
+msgstr "Servera MAC adrese vadībai no tīkla"
+
+msgid "Enter Ngrab server port (standard is 4000)"
+msgstr "Ngrab servera ports (parasti 4000)"
+
+msgid "Enter an optional description"
+msgstr "Ievadiet pieslēguma punkta nosaukumu"
+
+msgid "Enter hostname"
+msgstr "Servera nosaukums"
+
+msgid "Enter marker name:"
+msgstr "Ievadiet atzīmes nosaukumu:"
+
+msgid "Enter name for the new bouquet:"
+msgstr "Ievadiet jaunās paketes nosaukumu:"
+
+msgid "Enter name of new directory:"
+msgstr "Jaunā kataloga nosaukums:"
+
+msgid "Enter netmask of your network (0..9, left, right)"
+msgstr "Apakštīkla maska (0..9, kreisais, labais)"
+
+msgid "Enter network IP address (0..9, left, right)"
+msgstr "Dreambox IP adrese tīklā (0..9, kreisais, labais)"
+
+msgid "Enter new Filename:"
+msgstr "Ievadiet jaunā faila nosaukumu:"
+
+msgid "Enter new name for the bouquet:"
+msgstr "Ievadiet jaunās paketes nosaukumu:"
+
+msgid "Enter new name:"
+msgstr "Ievadiet jaunu nosaukumu:"
+
+msgid "Enter port of the Web Interface (0..9, left, right)"
+msgstr "Web interfeisa ports (0..9, kreisais, labais)"
+
+msgid "Enter the password of the server"
+msgstr "Ievadiet servera paroli"
+
+msgid "Enter the server directory"
+msgstr "Ievadiet servera mapi"
+
+msgid "Enter the username of the server"
+msgstr "Ievadiet servera lietotāja paroli"
+
+msgid "Enter title for epg searching"
+msgstr "Programmas nosaukums meklēšanai EPG"
+
+msgid "Enter your domain name server (0..9, left, right)"
+msgstr "DNS serveris (0..9, kreisais, labais)"
+
+msgid "Enter your gateway IP address (0..9, left, right)"
+msgstr "Vārtejas IP adrese (0..9, kreisais, labais)"
+
+msgid "Equestrian"
+msgstr "Zirgu sports"
+
+msgid "Erase error!"
+msgstr "Kļūda dzēšot!"
+
+msgid "Erasing Flash..."
+msgstr "Flash dzēšana..."
+
+msgid "Erasing flash..."
+msgstr "Atmiņas dzēšana..."
+
+msgid "Error"
+msgstr "Kļūda"
+
+msgid "Error creating directory"
+msgstr "Mapes izveidošanas kļūda"
+
+msgid "Error!"
+msgstr "Kļūda!"
+
+msgid "Especially for Linux and Dreamboxes"
+msgstr "Rekomendējas priekš Linux un Dreambox"
+
+msgid "Especially for Windows, Linux, Dreamboxes and NAS devices"
+msgstr "Rekomendējas priekš Windows, Linux, Dreambox un NAS"
+
+msgid "Especially for some old NAS devices"
+msgstr "Rekomendējas priekš dažiem veciem NAS"
+
+msgid "Estonian"
+msgstr "Estonian"
+
+msgid "Etc"
+msgstr "Etc"
+
+msgid "Exact match"
+msgstr "Precīza meklēšana"
+
+msgid "Executing %s. Please wait..."
+msgstr "Izpilda %s. Lūdzu uzgaidiet..."
+
+msgid "Exit this screen"
+msgstr "Iziet"
+
+msgid "Expeditions"
+msgstr "Ekspedīcijas"
+
+msgid "Experimental"
+msgstr "Eksperimentālie"
+
+msgid "Expert Flash Save/Restore"
+msgstr "Atjaunošanas eksperts Saglabāt/Atjaunot"
+
+msgid "Expert OSD"
+msgstr "Eksperta OSD"
+
+msgid "Expert OSD on zap"
+msgstr "Eksperta OSD pārslēdzot"
+
+msgid "Extended networks search"
+msgstr "Paplašināta tīkla meklēšana"
+
+msgid "External EPG"
+msgstr "Ārējā EPG"
+
+msgid "External Message"
+msgstr "Ārējais paziņojums"
+
+msgid "External mounts settings (%d/%d)"
+msgstr "Ārējo pieslēgumu uzstādījumi (%d/%d)"
+
+msgid "Extra OSD"
+msgstr "Extra OSD"
+
+msgid "Extra OSD on zap"
+msgstr "Extra OSD pārslēdzot kanālus"
+
+msgid "Extra mount options"
+msgstr "Papildus"
+
+msgid "Extra options for the mount"
+msgstr "Papildus pieslēguma parametri"
+
+msgid "Extra:"
+msgstr "Papildus:"
+
+msgid "FEC:"
+msgstr "FEC:"
+
+msgid "FP Version:"
+msgstr "FP versija:"
+
+msgid "Factory reset"
+msgstr "Atjaunot rūpnīcas uzstād."
+
+msgid "Factory reset..."
+msgstr "Atjauno rūpnīcas uzstādījumus..."
+
+msgid "Fashion"
+msgstr "Mode"
+
+msgid "Fast DiSEqC"
+msgstr "Ātrais DiSEqC"
+
+msgid "Favourites (File)"
+msgstr "Izvēlētie (Faili)"
+
+msgid "Favourites (Radio)"
+msgstr "Izvēlētie (Radio)"
+
+msgid "Favourites (TV)"
+msgstr "Izvēlētie (TV)"
+
+msgid "Favourites:"
+msgstr "Izvēlētie:"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "February"
+msgstr "Februāris"
+
+msgid "File"
+msgstr "Fails"
+
+msgid "File Mode"
+msgstr "Faili"
+
+msgid "File mode"
+msgstr "Faili"
+
+msgid "Filename: "
+msgstr "Faila nosaukums:"
+
+msgid "Filesystem"
+msgstr "Failsistēma"
+
+msgid "Film"
+msgstr "Filma"
+
+msgid "Fine Arts"
+msgstr "Māksla"
+
+msgid "Fine Tune:"
+msgstr "Precīza pieskaņošana:"
+
+msgid "First start of enigma"
+msgstr "Enigmas pirmais starts"
+
+msgid "Fitness"
+msgstr "Veselība"
+
+msgid "Flash"
+msgstr "Atmiņa"
+
+msgid "Flash image or part of it"
+msgstr "Šo imidžu vai tā daļu"
+
+msgid "Flash new image"
+msgstr "Ierakstīt jauno imidžu"
+
+msgid "Flashing successful! restarting..."
+msgstr ""
+"Atjaunošana noritējusi veiksmīgi.\n"
+"Pārstartēšana..."
+
+msgid "Flashtool"
+msgstr "Instrumenti"
+
+msgid "Folk"
+msgstr "Folklora"
+
+msgid "Football"
+msgstr "Futbols"
+
+msgid ""
+"For more options:\n"
+"press MENU key in teletext"
+msgstr ""
+"Papildus ietatījumi:\n"
+"nospiediet teletekstā MENU"
+
+msgid "Format USB stick"
+msgstr "Formatizēt USB"
+
+msgid "Format USB stick, this will remove ALL data on the stick"
+msgstr "Formatizēt USB. Visi dati tiks nodzēsti."
+
+msgid ""
+"Found no LNB with DiSEqC 1.2 enabled,\n"
+"please goto Satellite Config first, and enable DiSEqC 1.2"
+msgstr ""
+"Netika atrasts LNB ar DiSEqC 1.2,\n"
+"lūdzu ejiet uz pavadoņu uzstādījumiem un ieslēdziet DiSEqC 1.2"
+
+msgid "Fr"
+msgstr "Pie"
+
+msgid "French"
+msgstr "French"
+
+msgid "Frequency:"
+msgstr "Frekvence:"
+
+msgid "Fri"
+msgstr "Pie"
+
+msgid "Friday"
+msgstr "Piektdiena"
+
+msgid "Frontend: Cable"
+msgstr "Ārējais Interfeiss: Kabeļu"
+
+msgid "Frontend: Satellite"
+msgstr "Ārējais Interfeiss: Satelītu"
+
+msgid "Frontend: Terrestrial"
+msgstr "Ārējais Interfeiss: Ētera"
+
+msgid "Frontend: Unknown"
+msgstr "Uztvērējs: nezināms"
+
+msgid "Further Ed."
+msgstr "Tālāka apstr."
+
+msgid "Game Show"
+msgstr "Spēļu parāde"
+
+msgid "Games"
+msgstr "Spēles"
+
+msgid "Gardening"
+msgstr "Dārzniecība"
+
+msgid "Gateway:"
+msgstr "Vārteja:"
+
+msgid "General harddisk settings"
+msgstr "Galvenie HDD uzstādījumi"
+
+msgid "General settings"
+msgstr "Galvenie uzstādījumi"
+
+msgid "General settings for all internal harddisks, like sleep time"
+msgstr "Galvenie uzstādījumi iebūvētajiem HDD"
+
+msgid "Genre"
+msgstr "Stils"
+
+msgid "Genre:"
+msgstr "Žanrs:"
+
+msgid "German"
+msgstr "German"
+
+msgid "Get cardinfo from current active cardserver"
+msgstr "Informācija par aktīvā kardservera karti"
+
+msgid "Get network settings from a DHCP server in the local network"
+msgstr "Lokālā tīkla DHCP servera uzstādījumi"
+
+msgid "Give size of swap file in MB"
+msgstr "Lapošanas faila lielums MB"
+
+msgid "Go to Standby now?"
+msgstr "Pāriet gaidīšanas režīmā?"
+
+msgid "Goto Next share"
+msgstr "Nākošais"
+
+msgid "Goto previous share"
+msgstr "Iepriekšējais"
+
+msgid "Greek"
+msgstr "Greek"
+
+msgid "Guard:"
+msgstr "Aizsardzība:"
+
+msgid "HEX"
+msgstr "HEX"
+
+msgid "HTTP Download"
+msgstr "HTTP ielāde"
+
+msgid "HW Address(MAC) detection failed"
+msgstr "HW  (MAC) adreses noteikšana"
+
+msgid "Handicraft"
+msgstr "Arodi"
+
+msgid "Harddisk"
+msgstr "Cietais disks"
+
+msgid "Harddisk acoustics"
+msgstr "HDD akustika"
+
+msgid "Harddisk sleep time"
+msgstr "HDD izslēgšana min.:"
+
+msgid "Hardware settings"
+msgstr "Iekārtu uzstādījumi"
+
+msgid "Hebrew"
+msgstr "Hebrew"
+
+msgid "Help"
+msgstr "Palīdzība"
+
+msgid "Help window"
+msgstr "Palīdzības logs"
+
+msgid ""
+"Here you can center the TuxTxt/MultiEPG rectangle...\n"
+"Press RED to select the left top edge.\n"
+"Press GREEN to select the right bottom edge.\n"
+"Use the cursor keys to move the selected edges.\n"
+"Current positions - size:"
+msgstr ""
+"Šeit var uzstādīt interfeisa loga atrašanos.\n"
+"SARKANAIS izvēlēties kreiso augšējo stūri.\n"
+"ZAĻAIS izvēlēties labo apakšējo stūri.\n"
+"kreisais, labais, uz augšu, uz leju - uzstādīt stūra atrašanās vietu.\n"
+"tekošā pozīcija un izmērs:"
+
+msgid "Hide error windows"
+msgstr "Nerādīt kļūdu logus"
+
+msgid "Hide locked services"
+msgstr "Nerādīt slēgtos kanālus"
+
+msgid "Hide shortcut icons"
+msgstr "Nerādīt saīsnes ikonas"
+
+msgid "History"
+msgstr "Vēsture"
+
+msgid "Hobbies"
+msgstr "Hobiji"
+
+msgid "Host of remote syslog daemon (local leave empty)"
+msgstr "Ārējā log adrese (iekšējais log tukšs)"
+
+msgid "Hostname"
+msgstr "Servera nosaukums"
+
+msgid "Hostname is empty"
+msgstr "Nav norādīta servera adrese"
+
+msgid "I"
+msgstr "I"
+
+msgid "IP address"
+msgstr "IP adrese"
+
+msgid "IP address or Fully qualified hostname"
+msgstr "Servera IP adrese vai URL/vārds"
+
+msgid "IP:"
+msgstr "IP:"
+
+msgid "Image has file size of 0 bytes!"
+msgstr "Imidža faila izmērs 0 baiti!"
+
+msgid "Image list"
+msgstr "Imidžu saraksts"
+
+msgid "Image not found!"
+msgstr "Imidžs nav atrasts!"
+
+msgid "Image saved to: "
+msgstr "Imidžs saglabāts:"
+
+msgid "Image size is too big! Can't flash!"
+msgstr "Imidža izmērs par lielu! Nevar pārrakstīt!"
+
+msgid "Image size is too small! Do you really want to flash it?"
+msgstr "Imidža izmērs ir par mazu! Vai vēlaties turpināt?"
+
+msgid "Improved BER"
+msgstr "BER pakāpe"
+
+msgid "Include slides of subdirectories in slideshow"
+msgstr "Rādīt slaidus arī no apakšmapēm"
+
+msgid "Include subdirectories"
+msgstr "Ieskaitot apakšmapes"
+
+msgid "Include teletext in the recording"
+msgstr "Iekļaut teletekstu ierakstā"
+
+msgid "Include the AC3 audio track in the recording"
+msgstr "Iekļaut AC3 audio celiņu ierakstā"
+
+msgid "Increase/decrease entry fontsize with this number of points"
+msgstr "Izmainīt šrifta izmēru (0- mazss, 10- liels)."
+
+msgid "Info"
+msgstr "Paziņojums"
+
+msgid "Infobar timeout %d sec"
+msgstr "Infopaneli rādīt %d sek"
+
+msgid "Information"
+msgstr "Informācija"
+
+msgid "Init"
+msgstr "Aktīv"
+
+msgid "Input 1"
+msgstr "Ieeja 1"
+
+msgid "Input 10"
+msgstr "Ieeja 10"
+
+msgid "Input 11"
+msgstr "Ieeja 11"
+
+msgid "Input 12"
+msgstr "Ieeja 12"
+
+msgid "Input 13"
+msgstr "Ieeja 13"
+
+msgid "Input 14"
+msgstr "Ieeja 14"
+
+msgid "Input 15"
+msgstr "Ieeja 15"
+
+msgid "Input 16"
+msgstr "Ieeja 16"
+
+msgid "Input 2"
+msgstr "Ieeja 2"
+
+msgid "Input 3"
+msgstr "Ieeja 3"
+
+msgid "Input 4"
+msgstr "Ieeja 4"
+
+msgid "Input 5"
+msgstr "Ieeja 5"
+
+msgid "Input 6"
+msgstr "Ieeja 6"
+
+msgid "Input 7"
+msgstr "Ieeja 7"
+
+msgid "Input 8"
+msgstr "Ieeja 8"
+
+msgid "Input 9"
+msgstr "Ieeja 9"
+
+msgid "Install a new Dreambox image"
+msgstr "Jauna Dreambox imidža uzstādīšana"
+
+msgid "Install and remove software"
+msgstr "Programmu uzstādīšana un dzēšana"
+
+msgid "Install failed."
+msgstr "Uzstādīšanas kļūda."
+
+msgid "Installing %s"
+msgstr "Uzstādīšana %s"
+
+msgid "Installing not possible"
+msgstr "Uzstādīšana nav iespējama"
+
+msgid "Internal flash"
+msgstr "Iekšējā atmiņa"
+
+msgid "Internal harddisk"
+msgstr "Iekšējais HDD"
+
+msgid "Internet Update"
+msgstr "Atjaunošana caur internetu"
+
+msgid "Inv:"
+msgstr "Inv:"
+
+msgid ""
+"Invalid begin or end time.!\n"
+"Please check time and date"
+msgstr ""
+"Nepareizs sākuma vai beigu laiks!\n"
+"Lūdzu pārbaudiet laiku un datumu"
+
+msgid "Inverted"
+msgstr "Invertēšana"
+
+msgid "It's now safe to unplug power!"
+msgstr "Tagat var izslēgt barošanu!"
+
+msgid "Italian"
+msgstr "Italian"
+
+msgid "Jan"
+msgstr "Jan"
+
+msgid "January"
+msgstr "Janvāris"
+
+msgid "Jazz"
+msgstr "Džezs"
+
+msgid "Jul"
+msgstr "Jul"
+
+msgid "July"
+msgstr "Jūlijs"
+
+msgid "Jun"
+msgstr "Jun"
+
+msgid "June"
+msgstr "Jūnijs"
+
+msgid "KHz"
+msgstr "kHz"
+
+msgid "KSymb/s"
+msgstr "KSymb/s"
+
+msgid "Keep on CF card"
+msgstr "CF-kartes atbalstīšana"
+
+msgid "Keep on USB stick"
+msgstr "USB atbalstīšana"
+
+msgid "Keep on harddisk"
+msgstr "Atrodas HDD"
+
+msgid "Keep on network"
+msgstr "Atrodas tīklā"
+
+msgid "Keyboard"
+msgstr "Klaviatūra"
+
+msgid "Keyboard mapping:"
+msgstr "Klaviatūras izvēle:"
+
+msgid "Keys"
+msgstr "Keys"
+
+msgid "LAN"
+msgstr "LAN"
+
+msgid "LCD"
+msgstr "LCD"
+
+msgid "LCD Shot"
+msgstr "LCD ekrāns"
+
+msgid "LNB"
+msgstr "LNB"
+
+msgid "LNB Configuration"
+msgstr "LNB konfigurācija"
+
+msgid "LOCK"
+msgstr "LOCK"
+
+msgid "LOF/H:"
+msgstr "LOF/H:   "
+
+msgid "LOF/L:"
+msgstr "LOF/L:"
+
+msgid "Language"
+msgstr "Valoda (Language)"
+
+msgid "Language:"
+msgstr "Valoda:"
+
+msgid "Languages"
+msgstr "Valodas"
+
+msgid "Latitude:"
+msgstr "Platums:"
+
+msgid "Latvian/Lithuanian"
+msgstr "Latvian/Lithuanian"
+
+msgid "Library"
+msgstr "Bibliotēka"
+
+msgid "Limit Enigma EPG size"
+msgstr "EPG izmēra ierobežošana"
+
+msgid "Limit the Enigma EPG file to 5MB (recommended)"
+msgstr "EPG faila izmēra ierobežošana līdz 5MB (parasti)"
+
+msgid "LinuxExt"
+msgstr "LinuxExt"
+
+msgid "List current stickies"
+msgstr "Tekošo norāžu saraksts"
+
+msgid "List stickies"
+msgstr "Norāžu saraksts"
+
+msgid "Listbox OSD main menu"
+msgstr "Saraksts galvenajā izvēlnē"
+
+msgid "Literature"
+msgstr "Literatūra"
+
+msgid "Live"
+msgstr "Tiešā translācija"
+
+msgid "Loading slide... please wait."
+msgstr "Slaidu ielāde... lūdzu uzgaidiet."
+
+msgid "Local directory is already in use"
+msgstr "Katalogu jau izmanto"
+
+msgid "LocalDir:"
+msgstr "Katalogs:"
+
+msgid "Lock channels and setup screens"
+msgstr "Kanālu bloķēšana un ekrāna uzstādīšana"
+
+msgid "Lock/Unlock Services"
+msgstr "Bloķēt/ atbloķēt kanālus"
+
+msgid "Log EmuDaemon to file"
+msgstr "EmuDaemon logi failā"
+
+msgid "Log Enigma to file"
+msgstr "Enigma logi failā"
+
+msgid "Log Enigma to syslog"
+msgstr "Enigma logi syslog"
+
+msgid "Logfile path:"
+msgstr "Logfails:"
+
+msgid "Login:"
+msgstr "Login:"
+
+msgid "Longitude:"
+msgstr "Platums:"
+
+msgid "MHz"
+msgstr "MHz"
+
+msgid "Magazine"
+msgstr "Žurnāls"
+
+msgid "Mainmenu"
+msgstr "Galvenā izvēlne"
+
+msgid "Make a backup now"
+msgstr "Izveidot rezerves kopiju"
+
+msgid "Make a backup of your Dreambox"
+msgstr "Izveidot Dreambox rezerves kopiju"
+
+msgid "Make the MultiEPG entries coloured depending on the genre"
+msgstr "Izveidot MultiEPG pārraižu programmu ar krāsu pa žanriem"
+
+msgid "Make use of swap file: No, USB, HDD or CF card."
+msgstr "Izveidot lapošanas failu: Nē, USB, HDD vai CF"
+
+msgid "Making backup, please wait"
+msgstr "Tiek izveidota rezerves kopija..."
+
+msgid "Manual Install"
+msgstr "Manuālā uzstādīšana"
+
+msgid "Manual PIDs"
+msgstr "PID manuāli"
+
+msgid "Manual Transponder Scan"
+msgstr "Transponderu skanēšana"
+
+msgid "Manual Update"
+msgstr "Manuālā atjaunošana"
+
+msgid "Manual update"
+msgstr "Manuāla atjaunošana"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "Martial Sports"
+msgstr "Sports"
+
+msgid "Max Pin errors"
+msgstr "Max Pin kļūdas"
+
+msgid "Maximum number of chances to enter correct pin. When pin is entered wrong for x times the pin validation will be blocked temporarily (0 to disable)"
+msgstr "Maksimālais iespēju skaits ievadīt PIN kodu. Pēc visu iespēju izmantošanas ievade uz laiku slēdzas (0- opcija atslēgta)."
+
+msgid "Maximum number of recorded minutes"
+msgstr "Maksimālais ieraksta laiks min."
+
+msgid "May"
+msgstr "Maijs"
+
+msgid "Mediahighway EPG, activate swap space when using with multiple operators"
+msgstr "Mediahighway EPG, aktivizēt apmaiņas vietu, ja lieto vairākus operatorus"
+
+msgid "Medicine"
+msgstr "Medicīna"
+
+msgid "Menu"
+msgstr "Izvēlne"
+
+msgid "Message"
+msgstr "Paziņojums"
+
+msgid "Mo"
+msgstr "Pk"
+
+msgid "Mode:"
+msgstr "Režīms:"
+
+msgid "Modulation:"
+msgstr "Modulācija:"
+
+msgid "Mon"
+msgstr "Pir"
+
+msgid "Monday"
+msgstr "Pirmdiena"
+
+msgid "Motor Config"
+msgstr "Motora konfigurācija"
+
+msgid "Motor Sports"
+msgstr "Motosports"
+
+msgid "Motoring"
+msgstr "Automobīļi"
+
+msgid "Mount"
+msgstr "Izsl."
+
+msgid "Mount USB stick"
+msgstr "Pievienot USB"
+
+msgid "Mount entry saved"
+msgstr "Pievienojums saglabāts"
+
+msgid "Mount failed"
+msgstr "Pievienošanas kļūda"
+
+msgid "Mount on /media/var to enable move /var to network"
+msgstr "Pievienošana /media/var pie /var uz HDD tīklā"
+
+msgid "Mount options"
+msgstr "Papildus uzstādījumi"
+
+msgid "Mount status"
+msgstr "Stāvoklis:"
+
+msgid "Mount this network mount"
+msgstr "Pievienot šo vietni tīklā"
+
+msgid "Mount this share when Enigma starts"
+msgstr "Pievienot šo vietni startējot"
+
+msgid "Mounting failed"
+msgstr "Pievienošanas kļūda"
+
+msgid "Mounting succeeded"
+msgstr "Pievienošana izdevās"
+
+msgid "Mountpoint"
+msgstr "Katalogs"
+
+msgid "Mountpoint already mounted"
+msgstr "Katalogs jau pievienots"
+
+msgid "Mountpoint not found"
+msgstr "Katalogs nav atrasts"
+
+msgid "Move to"
+msgstr "Pārvietot uz"
+
+msgid "Move to CF card"
+msgstr "Pārvietot uz CF"
+
+msgid "Move to USB stick"
+msgstr "Pārvietot uz USB"
+
+msgid "Move to harddisk"
+msgstr "Pārvietot uz HDD"
+
+msgid "Move to internal flash"
+msgstr "Pārvietot uz iekšējo HDD"
+
+msgid "Movie"
+msgstr "Filma"
+
+msgid "Movies"
+msgstr "Filmas"
+
+msgid "Moving /var to"
+msgstr "ПPārvietot /var uz"
+
+msgid "Multi EPG"
+msgstr "Multi EPG"
+
+msgid ""
+"Multi EPG\n"
+"\n"
+"The Multi Channel EPG shows information about the programs on all channels in the current Bouqet.\n"
+"\n"
+"Please be aware that not all stations provide EPG data!\n"
+"\n"
+"The number of services shown per page and the fontsize of the short epg descriptions can be changed in the EPG Setup menu"
+msgstr ""
+"Multi EPG\n"
+"\n"
+"Multi EPG rāda programmu tekošās paketes kanāliem.\n"
+"\n"
+"Pievērsiet uzmanību, ka ne visas stacijas raida EPG datus!\n"
+"\n"
+"Attēlojamo kanālu skaits un šrifta izmērs maināms EPG uzstādījumos."
+
+msgid "MultiEPG"
+msgstr "Multi EPG"
+
+msgid "MultiEPG channels:"
+msgstr "Multi EPG kanāli:"
+
+msgid "MultiEPG entry fontsize:"
+msgstr "Šrifta izmērs:"
+
+msgid "Music"
+msgstr "Mūzika"
+
+msgid "Musical"
+msgstr "Muzikālais"
+
+msgid "My Dreambox"
+msgstr "Dreambox"
+
+msgid "N"
+msgstr "N"
+
+msgid "ND"
+msgstr "ND"
+
+msgid "NFS file system not supported"
+msgstr "NFS failsistēma netiek atbalstīta"
+
+msgid "NFS setup actions"
+msgstr "NFS uzstādīšana"
+
+msgid "NVOD"
+msgstr "NVOD"
+
+msgid "NVOD Service - please select a starttime"
+msgstr "NVOD - uzstādiet sākuma laiku"
+
+msgid "Name:"
+msgstr "Nosaukums:"
+
+msgid "Nameserver:"
+msgstr "IP servera:"
+
+msgid "Namespace:"
+msgstr "Namespace"
+
+msgid "Nature"
+msgstr "Daba"
+
+msgid "Netmask:"
+msgstr "Maska:"
+
+msgid "Network"
+msgstr "Tīkls"
+
+msgid "Network mounts"
+msgstr "Tīkla pieslēgumi"
+
+msgid "Network search"
+msgstr "Tīkla meklēšana"
+
+msgid "Networks, services and user bouquets will be reloaded"
+msgstr "Tīkli, kanāli un paketes tiks pārlādētas."
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "New %s PIN"
+msgstr "Jauns %s PIN kods"
+
+msgid "New Date:"
+msgstr "Jauns datums:"
+
+msgid "New Directory"
+msgstr "Jauna mape"
+
+msgid "New Media"
+msgstr "Jauns Media"
+
+msgid ""
+"New Software for the frontprocessor is available.\n"
+"Your Dreambox must upgrade now!\n"
+"DO NOT TURN OFF THE POWER DURING UPDATE !!!."
+msgstr ""
+"Pieejama jauna programmas versija.\n"
+"Iespējams atjaunot tieši tagat!\n"
+"ATJAUNOJOT NEIZSLĒDZIET BAROŠANU !!!"
+
+msgid "New Time:"
+msgstr "Jauns laiks:"
+
+msgid "New endtime are now adjusted"
+msgstr "Jauns beigu laiks uzstādīts"
+
+msgid "New network mount"
+msgstr "Jauns pieslēgums"
+
+msgid "New software available"
+msgstr "Pieejama jauna programma"
+
+msgid "News"
+msgstr "Ziņas"
+
+msgid "Next character timeout:"
+msgstr "Nākošā simbola aizture:"
+
+msgid "Ngrab"
+msgstr "Ngrab-plūsmas uztveršana"
+
+msgid "Ngrab streaming"
+msgstr "Ngrab straumēšana"
+
+msgid "No"
+msgstr "Nē"
+
+msgid ""
+"No NIT Entry for current transponder values found...\n"
+"so you can use random values for tsid and onid or set both to 0"
+msgstr ""
+"Tekošam transponderim NIT nav atrasts...varat lietot\n"
+"  jebkuru vērtību priekš tsid un onid vai abus likt uz 0"
+
+msgid "No background picture in radio/mp3 mode"
+msgstr "Nerādīt fona attēlu režīmā Radio/mp3"
+
+msgid "No changelog data available."
+msgstr "Izmaiņu saraksts nav pieejams."
+
+msgid "No description available"
+msgstr "Apraksts nav pieejams"
+
+msgid "No device found"
+msgstr "Ierīce nav atrasta"
+
+msgid "No genre"
+msgstr "Bez žanra"
+
+msgid "No new features were added in this release."
+msgstr "Nav Jauni papildinājumi pievienoti šajā versijā."
+
+msgid "No picture in radio/mp3"
+msgstr "Baz attēla režīmā Radio/mp3"
+
+msgid "None"
+msgstr "Nav"
+
+msgid "North"
+msgstr "Ziemeļi"
+
+msgid "Not mounted :"
+msgstr "Nav pievienots:"
+
+msgid "Nothing"
+msgstr "Nekas"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "November"
+msgstr "Novembris"
+
+msgid "Number in motor:"
+msgstr "Motora pozīcija:"
+
+msgid "Number of EPG days:"
+msgstr "EPG dienu skaits:"
+
+msgid "Number of channels per MultiEPG page to show"
+msgstr "Kanālu skaits MultiEPG lappusē"
+
+msgid "Number of minutes after the harddisk will spin down. 0 to 330 minutes. 0 is no spin down"
+msgstr "Nedarbojoša HDD apstādināšanas laiks min.: 0-333 min. (0- bez apstāšanās)"
+
+msgid "Number of minutes pincode check is disabled when pin validation has failed maximum times."
+msgstr "Koda bloķēšanas laiks min. pēc nepareizas PIN koda ievades."
+
+msgid "Number of minutes the entered pin is valid. After this timeout you need to re-enter the pin when zapping to protected service (0 to disable)"
+msgstr "PIN koda darbības laiks min. Pēc šī laika paiešanas pārslēdzot uz bloķēto kanālu koda ievadīšanu vajadzēs atkārtot (0- opcija atslēgta)."
+
+msgid "Number of seconds the recording is delayed after switching channel"
+msgstr "Ieraksta aizture pēc kanāla pārslēgšanas sek."
+
+msgid "Number of seconds to wait before mounting USB stick"
+msgstr "Aizture pirms USB pievienošanas"
+
+msgid "OK"
+msgstr "Labi"
+
+msgid "ONID:"
+msgstr "ONID:"
+
+msgid "OSD Language"
+msgstr "OSD valoda"
+
+msgid "OSD Shot"
+msgstr "OSD izskats"
+
+msgid "OSD language"
+msgstr "OSD valoda"
+
+msgid "OSD on zap"
+msgstr "Infopanelis pārslēdzoties"
+
+msgid "OSD options"
+msgstr "Izskata uzstādījumi"
+
+msgid "OSD position"
+msgstr "Pozīcija uz ekrāna"
+
+msgid "OSD skin"
+msgstr "OSD ādiņa"
+
+msgid "OSD transparency"
+msgstr "OSD caurspīdīgums"
+
+msgid "Oct"
+msgstr "Okt"
+
+msgid "October"
+msgstr "Oktobris"
+
+msgid "One"
+msgstr "Viens"
+
+msgid "One moment please..."
+msgstr "Uzgaidiet..."
+
+msgid "open fast scan"
+msgstr "Atvērt Fastscan"
+
+msgid "Open serial http interface on /dev/tts/0 for debugging"
+msgstr "Atvērt http interfeisu uz /dev/tts/0 labošanai"
+
+msgid "Options"
+msgstr "Opcijas"
+
+msgid "Options:"
+msgstr "Opcijas:"
+
+msgid "Orbital Position:"
+msgstr "Orbitālā pozīcija:"
+
+msgid "Orig. Lang."
+msgstr "Oriģ. val."
+
+msgid "Original Network ID:"
+msgstr "Tīkla ID:"
+
+msgid "Original duration: %d min"
+msgstr "Oriģinālais ilgums: %d min."
+
+msgid "Output from %s"
+msgstr "Izeja caur %s"
+
+msgid "P"
+msgstr "P"
+
+msgid "PCR PID:"
+msgstr "PCR PID:"
+
+msgid "PIN change completed"
+msgstr "PIN koda maiņa pabeigta"
+
+msgid "PIN changed"
+msgstr "PIN kods nomainīts"
+
+msgid "PIN validation failed"
+msgstr "Nepareizs PIN kods"
+
+msgid "PM"
+msgstr "PM"
+
+msgid "PMT PID:"
+msgstr "PMT PID:"
+
+msgid "PPanel"
+msgstr "PPanel"
+
+msgid "PPanel recovery, internet connection needed"
+msgstr "PPanel atjaunošana, nepieciešams interneta pieslēgums"
+
+msgid "Parental lock"
+msgstr "Vecāku kontrole"
+
+msgid "Partition Check"
+msgstr "Diska sektora parbaude"
+
+msgid "Partitions"
+msgstr "Prtīcijas"
+
+msgid "Pass:"
+msgstr "Parole:"
+
+msgid "Password"
+msgstr "Parole"
+
+msgid "Password:"
+msgstr "Parole:"
+
+msgid "Pau"
+msgstr "Pauze"
+
+msgid "Pause"
+msgstr "Pauze"
+
+msgid "Perf. Arts"
+msgstr "Tēlotājmāksla"
+
+msgid "Pin block timeout"
+msgstr "PIN bloķēšana"
+
+msgid "Pin code validation is still blocked\n"
+msgstr "PIN kods pareizs, bloķēšana aktīva\n"
+
+msgid "Pin timeout"
+msgstr "PIN koda darbības laiks"
+
+msgid "Play"
+msgstr "Atskaņošana"
+
+msgid "Playlist"
+msgstr "Playlist"
+
+msgid "Please check your NGrab Server or the IP"
+msgstr "Parbaudiet NGrab serveri vai IP adresi"
+
+msgid "Please choose your DiSEqC-Configuration:"
+msgstr "Lūdzu izvēlieties Jūsu DiSEqC-Konfigurāciju"
+
+msgid "Please select an item"
+msgstr "Izvēlieties pozīciju"
+
+msgid "Please select the software version to upgrade to:"
+msgstr "Lūdzu izvēlieties atjaunojamās SW versiju:"
+
+msgid "Please select version to upgrade or LAME! to abort"
+msgstr "Izvēlieties SW versiju vai LAME! lai atceltu"
+
+msgid "Please wait"
+msgstr "Uzgaidiet"
+
+msgid ""
+"Please wait while formatting the USB disk.\n"
+"This might take some minutes.\n"
+msgstr ""
+"Notiek USB formatizēšana\n"
+"Tas var aizņemt dažas minūtes.\n"
+
+msgid ""
+"Please wait while formatting the harddisk.\n"
+"This might take some minutes.\n"
+msgstr ""
+"Notiek HDD formatizēšana\n"
+"Tas var aizņemt dažas minūtes.\n"
+
+msgid "Please wait while partition is being saved..."
+msgstr "Uzgaidiet, kamēr patrīcija saglabājas..."
+
+msgid "Please wait while the motor is turning to %d.%d°%c ...."
+msgstr "Lūdzu uzgaidiet kamēr motors pagriežas uz %d.%d°%c ..."
+
+msgid "Please wait..."
+msgstr "Lūdzu uzgaidiet..."
+
+msgid "Please wait... do NOT switch off the receiver!"
+msgstr "Lūdzu uzgaidiet... NEIZSLĒDZIET uztvērēju!"
+
+msgid "Please wait... your Dreambox is shutting down!"
+msgstr "Lūdzu uzgaidiet... Dreambox izslēdzas!"
+
+msgid "Plug"
+msgstr "Plug"
+
+msgid "Plugin"
+msgstr "Plugins"
+
+msgid "Plugin screen"
+msgstr "Pluginu saraksts"
+
+msgid "PluginOffsetActions"
+msgstr "Pluginu uzstādījumi"
+
+msgid "Plugins"
+msgstr "Plugini"
+
+msgid "Polarity:"
+msgstr "Polarizācija:"
+
+msgid "Polish"
+msgstr "Polish"
+
+msgid "Pop. Arts"
+msgstr "Pop māksla"
+
+msgid "Portuguese/Spanish"
+msgstr "Portuguese/Spanish"
+
+msgid "Position:"
+msgstr "Pozīcija:"
+
+msgid "Pre-School"
+msgstr "Pirmsskolas"
+
+msgid "Preferred audio languages"
+msgstr "Vēlamā valoda"
+
+msgid "Prepare box for new image"
+msgstr "Dreambox sagatavošana imidža maiņai"
+
+msgid "Press"
+msgstr "Prese"
+
+msgid "Press HELP to get.... help"
+msgstr "Nospiediet HELP lai iegūtu.... palīdzību"
+
+msgid "Press OK"
+msgstr "Nospiediet OK"
+
+msgid "Press OK to restart the cardserver"
+msgstr "Nospiediet OK lai pārstartētu cardserveri"
+
+msgid "Progress:"
+msgstr "Izpildīts:"
+
+msgid "Provider"
+msgstr "Provaideri"
+
+msgid "Provider:"
+msgstr "Provaideri:"
+
+msgid "Providers"
+msgstr "Provaideri"
+
+msgid "Providers (Data)"
+msgstr "Provaideri (Dati)"
+
+msgid "Providers (Radio)"
+msgstr "Provaideri (Radio)"
+
+msgid "Providers (TV)"
+msgstr "Provaideri (TV)"
+
+msgid "QPSK"
+msgstr "QPSK"
+
+msgid "RGB"
+msgstr "RGB"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Mode"
+msgstr "Radio"
+
+msgid "Radio mode"
+msgstr "Radio režīms"
+
+msgid "Read Flash..."
+msgstr "Atmiņs lasīšana..."
+
+msgid ""
+"Reading NIT failed... this transponder have no NIT..\n"
+"so you can use random values for tsid and onid or set both to 0"
+msgstr ""
+"NIT lasīšana aprauta... transponders nesatur NIT..\n"
+"Jūs varat lietot gadījuma vērtības priekš tsid un onid vai arī uzlikt abas uz 0"
+
+msgid "Ready to upgrade"
+msgstr "Gatavs atjaunošanai"
+
+msgid "Really delete the selected satellite?"
+msgstr "Dzēst izvēlēto pavadoni?"
+
+msgid "Really delete this event?"
+msgstr "Dzēst šo uzdevumu?"
+
+msgid "Really do this?"
+msgstr "Vai izpildīt?"
+
+msgid "Really update this event?"
+msgstr "Atjaunot šo uzdevumu?"
+
+msgid "Recalc Params:"
+msgstr "Pārrēķināt parametrus:"
+
+msgid "Receiver Time:"
+msgstr "Uztvērēja laiks:"
+
+msgid "Record Menu"
+msgstr "Ieraksta izvēlne"
+
+msgid "Record VCR"
+msgstr "Ierakstīt VCR"
+
+msgid "Record failed due to a write error during recording. Check for filesystem corruption."
+msgstr "Neizdevās veikt ierakstu. Pārbaudiet failsistēmu."
+
+msgid "Record failed due to inaccessable storage."
+msgstr "Ieraksts neizdevās dēļ nepietiekošas atmiņas"
+
+msgid "Record mode - read manual"
+msgstr "Ieraksta režīms - izlasīt instrukciju"
+
+msgid "Record split size"
+msgstr "Ieraksta faila izmērs:"
+
+msgid "Record stopped due to full harddisk. Delete some recordings and try again."
+msgstr "Ieraksts apturēts dēļ pārpildīta HDD. Izdzēsiet citus ierakstus un mēģiniet no jauna."
+
+msgid "Recorded movies"
+msgstr "Filmas ieraksts"
+
+msgid "Recording and playing"
+msgstr "Ieraksts un atskaņošana"
+
+msgid "Recordings on"
+msgstr "Ierakstīt"
+
+msgid "Recover movies"
+msgstr "Filmas atjaunošana"
+
+msgid "Reenter %s PIN"
+msgstr "Atkārtot %s PIN"
+
+msgid "Region:"
+msgstr "Reģions:"
+
+msgid "Regular LNB except for North America and Canada"
+msgstr "Standarta LNB izņemot Ziemeļameriku un Kanādu"
+
+msgid "Religion"
+msgstr "Reliģija"
+
+msgid "Reload Enigma"
+msgstr "Pārstartēt Enigmu"
+
+msgid "Reload Enigma settings now"
+msgstr "Pārstartēt Enigmas uzstādījumus"
+
+msgid "Reloading Enigma settings, please wait"
+msgstr "Pārstartē Enigmas uzstādījumus, uzgaidiet..."
+
+msgid "Reloading..."
+msgstr "Pārstartēšana..."
+
+msgid "Remark. People"
+msgstr "Dokumenti, cilvēki"
+
+msgid "Remote control"
+msgstr "Vadības pults"
+
+msgid "Remote control channel:"
+msgstr "Vadības pults kanāls:"
+
+msgid "Remote control style:"
+msgstr "Vadības pults tips:"
+
+msgid "Remote host:"
+msgstr "Dators:"
+
+msgid "Remove Software"
+msgstr "Dzēst programmu"
+
+msgid "Remove mount"
+msgstr "Dzēst pievienojumu"
+
+msgid "Removing %s"
+msgstr "Dzēš %s"
+
+msgid "Removing /var from"
+msgstr "Dzēš /var no"
+
+msgid "Rename File"
+msgstr "Mainīt faila nosauk."
+
+msgid "Rename bouquet"
+msgstr "Mainīt paketes nosauk."
+
+msgid "Rename entry"
+msgstr "Mainīt ierakstu"
+
+msgid "Repeat delay:"
+msgstr "Atkārtojuma aizture:"
+
+msgid "Repeat rate:"
+msgstr "Atkārtojuma ātrums:"
+
+msgid "Repeated timer"
+msgstr "Atkārtotais taimers"
+
+msgid "Rescan EPG"
+msgstr "Pārskanēt EPG"
+
+msgid "Rescan EPG data on current transponder"
+msgstr "Pārskanēt EPG no tekošā transpondera"
+
+msgid "Reset"
+msgstr "Pārstādīt"
+
+msgid "Reset all settings to factory defaults"
+msgstr "Atgriesties pie rūpnīcas uzstādījumiem"
+
+msgid "Restart cardserver"
+msgstr "Pārstartēt"
+
+msgid "Restarting cardserver"
+msgstr "Kardservera pārstartēšana"
+
+msgid "Restore"
+msgstr "Restore"
+
+msgid "Restore Dreambox"
+msgstr "Dreambox atjaunošana"
+
+msgid "Restore Dreambox now"
+msgstr "Atjaunot Dreambox"
+
+msgid "Restore a backup to your Dreambox"
+msgstr "Dreambox atjaunošana no rezerves kopijas"
+
+msgid "Restore device:"
+msgstr "Rezerves kopija atrodas:"
+
+msgid "Restoring, please wait"
+msgstr "Notiek atjaunošana, uzgaidiet..."
+
+msgid "Rock/Pop"
+msgstr "Roks, pops"
+
+msgid "Romance"
+msgstr "Romance"
+
+msgid "Romanian"
+msgstr "Romanian"
+
+msgid "Root"
+msgstr "Root"
+
+msgid "Rotor Setup"
+msgstr "Motora uzstādījumi"
+
+msgid "Russian/Bulgarian"
+msgstr "Русский/Bulgarian"
+
+msgid "S"
+msgstr "S"
+
+msgid "SMBFS file system not supported"
+msgstr "SMBFS failu  sistēmu neatbalsta"
+
+msgid "SNR"
+msgstr "SNR"
+
+msgid "SNR in dB"
+msgstr "SNR dB"
+
+msgid "SNR:"
+msgstr "SNR:"
+
+msgid "SQLite EPG location"
+msgstr "SQLite EPG katalogs "
+
+msgid "SQLite database"
+msgstr "SQLite datbāze"
+
+msgid "SVideo"
+msgstr "SVideo"
+
+msgid "SYNC"
+msgstr "SYNC"
+
+msgid "Sa"
+msgstr "Sa"
+
+msgid "Samba"
+msgstr "Samba"
+
+msgid "Samba File System(to mount share from another Dreambox)"
+msgstr "Samba failu sistēma (cita  Dreambox failu pieslēgšanai)"
+
+msgid "Sat"
+msgstr "Sub"
+
+msgid "Sat/LNB mapping:"
+msgstr "Sat/LNB tips:"
+
+msgid "Sat/Position"
+msgstr "Sat/Pozīcija"
+
+msgid "Satellite"
+msgstr "Pavadonis"
+
+msgid "Satellite Blindscan"
+msgstr "Transponderu meklēšana"
+
+msgid "Satellite Configuration"
+msgstr "Pavadoņu konfigurācija"
+
+msgid "Satellite Edit"
+msgstr "Pavadoņu rediģ."
+
+msgid "Satellite:"
+msgstr "Pavadonis:"
+
+msgid "Satellites"
+msgstr "Pavadoņi"
+
+msgid "Satellites (Data)"
+msgstr "Pavadoņi (Dati)"
+
+msgid "Satellites (Radio)"
+msgstr "Pavadoņi (Radio)"
+
+msgid "Satellites (TV)"
+msgstr "Pavadoņi (TV)"
+
+msgid "Satellites and transponders"
+msgstr "Pavadoņi un transponderi"
+
+msgid "Satfind"
+msgstr "Pavadoņa meklēšana"
+
+msgid "Saturday"
+msgstr "Sestdiena"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Save and mount this network mount"
+msgstr "Saglabāt un pievienot"
+
+msgid "Save and restart cam"
+msgstr "Saglabāt un pārstartēt"
+
+msgid "Save changed Transponders?"
+msgstr "Saglabāt mainītos transponderus?"
+
+msgid "Save changes and return"
+msgstr "Saglabāt un iziet"
+
+msgid "Save changes, restart the softcam and return to enigma"
+msgstr "Saglabāt, pārstartēt emulatoru un iziet"
+
+msgid "Save image or part of it"
+msgstr "Saglabāt imidžu vai daļu no tā"
+
+msgid "Save settings"
+msgstr "Saglabāt"
+
+msgid "Save this mount entry"
+msgstr "Saglabāt šo pieslēgumu"
+
+msgid "Save to..."
+msgstr "Saglabāt ..."
+
+msgid "Saving mount entry"
+msgstr "Saglabāt pieslēgumu"
+
+msgid "Saving mount entry failed"
+msgstr "Pieslēguma saglabāšanas kļūda"
+
+msgid ""
+"Saving settings\n"
+"and starting softcam"
+msgstr ""
+"Saglabā uzstādījumus\n"
+"un pārstartē emulatoru"
+
+msgid "Scan finished"
+msgstr "Skanēšana pabeigta"
+
+msgid "Scan is in finished, press ok to close window"
+msgstr "Skanēšana pabeigta, nospiediet OK lai izietu."
+
+msgid "Scan is in progress... please wait"
+msgstr "Notiek skanēšana... uzgaidiet"
+
+msgid "School"
+msgstr "Skola"
+
+msgid "SciFi"
+msgstr "Fantastika"
+
+msgid "Scrambled system information (left, right)"
+msgstr "Kodētās sistēmas informācija (kreisais, labais)"
+
+msgid "Screen + OSD"
+msgstr "Ekrāns + OSD"
+
+msgid "Screen Shot"
+msgstr "Ekrānuzņēmums"
+
+msgid "Script output"
+msgstr "Izejas skripts"
+
+msgid "Scroll right >>"
+msgstr "labais >>"
+
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "Search event in EPG cache"
+msgstr "Programmas meklēšana EPG ierakstos"
+
+msgid "Search in progress "
+msgstr "Notiek meklēšana"
+
+msgid "Search in:"
+msgstr "Meklēt:"
+
+msgid "Search options:"
+msgstr "Meklēšanas uzstādījumi:"
+
+msgid "Searching for"
+msgstr "Meklēt"
+
+msgid "Searching for Teletext services on this Transponder"
+msgstr "Teleteksta kanālu meklēšana transponderī"
+
+msgid "Seconds in OSD clock"
+msgstr "Sekundes OSD pulkstenī"
+
+msgid "Select"
+msgstr "Izvēle"
+
+msgid "Select 12 or 24 hours clock (left, right)"
+msgstr "Izvēlieties 12 vai 24 stundu pulksteni (kreisais, labais)"
+
+msgid "Select EPG language, then restart"
+msgstr "EPG valodas izvēle  un pārstartēšana"
+
+msgid "Select EPG store location"
+msgstr "EPG ieraksta kataloga izvēle"
+
+msgid "Select IP address or hostname"
+msgstr "Izvēlēties IP adresi vai vārdu"
+
+msgid "Select LNB"
+msgstr "Izvēlieties LNB"
+
+msgid "Select No or press Abort to lock/unlock the complete directory"
+msgstr "Atzīmējiet Nē vai spiediet Abort lai bloķ/ atbloķ. veselu mapi"
+
+msgid "Select a backup device or mount"
+msgstr "Izvēlieties ierīci/ HDD rezerves kopijai"
+
+msgid "Select a genre if you want to search for a genre"
+msgstr "Lai meklētu pēc žanra izvēlieties žanru"
+
+msgid "Select a menu"
+msgstr "Izvēlieties izvēlni"
+
+msgid "Select a menu, function or plugin"
+msgstr "Izvēlieties izvēlni, funkciju vai pluginu"
+
+msgid "Select a plugin"
+msgstr "Izvēlieties pluginu"
+
+msgid "Select an OSD skin"
+msgstr "Izvēlieties izskatu"
+
+msgid "Select cardserver"
+msgstr "Izvēlieties kartes serveri (cardserver)"
+
+msgid "Select default softcam"
+msgstr "Izvēlieties noklusēto emulatoru (softcam)"
+
+msgid "Select filesystem type"
+msgstr "Izvēlieties failu sistēmu"
+
+msgid "Select if you want the default Enigma EPG or SQLite database EPG"
+msgstr "Izvēlieties noklusēto EPG tipu: Enigma vai SQLite"
+
+msgid "Select local mountpoint"
+msgstr "Izvēlieties Dreambox mapi, kurā pievienos"
+
+msgid "Select local time zone"
+msgstr "Izvēlieties lokālo laika joslu"
+
+msgid "Select location for the recording medium (will record in directory 'movie')"
+msgstr "Izvēlieties vietu ierakstam (ieraksts notiks mapē 'movie')"
+
+msgid "Select location for the recording medium (will record in directory 'timeshift')"
+msgstr "Izvēlieties vietu ierakstam (ieraksts notiks mapē 'timeshift')"
+
+msgid "Select network type"
+msgstr "Izvēlieties tīkla tipu"
+
+msgid "Select number of EPG days"
+msgstr "Cik dienas EPG?"
+
+msgid "Select package to install"
+msgstr "Izvēlieties paketi instalācijai"
+
+msgid "Select package to remove"
+msgstr "Izvēlieties paketi dzēšanai"
+
+msgid "Select preferred audio languages while watching TV"
+msgstr "Primārā valoda skatoties TV"
+
+msgid "Select read buffer size"
+msgstr "Lasīšanas bufera lielums"
+
+msgid "Select slideshow timeout (left, right)"
+msgstr "Slaidu rādīšanas aizture (kreisais, labais)"
+
+msgid "Select softcam for this channel"
+msgstr "Izvēlieties dotā kanāla emultoru"
+
+msgid "Select softcam for this provider"
+msgstr "Izvēlieties dotā provaidera emultoru"
+
+msgid "Select source..."
+msgstr "Izvēlieties avotu..."
+
+msgid "Select the LNB used in your region"
+msgstr "Izvēlieties kādu LNB lieto jūsu reģionā"
+
+msgid "Select the channel to be used for the remote control"
+msgstr "Izvēlieties distances vadības kanālu"
+
+msgid "Select the device to store /var on"
+msgstr "Izvēlieties iekārtu kataloga /var glabāšanai"
+
+msgid "Select the first language"
+msgstr "Izvēlieties pirmo valodu"
+
+msgid "Select the fourth language"
+msgstr "Izvēlieties ceturto valodu"
+
+msgid "Select the language used in the Dreambox menus"
+msgstr "Izvēlieties Dreambox interfeisa valodu"
+
+msgid "Select the restore device or mount"
+msgstr "Izvēlieties iekārtu rezerves kopijām"
+
+msgid "Select the second language"
+msgstr "Izvēlieties otro valodu"
+
+msgid "Select the third language"
+msgstr "Izvēlieties trešo valodu"
+
+msgid "Select this option if you want to make this epg search case sensitive"
+msgstr "EPG meklēšanas jūtības palielināšana"
+
+msgid "Select this option if you want to search the exact title"
+msgstr "Meklēšana pēc nosaukuma"
+
+msgid "Select this option if you want to search the title in all services"
+msgstr "Meklēšana pēc nosaukuma visos servisos"
+
+msgid "Select this option if you want to search the title only in selected channel"
+msgstr "Meklēšana pēc nosaukuma izvēlētajos kanālos"
+
+msgid "Select time sync method (left, right)"
+msgstr "Izvēlieties laika sinhronizācijas metodi (kreisais, labais)"
+
+msgid "Select what you want to restore"
+msgstr "Izvēlieties ko vēlaties atjaunot"
+
+msgid "Select which services to run after a reboot"
+msgstr "Izvēlieties servisus kurus palaist pēc pārstartēšanas"
+
+msgid "Select write buffer size"
+msgstr "Ieraksta bufera izmērs"
+
+msgid "Select your default LNB type"
+msgstr "Izvēlieties LNB noklusēto tipu"
+
+msgid "Select your harddisk"
+msgstr "Izvēlieties HDD"
+
+msgid "Select your time zone"
+msgstr "Izvēlieties laika joslu"
+
+msgid "Send Enigma log to syslog"
+msgstr "Sūtīt sistēmas logu pa tīklu (syslog)"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "September"
+msgstr "Septembris"
+
+msgid "Sequence repeat"
+msgstr "Atkārtošanas kārtība"
+
+msgid "Serbian/Croatian"
+msgstr "Serbian/Croatian"
+
+msgid "Serbian/Croatian/Slovenian"
+msgstr "Serbian/Croatian/Slovenian"
+
+msgid "Serious"
+msgstr "Nopietns"
+
+msgid "Server IP:"
+msgstr "Srevera IP:"
+
+msgid "Server MAC:"
+msgstr "MAC adrese:"
+
+msgid "Server directory"
+msgstr "Servera mape"
+
+msgid "Server directory is empty"
+msgstr "Nosaukums 'Servera mape' tukšs"
+
+msgid "Server port:"
+msgstr "Srevera ports:"
+
+msgid "Service ID:"
+msgstr "Kanāla ID:"
+
+msgid "Service Menu"
+msgstr "Kanālu saraksts"
+
+msgid "Service already exist"
+msgstr "Tāds kanāls jau ir"
+
+msgid "Service could not be found !"
+msgstr "Kanāls nav atrasts !"
+
+msgid "Service information (right)"
+msgstr "Kanāla informācija (pa labi)"
+
+msgid ""
+"Service selector\n"
+"\n"
+"The Service selector allows you to select/view channels by groups (Satellite, Bouquet, All, Provider, Radio/TV, File), and can show these in one or more columns."
+msgstr ""
+"Kanālu saraksts\n"
+"\n"
+"Iespēja izvēlēties/ apskatīties kanālus pa grupām (pavadoņi, Paketes, Provaideri, Visi, Radio/TV, Faili) un parādīt tos vienā vai vairākās kolonās"
+
+msgid "Service system unavailable"
+msgstr "Pakalpojums nav pieejams"
+
+msgid "Service:"
+msgstr "Kanāls:"
+
+msgid "Services"
+msgstr "Kanāli"
+
+msgid "Services to run"
+msgstr "Servisu palaišana"
+
+msgid "Serviceselector help buttons"
+msgstr "Kanālu sarakstā rādīt pogas"
+
+msgid "Set Sleeptimer"
+msgstr "Uzlikt izslēgšanās taimeri"
+
+msgid "Set Stop Time"
+msgstr "Uzstādīt atslēgšanas laiku"
+
+msgid "Set default action on timer end"
+msgstr "Uzstādīt darbību beidzoties taimera laikam"
+
+msgid "Set record split size"
+msgstr "*.ts ieraksta faila fragmentu lielums"
+
+msgid "Set recording and playing options for recorded media"
+msgstr "Uzstādīt multimediju failu ierakstīšanas un atskaņošanas parametrus"
+
+msgid "Set screen aspect ratio, TV system and more"
+msgstr "Uzstādīt attēla izmēru, krāsu sistēmu utt..."
+
+msgid "Set several MultiEPG settings"
+msgstr "Multi EPG uzstādījumi"
+
+msgid "Set several OSD options and behaviour"
+msgstr "Sistēmas interfeisa attēlošanas uzstādījumi"
+
+msgid "Set several debugging options"
+msgstr "Labošanas uzstādījumi"
+
+msgid "Set teletext options"
+msgstr "Teleteksta uzstādījumi"
+
+msgid "Set the OSD transparency, brightness and contrast"
+msgstr "Uzstādīt caurspīdīgumu, spilgtumu un kontrastu"
+
+msgid "Set time zone, kind of clock and time correction"
+msgstr "Uzstādīt laiku, laika joslu un laika sinhronizāciju"
+
+msgid "Sets the acoustics of the drive, 128=quiet/slow 254=fast/loud"
+msgstr "Uzstādīt HDD troksni/ ātrumu: 128=klusu/ lēni  254=skaļi/ ātri"
+
+msgid "Settings"
+msgstr "Uzstādījumi"
+
+msgid "Setup"
+msgstr "Uzstādīt"
+
+msgid "Setup LCD screen, like brightness and contrast"
+msgstr "Uzstādīt LCD ekrānu: spilgtumu, kontrastu.. "
+
+msgid "Setup and find satellites or scan for transponders"
+msgstr "Uzstādīt pavadoņus, meklēt transponderus"
+
+msgid "Setup lock"
+msgstr "Uzstādījumu  bloķēšana"
+
+msgid "Setup the common interface module"
+msgstr "CI moduļa uzstādījumi"
+
+msgid "Share"
+msgstr "Koplietošana"
+
+msgid "Shopping"
+msgstr "Iepirkšanās"
+
+msgid "Show"
+msgstr "Šovs"
+
+msgid "Show EPG in webif channel lists"
+msgstr "Parādīt EPG webif kanālu sarakstā"
+
+msgid "Show EPG in webif/webx-tv channel lists"
+msgstr "Parādīt EPG webif/ webx-tv kanālu sarakstā"
+
+msgid "Show OSD after a zap"
+msgstr "Parādīt OSD pēc pārslēgšanas"
+
+msgid "Show SNR values in dB instead of %"
+msgstr "Parādīt SNR dB, nevis %"
+
+msgid "Show Sat position"
+msgstr "Parādīt pavadoņa pozīciju"
+
+msgid "Show busy sign"
+msgstr "Parādīt aizņemtību"
+
+msgid "Show busy sign while preprocessing slide"
+msgstr "Parādīt aizņemtību slaidu skatīšanās laikā"
+
+msgid "Show coloured help buttons in service selector"
+msgstr "Parādīt krāsainās palīdzības pogas kanālu sarakstā"
+
+msgid "Show credits of PLi team"
+msgstr "Informācija par PLi komandu"
+
+msgid "Show event remaining time in the infobar"
+msgstr "Parādīt infopanelī atlikušo laiku"
+
+msgid "Show extra info in OSD on OK"
+msgstr "Parādīt OSD ekstra info nospiežot OK"
+
+msgid "Show extra info in OSD when zapping"
+msgstr "Parādīt OSD ekstra info pārslēdzot kanālus"
+
+msgid "Show hardware information"
+msgstr "Informācija par iekārtām"
+
+msgid "Show improved BER (Bit Error Rate) regards to the outer FEC and in a value from 0-6 represents errorrate in ai power of 10 (6 represents 1 bit in a million, 3 represents 1 biterror in a thousand)"
+msgstr "Rādīt BER (Bit Error rate) kā pakāpi FEC skaitļos. Vērtība no 0 līdz 6 (6- nozīmē 1 kļūda uz miljona, 3- uz tūkstoti utt...)"
+
+msgid "Show in 16:9 format"
+msgstr "Parādīt 16:9 formātā"
+
+msgid "Show other extra info in OSD on OK"
+msgstr "Parādīt otru ekstra infopaneli nospiežot OK"
+
+msgid "Show other extra info in OSD when zapping"
+msgstr "Parādīt otru ekstra infopaneli pārslēdzot kanālus"
+
+msgid "Show plicons"
+msgstr "Parādīt kanālu ikonas"
+
+msgid "Show plicons in EPG and skin"
+msgstr "Parādīt kanālu ikonas EPG"
+
+msgid "Show recorded movies?"
+msgstr "Parādīt ierskstīto videoprogrammu?"
+
+msgid "Show remaining Time"
+msgstr "Parādīt atlikušo laiku"
+
+msgid "Show satellite position in the infobar"
+msgstr "Parādīt pavadoņa pozīciju infopanelī"
+
+msgid "Show smaller OSD when zapping (if supported by the skin)"
+msgstr "Parādīt īso infopaneli pārslēdzot kanālus (ja uztur noformējums)"
+
+msgid "Show stream info of current channel"
+msgstr "Informācija par plūsmu datiem tekošajā kanālā"
+
+msgid "Show the Main menu in normal listbox style"
+msgstr "Parādīt galveno izvēlni teksta režīmā"
+
+msgid "Show, edit or remove this mount"
+msgstr "Mainīt pieslēguma punktu"
+
+msgid "Shutdown"
+msgstr "Izslēgt"
+
+msgid "Shutdown finished"
+msgstr "Izslēgšana pabeigta"
+
+msgid "Shutdown your Receiver now?"
+msgstr "Izslēgt uztvērēju tūlīt??"
+
+msgid "Shutdown..."
+msgstr "Izslēgšana..."
+
+msgid "Shutdown/Standby Menu"
+msgstr "Izslēgšanas/ gaidīšanas izvēlne"
+
+msgid "ShutdownTimer"
+msgstr "Izslēgšanas taimeris"
+
+msgid "Signalfind"
+msgstr "Signāla meklēšana"
+
+msgid "Simple DiSEqC (2 LNBs/satellites)"
+msgstr "Vienkāršs  DiSEqC (2 LNB/satelīti)"
+
+msgid "Skin Selector"
+msgstr "Izskata izvēle"
+
+msgid "Skin changed"
+msgstr "Izskata nomainīts"
+
+msgid "Skins:"
+msgstr "Izskati:"
+
+msgid "Skip confirmations"
+msgstr "Izlaist apstiprinājumus"
+
+msgid "Skip some confirmations"
+msgstr "Nerādīt darbības apstiprinājumus"
+
+msgid "SleepTimer"
+msgstr "Izslēgšanas taimeris"
+
+msgid "Slide Viewer (1.6)"
+msgstr "Slaidu apskate (1.6)"
+
+msgid "Soap"
+msgstr "Seriāli"
+
+msgid "Soc. Mag."
+msgstr "Soc. žurnāls"
+
+msgid "Social"
+msgstr "Sociāls"
+
+msgid "Softcam config info"
+msgstr "Informācija par emulatoru konfigurāciju"
+
+msgid "Softcam setup"
+msgstr "Emulatoru uzstādīšana"
+
+msgid "Softcams"
+msgstr "Emulatori"
+
+msgid "Software Version:"
+msgstr "Programmatūras versija:"
+
+msgid "Software management"
+msgstr "Programmu uzstādīšana vai dzēšana"
+
+msgid "Software update"
+msgstr "Programmu atjaunošana"
+
+msgid "Software upgrade..."
+msgstr "Programmu atjaunošana..."
+
+msgid ""
+"Sorry, you can not add a time shifted service manually to the timer.\n"
+"Please close the Timer and use the EPG of the service you wish to add!"
+msgstr ""
+"Atvainojiet, Jūs nevarat pievienot taimerim pārklājošos kanālus.\n"
+"Aizveriet taimeri un lietojiet EPG  lai pievienotu!"
+
+msgid "Sorry, you cannot delete this service."
+msgstr "Atvainojiet, Jūs nevarat dzēst šo kanālu."
+
+msgid "Sorry, you cannot record this service."
+msgstr "Atvainojiet, Jūs nevarat ierakstīt šo kanalu."
+
+msgid "Sound Subcarrier:"
+msgstr "Skaņas nesošā:"
+
+msgid "Sound enable"
+msgstr "Skaņa ieslēgta"
+
+msgid "South"
+msgstr "Dienvidi"
+
+msgid "Special Event"
+msgstr "Speciāli notikumi"
+
+msgid "Specific harddisk settings..."
+msgstr "HDD papildus iestatījumi..."
+
+msgid "Specific settings"
+msgstr "Papildus iestatījumi"
+
+msgid "Specific settings for a selectable harddisk, like formatting"
+msgstr "Iezīmētā HDD papildus iestatījumi, pem. formatizēšana"
+
+msgid "Spiritual"
+msgstr "Garīgie"
+
+msgid "Spool"
+msgstr "Spole"
+
+msgid "Sports"
+msgstr "Sports"
+
+msgid "Sports Mag."
+msgstr "Sporta žurn."
+
+msgid "Standby"
+msgstr "Gaidīšana"
+
+msgid "Standby:"
+msgstr "Gaidīšana:"
+
+msgid "Start"
+msgstr "Starts"
+
+msgid "Start Apache server"
+msgstr "Apache servera palaišana"
+
+msgid "Start Dropbear"
+msgstr "Dropbear palaišana"
+
+msgid "Start Inadyn"
+msgstr "Inadyn palaišana"
+
+msgid "Start NFS server"
+msgstr "NFS servera palaišana"
+
+msgid "Start crond"
+msgstr "Сrond palaišana"
+
+msgid "Start firewall"
+msgstr "Ugunsmūra palaišana"
+
+msgid "Start gSUB"
+msgstr "gSUB palaišana"
+
+msgid "Start samba (enable file sharing)"
+msgstr "Samba palaišana (iesl. pieeju no tīkla)"
+
+msgid "Start searching"
+msgstr "Meklēšanas sākšana"
+
+msgid "Start syslog daemon at boot"
+msgstr "Palaist Syslog pēc iestartēšanas"
+
+msgid "Start time"
+msgstr "Sākuma laiks"
+
+msgid "Status: Mounted"
+msgstr "Stāvoklis: Pievienots"
+
+msgid "Status: Not Mounted"
+msgstr "Stāvoklis: nav pievienots"
+
+msgid "Sticky Settings 1"
+msgstr "Svarīga uzstādījums 1"
+
+msgid "Stop Record"
+msgstr "Apturēt ierakstu"
+
+msgid "Storage Location:"
+msgstr "Saglabāšanas vieta:"
+
+msgid ""
+"Store %d.%d°%c at location %d.\n"
+"If you want another location, then say no and change the location manually.\n"
+"Are you sure you want to store at this location?"
+msgstr ""
+"Saglabāt %d.%d%c vietā %d.\n"
+"Ja vēlaties citu vietu, sakiet nē un izmainiet vietu pašrocīgi.\n"
+"Vai vēlaties saglabāt šajā vietā?"
+
+msgid "Store Satellite"
+msgstr "Pozīcijas ierakstīšana"
+
+msgid "Streaminfo"
+msgstr "Plūsmas info"
+
+msgid "Su"
+msgstr "Sv"
+
+msgid "Sun"
+msgstr "Sv"
+
+msgid "Sunday"
+msgstr "Svētdiena"
+
+msgid "Swap Commands"
+msgstr "Apmaiņas komandas"
+
+msgid "Swap file"
+msgstr "Lapošanas fails"
+
+msgid "Swap file and /var"
+msgstr "Lapošanas fails un /var"
+
+msgid "Swap size"
+msgstr "Lapošanas izmērs"
+
+msgid "Swedish/Finnish/Hungarian"
+msgstr "Swedish/Finnish/Hungarian"
+
+msgid "Symbol Rate:"
+msgstr "Symbol Rate:"
+
+msgid "System settings"
+msgstr "Sistēmas uzstādījumi"
+
+msgid "Systems used in service:"
+msgstr "Kanālā lietotās sistēmas:"
+
+msgid "T-Online User press ok here"
+msgstr "T-Online lietotājiem spiest ok šeit"
+
+msgid "TSID:"
+msgstr "TSID:"
+
+msgid "TV"
+msgstr "TV"
+
+msgid "TV System Wizard"
+msgstr "TV sistēmas uzstādītājs"
+
+msgid "TV System:"
+msgstr "TV sistēma:"
+
+msgid "TV mode"
+msgstr "TV režīms"
+
+msgid "TV/Radio"
+msgstr "TV/Radio"
+
+msgid "Talk"
+msgstr "Saruna"
+
+msgid "Team Sports"
+msgstr "Komandu sports"
+
+msgid "Technology"
+msgstr "Tehnoloģijas"
+
+msgid "Teletext"
+msgstr "Teleteksts"
+
+msgid "Teletext PID:"
+msgstr "Teleteksta PID:"
+
+msgid "Teletext Page %03x (%s)"
+msgstr "Teleteksta lapa %03x (%s)"
+
+msgid "Teletext Settings"
+msgstr "Teleteksta uzstādījumi"
+
+msgid "Tennis"
+msgstr "Teniss"
+
+msgid "Test Pattern"
+msgstr "Testa paraugs"
+
+msgid "Test Screen"
+msgstr "Ekrāna tests"
+
+msgid "Text PID:"
+msgstr "PID teksts:"
+
+msgid "Th"
+msgstr "Tr"
+
+msgid "The Endtime overlaps with another event in the timerlist"
+msgstr "Beigu laiks pārklājas ar citu uzdevumu taimera sarakstā"
+
+msgid ""
+"The PINs are not equal!\n"
+"\n"
+"Do you want to retry?"
+msgstr ""
+"PIN kodi nesakrīt!  \n"
+"\n"
+"  Mēģināt vēlreiz?"
+
+msgid ""
+"The entered PIN is incorrect.\n"
+"Do you want to retry?"
+msgstr ""
+"Ievadītais PIN nepareizs.\n"
+" Mēģināt vēlreiz?"
+
+msgid "The event has already finished... you can not change endtime!"
+msgstr "Uzdevums jau izpildīts... Nevar izmainīt beigu laiku"
+
+msgid "The following new features were added in this release:\n"
+msgstr "Šājā versijā pievienotas sekojošas iespējas:\n"
+
+msgid ""
+"The new endtime is before now time!\n"
+"This stops the running timer(recording)\n"
+msgstr ""
+"Jaunais beigu laiks jau pagājis!\n"
+"Tas apturēs tekošo taimeri (ierakstu)\n"
+
+msgid "The package cannot be installed because it's already installed. Please remove the previous version first."
+msgstr "Paketi nevar uzstādīt, jo tāda jau ir uzstādīta. Lūdzu vispirms nodzēsiet iepriekšējo versiju."
+
+msgid ""
+"The transponder scan has finished and found \n"
+"   %i new Transponders,\n"
+"   %i new TV Services,\n"
+"   %i new Radio Services and\n"
+"   %i new Data Services.\n"
+"%i Transponders with %i Services scanned."
+msgstr ""
+"Transponderu skanēšana pabeigta.\n"
+"Atrasti: \n"
+"   %i jauni transponderi,\n"
+"   %i jauni TV kanāli,\n"
+"   %i jauni radio kanāli,\n"
+"   %i jauni datu kanāli.\n"
+"-----------------------------------\n"
+"Kopā apstrādāti:\n"
+"   transponderi\t%i\n"
+"   kanāli\t%i"
+
+msgid ""
+"There's data on this harddisk.\n"
+"You will lose that data. Proceed?"
+msgstr ""
+"Uz diska ir informācija.\n"
+"Dati tiks zaudēti. Turpināt?"
+
+msgid "This content could not be displayed"
+msgstr "Saturu nevar parādīt"
+
+msgid "This directory does not exist"
+msgstr "Tāda mape neeksistē"
+
+msgid "This directory doesn't contain anything playable!"
+msgstr "Šī mape nesatur neko atskaņojamu!"
+
+msgid "This directory has not enough space"
+msgstr "Šajā mapē nepietiek vietas"
+
+msgid "This directory is suitable for storage"
+msgstr "Šī mape glabā datus"
+
+msgid ""
+"This event cannot added to the timerlist.\n"
+"The event overlaps with another event in the timerlist\n"
+"Please check the timerlist manually."
+msgstr ""
+"Uzdevumu nevar pievienot taimerim.\n"
+"uzdevums pārklājas ar citu uzdevumu taimera sarakstā\n"
+"Parbaudiet taimera sarakstu vēlreiz."
+
+msgid "This event is already in the timerlist."
+msgstr "Uzdevums jau ir taimera sarakstā."
+
+msgid ""
+"This is a complete Bouquet!\n"
+"Really delete?"
+msgstr ""
+"Šī ir vesala pakete!\n"
+"Vēlaties izdzēst?"
+
+msgid "This is an older release."
+msgstr "Šī ir vecāka versija."
+
+msgid "This is the currently installed release."
+msgstr "Šī ir pašlaik esošā versija."
+
+msgid "This mountpoint is unmounted now"
+msgstr "Šis pievienošanas punkts patreiz ir atvienots"
+
+msgid "This service could not be descrambled"
+msgstr "Kanālu nevar atkodēt"
+
+msgid "This service doesn't currently send a signal"
+msgstr "Šis kanāls pašlaik neraida signālu"
+
+msgid "Three"
+msgstr "Trīs"
+
+msgid "Threshold:"
+msgstr "Pārslēgšanās slieksnis:"
+
+msgid "Thriller"
+msgstr "Trilleris"
+
+msgid "Thu"
+msgstr "Ce"
+
+msgid "Thursday"
+msgstr "Ceturtdiena"
+
+msgid "Time"
+msgstr "Laiks"
+
+msgid "Time Correction"
+msgstr "Laika korekcija"
+
+msgid "Time correction"
+msgstr "Laika korekcija"
+
+msgid "Time in minutes a timer event finishes later (0-60)"
+msgstr "Beigu laiks lielāks par (0-60) minūtēm"
+
+msgid "Time in minutes a timer event starts earlier (0-60)"
+msgstr "Sākuma laiks lielāks par (0-60) minūtēm"
+
+msgid "Time zone configuration"
+msgstr "Laika josla"
+
+msgid "Time zone setup"
+msgstr "Laika josla"
+
+msgid "Time zone:"
+msgstr "Laika josla:"
+
+msgid "Timeout"
+msgstr "Aizture:"
+
+msgid "Timer"
+msgstr "Taimeris"
+
+msgid "Timer Edit"
+msgstr "Taimera rediģēšana"
+
+msgid "Timer Edit View"
+msgstr "Taimera rediģēšanas apskats"
+
+msgid "Timer List"
+msgstr "Taimeri"
+
+msgid "Timer Message"
+msgstr "Taimera paziņojums"
+
+msgid "Timer list"
+msgstr "Timera saraksts"
+
+msgid "Timer settings"
+msgstr "Taimera uzstādīšana"
+
+msgid "Timer start offset"
+msgstr "Sākuma laiks"
+
+msgid "Timer stop offset"
+msgstr "Beigu laiks"
+
+msgid "Timerlist"
+msgstr "Taimera saraksts"
+
+msgid "Timeshift"
+msgstr "Timeshift"
+
+msgid "Timeshift delay"
+msgstr "Timeshift aizture"
+
+msgid "Timeshift pause"
+msgstr "Timeshift pauze"
+
+msgid "Timeshift recording time"
+msgstr "Timeshift ieraksta laiks"
+
+msgid "Timeshift settings"
+msgstr "Timeshift uzstādīšana"
+
+msgid "Timeshifts on"
+msgstr "Timeshift ieslēgts"
+
+msgid "Timezone changed"
+msgstr "Laika joslas maiņa"
+
+msgid "Title:"
+msgstr "Nosaukums:"
+
+msgid "To begin searching for a valid cable provider press OK, or choose your desired cable provider manually and press OK"
+msgstr "KabeļTV provaidera meklēšanai spiediet OK, vai izvēlaties vajadzīgo paši un spiediet OK"
+
+msgid "To begin searching for a valid satellite press OK, or choose your desired satellite manually and press OK"
+msgstr "Pavadoņa meklēšanai spiediet OK, vai arī izvēlieties vajadzīgo paši un spiediet OK"
+
+msgid "To begin searching for a valid transponder press OK, or choose your desired location manually and press OK"
+msgstr "Transpondera meklēšanai spiediet OK, vai arī izvēlieties vajadzīgo paši un spiediet OK"
+
+msgid "To change time correction you must tune first to any transponder"
+msgstr "Lai veiktu pulksteņa korekciju, Jums jāpieslēdzas jebkuram transponderam"
+
+msgid "Toneburst A"
+msgstr "Tone Burst A"
+
+msgid "Toneburst B"
+msgstr "Tone Burst B"
+
+msgid "Toneburst:"
+msgstr "Ieeja ToneBurst/miniDiSEqC:"
+
+msgid "Transm. Mode:"
+msgstr "Pārraides režīms:"
+
+msgid "Transparency:"
+msgstr "Caurspīdīgums:"
+
+msgid "Transponder"
+msgstr "Transponders"
+
+msgid "Transponder Edit"
+msgstr "Transpondera rediģēšana"
+
+msgid "Transponder Scan"
+msgstr "Transpondera skanēšana"
+
+msgid "Transponder Time:"
+msgstr "Transpondera laiks:"
+
+msgid "Transponder information (left)"
+msgstr "Transpondera informācija (kreisais)"
+
+msgid "Transponder not found. Do a channelsearch first."
+msgstr "Transponderis nav atrasts. Vispirms pārskanējiet transponderi."
+
+msgid "Transponder:"
+msgstr "Transponderis:"
+
+msgid "Transponders"
+msgstr "Transponders"
+
+msgid "Transponders changed"
+msgstr "Transponderi mainīti"
+
+msgid "Transponders couldn't be written to file!"
+msgstr "Transponderi nevar ierakstīt failā!"
+
+msgid "Transport Stream ID:"
+msgstr "Transponderu straumes ID:"
+
+msgid "Travel"
+msgstr "Ceļojumi"
+
+msgid "Try to autodetect server MAC address"
+msgstr "Mēģināt automātiski noteikt servera MAC adresi"
+
+msgid "Try to reconnect when an external cahandler connection was lost"
+msgstr "Pieslēgties pa jaunu kad ārējais pieslēguma zudis"
+
+msgid "Tu"
+msgstr "Ot"
+
+msgid "Tue"
+msgstr "Ot"
+
+msgid "Tuesday"
+msgstr "Otrdiena"
+
+msgid "Tune failed. Please do a channelsearch first."
+msgstr "Noregulēšanas kļūda. Vispirms pārskanējiet transponderi."
+
+msgid ""
+"Tuned in transponder.\n"
+"Reading version information..."
+msgstr ""
+"Noregulēšana uz transpondera.\n"
+"Informācijas versijas lasīšana."
+
+msgid "Tuning in transponder..."
+msgstr "Noregulēšana uz transpondera."
+
+msgid "Turkish"
+msgstr "Turkish"
+
+msgid "TuxTxt setup"
+msgstr "TuxTxt uzstādīšana"
+
+msgid "TuxTxt/MultiEPG position"
+msgstr "EPG un teleteksta pozīcija"
+
+msgid "Two"
+msgstr "Divi"
+
+msgid "Txt"
+msgstr "Txt"
+
+msgid "Type:"
+msgstr "Тips:"
+
+msgid "UHF Modulator on"
+msgstr "UHF modulators ieslēgts"
+
+msgid "UHF modulator"
+msgstr "UHF modulators"
+
+msgid "USB Stick IS STILL MOUNTED, unknown error"
+msgstr "USB JOPROJĀM PIEVIENOJAS, nezināma kļūda"
+
+msgid "USB Stick NOT MOUNTED, unknown error"
+msgstr "USB NAV PIEVIENOTS, nezināma kļūda"
+
+msgid "USB Stick successfully mounted"
+msgstr "USB pievienots"
+
+msgid "USB Stick successfully un-mounted"
+msgstr "USB atvienots"
+
+msgid "USB mount wait"
+msgstr "USB pievienošana"
+
+msgid "USB stick"
+msgstr "USB"
+
+msgid "Ukranian"
+msgstr "Ukranian"
+
+msgid "Uncommitted Switch:"
+msgstr "Uncommitted Switch:"
+
+msgid "Unknown error!!"
+msgstr "Nezināma kļūdа!!"
+
+msgid "Unmount"
+msgstr "Atvienot"
+
+msgid "Unmount USB stick"
+msgstr "Atvienot USB"
+
+msgid "Unmount this network mount"
+msgstr "Atvienot šo tīkla punktu"
+
+msgid "Unmounting failed"
+msgstr "Atvienošanas kļūda"
+
+msgid "Unmounting succeeded"
+msgstr "Atvienots"
+
+msgid "Unpublished"
+msgstr "Nepublicēts"
+
+msgid "Update event in timer list"
+msgstr "Atjaunot uzdevumu taimera sarakstā"
+
+msgid "Update event in timerlist"
+msgstr "Atjaunot uzdevumu taimera sarakstā"
+
+msgid "Upgrade in process..."
+msgstr "Notiek atjaunošana..."
+
+msgid ""
+"Upgrading frontprocessor...\n"
+"DO NOT TURN OFF THE POWER!\n"
+"THE DREAMBOX WILL AUTOMATICALLY REBOOT!\n"
+msgstr ""
+"Uztvērēja atjaunošana...\n"
+"NEIZSLĒDZIET UZTVĒRĒJU!\n"
+"DREAMBOX PATS AUTOMĀTISKI PĀRLĀDĒSIES!\n"
+
+msgid "Upload your Image via FTP or Samba to the '/tmp' folder.Then rename it to 'root.cramfs' and press ok.In the upcomming list select 'manual update' and follow the instructions."
+msgstr "Ielādējiet Image caur FTP vai SAMBA uz '/tmp' mapi.mainiet nosaukumu uz 'root.cramfs' un spiediet ok.Iznakošajā sarakstā izvēlieties 'manual update' un sekojiet instrukcijai."
+
+msgid "Use BAT"
+msgstr "Lietot BAT"
+
+msgid "Use DiSEqC Version 1.0"
+msgstr "Lietot DiSEqC Versiju 1.0"
+
+msgid "Use DiSEqC Version 1.1"
+msgstr "Lietot DiSEqC  Versiju 1.1"
+
+msgid "Use DiSEqC Version 1.2"
+msgstr "Lietot DiSEqC versiju 1.2"
+
+msgid "Use HTTP authentication"
+msgstr "HTTP autorizācija"
+
+msgid "Use Mini-Zap"
+msgstr "Mini infopanelis"
+
+msgid "Use Motor Input Power"
+msgstr "Lietot motoru ar spriegumu"
+
+msgid "Use gotoXX Function"
+msgstr "Lietojiet gotoXX Funkciju"
+
+msgid "Use motor input power for running detection.. else use timeout"
+msgstr "Use motor input power for running detection.. else use timeout"
+
+msgid "Use the more intelligent 'zapstream', instead of 'streamts'"
+msgstr "Lietot intelektuālo pārslēgšanaos"
+
+msgid "Use zapstream"
+msgstr "Intel. pārslēgšanās"
+
+msgid "User interface settings"
+msgstr "OSD uzstādījumi"
+
+msgid "User-defined buttons"
+msgstr "Lietotāja definētās pogas"
+
+msgid "User:"
+msgstr "Lietotājs:"
+
+msgid "Username"
+msgstr "Lietotājs"
+
+msgid "V"
+msgstr "V"
+
+msgid "VCR"
+msgstr "VCR"
+
+msgid "Variety"
+msgstr "Citi"
+
+msgid "Vertical"
+msgstr "Vertikālā"
+
+msgid "Video"
+msgstr "Video"
+
+msgid "Video PID:"
+msgstr "Video PID:"
+
+msgid "Video format:"
+msgstr "Video formāts:"
+
+msgid "Voltage"
+msgstr "Spriegums"
+
+msgid "Voltage is always 14V (vertical)"
+msgstr "Spriegums vienmēr 14V (Vertikālā)"
+
+msgid "Voltage is always 18V (horizontal)"
+msgstr "Spriegums vienmēr 18V (Horizontālā)"
+
+msgid "Voltage is always off"
+msgstr "Spriegums vienmēr izslēgts"
+
+msgid "Voltage is automatically changed"
+msgstr "Automātiska sprieguma maiņa"
+
+msgid "WAN(PPPoE)"
+msgstr "WAN (PPPoE)"
+
+msgid "Waiting for tuner lock on:"
+msgstr "Gaidam signālu:"
+
+msgid "Waiting for tuner lock... please wait"
+msgstr "Notiek meklēšana...uzgaidiet"
+
+msgid "Warning"
+msgstr "Brīdinājums"
+
+msgid "Water Sports"
+msgstr "Ūdens sports"
+
+msgid "We"
+msgstr "Tr"
+
+msgid "Weather"
+msgstr "Laiks"
+
+msgid "Web interface"
+msgstr "Web interfeiss"
+
+msgid "Web interface port:"
+msgstr "Web interfeisa ports"
+
+msgid "Wed"
+msgstr "Tr"
+
+msgid "Wednesday"
+msgstr "Trešdiena"
+
+msgid ""
+"Welcome to enigma.\n"
+"\n"
+"Please do a transponder scan first.\n"
+"(mainmenu > setup > channels > transponder scan)"
+msgstr ""
+"Laipni lūdzu Enigmā.\n"
+"\n"
+"Papriekšu veiciet transponderu skanēšanu.\n"
+"(Galvenā izvēlne >uzstādījumi > kanāli > transpond. skanēšana)"
+
+msgid "West"
+msgstr "Rietumi"
+
+msgid "What to restore:"
+msgstr "Ko atjaunot:"
+
+msgid "Winter Sports"
+msgstr "Ziemas sports"
+
+msgid "Write Error"
+msgstr "Ievades kļūda"
+
+msgid "Writing Software to Flash..."
+msgstr "Prog. nodr. (Software) rakstīšana..."
+
+msgid "Writing image to flash...\n"
+msgstr "Imidža ieraksts atmiņā...\n"
+
+msgid ""
+"Wrong use of this function can corrupt all stored sat positions.\n"
+"Are you sure you want to use this function?"
+msgstr ""
+"Nepareizs funkcijas pielietojums var izdzēst satelītu pozīcijas.\n"
+"Vai lietosiet funkciju?"
+
+msgid "YPbPr"
+msgstr "YPbPr"
+
+msgid "Yes"
+msgstr "Jā"
+
+msgid "You are recording now and cannot change all settings"
+msgstr "Notiek ieraksts, uzstādījumus nav iespējams mainīt."
+
+msgid "You are running in multiboot, moving /var is disabled"
+msgstr "Islēgta daudzielāde (multuboot). /var pārvietošana bloķēta"
+
+msgid ""
+"You are trying to delete '%s'.\n"
+"Really do this?"
+msgstr ""
+"Jūs mēģinat dzēst '%s'.\n"
+"Esat pārliecināts?"
+
+msgid ""
+"You have to restart enigma to apply the new skin\n"
+"Restart now?"
+msgstr ""
+"Nepieciešams pārstartēt enigmu lai būtu jaunais izskats\n"
+"Pārstartēt?"
+
+msgid ""
+"You have to restart enigma to apply the new time zone\n"
+"Restart now?"
+msgstr ""
+"Nepieciešams pārstartēt enigmu lai lietotu laika joslu.\n"
+"Pārstartēt?"
+
+msgid ""
+"You would delete the running event..\n"
+"this stops the timer mode (recording)!"
+msgstr ""
+"Jūs dzēsīsiet tekošo uzdevumu...\n"
+"tas apturēs taimera režīmu (ierakstu)!"
+
+msgid ""
+"You would update the running event.. \n"
+"this stops the timer mode (recording)!"
+msgstr ""
+"Jūs atjaunosiet tekošo uzdevumu...\n"
+"Tas apturēs taimera režīmu (ierakstu)!"
+
+msgid ""
+"You've entered too many incorrect pins\n"
+"Pin code validation will be blocked temporarily!"
+msgstr ""
+"Jūs ievadījāt pārāk daudz nepareizu PIN kodu.\n"
+"Koda ievade uz laiku slēgta!"
+
+msgid "[GO UP]"
+msgstr "[uz augšu]"
+
+msgid "[all]"
+msgstr "[visi]"
+
+msgid "[nothing]"
+msgstr "[neviens]"
+
+msgid "[only free]"
+msgstr "[tikai bezmaksas]"
+
+msgid "abc &lt;-&gt; ABC"
+msgstr "abc &lt;-&gt; ABC"
+
+msgid "abc2 &lt;-&gt; 2abc"
+msgstr "abc2 &lt;-&gt; 2abc"
+
+msgid "abort"
+msgstr "Pārtraukt"
+
+msgid "aborts the transponder scan"
+msgstr "Pārtrauc transponderu skanēšanu"
+
+msgid "activate mode to simply add many services to a selectable bouquet"
+msgstr "Aktivizēt režīmu, lai vienkarši pievienotu vairākus kanālus izvēlētai paketei"
+
+msgid "activate mode to simply change the entry order"
+msgstr "Aktivizēt režīmu lai vienkarši mainītu ievades kārtību"
+
+msgid "add"
+msgstr "Pievienot"
+
+msgid "add a new Satellite"
+msgstr "Pievienot jaunu pavadoni"
+
+msgid "add marker"
+msgstr "Pievienot atzīmi"
+
+msgid "add multiple services to a specific bouquet"
+msgstr "Pievienot vairākus kanālus specifiskai paketei"
+
+msgid "add new Network"
+msgstr "Pievienot jaunu tīklu"
+
+msgid "add new Timer (ok)"
+msgstr "Pievienot jaunu taimeri (ok)"
+
+msgid "add new Transponder to selected sat (ok)"
+msgstr "Pievienot jaunu transponderu dotajam pavadonim (ок)"
+
+msgid "add new event to Timerlist"
+msgstr "Pievienot jaunu taimera uzdevumu"
+
+msgid "add only not scrambled services"
+msgstr "Pievienot tikai nekodētos kanālus"
+
+msgid "add only unscrambled services"
+msgstr "Pievienot tikai atkodētos kanālus"
+
+msgid "add page"
+msgstr "Pievienot lapu"
+
+msgid "add page to favourites"
+msgstr "Pievienot lapu izlasei"
+
+msgid "add recorded timeshift at beginning of this recording"
+msgstr "Pievienot ierakstītos Timeshift šī ieraksta sākumā"
+
+msgid "add selected service to the playlist"
+msgstr "Pievienot izvēlēto kanālu playlistam"
+
+msgid "add service to a specific bouquet"
+msgstr "Pievienot kanālu  paketei"
+
+msgid "add service to playlist"
+msgstr "Pievienot kanālu Playlistam"
+
+msgid "add the selected file to a selectable bouquet"
+msgstr "Pievienot izvēleto failu vēlamajai paketei"
+
+msgid "add the selected service to a selectable bouquet"
+msgstr "Pievienot izvēlēto kanālu vēlamajai paketei"
+
+msgid "add the selected service to another bouquet"
+msgstr "Pievienot izvēlēto kanālu citai paketei"
+
+msgid "add this event as DVR Event to timer list"
+msgstr "Pievienot uzdevumu kā DVR (videoieraksts) taimera sarakstam"
+
+msgid "add this event as NGRAB Event to timer list"
+msgstr "Pievienot šo uzdevumu kā NGrab uzdevumu taimera sarakstā"
+
+msgid "add this event as simple Switch Event to timer list"
+msgstr "Pievienot uzdevumu kā Pārslēgšanas Uzdevumu taimerī"
+
+msgid "add timeshift to recording (%d min) "
+msgstr "Pievienot Timeshift ierakstam (%d min)"
+
+msgid "add to bouquet"
+msgstr "Pievienot  paketei"
+
+msgid "add to specific bouquet"
+msgstr "Pievienot specifiskai paketei"
+
+msgid "add to table/existing will be overwritten"
+msgstr "Pievienot tabulai/esošā tiks pārrakstīta"
+
+msgid "album"
+msgstr "Albūms"
+
+msgid "always 16:9"
+msgstr "Vienmēr 16:9"
+
+msgid "apply"
+msgstr "Lietot"
+
+msgid "artist"
+msgstr "Aktieris"
+
+msgid "audio track"
+msgstr "Audio kanāls"
+
+msgid "auto switch to VCR connector"
+msgstr "Autom. parslēgšanās uz VCR ligzdu"
+
+msgid "automatic"
+msgstr "Automātiski"
+
+msgid "back"
+msgstr "Atpakaļ"
+
+msgid "beta"
+msgstr "beta"
+
+msgid "bla"
+msgstr "bla"
+
+msgid "buffering..."
+msgstr "Buferizācija..."
+
+msgid "calc param 1 (see your motor manual or let it 00)"
+msgstr "Kaukulācijas parametrs 1 (skatīt motora instrukciju va uzstādīt 00)"
+
+msgid "calc param 2 (see your motor manual or let it 00)"
+msgstr "Kaukulācijas parametrs 2 (skatīt motora instrukciju va uzstādīt 00)"
+
+msgid "calc param 3 (see your motor manual or let it 00)"
+msgstr "Kaukulācijas parametrs 3 (skatīt motora instrukciju va uzstādīt 00)"
+
+msgid "capacity:"
+msgstr "Ietilpība:"
+
+msgid "change PIN"
+msgstr "Mainīt PIN"
+
+msgid "change Parental PIN (ok)"
+msgstr "Mainīt Vecāku PIN (ok)"
+
+msgid "change Setup PIN (ok)"
+msgstr "Mainīt Uzstādījumu PIN (ok)"
+
+msgid "change channel"
+msgstr "Mainīt kanālu"
+
+msgid "change circular to linear polarization"
+msgstr "Mainīt polarizāciju no cirkulārās uz lineāro"
+
+msgid ""
+"change remote control repeat delay\n"
+"left => shorter, right => longer (...delay)"
+msgstr ""
+"pults atkārtojumu aiztures izmaiņa\n"
+"kreisais => īsāks,labais => garāks (...aizture)"
+
+msgid ""
+"change remote control repeat rate\n"
+"left => less, right => more (... repeats)"
+msgstr ""
+"Pults atkārtojumu aiztures biežums\n"
+"kreisais =>mazāks,labais => lielāks (...atkartojumi)"
+
+msgid "change sound subcarrier frequency"
+msgstr "Izmainīt skaņas apakšnesēja frequenci"
+
+msgid "change storage Location or store"
+msgstr "Mainīt atrašanās vietu vai saglabāt"
+
+msgid "change the brightness correction"
+msgstr "Spilgtuma korekcija"
+
+msgid "change the contrast"
+msgstr "Kontrasta maiņa"
+
+msgid "change the transparency correction"
+msgstr "Caurspīdīguma maiņa"
+
+msgid "change the transparency of the DVB subtitle black background"
+msgstr "DVB subtitru melnā fona caurspīdīguma maiņa"
+
+msgid "check"
+msgstr "Pārbaude"
+
+msgid "check filesystem..."
+msgstr "Failu sistēmas pārbaude..."
+
+msgid "checked is AM, unchecked is PM"
+msgstr "Atzīmēt priekš AM, priekš PM neatzīmēt"
+
+msgid "checking consistency of file..."
+msgstr "Faila sastāva pārbaude..."
+
+msgid "choose TV system ( left, right )"
+msgstr "Izvēlēties TV sistēmu (kreisais, labais)"
+
+msgid "choose TV system (left, right)."
+msgstr "Izvēlēties TV sistēmu (kreisais,labais)."
+
+msgid ""
+"choose TV system (left, right).\n"
+"This will reset tuxtxt position settings"
+msgstr ""
+"izvēlēties TV sistēmu (kreisais,labais)\n"
+"Atiestatīs interfeisa atrašanās vietu uz ekrāna."
+
+msgid "choose aspect ratio ( left, right )"
+msgstr "Izvēlēties attēla proporcijas (kreisais,labais )"
+
+msgid "choose color format ( left, right )"
+msgstr "Krāsu formāta izvēle (kreisais,labais)"
+
+msgid "choose direction"
+msgstr "Virziena izvēle"
+
+msgid "choose entry to edit or remove"
+msgstr "Izvēlēties ierakstu rediģēšanai vai dzēšanai"
+
+msgid "choose modulation (left, right)"
+msgstr "Izvēlēties modulāciju (kreisais,labais)"
+
+msgid "choose polarity (left, right)"
+msgstr "Izvēlēties polarizāciju (kreisais,labais)"
+
+msgid "choose satellite/cable provider (ok)"
+msgstr "Izvēlēties satelītu vai kabeļuTV provaideri"
+
+msgid "choose the FEC (left, right)"
+msgstr "Izvēlēties  FEC (kreisais,labais)"
+
+msgid "choose the Satellite you wish to find"
+msgstr "Izvēlēties meklējamo pavadoni"
+
+msgid "choose the Transponder you wish to find"
+msgstr "Izvēlēties meklējamo transponderu"
+
+msgid "choose the bandwidth (left, right)"
+msgstr "Izvēlieties frekvenču diapazonu (bandwidth) (pakreisi, palabi)"
+
+msgid "choose the code rate HP (left, right)"
+msgstr "Izvēlieties FEC (pakreisi, palabi)"
+
+msgid "choose the code rate LP (left, right)"
+msgstr "Izvēlieties LP kodēš. ātrumu (pakreisi, palabi)"
+
+msgid "choose the transmission mode (left, right)"
+msgstr "Izvēlieties pārraides veidu (pakreisi, palabi)"
+
+msgid "choose what you want to do"
+msgstr "Izvēlieties, ko Jūs gribat darīt"
+
+msgid "choose wished satellite (ok)"
+msgstr "Izvēlieties vēlamo satelītu (ok)"
+
+msgid "cleanup"
+msgstr "Attīrīt"
+
+msgid "close"
+msgstr "Aizvērt"
+
+msgid "close Satellite Configuration"
+msgstr "Aizvērt pavadoņu konfigurāciju"
+
+msgid "close motor setup"
+msgstr "Aizvērt motora uzstādīšanu"
+
+msgid "close the help window"
+msgstr "Aizvērt palīdzības logu"
+
+msgid "close the mainmenu"
+msgstr "Aizvērt galveno izvēlni"
+
+msgid "close window"
+msgstr "Aizvērt logu"
+
+msgid "closes the Event View"
+msgstr "Aizver uzdevumu apskatu"
+
+msgid "communicate to Local Area Network"
+msgstr "Sakari ar lokālo tīklu"
+
+msgid "communicate to the Internet via DSL"
+msgstr "Sakari ar internetu caur DSL"
+
+msgid "composer"
+msgstr "Kompozitors"
+
+msgid "connected:"
+msgstr "Savienojums:"
+
+msgid "copy the selected provider to the bouquet list"
+msgstr "Kopēt izvēlēto provaideri uz lietotāja paketi"
+
+msgid "copy to bouquet list"
+msgstr "Kopēt uz pakešu sarakstu"
+
+msgid "could not unmount the filesystem... "
+msgstr "Nevar atslēgt failu sistēmu..."
+
+msgid "create a new marker in the current bouquet"
+msgstr "Izveidot jaunu atzīmi tekošajā paketē"
+
+msgid "create marker"
+msgstr "Izveidot atzīmi"
+
+msgid "create new bouquet"
+msgstr "Izveidot jaunu paketi"
+
+msgid "create new empty bouquet"
+msgstr "Izveidot jaunu tukšu paketi"
+
+msgid "create new marker entry"
+msgstr "Izveidot jaunu atzīmes ierakstu"
+
+msgid "creating /media/hdd/movie failed"
+msgstr "Mapes izveidošanas kļūda /media/hdd/movie"
+
+msgid "creating filesystem failed"
+msgstr "Kļūda veidojot failu sistēmu"
+
+msgid "creating filesystem failed."
+msgstr "Kļūda veidojot failu sistēmu."
+
+msgid "current %s PIN"
+msgstr "Tekošais %s PIN"
+
+msgid "current transponder"
+msgstr "Tekošais transponderis"
+
+msgid "currently selected service will be selected on startup"
+msgstr "Šis kanāls ieslēgsies startējoties"
+
+msgid "cursor to next char timeout(msek) in textinputfields"
+msgstr "Kursora pauze uz nākošo simbolu (msek.) teksta ievades laukā"
+
+msgid "decrease the event begin time in 1 minute steps"
+msgstr "Samazināt uzdevuma sākuma laiku ar soli 1 minūte"
+
+msgid "decrease the event end time in 1 minute steps"
+msgstr "Samazināt uzdevuma beigu laiku ar soli 1 minūte"
+
+msgid "delete"
+msgstr "Dzēst"
+
+msgid "delete expired timer (ok)"
+msgstr "Dzēst nokavēto taimeri (ok)"
+
+msgid "delete file"
+msgstr "Dzēst failu"
+
+msgid "delete me"
+msgstr "Dzēst"
+
+msgid "delete selected entry"
+msgstr "Dzēst izvēlēto"
+
+msgid "delete service"
+msgstr "Dzēst kanālu"
+
+msgid "delete the current selected service/movie"
+msgstr "Dzēst tekošo izvēlēto kanālu/ierakstu"
+
+msgid "delete the current selected timer (ok)"
+msgstr "Dzēst tekošo ierakstu taimerī (ok)"
+
+msgid "delete the selected file (and all corresponding ts files"
+msgstr "Dzēst izvēlēto failu (un visus piederošos ts failus)"
+
+msgid "direct connection"
+msgstr "Tiešais savienojums"
+
+msgid "disable 5V for passive terrerstrial antennas"
+msgstr "Atslēgt 5V pasīvajām antenām"
+
+msgid "disable edit mode"
+msgstr "Atslēgt rediģēšanas režīmu"
+
+msgid "disable limits"
+msgstr "Atslēgt limitus"
+
+msgid "disable move mode"
+msgstr "Atslēgt pārvietošanas režīmu"
+
+msgid "disable parental lock"
+msgstr "Atslēgt vecāku kontroli"
+
+msgid "disable quickzap"
+msgstr "Atslēgt ātro pārslēgšanu"
+
+msgid "disable soft limits"
+msgstr "Atslēgt progr. limitus"
+
+msgid "disable the edit mode"
+msgstr "Atslēgt rediģēšanas režīmu"
+
+msgid "do a filesystem check"
+msgstr "Veikt failu sist. pārbaudi"
+
+msgid "do it"
+msgstr "Veikt"
+
+msgid "do nothing"
+msgstr "Nedarīt neko"
+
+msgid "do parental-unlock the selected service or file"
+msgstr "Noņemt vecāku kontroli no izvēlētā kanāla vai faila"
+
+msgid "do parentallock the selected service or file"
+msgstr "Uzlikt vecāku kontroli izvēlētam kanālam vai servisam"
+
+msgid "don't read PAT/PMT/SDT for this service (only use cached pids)"
+msgstr "Nelasīt PAT/PMT/SDT šim kanālam (izmantot tikai cached pids)"
+
+msgid "don't send WSS signal when A-ratio is 4:3"
+msgstr "Nesūtīt WSS signālu kad attēls ir 4:3"
+
+msgid "don't show locked services in any list"
+msgstr "Sarakstos neiekļaut bloķētos kanālus"
+
+msgid "don't update the service name with content of the sdt"
+msgstr "Neatjaunot kanālu nosaukumus ar sdt saturu"
+
+msgid "downloading catalog..."
+msgstr "Kataloga ielāde..."
+
+msgid "downloading changelog..."
+msgstr "Izmaiņu saraksta ielāde..."
+
+msgid "downloading image..."
+msgstr "Image faila ielāde..."
+
+msgid "drive Motor East"
+msgstr "Pagriezt motoru uz Austrumiem"
+
+msgid "drive Motor East.. one step"
+msgstr "Pagriezt motoru uz Austrumiem.. vienu soli"
+
+msgid "drive Motor West.. one step"
+msgstr "Pagriezt motoru uz Rietumiem.. vienu soli"
+
+msgid "drive motor to reference position"
+msgstr "Pagriezt motoru uz izvēlēto pozīciju"
+
+msgid "drive motor to satellite"
+msgstr "Pagriezt motoru uz izvēlēto satelītu"
+
+msgid "drive motor to stored pos"
+msgstr "Pagriezt motoru uz saglabāto pozīciju"
+
+msgid "drive to 0°"
+msgstr "Pagriezt uz 0°"
+
+msgid "drive to satellite"
+msgstr "Pagriezt uz pavadoni"
+
+msgid "drive to stored pos"
+msgstr "Pagriezt uz saglabāto poz."
+
+msgid "drive to stored position"
+msgstr "Pagriezt uz saglabāto pozīciju"
+
+msgid "drive to stored satellite"
+msgstr "Pagriezt uz saglabāto satelītu"
+
+msgid "drives to 0"
+msgstr "Griežas uz 0"
+
+msgid "duplicate bouquet"
+msgstr "Kopēt leitotāja paketi"
+
+msgid "duplicate the complete bouquet with all content"
+msgstr "Kopēt pilnu paketi ar visu saturu"
+
+msgid "duration:"
+msgstr "Ilgums:"
+
+msgid "edit"
+msgstr "Rediģēt"
+
+msgid "edit selected transponder (ok)"
+msgstr "Mainīt izvēlēto transponderu (ok)"
+
+msgid "edit the end time (0..9, left, right)"
+msgstr "Mainīt beigu laiku (0..9, kreisais,labais)"
+
+msgid "edit the start time (0..9, left, right)"
+msgstr "Mainīt sākuma laiku (0..9, kreisais,labais)"
+
+msgid "enable Sound"
+msgstr "Ieslēgt skaņu"
+
+msgid "enable UHF Modulator"
+msgstr "Ieslēgt UHF modulatoru"
+
+msgid "enable edit mode"
+msgstr "Ieslēgt rediģēšanas režīmu"
+
+msgid "enable limits"
+msgstr "Ieslēgt limitus"
+
+msgid "enable move mode"
+msgstr "Iesl. pārvietošanas režīmu"
+
+msgid "enable parental lock"
+msgstr "Iesl. vecāku kontroli"
+
+msgid "enable quickzap"
+msgstr "Iesl. ātro ierakstu quickzap"
+
+msgid "enable set the leftTop Point of the rectangle"
+msgstr "Iestādīt četrstūra kreiso augšējo punktu"
+
+msgid "enable set the rightBottom Point of the rectangle"
+msgstr "Iestādīt četrstūra labo apakšējo punktu"
+
+msgid "enable soft limits"
+msgstr "Ieslēgt prog. limitus"
+
+msgid "enable test pattern"
+msgstr "Ieslēgt testa paraugu"
+
+msgid "enable/disable ac3 default output (ok)"
+msgstr "Ieslēgt, izslēgt AC3 izeju pēc noklusējuma (ok)"
+
+msgid "enable/disable automount (ok)"
+msgstr "Ieslēgt, izslēgt iekārtu automātisku pieslēgšanu (ok)"
+
+msgid "enable/disable capslock"
+msgstr "Ieslēgt, izslēgt capslock"
+
+msgid "enable/disable check ONIT on any transponder"
+msgstr "Ieslēgt, izslēgt ONIT pārbaudi uz jebkura transpondera"
+
+msgid "enable/disable initiate network search"
+msgstr "Ieslēgt, izslēgt tīkla meklēšanu"
+
+msgid "enable/disable inversion here (ok)"
+msgstr "Ieslēgt, izslēgt inversiju (ok)"
+
+msgid "enable/disable inverted LCD (ok)"
+msgstr "Ieslēgt, izslēgt inverto LCD (ok)"
+
+msgid "enable/disable parental lock"
+msgstr "Ieslēgt, izslēgt vecāku kontroli"
+
+msgid "enable/disable setup lock"
+msgstr "Ieslēgt, izslēgt bloķēšanas uzstādījumus"
+
+msgid "enable/disable use BAT for scan (if exists)"
+msgstr "Ieslēgt, izslēgt BAT lietošanu skanēšanai"
+
+msgid "enigma Zapp"
+msgstr "Enigma Zapp"
+
+msgid "enigma event view"
+msgstr "Enigmas notikumu apskats"
+
+msgid "enigma mainmenu"
+msgstr "Enigma galvenā izvēlne"
+
+msgid "enigma standby"
+msgstr "Enigma iemidzināšana"
+
+msgid "enigma tuxtxt"
+msgstr "Enigma tuxtxt"
+
+msgid "enter (video) text pid"
+msgstr "Ievadiet (video) teksta  PID"
+
+msgid "enter Common Interface menu (mmi)"
+msgstr "Atvērt Common Interface izvēlni (mmi)"
+
+msgid "enter LNB highband offset frequency (0..9, ok)"
+msgstr "Ievadiet LNB augšējā diapazona frekvenci (0..9, OK)"
+
+msgid "enter LNB lowband offset frequency (0..9, ok)"
+msgstr "Ievadiet LNB apakšējā diapazona frekvenci (0..9, OK)"
+
+msgid "enter LNB threshold frequency (0..9, ok)"
+msgstr "Ievadiet LNB threshold frekvenci (0..9, OK)"
+
+msgid "enter audio pid"
+msgstr "Ievadiet Audio PID"
+
+msgid "enter correct time here"
+msgstr "Ievadiet pareizo laiku"
+
+msgid "enter manual pids"
+msgstr "Ievadīt PIDus manuāli"
+
+msgid "enter name of the local mount point with trailing slash"
+msgstr "Ievadīt lokālās montāžas punktu ar trailing slash"
+
+msgid "enter number of minutes to fast forward"
+msgstr "Ievadiet minūtes ātrai pārtīšanai uz priekšu"
+
+msgid "enter number of minutes to rewind"
+msgstr "Ievadiet minūtes ātrai pārtīšanai atpakaļ"
+
+msgid "enter onid (original network id)"
+msgstr "Ievadiet  onid (original network id)"
+
+msgid "enter orbital position without dot (19.2° = 192)"
+msgstr "Ievadiet orbitalo pozīciju bez punkta (19.2° = 192)"
+
+msgid "enter pcr pid (in most case the same pid as the video pid)"
+msgstr "Ievadiet PCR PID (pārsvarā tas pats  PID kāds ir video)"
+
+msgid "enter pids"
+msgstr "Ievadiet PID"
+
+msgid "enter provider name"
+msgstr "Ievadiet provaidera nosaukumu"
+
+msgid "enter recording duration (0..9, left, right, ok)"
+msgstr "Iraksta ilgums (0..9, kreisais, labais,ok)"
+
+msgid "enter recording end time (0..9, left, right, ok)"
+msgstr "Ievadiet ieraksta beigu laiku(0..9, kreisais ,labais, ok)"
+
+msgid "enter service id"
+msgstr "Ievadiet kanāla id"
+
+msgid "enter service name"
+msgstr "Ievadiet kanāla nosauk."
+
+msgid "enter stored satellite pos"
+msgstr "Ievadiet saglabātā satelīta poz."
+
+msgid "enter symbol rate (0..9, left, right)"
+msgstr "Ievadīt pārraides ātr. (0..9, kreisais, labais)"
+
+msgid "enter the name of the share"
+msgstr "Koplietošanas resursa nosaukums"
+
+msgid "enter the name of the share (//DreamBOX/harddisk)"
+msgstr "Koplietošanas resursa nosaukums (//DreamBOX/harddisk)"
+
+msgid "enter transponder frequency (0..9, left, right)"
+msgstr "Ievadiet transpondera frekvenci (0..9, kreisais, labais)"
+
+msgid "enter tsid (transport stream id)"
+msgstr "Ievadiet tsid (transport stream id)"
+
+msgid "enter video pid"
+msgstr "Ievadiet Video PID"
+
+msgid "enter your latitude (0..9, +, -, ok)"
+msgstr "Ievadiet pltumu (latitude) (0..9, +, -, ok)"
+
+msgid "enter your longitude (0..9, +, -, ok)"
+msgstr "Ievadiet platumu (longitude) (0..9, +, -, ok)"
+
+msgid "erase"
+msgstr "Dzēst"
+
+msgid "execute programmable blue button"
+msgstr "Izpildīt pogas ZILAIS funkciju"
+
+msgid "execute programmable yellow button"
+msgstr "Izpildīt pogas DZELTANAIS funkciju"
+
+msgid "fast forward 1 minute"
+msgstr "Pārtīšana uz priekšu pa 1 min."
+
+msgid "fast forward 15 seconds"
+msgstr "Pārtīšana uz priekšu pa 15 sek."
+
+msgid "fast forward 5 minutes"
+msgstr "Pārtīšana uz priekšu pa 5 min."
+
+msgid "flashimage.img has filesize of 0byte!"
+msgstr "Faila flashimage.img izmērs ir 0 baiti!"
+
+msgid "flashing in progress"
+msgstr "Imidža rakstīšana..."
+
+msgid "flashing ok"
+msgstr "Ierakstīts"
+
+msgid "for a multiple event enable this"
+msgstr "Daudzkārtējas lietošanas atļaušana (ОК)"
+
+msgid "for automatic scan"
+msgstr "Automātiskai skanēšanai"
+
+msgid "format"
+msgstr "Formatēt"
+
+msgid "formatting USB disk..."
+msgstr "Formatējas USB..."
+
+msgid "formatting harddisk..."
+msgstr "Formatējas HDD..."
+
+msgid "frontend: "
+msgstr "Uztvērējs:"
+
+msgid "genre"
+msgstr "žanrs"
+
+msgid "genre:"
+msgstr "žanrs:"
+
+msgid "getting cardinfo"
+msgstr "Informācija par karti"
+
+msgid "go"
+msgstr "Aiziet"
+
+msgid "go to next favourite page"
+msgstr "Iet uz nākošo izlases lapu"
+
+msgid "go to next share"
+msgstr "Iet uz nākamo koplietošanu"
+
+msgid "go to previous share"
+msgstr "Iet uz iepriekšējo koplietošanu"
+
+msgid "go to standby (press)"
+msgstr "Izslēgt (spiest)"
+
+msgid "go to standby (release)"
+msgstr "Izslēgt (atlaist)"
+
+msgid "go to standby (repeat)"
+msgstr "Izslēgt (atkārtot)"
+
+msgid "go to standby without menu (press)"
+msgstr "Izslēgt bez izvēlnes (spiest)"
+
+msgid "go to the next Marker if exist.. else go to last service"
+msgstr "Pāriet uz nākamo eksistējošo marķieri, ja tāds ir, vai uz pēdējo kanālu"
+
+msgid "go to the prev Marker if exist.. else go to first service"
+msgstr "Pāriet uz nākamo eksistējošo marķieri, ja tāds ir, vai uz pirmo kanālu"
+
+msgid "go up a directory"
+msgstr "Mape augstāk"
+
+msgid "goto advanced motor setup"
+msgstr "Pāriet uz paplašināto motora uzstādi"
+
+msgid "goto next page (DiSEqC)"
+msgstr "Nākamā lapa (DiSEqC)"
+
+msgid "goto prev page (LNB)"
+msgstr "Iepriekšējā lapa (LNB)"
+
+msgid "goto standby"
+msgstr "Iemidzināt"
+
+msgid "goto standby (ok)"
+msgstr "Iemidzināt (ok)"
+
+msgid "goto standby after recording (ok)"
+msgstr "Iemidzināt pēc ieraksta beigām (ok)"
+
+msgid "goto standby mode"
+msgstr "Iemidzināt"
+
+msgid "harddisk"
+msgstr "Cietais disks"
+
+msgid "harddisk: "
+msgstr "Cietais disks: "
+
+msgid "here you can change your sat/lnb mapping"
+msgstr "Varat mainīt sat/LNB tipu"
+
+msgid "hide infobar"
+msgstr "Paslēpt info-paneli"
+
+msgid "hold name"
+msgstr "Paturēt nosauk."
+
+msgid "horizontal"
+msgstr "Horizontāls"
+
+msgid "Horizontal"
+msgstr "Horizontāls"
+
+msgid "if you can read this your rfmod will not work."
+msgstr "Ja redzat šo, tad jūsu RF modulators nestrādā"
+
+msgid "immediate stop the recording"
+msgstr "Tūlītēja ieraksta apturēšana"
+
+msgid "in"
+msgstr " "
+
+msgid "in all services"
+msgstr "Visos kanālos"
+
+msgid "in use, %d.%04d GB (about %d minutes) free"
+msgstr "Izlietots, %d.%04d GB (apmēram %d min.) pieejams"
+
+msgid "increase the event begin time in 1 minute steps"
+msgstr "Palielināt raidījuma sākuma laiku ar 1minūtes soli"
+
+msgid "increase the event end time in 1 minute steps"
+msgstr "Palielināt raidījuma beigu laiku ar soli 1 minūte"
+
+msgid "increased voltage"
+msgstr "Palielināts spriegums"
+
+msgid "infobar timeout (left, right)"
+msgstr "Info-paneļa laiks (kreisais, labais)"
+
+msgid "information"
+msgstr "Informācija"
+
+msgid "initialize the disk for use with the dreambox"
+msgstr "Inicializēt disku lietošanai ar dreamboksu"
+
+msgid "initialized, but unknown filesystem"
+msgstr "Inicializēts, bet nezināma failu sistēma"
+
+msgid "input all digits or press ok to send data"
+msgstr "Ivadiet visus ciparus vai nospiediet OK datu pārraidei"
+
+msgid "insert"
+msgstr "Ielikt"
+
+msgid "insert blank at cursor position"
+msgstr "Tukšums kursora pozīcijā"
+
+msgid "insert rotor memory cell for this orbital position"
+msgstr "Ievadīt atmiņā orbitālo pozīciju"
+
+msgid "internal"
+msgstr "Iekšējais"
+
+msgid "invalid or missing host or dir or local dir"
+msgstr "Pievienošanas vieta nepieejama"
+
+msgid "is AC3 Pid"
+msgstr "Ir AC3 PID"
+
+msgid "last selected service will be selected on startup"
+msgstr "Startējoties sistēma pārslēdzas uz iepriekš uzstādīto kanālu"
+
+msgid "latest"
+msgstr "pēdējai"
+
+msgid "leave Multi EPG"
+msgstr "Iziet np Multi EPG"
+
+msgid "length"
+msgstr "Ilgums"
+
+msgid "lock"
+msgstr "Bloķēt"
+
+msgid "lock,unlock services (parental locking)"
+msgstr "Bloķēt,atbloķēt kanālus (Vecāku kontrole)"
+
+msgid "mA"
+msgstr "mA"
+
+msgid "manual scan selected transponder (ok)"
+msgstr "Manuālā transpondera skanēšana (OK)"
+
+msgid "manual scan.."
+msgstr "Manuāla skanēšana.."
+
+msgid "manual upload"
+msgstr "Manuāla ielāde"
+
+msgid "many satellites via DiSEqC Rotor"
+msgstr "Vairāki satelīti caur DiSEqC motoru"
+
+msgid "mark"
+msgstr "Iezīmēt"
+
+msgid "mark selected entry for move"
+msgstr "Iezīmēt izvēlēto, lai pārvietotu"
+
+msgid "marker"
+msgstr "Iezīme"
+
+msgid "min"
+msgstr "min"
+
+msgid "model:"
+msgstr "Modelis:"
+
+msgid "motor power input difference between running and not running"
+msgstr "Motora sprieguma atšķirība starp stāvošu un kustībā esošu"
+
+msgid "mount"
+msgstr "Iekārtas pieslēgšana"
+
+msgid "mount error already mounted"
+msgstr "Kļūda! Jau pievienots."
+
+msgid "mounted"
+msgstr "Pievienots"
+
+msgid "mounting harddisk failed"
+msgstr "Cietā diska pievienošanas kļūda"
+
+msgid "moved to"
+msgstr "Pārvietots uz"
+
+msgid "multi epg actions"
+msgstr "Multi EPG darbības"
+
+msgid "multiple Services"
+msgstr "Vairāki kanāli"
+
+msgid "n/a"
+msgstr "n/a"
+
+msgid "network"
+msgstr "Tīkls"
+
+msgid "network mount"
+msgstr "Pievienošanās pa tīklu"
+
+msgid "network search"
+msgstr "Tīkla meklēšana"
+
+msgid "new"
+msgstr "jauns"
+
+msgid "new Satellite"
+msgstr "Jauns pavadonis"
+
+msgid "next page"
+msgstr "Nākošā lapa"
+
+msgid "no DVB"
+msgstr "Nav DVB"
+
+msgid "no EPG available"
+msgstr "EPG atslēgta"
+
+msgid "no circ polariz."
+msgstr "Necirkulārā polariz."
+
+msgid "no data for this service available"
+msgstr "Dati par šo kanālu nav pieejami"
+
+msgid "no description available"
+msgstr "Nav pieejama apraksta"
+
+msgid "no description is available"
+msgstr "Apraksts nav pieejams"
+
+msgid "no event data available"
+msgstr "Dati nav pieejami"
+
+msgid "no information is available"
+msgstr "Info nav pieejams"
+
+msgid "no module"
+msgstr "Nav modulis"
+
+msgid "no services on this transponder"
+msgstr "Šajā transponderī nav kanālu"
+
+msgid "no subtitles"
+msgstr "Nav subtitru"
+
+msgid "no transponder time"
+msgstr "Transponderī nav pieejams laiks"
+
+msgid "non-standard user defined configuration..."
+msgstr "Nestandarta lietotāja konfigurācija..."
+
+msgid "none"
+msgstr "Nekas"
+
+msgid "not mounted"
+msgstr "Nav pievienots"
+
+msgid "not supported filesystem for check."
+msgstr "Nav pieejamu failsistēmu, ko pārbaudīt"
+
+msgid "not valid!"
+msgstr "Nepareizs!"
+
+msgid "o'clock"
+msgstr "laiks"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "one directly connected LNB"
+msgstr "Viens tieši pieslēgts LNB"
+
+msgid "one single satellite"
+msgstr "Viens pavadonis "
+
+msgid "one step East..."
+msgstr "Viens solis uz austrumiem..."
+
+msgid "one step west..."
+msgstr "Viens solis uz rietumiem..."
+
+msgid "only Free"
+msgstr "Tikai nekodētie"
+
+msgid "only restart the software, without rebooting the receiver"
+msgstr "Tikai programmas pārstertēšana, bez Dreambox pārstartēšanas"
+
+msgid "open EPG for a number of channels"
+msgstr "Atvērt vairāku kanālu EPG, paketēm, pavadoņiem utt.."
+
+msgid "open EPG for selected Channel"
+msgstr "Atvērt izvēlētā kanāla EPG"
+
+msgid "open Rotor Setup"
+msgstr "Atvērt motora uzstādījumus"
+
+msgid "open UHF Modulator settings"
+msgstr "Atvērt UHF modulatora uzstādījumus"
+
+msgid "open USB stick settings"
+msgstr "Atvērt USB uzstādījumus"
+
+msgid "open automatic multisat transponder scan"
+msgstr "Atvērt automātisku vairāku pavadoņu meklēšanu"
+
+msgid "open automatic transponder scan"
+msgstr "Atvērt automātisku transponderu meklēšanu"
+
+msgid "open expert flash tool"
+msgstr "Atvērt expert flash rīkus"
+
+msgid "open external plugin EPG"
+msgstr "Atvērt ārējo EPG pluginu"
+
+msgid "open harddisk settings"
+msgstr "Atvērt cietā diska uzstādījumus"
+
+msgid "open internet update"
+msgstr "Atvērt atjaunošanu caur Internetu"
+
+msgid "open keyboard settings"
+msgstr "Atvērt klaviatūras uzstādījumus"
+
+msgid "open manual transponder scan"
+msgstr "Atvērt manuālo transponderu skanēšanu"
+
+msgid "open manual update"
+msgstr "Atvērt manuālo atjaunošanu"
+
+msgid "open remote control setup"
+msgstr "Atvērt pults uzstādījumus"
+
+msgid "open satellite config"
+msgstr "Atvērt pavadoņu uzstādījumus"
+
+msgid "open the EPG with selected style"
+msgstr "Atvērt EPG izvēlētajā stilā"
+
+msgid "open the satfinder"
+msgstr "Atvērt pavadoņa meklētāju"
+
+msgid "open the serviceselector and show bouquets"
+msgstr "Atvērt kanālu izvēli un parādīt paketes"
+
+msgid "open the serviceselector and show provider"
+msgstr "Atvērt kanālu izvēli un parādīt provaiderus"
+
+msgid "open the serviceselector and show recorded movies"
+msgstr "Atvērt kanālu izvēli un parādīt ierakstītās filmas"
+
+msgid "open the serviceselector and shows the playlist"
+msgstr "Atvērt kanālu izvēli un parādīt playlist"
+
+msgid "open the signalfinder"
+msgstr "Signāla meklētājs"
+
+msgid "open transponder blindscan"
+msgstr "Atvērt transponderu skanēšanu"
+
+msgid "open transponder scan"
+msgstr "Atvērt transponderu skanēšanu"
+
+msgid "parental"
+msgstr "Ierobežotie"
+
+msgid "pause playback"
+msgstr "Pauze"
+
+msgid "playing..."
+msgstr "Atskaņo..."
+
+msgid "playlist/history next"
+msgstr "Playlist vai vēsture talāk"
+
+msgid "playlist/history prev"
+msgstr "Playlist vai vēsture iepr."
+
+msgid "please enter pin:"
+msgstr "Ievadiet PIN:"
+
+msgid "please wait until the timer has started the recording (max 10 seconds)"
+msgstr "Uzgaidiet, kamēr taimers uzsāks ierakstu (max 10 sekundes)"
+
+msgid "please wait while initializing Common Interface ..."
+msgstr "Uzgaidiet, notiek CI kopējā interfeisa inicializācija ..."
+
+msgid "plugin '%s' not found"
+msgstr "Plugins '%s' nav atrasts"
+
+msgid "position"
+msgstr "Pozīcija"
+
+msgid "ppanel '%s' not found"
+msgstr "Plugins Ppanel '%s' nav atrasts"
+
+msgid "press left or right to move motor"
+msgstr "Nospiest pa labi vai pa kreisi lai pārvietotu motoru"
+
+msgid "press ok to (un)mount this share"
+msgstr "Spiediet OK lai pievienotu/ atvienotu šāri"
+
+msgid "press ok to change"
+msgstr "Spiediet ok lai mainītu"
+
+msgid "press ok to change direction"
+msgstr "Spiediet ok lai mainītu virzienu"
+
+msgid "press ok to change event name manually"
+msgstr "Spiediet ok lai mainītu uzdevuma nosaukumu manuāli"
+
+msgid "press ok to change mount options"
+msgstr "Spiediet ok lai mainītu ierīču pieslēgšanas opcijas"
+
+msgid "press ok to change mount type"
+msgstr "Spiediet ok lai mainītu ierīču pieslēgšanas tipu"
+
+msgid "press ok to change satellite name"
+msgstr "Spiediet ok lai mainītu pavadoņa nosaukumu"
+
+msgid "press ok to create/cancel a new share"
+msgstr "Spiediet OK lai izveidotu/ atceltu topošo resursu"
+
+msgid "press ok to edit extra options"
+msgstr "Spiediet ok lai rediģētu ekstra opcijas"
+
+msgid "press ok to edit password"
+msgstr "Spiediet ok lai rediģētu paroli"
+
+msgid "press ok to edit username"
+msgstr "Spiediet ok lai rediģētu lietotājvārdu"
+
+msgid "press ok to edit your provider login name"
+msgstr "Spiediet ok lai rediģētu provaidera lietotājvārdu"
+
+msgid "press ok to edit your provider password"
+msgstr "Spiediet ok lai rediģētu provaidera paroli"
+
+msgid "press ok to enter the name"
+msgstr "Spiediet ok lai ievadītu nosaukumu"
+
+msgid "press ok to goto LNB config"
+msgstr "Spiediet ok lai ietu uz LNB konfig."
+
+msgid "press ok to remove this share"
+msgstr "Spiediet OK lai dzēstu kopējo resursu"
+
+msgid "press ok to save"
+msgstr "Spiediet ok lai saglabātu"
+
+msgid "press ok to save (help is available)"
+msgstr "Spiediet ok lai saglabātu (pieejama palīdzība)"
+
+msgid "press ok to save this share"
+msgstr "Spiediet ok lai saglabatu šo mapi"
+
+msgid "press ok to select another 22kHz mode"
+msgstr "Spiediet ok lai izvēlētos citu 22kHz režīmu"
+
+msgid "press ok to select another LNB Voltage mode"
+msgstr "Spiediet ok lai izvēlētos citu LNB sprieguma režīmu"
+
+msgid "press ok to select another day"
+msgstr "Spiediet OK lai izvēlētos citu dienu"
+
+msgid "press ok to select another event"
+msgstr "Spiediet ok lai izvēlētos citu uzdevumu"
+
+msgid "press ok to select another month"
+msgstr "Spiediet OK lai izvēlētos citu mēnesi"
+
+msgid "press ok to select another satellite"
+msgstr "Spiediet ok lai izvēlētos citu pavadoni"
+
+msgid "press ok to select another year"
+msgstr "Spiediet OK lai izvēlētos citu gadu"
+
+msgid "press ok to start edit mode"
+msgstr "Spiediet ok lai rediģētu"
+
+msgid "press up/down/ok"
+msgstr "Spiest uz augšu/uz leju/OK"
+
+msgid "prev page"
+msgstr "Iepr. lapa"
+
+msgid "prev. page"
+msgstr "Iepr. lapa"
+
+msgid "processor: "
+msgstr "Procesors:"
+
+msgid "put box into deep standby"
+msgstr "Pilnībā izslēgt"
+
+msgid "put box into standby"
+msgstr "Pāriet gaidīšanas režīmā"
+
+msgid "put numbers before/after characters"
+msgstr "Likt ciparus pirms/pēc simboliem"
+
+msgid "put your dreambox in **STOP** mode"
+msgstr "Pārvest Dreambox **STOP** režīmā"
+
+msgid "quickzap next"
+msgstr "Pārslēgt nākoš."
+
+msgid "quickzap prev"
+msgstr "Pārslēgt  iepr."
+
+msgid "re-enable the parental locking"
+msgstr "Ieslēgt vecāku kontroli"
+
+msgid "read NIT"
+msgstr "Nolasīt NIT"
+
+msgid "read tsid and onid from the nit (this can take up to 10 seconds)"
+msgstr "Nolasīt tsid un onid provaidera tīkla tabulas (tas var ilgt 10 sekundes)"
+
+msgid "reboot now"
+msgstr "Pārstartēt"
+
+msgid "rebuild movie list"
+msgstr "Pārlādēt filmu sarakstu"
+
+msgid "rebuild the current movie list"
+msgstr "Pārlādēt doto filmu sarakstu"
+
+msgid "recalc"
+msgstr "Pārskaitīt"
+
+msgid "recalculate"
+msgstr "Parskaitīt"
+
+msgid "recalculate all stored positions"
+msgstr "Parskaitīt visas saglabātās pozīcijas"
+
+msgid "recalculate stored positions rel. to current pos"
+msgstr "Parskaitīt saglabātās pozīcijas attiec. pret tekošajām"
+
+msgid "record"
+msgstr "Ieraksts"
+
+msgid "record DVR"
+msgstr "Ierakstīt DVR"
+
+msgid "record failed"
+msgstr "Ieraksts izgāzās"
+
+msgid "recording duration:"
+msgstr "Ieraksta ilgums:"
+
+msgid "recording end time:"
+msgstr "Ieraksta beigas:"
+
+msgid "recording finished"
+msgstr "Ieraksts pabeigts"
+
+msgid "reject incoming connections on port 23"
+msgstr "Atslēgt ienāk. savienojumus uz 23 porta"
+
+msgid "reject incoming connections on port 80"
+msgstr "Atslēgt ienāk. savienojumus uz 80 porta"
+
+msgid "reject incoming connections on ports 137,138,139"
+msgstr "Atslēgt ienāk. savienojumus uz 137,138,139  porta"
+
+msgid "reject incoming connections on ports 21"
+msgstr "Atslēgt ienāk. savienojumus uz 21 porta"
+
+msgid "release"
+msgstr "Versija"
+
+msgid "remove"
+msgstr "Dzēst"
+
+msgid "remove 'new found flag'"
+msgstr "Novākt zīmi 'atrasts jauns'"
+
+msgid "remove all 'new found' flags"
+msgstr "Novākt visas zīmes 'atrasts jauns'"
+
+msgid "remove page"
+msgstr "Dzēst lapu"
+
+msgid "remove selected Network"
+msgstr "Novākt izcelto tīklu"
+
+msgid "remove selected entry"
+msgstr "Novākt iezīmēto ierakstu"
+
+msgid "remove selected page from favourites"
+msgstr "Dzēst izvēlēto lapu no izlases"
+
+msgid "remove selected transponder"
+msgstr "Dzēst izvēlēto transponderu"
+
+msgid "remove the character at the cursor position"
+msgstr "Dzēst simbolu kursora pozīcijā"
+
+msgid "remove the character before the cursor position"
+msgstr "Dzēst simbolu pirms kursora pozīcijas"
+
+msgid "remove the selected Satellite"
+msgstr "Dzēst iezīmēto pavadoni"
+
+msgid "remove this entry from timer list"
+msgstr "Dzēst šo ierakstu no taimera"
+
+msgid "remove this event from timer list"
+msgstr "Dzēst šo uzdevumu no taimera"
+
+msgid "removed from"
+msgstr "Dzēst no"
+
+msgid "rename"
+msgstr "Mainīt nos."
+
+msgid "rename file"
+msgstr "Mainīt faila nosauk."
+
+msgid "rename selected entry"
+msgstr "Mainīt izvēlētā nosauk."
+
+msgid "rename the current selected bouquet"
+msgstr "Mainīt tekošās paketes nosauk."
+
+msgid "rename the current selected service/movie"
+msgstr "Mainīt izvēlētā kanāla vai ieraksta nosauk."
+
+msgid "rename the selected file (and all corresponding ts files"
+msgstr "Mainīt faila nosaukumu (un visus attiecīgos ts failus)"
+
+msgid "repeat skipping forward"
+msgstr "Atkārtot tīšanu uz priekšu"
+
+msgid "repeat skipping reverse"
+msgstr "Atkārtot tīšanu atpakaļ"
+
+msgid "reset startup"
+msgstr "Attiestatīt sākuma kanālu"
+
+msgid "reset startup service"
+msgstr "Attiestatīt sākuma kanālu"
+
+msgid "reset the Common Interface module"
+msgstr "Parstādīt kopējā interfeisa muduli CI"
+
+msgid "resetting....please wait"
+msgstr "Pārstādam...uzgaidiet"
+
+msgid "restart"
+msgstr "Pārstartēt"
+
+msgid "restart enigma"
+msgstr "Pārstartēt enigmu"
+
+msgid "restart your dbox-2"
+msgstr "Pārstartēt Jūsu dbox-2"
+
+msgid "restart your dreambox"
+msgstr "Pārstartēt Jūsu dreambox"
+
+msgid "restart your receiver"
+msgstr "Pārstartēt Jūsu uztvērēju"
+
+msgid "resume playback"
+msgstr "Turpināt atskaņošanu"
+
+msgid "rewind 1 minute"
+msgstr "Pārtīšana atpakal par 1 min"
+
+msgid "rewind 15 seconds"
+msgstr "Pārtīšana atpakal par 15 sek"
+
+msgid "rewind 5 minutes"
+msgstr "Pārtīšana atpakal par 15 min"
+
+msgid "root node"
+msgstr "root node"
+
+msgid "sat"
+msgstr "sat"
+
+msgid "save"
+msgstr "Saglabāt"
+
+msgid "save changes"
+msgstr "Saglabāt izmaiņas"
+
+msgid "save changes and return"
+msgstr "Saglabāt izmaiņas un turpināt"
+
+msgid "save changes and use current selected LNB for the chosen satellite"
+msgstr "Saglabāt izmaiņas un lietot tekošo LNB izvēlētam satelītam"
+
+msgid "save changes and use the selected LNB (in first page) for the choosen satellite"
+msgstr "Saglabāt izmaiņas un lietot izcelto LNB (pirmajā lapā) priekš izvēlētā satelīta"
+
+msgid "save data and close window"
+msgstr "Saglabāt un aizvērt logu"
+
+msgid "save data and close window (the new channel could be found in the all services list)"
+msgstr "Saglabāt un aizvērt logu (jaunais kanāls atradīsies visu kanālu sarakstā)"
+
+msgid "save in motor"
+msgstr "Saglabāt motorā"
+
+msgid "save settings and leave rf setup"
+msgstr "Saglabāt RF uzstādījumus un iziet"
+
+msgid "saves the current positions"
+msgstr "Saglabat tekošo pozīciju"
+
+msgid "saving in progress"
+msgstr "Saglabā..."
+
+msgid "scan"
+msgstr "Skanēt"
+
+msgid "scan EPG"
+msgstr "Skanēt EPG"
+
+msgid ""
+"scan NITs of other transponders\n"
+"this is slower, but sometimes needed)"
+msgstr ""
+"skanēt NITus no citiem transponderiem\n"
+" lēnāk bet nepoieciešams"
+
+msgid ""
+"scan Network Information Table(s)\n"
+"this is recommend"
+msgstr ""
+"skanēt tīkla informācijas tabulu(as)\n"
+" ieteicams"
+
+msgid "scanning..."
+msgstr "Notiek skanēšana..."
+
+msgid "scroll down"
+msgstr "Ripināt uz leju"
+
+msgid "scroll one page left"
+msgstr "Pāriet uz lapu pa kreisi"
+
+msgid "scroll one page right"
+msgstr "Pāriet uz lapu pa labi"
+
+msgid "scroll up"
+msgstr "Ripināt uz augšu"
+
+msgid "search"
+msgstr "Meklēt"
+
+msgid "search event name for this beg-/end time in epg"
+msgstr "Meklēt norises nosaukumu priekš sākuma vai beigu laika EPG"
+
+msgid "search for event information"
+msgstr "Meklēt informāciju par pozīciju"
+
+msgid "search in EPG"
+msgstr "Meklēt EPG"
+
+msgid "seek to next index mark"
+msgstr "Atrast nākošo marķieri"
+
+msgid "seek to previous index mark"
+msgstr "Atrast iepriekšējo marķieri"
+
+msgid "select AM/PM (ok)"
+msgstr "Izvēlieties AM/PM (OK)"
+
+msgid "select DiSEqC mode (ok)"
+msgstr "DiSEqC režīma izvēle (ok)"
+
+msgid "select DiSEqC parameter (ok)"
+msgstr "DiSEqC param. izvēle (ok)"
+
+msgid "select DiSEqC repeats (ok)"
+msgstr "Izvēlēties DiSEqC atkartošanos (ok)"
+
+msgid "select MiniDiSEqC parameter (ok)"
+msgstr "Izvēlēties MiniDiSEqC param. (ok)"
+
+msgid "select day (ok)"
+msgstr "Dienas izvele (ok)"
+
+msgid "select filesystem to format"
+msgstr "Failu sistēmas izvēle"
+
+msgid "select month (ok)"
+msgstr "Izvēlēties mēnesi (ok)"
+
+msgid "select next entry"
+msgstr "Izvelēties nākamo uzdevumu"
+
+msgid "select plugin and press ok"
+msgstr "Izvēlēties pluginu un spiest ok"
+
+msgid "select previous entry"
+msgstr "Izvēlēties iepr. uzdevumu"
+
+msgid "select sat(up/down), ok(edit), green(add new), red(delete)"
+msgstr "Izvēlēties pavadoni (uz augšu/uz leju), OK (rediģēt), zaļā (pievienot jaunu), sarkanā (dzēst)"
+
+msgid "select skin and press ok or choose save"
+msgstr "Izvēlieties ādiņu un spiest ok vai saglabāt"
+
+msgid "select teletext service"
+msgstr "Izcelt kanālu ar teleteksu"
+
+msgid "select the timer type (ok)"
+msgstr "Izvēlieties taimera  tipu (ok)"
+
+msgid "select to create a new bouquet"
+msgstr "Atzīmēt lai radītu jaunu paketi"
+
+msgid "select to remove all 'new found' flags"
+msgstr "Atzīmēt, lai novāktu zīmi '!'(atrasts jauns) izvēlēto kanālu nosaukumos"
+
+msgid "select to remove all 'new found' flags from this satellite"
+msgstr "Atzīmēt, lai novāktu zīmi '!'(atrasts jauns) izvēlēto kanālu nosaukumos šajā pavadonī"
+
+msgid "select to remove the 'new found flag'"
+msgstr "Atzīmēt , lai novāktu zīmi 'atrasts jauns'"
+
+msgid "select uncommitted input"
+msgstr "Izvēlēties uncommitted ieeju"
+
+msgid "select uncommitted switch Input 1"
+msgstr "Izvēlēties uncommitted slēdzi Input 1"
+
+msgid "select uncommitted switch Input 10"
+msgstr "Izvēlēties uncommitted slēdzi Input 10"
+
+msgid "select uncommitted switch Input 11"
+msgstr "Izvēlēties uncommitted slēdzi Input 11"
+
+msgid "select uncommitted switch Input 12"
+msgstr "Izvēlēties uncommitted slēdzi Input 12"
+
+msgid "select uncommitted switch Input 13"
+msgstr "Izvēlēties uncommitted slēdzi Input 13"
+
+msgid "select uncommitted switch Input 14"
+msgstr "Izvēlēties uncommitted slēdzi Input 14"
+
+msgid "select uncommitted switch Input 15"
+msgstr "Izvēlēties uncommitted slēdzi Input 15"
+
+msgid "select uncommitted switch Input 16"
+msgstr "Izvēlēties uncommitted slēdzi Input 16"
+
+msgid "select uncommitted switch Input 2"
+msgstr "Izvēlēties uncommitted slēdzi Input 2"
+
+msgid "select uncommitted switch Input 3"
+msgstr "Izvēlēties uncommitted slēdzi Input 3"
+
+msgid "select uncommitted switch Input 4"
+msgstr "Izvēlēties uncommitted slēdzi Input 4"
+
+msgid "select uncommitted switch Input 5"
+msgstr "Izvēlēties uncommitted slēdzi Input 5"
+
+msgid "select uncommitted switch Input 6"
+msgstr "Izvēlēties uncommitted slēdzi Input 6"
+
+msgid "select uncommitted switch Input 7"
+msgstr "Izvēlētiess uncommitted slēdzi Input 7"
+
+msgid "select uncommitted switch Input 8"
+msgstr "Izvēlēties uncommitted slēdzi Input 8"
+
+msgid "select uncommitted switch Input 9"
+msgstr "Izvēlēties uncommitted slēdzi Input 9"
+
+msgid "select what todo after event"
+msgstr "Izvēlēties ko darīt pēc tam"
+
+msgid "select year (ok)"
+msgstr "Izvēlēties gadu (ok)"
+
+msgid "select your configuration here"
+msgstr "Izvēlieties savu konfigurāciju"
+
+msgid "select your favourite RC style (ok)"
+msgstr "Izvēlēties savu favourite RC stilu (ok)"
+
+msgid "select your keyboard mapping (ok)"
+msgstr "Izvēlieties klaviatūras valodu (ok)"
+
+msgid "send no DiSEqC when only Hi/Lo or H/V changes"
+msgstr "Nesūtīt signālu  DiSEqC, ja mainās tikai  Hi/Lo vai H/V"
+
+msgid "send the ca-pmt to CI"
+msgstr "Sūtīt ca-pmt uz CI"
+
+msgid "send the complete DiSEqC sequence twice"
+msgstr "Divreiz sūtīt pilnu DiSEqC impulsu"
+
+msgid "sends DiSEqC cmd A/A"
+msgstr "Sūta DiSEqC komandu A/A"
+
+msgid "sends DiSEqC cmd A/B"
+msgstr "Sūta DiSEqC komandu A/B"
+
+msgid "sends DiSEqC cmd B/A"
+msgstr "Sūta DiSEqC komandu B/A"
+
+msgid "sends DiSEqC cmd B/B"
+msgstr "Sūta DiSEqC komandu B/B"
+
+msgid "sends modulated tone burst"
+msgstr "Sūta modulētu toņa signalu"
+
+msgid "sends no DiSEqC repeats"
+msgstr "Sūtīt DiSEqC bez atkārtojuma"
+
+msgid "sends no committed DiSEqC cmd"
+msgstr "Nesūtīt satndarta  DiSEqC komandas"
+
+msgid "sends no tone burst"
+msgstr "Sūtīt ne-toņa signālu"
+
+msgid "sends no uncommitted switch command"
+msgstr "Sūtīt ne-neitralu pārslēdzēja komandu"
+
+msgid "sends one repeat"
+msgstr "Sūtīt vienu atkārtojumu"
+
+msgid "sends switch cmd 1"
+msgstr "Sūta parslēgšanās komandu 1"
+
+msgid "sends switch cmd 10"
+msgstr "Sūta parslēgšanās komandu 10"
+
+msgid "sends switch cmd 11"
+msgstr "Sūta parslēgšanās komandu 11"
+
+msgid "sends switch cmd 12"
+msgstr "Sūta parslēgšanās komandu 12"
+
+msgid "sends switch cmd 13"
+msgstr "Sūta parslēgšanās komandu 13"
+
+msgid "sends switch cmd 14"
+msgstr "Sūta parslēgšanās komandu 14"
+
+msgid "sends switch cmd 15"
+msgstr "Sūta parslēgšanās komandu 15"
+
+msgid "sends switch cmd 16"
+msgstr "Sūta parslēgšanās komandu 16"
+
+msgid "sends switch cmd 2"
+msgstr "Sūta parslēgšanās komandu 2"
+
+msgid "sends switch cmd 3"
+msgstr "Sūta parslēgšanās komandu 3"
+
+msgid "sends switch cmd 4"
+msgstr "Вкл. вход/cmd 4"
+
+msgid "sends switch cmd 5"
+msgstr "Sūta parslēgšanās komandu 5"
+
+msgid "sends switch cmd 6"
+msgstr "Sūta parslēgšanās komandu 6"
+
+msgid "sends switch cmd 7"
+msgstr "Sūta parslēgšanās komandu 7"
+
+msgid "sends switch cmd 8"
+msgstr "Sūta parslēgšanās komandu 8"
+
+msgid "sends switch cmd 9"
+msgstr "Sūta parslēgšanās komandu 9"
+
+msgid "sends three repeats"
+msgstr "Sūta 3 atkartojumus"
+
+msgid "sends two repeats"
+msgstr "Sūta 2 atkartojumus"
+
+msgid "sends unmodulated tone burst"
+msgstr "Sūta nemodulētu toņa signālu"
+
+msgid "service list and down"
+msgstr "Kanālu saraksts un uz leju"
+
+msgid "service list and up"
+msgstr "Kanālu saraksts un uz augšu"
+
+msgid "service selector"
+msgstr "Kanāla izvēle"
+
+msgid "services scanned     :"
+msgstr "Noskanēti kanāli:"
+
+msgid "set"
+msgstr "Uzstādīt"
+
+msgid "set LCD brightness ( left / right )"
+msgstr "LCD spilgtums(pa kreisi/pa labi)"
+
+msgid "set LCD brightness for Standby Mode ( left / right )"
+msgstr "LCD spilgtums gaidīšanas režīmā (pa kreisi/pa labi)"
+
+msgid "set LCD contrast ( left / right )"
+msgstr "LCD kontrasts (pa kreisi/pa labi)"
+
+msgid "set a sleep timer"
+msgstr "Uzlikt izslēgšanās taimeri"
+
+msgid "set amount of transparency when in semi-transparent mode"
+msgstr "Uzstādīt caurspīdīgumu puscaurspīdīgā režīmā"
+
+msgid "set as startup"
+msgstr "Palaišana ieslēdzoties"
+
+msgid "set as startup service"
+msgstr "Palaišana ieslēdzoties"
+
+msgid "set brightness of the displayed teletext page"
+msgstr "Uzstādīt spilgtumu teleteksta lappusēm"
+
+msgid "set east limit"
+msgstr "Uzstādīt austrumu robežu"
+
+msgid "set east soft limit"
+msgstr "Uzstādīt austrumu programmējamo robežu"
+
+msgid "set new time and close window"
+msgstr "Uzstādīt jaunu laiku un iziet"
+
+msgid "set record duration"
+msgstr "Ieraksta ilgums"
+
+msgid "set record stop time"
+msgstr "Ieraksta stop laiks"
+
+msgid "set recording end time and close window (ok)"
+msgstr "Uzstādīt ieraksta beigu laiku un aizvērt (ok)"
+
+msgid "set sleeptimer"
+msgstr "Izslēgšanās taimera uzstādījumi"
+
+msgid "set sleeptimer and close window (ok)"
+msgstr "Uzstādīt izslēgšanās taimeri un aizvērt logu (ok)"
+
+msgid "set the current selected service/movie as startup service"
+msgstr "Uzstādīt tekošo izvēlēto kanālu vai filmu lai atskaņotu startējoties"
+
+msgid "set the language of the displayed pages"
+msgstr "Uzstādīt valodu teleteksta lapām"
+
+msgid "set the recording end time"
+msgstr "Uzstādīt ieraksta beigu laiku"
+
+msgid "set the recording time (in minutes)"
+msgstr "Uzstādīt ieraksta ilgumu minūtēs"
+
+msgid "set this check when the entered audio pid is a ac3 audio pid"
+msgstr "Ielikt ķeksi , ja ievadītais audio PID ir AC3 audio PID"
+
+msgid "set west limit"
+msgstr "Uzstādīt rietumu limitu"
+
+msgid "set west soft limit"
+msgstr "Uzstādīt rietumu programmējamo limitu"
+
+msgid "setup"
+msgstr "Uzstādījumi"
+
+msgid "show 1 hour"
+msgstr "Rādīt 1 stundu"
+
+msgid "show 2 hours"
+msgstr "Rādīt 2 stundas"
+
+msgid "show 3 hours"
+msgstr "Rādīt 3 stundas"
+
+msgid "show 4 hours"
+msgstr "Rādīt 4 stundas"
+
+msgid "show 5 hours"
+msgstr "Rādīt 5 stundas"
+
+msgid "show 6 hours"
+msgstr "Rādīt 6 stundas"
+
+msgid "show TuxTxt/MultiEPG position window"
+msgstr "Parādīt interfeisa atrašanās uzstādījumu logu uz ekrāna"
+
+msgid "show Videotext"
+msgstr "Rādīt Videotekstu"
+
+msgid "show all services"
+msgstr "Rādīt visus kanālus"
+
+msgid "show audio selector"
+msgstr "Rādīt audio izvēli"
+
+msgid "show bouquet list"
+msgstr "Rādīt pakešu sarakstu"
+
+msgid "show channel EPG"
+msgstr "Rādīt EPG"
+
+msgid "show epg schedule list"
+msgstr "Rādīt EPG notikumu sarakst"
+
+msgid "show extended configuration"
+msgstr "Rādīt paplašināto konfigurāciju"
+
+msgid "show extended event information"
+msgstr "Rādīt paplašinato uzdevumu informāciju"
+
+msgid "show extended info"
+msgstr "Rādīt paplašināto info"
+
+msgid "show infobar"
+msgstr "Rādīt infopaneli"
+
+msgid "show infobar or EPG"
+msgstr "Rādīt infopaneli vai EPG"
+
+msgid "show main menu"
+msgstr "Rādīt galveno izvēlni"
+
+msgid "show previously selected page"
+msgstr "Rādīt iepriekšējo izvēlēto lapu"
+
+msgid "show provider list"
+msgstr "Rādīt provaideru sarakstu"
+
+msgid "show satellite list"
+msgstr "Rādīt pavadoņu sarakstu"
+
+msgid "show service selector"
+msgstr "Rādīt kanalu izvēli"
+
+msgid "show service selector menu"
+msgstr "Rādīt kanālu izvēles izvēlni"
+
+msgid "show subservices/NVOD"
+msgstr "Rādīt papildus servisus/NVOD"
+
+msgid "show testpicture"
+msgstr "Rādīt testa bildi"
+
+msgid "show/enter values as decimal"
+msgstr "Rādīt vai ievadīt vērtības decimālā veidā"
+
+msgid "show/enter values as hexadecimal"
+msgstr "Rādīt vai ievadīt vērtības heksadecimālā veidā"
+
+msgid "shows information about the highlighted channel"
+msgstr "Rādīt informāciju par izvēlēto kanālu"
+
+msgid "shows the EPG selector for the highlighted channel"
+msgstr "Parāda EPG izvēli priekš izceltā kanāla"
+
+msgid "shows the textinputfield help"
+msgstr "Parāda teksta ievades lauka palīdzību"
+
+msgid "shuffle"
+msgstr "Nejauši"
+
+msgid "shuffle playlist"
+msgstr "Nejauša atskaņošana"
+
+msgid "shutdown  "
+msgstr "Izslēgt"
+
+msgid "shutdown now"
+msgstr "Izslēgt tūlīt"
+
+msgid "shutdown the box"
+msgstr "Izslēgt"
+
+msgid "shutdown the box after recording (ok)"
+msgstr "Izslēgt pēc ieraksta beigām (ok)"
+
+msgid "shutdown the box to deepstandby (ok)"
+msgstr "Pilnībā izslēgt (ok)"
+
+msgid "shutdown your dbox-2"
+msgstr "Izslēgt jūsu dbox-2"
+
+msgid "shutdown your dreambox"
+msgstr "Izslēgt jūsu dreambox"
+
+msgid "sorry, Cannot format a mounted USB device."
+msgstr "Nevar formatēt USB iekārtu"
+
+msgid "sorry, couldn't find fsck.ext2 utility to check the ext2 filesystem."
+msgstr "Nevar atrast fsck.ext2 rīku lai pārbaudītu ext2 filesystem."
+
+msgid "sorry, couldn't find fsck.ext3 utility to check the ext3 filesystem."
+msgstr "Nevar atrast fsck.ext3 rīku lai pārbaudītu ext3 filesystem."
+
+msgid "sorry, couldn't find reiserfsck utility to check the reiserfs filesystem."
+msgstr "Nevar atrast reiserfsck rīku lai pārbaudītu reiserfs filesystem."
+
+msgid "sorry, couldn't find sfdisk utility to partition USB disk."
+msgstr "Nevar atrast 'sfdisk' lai sadalītu USB diski"
+
+msgid "sorry, couldn't find sfdisk utility to partition harddisk."
+msgstr "Nevar atrast sfdisk lai sadalītu HDD."
+
+msgid "sorry, no harddisks found!"
+msgstr "Cietais disks netika atrasts!"
+
+msgid "sort,rename,delete services/bouquets "
+msgstr "Šķirot, mainīt nosaukumu, dzēst kanālus, paketes"
+
+msgid "special"
+msgstr "Speciālie uzstādījumi"
+
+msgid "standby  "
+msgstr "Gaidīšanas režīms"
+
+msgid "start scan"
+msgstr "Skanēt"
+
+msgid "start skipping forward"
+msgstr "Tīšana uz priekšu"
+
+msgid "start skipping reverse"
+msgstr "Tīšana atpakaļ"
+
+msgid "start the transponder scan"
+msgstr "Skanēt transponderus"
+
+msgid "start/do not start Apache webserver"
+msgstr "Startēt ne ielādējot Apache serveri"
+
+msgid "start/do not start Dropbear"
+msgstr "Startēt ne ielādējot Dropbear"
+
+msgid "start/do not start Inadyn"
+msgstr "Startēt ne ielādējot Inadyn"
+
+msgid "start/do not start NFS server"
+msgstr "Startēt ne ielādējot NFS serveri"
+
+msgid "start/do not start crond the time daemon"
+msgstr "Startēt ne ielādējot Сrond"
+
+msgid "start/do not start firewall"
+msgstr "Startēt ne ielādējot ugunsmūri"
+
+msgid "start/do not start gSUB"
+msgstr "Startēt ne ielādējot gSUB"
+
+msgid "start/do not start samba to make the Dreambox files available on a PC"
+msgstr "Startēt ne ielādējot Samba lai piekļūtu Dreambox no tīkla"
+
+msgid "starts the transponder scan"
+msgstr "Sāk transponderu skanēšanu"
+
+msgid "status output:"
+msgstr "Izejas stāvoklis:"
+
+msgid "status:"
+msgstr "Statuss:"
+
+msgid "step back"
+msgstr "Solis atpakaļ"
+
+msgid "step forward"
+msgstr "Solis uz priekšu"
+
+msgid "stop Motor drive East"
+msgstr "Apturēt motora kustību uz Austrumiem"
+
+msgid "stop Motor drive West"
+msgstr "Apturēt motora kustību uz Rietumiem"
+
+msgid "stop playback"
+msgstr "Apturēt"
+
+msgid "stop record now"
+msgstr "Apturēt ierakstu"
+
+msgid "stop skipping forward"
+msgstr "Apturēt tīšanu uz priekšu"
+
+msgid "stop skipping reverse"
+msgstr "Apturēt tīšanu atpakaļ"
+
+msgid "store"
+msgstr "Saglabāt"
+
+msgid "store current pos as east soft limit"
+msgstr "Saglabāt tekošo poz. kā austrumu progr. limitu"
+
+msgid "store current pos as west soft limit"
+msgstr "Saglabāt tekošo poz. kā rietumu progr. limitu"
+
+msgid "store current pos in motor"
+msgstr "Saglabāt tekošo poz. motorā"
+
+msgid "store new sat positions"
+msgstr "Saglabāt jauno pavadoņa poz."
+
+msgid "subservices"
+msgstr "Paipldserviss"
+
+msgid "successfully formatted your USB disk!"
+msgstr "USB HDD noformatizēts veiksmīgi!"
+
+msgid "successfully formatted your disk!"
+msgstr "Jūsu HDD noformatizēts veiksmīgi!"
+
+msgid "supported coding systems:"
+msgstr "Piedāvātās kodēšanas sistēmas:"
+
+msgid "swaps committed and uncommitted DiSEqC Commands"
+msgstr "Sūtīt committed un uncommitted DiSEqC komandu"
+
+msgid "switch"
+msgstr "Parslēgt"
+
+msgid "switch move mode off"
+msgstr "Parslēgt parvietošanas režīmu"
+
+msgid "switch to 16:9 in split screen mode"
+msgstr "16:9 režīms dalītajam ekrānam"
+
+msgid "switch to 16:9 mode when displaying teletext pages"
+msgstr "16:9 režīms kad rāda teletekstu "
+
+msgid "switch to File mode"
+msgstr "Parslēgt uz failu režīmu"
+
+msgid "switch to Radio mode"
+msgstr "Parslēgt uz Radio režīmu"
+
+msgid "switch to TV mode"
+msgstr "Parslēgt uz TV režīmu"
+
+msgid "switch to direct page selecting mode"
+msgstr "Ieslēgt lapā izvēlēto režīmu"
+
+msgid "switch to next bouquet"
+msgstr "Parslēgt uz nākamo lietotāja paketi"
+
+msgid "switch to previous bouquet"
+msgstr "Parslēgt uz iepriekšējo lietotāja paketi"
+
+msgid "switch to selected channel"
+msgstr "Pāriet uz izvēlēto kanālu"
+
+msgid "system time"
+msgstr "Sistēmas laiks"
+
+msgid "teletext page number (100 - 899)"
+msgstr "Teleteksta lapa (100 - 899)"
+
+msgid "temporary disable the parental locking"
+msgstr "Uz brīdi atslēgt vecāku kontroli"
+
+msgid "test entered values"
+msgstr "Pārbaudīt ievadītās vērtības"
+
+msgid "test values"
+msgstr "Pārbaudīt vērtības"
+
+msgid "time correction change error"
+msgstr "Laika korekcijas maiņas kļūda"
+
+msgid "timerView"
+msgstr "Taimera apskats"
+
+msgid "title"
+msgstr "Virsraksts"
+
+msgid "to change service press ok"
+msgstr "Lai mainītu kanālu spiest ok"
+
+msgid "to enter (video) text pid press OK"
+msgstr "Lai ievadītu (Video) text PID spiest OK"
+
+msgid "to enter audio pid press OK"
+msgstr "Lai ievadītu audio PID spiest OK"
+
+msgid "to enter onid (original network id) press OK"
+msgstr "Lai ievadītu onid  (original network id) spiest OK"
+
+msgid "to enter pcr pid press OK"
+msgstr "Lai ievadītu pcr PID spiest OK"
+
+msgid "to enter provider name press OK"
+msgstr "Lai ievadītu provaidera nosaukumu spiest OK"
+
+msgid "to enter service id press OK"
+msgstr "Lai ievadītu kanāla id spiest OK"
+
+msgid "to enter service name press OK"
+msgstr "Lai ievadītu kanāla nosaukumu spiest OK"
+
+msgid "to enter tsid (transport stream id) press OK"
+msgstr "Нажмите ОК для ввода Transport Stream ID (TSID)"
+
+msgid "to enter video pid press OK"
+msgstr "Lai ievadītu video pid spiest OK"
+
+msgid "toggle DVR panel"
+msgstr "DVR panelis"
+
+msgid "toggle between classic and multi column style"
+msgstr "Pārslēgt starp klasisko un daudzkolonnu stilu"
+
+msgid "toggle between now and next epg entries in single column list"
+msgstr "Pārslēgt starp tekošo un nākošo raidījumu vai filmu vienkolonnu sarakstā"
+
+msgid "toggle double height"
+msgstr "Dubults augstms"
+
+msgid "toggle focus between service and bouquet list (in combi column style)"
+msgstr "Pārslēgt starp servisu un pakešu sarakstiem"
+
+msgid "toggle hidden information"
+msgstr "Slēptā informācija"
+
+msgid "toggle index mark"
+msgstr "Ieslēgt, izslēgt indeksa atzīmi"
+
+msgid "toggle mute flag"
+msgstr "Ieslēgt, izslēgt skaņu"
+
+msgid "toggle splitscreen mode"
+msgstr "Dalītā ekrāna pārslēgšanas režīms"
+
+msgid "toggle transparency"
+msgstr "Caurspīdīgums"
+
+msgid "track"
+msgstr "Celiņš"
+
+msgid "transponder scanned:"
+msgstr "Transponderi noskanēti:"
+
+msgid "transponder time"
+msgstr "Transpondera laiks"
+
+msgid "turn 12V output on (for 12V relais) (ok)"
+msgstr "Ieslēgt 12V izeju (relejam) (ok)"
+
+msgid "turning to east..."
+msgstr "Griežas uz austrumiem..."
+
+msgid "turning to west..."
+msgstr "Griežas uz rietumiem..."
+
+msgid "umount"
+msgstr "Atvienot"
+
+msgid "uninitialized - format it to use!"
+msgstr "Neinicializējas- noformatējiet prieks lietošanas"
+
+msgid "unknown"
+msgstr "Nezināms"
+
+msgid "unknown service"
+msgstr "Nezināms kanāls"
+
+msgid "unlock"
+msgstr "Atbloķēt"
+
+msgid "unnamed"
+msgstr "Nenosaukts"
+
+msgid "unnamed bouquet"
+msgstr "Pakete bez nosaukuma"
+
+msgid "unnamed service"
+msgstr "Kanāls bez nosaukuma"
+
+msgid "update name/provider/service type with content of the sdt (and auto remove service)"
+msgstr "Atjaunot nosaukumu, provaideri, kanāla tipu ar sdt saturu (arī automātiski dzēst kanālu)"
+
+msgid "upgrade in progress"
+msgstr "Notiek atjaunošana "
+
+msgid "upgrade ok"
+msgstr "Atjaunošana ok"
+
+msgid ""
+"upgrade successful!\n"
+"restarting..."
+msgstr ""
+"atjaunošana pabeigta!\n"
+"parlādējas..."
+
+msgid "use BAT"
+msgstr "Lietot BAT"
+
+msgid "use LNB %d for Motor"
+msgstr "Lietot LNB %d priekš motora"
+
+msgid "use ONIT"
+msgstr "Lietot ONIT"
+
+msgid "use Provider DVB Bouquet Tables if exist"
+msgstr "Lietot provaideru DVB kanalu tabulas, ja iespējams"
+
+msgid "use sdt"
+msgstr "Lietot sdt"
+
+msgid "use truetype font"
+msgstr "Lietot TrueType"
+
+msgid "use truetype font instead of standard font"
+msgstr "Lietot TrueType šriftu kā standarta"
+
+msgid "vertical"
+msgstr "Vertikālā"
+
+msgid "vol+"
+msgstr "Skaļums +"
+
+msgid "vol-"
+msgstr "Skaļums -"
+
+msgid "volume down"
+msgstr "Skaļums down"
+
+msgid "volume up"
+msgstr "Skaļums up"
+
+msgid "waiting for CI answer..."
+msgstr "Gaidam CI moduļa atbildi..."
+
+msgid "waiting for module"
+msgstr "Gaidam moduli"
+
+msgid "wake up enigma"
+msgstr "Sistēmas ieslēgšanās"
+
+msgid "when the motor support this, then use"
+msgstr "Ja motors to atbalsta,tad pielietot"
+
+msgid "write error while downloading..."
+msgstr "Rakstīšanas kļūda pie ielādes..."
+
+msgid "year"
+msgstr "gads"
+
+msgid "zap to next subService"
+msgstr "Pāriet uz nākamo apakšservisu"
+
+msgid "zap to prev subService"
+msgstr "Pāriet uz iepriekšējo apakšservisu"
+
+msgid "Downloads..."
+msgstr "Lejupielāde..."
+
+msgid "Download saoftware on your Dreambox"
+msgstr "Lejupielādeēt Dreambox programmatūru no interneta"
+

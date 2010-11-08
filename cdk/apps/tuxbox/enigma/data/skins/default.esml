@@ -28,16 +28,16 @@
 		<value name="volume.slider.width" value="162" />
 		<value name="volume.slider.height" value="11" />
 		<value name="eStatusBar.margin" value="10" />
-			<value name="rds.pos.x" value="50" />
-			<value name="rds.pos.y" value="481" />
-			<value name="rds.pos.width" value="620" />
-			<value name="rds.pos.height" value="29" />
-			<value name="rds_plus.pos.x" value="50" />
-			<value name="rds_plus.pos.y" value="510" />
-			<value name="rds_plus.pos.width" value="620" />
-			<value name="rds_plus.pos.height" value="29" />
-			<value name="rass_logo.pos.x" value="50" />
-			<value name="rass_logo.pos.y" value="445" />
+		<value name="rds.pos.x" value="50" />
+		<value name="rds.pos.y" value="481" />
+		<value name="rds.pos.width" value="620" />
+		<value name="rds.pos.height" value="29" />
+		<value name="rds_plus.pos.x" value="50" />
+		<value name="rds_plus.pos.y" value="510" />
+		<value name="rds_plus.pos.width" value="620" />
+		<value name="rds_plus.pos.height" value="29" />
+		<value name="rass_logo.pos.x" value="50" />
+		<value name="rass_logo.pos.y" value="445" />
 	</values>
 	<fontalias>
 		<map name="eStatusBar" font="Nimbus" size="16" />
@@ -181,6 +181,7 @@
 		<img name="country_sk" src="sk.png" />
 		<img name="country_ee" src="ee.png" />
 		<img name="country_bg" src="bg.png" />
+		<img name="country_lv" src="lv.png" />
 		<img name="country_missing" src="missing.png" />
 	</images>
 	<images basepath="shortcut">

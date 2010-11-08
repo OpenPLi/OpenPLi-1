@@ -2503,7 +2503,7 @@ endif
 # lib
 	@for i in ar_AE cs_CZ da_DK el_GR es_ES et_EE fi_FI fr_FR hr_HR \
 	hu_HU is_IS it_IT lt_LT nl_NL no_NO pl_PL pt_PT ro_RO ru_RU sk_SK \
-	sl_SI sr_YU sv_SE tr_TR ur_IN fy_FY zh_CN bg_BG; do \
+	sl_SI sr_YU sv_SE tr_TR ur_IN fy_FY zh_CN bg_BG lv_LV; do \
 		ln -sf de_DE $(flashprefix)/root/lib/locale/$$i; \
 	done;
 # I don't think enigma needs anything but LC_MESSAGES in the locale
@@ -2583,18 +2583,18 @@ endif
 	done
 
 	$(INSTALL) -d $(downloadserverprefix)/languages;
-	@for i in ar bg cs da de el es et fi fr fy hr hu is it lt nl no pl pt ro ru sk sl sr sv tr ur zh; do \
+	@for i in ar bg cs da de el es et fi fr fy hr hu is it lt lv nl no pl pt ro ru sk sl sr sv tr ur zh; do \
 		tar czf $(downloadserverprefix)/languages/lang_$$i.tar.gz -C $(flashprefix)/root/ --transform 's,^,var/,' share/locale/$$i/LC_MESSAGES/tuxbox-enigma.mo; \
 	done
 
 if CHINESE_NO
-	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es zh bg ; do \
+	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es zh bg lv ; do \
 		rm -R $(flashprefix)/root/share/locale/$$i; \
 		ln -s /var/share/locale/$$i $(flashprefix)/root/share/locale/$$i; \
 	done
 endif
 if CHINESE_YES
-	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es fy de nl bg ; do \
+	@for i in ur hr sv pl sr ar tr ru sl pt no cs fi hu sk el ro da et is lt it fr es fy de nl bg lv ; do \
 		rm -R $(flashprefix)/root/share/locale/$$i; \
 		ln -s /var/share/locale/$$i $(flashprefix)/root/share/locale/$$i; \
 	done
