@@ -4663,7 +4663,7 @@ void eZapMain::startSkip(int dir)
 		if(!skipTimer)
 		{
 			skipTimer=new eTimer(eApp);
-			skipTimer->start((skipspeed>=0)?250:500,false); // 1/4 sec. forward 1/2 sec. back (but bigger distance)
+			skipTimer->start(250,false);
 			CONNECT(skipTimer->timeout,eZapMain::skipLoop); // enable timer
 		}
 		if(!skipWidget) // enable view
@@ -4714,7 +4714,7 @@ void eZapMain::skipLoop()
 {
 	// called from skipTimer (eTimer)
 
-	int time,speed,faktor,pos,diff;
+	int time,speed,faktor,pos,diff,ts;
 
 	faktor = (skipspeed<0) ? -1 : 1;
 	speed = skipspeed * faktor;
@@ -4722,16 +4722,16 @@ void eZapMain::skipLoop()
 	switch(speed)
 	{
 		case  1:
-			time = (skipspeed<0) ? 2 : 1;
+			time = (skipspeed<0) ? 4 : 1;
 			break; //Seconds
 		case  2:
-			time = (skipspeed<0) ? 4 : 2;
+			time = (skipspeed<0) ? 6 : 2;
 			break; //back must more!
 		case  3:
-			time = (skipspeed<0) ? 8 : 4;
+			time = (skipspeed<0) ? 10 : 6;
 			break;
 		case  4:
-			time = (skipspeed<0) ? 16 : 8;
+			time = (skipspeed<0) ? 18 : 14;
 			break;
 		default:
 			time = 0;
@@ -4744,33 +4744,36 @@ void eZapMain::skipLoop()
 		{
 			// view relative skip time
 			pos=handler->getPosition(eServiceHandler::posQueryCurrent);
-			diff=abs(pos-seekstart); 
+			diff=abs(pos-seekstart);
 			int std=diff/3600;
 			int min=(diff-(std*3600))/60;
 			int sec=diff-(std*3600)-(min*60);
 
 			if(skipLabel2)
-				skipLabel2->setText(eString().sprintf("%c%02d:%02d:%02d",(pos>seekstart)?'+':'-',std,min,sec));
+				if(!(pos>seekstart && skipspeed<0))
+					skipLabel2->setText(eString().sprintf("%c%02d:%02d:%02d",(pos>seekstart)?'+':'-',std,min,sec));
 
 			if(skipspeed<0 && pos < (time<<2) ) //back and begin reached
-			{ 
+			{
 				endSkip();
 				handler->serviceCommand(eServiceCommand(eServiceCommand::cmdSeekReal, 0));
 				updateProgress();
 				return;
 			}
 
-			if (skipspeed == 1)
-			{
-				eServiceReference &ref = eServiceInterface::getInstance()->service;
-				if(!( ref.type == eServiceReference::idUser &&
-					((ref.data[0] ==  eMP3Decoder::codecMPG) ||
-					 (ref.data[0] ==  eMP3Decoder::codecMP3) ||
-					 (ref.data[0] ==  eMP3Decoder::codecFLAC) ||
-					 (ref.data[0] ==  eMP3Decoder::codecOGG) ) ))
-					return; // normal trickmode forward (ts only)
-			}
-			handler->serviceCommand(eServiceCommand(eServiceCommand::cmdSkip,(time*(faktor<0?1250:1000))*faktor));
+			ts = 0;
+			eServiceReference &ref = eServiceInterface::getInstance()->service;
+			if(!(ref.type == eServiceReference::idUser &&
+				((ref.data[0] ==  eMP3Decoder::codecMPG) ||
+				 (ref.data[0] ==  eMP3Decoder::codecMP3) ||
+				 (ref.data[0] ==  eMP3Decoder::codecFLAC) ||
+				 (ref.data[0] ==  eMP3Decoder::codecOGG) )))
+				ts = 1;
+
+            if (skipspeed == 1 && ts)
+            	return; // normal trickmode forward (ts only)
+			
+			handler->serviceCommand(eServiceCommand(eServiceCommand::cmdSkip,time*(ts?1000:2000)*faktor));
 
 			seekpos=pos;
 		}
