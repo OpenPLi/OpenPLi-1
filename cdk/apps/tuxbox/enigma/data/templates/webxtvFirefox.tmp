@@ -79,7 +79,7 @@ function go(targetURL)
 	vlc.playlist.items.clear();
 	if ($("deinterlacemode").value)
 	{
-		options.push(":vout-filter=deinterlace");
+		options.push(":deinterlace=1");
 		options.push(":deinterlace-mode="+$("deinterlacemode").value);
 	}
 	options.push(":audio-track="+$("audiotrack").value);
@@ -340,6 +340,8 @@ if (navigator.appName.indexOf('Microsoft') != -1)
 			<option value="bob">bob</option>
 			<option value="linear">linear</option>
 			<option value="x">x</option>
+			<option value="yadif">yadif</option>
+			<option value="yadif2x">yadif2x</option>
 		</select>
 	</span>
 	<span id="debug" class="control">
