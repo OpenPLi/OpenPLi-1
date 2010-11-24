@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include "tuxtxt_def.h"
-#if !defined HAVE_DREAMBOX_HARDWARE && !defined HAVE_IPBOX_HARDWARE
+#ifndef HAVE_DREAMBOX_HARDWARE
 #include <tuxbox.h>
 #endif
 #if TUXTXT_COMPRESS == 1
@@ -4323,7 +4323,7 @@ void tuxtxt_SwitchScreenMode(tstRenderInfo* renderinfo,int newscreenmode)
 	tuxtxt_cache.pageupdate = 1;
 
 	/* clear back buffer */
-#if !defined HAVE_DREAMBOX_HARDWARE && !defined HAVE_IPBOX_HARDWARE
+#ifndef HAVE_DREAMBOX_HARDWARE
 	renderinfo->clearbbcolor = tuxtxt_color_black;
 #else
 	renderinfo->clearbbcolor = renderinfo->screenmode?tuxtxt_color_transp:tuxtxt_cache.FullScrColor;
@@ -4348,7 +4348,7 @@ void tuxtxt_SwitchScreenMode(tstRenderInfo* renderinfo,int newscreenmode)
 			tx = TV43STARTX;
 			ty = TV43STARTY;
 			th = TV43HEIGHT;
-#ifdef BOXMODEL_DM500
+#if defined BOXMODEL_DM500 || defined BOXMODEL_DM500PLUS || defined BOXMODEL_DM600PVR
 			tw = renderinfo->var_screeninfo.xres/4; // DM500 seems to only like PIG sizes with same ratio
 			th = renderinfo->var_screeninfo.yres/4;
 #endif
@@ -4362,12 +4362,11 @@ void tuxtxt_SwitchScreenMode(tstRenderInfo* renderinfo,int newscreenmode)
 			tw = TV169FULLWIDTH;
 			th = TV169FULLHEIGHT;
 			renderinfo->displaywidth= (TV169FULLSTARTX-renderinfo->sx);
-#ifdef BOXMODEL_DM500
+#if defined BOXMODEL_DM500 || defined BOXMODEL_DM500PLUS || defined BOXMODEL_DM600PVR
 			tw = renderinfo->var_screeninfo.xres/2; // DM500 seems to only like PIG sizes with same ratio
 			th = renderinfo->var_screeninfo.yres/2;
 #endif
 		}
-
 		tuxtxt_setfontwidth(renderinfo,fw);
 
 #if HAVE_DVB_API_VERSION < 3
@@ -4719,7 +4718,7 @@ void tuxtxt_setcolors(tstRenderInfo* renderinfo,unsigned short *pcolormap, int o
 
 	unsigned short t = renderinfo->tr0[tuxtxt_color_transp2];
 	renderinfo->tr0[tuxtxt_color_transp2] = (renderinfo->trans_mode+7)<<11 | 0x7FF;
-#if !defined HAVE_DREAMBOX_HARDWARE && !defined HAVE_IPBOX_HARDWARE
+#ifndef HAVE_DREAMBOX_HARDWARE
 	/* "correct" semi-transparent for Nokia (GTX only allows 2(?) levels of transparency) */
 	if (tuxbox_get_vendor() == TUXBOX_VENDOR_NOKIA)
 		renderinfo->tr0[tuxtxt_color_transp2] = 0xFFFF;
@@ -4906,7 +4905,7 @@ void tuxtxt_DoRender(tstRenderInfo* renderinfo, int startrow, int national_subse
 		if (renderinfo->transpmode || (renderinfo->boxed && !renderinfo->screenmode))
 		{
 			tuxtxt_FillBorder(renderinfo,tuxtxt_color_transp);//ClearBB(transp);
-#if !defined HAVE_DREAMBOX_HARDWARE && !defined HAVE_IPBOX_HARDWARE
+#ifndef HAVE_DREAMBOX_HARDWARE
 			renderinfo->clearbbcolor = tuxtxt_color_black;
 #else
 			renderinfo->clearbbcolor = tuxtxt_color_transp;

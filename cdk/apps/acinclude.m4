@@ -457,4 +457,9 @@ elif test "$BOXTYPE" = "generic"; then
 	AC_DEFINE(HAVE_GENERIC_HARDWARE, 1, [building for a generic device like a standard PC])
 fi
 
+# TODO: do we need more defines?
+if test "$BOXMODEL" = "dm500"; then
+	AC_DEFINE(BOXMODEL_DM500, 1, [dreambox 500])
+fi
+
 ])
