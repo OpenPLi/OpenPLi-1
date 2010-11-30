@@ -38,7 +38,7 @@
 #include <lib/system/info.h>
 #include <enigma.h>
 
-#define REL "Movieplayer Plugin, v0.9.43"
+#define REL "Movieplayer Plugin, v0.9.44"
 
 extern "C" int plugin_exec(PluginParam *par);
 extern eString getWebifVersion();
@@ -576,7 +576,8 @@ void eSCGui::playerStart(int val)
 	{	eDebug("\n[VLC] will be play ...");
 		changeSout();  // change some sout parameters
 		setText(path); // refresh title
-		eMoviePlayer::getInstance()->control("start2", playList[val].Fullname.c_str());
+		eString filePath = eString().sprintf("%s%s","file:///", playList[val].Fullname.c_str());  // for support autosubtitles by VLC
+		eMoviePlayer::getInstance()->control("start2", filePath.c_str());
 		timer->start(2000, true);
 	}
 }
