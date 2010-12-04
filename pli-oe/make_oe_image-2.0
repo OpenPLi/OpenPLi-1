@@ -49,7 +49,7 @@ done
 cd $OE_BUILD && . env.source && bitbake openpli-enigma2-feed || ( echo "Error building image started in $OE_BUILD"; exit 1 )
 
 mv $OE_IMAGES/*.nfi $OE_IMAGES/$FILENAME.nfi
-[ -f $OE_IMAGES/$FILENAME.nfi ] && zip -j $OE_IMAGES/$FILENAME $OE_IMAGES/$FILENAME.nfi
+[ -f $OE_IMAGES/$FILENAME.nfi ] && zip -j $OE_IMAGES/$FILENAME.zip $OE_IMAGES/$FILENAME.nfi
 
 mv $OE_IMAGES/*_usb.zip $OE_IMAGES/${FILENAME}_usb.zip
 
