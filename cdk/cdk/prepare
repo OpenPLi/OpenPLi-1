@@ -91,10 +91,14 @@ echo "export myversion=\"\`date +%Y%m%d\`\"" >> build-image
 echo "export imgversion=\"\$myversion-\`svnversion .\`\"" >> build-image
 echo "export name=\"$IMAGENAME\"" >> build-image
 
-echo "export imagename=\$name-unstable-$FULLTYPE-\$imgversion" >> build-image
+if [ "$FULLTYPE" == "dm500-chinese" ] ; then
+	FULLTYPE=dm500-mandarin
+fi
+
+echo "export imagename=\$name-beta-$FULLTYPE-\$imgversion" >> build-image
 
 if [ "$TYPE" = "dm500" ] ; then
-	echo "export imagename_oldframebuffer=\$name-unstable-$FULLTYPE-old-framebuffer-\$imgversion" >> build-image
+	echo "export imagename_oldframebuffer=\$name-beta-$FULLTYPE-old-framebuffer-\$imgversion" >> build-image
 fi
 
 echo "" >> build-image
