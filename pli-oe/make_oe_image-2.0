@@ -1,0 +1,81 @@
+#!/bin/bash
+
+export CVS_RSH=ssh
+
+if [ "${OE_BUILD}x" = "x" -a "${MACHINE}x" = "x" ]; then
+	echo "ERROR: either OE_BUILD or MACHINE must be defined!"
+	exit
+fi
+
+# Default: build image from /dreambox/oe/build if these env. variables are not set
+if [ "${OE_ROOT}x" = "x" ]; then
+	OE_ROOT=/dreambox/oe.openpli-2.0
+fi
+
+if [ "${OE_BUILD}x" = "x" ]; then
+	#when OE_BUILD is not defined, MACHINE must be defined (checked above)
+	OE_BUILD=${OE_ROOT}/build-${MACHINE}
+fi
+
+if [ "${MACHINE}x" = "x" ]; then
+	#when MACHINE is not defined, OE_BUILD must be defined (checked above)
+	MACHINE=`grep "^MACHINE = " $OE_BUILD/conf/local.conf | sed "s/MACHINE = \"//" | sed "s/\"$//"`
+fi
+
+if [ "${IMAGEDIR}x" = "x" ]; then
+	IMAGEDIR=${MACHINE}
+fi
+
+if [ "${DISTROVERSION}x" = "x" ]; then
+	DISTROVERSION=openpli-2.0
+	FILENAME="OpenPLi-2.0-beta-${MACHINE}-`date +%Y%m%d`"
+else
+	FILENAME="${DISTROVERSION}-${MACHINE}-`date +%Y%m%d`"
+fi
+
+OE_IMAGES=$OE_BUILD/tmp/deploy/images/${MACHINE}
+
+#old images can be cleared
+rm -f $OE_IMAGES/*.nfi
+rm -f $OE_IMAGES/*.zip
+rm -f $OE_IMAGES/*.jfs2
+
+#start with a clean feed, so we can detect whether something failed during the build
+for FEED in all $MACHINE mipsel; do
+	rm -f $OE_BUILD/tmp/deploy/ipk/$FEED/Packages
+	rm -f $OE_BUILD/tmp/deploy/ipk/$FEED/Packages.gz
+done
+
+cd $OE_BUILD && . env.source && bitbake openpli-enigma2-feed || ( echo "Error building image started in $OE_BUILD"; exit 1 )
+
+mv $OE_IMAGES/*.nfi $OE_IMAGES/$FILENAME.nfi
+[ -f $OE_IMAGES/$FILENAME.nfi ] && zip -j $OE_IMAGES/$FILENAME $OE_IMAGES/$FILENAME.nfi
+
+mv $OE_IMAGES/*_usb.zip $OE_IMAGES/${FILENAME}_usb.zip
+
+rsync $OE_IMAGES/$FILENAME*.zip rsync://upload.pli-images.org:8730::/builds/$IMAGEDIR/
+
+# TODO: 3rd-party feeed?
+
+#rm -Rf $OE_BUILD/tmp/deploy/3rd-party
+#mkdir $OE_BUILD/tmp/deploy/3rd-party
+#rsync rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/upload/*.ipk $OE_BUILD/tmp/deploy/3rd-party/
+#rsync rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/upload/$MACHINE/*.ipk $OE_BUILD/tmp/deploy/3rd-party/
+#cd $OE_ROOT
+#./recreate_feed $OE_BUILD/tmp/deploy/3rd-party
+#rsync -h -r --timeout=600 --progress --delete-during $OE_BUILD/tmp/deploy/3rd-party/ rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/$MACHINE/
+
+if [ ! -f $OE_BUILD/tmp/deploy/ipk/$MACHINE/Packages.gz ]; then
+	echo "Feed not complete!"
+	exit
+fi
+
+for FEED in all $MACHINE mipsel; do
+	rm -f $OE_BUILD/tmp/deploy/ipk/$FEED/*-dbg_*.ipk
+	rm -f $OE_BUILD/tmp/deploy/ipk/$FEED/*-doc_*.ipk
+done
+cd $OE_BUILD && bitbake package-index
+
+for FEED in all $MACHINE mipsel; do
+	rsync -h -r --timeout=600 --progress --delete-during --exclude morgue $OE_BUILD/tmp/deploy/ipk/$FEED rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/$MACHINE
+done
