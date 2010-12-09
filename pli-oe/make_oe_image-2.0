@@ -59,6 +59,7 @@ rsync $OE_IMAGES/$FILENAME*.zip rsync://upload.pli-images.org:8730::/builds/$IMA
 
 #rm -Rf $OE_BUILD/tmp/deploy/3rd-party
 #mkdir $OE_BUILD/tmp/deploy/3rd-party
+#mkdir $OE_BUILD/tmp/deploy/3rd-party/old
 #rsync rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/upload/*.ipk $OE_BUILD/tmp/deploy/3rd-party/
 #rsync rsync://upload.pli-images.org:8730::/feeds/$DISTROVERSION/3rd-party/upload/$MACHINE/*.ipk $OE_BUILD/tmp/deploy/3rd-party/
 #cd $OE_ROOT
