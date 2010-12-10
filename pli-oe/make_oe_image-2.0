@@ -7,9 +7,9 @@ if [ "${OE_BUILD}x" = "x" -a "${MACHINE}x" = "x" ]; then
 	exit
 fi
 
-# Default: build image from /dreambox/oe/build if these env. variables are not set
+# Default: build image from PWD
 if [ "${OE_ROOT}x" = "x" ]; then
-	OE_ROOT=/dreambox/oe.openpli-2.0
+	OE_ROOT=${PWD}
 fi
 
 if [ "${OE_BUILD}x" = "x" ]; then
