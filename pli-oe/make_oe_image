@@ -18,7 +18,7 @@ if [ "${OE_BUILD}x" = "x" ]; then
 fi
 
 if [ "${IMAGEDIR}x" = "x" ]; then
-	IMAGEDIR=${OE_ROOT}
+	IMAGEDIR=${MACHINE}
 fi
 
 if [ "${MACHINE}x" = "x" ]; then
