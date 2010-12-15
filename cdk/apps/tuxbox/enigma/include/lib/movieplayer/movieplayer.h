@@ -34,7 +34,7 @@
 struct player_value
 {
 	int STAT, BUFFERTIME, JUMPMIN;
-	bool ACTIVE, ACT_AC3, BUFFERFILLED, AVPIDS_FOUND, DVB, PLG, A_SYNC, SUBT, DVDSUBT, NSF, RES;
+	bool ACTIVE, ACT_AC3, BUFFERFILLED, AVPIDS_FOUND, DVB, PLG, A_SYNC, SUBT, NSF, RES;
 	unsigned short PIDA, PIDV;
 	short AC3;
 };
@@ -52,13 +52,10 @@ class eMoviePlayer: public eMainloop, private eThread, public Object
 			stop,
 			play,
 			pause,
-			forward,
-			rewind,
 			jump,
 			terminate,
 			async,
 			subtitles,
-			dvdsubtitles,
 			dvbon,
 			dvboff,
 			runplg,

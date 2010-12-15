@@ -62,6 +62,9 @@
 #include <enigma_dyn_conf.h>
 #include <configfile.h>
 
+#include <lib/movieplayer/movieplayer.h>
+#include <lib/movieplayer/mpconfig.h>
+
 using namespace std;
 
 
@@ -166,8 +169,22 @@ eString getConfigSettings(void)
 		rpl = epgsqlpath;
 		free(epgsqlpath);
 	}
-
 	result.strReplace("#EPGSQLPATH#", rpl);
+
+	eMoviePlayer::getInstance()->mpconfig.load();
+	for(int i = 1; i <= NR_VLC_SRV; i++)
+	{
+		struct serverConfig vlc = eMoviePlayer::getInstance()->mpconfig.getVlcCfg(i);
+
+		result.strReplace(eString().sprintf("%s%d%s","#VLCSRV",i,"#").c_str(), vlc.serverIP);
+		result.strReplace(eString().sprintf("%s%d%s","#VLCWPORT",i,"#").c_str(), vlc.webifPort);
+		result.strReplace(eString().sprintf("%s%d%s","#VLCSPORT",i,"#").c_str(), vlc.streamingPort);
+		result.strReplace(eString().sprintf("%s%d%s","#VLCUSER",i,"#").c_str(), vlc.vlcUser);
+		result.strReplace(eString().sprintf("%s%d%s","#VLCPASS",i,"#").c_str(), vlc.vlcPass);
+		result.strReplace(eString().sprintf("%s%d%s","#VLCPATH",i,"#").c_str(), vlc.startDir);
+		result.strReplace(eString().sprintf("%s%d%s","#VLCDRIVE",i,"#").c_str(), vlc.CDDrive);
+	}
+	
 	return result;
 }
 
@@ -187,6 +204,21 @@ eString setConfigSettings(eString request, eString dirpath, eString opts, eHTTPC
 	eString trustedhosts = opt["trustedhosts"];
 	eString epgcachepath = opt["epgcachepath"];
 	eString epgsqlpath = opt["epgsqlpath"];
+	
+	struct serverConfig vlc;
+	for(int i = 1; i <= NR_VLC_SRV; i++)
+	{
+		vlc.serverIP = opt[eString().sprintf("%s%d","vlcsrv",i).c_str()];
+		vlc.webifPort = opt[eString().sprintf("%s%d","vlcwport",i).c_str()];
+		vlc.streamingPort = opt[eString().sprintf("%s%d","vlcsport",i).c_str()];
+		vlc.vlcUser = opt[eString().sprintf("%s%d","vlcuser",i).c_str()];
+		vlc.vlcPass = opt[eString().sprintf("%s%d","vlcpass",i).c_str()];
+		vlc.startDir = opt[eString().sprintf("%s%d","vlcpath",i).c_str()];
+		vlc.CDDrive = opt[eString().sprintf("%s%d","vlcdrive",i).c_str()];
+		eMoviePlayer::getInstance()->mpconfig.setVlcCfg(vlc, i);
+	}
+	eMoviePlayer::getInstance()->mpconfig.save();
+
 	eConfig::getInstance()->setKey("/ezap/webif/trustedhosts", trustedhosts.c_str());
 	eConfig::getInstance()->setKey("/enigma/epgMemStoreDir", epgcachepath.c_str());
 	eConfig::getInstance()->setKey("/enigma/epgSQLiteDir", epgsqlpath.c_str());

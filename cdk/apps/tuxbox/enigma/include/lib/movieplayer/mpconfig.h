@@ -28,6 +28,8 @@
 #define CONFFILE0 "/share/tuxbox/enigma/templates/movieplayer.xml"
 #define CONFFILE1 "/var/tuxbox/config/movieplayer.xml"
 
+#define NR_VLC_SRV 5
+
 struct serverConfig
 {
 	eString serverIP;
@@ -65,6 +67,7 @@ class eMPConfig
 	struct serverConfig serverConf;
 	std::vector<struct videoTypeParms> videoParmList;
 	struct codecs avcodecs;
+	std::vector<struct serverConfig> vlcServerList;
 public:
 	eMPConfig();
 	~eMPConfig();
@@ -76,5 +79,7 @@ public:
 	void setVideoParms(struct videoTypeParms videoParms);
 	void setServerConfig(struct serverConfig serverConf);
 	void setAVCodecs(struct codecs avCodecs);
+	struct serverConfig getVlcCfg(int i);
+	void setVlcCfg(struct serverConfig vlcCfg, int i);
 };
 #endif

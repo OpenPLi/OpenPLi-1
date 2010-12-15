@@ -2,18 +2,33 @@
 <?xml-stylesheet type="text/xsl" href="/XSLMPSettings.xsl"?>
 <vlc>
    <server ip="192.168.1.103" webif-port="8080" stream-port="9090" user="admin" pass="admin" />
-   <config startdir="c:\" cddrive="e:" />
+   <config startdir="c:\video" cddrive="e:" />
    <codec mpeg1="mpgv" mpeg2="mp2v" audio="mpga" />
+   <vlcsrv ip="192.168.1.105" webif-port="8080" stream-port="9090" user="admin" pass="admin"  startdir="c:\video" cddrive="d:" />
+   <vlcsrv ip="192.168.1.104" webif-port="8080" stream-port="9090" user="admin" pass="admin"  startdir="d:\" cddrive="e:" />
+   <vlcsrv ip="192.168.1.105" webif-port="8080" stream-port="9090" user="admin" pass="admin"  startdir="/home" cddrive="/dev/sr0" />
+   <vlcsrv ip="192.168.1.101" webif-port="8080" stream-port="9090" user="admin" pass="admin"  startdir="c:\video" cddrive="e:" />
+   <vlcsrv ip="192.168.1.103" webif-port="8080" stream-port="9090" user="admin" pass="admin"  startdir="c:\video" cddrive="e:" />
    <setup name="SVCD" ext="NONE" Videorate="1000" Videotranscode="0" Videocodec="mpgv" Videosize="352x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
    <setup name="VCD" ext="NONE" Videorate="1000" Videotranscode="0" Videocodec="mpeg1" Videosize="352x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
-   <setup name="DVD" ext="NONE" Videorate="1000" Videotranscode="0" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="DVD" ext="NONE" Videorate="3000" Videotranscode="1" Videocodec="mpgv" Videosize="704x576" Audiorate="256" Audiotranscode="1" fps="25" soutadd="0" />
    <setup name="File" ext="MPG" Videorate="2048" Videotranscode="1" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
    <setup name="File" ext="MPEG" Videorate="1000" Videotranscode="1" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
    <setup name="File" ext="M2P" Videorate="1000" Videotranscode="0" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
    <setup name="File" ext="MPV" Videorate="1000" Videotranscode="0" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
    <setup name="File" ext="DAT" Videorate="1000" Videotranscode="1" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
-   <setup name="File" ext="AVI" Videorate="2048" Videotranscode="1" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="1" />
+   <setup name="File" ext="AVI" Videorate="3072" Videotranscode="1" Videocodec="mp2v" Videosize="704x576" Audiorate="256" Audiotranscode="1" fps="25" soutadd="1" />
    <setup name="File" ext="ASF" Videorate="1000" Videotranscode="1" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
-   <setup name="File" ext="TS" Videorate="3072" Videotranscode="0" Videocodec="mp2v" Videosize="704x576" Audiorate="256" Audiotranscode="0" fps="25" soutadd="0" />
-   <setup name="File" ext="VOB" Videorate="1000" Videotranscode="0" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
+   <setup name="File" ext="TS" Videorate="3072" Videotranscode="0" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
+   <setup name="File" ext="VOB" Videorate="2000" Videotranscode="0" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="0" fps="25" soutadd="0" />
+   <setup name="File" ext="MKV" Videorate="2048" Videotranscode="1" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="WMV" Videorate="2048" Videotranscode="1" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="MP4" Videorate="2048" Videotranscode="1" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="MOV" Videorate="1024" Videotranscode="1" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="H264" Videorate="2048" Videotranscode="1" Videocodec="mpgv" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="3GP" Videorate="800" Videotranscode="1" Videocodec="mp2v" Videosize="704x576" Audiorate="128" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="WMA" Videorate="2048" Videotranscode="0" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="MP3" Videorate="1024" Videotranscode="0" Videocodec="mp2v" Videosize="352x288" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="WAV" Videorate="1024" Videotranscode="0" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
+   <setup name="File" ext="OGG" Videorate="1024" Videotranscode="0" Videocodec="mp2v" Videosize="704x576" Audiorate="192" Audiotranscode="1" fps="25" soutadd="0" />
 </vlc>

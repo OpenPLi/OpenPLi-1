@@ -56,6 +56,7 @@ bool eMPConfig::load()
 	}
 
 	videoParmList.clear();
+	vlcServerList.clear();
 	
 	bool done = false;
 	while (!done)
@@ -77,6 +78,7 @@ bool eMPConfig::load()
 	if (!root)
 		return false;
 
+	bool first = false;
 	for (XMLTreeNode *node = root->GetChild(); node; node = node->GetNext())
 	{
 		if (!strcmp(node->GetType(), "server"))
@@ -138,8 +140,27 @@ bool eMPConfig::load()
 				        a.soutadd = (tmpsoutadd == "1");
 
 				videoParmList.push_back(a);
-				
 			}
+		}
+		else
+		if (!strcmp(node->GetType(), "vlcsrv"))
+		{
+			struct serverConfig vlc;
+			if(!first)// first is always default 
+			{
+				vlc = serverConf;
+				vlcServerList.push_back(vlc);
+				first = true;
+			}
+			vlc.serverIP = node->GetAttributeValue("ip");
+			vlc.webifPort = node->GetAttributeValue("webif-port");
+			vlc.streamingPort = node->GetAttributeValue("stream-port");
+			vlc.vlcUser = node->GetAttributeValue("user");
+			vlc.vlcPass = node->GetAttributeValue("pass");
+			vlc.startDir = node->GetAttributeValue("startdir");
+			vlc.CDDrive  = node->GetAttributeValue("cddrive");
+//eDebug("mpconfig2 IP=%s wPort=%s sPort=%s U=%s Pass=%s Dir=%s Drive=%s",vlc.serverIP.c_str(),vlc.webifPort.c_str(),vlc.streamingPort.c_str(),vlc.vlcUser.c_str(),vlc.vlcPass.c_str(),vlc.startDir.c_str(),vlc.CDDrive.c_str());
+			vlcServerList.push_back(vlc);
 		}
 	}
 
@@ -173,6 +194,11 @@ void eMPConfig::save()
 		fprintf(f, "   <server ip=\"%s\" webif-port=\"%s\" stream-port=\"%s\" user=\"%s\" pass=\"%s\" />\n", serverConf.serverIP.c_str(), serverConf.webifPort.c_str(), serverConf.streamingPort.c_str(), serverConf.vlcUser.c_str(), serverConf.vlcPass.c_str());
 		fprintf(f, "   <config startdir=\"%s\" cddrive=\"%s\" />\n", serverConf.startDir.c_str(), serverConf.CDDrive.c_str());
 		fprintf(f, "   <codec mpeg1=\"%s\" mpeg2=\"%s\" audio=\"%s\" />\n", avcodecs.mpeg1.c_str(), avcodecs.mpeg2.c_str(), avcodecs.audio.c_str());
+		for (unsigned int i = 1; i < vlcServerList.size(); i++)
+		{
+			struct serverConfig v = vlcServerList[i];
+			fprintf(f, "   <vlcsrv ip=\"%s\" webif-port=\"%s\" stream-port=\"%s\" user=\"%s\" pass=\"%s\"  startdir=\"%s\" cddrive=\"%s\" />\n", v.serverIP.c_str(), v.webifPort.c_str(), v.streamingPort.c_str(), v.vlcUser.c_str(), v.vlcPass.c_str(), v.startDir.c_str(), v.CDDrive.c_str());
+		}
 		for (unsigned int i = 0; i < videoParmList.size(); i++)
 		{
 			struct videoTypeParms a = videoParmList[i];
@@ -244,5 +270,21 @@ void eMPConfig::setServerConfig(struct serverConfig server)
 void eMPConfig::setAVCodecs(struct codecs avCodecs)
 {
 	avcodecs = avCodecs;
+}
+
+void eMPConfig::setVlcCfg(struct serverConfig vlc, int i)
+{
+	if(i < vlcServerList.size())
+		vlcServerList[i] = vlc;
+}
+
+struct serverConfig eMPConfig::getVlcCfg(int i)
+{
+	struct serverConfig vcfg;
+	
+	if(i < vlcServerList.size())
+		vcfg = vlcServerList[i];
+
+	return vcfg;
 }
 #endif

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<?xml-stylesheet type="text/xsl" href="/XSLMPSettings.xsl"?>
+<vlc>
+   <language code="   " />
+   <language code="ara" />
+   <language code="bul" />
+   <language code="eng" />
+   <language code="cze" />
+   <language code="ces" />
+   <language code="dan" />
+   <language code="deu" />
+   <language code="ger" />
+   <language code="gre" />
+   <language code="ell" />
+   <language code="esl" />
+   <language code="spa" />
+   <language code="est" />
+   <language code="fin" />
+   <language code="fra" />
+   <language code="heb" />
+   <language code="hrv" />
+   <language code="scr" />
+   <language code="hun" />
+   <language code="isl" />
+   <language code="ice" />
+   <language code="ita" />
+   <language code="lit" />
+   <language code="lav" />
+   <language code="nld" />
+   <language code="dut" />
+   <language code="nld" />
+   <language code="dut" />
+   <language code="nor" />
+   <language code="pol" />
+   <language code="por" />
+   <language code="ron" />
+   <language code="rum" />
+   <language code="rus" />
+   <language code="slk" />
+   <language code="slo" />
+   <language code="slv" />
+   <language code="srp" />
+   <language code="scc" />
+   <language code="swe" />
+   <language code="tur" />
+   <language code="urd" />
+</vlc>

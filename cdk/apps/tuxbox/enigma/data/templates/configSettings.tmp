@@ -99,6 +99,66 @@ Specifies the path where the epg of the SQLlite store will be saved<br>
 	</td>	
 </tr>
 </table>
+<h2>Next VLC servers</h2>
+Specifies parameters of next VLC servers for movieplayer plugin:<br> 
+<br>
+<table border=0 cellspacing=5 cellpadding=0>
+<tr>
+	<td>IP Address:</td>
+	<td>Movie Directory:</td>
+	<td>CD/DVD Drive:</td>
+	<td>W-port:</td>
+	<td>S-port:</td>
+	<td>Admin Userid:</td>
+	<td>Password:</td>
+</tr>
+<tr>
+	<td><input style="color:#000000" name="vlcsrv1" type="text" size="15" maxlength="15" value="#VLCSRV1#"></td>	
+	<td><input style="color:#000000" name="vlcpath1" type="text" size="15" maxlength="256" value="#VLCPATH1#"></td>
+	<td><input style="color:#000000" name="vlcdrive1" type="text" size="10" maxlength="256" value="#VLCDRIVE1#"></td>
+	<td><input style="color:#000000" name="vlcwport1" type="text" size="5" maxlength="5" value="#VLCWPORT1#"></td>
+	<td><input style="color:#000000" name="vlcsport1" type="text" size="5" maxlength="5" value="#VLCSPORT1#"></td>
+	<td><input style="color:#000000" name="vlcuser1" type="text" size="12" maxlength="256" value="#VLCUSER1#"></td>
+	<td><input style="color:#000000" name="vlcpass1" type="text" size="12" maxlength="256" value="#VLCPASS1#"></td>
+</tr>
+<tr>
+	<td><input style="color:#000000" name="vlcsrv2" type="text" size="15" maxlength="15" value="#VLCSRV2#"></td>	
+	<td><input style="color:#000000" name="vlcpath2" type="text" size="15" maxlength="256" value="#VLCPATH2#"></td>
+	<td><input style="color:#000000" name="vlcdrive2" type="text" size="10" maxlength="256" value="#VLCDRIVE2#"></td>
+	<td><input style="color:#000000" name="vlcwport2" type="text" size="5" maxlength="5" value="#VLCWPORT2#"></td>
+	<td><input style="color:#000000" name="vlcsport2" type="text" size="5" maxlength="5" value="#VLCSPORT2#"></td>
+	<td><input style="color:#000000" name="vlcuser2" type="text" size="12" maxlength="256" value="#VLCUSER2#"></td>
+	<td><input style="color:#000000" name="vlcpass2" type="text" size="12" maxlength="256" value="#VLCPASS2#"></td>
+</tr>
+<tr>
+	<td><input style="color:#000000" name="vlcsrv3" type="text" size="15" maxlength="15" value="#VLCSRV3#"></td>	
+	<td><input style="color:#000000" name="vlcpath3" type="text" size="15" maxlength="256" value="#VLCPATH3#"></td>
+	<td><input style="color:#000000" name="vlcdrive3" type="text" size="10" maxlength="256" value="#VLCDRIVE3#"></td>
+	<td><input style="color:#000000" name="vlcwport3" type="text" size="5" maxlength="5" value="#VLCWPORT3#"></td>
+	<td><input style="color:#000000" name="vlcsport3" type="text" size="5" maxlength="5" value="#VLCSPORT3#"></td>
+	<td><input style="color:#000000" name="vlcuser3" type="text" size="12" maxlength="256" value="#VLCUSER3#"></td>
+	<td><input style="color:#000000" name="vlcpass3" type="text" size="12" maxlength="256" value="#VLCPASS3#"></td>
+</tr>
+<tr>
+	<td><input style="color:#000000" name="vlcsrv4" type="text" size="15" maxlength="15" value="#VLCSRV4#"></td>	
+	<td><input style="color:#000000" name="vlcpath4" type="text" size="15" maxlength="256" value="#VLCPATH4#"></td>
+	<td><input style="color:#000000" name="vlcdrive4" type="text" size="10" maxlength="256" value="#VLCDRIVE4#"></td>
+	<td><input style="color:#000000" name="vlcwport4" type="text" size="5" maxlength="5" value="#VLCWPORT4#"></td>
+	<td><input style="color:#000000" name="vlcsport4" type="text" size="5" maxlength="5" value="#VLCSPORT4#"></td>
+	<td><input style="color:#000000" name="vlcuser4" type="text" size="12" maxlength="256" value="#VLCUSER4#"></td>
+	<td><input style="color:#000000" name="vlcpass4" type="text" size="12" maxlength="256" value="#VLCPASS4#"></td>
+</tr>
+<tr>
+	<td><input style="color:#000000" name="vlcsrv5" type="text" size="15" maxlength="15" value="#VLCSRV5#"></td>	
+	<td><input style="color:#000000" name="vlcpath5" type="text" size="15" maxlength="256" value="#VLCPATH5#"></td>
+	<td><input style="color:#000000" name="vlcdrive5" type="text" size="10" maxlength="256" value="#VLCDRIVE5#"></td>
+	<td><input style="color:#000000" name="vlcwport5" type="text" size="5" maxlength="5" value="#VLCWPORT5#"></td>
+	<td><input style="color:#000000" name="vlcsport5" type="text" size="5" maxlength="5" value="#VLCSPORT5#"></td>
+	<td><input style="color:#000000" name="vlcuser5" type="text" size="12" maxlength="256" value="#VLCUSER5#"></td>
+	<td><input style="color:#000000" name="vlcpass5" type="text" size="12" maxlength="256" value="#VLCPASS5#"></td>
+</tr>
+
+</table>
 <br><br>
 <input style="color: #000000; width: 100px" type="submit" size="100px" value="Save">
 </form>

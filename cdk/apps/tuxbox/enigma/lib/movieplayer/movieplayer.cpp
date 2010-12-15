@@ -71,6 +71,8 @@ static int cancelBuffering = 0;
 
 #define CMD "requests/status.xml?command="
 
+#define MPPATH "/enigma/plugins/movieplayer/"
+
 eMoviePlayer *eMoviePlayer::instance;
 
 void createThreads()
@@ -125,12 +127,10 @@ void eMoviePlayer::supportPlugin()
 	status.PLG = false;
 	status.DVB = false;
 	status.NSF = false;
-	percBuffer = 100;
-	initialBuffer = INITIALBUFFER;
 	status.BUFFERFILLED = false;
+	initialBuffer = INITIALBUFFER;
 	status.A_SYNC = true;
 	status.SUBT = true;
-	status.DVDSUBT = true;
 	status.RES = false;
 	status.STAT = STOPPED;
 }
@@ -145,7 +145,7 @@ void eMoviePlayer::init_eMoviePlayer()
 		instance = this;
 	supportPlugin();
 	CONNECT(messages.recv_msg, eMoviePlayer::gotMessage);
-	eDebug("[MOVIEPLAYER] Version 2.63 starting...");
+	eDebug("[MOVIEPLAYER] Version 2.69 starting...");
 	status.ACTIVE = false;
 	run();
 }
@@ -203,6 +203,13 @@ void eMoviePlayer::control(const char *command, const char *filename)
 	{
 		mpconfig.load();
 		server = mpconfig.getServerConfig();
+		if(status.PLG) // movieplayer plugin temporary changes VLC server
+		{	
+			int vlcsrv = 0;
+ 			eConfig::getInstance()->getKey(((eString)MPPATH+"vlcsrv").c_str(),vlcsrv);
+			if(vlcsrv > 0)
+				server = mpconfig.getVlcCfg(vlcsrv);
+		}
 	}
 
 	cancelBuffering = 0;
@@ -238,20 +245,11 @@ void eMoviePlayer::control(const char *command, const char *filename)
 	if (cmd == "pause")
 		messages.send(Message(Message::pause, 0));
 	else
-	if (cmd == "rewind")
-		messages.send(Message(Message::rewind, 0));
-	else
-	if (cmd == "forward")
-		messages.send(Message(Message::forward, 0));
-	else
 	if (cmd == "async")
 		messages.send(Message(Message::async, 0));
 	else
 	if (cmd == "subtitles")
 		messages.send(Message(Message::subtitles, 0));
-	else
-	if (cmd == "dvdsubtitles")
-		messages.send(Message(Message::dvdsubtitles, 0));
 	else
 	if (cmd == "nsf")
 		messages.send(Message(Message::nsf, 0));
@@ -271,10 +269,10 @@ void eMoviePlayer::control(const char *command, const char *filename)
 	if (cmd == "origres")
 		messages.send(Message(Message::origres, 0));
 	else
-	if (cmd == "bufsize")
+/*	if (cmd == "bufsize")
 		messages.send(Message(Message::bufsize, filename ? strdup(filename) : 0));
 	else
-
+*/
 	if (cmd == "jump")
 		messages.send(Message(Message::jump, filename ? strdup(filename) : 0));
 }
@@ -416,13 +414,8 @@ int eMoviePlayer::playStream(eString mrl)
 		close(fd);
 		return -1;
 	}
-	int ibuff;
-	if(status.PLG)
-		ibuff = initialBuffer;
-	else
-		ibuff = INITIALBUFFER;
 	
-	if (bufferStream(fd, ibuff) == 0)
+	if (bufferStream(fd, INITIALBUFFER) == 0)
 	{
 		eDebug("[MOVIEPLAYER] buffer is empty.");
 		close(fd);
@@ -544,7 +537,6 @@ void eMoviePlayer::gotMessage(const Message &msg )
 				}
 				usleep(200000);
 				// receive and play ts stream
-				// initialBuffer = INITIALBUFFER;  // for future for plugin 
 				if (playStream(mrl) < 0)
 				{
 					setErrorStatus();
@@ -560,18 +552,11 @@ void eMoviePlayer::gotMessage(const Message &msg )
 		case Message::play:
 			status.STAT = PLAY;
 			break;
-		case Message::forward:
-			break;
-		case Message::rewind:
-			break;
 		case Message::async:
 		        status.A_SYNC=false;
 			break;
 		case Message::subtitles:
 		        status.SUBT=false;
-			break;
-		case Message::dvdsubtitles:
-		        status.DVDSUBT=false;
 			break;
 		case Message::nsf:
 		        status.NSF=true;
@@ -591,16 +576,9 @@ void eMoviePlayer::gotMessage(const Message &msg )
 		case Message::origres:
 		        status.RES=true;
 			break;
-		case Message::bufsize:
-		{
-			percBuffer = atoi(msg.filename);
-//			eDebug("### percBuffer %d", percBuffer);
-			initialBuffer = (int)( INITIALBUFFER/100. * percBuffer );
-			break;
-		}
 		case Message::jump:
 		{
-			int jump = atoi(eString(msg.filename).c_str());
+//			int jump = atoi(eString(msg.filename).c_str());
 //			eDebug("[MOVIEPLAYER] jump: %d seconds", jump);
 			break;
 		}
@@ -652,10 +630,9 @@ int eMoviePlayer::sendRequest2VLC(eString command)  // sending tcp commands
 eString eMoviePlayer::sout(eString mrl)
 {
 	eString soutURL = "#";
-	
 	unsigned int pos = mrl.find_last_of('.');
 	eString extension = mrl.right(mrl.length() - pos - 1);
-	
+
 	eString name = "File";
 	if (mrl.find("dvdsimple:") != eString::npos)
 	{
@@ -668,12 +645,17 @@ eString eMoviePlayer::sout(eString mrl)
 		name = "VCD";
 		extension = "NONE";
 	}
+	else
+	{
+		pos = extension.find(" :");
+		extension = extension.left(pos);
+	}
 	
-	struct serverConfig server = mpconfig.getServerConfig();
+//	struct serverConfig server = mpconfig.getServerConfig();
 	struct videoTypeParms video = mpconfig.getVideoParms(name, extension);
 	
 	eDebug("[MOVIEPLAYER] determine ?sout for mrl: %s", mrl.c_str());
-	eDebug("[MOVIEPLAYER] transcoding audio: %d, video: %d, subtitles: %d, dvbs: %d" , video.transcodeAudio, video.transcodeVideo, status.PLG ? status.SUBT : video.soutadd,status.DVDSUBT);
+	eDebug("[MOVIEPLAYER] transcoding audio: %d, video: %d, subtitles: %d" , video.transcodeAudio, video.transcodeVideo, status.PLG ? status.SUBT : video.soutadd);
 
 	// add sout (URL encoded)
 	// example (with transcode to mpeg1):
@@ -697,9 +679,9 @@ eString eMoviePlayer::sout(eString mrl)
 			if(status.PLG && status.RES)
 			{
 			    int w = 0; 
-			    eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/w", w);
+			    eConfig::getInstance()->getKey(((eString)MPPATH+"w").c_str(), w);
 			    int h = 0;
-			    eConfig::getInstance()->getKey("/enigma/plugins/movieplayer/h", h);
+			    eConfig::getInstance()->getKey(((eString)MPPATH+"h").c_str(), h);
 	            
 	            if(w)
 	                soutURL += ",width=" + eString().sprintf("%d",w);
@@ -710,7 +692,8 @@ eString eMoviePlayer::sout(eString mrl)
 			        soutURL += ",height=" + eString().sprintf("%d",h); 
 			    else
 			        soutURL += ",height="; 
-			    eDebug("used original resolution h:%d x w:%d",h,w);
+
+			    eDebug("used original resolution w:%d x h:%d",w,h);
 			}
 			else
 			{    
@@ -718,33 +701,36 @@ eString eMoviePlayer::sout(eString mrl)
 			    soutURL += ",height=" + res_vert;
 			}
 			
-			soutURL += ",fps=" + video.fps;
-			
 			if(status.PLG)
 			{
-				if(status.SUBT)
-					soutURL += ",soverlay";
+				int scale = 0;
+				eConfig::getInstance()->getKey(((eString)MPPATH+"scale").c_str(), scale);
+				if(scale)
+					soutURL += ",scale=1";
 			}
-			else
-			{
-				if (video.soutadd)
-					soutURL += ",soverlay";
-			}
+
+			soutURL += ",fps=" + video.fps;
+			
 		}
-						
+				
 		if (video.transcodeAudio)
 		{
 			if (video.transcodeVideo)
 				soutURL += ",";
 			soutURL += "acodec=mp2a,ab=" + video.audioRate + ",channels=2";
 		}
-		
+
 		if(status.PLG)
 		{
-		    if(status.DVDSUBT)
-				soutURL += ",scodec=dvbs";
+			if(status.SUBT)
+				soutURL += ",soverlay";
 		}
-				
+		else
+		{
+			if (video.soutadd)
+				soutURL += ",soverlay";
+		}
+
 		if(status.PLG)
 		{
 			if(status.A_SYNC)
@@ -758,10 +744,10 @@ eString eMoviePlayer::sout(eString mrl)
 	
 	//soutURL += "duplicate{dst=std{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}}";
 	soutURL += "standard{access=http,mux=ts,dst=:" + server.streamingPort + "/dboxstream}";
+	//soutURL += "http{mux=ts,dst=:" + server.streamingPort + "/dboxstream}";
 
 	status.A_SYNC=true;
 	status.SUBT = true;
-	status.DVDSUBT = true;
 	status.RES = false;
    	eDebug("[MOVIEPLAYER] sout = %s", soutURL.c_str());
 	return soutURL;
