@@ -38,7 +38,7 @@
 #include <lib/system/info.h>
 #include <enigma.h>
 
-#define REL "Movieplayer Plugin, v0.9.44"
+#define REL "Movieplayer Plugin, v0.9.97"
 
 extern "C" int plugin_exec(PluginParam *par);
 extern eString getWebifVersion();
@@ -120,24 +120,10 @@ eSCGui::eSCGui(): menu(true)
 	if(!silver_large_rc)  // used for non large silver RC only 
 		init_volume_bar();
 	
-	eMoviePlayer::getInstance()->mpconfig.load();
-	server = eMoviePlayer::getInstance()->mpconfig.getServerConfig();
-
-	VLC_IP = server.serverIP;
-	VLC_IF_PORT = server.webifPort;
-
-	startdir = server.startDir;
-	cddrive = server.CDDrive;
-
-	if (server.vlcUser && server.vlcPass)
-		VLC_AUTH = server.vlcUser + ":" + server.vlcPass;
-
 	int mode = DATA;
 	eConfig::getInstance()->getKey((pathcfg+"lastmode").c_str(), mode);
 
-	if(mode == DATA)
-		getSavedPath();
-
+	getSavedPath();
 	loadList(mode, startdir);
 }
 
@@ -158,6 +144,7 @@ bool eSCGui::supportedFileType(eString filename)
 
 void eSCGui::loadList(int mode, eString pathfull)
 {
+
 	playList.clear();
 	PLAYLIST a;
 	
@@ -197,12 +184,12 @@ void eSCGui::loadList(int mode, eString pathfull)
 			if(VLC8)
 			    tmp3 = "dvdsimple:";
 			else
-			    tmp3 = "dvd://";
+				tmp3 = "dvdsimple://";
 			break;
 	}
 
 	eString response;
-	CURLcode httpres= sendGetRequest("/requests/browse.xml?dir=" + pathfull.strReplace(" ", "%20"), response);
+	CURLcode httpres= sendGetRequest("/requests/browse.xml?dir=" + url_code(pathfull).strReplace(" ", "%20"), response);
 
 	//std::replace(response.begin(), response.end(), '\\', '/');  for auto-subtitles under Windows must be commented !!!
 	response.strReplace("://", ":/"); // what the heck...
@@ -210,7 +197,7 @@ void eSCGui::loadList(int mode, eString pathfull)
 	{
 		if (mode == DATA)
 		{
-//			eDebug("[IMS] file: %s",response.c_str());
+			//eDebug("[IMS] file: %s",response.c_str());
 			XMLTreeParser parser("UTF-8");
 
 			unsigned int start = 0;
@@ -282,11 +269,7 @@ void eSCGui::loadList(int mode, eString pathfull)
 							//eDebug("[MOVIEPLAYER] goup1: %s",a.Fullname.c_str());
 							playList.push_back(a);
 							nGoUp++;
-
-							int savepath = 0;
-							eConfig::getInstance()->getKey((pathcfg+"savepath").c_str(),savepath);
-							if(savepath)
-								eConfig::getInstance()->setKey((pathcfg+"path").c_str(),display);
+							setSavedPath(display);
 						}
 					}
 					else
@@ -320,13 +303,29 @@ void eSCGui::loadList(int mode, eString pathfull)
 				pathfull = cddrive + "\\";
 			}
 
-			for (int i = 1; i <= 30; i++)
+			int title = 0; //DVD Title
+			eConfig::getInstance()->getKey((pathcfg+"title").c_str(), title);
+
+			for (int i = 0; i <= 30; i++)
 			{
-				a.Filename = (eString)_("Chapter") + eString().sprintf(" %02d", i);
-				if(VLC8)
-				    a.Fullname = tmp3 + cddrive + "@1:" + eString().sprintf("%d-", i);
+				if( i == 0 && !VLC8 )
+					a.Filename = (eString)_(">> All <<");  // Whole DVD
 				else
-				    a.Fullname = tmp3 + cddrive + "\\@1:" + eString().sprintf("%d", i);
+					a.Filename = (eString)_("Chapter") + eString().sprintf(" %02d", i);
+
+				a.Fullname = tmp3 + cddrive;
+				if(VLC8)
+				    a.Fullname += "@1:" + eString().sprintf("%d-", i);
+				else
+				{
+					if(i==0)
+					{
+						if(title!=0)
+							a.Fullname += eString().sprintf("@%d",title);
+					}
+					else
+				    	a.Fullname += eString().sprintf("@%d:%d",title,i);
+				}
 				a.Filetype = FILES;
 				playList.push_back(a);
 				nFiles++;
@@ -344,8 +343,8 @@ void eSCGui::loadList(int mode, eString pathfull)
 			playList.push_back(a);
 		}
 		else
-			setText((eString)_(" Movieplayer could not communicate with VLC"));
-		list->setHelpText(_("Please make sure that VLC is started and PC's IP address is configured correctly in the streaming settings."));
+			setText(" " + (eString)_("Could not communicate with VLC server") + " " + VLC_IP);
+		list->setHelpText(_("Make sure that VLC is started, IP address is configured correctly or IP of Dreambox is enabled there in .host file."));
 	}
 
 	viewList();
@@ -457,8 +456,6 @@ void eSCGui::timerHandler()
 		}
 		case eMoviePlayer::STOPPED:
 		{
-
-//		        eDebug("#   STOPPED:");
 			int play_next=1;
 			eConfig::getInstance()->getKey((pathcfg+"playnext").c_str(), play_next );
 
@@ -539,7 +536,6 @@ void eSCGui::playerStart(int val)
 		cmove(ePoint(90, 800));
 		show();
 		menu = false;
-
 	}
 	if(jumpBox)
 	{
@@ -553,7 +549,6 @@ void eSCGui::playerStart(int val)
 	if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED &&
 		eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STREAMERROR)
 	{
-		eDebug("\n[VLC] is not STOPPED and is not STREAMERROR");
 		if(eMoviePlayer::getInstance()->status.BUFFERFILLED) // info about played file - OK button:
 		{
 			eDebug("\n[VLC] BUFFERFILLED");
@@ -573,24 +568,118 @@ void eSCGui::playerStart(int val)
 		}
 	}
 	else
-	{	eDebug("\n[VLC] will be play ...");
-		changeSout();  // change some sout parameters
+	{	
+		eDebug("\n[VLC] will be play ...");
 		setText(path); // refresh title
-		eString filePath = eString().sprintf("%s%s","file:///", playList[val].Fullname.c_str());  // for support autosubtitles by VLC
-		eMoviePlayer::getInstance()->control("start2", filePath.c_str());
-		timer->start(2000, true);
+		Start2(val);
 	}
+}
+
+void eSCGui::Start2(int value)
+{
+	int mode = DATA;
+	eConfig::getInstance()->getKey((pathcfg+"lastmode").c_str(), mode);
+	eMoviePlayer::getInstance()->control("start2", mrl_par(val,mode).c_str());
+	list->setCurrent(playList[value].listEntry);
+	timer->start(2000, true);
+}
+
+eString eSCGui::mrl_par(int value, int mode)
+{
+	changeSout();
+
+	int input_txt = 0; // input as number or text
+	eConfig::getInstance()->getKey((pathcfg+"input").c_str(), input_txt);
+
+	int sub_color = 0; // input as number or text
+	eConfig::getInstance()->getKey((pathcfg+"scolor").c_str(), sub_color);
+
+	eString mrlpars = "";
+	if(input_txt)
+	{
+		eString a_lang = "   "; 
+		eConfig::getInstance()->getKey((pathcfg+"alang").c_str(), a_lang);
+		eString s_lang = "   "; 
+		eConfig::getInstance()->getKey((pathcfg+"slang").c_str(), s_lang);
+		if(a_lang != "   ")
+			mrlpars += eString().sprintf(" :audio-language=%s",a_lang.c_str());
+		if(s_lang != "   ")
+			mrlpars += eString().sprintf(" :sub-language=%s",s_lang.c_str());
+	}
+	else
+	{
+		int a_track = -1; 
+		eConfig::getInstance()->getKey((pathcfg+"atrack").c_str(), a_track);
+		int s_track = -1; 
+		eConfig::getInstance()->getKey((pathcfg+"strack").c_str(), s_track);
+		if(a_track != -1)
+			mrlpars += eString().sprintf(" :audio-track=%d",a_track);
+		if(s_track != -1)
+			mrlpars += eString().sprintf(" :sub-track=%d",s_track);
+	}
+/* prepared for all in one:
+	eString mrlpars =  "";
+	eString a_lang = "eng"; eConfig::getInstance()->getKey((pathcfg+"alang").c_str(), a_lang);
+	eString s_lang = "eng"; eConfig::getInstance()->getKey((pathcfg+"slang").c_str(), s_lang);
+
+	if(a_lang == "   ")
+		mrlpars += "";
+	if(a_lang.length() < 3)
+		mrlpars += eString().sprintf(" :audio-track=%s",a_lang.c_str());
+	else
+		mrlpars += eString().sprintf(" :audio-language=%s",a_lang.c_str());
+	
+	if(s_lang == "   ")
+		mrlpars += "";
+	else
+	if(s_lang.length() < 3)
+		mrlpars += eString().sprintf(" :sub-track=%s",s_lang.c_str());
+	else
+		mrlpars += eString().sprintf(" :sub-language=%s",s_lang.c_str());
+*/
+	eString tmp = "";
+	if(mode==DATA)
+		tmp += "file:///";
+	tmp += url_code(playList[value].Fullname) + mrlpars;
+	tmp += ( mode==DATA ? " :file-caching=1000" : " :dvdread-caching=2000" );
+	if(sub_color)
+		tmp += " :freetype-color=0xFFFF00"; //16776960";
+	return tmp;
+}
+
+eString eSCGui::url_code( eString origname )
+{
+//*** for national chars in names/paths ... only all > 'z' , never convert '.' => don't use httpEscape !!!
+	eString pconverted;
+	for (unsigned int i = 0; i < origname.length(); ++i)
+	{
+		int c = origname.c_str()[i];
+		if(c > 'z')
+			pconverted += eString().sprintf("%c%x",'%',c);
+		else
+			pconverted += c;
+	}
+	return pconverted;
 }
 
 eString eSCGui::filePos(int both, eString name, eString size, eString& text)
 {
 	eString restmp="";
-	sendGetRequest("/requests/status.xml?command=", restmp);
+	eString caption="Movieplayer";
+	sendGetRequest(CMD, restmp);
 	int l = atoi(getPar(restmp,"<length>").c_str());
 	int t = atoi(getPar(restmp,"<time>").c_str());
-	if(both)
-		text = eString().sprintf("%s\n\n%s: %d:%02d\t%s",name.c_str(),_("Duration"), l/60, l%60, size.c_str());
-	eString caption = eString().sprintf("%s%s:  %d:%02d", "Movieplayer - ", _("position in played file"), t/60, t%60);
+	if(l)
+	{
+		if(both)
+			text = eString().sprintf("%s\n\n%s: %d:%02d\t%s",name.c_str(),_("Duration"), l/60, l%60, size.c_str());
+		caption += eString().sprintf(" - %s:  %d:%02d", _("position in played file"), t/60, t%60);
+	}
+	else
+	{
+		if(both)
+			text = eString().sprintf("%s\n\n\t%s",name.c_str(),size.c_str());
+	}
 	return caption;
 }
 
@@ -674,7 +763,7 @@ void eSCGui::pause()
 int eSCGui::eventHandler(const eWidgetEvent &e)
 {
 	int jump = 0;
-	eString command  = "/requests/status.xml?command=";
+	eString command  = CMD;
 	eString restmp = "";
 
 	switch (e.type)
@@ -699,10 +788,7 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 					{
 						// set back DVB
 						if(eMoviePlayer::getInstance()->status.DVB)
-//						{
-//							eMoviePlayer::getInstance()->control("dvbon", "");
 					    	eMoviePlayer::getInstance()->startDVB();
-//						}
 						eMoviePlayer::getInstance()->control("endplg", "");
 						eMoviePlayer::getInstance()->supportPlugin();
 						close(0);
@@ -716,14 +802,14 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				{
 					if (menu)
 						hide();
-    					eSCGuiHelp help;
-    					help.show();
-    					help.exec();
-    					help.hide();
-    					if (menu)
+    				eSCGuiHelp help;
+    				help.show();
+    				help.exec();
+    				help.hide();
+    				if (menu)
 						show();
-    				}
     			}
+    		}
 			else
 			if (e.action == &i_shortcutActions->red)
 			{
@@ -737,7 +823,6 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 					if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
 					{
 						command+="seek&val=%2d5%";sendGetRequest(command, restmp);
-						//eMoviePlayer::getInstance()->control("jump", "");
 						if(!jumpBox)
 						{
 							jumpBox = new eMessageBox(_("Rewind 5 percent"),_("Skipping"), eMessageBox::iconInfo);
@@ -750,7 +835,10 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 			if (e.action == &i_shortcutActions->green)
 			{
 				if (menu)
+				{	
+					getSavedPath();
 					loadList(VCD, "");
+				}
 				else
 				{
 					if(!bufferingBox)
@@ -781,7 +869,10 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 			if (e.action == &i_shortcutActions->yellow)
 			{
 				if (menu)
+				{	
+					getSavedPath();
 					loadList(DVD, "");
+				}
 				else
 				{
     				if(!bufferingBox)
@@ -807,15 +898,8 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				if (menu)
 				{
 					hide();
-					eSCGuiConfig cfg;
-					cfg.show();
-					cfg.exec();
-					cfg.hide();
+					callConfig();
 					show();
-					int mode = DATA;
-					eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
-					if(mode != DATA)
-					    loadList(mode, "");
 				}
 				else
 				{
@@ -827,7 +911,6 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 							jumpBox = new eMessageBox(_("Fast forward 5 percent"),_("Skipping"), eMessageBox::iconInfo);
 							jumpBox->show();
 						}
-						//eMoviePlayer::getInstance()->control("jump", "");
 					}
 				}
 			}
@@ -838,14 +921,7 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				{
 					if (menu)
 						hide();
-					eSCGuiConfig cfg;
-					cfg.show();
-					cfg.exec();
-					cfg.hide();
-					int mode = DATA;
-					eConfig::getInstance()->getKey((pathcfg + "lastmode").c_str(), mode);
-					if(mode != DATA)
-					    loadList(mode, "");
+					callConfig();
 					if (menu)
 						show();
 				}
@@ -861,14 +937,11 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 						delete infoBox;
 						infoBox=0;
 					}
-					eMoviePlayer::getInstance()->control("up", "");
 					if(val<nFiles)
 					{
 						if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
 							eMoviePlayer::getInstance()->control("stop", "");
-						changeSout();
-						eMoviePlayer::getInstance()->control("start2", playList[++val].Fullname.c_str());
-							timer->start(2000, true);
+						Start2(++val);
 					}
 				}
 				else
@@ -885,15 +958,11 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 						delete infoBox;
 						infoBox=0;
 					}
-					eMoviePlayer::getInstance()->control("down", "");
 					if(val > 0 )
 					{
-						eMoviePlayer::getInstance()->control("forward", "");
 						if (eMoviePlayer::getInstance()->status.STAT != eMoviePlayer::STOPPED)
 							eMoviePlayer::getInstance()->control("stop", "");
-						changeSout();
-						eMoviePlayer::getInstance()->control("start2", playList[--val].Fullname.c_str());
-						timer->start(2000, true);
+						Start2(--val);
 					}
 				}
 				else
@@ -901,72 +970,42 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 			}
 			else
 			if (e.action == &i_shortcutActions->number1)
-			{
-				if (!menu)
-					jump = 1;
-			}
+				jump = 1;
 			else
 			if (e.action == &i_shortcutActions->number2)
-			{
-				if (!menu)
-					jump = 2;
-			}
+				jump = 2;
 			else
 			if (e.action == &i_shortcutActions->number3)
-			{
-				if (!menu)
-					jump = 3;
-			}
+				jump = 3;
 			else
 			if (e.action == &i_shortcutActions->number4)
-			{
-				if (!menu)
-					jump = 4;
-			}
+				jump = 4;
 			else
 			if (e.action == &i_shortcutActions->number5)
-			{
-				if (!menu)
-					jump = 5;
-			}
+				jump = 5;
 			else
 			if (e.action == &i_shortcutActions->number6)
-			{
-				if (!menu)
-					jump = 6;
-			}
+				jump = 6;
 			else
 			if (e.action == &i_shortcutActions->number7)
-			{
-				if (!menu)
-					jump = 7;
-			}
+				jump = 7;
 			else
 			if (e.action == &i_shortcutActions->number8)
-			{
-				if (!menu)
-					jump = 8;
-			}
+				jump = 8;
 			else
 			if (e.action == &i_shortcutActions->number9)
-			{
-				if (!menu)
-					jump = 9;
-			}
+				jump = 9;
 			else
 			if (e.action == &i_shortcutActions->number0)
-			{
-				if (!menu)
-					jump = 10;
-			}
+				jump = 10;
 			else
 				break;
 	
-			if (jump > 0 )
+			if (jump > 0 && !menu)
 			{
 				switch(jump)
 				{
-					// forward relative
+					// rewind relative
 					case 1:	command+="seek&val=%2d15"; break;
 					case 4: command+="seek&val=%2d60"; break;
 					case 7: command+="seek&val=%2d5m"; break;
@@ -974,7 +1013,7 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 					case 2: command+="seek&val=20%"; break;
 					case 5: command+="seek&val=50%"; break;
 					case 8: command+="seek&val=80%"; break;
-					// rewind relative
+					//  forward relative
 					case 3: command+="seek&val=%2b15"; break;
 					case 6: command+="seek&val=%2b60"; break;
 					case 9: command+="seek&val=%2b5m"; break;
@@ -983,15 +1022,15 @@ int eSCGui::eventHandler(const eWidgetEvent &e)
 				}
 				if(!bufferingBox && eMoviePlayer::getInstance()->status.BUFFERFILLED)
 				{
-    					sendGetRequest(command, restmp);
-    					eString tmp = eString().sprintf(NAME[jump+4],jump) ;
-    					eMoviePlayer::getInstance()->control("jump", eString().sprintf("%d", jump).c_str());
-    					if(!jumpBox)
-    					{
+    				sendGetRequest(command, restmp);
+    				eString tmp = eString().sprintf(NAME[jump+4],jump) ;
+    				eMoviePlayer::getInstance()->control("jump", eString().sprintf("%d", jump).c_str());
+    				if(!jumpBox)
+    				{
 						jumpBox = new eMessageBox(tmp.strReplace(":\t", " - "),_("Skipping"), eMessageBox::iconInfo);
 						jumpBox->show();
-    					}
     				}
+    			}
 			}
 			return 1;
 		case eWidgetEvent::evtKey:
@@ -1023,7 +1062,6 @@ size_t CurlDummyWrite (void *ptr, size_t size, size_t nmemb, void *data)
 
 CURLcode eSCGui::sendGetRequest (const eString& url, eString& response)  // send http commands to VLC, in response return info
 {
-
 	CURL *curl;
 	CURLcode httpres;
 
@@ -1051,10 +1089,59 @@ CURLcode eSCGui::sendGetRequest (const eString& url, eString& response)  // send
 
 void eSCGui::getSavedPath()
 {
+	int vlcsrv = 0;
+ 	eConfig::getInstance()->getKey((pathcfg+"vlcsrv").c_str(), vlcsrv);
+
+	eMoviePlayer::getInstance()->mpconfig.load();
+	server = eMoviePlayer::getInstance()->mpconfig.getVlcCfg(vlcsrv);
+
+	VLC_IP = server.serverIP;
+	VLC_IF_PORT = server.webifPort;
+
+	startdir = server.startDir;
+	cddrive = server.CDDrive;
+
+	if (server.vlcUser && server.vlcPass)
+		VLC_AUTH = server.vlcUser + ":" + server.vlcPass;
+	
 	int savepath=0;
 	eConfig::getInstance()->getKey((pathcfg+"savepath").c_str(), savepath);
 	if(savepath)
-		eConfig::getInstance()->getKey((pathcfg+"path").c_str(), startdir);
+		eConfig::getInstance()->getKey((pathcfg+"path"+eString().sprintf("%d",vlcsrv)).c_str(), startdir);
+}
+
+void eSCGui::setSavedPath(eString display)
+{
+	int savepath = 0;
+	eConfig::getInstance()->getKey((pathcfg+"savepath").c_str(),savepath);
+	if(savepath)
+	{
+		int vlcsrv = 0;
+		eConfig::getInstance()->getKey((pathcfg+"vlcsrv").c_str(), vlcsrv);
+		eConfig::getInstance()->setKey((pathcfg+"path"+eString().sprintf("%d",vlcsrv)).c_str(),display);
+	}
+}
+
+void eSCGui::callConfig()
+{
+	int vlcsrv = 0;
+ 	eConfig::getInstance()->getKey((pathcfg+"vlcsrv").c_str(), vlcsrv);
+	eSCGuiConfig cfg;
+	cfg.show();
+	cfg.exec();
+	cfg.hide();
+	int mode = DATA;
+	eConfig::getInstance()->getKey((pathcfg+"lastmode").c_str(), mode);
+	int vlcsrv1 = 0;
+ 	eConfig::getInstance()->getKey((pathcfg+"vlcsrv").c_str(), vlcsrv1);
+	if(vlcsrv != vlcsrv1)
+	{
+		getSavedPath();
+		if(mode == DATA)
+			loadList(mode, startdir);
+		else	
+	    	loadList(mode, "");
+	}
 }
 
 eString eSCGui::getPar(eString buf, const char* parameter)
@@ -1072,7 +1159,7 @@ eString eSCGui::getPar(eString buf, const char* parameter)
 <repeat> */
 
     eString par = "";
-//        eDebug("[getPar] entry: %s",buf.c_str());
+//	eDebug("[getPar] entry: %s",buf.c_str());
 	unsigned int start = 0;
 	for (unsigned int pos = buf.find('\n', 0); pos != std::string::npos; pos = buf.find('\n', start))
 	{
@@ -1080,7 +1167,7 @@ eString eSCGui::getPar(eString buf, const char* parameter)
 		if(entry.find(parameter) != eString::npos)
 		{
 			par = entry.strReplace(parameter,"");
-//                      eDebug("[getPar] parameter: %s",par.c_str());
+//			eDebug("[getPar] parameter: %s",par.c_str());
 			par = par.left(par.find_last_of('<')).strReplace(" ","");
 			break;
 		}
@@ -1123,6 +1210,7 @@ void eSCGui::volumeDown()
 		volumeTimer->start(2000, true);
 	}
 }
+
 void eSCGui::hideVolumeSlider()
 {
 	volume->hide();
@@ -1130,7 +1218,6 @@ void eSCGui::hideVolumeSlider()
 
 void eSCGui::updateVolume(int mute_state, int vol)
 {
-
 	if (mute_state)
 	{
 		volume->hide();
@@ -1219,11 +1306,11 @@ eSCGuiHelp::eSCGuiHelp()  // Help window
 		new eListBoxEntryText(list, NAME[i++]);
 }
 
-eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
+eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 440)  // Config window
 {
     int fc = 10;
-    int sc = 220;
-    int l = 200;
+    int sc = 230;
+    int l = 210;
     
 	play_next = 1;
 	eConfig::getInstance()->getKey((pathcfg+"playnext").c_str(), play_next );
@@ -1249,9 +1336,6 @@ eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
 	int resdvb = 0;
 	eConfig::getInstance()->getKey((pathcfg+"resdvb").c_str(), resdvb );
 
-	int pbuf = 100;
-	eConfig::getInstance()->getKey((pathcfg+"pbuf").c_str(), pbuf);
-
 	int nsf = 0;
 	eConfig::getInstance()->getKey((pathcfg+"nsf").c_str(), nsf);
 	
@@ -1267,11 +1351,204 @@ eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
 	int height = 0;
  	eConfig::getInstance()->getKey((pathcfg+"h").c_str(), height);
 
+	int input_txt = 0;
+	eConfig::getInstance()->getKey((pathcfg+"input").c_str(), input_txt);
+	
+	eString a_lang = "   ";
+    eConfig::getInstance()->getKey((pathcfg+"alang").c_str(), a_lang);
+
+	eString s_lang = "   ";
+    eConfig::getInstance()->getKey((pathcfg+"slang").c_str(), s_lang);
+
+	int s_track = -1;
+	eConfig::getInstance()->getKey((pathcfg+"strack").c_str(), s_track);
+
+	int a_track = -1;
+	eConfig::getInstance()->getKey((pathcfg+"atrack").c_str(), a_track);
+
+	int title = 0;
+	eConfig::getInstance()->getKey((pathcfg+"title").c_str(), title);
+
+	int sub_color = 0;
+	eConfig::getInstance()->getKey((pathcfg+"scolor").c_str(), sub_color);
+
+	int scale = 0;
+	eConfig::getInstance()->getKey((pathcfg+"scale").c_str(), scale);
+
+	loadedOK=1;
+	if(!load_codes())
+	{
+		loadedOK=0;
+		input_txt=0;
+	}
+
+	lVlcSrv = new eLabel(this);
+	lVlcSrv->move(ePoint(fc, yPos()));
+	lVlcSrv->resize(eSize(70, widgetHeight()));
+	lVlcSrv->setText(_("Server:"));
+	lVlcSrv->loadDeco();
+
+	comVlcSrv = new eComboBox(this, NR_VLC_SRV + 1, lVlcSrv);
+	comVlcSrv->move(ePoint(fc + 70, yPos()));
+	comVlcSrv->resize(eSize(2*l - 70, widgetHeight()));
+	comVlcSrv->setHelpText(_("Select VLC server"));
+	comVlcSrv->loadDeco();
+	
+	int vlcsrv = 0;
+ 	eConfig::getInstance()->getKey((pathcfg+"vlcsrv").c_str(), vlcsrv);
+	int mode = DATA;
+	eConfig::getInstance()->getKey((pathcfg+"lastmode").c_str(), mode);
+
+	struct serverConfig server;
+	eMoviePlayer::getInstance()->mpconfig.load();
+	for(int i=0; i<= NR_VLC_SRV; i++)
+	{
+		server = eMoviePlayer::getInstance()->mpconfig.getVlcCfg(i);
+		if (mode == DATA)
+		{
+			eString startDir = server.startDir;
+			if(savepath)
+				eConfig::getInstance()->getKey((pathcfg+"path"+eString().sprintf("%d",i)).c_str(),startDir);	
+			new eListBoxEntryText(*comVlcSrv, server.serverIP + "  " + startDir, (void*)(i));
+		}
+		else
+			new eListBoxEntryText(*comVlcSrv, server.serverIP + "  " + server.CDDrive, (void*)(i));
+	}
+	comVlcSrv->setCurrent((void *)vlcsrv);
+
+	nextYPos(35);
+
+	setResInputTxt=new eCheckbox(this, input_txt, loadedOK);
+	setResInputTxt->setText(_("T/L"));
+	setResInputTxt->move(ePoint(fc, yPos()));
+	setResInputTxt->resize(eSize(55, widgetHeight()));
+	setResInputTxt->setHelpText(_("Set audio and subtitles as track or as language"));
+	CONNECT (setResInputTxt->checked, eSCGuiConfig::setCheckInputTxt);
+
+
+    lAudioLang = new eLabel(this);
+   	lAudioLang->move(ePoint(fc + 70, yPos()));
+    lAudioLang->resize(eSize(l, widgetHeight())); 
+    lAudioLang->setText((eString)_("Audio:"));
+	lAudioLang->setFlags(eLabel::flagVCenter);
+/*#ifdef TXT
+	txtAudioLang=new eTextInputField(this,lAudioLang); 
+    txtAudioLang->setMaxChars(3); 
+	txtAudioLang->setText(a_lang);   	
+    txtAudioLang->move(ePoint(fc + 130, yPos()));
+    txtAudioLang->resize(eSize (60, widgetHeight()));
+    txtAudioLang->setHelpText(_("Set audio language as ISO639"));
+    txtAudioLang->loadDeco();
+#else*/	
+	comAudioLang = new eComboBox(this, 3, lAudioLang);
+	comAudioLang->move(ePoint(fc + 130, yPos()));
+    comAudioLang->resize(eSize (60, widgetHeight()));
+    comAudioLang->setHelpText(_("Select audio language"));
+    comAudioLang->loadDeco();
+    int aitem = 0;
+    for(int i = 0; i < (int)codeList.size(); i++)
+    {
+        new eListBoxEntryText(*comAudioLang, getCode(i).code.c_str(), (void*)i);
+        if( getCode(i).code == a_lang)
+            aitem = i;
+    }
+    comAudioLang->setCurrent((void *)aitem);
+//#endif
+	 
+    lSubLang = new eLabel(this);
+   	lSubLang->move(ePoint(sc - 20, yPos()));
+    lSubLang->resize(eSize(l, widgetHeight())); 
+    lSubLang->setText(_("Sub:"));
+	lSubLang->setFlags(eLabel::flagVCenter);
+/*#ifdef TXT
+	txtSubLang=new eTextInputField(this,lSubLang); 
+    txtSubLang->setMaxChars(3);    	
+	txtSubLang->setText(s_lang);
+    txtSubLang->move(ePoint(sc + 25 , yPos()));
+    txtSubLang->resize(eSize (60, widgetHeight()));
+    txtSubLang->setHelpText(_("Set subtitle language as ISO639"));
+    txtSubLang->loadDeco();
+#else*/	
+	comSubLang = new eComboBox(this, 3, lSubLang);
+	comSubLang->move(ePoint(sc + 25 , yPos()));
+    comSubLang->resize(eSize (60, widgetHeight()));
+    comSubLang->setHelpText(_("Select subtitle language"));
+    comSubLang->loadDeco();
+    int sitem = 0;
+    for(int i = 0; i < (int)codeList.size(); i++)
+    {
+        new eListBoxEntryText(*comSubLang, getCode(i).code.c_str(), (void*)i);
+        if( getCode(i).code == s_lang)
+            sitem = i;
+    }
+    comSubLang->setCurrent((void *)sitem);
+//#endif
+
+	lAudioTrack = new eLabel(this);
+	lAudioTrack->move(ePoint(fc + 70, yPos()));
+	lAudioTrack->resize(eSize(l, widgetHeight()));
+	lAudioTrack->setText(_("Audio:"));
+	lAudioTrack->setFlags(eLabel::flagVCenter);
+	lAudioTrack->loadDeco();
+
+	comAudioTrack = new eComboBox(this, 3, lAudioTrack);
+	comAudioTrack->move(ePoint(fc + 130, yPos()));
+	comAudioTrack->resize(eSize (55, widgetHeight()));
+	comAudioTrack->setHelpText(_("Select audio track (-1 is default)"));
+	comAudioTrack->loadDeco();
+
+	for(int time = -1; time <= 20; ++time)
+	{
+		new eListBoxEntryText(*comAudioTrack, eString().sprintf("%d", time), (void*)(time));
+	}
+	comAudioTrack->setCurrent((void *)a_track);
+
+	lSubTrack = new eLabel(this);
+	lSubTrack->move(ePoint(sc - 20, yPos()));
+	lSubTrack->resize(eSize(l, widgetHeight()));
+	lSubTrack->setText(_("Sub:"));
+	lSubTrack->setFlags(eLabel::flagVCenter);
+	lSubTrack->loadDeco();
+
+	comSubTrack = new eComboBox(this, 3, lSubTrack);
+	comSubTrack->move(ePoint(sc + 25, yPos()));
+	comSubTrack->resize(eSize (55, widgetHeight()));
+	comSubTrack->setHelpText(_("Select subtitle track (-1 is default)"));
+	comSubTrack->loadDeco();
+
+	for(int time = -1; time <= 20; ++time)
+	{
+		new eListBoxEntryText(*comSubTrack, eString().sprintf("%d", time), (void*)(time));
+	}
+	comSubTrack->setCurrent((void *)s_track);
+	
+	lTitle = new eLabel(this);
+	lTitle->move(ePoint(sc + 95, yPos()));
+	lTitle->resize(eSize(80, widgetHeight()));
+	lTitle->setText((eString)"Title:");
+	lTitle->setFlags(eLabel::flagVCenter);
+	lTitle->loadDeco();
+
+	comTitle = new eComboBox(this, 3, lTitle);
+	comTitle->move(ePoint(sc + 145, yPos()));
+	comTitle->resize(eSize (55, widgetHeight()));
+	comTitle->setHelpText(_("Select DVD title (0 is default)"));
+	comTitle->loadDeco();
+
+	for(int time = 0; time <= 20; ++time)
+	{
+		new eListBoxEntryText(*comTitle, eString().sprintf("%d", time), (void*)(time));
+	}
+	comTitle->setCurrent((void *)title);
+
+	nextYPos(35);
+
 	playNext=new eCheckbox(this, play_next, 1);
 	playNext->setText(_("Continuous playback"));
 	playNext->move(ePoint(fc, yPos()));
 	playNext->resize(eSize(l, widgetHeight()));
 	playNext->setHelpText(_("Playback next file from playlist"));
+	CONNECT (playNext->checked, eSCGuiConfig::setCheckStopErr);
 
 	stopErr=new eCheckbox(this, stop_err, 1);
 	stopErr->setText(_("Stop after error"));
@@ -1304,23 +1581,23 @@ eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
 	subTitles=new eCheckbox(this, subtitles, 1);
 	subTitles->setText(_("Auto Subtitles"));
 	subTitles->move(ePoint(fc, yPos()));
-	subTitles->resize(eSize(l, widgetHeight()));
+	subTitles->resize(eSize(l - 50, widgetHeight()));
 	subTitles->setHelpText(_("Use autoselection of subtitles by VLC"));
 
+	subColor=new eCheckbox(this, sub_color, 1);
+	subColor->setText(_("Yellow subtitles"));
+	subColor->move(ePoint(sc, yPos()));
+	subColor->resize(eSize(l, widgetHeight()));
+	subColor->setHelpText(_("Colored subtitles to yellow (files)"));
+
+    nextYPos(35);
+	
 	aSync=new eCheckbox(this, async, 1);
 	aSync->setText(_("Audio-sync"));
-	aSync->move(ePoint(sc, yPos()));
+	aSync->move(ePoint(fc, yPos()));
 	aSync->resize(eSize(l, widgetHeight()));
 	aSync->setHelpText(_("Use audio-sync parameter for playback"));
 
-    nextYPos(35);
-    
-    setVlc8=new eCheckbox(this, vlc8 , 1);
-	setVlc8->setText(_("VLC v0.86"));
-	setVlc8->move(ePoint(fc, yPos()));
-	setVlc8->resize(eSize(l, widgetHeight()));
-	setVlc8->setHelpText(_("Used VLC v0.86 or VLC v0.99 and newer."));
-	
 	setNsf=new eCheckbox(this, nsf, 1);
 	setNsf->setText(_("Non-standard file"));
 	setNsf->move(ePoint(sc, yPos()));
@@ -1329,98 +1606,95 @@ eSCGuiConfig::eSCGuiConfig(): ePLiWindow(_("Options"), 420)  // Config window
 
 	nextYPos(35);
 
+	Scale=new eCheckbox(this, scale, 1);
+	Scale->setText(_("Scale"));
+	Scale->move(ePoint(fc, yPos()));
+	Scale->resize(eSize(90, widgetHeight()));
+	Scale->setHelpText(_("Use scale=1 (better for DM500)"));
+	
 	setRes=new eCheckbox(this, origres , 1);
-	setRes->setText(_("Use own resolution"));
-	setRes->move(ePoint(fc, yPos()));
-	setRes->resize(eSize(l, widgetHeight()));
-	setRes->setHelpText(_("Streaming file with standard resolution or with own setting."));
+	setRes->setText(_("Resolution"));
+	setRes->move(ePoint(sc -120, yPos()));
+	setRes->resize(eSize(120, widgetHeight()));
+	setRes->setHelpText(_("Streaming with user setting."));
 	CONNECT (setRes->checked, eSCGuiConfig::setCheckRes);
-	
-	nextYPos(35);
-	
-	l_width = new eLabel(this);
-	l_width->setText(_("Horizontal res."));
-	l_width->move(ePoint(fc, yPos()));
-	l_width->resize(eSize(l-65, widgetHeight()));
 
-   	setWidth = new eNumber(this, 1, 0,720, 3, &width, 0, l_width);
-    setWidth->move(ePoint(fc + l-65, yPos()));
+	l_width = new eLabel(this);
+	l_width->setText(_("hor."));
+	l_width->move(ePoint(sc+10, yPos()));
+	l_width->resize(eSize(30, widgetHeight()));
+	l_width->setFlags(eLabel::flagVCenter);
+
+   	setWidth = new eNumber(this, 1, 0, 720, 3, &width, 0, l_width);
+    setWidth->move(ePoint(sc + 45, yPos()));
     setWidth->resize(eSize(55, widgetHeight()));
     setWidth->setHelpText(_("Horizontal resolution for streaming (0-720). 0 for original."));
+	setWidth->setFlags(eNumber::flagVCenter);
     setWidth->loadDeco();
 	
     l_height = new eLabel(this);
-    l_height->setText(_("Vertical res."));
-    l_height->move(ePoint(sc, yPos()));
-    l_height->resize(eSize(l-65, widgetHeight()));
-   
-    setHeight = new eNumber(this, 1, 0,576, 3, &height, 0, l_height);
-    setHeight->move(ePoint(sc + l-65, yPos()));
+    l_height->setText(_("ver."));
+    l_height->move(ePoint(sc + 110, yPos()));
+    l_height->resize(eSize(40, widgetHeight()));
+	l_height->setFlags(eLabel::flagVCenter);
+	
+    setHeight = new eNumber(this, 1, 0, 576, 3, &height, 0, l_height);
+    setHeight->move(ePoint(sc + 145, yPos()));
     setHeight->resize(eSize(55, widgetHeight()));
     setHeight->setHelpText(_("Vertical resolution for streaming (0-576). 0 for original."));
+	setHeight->setFlags(eNumber::flagVCenter);
     setHeight->loadDeco();
     
     nextYPos(35);
-	
+
 	lNrSec = new eLabel(this);
 	lNrSec->move(ePoint(fc, yPos()));
-	lNrSec->resize(eSize(l, widgetHeight()));
-	lNrSec->setText(_("Timeout in seconds:"));
+	lNrSec->resize(eSize(80, widgetHeight()));
+	lNrSec->setText(_("Timeout:"));
 	lNrSec->loadDeco();
+	lNrSec->setFlags(eLabel::flagVCenter);
 
 	comNrSec = new eComboBox(this, 3, lNrSec);
-	comNrSec->move(ePoint(sc, yPos()));
-	comNrSec->resize(eSize (60, widgetHeight()));
-	comNrSec->setHelpText(_("How long is tested comunication with VLC"));
+	comNrSec->move(ePoint(fc + 80, yPos()));
+	comNrSec->resize(eSize (55, widgetHeight()));
+	comNrSec->setHelpText(_("Time of testing comunication with VLC (sec)"));
 	comNrSec->loadDeco();
 
-	for(int time = 1; time <= 5; ++time)
+	for(int time = 1; time <= 10; ++time)
 	{
 		new eListBoxEntryText(*comNrSec, eString().sprintf("%d", time), (void*)(time));
 	}
 	comNrSec->setCurrent((void *)Timeout);
 
-	nextYPos(35);
-
-	lbuff = new eLabel(this);
-	lbuff->setText(_("Buffer size:"));
-	lbuff->move(ePoint(fc, yPos()));
-	lbuff->resize(eSize(120, widgetHeight()));
-
-	sBuff = new eSlider( this, lbuff, 10, 100 );
-	sBuff->setIncrement( fc ); // percent
-	sBuff->move( ePoint( 150, yPos() ) );
-	sBuff->resize(eSize( sc, widgetHeight()) );
-	sBuff->setHelpText(_("Size of streaming buffer (left, right)"));
-	sBuff->setValue(pbuf);
-	CONNECT( sBuff->changed, eSCGuiConfig::BuffChanged );
-
-	lbuff1 = new eLabel(this);
-	lbuff1->setText(eString().sprintf("%d%c",pbuf,'%'));
-	lbuff1->move(ePoint(150+225, yPos()));
-	lbuff1->resize(eSize(45, widgetHeight()));
-
-	nextYPos(35);
-
 	lmsgTime = new eLabel(this);
-	lmsgTime->move(ePoint(fc, yPos()));
-	lmsgTime->resize(eSize(l, widgetHeight()));
-	lmsgTime->setText(_("Skip message delay:"));
+	lmsgTime->move(ePoint(fc + 145, yPos()));
+	lmsgTime->resize(eSize(150, widgetHeight()));
+	lmsgTime->setText(_("Jump message:"));
 	lmsgTime->loadDeco();
+	lmsgTime->setFlags(eLabel::flagVCenter);
 
 	comMsgTime = new eComboBox(this, 3, lmsgTime);
-	comMsgTime->move(ePoint(sc, yPos()));
-	comMsgTime->resize(eSize (60, widgetHeight()));
-	comMsgTime->setHelpText(_("How long is displayed message about skipping (in seconds)"));
+	comMsgTime->move(ePoint(sc + 60, yPos()));
+	comMsgTime->resize(eSize (55, widgetHeight()));
+	comMsgTime->setHelpText(_("Time of displaying skipping message (sec)"));
 	comMsgTime->loadDeco();
 
-	for(int time = 1; time <= 10; ++time)
+	for(int time = 0; time <= 10; ++time)
 	{
 		new eListBoxEntryText(*comMsgTime, eString().sprintf("%d", time), (void*)(time));
 	}
 	comMsgTime->setCurrent((void *)msgTime);
-    
+
+//	nextYPos(35);
+
+    setVlc8 = new eCheckbox(this, vlc8 , 1);
+	setVlc8->setText(_("v0.86"));
+	setVlc8->move(ePoint(sc + 125, yPos()));
+	setVlc8->resize(eSize(75, widgetHeight()));
+	setVlc8->setHelpText(_("Support VLC v0.86"));
+
 	buildWindow();
+	showDVD(mode,input_txt);
     setCheckRes(origres);
     CONNECT (bOK->selected, eSCGuiConfig::saveCFG );
 }
@@ -1435,21 +1709,32 @@ void eSCGuiConfig::saveCFG()
  	eConfig::getInstance()->setKey((pathcfg+"sub").c_str(),(int)subTitles->isChecked() ? 1 : 0 );
 	eConfig::getInstance()->setKey((pathcfg+"async").c_str(),(int)aSync->isChecked() ? 1 : 0);
 	eConfig::getInstance()->setKey((pathcfg+"resdvb").c_str(),(int)resDVB->isChecked() ? 1 : 0);
-	eConfig::getInstance()->setKey((pathcfg+"pbuf").c_str(),(int)sBuff->getValue());
 	eConfig::getInstance()->setKey((pathcfg+"nsf").c_str(),(int)setNsf->isChecked() ? 1 : 0);
 	eConfig::getInstance()->setKey((pathcfg+"vlc8").c_str(),(int)setVlc8->isChecked() ? 1 : 0);
     eConfig::getInstance()->setKey((pathcfg+"origres").c_str(),(int)setRes->isChecked() ? 1 : 0);
     eConfig::getInstance()->setKey((pathcfg+"w").c_str(),(int)setWidth->getNumber());
  	eConfig::getInstance()->setKey((pathcfg+"h").c_str(),(int)setHeight->getNumber());
-	    
-	eMoviePlayer::getInstance()->control("bufsize", eString().sprintf("%d", (int)sBuff->getValue()).c_str());
+	eConfig::getInstance()->setKey((pathcfg+"vlcsrv").c_str(),(int)comVlcSrv->getCurrent()->getKey());
+/*#ifdef TXT
+	eConfig::getInstance()->setKey((pathcfg+"slang").c_str(),txtSubLang->getText().c_str());
+	eConfig::getInstance()->setKey((pathcfg+"alang").c_str(),txtAudioLang->getText().c_str());
+#else*/
+	if(loadedOK)
+	{
+		eConfig::getInstance()->setKey((pathcfg+"slang").c_str(),(getCode((int)comSubLang->getCurrent()->getKey()).code).c_str());
+		eConfig::getInstance()->setKey((pathcfg+"alang").c_str(),(getCode((int)comAudioLang->getCurrent()->getKey()).code).c_str());
+	}
+//#endif
+	eConfig::getInstance()->setKey((pathcfg+"strack").c_str(),(int)comSubTrack->getCurrent()->getKey());
+	eConfig::getInstance()->setKey((pathcfg+"atrack").c_str(),(int)comAudioTrack->getCurrent()->getKey());
 
+	eConfig::getInstance()->setKey((pathcfg+"title").c_str(),(int)comTitle->getCurrent()->getKey());
+	eConfig::getInstance()->setKey((pathcfg+"input").c_str(),(int)setResInputTxt->isChecked() ? 1 : 0);
+	eConfig::getInstance()->setKey((pathcfg+"scolor").c_str(),(int)subColor->isChecked() ? 1 : 0);
+	eConfig::getInstance()->setKey((pathcfg+"scale").c_str(),(int)Scale->isChecked() ? 1 : 0);
+
+	codeList.clear();
 	close(0);
-}
-
-void eSCGuiConfig::BuffChanged( int i )
-{
-	lbuff1->setText(eString().sprintf("%d%c",i,'%'));
 }
 
 void eSCGuiConfig::setCheckRes(int status)
@@ -1470,6 +1755,102 @@ void eSCGuiConfig::setCheckRes(int status)
 	}
 }
 
+void eSCGuiConfig::setCheckInputTxt(int status)
+{
+	if (status)
+	{
+		trackHide();
+		langShow();
+	}
+	else
+	{
+		langHide();
+		trackShow();
+	}
+}
+
+void eSCGuiConfig::setCheckStopErr(int status)
+{
+	if (status)
+		stopErr->show();
+	else
+		stopErr->hide();
+}
+
+void eSCGuiConfig::showDVD(int mode, int input_txt)
+{
+	if(mode!=DATA)
+	{
+		lTitle->show();
+		comTitle->show();
+	}
+	else
+	{
+		lTitle->hide();
+		comTitle->hide();
+	}
+
+	if(input_txt)
+	{
+		trackHide();
+		langShow();
+	}
+	else
+	{
+		langHide();
+		trackShow();
+	}
+}
+
+void eSCGuiConfig::langHide()
+{
+/*#ifdef	TXT
+	txtSubLang->hide();
+	txtAudioLang->hide();
+#else*/
+	comSubLang->hide();
+	comAudioLang->hide();
+//#endif
+	lSubLang->hide();
+	lAudioLang->hide();
+}
+void eSCGuiConfig::langShow()
+{
+/*#ifdef TXT
+	txtSubLang->show();
+	txtAudioLang->show();
+#else*/
+	comSubLang->show();
+	comAudioLang->show();
+//#endif
+	lSubLang->show();
+	lAudioLang->show();
+}
+void eSCGuiConfig::trackHide()
+{
+/*#ifdef	TXT
+	txtSubLang->hide();
+	txtAudioLang->hide();
+#else*/
+	comSubTrack->hide();
+	comAudioTrack->hide();
+	lSubTrack->hide();
+	lAudioTrack->hide();
+//#endif
+}
+void eSCGuiConfig::trackShow()
+{
+/*#ifdef TXT
+	txtSubLang->show();
+	txtAudioLang->show();
+#else*/
+	comSubTrack->show();
+	comAudioTrack->show();
+	lSubTrack->show();
+	lAudioTrack->show();
+//#endif
+}
+
 void eSCGuiConfig::setDVB(int status)
 {
 	if (status)
@@ -1487,6 +1868,76 @@ void eSCGuiConfig::setDVB(int status)
 	}
 }
 
+bool eSCGuiConfig::load_codes()
+{
+	XMLTreeParser parser("ISO-8859-1");
+
+	eString file = LANGFILE1;
+	FILE *in = fopen(file.c_str(), "rt");
+	if (!in) 
+	{
+		file = LANGFILE0;
+		in = fopen(file.c_str(), "rt");
+		if (!in) 
+		{
+			eDebug("[Movieplayer] unable to open %s", file.c_str()); 
+			return false;
+		}
+	}
+
+	codeList.clear();
+	
+	bool done = false;
+	while (!done)
+	{
+		char buf[1024]; 
+		unsigned int len = fread(buf, 1, sizeof(buf), in);
+		done = len < sizeof(buf);
+		if (!parser.Parse(buf, len, done))
+		{
+			eDebug("[Movieplayer] parsing settings file: %s at line %d>", parser.ErrorString(parser.GetErrorCode()), parser.GetCurrentLineNumber());
+			fclose(in);
+			return false;
+		}
+	}
+
+	fclose(in);
+
+	XMLTreeNode *root = parser.RootNode();
+	if (!root)
+		return false;
+
+	for (XMLTreeNode *node = root->GetChild(); node; node = node->GetNext())
+	{
+		if (!strcmp(node->GetType(), "language"))
+		{
+			eString tmplng = node->GetAttributeValue("code");
+			if (!tmplng)
+			{
+				eDebug("[Movieplayer] parse error in mplanguages.xml");
+				return false;
+			}
+			else
+			{
+				struct languages l;
+				l.code = tmplng;
+				codeList.push_back(l);
+			}
+		}
+	}
+	return true;
+}
+
+struct languages eSCGuiConfig::getCode(int i)
+{
+	struct languages code;
+	
+	if(i < (int)codeList.size())
+		code = codeList[i];
+
+	return code;
+}
+
 int plugin_exec(PluginParam *par)
 {
 	eSCGui dlg;
@@ -1501,9 +1952,6 @@ int plugin_exec(PluginParam *par)
 			eMoviePlayer::getInstance()->stopDVB();
 			eMoviePlayer::getInstance()->control("dvboff", "");
 		}
-		int pbuf = 100;
-		eConfig::getInstance()->getKey((pathcfg+"pbuf").c_str(), pbuf );
-		eMoviePlayer::getInstance()->control("bufsize", eString().sprintf("%d", pbuf).c_str());
 		dlg.show();
 		dlg.exec();
 		dlg.hide();

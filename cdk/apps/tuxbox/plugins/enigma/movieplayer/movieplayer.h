@@ -33,13 +33,25 @@
 #include <curl/types.h>
 #include <curl/easy.h>
 #include <lib/gui/ePLiWindow.h>
-#include <lib/gui/slider.h>
 #include <lib/gui/enumber.h>
 
 #include <lib/gui/eprogress.h>
 #include <lib/gui/egauge.h>
 
+#include <lib/gui/textinput.h>
+
+#define LANGFILE0 "/share/tuxbox/enigma/templates/mplanguages.xml"
+#define LANGFILE1 "/var/tuxbox/config/mplanguages.xml"
+
+#define CMD "/requests/status.xml?command="
+//#define TXT
+
 eString pathcfg = "/enigma/plugins/movieplayer/";
+
+struct languages
+{
+	eString code;
+};
 
 class PLAYLIST
 {
@@ -94,6 +106,7 @@ class eSCGui: public eWindow
 	void changeSout();
 	eString filePos(int both, eString name, eString size, eString& text);
 	void getSavedPath();
+	void setSavedPath(eString display);
 	int isLargeRC();
 	int silver_large_rc;
 	eProgress *VolumeBar; /* this is the standard volumebar, in it's own widget */
@@ -104,7 +117,10 @@ class eSCGui: public eWindow
 	void hideVolumeSlider();
 	void updateVolume(int mute_state, int vol);
 	void init_volume_bar();
-
+	void callConfig();
+	eString mrl_par(int value, int mode);
+	void Start2(int value);
+	eString url_code( eString origname );
 public:
 	eSCGui();
 	~eSCGui();
@@ -121,29 +137,53 @@ public:
 class eSCGuiConfig: public ePLiWindow
 {
 private:
+
+	enum {DATA, VCD, DVD, CFG};
+
+	std::vector<struct languages> codeList;
+
     eLabel *lNrSec;
     eLabel *lmsgTime;
-    eLabel *lbuff, *lbuff1;
-    eLabel *l_width,*l_height;     
+    eLabel *l_width,*l_height; 
+	eLabel *lVlcSrv, *lTitle;    
     eCheckbox *playNext;
     eCheckbox *stopErr;
 	eCheckbox *savePath;
 	eCheckbox *aSync;
 	eCheckbox *subTitles;
+	eCheckbox *subColor;
 	eCheckbox *resDVB;
 	eCheckbox *setNsf;
 	eCheckbox *setVlc8;
-	eCheckbox *setRes;
+	eCheckbox *setRes,*setResInputTxt,*Scale;
 	eComboBox *comNrSec;
     eComboBox *comMsgTime;
-    eSlider *sBuff;
+	eComboBox *comVlcSrv,*comTitle;
+	eLabel *lSubLang, *lAudioLang;
+/*#ifdef TXT
+	eTextInputField *txtSubLang, *txtAudioLang;	
+#else*/
+	eComboBox *comSubLang,*comAudioLang;
+//#endif
+	eComboBox *comSubTrack,*comAudioTrack;
+	eLabel *lSubTrack, *lAudioTrack;
     eNumber *setWidth, *setHeight;
 
     int play_next;
 	void saveCFG();
 	void setDVB(int status);
-	void BuffChanged(int i);
 	void setCheckRes(int status);
+	void showDVD(int mode, int input_txt);
+	void setCheckInputTxt(int status);
+	void langHide();
+	void langShow();
+	void trackHide();
+	void trackShow();
+
+	bool load_codes();
+	struct languages getCode(int i);
+	int loadedOK;
+	void setCheckStopErr(int status);
 public:
 	eSCGuiConfig();
 };
