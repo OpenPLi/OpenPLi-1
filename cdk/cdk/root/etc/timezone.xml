@@ -67,7 +67,7 @@
 	<zone name="(GMT+09:00) Yakutsk" zone="Yakutsk" />
 	<zone name="(GMT+09:30) Adelaide" zone="Adelaide" />
 	<zone name="(GMT+09:30) Darwin" zone="Darwin" />
-	<zone name="(GMT+10:00) Brisbane" zone="Bisbane" />
+	<zone name="(GMT+10:00) Brisbane" zone="Brisbane" />
 	<zone name="(GMT+10:00) Canberra, Melbourne, Sydney" zone="Sydney" />
 	<zone name="(GMT+10:00) Guam, Port Moresby" zone="Guam" />
 	<zone name="(GMT+10:00) Hobart" zone="Hobart" />
