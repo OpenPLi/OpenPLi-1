@@ -38,10 +38,16 @@ public:
 KeyMappingFactory KeyMapping_factory;
 
 KeyMappingPreselection::KeyMappingPreselection()
-	:eListBoxWindow<eListBoxEntryMenu>(_(MENUNAME), 2, 300, true)
+	:eListBoxWindow<eListBoxEntryMenu>(_(MENUNAME), 3, 300, true)
+{
+	init_KeyMappingPreselection();
+}
+void KeyMappingPreselection::init_KeyMappingPreselection()
 {
 	valign();
-	
+
+	new eListBoxEntryMenu(&list, _("Assign green button"), _("Assign the green button to a menu, function or plugin"), 
+		0, (void*)"/pli/keyMapping/greenButton");	
 	new eListBoxEntryMenu(&list, _("Assign yellow button"), _("Assign the yellow button to a menu, function or plugin"), 
 		0, (void*)"/pli/keyMapping/yellowButton");
 	new eListBoxEntryMenu(&list, _("Assign blue button"), _("Assign the blue button to a menu, function or plugin"), 
@@ -73,6 +79,10 @@ void KeyMappingPreselection::doMenu(eWidget* lcdTitle, eWidget* lcdElement)
 KeyMapping::KeyMapping(const eString& buttonKey)
 	: ePLiWindow(_(MENUNAME), 500), buttonKey(buttonKey)
 {
+	init_KeyMapping(buttonKey);
+}
+void KeyMapping::init_KeyMapping(const eString& buttonKey)
+{
 	eLabel* lblKey = new eLabel(this);
 	lblKey->setText(_("Assign button as:"));
 	lblKey->move(ePoint(10, yPos()));
@@ -80,7 +90,7 @@ KeyMapping::KeyMapping(const eString& buttonKey)
 	lblKey->loadDeco();
 
 	nextYPos(35);
-	comAction = new eComboBox(this, 6, lblKey);
+	comAction = new eComboBox(this, 7, lblKey);
 	comAction->move(ePoint(10, yPos()));
 	comAction->resize(eSize(480, widgetHeight()));
 	comAction->setHelpText(_("Select a menu, function or plugin"));
@@ -89,12 +99,15 @@ KeyMapping::KeyMapping(const eString& buttonKey)
 	new eListBoxEntryText(*comAction, _("Audio selection"), (void*)AUDIOSELECTION);
 	new eListBoxEntryText(*comAction, _("Timeshift pause"), (void*)TIMESHIFTPAUSE);
 	new eListBoxEntryText(*comAction, _("Plugin screen"), (void*)PLUGINSCREEN);
+	new eListBoxEntryText(*comAction, _("SubServices"), (void*)SUBSERVICES);
 	new eListBoxEntryText(*comAction, _("Teletext"), (void*)TELETEXT);
 	new eListBoxEntryText(*comAction, _("Plugin"), (void*)PLUGIN);
 	new eListBoxEntryText(*comAction, _("Menu"), (void*)MENU);
 
-	eString enigmaKey = "AudioSelection";
 	int actionIndex = 0;
+	eString enigmaKey = "AudioSelection";
+	if(buttonKey.find("greenButton") != eString::npos)
+		enigmaKey = "SubServices";
 	eConfig::getInstance()->getKey(buttonKey.c_str(), enigmaKey);
 	
 	if(enigmaKey == "AudioSelection")
@@ -108,6 +121,10 @@ KeyMapping::KeyMapping(const eString& buttonKey)
 	else if(enigmaKey == "PluginScreen")
 	{
 		actionIndex = PLUGINSCREEN;
+	}
+	else if(enigmaKey == "SubServices")
+	{
+		actionIndex = SUBSERVICES;
 	}
 	else if(enigmaKey == "Teletext")
 	{
@@ -221,6 +238,10 @@ void KeyMapping::okPressed()
 		case PLUGINSCREEN:
 			enigmaKey = "PluginScreen";
 			break;
+
+		case SUBSERVICES:
+			enigmaKey = "SubServices";
+			break;
 			
 		case TELETEXT:
 			enigmaKey = "Teletext";
@@ -250,6 +271,7 @@ void KeyMapping::typeChanged(eListBoxEntryText *sel)
 			case AUDIOSELECTION:
 			case TIMESHIFTPAUSE:
 			case PLUGINSCREEN:
+			case SUBSERVICES:
 			case TELETEXT:
 				comPlugins->hide();
 				comMenus->hide();
@@ -272,6 +294,8 @@ void KeyMapping::typeChanged(eListBoxEntryText *sel)
 eString KeyMapping::getShortButtonDescription(const eString& buttonKey)
 {
 	eString enigmaKey = "AudioSelection";
+	if(buttonKey.find("greenButton") != eString::npos)
+		enigmaKey = "SubServices";
 	eConfig::getInstance()->getKey(buttonKey.c_str(), enigmaKey);
 	
 	if(enigmaKey == "AudioSelection")
@@ -286,6 +310,10 @@ eString KeyMapping::getShortButtonDescription(const eString& buttonKey)
 	{
 		return _("Plug");
 	}
+	else if(enigmaKey == "SubServices")
+    {
+        return _("Sub");
+    }    
 	else if(enigmaKey == "Teletext")
 	{
 		return _("Txt");

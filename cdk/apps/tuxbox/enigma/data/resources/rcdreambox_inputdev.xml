@@ -121,6 +121,7 @@
 			<action name="standby_repeat" key="power" flags="r" />
 			<action name="standby_release" key="power" flags="b" />
 			<action name="showSubservices" key="green" flags="m" />
+			<action name="greenButton" key="green" flags="m" />
 			<!--action name="showAudio" key="yellow" flags="m" /-->
 			<action name="showAudio" key="audio" flags="m" />
 			<action name="yellowButton" key="yellow" flags="m" />

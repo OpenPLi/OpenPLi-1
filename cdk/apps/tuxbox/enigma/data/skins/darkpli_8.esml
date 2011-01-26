@@ -371,7 +371,7 @@
 					<eLabel position="256:69" size="9:11" backgroundColor="grijs" name="button_blue_disabled" />
 		
 					<eLabel text="EPG" position="133:65" font="def;18" size="30:18" foregroundColor="tekst" backgroundColor="mainBgColor" />
-					<eLabel text="Sub" position="180:65" font="def;18" size="30:18" foregroundColor="tekst" backgroundColor="mainBgColor" />
+					<eLabel text="Sub" position="180:65" font="def;18" size="30:18" foregroundColor="tekst" backgroundColor="mainBgColor"  name="button_green_desc"/>
 					<eLabel text="Plug" position="223:65" font="def;18" size="30:18" foregroundColor="tekst" backgroundColor="mainBgColor" name="button_yellow_desc" />
 					<eLabel text="PLi®" position="268:65" font="def;18" size="30:18" foregroundColor="tekst" backgroundColor="mainBgColor" name="button_blue_desc" />
 					 <!-- end buttons -->

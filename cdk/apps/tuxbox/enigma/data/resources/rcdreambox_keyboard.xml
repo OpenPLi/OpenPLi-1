@@ -391,6 +391,7 @@
 			<action name="standby_release" key="KEY_POWER" flags="b" />
 			<action name="showSubservices" key="KEY_GREEN" flags="m" />
 			<!--action name="showPlugins" key="KEY_YELLOW" flags="m" /-->
+			<action name="greenButton" key="KEY_GREEN" flags="m" />
 			<action name="yellowButton" key="KEY_YELLOW" flags="m" />
 			<action name="showAudio" key="KEY_AUDIO" flags="m" />
 			<action name="blueButton" key="KEY_BLUE" flags="m" />

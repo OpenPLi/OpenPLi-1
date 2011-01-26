@@ -301,7 +301,7 @@
 			<eLabel position="269:512" size="9:13" backgroundColor="grijs" name="button_blue_disabled" />
 
 			<eLabel text="EPG" position="82:510" font="def;18" size="30:18" foregroundColor="tekst" backgroundColor="lichtblauw" />
-			<eLabel text="subservice" position="130:510" font="def;18" size="72:18" foregroundColor="tekst" backgroundColor="lichtblauw" />
+			<eLabel text="subservice" position="130:510" font="def;18" size="72:18" foregroundColor="tekst" backgroundColor="lichtblauw" name="button_green_desc" />
 			<eLabel text="Plugins" position="218:510" font="def;18" size="45:18" foregroundColor="tekst" backgroundColor="lichtblauw" name="button_yellow_desc" />
 			<eLabel text="PLi® Setup" position="281:510" font="def;18" size="74:18" foregroundColor="tekst" backgroundColor="lichtblauw" name="button_blue_desc" />
 			 <!-- end buttons -->

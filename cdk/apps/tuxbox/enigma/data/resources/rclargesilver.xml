@@ -127,6 +127,7 @@
 			<action name="standby_press" key="discrete_off" flags="m"/>
 			<action name="standby_release" key="discrete_off" flags="b"/>
 			<action name="showSubservices" key="green" flags="m" />
+			<action name="greenButton" key="green" flags="m" />
 			<action name="showAudio" key="audio" flags="m" />
 			<action name="yellowButton" key="yellow" flags="m" />
 			<action name="blueButton" key="blue" flags="m" />

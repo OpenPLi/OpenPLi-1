@@ -410,7 +410,7 @@
 			<eLabel position="266:431" size="8:16" pixmap="button_gray" name="button_blue_disabled" />
 
 			<eLabel text="EPG" position="82:432" font="Nimbus;12" size="37:15" backgroundColor="dunkel" foregroundColor="dunkel+15" />
-			<eLabel text="subservices" position="131:432" font="Nimbus;12" size="73:15" backgroundColor="dunkel" foregroundColor="dunkel+15" />
+			<eLabel text="subservices" position="131:432" font="Nimbus;12" size="73:15" backgroundColor="dunkel" foregroundColor="dunkel+15"  name="button_green_desc"/>
 			<eLabel text="Plugins" position="216:432" font="Nimbus;12" size="50:15" backgroundColor="dunkel" foregroundColor="dunkel+15" name="button_yellow_desc" />
 			<eLabel text="PLI Setup" position="278:432" font="Nimbus;12" size="70:15" backgroundColor="dunkel" foregroundColor="dunkel+15" name="button_blue_desc" />
 			

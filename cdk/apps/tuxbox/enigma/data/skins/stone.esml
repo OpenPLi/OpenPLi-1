@@ -583,7 +583,7 @@
 				
 			<eLabel text="EPG" position="260:163" font="Blue.Bold;17" size="78:15" foregroundColor="white" />
 			
-			<eLabel text="subservices" position="353:163" font="Blue.Bold;17" size="80:15" foregroundColor="white" />
+			<eLabel text="subservices" position="353:163" font="Blue.Bold;17" size="80:15" foregroundColor="white" name="button_green_desc" />
 			
 			<eLabel text="Plugins" position="462:163" font="Blue.Bold;17" size="78:15" foregroundColor="white" name="button_yellow_desc" />
 			<eLabel text="PPanel" position="569:163" font="Blue.Bold;17" size="80:15" foregroundColor="white" name="button_blue_desc" />

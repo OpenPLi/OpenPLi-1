@@ -382,7 +382,7 @@ private:
 		*IrdetoEcm, *SecaEcm, *ViaEcm, *CWEcm, *NagraEcm, *NDSEcm, *ConaxEcm, *BetaEcm, *PowerVuEcm, *DreamCrEcm, *RusCrEcm, *IceCrEcm, *CodiCrEcm,
 		*IrdetoNo, *SecaNo, *ViaNo, *CWNo, *NagraNo, *NDSNo, *ConaxNo, *BetaNo, *PowerVuNo, *DreamCrNo, *RusCrNo, *IceCrNo, *CodiCrNo,
 		*IrdetoUca, *SecaUca, *ViaUca, *CWUca, *NagraUca, *NDSUca, *ConaxUca, *BetaUca, *PowerVuUca, *DreamCrUca, *RusCrUca, *IceCrUca, *CodiCrUca,
-		*DVRSpaceLeft, *YellowButtonDesc, *BlueButtonDesc;
+		*DVRSpaceLeft, *YellowButtonDesc, *BlueButtonDesc, *GreenButtonDesc;
 
 	eMultiWidget *dvbInfoBar, *fileInfoBar, *dvrInfoBar;
 

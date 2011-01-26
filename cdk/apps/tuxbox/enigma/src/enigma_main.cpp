@@ -89,7 +89,7 @@ struct enigmaMainActions
 		discrete_startSkipForward, discrete_repeatSkipForward, discrete_stopSkipForward,
 		discrete_startSkipReverse, discrete_repeatSkipReverse, discrete_stopSkipReverse,
 		showUserBouquets, showDVBBouquets, showRecMovies, showPlaylist,
-		modeTV, modeRadio, modeFile,
+		modeTV, modeRadio, modeFile, greenButton,
 		toggleDVRFunctions, toggleIndexmark, indexSeekNext, indexSeekPrev, stepForward, stepBack;
 	enigmaMainActions():
 		map("enigmaMain", _("enigma Zapp")),
@@ -115,6 +115,7 @@ struct enigmaMainActions
 		prevSubService(map, "prevSubService", _("zap to prev subService"), eAction::prioDialog),
 		nextService(map, "nextService", _("quickzap next"), eAction::prioDialog),
 		prevService(map, "prevService", _("quickzap prev"), eAction::prioDialog),
+		greenButton(map, "greenButton", _("execute programmable green button"), eAction::prioDialog),
 
 		playlistNextService(map, "playlistNextService", _("playlist/history next"), eAction::prioDialog),
 		playlistPrevService(map, "playlistPrevService", _("playlist/history prev"), eAction::prioDialog),
@@ -2268,6 +2269,7 @@ void eZapMain::init_main()
 	//ASSIGN(AudioOrPause,eLabel, "AudioOrPause");
 	ASSIGN(YellowButtonDesc, eLabel, "button_yellow_desc");
 	ASSIGN(BlueButtonDesc, eLabel, "button_blue_desc");
+	ASSIGN(GreenButtonDesc, eLabel, "button_green_desc");
 
 	ASSIGN(DolbyOn, eLabel, "osd_dolby_on");
 	ASSIGN(CryptOn, eLabel, "osd_crypt_on");
@@ -2616,7 +2618,8 @@ void eZapMain::prepareNonDVRHelp()
 
 	addActionToHelpList(&i_enigmaMainActions->showAudio);
 	addActionToHelpList(&i_enigmaMainActions->showEPGList);
-	addActionToHelpList(&i_enigmaMainActions->showSubservices);
+//	addActionToHelpList(&i_enigmaMainActions->showSubservices);
+	addActionToHelpList(&i_enigmaMainActions->greenButton);
 	addActionToHelpList(&i_enigmaMainActions->yellowButton);
 	addActionToHelpList(&i_enigmaMainActions->blueButton);
 }
@@ -3987,6 +3990,7 @@ void eZapMain::showInfobar(bool startTimeout)
 
 	YellowButtonDesc->setText(KeyMapping::getShortButtonDescription("/pli/keyMapping/yellowButton"));
 	BlueButtonDesc->setText(KeyMapping::getShortButtonDescription("/pli/keyMapping/blueButton"));
+	GreenButtonDesc->setText(KeyMapping::getShortButtonDescription("/pli/keyMapping/greenButton"));
 
 	int v;
 	int minizap_mode = 0;
@@ -6905,15 +6909,8 @@ int eZapMain::eventHandler(const eWidgetEvent &event)
 			showEPG();
 		else if (event.action == &i_enigmaMainActions->showServiceSelector)
 			showServiceSelector(-1);
-		else if (event.action == &i_enigmaMainActions->showSubservices )
-		{
-#ifndef DISABLE_FILE
-			if ( eDVB::getInstance()->recorder || handleState() )
-#else
-			if ( handleState() )
-#endif
-				showSubserviceMenu();
-		}
+		else if (event.action == &i_enigmaMainActions->greenButton)
+			executeProgrammableButton("/pli/keyMapping/greenButton", "SubServices");
 		else if (event.action == &i_enigmaMainActions->yellowButton)
 			executeProgrammableButton("/pli/keyMapping/yellowButton", "PluginScreen");
 		else if (event.action == &i_enigmaMainActions->showAudio)
@@ -7396,6 +7393,15 @@ void eZapMain::executeProgrammableButton(const eString& buttonKey, const eString
 	else if(buttonType == "Teletext")
 	{
 		runVTXT();
+	}
+	else if(buttonType == "SubServices")
+	{
+#ifndef DISABLE_FILE
+			if ( eDVB::getInstance()->recorder || handleState() )
+#else
+			if ( handleState() )
+#endif
+				showSubserviceMenu();
 	}
 	else if(buttonType.left(7) == "Plugin:")
 	{

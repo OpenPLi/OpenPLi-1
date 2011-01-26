@@ -17,6 +17,7 @@ class KeyMappingPreselection : public eListBoxWindow<eListBoxEntryMenu>, public 
 
 	private:
 		void selectedButton(eListBoxEntryMenu* item);
+		void init_KeyMappingPreselection();
 };
 
 class KeyMapping : public ePLiWindow
@@ -26,7 +27,7 @@ class KeyMapping : public ePLiWindow
 		static eString getShortButtonDescription(const eString& buttonKey);
 	
 	private:
-		enum { AUDIOSELECTION = 0, TIMESHIFTPAUSE, PLUGINSCREEN, TELETEXT, PLUGIN, MENU };
+		enum { AUDIOSELECTION = 0, TIMESHIFTPAUSE, PLUGINSCREEN, TELETEXT, PLUGIN, MENU, SUBSERVICES };
 	
 		void okPressed();
 		void typeChanged(eListBoxEntryText *sel);
@@ -36,6 +37,7 @@ class KeyMapping : public ePLiWindow
 		eComboBox* comPlugins;
 		eComboBox* comMenus;
 		std::vector<eString> pluginFilenames;
+		void init_KeyMapping(const eString& buttonKey);
 };
 
 #endif
