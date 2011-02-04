@@ -45,17 +45,17 @@ touch $mapfile
 IFS='='
 
 #Feedback for plugin
-#count=`grep -v '^UNKNOWN' $mapfile | grep -v '^IGNORE' | wc -l`
+count=`grep -v '^UNKNOWN' $mapfile | grep -v '^IGNORE' | wc -l`
 #Send '#count:" with the number of files
 #Send '#cur:" for each file
-#echo "#count:$count"
-#current=0
+echo "#count:$count"
+current=0
 
 while read serviceRef chanId ; do
 	if  [ $serviceRef != "UNKNOWN" ] && [ $serviceRef != "IGNORE" ]
 	then
-#		echo "#cur:$current"
-#		current=$(($current+1))
+		echo "#cur:$current"
+		current=`expr $current + 1`
 		echo "wget  http://xmltv.radiotimes.com/xmltv/$chanId.dat -O /tmp/$chanId.dat"
 		wget  "http://xmltv.radiotimes.com/xmltv/$chanId.dat" -O "/tmp/$chanId.dat"
 		if [ -f "/tmp/$chanId.dat" ]; then
