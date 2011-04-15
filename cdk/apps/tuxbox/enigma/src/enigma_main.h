@@ -390,6 +390,7 @@ private:
 	eMultiWidget *OSDExtra, *OSDVerbose, *miniZap, *maxiZap;
 
 	eSubtitleWidget *subtitle;
+	eGauge *aHour, *aMins, *aSecs;
 
 	RDSTextDecoder rdstext_decoder;
 	eString previousPlugin;
@@ -641,6 +642,7 @@ private:
 	int led_timer;
 	eTimer ledStatusBack;
 	void ledBack();
+	bool AnalogNoSec;
 
 #endif // DISABLE_FILE
 
@@ -672,6 +674,7 @@ public:
 	void gotoStandby();
 	void wakeUp();
 	void showEPGList(eServiceReferenceDVB ref);
+	void AnalogSkinClock(tm *timem, bool secOn);
 	static eZapMain *getInstance() { return instance; }
 
 	enum {

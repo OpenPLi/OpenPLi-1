@@ -79,7 +79,7 @@ struct enigmaMainActions
 	eAction showMainMenu, standby_press, standby_nomenu_press, standby_repeat, standby_release,
 		showInfobar, hideInfobar, myshowInfobar, showInfobarEPG, showServiceSelector,
 		showSubservices, yellowButton, showAudio, pluginVTXT, blueButton, showEPGList, showEPG,
-		nextSubService, prevSubService, nextService, prevService,
+		nextSubService, prevSubService, nextService, prevService, greenButton,
 		playlistNextService, playlistPrevService, serviceListDown,
 		serviceListUp, volumeUp, volumeDown, toggleMute,
 		stop, pause, play, record,
@@ -89,7 +89,7 @@ struct enigmaMainActions
 		discrete_startSkipForward, discrete_repeatSkipForward, discrete_stopSkipForward,
 		discrete_startSkipReverse, discrete_repeatSkipReverse, discrete_stopSkipReverse,
 		showUserBouquets, showDVBBouquets, showRecMovies, showPlaylist,
-		modeTV, modeRadio, modeFile, greenButton,
+		modeTV, modeRadio, modeFile,
 		toggleDVRFunctions, toggleIndexmark, indexSeekNext, indexSeekPrev, stepForward, stepBack;
 	enigmaMainActions():
 		map("enigmaMain", _("enigma Zapp")),
@@ -1966,6 +1966,7 @@ eZapMain::eZapMain()
 	,wasSleeping(0)
 	,led_timer(0)
 	,ledStatusBack(eApp)
+	,AnalogNoSec(false)
 {
 	init_main();
 }
@@ -2306,6 +2307,9 @@ void eZapMain::init_main()
 
 	ASSIGN_MULTIPLE(Clock, eMultiLabel, "time");
 	ASSIGN_MULTIPLE(Date, eMultiLabel, "date");
+	ASSIGN(aHour, eGauge, "analog.hour");
+	ASSIGN(aMins, eGauge, "analog.min");
+	ASSIGN(aSecs, eGauge, "analog.sec");
 
 	cur_start=cur_duration=-1;
 	cur_event_text="";
@@ -6578,6 +6582,39 @@ void eZapMain::EPGSearchEvent(eServiceReferenceDVB service)	// EPG search
 	
 }
 
+void eZapMain::AnalogSkinClock(tm *timem, bool secOn)
+{
+	char str[12];
+	int H,M,S;
+
+	strftime(str,12,"%l %M %S %d",timem);
+	sscanf(str,"%d %d %d",&H,&M,&S);
+
+	aHour->setStart(30*H + M/2);
+	aMins->setStart(6*M + (S/20)*2);	// minutes moving every 20 sec
+    
+	if(secOn)
+	{
+		if(AnalogNoSec)
+		{
+			aSecs->show();
+			AnalogNoSec = false;
+		}
+		
+		aSecs->setStart(6*S);
+	}
+	else
+	{
+		if(!AnalogNoSec)
+		{
+			aSecs->hide();
+			AnalogNoSec = true;
+		}    
+	}
+
+// eDebug("Analog Clock: %02d:%02d:%02d",H,M,S);
+}
+
 void eZapMain::showEPG()
 {
 	actual_eventDisplay=0;
@@ -8348,6 +8385,7 @@ void eZapMain::clockUpdate()
 		// assume we are always within one second of the minute
 		Clock->setText(s);
 		Date->setText(getDateStr(t, eSkin::getActive()->queryValue("date.format", 1 )));
+		AnalogSkinClock(t, dosecs);
 
 		if (t->tm_sec == 0)
 		{
