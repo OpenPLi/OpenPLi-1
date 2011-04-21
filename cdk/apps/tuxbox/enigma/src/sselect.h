@@ -165,8 +165,8 @@ public:
 	void enterDirectory(const eServiceReference &ref);
 	const eServiceReference &getSelected() { return selected; }
 	const eServiceReference *choose(int irc=-1);
-	const eServiceReference *next();
-	const eServiceReference *prev();
+	const eServiceReference *next(bool fromselected=true);
+	const eServiceReference *prev(bool fromselected=true);
 	void removeCurrent(bool=false);
 	void invalidateCurrent(eServiceReference ref=eServiceReference());
 	void updateNumbers();

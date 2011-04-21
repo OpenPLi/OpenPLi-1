@@ -1,5 +1,6 @@
 #include <epgwindow.h>
 #include <enigma_event.h>
+#include <enigma.h>
 
 #include <algorithm>
 
@@ -198,6 +199,8 @@ const eString &eListBoxEntryEPG::redraw(gPainter *rc, const eRect& rect, gColor 
 
 void eEPGSelector::fillEPGList()
 {
+	events->beginAtomic();
+	events->clearList();
 	eService *service=eDVB::getInstance()->settings->getTransponders()->searchService(current);
 	if (service)
 		setText(eString(_("EPG - "))+service->service_name);
@@ -207,7 +210,11 @@ void eEPGSelector::fillEPGList()
 	timeMap::const_iterator It;
 	if (evt)
 		It = evt->begin();
-
+    	else
+  	{
+        	events->endAtomic();
+        	return;
+    	}
 	int tsidonid = (current.getTransportStreamID().get()<<16)|current.getOriginalNetworkID().get();
 	if (current.data[0] == 5 ) // NVOD REF ENTRY
 	{
@@ -295,6 +302,7 @@ void eEPGSelector::fillEPGList()
 #endif
 	else for (It = evt->begin(); It != evt->end(); It++)
 		new eListBoxEntryEPG(*It->second, events, current, It->second->type);
+    	events->endAtomic();
 }
 
 void eEPGSelector::entrySelected(eListBoxEntryEPG *entry)
@@ -429,7 +437,7 @@ int eEPGSelector::eventHandler(const eWidgetEvent &event)
 		case eWidgetEvent::evtAction:
 			if (event.action == &i_epgSelectorActions->searchEPG)	 // EPG search begin
 			{ 
-				if (!myEPGSearch)
+				if (!myEPGSearch && events->getCurrent())
 				{
 					eString descr;
 					LocalEventData led;
@@ -464,17 +472,33 @@ int eEPGSelector::eventHandler(const eWidgetEvent &event)
 			} 							// EPG search end
 			if ( (addtype = i_epgSelectorActions->checkTimerActions( event.action )) != -1 )
 				;
-			else if (event.action == &i_epgSelectorActions->removeTimerEvent)
+			else if (event.action == &i_epgSelectorActions->removeTimerEvent && events->getCurrent())
 			{
 //	old			if ( eTimerManager::getInstance()->removeEventFromTimerList( this, &current, &events->getCurrent()->event ) )
 				if ( eTimerManager::getInstance()->removeEventFromTimerList( this, &(eServiceReferenceDVB&)events->getCurrent()->service, &events->getCurrent()->event ) ) // EPG search
 					events->invalidateCurrent();
 			}
-			else if (event.action == &i_epgSelectorActions->showExtendedInfo)
+			else if (event.action == &i_epgSelectorActions->showExtendedInfo && events->getCurrent())
 				entrySelected(events->getCurrent());
+			else if (event.action == &i_epgSelectorActions->prevService && !myEPGSearch)
+			{
+				if(eZap::getInstance()->getServiceSelector()->prev(false))
+				{
+					current = (eServiceReferenceDVB&)eZap::getInstance()->getServiceSelector()->getSelected();
+					fillEPGList();
+				}
+			}
+			else if (event.action == &i_epgSelectorActions->nextService && !myEPGSearch)
+			{
+				if(eZap::getInstance()->getServiceSelector()->next(false))
+				{
+					current = (eServiceReferenceDVB&)eZap::getInstance()->getServiceSelector()->getSelected();
+					fillEPGList();
+				}
+			}
 			else
 				break;
-			if (addtype != -1)
+			if (addtype != -1 && events->getCurrent())
 			{
 				if ( !eTimerManager::getInstance()->eventAlreadyInList( this, events->getCurrent()->event, events->getCurrent()->service) )
 				{

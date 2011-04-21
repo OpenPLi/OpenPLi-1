@@ -279,7 +279,9 @@
 			<action name="addSwitchTimerEvent" key="blue" flags="m" />
 			<action name="removeTimerEvent" key="red" flags="m" />
 			<action name="showExtendedInfo" key="info" flags="m" />
-			<action name="searchEPG" key="bouqdown" flags="m" />
+			<action name="searchEPG" key="menu" flags="m" />
+			<action name="prevService" key="bouqup" flags="m" />
+			<action name="nextService" key="bouqdown" flags="m" />
 		</actionmap>
 		<actionmap name="timerEdit">
 			<action name="incBegTime" key="volup" flags="mr" />

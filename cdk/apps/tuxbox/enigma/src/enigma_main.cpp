@@ -7284,7 +7284,7 @@ int eZapMain::eventHandler(const eWidgetEvent &event)
 			if ( num && ( (myref.type == eServiceReference::idDVB && myref.path)
 				|| (myref.type == eServiceReference::idUser
 				&& myref.data[0] == eMP3Decoder::codecMPG ) || (myref.type == eServiceReference::idUser
-				&& (myref.data[0] == eMP3Decoder::codecMP3 || myref.data[0] == eMP3Decoder::codecFLAC || myref.data[0] == eMP3Decoder::codecOGG)) || timeshift ) && (handler->getState() == eServiceHandler::statePlaying || handler->getState() == eServiceHandler::statePause)) // nur, wenn ts, mpg oder mp3 ausgewählt ist und vor allem, wenn es abgespielt wird oder im Standbild ist! :-)
+				&& (myref.data[0] == eMP3Decoder::codecMP3 || myref.data[0] == eMP3Decoder::codecFLAC || myref.data[0] == eMP3Decoder::codecOGG)) || timeshift ) && (handler->getState() == eServiceHandler::statePlaying || handler->getState() == eServiceHandler::statePause)) // nur, wenn ts, mpg oder mp3 ausgewahlt ist und vor allem, wenn es abgespielt wird oder im Standbild ist! :-)
 			{
 				if (handler->getState() == eServiceHandler::statePause)
 					pause();// continue playing in preparation for skipping

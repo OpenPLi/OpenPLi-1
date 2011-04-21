@@ -564,7 +564,9 @@
 			<action name="removeTimerEvent" key="KEY_BACKSPACE" flags="m" />
 			<action name="removeTimerEvent" key="KEY_DELETE" flags="m" />
 			<action name="showExtendedInfo" key="KEY_INFO" flags="m" />
-			<action name="searchEPG" key="KEY_CHANNELDOWN" flags="m" />
+			<action name="searchEPG" key="KEY_AUDIO" flags="m" />
+			<action name="prevService" key="KEY_CHANNELUP" flags="m" />
+			<action name="nextService" key="KEY_CHANNELDOWN" flags="m" />
 		</actionmap>
 		<actionmap name="timerEdit">
 			<action name="incBegTime" key="KEY_VOLUMEUP" flags="mr" />
