@@ -452,7 +452,8 @@ while 1:
         # No progress in last pass. Verify all remaining symbols are weak.
         for (symbol, is_weak) in unresolved.elems():
             if not is_weak:
-                raise "Unresolvable symbol " + symbol
+                # raise "Unresolvable symbol " + symbol
+		debug(DEBUG_NORMAL, "Unresolvable symbol " + symbol)
         break
 
     previous_pass_unresolved = unresolved
