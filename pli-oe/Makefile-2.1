@@ -27,7 +27,7 @@ all: initialize
 	@echo "$(BUILDDIR)/tmp/deploy/images/"
 	@echo
 bitbake:
-	$(GIT) clone -b $(BITBAKE_BRANCH) git://git.openembedded.net/bitbake
+	$(GIT) clone -b $(BITBAKE_BRANCH) git://git.openembedded.org/bitbake
 	cd bitbake && ( \
 		python setup.py build ;\
 	)
