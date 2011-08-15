@@ -56,7 +56,7 @@ $(OE_BASE)/${BUILDDIR}/conf/local.conf:
 	echo 'TARGET_OS = "linux"' >> $@
 	echo 'DISTRO = "openpli"' >> $@
 	echo 'CACHE = "$${OE_BASE}/cache/oe-cache.$${USER}.$${MACHINE}"' >> $@
-	echo 'BB_NUMBER_THREADS = "4"' >> $@
+	echo 'BB_NUMBER_THREADS = "8"' >> $@
 	echo 'TOPDIR = "$${OE_BASE}/build-$${MACHINE}"' >> $@
 	echo 'IMAGE_KEEPROOTFS = "0"' >> $@
 	echo 'OE_ALLOW_INSECURE_DOWNLOADS = "1"' >> $@
