@@ -21,6 +21,7 @@ if [ "${MACHINE}x" = "x" ]; then
 	#when MACHINE is not defined, OE_BUILD must be defined (checked above)
 	MACHINE=`grep "^MACHINE = " $OE_BUILD/conf/local.conf | sed "s/MACHINE = \"//" | sed "s/\"$//"`
 fi
+export MACHINE
 
 if [ "${IMAGEDIR}x" = "x" ]; then
 	IMAGEDIR=${MACHINE}
@@ -46,6 +47,8 @@ for FEED in all $MACHINE mipsel; do
 	rm -f $OE_BUILD/tmp/deploy/ipk/$FEED/Packages.gz
 done
 
+cd $OE_ROOT
+MACHINE=${MACHINE} make -f Makefile-2.1 initialize
 cd $OE_BUILD && . env.source && bitbake openpli-enigma2-feed || ( echo "Error building image started in $OE_BUILD"; exit 1 )
 
 mv $OE_IMAGES/*.nfi $OE_IMAGES/$FILENAME.nfi

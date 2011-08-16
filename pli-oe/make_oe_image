@@ -95,6 +95,8 @@ cd $OE_ROOT && svn up || ( echo "Error during svn update started in $OE_ROOT"; e
 rm -f $OE_BUILD/tmp/deploy/ipk/Packages
 rm -f $OE_BUILD/tmp/deploy/ipk/Packages.gz
 
+cd $OE_ROOT
+MACHINE=${MACHINE} make initialize
 cd $OE_BUILD && . env.source && bitbake dreambox-image || ( echo "Error building image started in $OE_BUILD"; exit 1 )
 
 mv $OE_IMAGES/*.nfi $OE_IMAGES/$FILENAME.nfi
