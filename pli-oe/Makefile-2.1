@@ -35,7 +35,7 @@ bitbake:
 image: initialize openembedded-update
 	cd $(OE_BASE)/${BUILDDIR}; . ./env.source; bitbake openpli-enigma2-image
 initialize: $(OE_BASE)/cache sources $(OE_BASE)/${BUILDDIR} $(OE_BASE)/${BUILDDIR}/conf \
-	$(OE_BASE)/${BUILDDIR}/tmp $(OE_BASE)/${BUILDDIR}/conf/local.conf \
+	$(OE_BASE)/${BUILDDIR}/tmp $(OE_BASE)/${BUILDDIR}/conf/local.conf $(OE_BASE)/${BUILDDIR}/conf/site.conf \
 	$(OE_BASE)/${BUILDDIR}/env.source bitbake $(OE_BASE)/openembedded
 openembedded-update: $(OE_BASE)/openembedded
 	cd $(OE_BASE)/openembedded && $(GIT) pull origin $(GIT_BRANCH)
@@ -56,10 +56,13 @@ $(OE_BASE)/${BUILDDIR}/conf/local.conf:
 	echo 'TARGET_OS = "linux"' >> $@
 	echo 'DISTRO = "openpli"' >> $@
 	echo 'CACHE = "$${OE_BASE}/cache/oe-cache.$${USER}.$${MACHINE}"' >> $@
-	echo 'BB_NUMBER_THREADS = "8"' >> $@
 	echo 'TOPDIR = "$${OE_BASE}/build-$${MACHINE}"' >> $@
-	echo 'IMAGE_KEEPROOTFS = "0"' >> $@
 	echo 'OE_ALLOW_INSECURE_DOWNLOADS = "1"' >> $@
+$(OE_BASE)/${BUILDDIR}/conf/site.conf: $(OE_BASE)/site.conf
+	@ln -s ../../site.conf $@
+$(OE_BASE)/site.conf:
+	echo 'BB_NUMBER_THREADS = "8"' >> $@
+	echo 'IMAGE_KEEPROOTFS = "0"' >> $@
 	echo 'INHERIT += "rm_work"' >> $@
 $(OE_BASE)/${BUILDDIR}/env.source:
 	echo 'OE_BASE=$(OE_BASE)' > $@
