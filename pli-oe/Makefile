@@ -63,7 +63,7 @@ initialize: $(OE_BASE)/cache sources $(OE_BASE)/${BUILDDIR} $(OE_BASE)/${BUILDDI
 	$(OE_BASE)/${BUILDDIR}/tmp $(OE_BASE)/openembedded $(OE_BASE)/${BUILDDIR}/conf/local.conf \
 	$(OE_BASE)/${BUILDDIR}/env.source bb
 
-openembedded-update: $(OE_BASE)/openembedded
+openembedded-update: initialize
 	cd $(OE_BASE)/openembedded && $(GIT) pull origin $(GIT_BRANCH)
 
 $(OE_BASE)/${BUILDDIR} $(OE_BASE)/${BUILDDIR}/conf $(OE_BASE)/${BUILDDIR}/tmp $(OE_BASE)/cache sources:
