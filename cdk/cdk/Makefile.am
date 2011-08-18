@@ -2616,6 +2616,7 @@ endif
 	$(INSTALL) -m 0644 $(targetprefix)/var/tuxbox/config/enigma/encoding.conf $(flashprefix)/root/var_init/tuxbox/config/enigma
 
 	rm -f $(flashprefix)/root/share/tuxbox/enigma/pictures/radio.mvi
+	rm -f $(flashprefix)/root/share/tuxbox/enigma/pictures/scan.mvi
 	cp -pa $(targetprefix)/share/tuxbox/enigma/* $(flashprefix)/root/share/tuxbox/enigma
 
 	@for i in `find $(flashprefix)/root/share/tuxbox/enigma/htdocs` ; do \
