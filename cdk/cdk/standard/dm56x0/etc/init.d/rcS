@@ -103,7 +103,7 @@ swapon -a &
 # If Inadyn is installed and enabled start it
 if [ "$INADYN" = enabled ] ; then
     echo "Going to start Inadyn"
-    /var/bin/inadyn --input_file /var/etc/inadyn.config
+    /var/bin/inadyn --background --input_file /var/etc/inadyn.config
 fi 
 
 # If firewall needs to be started do it now
