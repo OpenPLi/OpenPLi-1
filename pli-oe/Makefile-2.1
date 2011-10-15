@@ -38,7 +38,7 @@ initialize: $(OE_BASE)/cache sources $(OE_BASE)/${BUILDDIR} $(OE_BASE)/${BUILDDI
 	$(OE_BASE)/${BUILDDIR}/tmp $(OE_BASE)/${BUILDDIR}/conf/local.conf $(OE_BASE)/${BUILDDIR}/conf/site.conf \
 	$(OE_BASE)/${BUILDDIR}/env.source bitbake $(OE_BASE)/openembedded
 openembedded-update: initialize
-	cd $(OE_BASE)/openembedded && $(GIT) pull origin $(GIT_BRANCH)
+	cd $(OE_BASE)/openembedded && $(GIT) pull origin $(GIT_BRANCH) && $(GIT) submodule update
 $(OE_BASE)/${BUILDDIR} $(OE_BASE)/${BUILDDIR}/conf $(OE_BASE)/${BUILDDIR}/tmp $(OE_BASE)/cache sources:
 	mkdir -p $@
 $(OE_BASE)/${BUILDDIR}/conf/local.conf:
@@ -77,7 +77,7 @@ $(OE_BASE)/${BUILDDIR}/env.source:
 $(OE_BASE)/openembedded: $(OE_BASE)/openembedded/.git
 $(OE_BASE)/openembedded/.git:
 	$(GIT) clone -b $(GIT_BRANCH) $(GIT_URL) $(OE_BASE)/openembedded
-	cd $(OE_BASE)/openembedded && ( \
+	cd $(OE_BASE)/openembedded && $(GIT) submodule init  && $(GIT) submodule update && ( \
 		if [ -n "$(GIT_AUTHOR_EMAIL)" ]; then git config user.email "$(GIT_AUTHOR_EMAIL)"; fi; \
 		if [ -n "$(GIT_AUTHOR_NAME)" ]; then git config user.name "$(GIT_AUTHOR_NAME)"; fi; \
 	)
