@@ -1,6 +1,9 @@
 #!/usr/bin/make -f
-# target platform: dm7025, dm800, dm8000, vuduo, dm500hd, dm800se, et9000, et5000
-MACHINE ?= et9000
+# Specify a target machine 
+# DMM : dm8000, dm7020hd, dm800se, dm500hd, dm7025
+# Clarktech/Xtrend : et9x00, et6x00, et5x00
+# VU : vuultimo, vuduo, vusolo, vuuno
+MACHINE ?= et9x00
 BUILDDIR = build-${MACHINE}
 # for a list of some other repositories have
 # a look at http://git.opendreambox.org/
