@@ -38,7 +38,7 @@ OE_IMAGES=$OE_BUILD/tmp/deploy/images/${MACHINE}
 #old images can be cleared
 rm -f $OE_IMAGES/*.nfi
 rm -f $OE_IMAGES/*.zip
-rm -f $OE_IMAGES/*.jfs2
+rm -f $OE_IMAGES/*.jffs2
 
 #start with a clean feed, so we can detect whether something failed during the build
 for FEED in all $MACHINE mipsel; do
