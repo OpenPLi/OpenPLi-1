@@ -76,10 +76,10 @@ class eSCGui: public eWindow
 
 	eString startdir, cddrive, path;
 	
-	bool menu;
+	bool menu, isWin;
 	unsigned int val, nFiles, skip_time;
 	
-	int VLC8;
+	int VLC10;
 	
 	eListBox<eListBoxEntryText> *list;
 	eTimer *timer, *volumeTimer;
@@ -121,6 +121,8 @@ class eSCGui: public eWindow
 	eString mrl_par(int value, int mode);
 	void Start2(int value);
 	eString url_code( eString origname );
+	eString convertPath(eString path);
+//	void init_eSCGui();
 public:
 	eSCGui();
 	~eSCGui();
@@ -128,9 +130,10 @@ public:
 
 class eSCGuiHelp: public eWindow
 {
+//	void init_eSCGuiHelp();
 	eListBox<eListBoxEntryText> *list;
 public:
-    eSCGuiHelp();
+	eSCGuiHelp();
       
 };
 
@@ -142,22 +145,22 @@ private:
 
 	std::vector<struct languages> codeList;
 
-    eLabel *lNrSec;
-    eLabel *lmsgTime;
-    eLabel *l_width,*l_height; 
+	eLabel *lNrSec;
+	eLabel *lmsgTime;
+	eLabel *l_width,*l_height; 
 	eLabel *lVlcSrv, *lTitle;    
-    eCheckbox *playNext;
-    eCheckbox *stopErr;
+	eCheckbox *playNext;
+	eCheckbox *stopErr;
 	eCheckbox *savePath;
 	eCheckbox *aSync;
 	eCheckbox *subTitles;
 	eCheckbox *subColor;
 	eCheckbox *resDVB;
 	eCheckbox *setNsf;
-	eCheckbox *setVlc8;
+//	eCheckbox *setVlc10;
 	eCheckbox *setRes,*setResInputTxt,*Scale;
 	eComboBox *comNrSec;
-    eComboBox *comMsgTime;
+	eComboBox *comMsgTime;
 	eComboBox *comVlcSrv,*comTitle;
 	eLabel *lSubLang, *lAudioLang;
 /*#ifdef TXT
@@ -167,9 +170,9 @@ private:
 //#endif
 	eComboBox *comSubTrack,*comAudioTrack;
 	eLabel *lSubTrack, *lAudioTrack;
-    eNumber *setWidth, *setHeight;
+	eNumber *setWidth, *setHeight;
 
-    int play_next;
+	int play_next;
 	void saveCFG();
 	void setDVB(int status);
 	void setCheckRes(int status);
@@ -184,11 +187,8 @@ private:
 	struct languages getCode(int i);
 	int loadedOK;
 	void setCheckStopErr(int status);
+//	void init_eSCGuiConfig();
 public:
 	eSCGuiConfig();
 };
-
-
-
-
 
