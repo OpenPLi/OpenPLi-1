@@ -2262,6 +2262,32 @@ static eString moviem3u(eString request, eString dirpath, eString opts, eHTTPCon
 	return "http://" + getIP() + ":31342" + movieFile.strReplace(" ", "%20");
 }
 
+static eString zapStream(eString request, eString dirpath, eString opts, eHTTPConnection *content)
+{
+	eString opt = httpUnescape(opts);
+	unsigned int pos = opt.find_last_of('=');
+	eString pars = opt.right(opt.size()-pos-1);
+	pos = pars.find_last_of('/');
+	eString service_ref = pars.right(pars.size()-pos-1);
+	eString parameters = pars.left(pos);
+	eDebug("[zapStream] parameters=%s service_reference=%s", parameters.c_str(),service_ref.c_str());
+
+	eServiceReference current_service = string2ref(service_ref.c_str());
+	if (!(current_service.flags&eServiceReference::isDirectory) && current_service)
+	{
+		eProcessUtils::killProcess("streamts");
+		playService(current_service);
+#ifndef DISABLE_FILE
+		eZapMain::getInstance()->stopPermanentTimeshift();
+#endif
+		content->local_header["Content-Type"] = "audio/mpegurl";
+		content->local_header["Cache-Control"] = "no-cache,no-store,must-revalidate,max-age=1";
+
+		return "http://" + getIP() + ":31339/" + parameters;
+	}
+	return closeWindow(content, "Please wait...", 3000);
+}
+
 static eString mPlayer(eString request, eString dirpath, eString opt, eHTTPConnection *content)
 {
 	eString vpid = eString().sprintf("%04x", Decoder::current.vpid);
@@ -2951,6 +2977,7 @@ void ezapInitializeDyn(eHTTPDynPathResolver *dyn_resolver)
 	dyn_resolver->addDyn("GET", "/setVideo", setVideo, lockWeb);
 	dyn_resolver->addDyn("GET", "/tvMessageWindow", tvMessageWindow, lockWeb);
 	dyn_resolver->addDyn("GET", "/cgi-bin/zapTo", zapTo, lockWeb);
+	dyn_resolver->addDyn("GET", "/cgi-bin/zapStream.m3u", zapStream, lockWeb);
 	dyn_resolver->addDyn("GET", "/cgi-bin/admin", admin, lockWeb);
 	dyn_resolver->addDyn("GET", "/cgi-bin/selectAudio", selectAudio, lockWeb);
 	dyn_resolver->addDyn("GET", "/cgi-bin/setAudio", setAudio, lockWeb);
