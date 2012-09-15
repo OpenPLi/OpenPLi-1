@@ -507,7 +507,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11619000" symbol_rate="12500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11655000" symbol_rate="2850000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 	</sat>
-	<sat name="23.3E Astra 1D/3B" flags="1" position="233">
+	<sat name="23.5E Astra 1D/3B" flags="1" position="235">
 		<transponder frequency="10876000" symbol_rate="22000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="10891000" symbol_rate="22000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11720000" symbol_rate="28200000" polarization="0" fec_inner="4" system="1" modulation="2"/>
