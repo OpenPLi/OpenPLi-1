@@ -145,7 +145,7 @@ void eMoviePlayer::init_eMoviePlayer()
 		instance = this;
 	supportPlugin();
 	CONNECT(messages.recv_msg, eMoviePlayer::gotMessage);
-	eDebug("[MOVIEPLAYER] Version 2.71 starting...");
+	eDebug("[MOVIEPLAYER] Version 2.72 starting...");
 	status.ACTIVE = false;
 	run();
 }
@@ -623,35 +623,35 @@ void eMoviePlayer::gotMessage(const Message &msg )
 
 int eMoviePlayer::sendRequest2VLC(eString command)  // sending tcp commands 	 
 {  	 	 
-    char ioBuffer[512];  	 	 
+	char ioBuffer[1024];  	 	 
 	int rc = -1;  	 	 
 	int fd = tcpOpen(server.serverIP, atoi(server.webifPort.c_str()), 1);  	 	 
 	if (fd > 0)  	 	 
 	{  	 	 
-	    eString url = "GET /" + command + " HTTP/1.1\r\n\r\n";  	 	 
-	    strcpy(ioBuffer, url.c_str());  	 	 
-    	//eDebug("[MOVIEPLAYER] sendRequest2VLC : %d, %s", fd, ioBuffer);  	 	 
-	    rc = tcpRequest(fd, ioBuffer, sizeof(ioBuffer) - 1);	 	 
-	    if (rc == 0)  	 	 
-	    {  	 	 
-	        if (strstr(ioBuffer, "HTTP/1.1 200 OK") == 0)  	 	 
-	        {  	
-//    			eDebug("[MOVIEPLAYER] sendRequest2VLC return: %s", ioBuffer);
-				eDebug("[MOVIEPLAYER] 200 OK NOT received...");  
+		eString url = "GET /" + command + " HTTP/1.1\r\n\r\n"; 
+		strcpy(ioBuffer, url.c_str());
+	    	//eDebug("[MOVIEPLAYER] sendRequest2VLC : %d, %s", fd, ioBuffer);	 
+		rc = tcpRequest(fd, ioBuffer, sizeof(ioBuffer) - 1);
+		if (rc == 0)
+		{	 
+			if (strstr(ioBuffer, "HTTP/1.1 200 OK") == 0)
+			{
+//    				eDebug("[MOVIEPLAYER] sendRequest2VLC return: %s", ioBuffer);
+				eDebug("[MOVIEPLAYER] 200 OK NOT received...");
 				if (strstr(ioBuffer, "403 Forbidden") != 0)
- 					eDebug("[MOVIEPLAYER] is not enabled IP in .host file !");  	 
-	            rc = -2;  	 	 
-	        }  	 	 
-	        else   	 	 
-	        {  	 	 
-	            eDebug("[MOVIEPLAYER] 200 OK...");  	 	 
-	        }  	 	 
-	    }  	 	 
-	    else   	 	 
-	        rc = -3;  	 	 
-	    close(fd);  	 	 
-	}  	 	 
-	return rc;  	 	 
+ 					eDebug("[MOVIEPLAYER] is not enabled IP in .host file !");
+				rc = -2;
+			}
+			else
+			{
+				eDebug("[MOVIEPLAYER] 200 OK...");
+			}
+		}
+		else
+			rc = -3;
+		close(fd);
+	}
+	return rc;
 }
 
 
