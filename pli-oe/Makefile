@@ -6,7 +6,7 @@ BUILDDIR = build-${MACHINE}
 
 # for a list of some other repositories have
 # a look at http://git.opendreambox.org/
-GIT_URL = git://openpli.git.sourceforge.net/gitroot/openpli/openembedded
+GIT_URL = git://git.code.sf.net/p/openpli/openembedded
 GIT_BRANCH = 1.0
 
 # in case you want to send pull requests or generate patches
