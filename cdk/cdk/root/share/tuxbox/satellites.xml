@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
 Created By Pli Lyngsatgrabber Version 20120903
-Built at Sat 30-04-2016  01:01:14
+Built at Sat 07-05-2016  01:01:16
 For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[], s2=False s2_blacklist=[]
 -->
 
@@ -25,7 +25,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11612000" symbol_rate="2220000" polarization="1" fec_inner="3" system="1" modulation="1"/>
 		<transponder frequency="11632000" symbol_rate="2220000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="11642000" symbol_rate="1111000" polarization="0" fec_inner="3" system="1" modulation="2"/>
-		<transponder frequency="11653000" symbol_rate="2400000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11659000" symbol_rate="2400000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11671000" symbol_rate="1500000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="11673000" symbol_rate="1500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -46,11 +45,11 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12734000" symbol_rate="16750000" polarization="1" fec_inner="7" system="1" modulation="1"/>
 	</sat>
 	<sat name="3.0E Eutelsat 3B..Rascom QAF 1R C Band" flags="1" position="31">
-		<transponder frequency="3636000" symbol_rate="7558000" polarization="2" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3667000" symbol_rate="1547000" polarization="3" fec_inner="4" system="1" modulation="1"/>
 		<transponder frequency="3797000" symbol_rate="2442000" polarization="2" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3970000" symbol_rate="2741000" polarization="3" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3986000" symbol_rate="13557000" polarization="3" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="4050000" symbol_rate="5500000" polarization="2" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="4160000" symbol_rate="17950000" polarization="3" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="4173000" symbol_rate="1917000" polarization="3" fec_inner="4" system="1" modulation="1"/>
 		<transponder frequency="4178000" symbol_rate="2141000" polarization="3" fec_inner="4" system="1" modulation="1"/>
@@ -317,6 +316,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11508000" symbol_rate="27500000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="11526000" symbol_rate="29700000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="11541000" symbol_rate="22000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="11566000" symbol_rate="27350000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11585000" symbol_rate="29900000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="11604000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11623000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -391,8 +391,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11016000" symbol_rate="1500000" polarization="0" fec_inner="8" system="1" modulation="2"/>
 		<transponder frequency="11019000" symbol_rate="1795000" polarization="0" fec_inner="0" system="1" modulation="1"/>
 		<transponder frequency="11024000" symbol_rate="3330000" polarization="0" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="11029000" symbol_rate="2300000" polarization="0" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="11046000" symbol_rate="10555000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11055000" symbol_rate="27500000" polarization="1" fec_inner="8" system="1" modulation="1"/>
 		<transponder frequency="11074000" symbol_rate="1250000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11094000" symbol_rate="27500000" polarization="1" fec_inner="8" system="1" modulation="1"/>
@@ -434,7 +432,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12564000" symbol_rate="30000000" polarization="0" fec_inner="4" system="1" modulation="2"/>
 		<transponder frequency="12564000" symbol_rate="3617000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12570000" symbol_rate="3703000" polarization="0" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="12575000" symbol_rate="6000000" polarization="1" fec_inner="3" system="1" modulation="2"/>
+		<transponder frequency="12573000" symbol_rate="8670000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="12593000" symbol_rate="2500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12597000" symbol_rate="2848000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12604000" symbol_rate="30000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
@@ -629,7 +627,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11895000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11914000" symbol_rate="29900000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="11934000" symbol_rate="27500000" polarization="1" fec_inner="3" system="1" modulation="2"/>
-		<transponder frequency="11973000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12032000" symbol_rate="27500000" polarization="0" fec_inner="9" system="1" modulation="1"/>
 		<transponder frequency="12070000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12110000" symbol_rate="27500000" polarization="0" fec_inner="3" system="1" modulation="2"/>
@@ -963,7 +960,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3770000" symbol_rate="7700000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3776000" symbol_rate="1004000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3782000" symbol_rate="2170000" polarization="1" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="3800000" symbol_rate="7300000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3806000" symbol_rate="1444000" polarization="1" fec_inner="3" system="1" modulation="1"/>
 		<transponder frequency="3818000" symbol_rate="6200000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="3824000" symbol_rate="2800000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -1120,7 +1116,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12380000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12422000" symbol_rate="30000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12422000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="12442000" symbol_rate="3333000" polarization="0" fec_inner="4" system="1" modulation="1"/>
 		<transponder frequency="12447000" symbol_rate="2400000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12455000" symbol_rate="10800000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="12458000" symbol_rate="30000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -1210,7 +1205,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="4172000" symbol_rate="13330000" polarization="3" fec_inner="0" system="0" modulation="1"/>
 	</sat>
 	<sat name="52.0E TurkmenÄlem/MonacoSat" flags="1" position="520">
-		<transponder frequency="11262000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12226000" symbol_rate="30000000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="12265000" symbol_rate="27500000" polarization="1" fec_inner="2" system="1" modulation="1"/>
 		<transponder frequency="12303000" symbol_rate="27500000" polarization="1" fec_inner="2" system="1" modulation="1"/>
@@ -1243,8 +1237,8 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="10995000" symbol_rate="3255000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="10996000" symbol_rate="2530000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11044000" symbol_rate="44950000" polarization="1" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="11179000" symbol_rate="3255000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11544000" symbol_rate="1666000" polarization="0" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="11559000" symbol_rate="4960000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12528000" symbol_rate="2100000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="12545000" symbol_rate="3000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12631000" symbol_rate="3000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -1604,11 +1598,9 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11052000" symbol_rate="30000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11105000" symbol_rate="45000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11167000" symbol_rate="45000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="12531000" symbol_rate="15000000" polarization="1" fec_inner="3" system="1" modulation="2"/>
+		<transponder frequency="12521000" symbol_rate="30000000" polarization="1" fec_inner="3" system="1" modulation="1"/>
 		<transponder frequency="12547000" symbol_rate="3200000" polarization="0" fec_inner="4" system="1" modulation="2"/>
-		<transponder frequency="12604000" symbol_rate="30000000" polarization="1" fec_inner="4" system="1" modulation="1"/>
 		<transponder frequency="12638000" symbol_rate="15000000" polarization="1" fec_inner="3" system="1" modulation="2"/>
-		<transponder frequency="12719000" symbol_rate="45000000" polarization="1" fec_inner="4" system="1" modulation="1"/>
 	</sat>
 	<sat name="76.5E Apstar 7 C Band" flags="1" position="766">
 		<transponder frequency="3629000" symbol_rate="1489000" polarization="0" fec_inner="3" system="1" modulation="1"/>
@@ -1627,6 +1619,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3805000" symbol_rate="4800000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="3812000" symbol_rate="2200000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="3815000" symbol_rate="3333000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="3842000" symbol_rate="2860000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3847000" symbol_rate="7857000" polarization="1" fec_inner="4" system="1" modulation="1"/>
 		<transponder frequency="3871000" symbol_rate="10000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3880000" symbol_rate="30000000" polarization="0" fec_inner="3" system="1" modulation="2"/>
@@ -1634,13 +1627,12 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3960000" symbol_rate="30000000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="3985000" symbol_rate="3700000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3990000" symbol_rate="4300000" polarization="0" fec_inner="3" system="1" modulation="1"/>
-		<transponder frequency="3998000" symbol_rate="3200000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4003000" symbol_rate="4340000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4009000" symbol_rate="4300000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4016000" symbol_rate="4340000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4019000" symbol_rate="2222000" polarization="1" fec_inner="2" system="1" modulation="1"/>
 		<transponder frequency="4022000" symbol_rate="2961000" polarization="1" fec_inner="1" system="1" modulation="1"/>
-		<transponder frequency="4026000" symbol_rate="4800000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="4026000" symbol_rate="4800000" polarization="0" fec_inner="3" system="1" modulation="1"/>
 		<transponder frequency="4034000" symbol_rate="4300000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4043000" symbol_rate="1600000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="4048000" symbol_rate="2450000" polarization="1" fec_inner="2" system="1" modulation="2"/>
@@ -1694,6 +1686,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3461000" symbol_rate="1666000" polarization="1" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="3480000" symbol_rate="30000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3520000" symbol_rate="28125000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="3545000" symbol_rate="2083000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3545000" symbol_rate="30000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3563000" symbol_rate="5555000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="3574000" symbol_rate="6510000" polarization="0" fec_inner="0" system="0" modulation="1"/>
@@ -1746,7 +1739,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11170000" symbol_rate="32720000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="11470000" symbol_rate="32000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="11510000" symbol_rate="32000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
-		<transponder frequency="11550000" symbol_rate="32720000" polarization="1" fec_inner="2" system="1" modulation="2"/>
+		<transponder frequency="11550000" symbol_rate="32720000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="11550000" symbol_rate="32000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="11590000" symbol_rate="32720000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="11590000" symbol_rate="32000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
@@ -1788,7 +1781,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="4115000" symbol_rate="8000000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="4133000" symbol_rate="11888000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="4156000" symbol_rate="15000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="4170000" symbol_rate="4650000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4175000" symbol_rate="2977000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4180000" symbol_rate="3233000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 	</sat>
@@ -1973,9 +1965,9 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3727000" symbol_rate="9833000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="3760000" symbol_rate="29700000" polarization="0" fec_inner="4" system="1" modulation="2"/>
 		<transponder frequency="3760000" symbol_rate="29700000" polarization="1" fec_inner="4" system="1" modulation="2"/>
+		<transponder frequency="3805000" symbol_rate="5064000" polarization="1" fec_inner="3" system="1" modulation="1"/>
 		<transponder frequency="3814000" symbol_rate="6660000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="3840000" symbol_rate="30000000" polarization="0" fec_inner="4" system="1" modulation="2"/>
-		<transponder frequency="3840000" symbol_rate="29720000" polarization="1" fec_inner="4" system="1" modulation="2"/>
 		<transponder frequency="3880000" symbol_rate="29720000" polarization="1" fec_inner="4" system="1" modulation="2"/>
 		<transponder frequency="3904000" symbol_rate="2916000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="3918000" symbol_rate="18385000" polarization="0" fec_inner="2" system="1" modulation="2"/>
@@ -2064,7 +2056,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12647000" symbol_rate="30000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12647000" symbol_rate="28000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12688000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="12688000" symbol_rate="3270000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="12688000" symbol_rate="32700000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12729000" symbol_rate="32700000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12729000" symbol_rate="26400000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 	</sat>
@@ -2237,7 +2229,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3920000" symbol_rate="3000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3947000" symbol_rate="1500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3970000" symbol_rate="2100000" polarization="0" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="3981000" symbol_rate="1235000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3990000" symbol_rate="6000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4014000" symbol_rate="6000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4045000" symbol_rate="5800000" polarization="1" fec_inner="4" system="1" modulation="2"/>
@@ -2311,12 +2302,13 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3932000" symbol_rate="15800000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3934000" symbol_rate="6500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3946000" symbol_rate="7400000" polarization="1" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="3952000" symbol_rate="3000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3956000" symbol_rate="3000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3960000" symbol_rate="30000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="3980000" symbol_rate="31000000" polarization="1" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="3984000" symbol_rate="2244000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="3999000" symbol_rate="8500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="4014000" symbol_rate="7150000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="4014000" symbol_rate="7200000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4044000" symbol_rate="2833000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4052000" symbol_rate="3333000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4055000" symbol_rate="2900000" polarization="1" fec_inner="2" system="1" modulation="2"/>
@@ -2434,7 +2426,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="4160000" symbol_rate="2300000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 	</sat>
 	<sat name="124.0E JCSAT 4B" flags="1" position="1240">
-		<transponder frequency="12268000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12290000" symbol_rate="30000000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12313000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12343000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
@@ -2447,6 +2438,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12490000" symbol_rate="30000000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12493000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12508000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
+		<transponder frequency="12523000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12530000" symbol_rate="30000000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12538000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12553000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
@@ -2463,6 +2455,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12688000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12703000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12718000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
+		<transponder frequency="12733000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 	</sat>
 	<sat name="125.0E ChinaSat 6A C Band" flags="1" position="1251">
 		<transponder frequency="3720000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
@@ -2498,7 +2491,10 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="4160000" symbol_rate="9578000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 	</sat>
 	<sat name="128.0E JCSAT 3A Ku Band" flags="1" position="1280">
+		<transponder frequency="12268000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12348000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
+		<transponder frequency="12368000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
+		<transponder frequency="12408000" symbol_rate="23303000" polarization="0" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12428000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12468000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
 		<transponder frequency="12508000" symbol_rate="23303000" polarization="1" fec_inner="7" system="1" modulation="2"/>
@@ -2756,7 +2752,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12366000" symbol_rate="30000000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 	</sat>
 	<sat name="172.0E Eutelsat 172A Ku Band" flags="1" position="1720">
-		<transponder frequency="11515000" symbol_rate="2500000" polarization="1" fec_inner="6" system="1" modulation="1"/>
 		<transponder frequency="11537000" symbol_rate="1500000" polarization="1" fec_inner="0" system="1" modulation="1"/>
 		<transponder frequency="11623000" symbol_rate="3500000" polarization="1" fec_inner="6" system="1" modulation="1"/>
 		<transponder frequency="11646000" symbol_rate="2200000" polarization="1" fec_inner="0" system="1" modulation="1"/>
@@ -2892,7 +2887,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11008000" symbol_rate="30000000" polarization="1" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="11011000" symbol_rate="6665000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11130000" symbol_rate="10000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
-		<transponder frequency="11178000" symbol_rate="12500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11222000" symbol_rate="30000000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11222000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11258000" symbol_rate="30000000" polarization="0" fec_inner="2" system="1" modulation="2"/>
@@ -2931,7 +2925,6 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="11538000" symbol_rate="8681000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11554000" symbol_rate="29950000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11591000" symbol_rate="20000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="11609000" symbol_rate="5968000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="11634000" symbol_rate="29950000" polarization="0" fec_inner="3" system="1" modulation="1"/>
 		<transponder frequency="11679000" symbol_rate="29950000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="12522000" symbol_rate="29950000" polarization="1" fec_inner="2" system="1" modulation="2"/>
@@ -3062,6 +3055,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="12563000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12604000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12604000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="12623000" symbol_rate="2428000" polarization="1" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="12646000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12646000" symbol_rate="27500000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="12729000" symbol_rate="27500000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -4356,7 +4350,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 	<sat name="101.0W SES 1 C Band" flags="1" position="-1011">
 		<transponder frequency="3710000" symbol_rate="4340000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3716000" symbol_rate="4775000" polarization="1" fec_inner="7" system="1" modulation="2"/>
-		<transponder frequency="3726000" symbol_rate="10000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="3725000" symbol_rate="10000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3920000" symbol_rate="30000000" polarization="1" fec_inner="4" system="1" modulation="2"/>
 		<transponder frequency="3953000" symbol_rate="2734000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3957000" symbol_rate="2734000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -4515,7 +4509,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="3834000" symbol_rate="3620000" polarization="0" fec_inner="4" system="1" modulation="2"/>
 		<transponder frequency="3835000" symbol_rate="1807000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3837000" symbol_rate="2550000" polarization="1" fec_inner="0" system="0" modulation="1"/>
-		<transponder frequency="3848000" symbol_rate="2893000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="3848000" symbol_rate="3200000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="3848000" symbol_rate="13842000" polarization="1" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="3853000" symbol_rate="3255000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3857000" symbol_rate="2804000" polarization="0" fec_inner="0" system="0" modulation="1"/>
@@ -4692,7 +4686,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 		<transponder frequency="4192000" symbol_rate="11070000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 	</sat>
 	<sat name="123.0W Galaxy 18 Ku Band" flags="1" position="-1230">
-		<transponder frequency="11732000" symbol_rate="13240000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="11732000" symbol_rate="14374000" polarization="0" fec_inner="2" system="1" modulation="2"/>
 		<transponder frequency="11736000" symbol_rate="3361000" polarization="1" fec_inner="3" system="1" modulation="1"/>
 		<transponder frequency="12033000" symbol_rate="8200000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 	</sat>
@@ -4831,7 +4825,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 	<sat name="135.0W AMC 10 C Band" flags="1" position="-1351">
 		<transponder frequency="3720000" symbol_rate="30000000" polarization="1" fec_inner="4" system="1" modulation="2"/>
 		<transponder frequency="3760000" symbol_rate="30000000" polarization="1" fec_inner="4" system="1" modulation="2"/>
-		<transponder frequency="3780000" symbol_rate="29200000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="3780000" symbol_rate="29200000" polarization="0" fec_inner="3" system="1" modulation="2"/>
 		<transponder frequency="3800000" symbol_rate="30000000" polarization="1" fec_inner="4" system="1" modulation="1"/>
 		<transponder frequency="3820000" symbol_rate="29270000" polarization="0" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="3840000" symbol_rate="29270000" polarization="1" fec_inner="0" system="0" modulation="1"/>
@@ -4842,6 +4836,7 @@ For ['asia', 'europe', 'atlantic', 'america'], fec_auto: s1=True s1_blacklist=[]
 	<sat name="139.0W AMC 8 C Band" flags="1" position="-1391">
 		<transponder frequency="3756000" symbol_rate="2100000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4056000" symbol_rate="13250000" polarization="0" fec_inner="0" system="0" modulation="1"/>
+		<transponder frequency="4080000" symbol_rate="30000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 		<transponder frequency="4111000" symbol_rate="5000000" polarization="1" fec_inner="0" system="0" modulation="1"/>
 	</sat>
 	<sat name="177.0W NSS 9 C Band" flags="1" position="-1771">
